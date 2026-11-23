@@ -1,0 +1,22 @@
+name: Check contribution
+on:
+  issues:
+    types: [opened, edited]
+permissions:
+  issues: write
+  contents: read
+jobs:
+  check:
+    if: contains(github.event.issue.labels.*.name, 'contribution')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate the form
+        env:
+          REPORT: report.md
+        run: python3 tools/contrib.py check || true
+      - name: Comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: gh issue comment "$NUMBER" --body-file report.md --edit-last || gh issue comment "$NUMBER" --body-file report.md

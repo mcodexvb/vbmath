@@ -1,0 +1,16 @@
+name: Fix topic tags
+description: A question is tagged with the wrong topic, or has no topic.
+title: "[Tags] "
+labels: ["contribution", "fix-tags"]
+body:
+  - type: input
+    id: qid
+    attributes: {label: Question id, description: "Filled in for you when you use the button on the site.", placeholder: "VB-BSc-Sem-I-2018-P1-Q2-a"}
+    validations: {required: true}
+  - type: textarea
+    id: topics
+    attributes: {label: Correct topics, description: "One per line as Broad area > Specific topic. The list is in data/topics.json.", placeholder: "Real Analysis > Real numbers & completeness"}
+    validations: {required: true}
+  - type: input
+    id: reason
+    attributes: {label: Why (optional)}

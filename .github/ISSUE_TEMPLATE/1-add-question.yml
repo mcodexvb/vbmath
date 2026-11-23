@@ -1,0 +1,50 @@
+name: Add a question
+description: Type a Visva-Bharati question that is missing from the archive.
+title: "[Add] "
+labels: ["contribution", "add-question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping! One form per question part. Write mathematics in LaTeX (`$...$` for inline maths).
+        A reviewer checks it against the scan before it goes live.
+  - type: dropdown
+    id: programme
+    attributes: {label: Programme, options: [B.Sc. Mathematics, M.Sc. Mathematics]}
+    validations: {required: true}
+  - type: dropdown
+    id: semester
+    attributes: {label: Semester, options: ["1", "2", "3", "4", "5", "6", "7", "8"]}
+    validations: {required: true}
+  - type: input
+    id: year
+    attributes: {label: Exam year, placeholder: "2025"}
+    validations: {required: true}
+  - type: dropdown
+    id: kind
+    attributes: {label: Exam, options: [End-semester, Internal]}
+    validations: {required: true}
+  - type: input
+    id: code
+    attributes: {label: Paper code, placeholder: "MJMA-5 or MMC-21"}
+    validations: {required: true}
+  - type: input
+    id: title
+    attributes: {label: Paper title, placeholder: "Analysis-III"}
+  - type: input
+    id: qno
+    attributes: {label: Question number and part, description: "Write it as printed, e.g. 3(b) or 1(ii)", placeholder: "3(b)"}
+    validations: {required: true}
+  - type: input
+    id: marks
+    attributes: {label: Marks, placeholder: "5 or 3+2"}
+  - type: textarea
+    id: latex
+    attributes: {label: Question in LaTeX, render: latex, placeholder: "Show that every convergent sequence in $\\mathbb{R}$ is bounded."}
+    validations: {required: true}
+  - type: input
+    id: scan
+    attributes: {label: Link to the scan (if any), placeholder: "https://drive.google.com/file/d/..."}
+  - type: input
+    id: credit
+    attributes: {label: Name for credit (optional), description: "Leave empty to stay anonymous."}

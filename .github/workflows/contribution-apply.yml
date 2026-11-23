@@ -1,0 +1,32 @@
+name: Apply accepted contribution
+on:
+  issues:
+    types: [labeled]
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+jobs:
+  apply:
+    if: github.event.label.name == 'accepted' && contains(github.event.issue.labels.*.name, 'contribution')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply to data files
+        env:
+          PR_TITLE_FILE: pr_title.txt
+        run: |
+          python3 tools/contrib.py apply
+          python3 tools/build_site.py
+          echo "PR_TITLE=$(cat pr_title.txt)" >> "$GITHUB_ENV"
+          rm pr_title.txt
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: contrib/issue-${{ github.event.issue.number }}
+          title: ${{ env.PR_TITLE }}
+          commit-message: ${{ env.PR_TITLE }}
+          body: |
+            Generated from issue #${{ github.event.issue.number }} after it was accepted.
+            Check the Cloudflare preview of this pull request, then merge.
+          labels: contribution

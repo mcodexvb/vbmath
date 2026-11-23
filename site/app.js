@@ -161,6 +161,12 @@
         <span class="qact">
           <button type="button" data-act="copy" title="Copy LaTeX source">Copy LaTeX</button>
           <button type="button" data-act="basket" class="${inB ? "added" : ""}">${inB ? "✓ In paper" : "+ Add to paper"}</button>
+          <details class="qmore"><summary aria-label="More actions">⋯</summary><div class="qmenu">
+            <a href="${GH}4-submit-solution.yml&qid=${encodeURIComponent(q.id)}" target="_blank" rel="noopener">Submit a solution</a>
+            <a href="${GH}2-fix-tags.yml&qid=${encodeURIComponent(q.id)}" target="_blank" rel="noopener">Fix topic tags</a>
+            <a href="${GH}3-report-mistake.yml&qid=${encodeURIComponent(q.id)}" target="_blank" rel="noopener">Report a mistake</a>
+            <button type="button" data-act="copyid">Copy question id</button>
+          </div></details>
         </span>
       </footer></article>`;
   }
@@ -172,6 +178,7 @@
     const act = b.dataset.act;
     if (act === "copy" && q) copy(q.tex, "LaTeX copied");
     if (act === "basket" && q) toggleBasket(q.id, b);
+    if (act === "copyid" && q) copy(q.id, "Question id copied");
   });
 
   /* ---------- search ---------- */
@@ -283,16 +290,42 @@
   }
 
   /* ---------- home ---------- */
+  const GH = "https://github.com/mcodexvb/vbmath/issues/new?template=";
+  function seasonSems() {
+    const m = new Date().getMonth() + 1;
+    return m >= 9 || m <= 2 ? { odd: true, label: "odd semesters (I, III, V)", list: [1, 3, 5] } : { odd: false, label: "even semesters (II, IV, VI)", list: [2, 4, 6] };
+  }
+  function dayIndex(n) {
+    const d = new Date(), s = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+    let h = 2166136261; for (const c of String(s)) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+    return (h >>> 0) % n;
+  }
   function viewHome() {
     const nb = D.papers.filter((p) => p.prog === "BSc").length, nm = D.papers.length - nb;
-    const yrs = D.years;
+    const yrs = D.years, nq = D.Q.filter((q) => !q.stem).length;
     const counts = D.broad.map((b, i) => [i, D.Q.filter((q) => !q.stem && q.broads.has(i)).length]).sort((a, b) => b[1] - a[1]);
     const max = counts[0][1];
     const repeated = D.Q.filter((q) => q.rep.length >= 3 && q.marks >= 4).sort((a, b) => b.rep.length - a.rep.length).slice(0, 3);
+    const pool = D.Q.filter((q) => !q.stem && q.marks >= 3 && q.tex.length > 60 && q.tex.length < 600);
+    const qod = pool[dayIndex(pool.length)];
+    const S = seasonSems();
+    const seasonRows = [["BSc", S.list], ["MSc", S.odd ? [1, 3] : [2, 4]]].flatMap(([pg, ss]) => ss.map((s) => {
+      const ps = D.papers.filter((p) => p.prog === pg && p.sem === s && p.kind[0] === "s");
+      const y = Math.max(...ps.map((p) => p.year), 0);
+      return { pg, s, y, ps: ps.filter((p) => p.year === y) };
+    })).filter((r) => r.ps.length);
+    // mini trend: top 6 areas, last 7 years
+    const last = yrs.slice(-7), byYear = new Map(last.map((y) => [y, 0])), cell = new Map();
+    D.Q.forEach((q) => { if (q.stem) return; const y = D.papers[q.p].year; if (!byYear.has(y)) return; byYear.set(y, byYear.get(y) + 1); q.broads.forEach((b) => cell.set(b + "|" + y, (cell.get(b + "|" + y) || 0) + 1)); });
+    let mx = 0; cell.forEach((v, k) => { mx = Math.max(mx, v / byYear.get(+k.split("|")[1])); });
+    const shade = (v) => `color-mix(in srgb, var(--laterite) ${Math.round(8 + 72 * v)}%, var(--card))`;
+    const recent = D.papers.slice().sort((a, b) => b.year - a.year || (a.prog > b.prog ? 1 : -1) || a.sem - b.sem).slice(0, 10);
+    const sample = repeated[0] || qod;
     const semCard = (prog, s) => {
       const n = D.papers.filter((p) => p.prog === prog && p.sem === s).length;
       return `<a class="card semcard" href="#papers" data-goto="${prog}-${s}"><span class="num">${ROMAN[s]}</span><b>${prog === "BSc" ? "B.Sc." : "M.Sc."} Semester ${ROMAN[s]}</b><small>${n} typed paper${n === 1 ? "" : "s"}</small></a>`;
     };
+    const head = (eyebrow, title, link, href, extra) => `<div class="section-head"><div><div class="eyebrow">${eyebrow}</div><h2 style="margin-top:8px">${title}</h2></div>${link ? `<a href="${href}" ${extra || ""}>${link} →</a>` : ""}</div>`;
     return `<div class="wrap">
       <section class="hero">
         <div>
@@ -303,32 +336,71 @@
           <div class="hints">${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex", "Cauchy-Riemann", "Runge-Kutta"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
         </div>
         <div class="stats" aria-label="Archive in numbers">
-          <div class="stat"><b>${D.Q.filter((q) => !q.stem).length.toLocaleString()}</b><span>questions, part by part</span></div>
+          <div class="stat"><b>${nq.toLocaleString()}</b><span>questions, part by part</span></div>
           <div class="stat"><b>${D.papers.length}</b><span>typed papers · ${nb} B.Sc., ${nm} M.Sc.</span></div>
           <div class="stat"><b>${D.scans.length}</b><span>scanned PDFs linked</span></div>
           <div class="stat"><b>${yrs[0]}–${yrs[yrs.length - 1]}</b><span>examination years typed</span></div>
         </div>
       </section>
 
-      <section class="section"><div class="section-head"><h2>Browse by semester</h2><a href="#papers">All papers →</a></div>
+      <section class="section"><div class="grid paths">
+        <a class="card path" href="#papers"><span class="eyebrow">I'm a student</span><h3>Revise from real papers</h3><p>Open your semester, read last year's paper as printed, then search any topic across ten years and see what keeps coming back.</p><span class="go">Browse papers →</span></a>
+        <a class="card path" href="#basket"><span class="eyebrow">I'm a teacher</span><h3>Set a paper in minutes</h3><p>Pick questions from any year, reorder them, and copy clean LaTeX with marks — ready for your own header.</p><span class="go">Open the paper builder →</span></a>
+        <a class="card path" href="#contribute"><span class="eyebrow">I want to help</span><h3>Add, check, solve</h3><p>Send scans, type a missing question, fix a topic tag, or share a solution. Every change is reviewed before it goes live.</p><span class="go">Ways to contribute →</span></a>
+      </div></section>
+
+      ${seasonRows.length ? `<section class="section">${head("Exam season", "Coming up: " + S.label, "All papers", "#papers")}
+        <div class="list season">${seasonRows.map((r) => `<div><span class="t"><b>${r.pg === "BSc" ? "B.Sc." : "M.Sc."} Semester ${ROMAN[r.s]}</b> <span class="muted">· latest typed: ${r.y}</span></span><span class="tabs" style="margin:0;justify-content:flex-end">${r.ps.map((p) => `<a class="chip" href="#paper-${p.key}" title="${esc(paperLabel(p))}"><span class="code">${esc(p.code || "Paper")}</span></a>`).join("")}</span></div>`).join("")}</div></section>` : ""}
+
+      <section class="section">${head("Browse", "By semester", "Papers by year", "#papers")}
         <div class="flabel">B.Sc. Mathematics (Honours / Major)</div>
-        <div class="grid g4" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr))">${[1, 2, 3, 4, 5, 6].map((s) => semCard("BSc", s)).join("")}</div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr))">${[1, 2, 3, 4, 5, 6].map((s) => semCard("BSc", s)).join("")}</div>
         <div class="flabel" style="margin-top:22px">M.Sc. Mathematics</div>
-        <div class="grid g4" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr))">${[1, 2, 3, 4].map((s) => semCard("MSc", s)).join("")}</div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr))">${[1, 2, 3, 4].map((s) => semCard("MSc", s)).join("")}</div>
       </section>
 
-      <section class="section"><div class="section-head"><h2>Questions by topic</h2><a href="#topics">Topic map and trends →</a></div>
-        <div class="grid g3">${counts.slice(0, 9).map(([i, n]) => `<a class="card topic-tile" href="#search" data-broad="${i}"><h3>${esc(D.broad[i])}</h3><p>${n.toLocaleString()} questions</p><div class="bar"><i style="width:${Math.round((100 * n) / max)}%"></i></div></a>`).join("")}</div>
+      ${qod ? `<section class="section">${head("Question of the day", "Try this one", "Open its paper", "#paper-" + D.papers[qod.p].key)}
+        <div id="qod">${qCard(qod)}</div></section>` : ""}
+
+      <section class="section two-col">
+        <div>${head("Topics", "What gets examined", "Topic map", "#topics")}
+          <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr))">${counts.slice(0, 6).map(([i, n]) => `<a class="card topic-tile" href="#search" data-broad="${i}"><h3>${esc(D.broad[i])}</h3><p>${n.toLocaleString()} questions</p><div class="bar"><i style="width:${Math.round((100 * n) / max)}%"></i></div></a>`).join("")}</div></div>
+        <div>${head("Trends", "Share of questions, last seven years", "Full table", "#topics")}
+          <div class="scroll-x" style="padding:8px"><table class="heat" style="min-width:0;width:100%"><thead><tr><th></th>${last.map((y) => `<th>’${String(y).slice(2)}</th>`).join("")}</tr></thead><tbody>
+          ${counts.slice(0, 6).map(([b]) => `<tr><th style="white-space:normal;max-width:130px">${esc(D.broad[b])}</th>${last.map((y) => { const v = (cell.get(b + "|" + y) || 0) / (byYear.get(y) || 1); return `<td style="width:auto;background:${shade(v / mx)};color:${v / mx > 0.55 ? "#fff" : "var(--ink)"}" data-hb="${b}" data-hy="${y}" title="${esc(D.broad[b])}, ${y}: ${Math.round(v * 100)}%">${Math.round(v * 100) || ""}</td>`; }).join("")}</tr>`).join("")}
+          </tbody></table></div><p class="muted" style="font-size:13px;margin-top:8px">Past patterns, not a prediction. Click a cell for its questions.</p></div>
       </section>
 
-      ${repeated.length ? `<section class="section"><div class="section-head"><h2>Asked again and again</h2><a href="#search" data-rep="1">All repeated questions →</a></div>
-        <p class="muted" style="margin-top:-6px">The same wording set in three or more years: a good place to start revising.</p>
+      ${repeated.length ? `<section class="section">${head("Revise first", "Asked again and again", "All repeated questions", "#search", 'data-rep="1"')}
+        <p class="muted" style="margin-top:-6px">The same wording set in three or more years.</p>
         <div id="rep-list">${repeated.map((q) => qCard(q)).join("")}</div></section>` : ""}
 
+      <section class="section teach">
+        <div><div class="eyebrow">For teachers</div><h2 style="margin-top:8px">From archive to new paper</h2>
+          <ol class="steps"><li><b>Find</b> questions by topic, length or year.</li><li><b>Collect</b> them with “+ Add to paper”.</li><li><b>Reorder</b> and check the total marks.</li><li><b>Copy</b> the LaTeX, or download a .tex file.</li></ol>
+          <a class="btn btn-primary" href="#basket">Open My paper</a></div>
+        <pre class="snippet nomath" aria-label="Sample LaTeX output">${esc(sample ? "\\begin{enumerate}\n\\item " + sample.tex.trim().slice(0, 260) + (sample.tex.length > 260 ? " …" : "") + "\n  \\hfill [" + (sample.mraw || sample.marks || "") + "]\n\\end{enumerate}" : "")}</pre>
+      </section>
+
+      <section class="section">${head("Beyond the semester", "Exams, notes and books", "Competitive exams", "#exams")}
+        <div class="grid fit4">
+          <a class="card" href="#exams"><h3>JAM · NET · GATE</h3><p>Previous papers for IIT JAM, CSIR-UGC NET, GATE, NBHM, TIFR and the VB M.Sc. admission test.</p></a>
+          <a class="card" href="#notes"><h3>Notes</h3><p>Class notes written and shared by former students of the department.</p></a>
+          <a class="card" href="#syllabus"><h3>Syllabus</h3><p>NEP 2025, CBCS 2020 and 2017, and the older BMC syllabus.</p></a>
+          <a class="card" href="#books"><h3>Books</h3><p>Standard texts by subject, recommended by students and teachers.</p></a>
+        </div></section>
+
+      <section class="section">${head("Recently typed", "Latest papers in the archive", "Papers by year", "#papers")}
+        <div class="tabs">${recent.map((p) => `<a class="chip" href="#paper-${p.key}">${esc(semLabel(p))} ${p.year}${p.kind[0] === "i" ? " internal" : ""} · <span class="code">${esc(p.code || "Paper")}</span></a>`).join("")}</div></section>
+
       <section class="section"><div class="appeal">
-        <div><div class="eyebrow" style="color:var(--turmeric)">An appeal</div><h2 style="margin-top:10px">Help keep the archive complete</h2>
-        <p>Send the question papers of your semester, share your notes, or help with typing and checking. Each paper you send helps the next batch of students.</p></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="${esc(D.C.forms.questions)}" target="_blank" rel="noopener">Send question papers</a><a class="btn btn-ghost" href="#contribute">Other ways to help</a></div>
+        <div><div class="eyebrow" style="color:var(--turmeric)">Contribute</div><h2 style="margin-top:10px">The archive grows with every semester</h2>
+        <p>Scans come in through the Google Form. Typed questions, tag fixes, corrections and solutions go through short GitHub forms, and a reviewer approves each before it goes live.</p></div>
+        <div class="appeal-actions">
+          <a class="btn btn-primary" href="${esc(D.C.forms.questions)}" target="_blank" rel="noopener">Send scans</a>
+          <a class="btn btn-ghost" href="${GH}1-add-question.yml" target="_blank" rel="noopener">Type a question</a>
+          <a class="btn btn-ghost" href="${GH}4-submit-solution.yml" target="_blank" rel="noopener">Share a solution</a>
+        </div>
       </div></section>
     </div>`;
   }
@@ -337,8 +409,9 @@
     $$("[data-hint]").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.q = b.dataset.hint; location.hash = "search"; }));
     $$("[data-broad]").forEach((a) => a.addEventListener("click", () => { F = defaultFilters(); F.broad = a.dataset.broad; }));
     $$("[data-rep]").forEach((a) => a.addEventListener("click", () => { F = defaultFilters(); F.rep = true; F.sort = "rep"; }));
-    $$("[data-goto]").forEach((a) => a.addEventListener("click", () => { store.set("papersTab", a.dataset.goto.split("-")[0]); store.set("papersSem", a.dataset.goto.split("-")[1]); }));
-    typeset($("#rep-list"));
+    $$("[data-goto]").forEach((a) => a.addEventListener("click", () => { store.set("papersTab", a.dataset.goto.split("-")[0]); }));
+    $$("[data-hb]").forEach((td) => td.addEventListener("click", () => { F = defaultFilters(); F.broad = td.dataset.hb; F.from = F.to = td.dataset.hy; location.hash = "search"; }));
+    typeset($("#rep-list")); typeset($("#qod"));
   }
 
   /* ---------- papers matrix ---------- */
@@ -567,9 +640,12 @@
         <div class="card"><h3>Send question papers</h3><p>Photograph or scan the papers of your semester and upload them with the form. Choose the programme, semester and year so they are sorted automatically.</p><p style="margin-top:12px"><a class="btn btn-primary btn-sm" href="${esc(C.forms.questions)}" target="_blank" rel="noopener">Open the upload form ↗</a></p></div>
         <div class="card"><h3>Help maintain the site</h3><p>Scholars and B.Sc./M.Sc. students can help by collecting papers, typing and checking questions, or overseeing a semester. Technical help is available.</p><p style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="${esc(C.forms.volunteer)}" target="_blank" rel="noopener">Volunteer ↗</a></p></div>
         <div class="card"><h3>Share notes</h3><p>Clear handwritten or typed notes from your classes help everyone revise.</p><p style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="${esc(C.forms.notes)}" target="_blank" rel="noopener">Upload notes ↗</a></p></div>
-        <div class="card"><h3>Report a mistake</h3><p>Found a typo, a wrong mark, or a mis-tagged topic? Write to <span class="mono" style="user-select:all">${esc(C.email)}</span> with the question's paper, year and number.</p></div>
+        <div class="card"><h3>Type a missing question</h3><p>Copy a question from a scan into LaTeX. A reviewer checks it against the scan before it appears.</p><p style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="${GH}1-add-question.yml" target="_blank" rel="noopener">Add a question ↗</a></p></div>
+        <div class="card"><h3>Fix topic tags</h3><p>Tags came from an automatic first pass. Use <b>⋯ → Fix topic tags</b> on any question; the id is filled in for you.</p><p style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="${GH}2-fix-tags.yml" target="_blank" rel="noopener">Fix tags ↗</a></p></div>
+        <div class="card"><h3>Report a mistake</h3><p>A typo, a wrong mark or a missing line. Use <b>⋯ → Report a mistake</b> on the question, or write to <span class="mono" style="user-select:all">${esc(C.email)}</span>.</p><p style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="${GH}3-report-mistake.yml" target="_blank" rel="noopener">Report ↗</a></p></div>
+        <div class="card"><h3>Share a solution</h3><p>Write a worked solution in LaTeX. Reviewed solutions will appear under their questions.</p><p style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="${GH}4-submit-solution.yml" target="_blank" rel="noopener">Submit a solution ↗</a></p></div>
       </div>
-      <section class="section"><div class="section-head"><h2>Solutions — coming next</h2></div><p class="prose">A place for students to submit worked solutions to individual questions is planned. Until then, solutions can be sent by email with the question reference.</p></section>`);
+      <section class="section"><div class="section-head"><h2>How a contribution goes live</h2></div><ol class="prose"><li>You fill a short GitHub form (a free GitHub account is needed; a no-account form is planned).</li><li>An automatic check reads the fields and replies on the issue.</li><li>A reviewer compares it with the scan and marks it accepted.</li><li>A pull request is created automatically; once merged, the site updates within minutes.</li></ol></section>`);
   }
   function viewAbout() {
     const C = D.C;

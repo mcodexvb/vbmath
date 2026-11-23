@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Send scanned question papers
+    url: https://docs.google.com/forms/d/e/1FAIpQLSdCV1ctSVpP4imwMnRHGdXdf90xu3gu-55ER1vyMLtxmJ7P7A/viewform
+    about: Upload photos or PDFs of question papers through the VBMath Google Form.
+  - name: Copyright or privacy concern
+    url: mailto:vbmath2013@gmail.com
+    about: Write to the maintainers.

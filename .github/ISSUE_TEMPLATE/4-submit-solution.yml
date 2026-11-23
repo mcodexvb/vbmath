@@ -1,0 +1,23 @@
+name: Submit a solution
+description: Share a worked solution to a question.
+title: "[Solution] "
+labels: ["contribution", "solution"]
+body:
+  - type: input
+    id: qid
+    attributes: {label: Question id, placeholder: "VB-BSc-Sem-I-2018-P1-Q2-a"}
+    validations: {required: true}
+  - type: textarea
+    id: solution
+    attributes: {label: Solution in LaTeX, description: "Use $...$ for maths. Keep it complete and readable; a reviewer checks it before it is published.", render: latex}
+    validations: {required: true}
+  - type: input
+    id: credit
+    attributes: {label: Name for credit (optional)}
+  - type: checkboxes
+    id: own
+    attributes:
+      label: Declaration
+      options:
+        - label: This is my own work, and I agree to share it under the project's licence.
+          required: true

@@ -1,0 +1,16 @@
+name: Report a mistake
+description: A typo, wrong mark, missing line or wrong paper details.
+title: "[Fix] "
+labels: ["contribution", "mistake"]
+body:
+  - type: input
+    id: qid
+    attributes: {label: Question id or page link, placeholder: "VB-MSc-Sem-II-2016-P1-Q5-c"}
+    validations: {required: true}
+  - type: textarea
+    id: problem
+    attributes: {label: What is wrong}
+    validations: {required: true}
+  - type: textarea
+    id: latex
+    attributes: {label: Corrected text in LaTeX (if it is a text fix), render: latex}
