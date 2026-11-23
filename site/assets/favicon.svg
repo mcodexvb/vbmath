@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="VBMath">
+  <!-- Placeholder mark: replace this file with the final logo (keep the name logo.svg). -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#B4472B"/>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#F6F1E7" stroke-width="3" opacity=".55"/>
+  <path d="M38.5 14.5c-3.2-1.4-6.4.6-7.1 4.6l-3.4 21.4c-.6 4-3.5 6-6.6 4.7" fill="none" stroke="#F6F1E7" stroke-width="4.2" stroke-linecap="round"/>
+</svg>
