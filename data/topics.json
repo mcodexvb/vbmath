@@ -1,0 +1,118 @@
+{
+ "Real Analysis": [
+  "Sequences & series of reals",
+  "Limits, continuity, differentiability",
+  "Riemann integration",
+  "Uniform convergence & function series",
+  "Real numbers & completeness",
+  "Multivariable limits & differentiation",
+  "Multiple integrals",
+  "Lebesgue measure & integration"
+ ],
+ "Calculus & Geometry": [
+  "Differential calculus (one variable)",
+  "Integral calculus & reduction formulae",
+  "Analytical geometry 2D/3D",
+  "Vector calculus",
+  "Vector algebra"
+ ],
+ "Linear Algebra": [
+  "Vector spaces & subspaces",
+  "Linear transformations",
+  "Matrices, rank & systems",
+  "Eigenvalues & diagonalization",
+  "Inner product spaces",
+  "Quadratic forms",
+  "Bilinear forms & canonical forms"
+ ],
+ "Abstract Algebra": [
+  "Groups & subgroups",
+  "Group homomorphisms & isomorphism theorems",
+  "Group actions, Sylow & structure",
+  "Rings & ideals",
+  "Polynomial rings, UFD/PID/ED",
+  "Fields & Galois theory",
+  "Modules",
+  "Number theory",
+  "Lattices & Boolean algebra"
+ ],
+ "Differential Equations": [
+  "First order ODE",
+  "Higher order linear ODE",
+  "Series solution & special functions",
+  "Systems & stability",
+  "Existence & uniqueness / BVP",
+  "PDE first order",
+  "PDE second order & classification",
+  "Wave, heat & Laplace equations"
+ ],
+ "Complex Analysis": [
+  "Complex numbers & functions",
+  "Complex integration",
+  "Series, singularities & residues",
+  "Real integrals via residues"
+ ],
+ "Metric Spaces & Topology": [
+  "Metric spaces",
+  "Compactness & connectedness",
+  "General topology",
+  "Continuity in metric spaces"
+ ],
+ "Functional Analysis": [
+  "Normed & Banach spaces",
+  "Hilbert spaces",
+  "Operators & fundamental theorems"
+ ],
+ "Differential Geometry & Tensors": [
+  "Curves & surfaces",
+  "Tensors",
+  "Manifolds"
+ ],
+ "Mechanics & Mathematical Physics": [
+  "Statics",
+  "Particle dynamics",
+  "Rigid-body dynamics",
+  "Lagrangian & Hamiltonian",
+  "Fluid dynamics",
+  "Relativity, electromagnetism & others"
+ ],
+ "Numerical Analysis": [
+  "Errors & root finding",
+  "Interpolation & differentiation",
+  "Numerical integration",
+  "Linear systems numerics",
+  "Numerical ODE",
+  "Programming (C / C++ / Python)"
+ ],
+ "Probability & Statistics": [
+  "Probability basics",
+  "Random variables & distributions",
+  "Limit theorems",
+  "Stochastic processes",
+  "Estimation & inference",
+  "Descriptive statistics & regression"
+ ],
+ "Optimization & Operations Research": [
+  "Linear programming",
+  "Transportation & assignment",
+  "Game theory & networks",
+  "Nonlinear & integer programming"
+ ],
+ "Discrete Mathematics & Graph Theory": [
+  "Logic, sets & relations",
+  "Combinatorics & recurrences",
+  "Graph theory",
+  "Coding & cryptography"
+ ],
+ "Mathematical Methods & Transforms": [
+  "Fourier series & transforms",
+  "Laplace transform",
+  "Integral equations",
+  "Special functions & asymptotics"
+ ],
+ "Mathematical Modelling & Others": [
+  "Mathematical modelling & dynamical systems",
+  "History / theory of mathematics",
+  "Computer science & LaTeX / software"
+ ]
+}
