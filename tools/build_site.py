@@ -102,10 +102,13 @@ print(len(P),'papers',len(Q),'questions',len(S),'scans')
 
 
 # Competitive papers use the same browser record shape and keep their own source file.
-competitive_path=os.path.join(ROOT,'data/competitive.jsonl')
-CP=[]; CQ=[]; CPI={}
-if os.path.exists(competitive_path):
-    with open(competitive_path,encoding='utf-8') as f:
+EXAM_NAMES={'JAM':'IIT JAM','NET':'CSIR-UGC NET','TIFR':'TIFR Graduate School','NBHM':'NBHM'}
+def competitive_dataset(name):
+    source_path=os.path.join(ROOT,f'data/{name}.jsonl')
+    CP=[]; CQ=[]; CPI={}
+    if not os.path.exists(source_path):
+        return CP,CQ
+    with open(source_path,encoding='utf-8') as f:
         for row in map(json.loads,f):
             key=row['paper_key']
             if key not in CPI:
@@ -116,9 +119,16 @@ if os.path.exists(competitive_path):
             i=CPI[key]
             CP[i]['n']+=1
             tags=[TI[t['broad'],t['specific']] for t in row['topics'] if (t['broad'],t['specific']) in TI]
-            CQ.append([i,row['section'],row['qno'],'',row['marks'],'',row['latex'],tags,[],0,row['id'],[],0,row.get('review_notes',[]),row.get('answer')])
-with open(f'{OUT}/competitive.json','w',encoding='utf-8') as f:
-    json.dump(dict(papers=CP,questions=CQ),f,ensure_ascii=False,separators=(',',':'))
+            CQ.append([i,row['section'],row['qno'],'',row['marks'],'',row['latex'],tags,[],0,row['id'],[],0,row.get('review_notes',[]),row.get('answer')]+([row['answer_origin']] if row.get('answer_origin') else []))
+    with open(f'{OUT}/{name}.json','w',encoding='utf-8') as f:
+        json.dump(dict(papers=CP,questions=CQ),f,ensure_ascii=False,separators=(',',':'))
+    return CP,CQ
+
+competitive=[competitive_dataset('competitive'), competitive_dataset('scholarship')]
+with open(f'{OUT}/competitive-catalog.json','w',encoding='utf-8') as f:
+    json.dump([paper for papers,_ in competitive for paper in papers],f,ensure_ascii=False,separators=(',',':'))
+    f.write('\n')
+
 
 # ---------------------------------------------------------------- static pages for search engines
 import html as H, shutil
@@ -183,19 +193,20 @@ for i,p in enumerate(P):
         'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Papers','item':SITE+'/papers/'},{'@type':'ListItem','position':2,'name':f'{PS[p["prog"]]} Semester {ROMAN[p["sem"]]}','item':SITE+f'/semester/{p["prog"].lower()}-{p["sem"]}/'},{'@type':'ListItem','position':3,'name':f'{nm} {p["year"]}','item':SITE+path}]}}
     page(path,title,desc,body,ld)
     urls.append((path,'0.7'))
-competitive_questions=collections.defaultdict(list)
-for q in CQ:
-    competitive_questions[q[0]].append(q)
-for i,p in enumerate(CP):
-    path=f'/paper/{p["key"]}/'
-    name='IIT JAM' if p['prog']=='JAM' else 'CSIR-UGC NET'
-    label=f'{name} · {p["title"]}'
-    desc=f'{p["n"]} questions from the VBMath transcription of {label}.'
-    lis=''.join(f'<li><b>{H.escape(q[2])}</b> <span class="qbody">{H.escape(q[6])}</span></li>' for q in competitive_questions[i])
-    body=(f'<div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav>'
-          f'<header class="exam-head"><h1>{H.escape(label)}</h1></header><ol class="prerender">{lis}</ol></div>')
-    page(path,label+' · VBMath',desc,body)
-    urls.append((path,'0.7'))
+for CP,CQ in competitive:
+    competitive_questions=collections.defaultdict(list)
+    for q in CQ:
+        competitive_questions[q[0]].append(q)
+    for i,p in enumerate(CP):
+        path=f'/paper/{p["key"]}/'
+        name=EXAM_NAMES[p['prog']]
+        label=f'{name} · {p["title"]}'
+        desc=f'{p["n"]} questions from the VBMath transcription of {label}.'
+        lis=''.join(f'<li><b>{H.escape(q[2])}</b> <span class="qbody">{H.escape(q[6])}</span></li>' for q in competitive_questions[i])
+        body=(f'<div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav>'
+              f'<header class="exam-head"><h1>{H.escape(label)}</h1></header><ol class="prerender">{lis}</ol></div>')
+        page(path,label+' · VBMath',desc,body)
+        urls.append((path,'0.7'))
 # 404 page for Cloudflare Pages (served with status 404 for unknown paths)
 nf=re.sub(r'<!--HEAD-->.*?<!--/HEAD-->','<!--HEAD-->\n<title>Page not found · VBMath</title>\n<meta name="robots" content="noindex">\n<!--/HEAD-->',TPL,flags=re.S)
 nf=re.sub(r'<!--APP-->.*?<!--/APP-->','<!--APP--><div class="wrap"><h1>This page isn’t here</h1><p><a href="/search/">Search questions</a> or open <a href="/papers/">papers by semester</a>.</p></div><!--/APP-->',nf,flags=re.S)

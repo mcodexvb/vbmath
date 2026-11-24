@@ -7,7 +7,17 @@
   const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   const PROG = { BSc: "B.Sc. Mathematics", MSc: "M.Sc. Mathematics" };
   const PSHORT = { BSc: "B.Sc.", MSc: "M.Sc." };
-  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET" };
+  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET", GATE: "GATE", TIFR: "TIFR Graduate School", NBHM: "NBHM" };
+  const EXAM_CODE = {"IIT JAM":"JAM", "CSIR-UGC NET":"NET", "GATE Mathematics":"GATE", NBHM:"NBHM", TIFR:"TIFR"};
+  const EXAM_GUIDANCE = {
+    JAM: ["IIT JAM Mathematics (2026)", "Official Mathematics (MA) syllabus.", "https://jam2026.iitb.ac.in/files/syllabus_MA.pdf"],
+    GATE: ["GATE Mathematics", "Select Mathematics (MA) on the official syllabus page.", "https://gate2027.iitm.ac.in/exam_papers_and_syllabus"],
+    NBHM: ["NBHM written test", "NBHM has no prescribed syllabus. See the official written-test guidance.", "https://www.imsc.res.in/~nbhm/ST_current/faq.html"],
+    TIFR: ["TIFR Mathematics", "Stage I and Stage II syllabi and admission information.", "https://mathweb.tifr.res.in/admissions.html"],
+  };
+  const PROGRAMME_ROUTES = {BSc:"papers-bsc", MSc:"papers-msc"};
+  const PEOPLE_LABELS = {teachers:"Teachers", alumni:"Alumni", scholars:"Scholars", "student-achievements":"Student achievements"};
+  const PEOPLE_DATA = {"people-alumni":"alumni", "people-student-achievements":"student-achievements"};
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -29,12 +39,13 @@
   function L(r) {
     if (HASH) return "#" + r;
     if (r === "home") return "/";
-    const m = r.match(/^(paper|semester|preview)-(.+)$/);
+    const m = r.match(/^(paper|semester|preview|papers|exams|people)-(.+)$/);
     return m ? `/${m[1]}/${m[2]}/` : `/${r}/`;
   }
+  const routeParams = () => new URLSearchParams(HASH ? (location.hash.split("?")[1] || "") : location.search);
   function current() {
     let s;
-    if (HASH) s = (location.hash || "#home").slice(1);
+    if (HASH) s = (location.hash || "#home").slice(1).split("?")[0];
     else {
       const p = location.pathname.replace(/\/+$/, "").replace(/^\/+/, "");
       if (!p) s = "home";
@@ -43,8 +54,8 @@
     return s || "home";
   }
   function go(r) {
-    if (HASH) { if (location.hash === "#" + r) route(); else location.hash = r; }
-    else { history.pushState({}, "", L(r)); route(); }
+    if (HASH) { if (location.hash === "#" + r) return route(); location.hash = r; }
+    else { history.pushState({}, "", L(r)); return route(); }
   }
 
   /* ---------- icons ---------- */
@@ -65,6 +76,7 @@
     x: I('<path d="M6 6l12 12M18 6 6 18"/>'),
     print: I('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
     dl: I('<path d="M12 4v11m0 0-4-4m4 4 4-4"/><path d="M5 20h14"/>'),
+    sun: I('<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
     moon: I('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'),
     menu: I('<path d="M4 7h16M4 12h16M4 17h16"/>'),
     pen: I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
@@ -166,25 +178,56 @@
   window.__vbmMathReady = () => { $$('[data-pending-math="1"]').forEach((el) => { el.removeAttribute("data-pending-math"); typeset(el); }); };
 
   /* ---------- data ---------- */
-  async function load() {
-    const get = (u) => fetch(BASE + u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
-    const [P, Q, S, C, E] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json"), get("data/competitive.json").catch(() => ({ papers: [], questions: [] }))]);
-    D.papers = P.papers.concat(E.papers);
-    Q.push(...E.questions.map(([i, ...q]) => [i + P.papers.length, ...q])); D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
-    D.papers.forEach((p, i) => D.byKey.set(p.key, i));
+  function loadJSON(name) {
+    return fetch(BASE + "data/" + name + ".json").then((response) => {
+      if (!response.ok) throw Error(name + " " + response.status);
+      return response.json();
+    });
+  }
+  let catalogueReady = false, questionsReady = false;
+  let catalogueRequest, questionRequest;
+  function loadCatalogue() {
+    catalogueRequest ??= Promise.all(["papers", "scans", "content", "competitive-catalog"].map(loadJSON))
+      .then(([papers, scans, content, competitive]) => {
+        D.papers = papers.papers.concat(competitive);
+        D.topics = papers.topics; D.broad = papers.broad; D.scans = scans; D.C = content;
+        D.papers.forEach((paper, i) => D.byKey.set(paper.key, i));
+        D.years = Array.from(new Set(D.papers.map((p) => p.year))).sort();
+        D.codes = Array.from(new Set(D.papers.map((p) => p.code).filter(Boolean))).sort();
+        D.scans.forEach((scan) => {
+          const key = [scan.prog, scan.sem, scan.year, scan.kind].join("|");
+          if (!D.scanIdx.has(key)) D.scanIdx.set(key, []);
+          D.scanIdx.get(key).push(scan);
+        });
+        catalogueReady = true;
+      }).catch((error) => { catalogueRequest = null; throw error; });
+    return catalogueRequest;
+  }
+  function load() {
+    questionRequest ??= Promise.all([loadCatalogue(), ...["questions", "competitive", "scholarship"].map(loadJSON)])
+      .then(([, rows, ...datasets]) => {
+        for (const dataset of datasets) {
+          rows.push(...dataset.questions.map(([index, ...q]) => [D.byKey.get(dataset.papers[index].key), ...q]));
+        }
+        indexQuestions(rows);
+        questionsReady = true;
+      }).catch((error) => { questionRequest = null; throw error; });
+    return questionRequest;
+  }
+  function indexQuestions(Q) {
     D.byPaper = D.papers.map(() => []);
     D.Q = Q.map((a, i) => {
       const p = D.papers[a[0]];
-      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [], answer: a[14] };
+      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [], answer: a[14], answerOrigin: a[15] };
       q.broads = new Set(q.t.map((k) => D.broad.indexOf(D.topics[k][0])).concat(q.tb));
-      q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "") + " " + (EXAM[p.prog] || "") + " " + p.year).toLowerCase();
+      const topics = q.t.map((k) => D.topics[k].join(" ")).concat([...q.broads].map((k) => D.broad[k]));
+      q.search = [searchWords(plainOf(q.tex)), searchWords(topics.join(" ")),
+        searchWords([p.code?.replace(/\(.*/, ""), p.title, p.prog, EXAM[p.prog], p.year].join(" "))];
       D.byPaper[a[0]].push(q);
       D.byId.set(q.id, q);
       return q;
     });
-    D.years = Array.from(new Set(D.papers.map((p) => p.year))).sort();
-    D.codes = Array.from(new Set(D.papers.map((p) => p.code).filter(Boolean))).sort();
-    D.scans.forEach((s) => { const k = s.prog + "|" + s.sem + "|" + s.year + "|" + s.kind; if (!D.scanIdx.has(k)) D.scanIdx.set(k, []); D.scanIdx.get(k).push(s); });
+    searchVocabulary = null;
     coll = coll.filter((id) => D.byId.has(id));
   }
 
@@ -229,7 +272,12 @@
     $$(`.q[data-id="${CSS.escape(id)}"]`).forEach((card) => { card.classList.toggle("in", on); const b = $(".collect", card); if (b) b.classList.toggle("on", on); });
     toast(on ? `Added · ${coll.length} in your collection` : "Removed from your collection");
   }
-  function openDrawer() { renderDrawer(); $("#scrim").hidden = false; requestAnimationFrame(() => { $("#scrim").classList.add("show"); $("#drawer").classList.add("show"); }); $("#fab").hidden = true; setTimeout(() => $("#dclose") && $("#dclose").focus(), 50); }
+  async function openDrawer() {
+    if (coll.length && !questionsReady) {
+      try { await load(); }
+      catch { toast("Could not load collected questions. Try again."); return; }
+    }
+    renderDrawer(); $("#scrim").hidden = false; requestAnimationFrame(() => { $("#scrim").classList.add("show"); $("#drawer").classList.add("show"); }); $("#fab").hidden = true; setTimeout(() => $("#dclose") && $("#dclose").focus(), 50); }
   function closeDrawer() { $("#scrim").classList.remove("show"); $("#drawer").classList.remove("show"); setTimeout(() => { $("#scrim").hidden = true; }, 220); updateCount(); }
   function renderDrawer() {
     const qs = coll.map((id) => D.byId.get(id)).filter(Boolean);
@@ -268,8 +316,8 @@
     return `<article class="q${on ? " in" : ""}" data-id="${esc(q.id)}">
       <header class="qh"><span class="qn">${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
       <div class="qbody">${texToHtml(q.tex)}</div>
-      ${q.answer ? `<details class="q-answer"><summary>Official answer</summary>
-        <p>${esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
+      ${q.answer ? `<details class="q-answer"><summary>${q.answerOrigin ? "Answer from compilation" : "Official answer"}</summary>
+        <p>${q.answerOrigin ? texToHtml(q.answer) : esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
         ${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : ""}
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
@@ -389,11 +437,80 @@
   function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/x-tex" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 
   /* ---------- search ---------- */
-  function tokens(qs) {
-    const out = []; qs.toLowerCase().replace(/"([^"]+)"|(\S+)/g, (m, a, b) => { out.push(a || b); }); return out.filter((t) => t.length > 0);
+  const STOP_WORDS = new Set("a an the of in on to and or for with is are find show prove question questions about".split(" "));
+  const MATH_ALIASES = [
+    [/\b(?:rref|reduced row echelon (?:form|matrix))\b/g, "rref"],
+    [/\b(?:ivp|initial value problem)\b/g, "ivp"],
+    [/\b(?:bvp|boundary value problem)\b/g, "bvp"],
+    [/\b(?:ode|ordinary differential equations?)\b/g, "ode"],
+    [/\b(?:pde|partial differential equations?)\b/g, "pde"],
+    [/\b(?:eigen values?|eigenvalues?|characteristic roots?)\b/g, "eigenvalue"],
+    [/\b(?:null space|nullspace|kernel)\b/g, "nullspace"],
+    [/\b(?:cayley hamilton|hamilton cayley)\b/g, "cayleyhamilton"],
+    [/\b(?:converges?|convergent|convergence)\b/g, "convergence"],
+    [/\b(?:differentiability|differentiable)\b/g, "differentiable"],
+    [/\b(?:continuity|continuous)\b/g, "continuous"],
+    [/\bmatrices\b/g, "matrix"],
+  ];
+  let searchVocabulary = null;
+  const compactCode = (value) => String(value || "").toLowerCase().replace(/\(.*/, "").replace(/[^a-z0-9]/g, "");
+  function searchWords(value, aliases = true) {
+    let text = String(value || "").normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
+      .replace(/[’']/g, "").replace(/∫/g, " int ").replace(/∑/g, " sum ").replace(/∞/g, " infty ")
+      .replace(/\\(mathbb|mathbf|mathrm)\{([a-z]+)\}/g, "$2").replace(/\\(?=[a-z])/g, " ")
+      .replace(/\b(mjama|mjma|mnma|mdma|secma|sec|dsema|dse|gema|ccma|cc|bmc|bme|bmo|mmc|mme|mmo|gec|aecc)[\s–-]*0*(\d+[a-z]?)\b/g, "$1$2")
+      .replace(/[^a-z0-9]+/g, " ").trim();
+    if (aliases) for (const [pattern, replacement] of MATH_ALIASES) text = text.replace(pattern, replacement);
+    return text ? " " + text + " " : " ";
+  }
+  function oneEdit(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0;
+    while (i < a.length && a[i] === b[i]) i++;
+    if (a.length === b.length) {
+      return a.slice(i + 1) === b.slice(i + 1) ||
+        (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    }
+    return a.length > b.length ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
+  }
+  function scoringQuery(value) {
+    const exact = [];
+    const plain = value.replace(/"([^"]+)"/g, (_, quoted) => { exact.push(searchWords(quoted, false)); return " "; });
+    let words = [...new Set(searchWords(plain).trim().split(/ +/).filter(Boolean))];
+    if (words.some((w) => !STOP_WORDS.has(w))) words = words.filter((w) => !STOP_WORDS.has(w));
+    if (!words.length && !exact.length) return null;
+    if (!searchVocabulary) {
+      searchVocabulary = new Set();
+      for (const q of D.Q) for (const field of q.search) for (const word of field.trim().split(" ")) searchVocabulary.add(word);
+    }
+    const terms = words.map((w) => {
+      if (w.length < 5 || searchVocabulary.has(w) || !/^[a-z]+$/.test(w)) return [" " + w + " "];
+      const typoForms = w.endsWith("s") && w.length > 6 ? [w, w.slice(0, -1)] : [w];
+      const alternatives = [...searchVocabulary].filter((term) => term[0] === w[0] && typoForms.some((form) => oneEdit(form, term)));
+      return [" " + w + " ", ...alternatives.slice(0, 8).map((t) => " " + t + " ")];
+    });
+    const phrase = searchWords(plain);
+    return { terms, exact, phrase };
+  }
+  function searchScore(q, query) {
+    const display = query.exact.length ? searchWords(plainOf(q.tex), false) : "";
+    if (query.exact.some((x) => !display.includes(x))) return -1;
+    let score = 8 * query.exact.length;
+    for (const alternatives of query.terms) {
+      let best = 0;
+      for (const [i, term] of alternatives.entries()) {
+        if (q.search[0].includes(term)) best = Math.max(best, i ? 2 : 5);
+        if (q.search[1].includes(term)) best = Math.max(best, i ? 3 : 8);
+        if (q.search[2].includes(term)) best = Math.max(best, i ? 2 : 6);
+      }
+      if (!best) return -1;
+      score += best;
+    }
+    if (query.phrase.trim().includes(" ") && q.search.some((x) => x.includes(query.phrase))) score += 6;
+    return score;
   }
   function runSearch() {
-    const tk = tokens(F.q);
+    const query = scoringQuery(F.q);
     const from = +F.from || 0, to = +F.to || 9999;
     const topic = F.topic === "" ? -1 : +F.topic, broad = F.broad === "" ? -1 : +F.broad;
     const res = [];
@@ -403,18 +520,14 @@
       if (F.prog && p.prog !== F.prog) continue;
       if (F.sem && p.sem !== +F.sem) continue;
       if (p.year < from || p.year > to) continue;
-      if (F.code && (p.code || "").replace(/\(.*/, "") !== F.code.replace(/\(.*/, "") && p.code !== F.code) continue;
+      if (F.code && compactCode(p.code) !== compactCode(F.code)) continue;
       if (F.kind && (EXAM[F.kind] ? p.prog !== F.kind : p.kind[0] !== F.kind)) continue;
       if (topic >= 0 && !q.t.includes(topic)) continue;
       if (broad >= 0 && !q.broads.has(broad)) continue;
       if (F.len && lenOf(q) !== F.len) continue;
       if (F.rep && q.rep.length < 2) continue;
-      let score = 0;
-      if (tk.length) {
-        let ok = true;
-        for (const t of tk) { const k = q.hay.indexOf(t); if (k < 0) { ok = false; break; } score += 10 - Math.min(9, k / 80); }
-        if (!ok) continue;
-      }
+      const score = query ? searchScore(q, query) : 0;
+      if (score < 0) continue;
       res.push([q, score]);
     }
     const S = F.sort;
@@ -429,31 +542,33 @@
     return res.map((r) => r[0]);
   }
   function opt(v, label, cur) { return `<option value="${esc(v)}"${String(cur) === String(v) ? " selected" : ""}>${esc(label)}</option>`; }
+  let searchFiltersOpen = false;
   function viewSearch() {
     const yrs = D.years;
     const specific = D.topics.map((t, i) => [i, t]).filter(([i, t]) => F.broad === "" || t[0] === D.broad[+F.broad]);
     return `<div class="wrap">
       <div class="crumbs"><a href="${L("home")}">Home</a> / Search</div>
-      <h1 style="margin-bottom:.2em">Search the question bank</h1>
-      <p class="muted" style="margin-bottom:22px">${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Type words, a theorem, or a paper code; combine with filters.</p>
+      ${editorialHeading("Search the question bank", `${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Find a topic, theorem, formula or paper code.`, false)}
+      <div class="search-console">
+        <form class="searchbar" id="sform" role="search">${IC.search}<input name="q" type="search" id="sq" placeholder="Try: Cayley-Hamilton, Sylow, Frobenius, &quot;uniformly continuous&quot;" value="${esc(F.q)}" aria-label="Search questions"><button class="btn btn-primary" type="submit">Search</button></form>
+        <div class="source-picker"><span class="flabel" id="source-label">Question source</span><div class="seg" data-f="prog" role="group" aria-labelledby="source-label">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."], ...Object.keys(EXAM).map((code) => [code, code])].map(([v, l]) => `<button type="button" class="chip${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v ? " on" : ""}" data-v="${v}" aria-pressed="${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v}">${l}</button>`).join("")}</div></div>
+      </div>
       <div class="search-layout">
-        <aside class="filters" id="filters" data-collapsed="1" aria-label="Filters">
+        <aside class="filters" id="filters" data-collapsed="${searchFiltersOpen ? "0" : "1"}" aria-label="Filters">
           <div style="display:flex;justify-content:space-between;align-items:center"><span class="flabel" style="margin:0">Filters</span>
-            <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle">Show</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
-          <div class="fbody">
-          <div><span class="flabel">Programme</span><div class="seg" data-f="prog">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."]].map(([v, l]) => `<button type="button" class="chip${F.prog === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+            <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle" aria-controls="search-refinements" aria-expanded="${searchFiltersOpen}">${searchFiltersOpen ? "Hide" : "Show"}</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
+          <div class="fbody" id="search-refinements">
           <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem"${EXAM[F.kind] ? " disabled" : ""}>${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
           <div><span class="flabel">Year</span><div class="two"><select id="f-from" aria-label="From year">${opt("", "From", F.from)}${yrs.map((y) => opt(y, y, F.from)).join("")}</select><select id="f-to" aria-label="To year">${opt("", "To", F.to)}${yrs.map((y) => opt(y, y, F.to)).join("")}</select></div></div>
           <div><label class="flabel" for="f-code">Paper code</label><input id="f-code" type="text" list="codes" placeholder="e.g. CC-5, MMC-21" value="${esc(F.code)}" autocomplete="off"><datalist id="codes">${D.codes.map((c) => `<option value="${esc(c)}">`).join("")}</datalist></div>
           <div><label class="flabel" for="f-broad">Topic</label><select id="f-broad">${opt("", "Any area", F.broad)}${D.broad.map((b, i) => opt(i, b, F.broad)).join("")}</select>
             <select id="f-topic" style="margin-top:8px" aria-label="Specific topic">${opt("", "Any specific topic", F.topic)}${specific.map(([i, t]) => opt(i, t[1], F.topic)).join("")}</select></div>
           <div><span class="flabel">Length</span><div class="seg" data-f="len">${[["", "Any"], ["short", "Short ≤" + SHORT_MAX], ["long", "Long ≥" + (SHORT_MAX + 1)]].map(([v, l]) => `<button type="button" class="chip${F.len === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"], ["JAM", "JAM"], ["NET", "NET"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+          <div ${EXAM[F.kind] ? "hidden" : ""}><span class="flabel">VB exam type</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
           <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> Only questions asked in more than one year</label></div>
           </div>
         </aside>
         <section style="min-width:0">
-          <form class="searchbar" id="sform" role="search"><input name="q" type="search" id="sq" placeholder="Try: Cayley-Hamilton, Sylow, Frobenius, &quot;uniformly continuous&quot;" value="${esc(F.q)}" aria-label="Search questions"><button class="btn btn-primary" type="submit">Search</button></form>
           <div class="resultbar"><span id="rcount"></span><label>Sort <select id="f-sort">${opt("rel", "Relevance", F.sort)}${opt("new", "Newest first", F.sort)}${opt("old", "Oldest first", F.sort)}${opt("marks", "Most marks", F.sort)}${opt("rep", "Most repeated", F.sort)}</select></label></div>
           <div id="results"></div>
           <div class="pager"><button class="btn btn-ghost" type="button" id="more" hidden>Show more</button></div>
@@ -463,7 +578,8 @@
   function searchQuery() {
     const params = new URLSearchParams();
     if (F.q) params.set("q", F.q);
-    if (EXAM[F.kind]) params.set("exam", F.kind);
+    if (EXAM[F.kind] || F.prog) params.set("exam", EXAM[F.kind] ? F.kind : F.prog);
+    if (F.sem) params.set("sem", F.sem);
     return params.size ? "?" + params : "";
   }
   function bindSearch() {
@@ -473,16 +589,18 @@
     let deb; $("#sq").addEventListener("input", (e) => { clearTimeout(deb); deb = setTimeout(() => { F.q = e.target.value.trim(); rerun(); }, 220); });
     $$(".seg[data-f]").forEach((g) => g.addEventListener("click", (e) => {
       const b = e.target.closest("button[data-v]"); if (!b) return;
-      F[g.dataset.f] = b.dataset.v; $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
-      if (g.dataset.f === "prog") {
-        if (F.prog && EXAM[F.kind]) F.kind = "";
-        if (F.prog === "MSc" && +F.sem > 4) F.sem = "";
-        route(true); return;
+      const field = g.dataset.f, value = b.dataset.v;
+      if (field === "prog") {
+        F.prog = EXAM[value] ? "" : value;
+        F.kind = EXAM[value] ? value : EXAM[F.kind] ? "" : F.kind;
+        if (EXAM[value]) F.sem = F.code = "";
+        if (value === "MSc" && +F.sem > 4) F.sem = "";
+        route(true);
+        $$('.source-picker .chip').find((chip) => chip.dataset.v === value)?.focus({ preventScroll: true });
+        return;
       }
-      if (g.dataset.f === "kind" && EXAM[F.kind]) {
-        F.prog = F.sem = F.code = "";
-        route(true); return;
-      }
+      F[field] = value;
+      $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
       rerun();
     }));
     const sel = { "f-sem": "sem", "f-from": "from", "f-to": "to", "f-sort": "sort", "f-topic": "topic" };
@@ -491,9 +609,9 @@
     $("#f-code").addEventListener("change", (e) => { F.code = e.target.value.trim().toUpperCase(); rerun(); });
     $("#f-rep").addEventListener("change", (e) => { F.rep = e.target.checked; rerun(); });
     $("#freset").addEventListener("click", () => { F = defaultFilters(); store.set("filters", F); route(true); });
-    $("#ftoggle").addEventListener("click", (e) => { const f = $("#filters"); const c = f.dataset.collapsed === "1"; f.dataset.collapsed = c ? "0" : "1"; e.target.textContent = c ? "Hide" : "Show"; });
+    $("#ftoggle").addEventListener("click", (e) => { const f = $("#filters"); const c = f.dataset.collapsed === "1"; f.dataset.collapsed = c ? "0" : "1"; searchFiltersOpen = c; e.currentTarget.setAttribute("aria-expanded", String(c)); e.currentTarget.textContent = c ? "Hide" : "Show"; });
     $("#more").addEventListener("click", () => { shown += PAGE; renderResults(true); });
-    renderResults();
+    rerun();
   }
   let lastRes = [];
   function renderResults(append) {
@@ -501,6 +619,11 @@
     const box = $("#results"); if (!box) return;
     const n = lastRes.length;
     $("#rcount").textContent = n ? `${n.toLocaleString()} question${n === 1 ? "" : "s"}` : "";
+    if (!n && F.kind === "GATE" && !D.papers.some((p) => p.prog === "GATE")) {
+      box.innerHTML = `<div class="empty">Use the <a href="${L("exams-gate")}">GATE archive</a> to search PDF text and browse available typed editions.</div>`;
+      $("#more").hidden = true;
+      return;
+    }
     if (!n) { box.innerHTML = `<div class="empty">No questions match. Loosen a filter, or check the <a href="${L("scans")}">scanned papers</a> — not every scan has been typed yet.</div>`; $("#more").hidden = true; return; }
     const from = append ? box.children.length : 0;
     const html = lastRes.slice(from, shown).map((q) => qCard(q)).join("");
@@ -571,17 +694,17 @@
     return `<section class="hero-band"><div class="wrap">
         <div class="hero">
           <div>
-            <h1>Visva-Bharati mathematics question papers, typed and searchable</h1>
+            <h1>Visva-Bharati Mathematics Question Papers</h1>
             <p class="lede">B.Sc. and M.Sc. examination questions from ${yrs[0]} to ${yrs[yrs.length - 1]}, written in LaTeX, sorted by semester and topic, and linked to the original scans.</p>
             <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
           </div>
-          <article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
+          <div class="hero-feature"><div class="hero-illustration" aria-hidden="true"></div><article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
             <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(semLabel(qp))}, ${qp.year}</a></div>
             <div class="qh"><span class="qn">Q${esc(qLabel(qod))}</span><span class="qsrc">${qp.title ? esc(qp.title) : ""}</span>${qod.marks != null ? `<span class="qmk">${esc(fmtMarks(qod))} marks</span>` : ""}</div>
             <div class="qbody">${texToHtml(qod.tex)}</div>
             <div class="qodf"><a class="btn btn-ghost btn-sm" href="${L("paper-" + qp.key)}">Open the paper</a><button type="button" class="qbtn collect${coll.includes(qod.id) ? " on" : ""}" data-act="collect"><span class="lbl-off">${IC.plus}</span><span class="lbl-on">${IC.check}</span><span class="lbl-off">Collect</span><span class="lbl-on">Collected</span></button></div>
-          </article>
+          </article></div>
         </div>
         <div class="statbar"><div><b>${nq.toLocaleString()}</b><span>questions</span></div><div><b>${D.papers.length}</b><span>typed papers</span></div><div><b>${D.scans.length}</b><span>original scans</span></div><div><b>${yrs[0]}–${yrs[yrs.length - 1]}</b><span>examination years</span></div></div>
       </div></section>
@@ -610,54 +733,173 @@
     typeset($("#qod"));
   }
 
+  /* ---------- paper archives ---------- */
+  const originalPaperLink = (href, label, icon = IC.ext) => `<a href="${esc(href)}" target="_blank" rel="noopener">${icon}<span>${esc(label)}</span></a>`;
+  function archiveItems(code, semester) {
+    const academic = Object.hasOwn(PROG, code);
+    const sources = academic ? [] : D.C.paperSources?.[code] || [];
+    const byPaper = new Map(sources.filter((row) => row[4]).map((row) => [row[4], row]));
+    const seen = new Set(sources.map((row) => row[2]).filter(Boolean));
+    const records = D.papers.filter((p) => p.prog === code && (!semester || p.sem === semester)).map((p) => {
+      const source = byPaper.get(p.key);
+      const pdf = source?.[2] || p.source || "";
+      if (pdf) seen.add(pdf);
+      return {year:p.year, sem:p.sem, label:source?.[1] || (academic ? paperLabel(p) : code === "JAM" ? "Mathematics (MA)" : p.title),
+        pdf, answer:source?.[3] || p.answer_key, typed:p.key, internal:p.kind[0] === "i", questions:p.n};
+    });
+    records.push(...sources.filter((row) => !row[4] || !D.byKey.has(row[4])).map(([year, label, pdf, answer, , reader]) => ({year,label,pdf,answer,reader})));
+    if (academic) {
+      records.push(...D.scans.filter((scan) => !scan.other && scan.prog === code && (!semester || scan.sem === semester)).map((scan) =>
+        ({year:scan.year, sem:scan.sem, label:scan.label, pdf:scanUrl(scan.id), internal:scan.kind === "i"})));
+    } else if (code === "NET" || code === "JAM") {
+      const exam = D.C.exams.find((item) => EXAM_CODE[item.name] === code);
+      for (const [label, url] of exam.links) {
+        const year = code === "JAM" ? /^\d{4}$/.test(label) && +label : Number(label.match(/\b20\d{2}\b/)?.[0]);
+        if (year && !seen.has(url)) {
+          const jam = code === "JAM" && records.find((row) => row.year === year && row.typed);
+          if (!jam) records.push({year,label:code === "JAM" ? "Mathematics (MA)" : label,pdf:url});
+        }
+      }
+    }
+    return records.sort((a, b) => (b.year || 0) - (a.year || 0) || (a.sem || 0) - (b.sem || 0) || Number(!!b.typed) - Number(!!a.typed) || a.label.localeCompare(b.label, undefined, {numeric:true}));
+  }
+  function archiveCard(item, code) {
+    const actions = [
+      item.pdf && originalPaperLink(item.pdf, "Original PDF", IC.file),
+      item.typed && `<a href="${L("paper-" + item.typed)}">${IC.stack}<span>Typed questions</span></a>`,
+      item.reader && originalPaperLink(item.reader, "Typed paper (external)", IC.stack),
+      item.answer && originalPaperLink(item.answer, "Answer key"),
+    ].filter(Boolean).join("");
+    const session = code === "NET" && item.label.match(/^(?:(\d{1,2}) )?(January|February|March|April|May|June|July|August|September|October|November|December)/i);
+    const sessionLabel = session ? [session[1], session[2].slice(0, 3)].filter(Boolean).join(" ") : "";
+    const mark = `<span class="archive-year" aria-hidden="true">${IC.file}<strong>${item.year || "—"}</strong>${sessionLabel ? `<span>${sessionLabel}</span>` : ""}</span>`;
+    const assignment = `<span class="archive-label">${esc(item.label)}</span>${item.sem ? `<small>${semLabel({prog:code,sem:item.sem})}${item.internal ? " · Internal" : ""}</small>` : ""}`;
+    const heading = item.pdf ? `<a class="archive-item-head" href="${esc(item.pdf)}" target="_blank" rel="noopener" aria-label="Open original PDF, ${item.year || "year unlisted"}, ${esc(item.label)}">${mark}<span>${assignment}</span></a>` :
+      `<div class="archive-item-head">${mark}<span>${assignment}</span></div>`;
+    return `<article class="archive-item">${heading}<div class="archive-actions">${actions}</div></article>`;
+  }
+  let gatePages;
+  function gateSearch() {
+    return `<form class="archive-search" id="gate-search" role="search">
+      <label for="gate-query">Find text in GATE PDFs (2022–2026)</label>
+      <div><input id="gate-query" type="search" placeholder="Try eigenvalue, compact, or differential equation" required>
+        <button type="submit" class="btn btn-primary">${IC.search} Search PDFs</button></div>
+      <small class="muted">Search extracted PDF text. Open the original page to read formulas and figures.</small>
+    </form><div id="gate-matches" aria-live="polite"></div>`;
+  }
+  function bindGateSearch(archive) {
+    const form = $("#gate-search", archive);
+    if (!form) return;
+    const output = $("#gate-matches", archive);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const terms = $("#gate-query", archive).value.toLowerCase().match(/[a-z0-9]+/g) || [];
+      if (!terms.length) { output.textContent = "Enter a word or question number to search."; return; }
+      const button = $("button", form);
+      button.disabled = true;
+      output.textContent = "Searching PDF pages…";
+      try {
+        if (!gatePages) {
+          const response = await fetch(BASE + "data/gate-pages.json.gz");
+          if (!response.ok || !response.body) throw Error("PDF index unavailable");
+          gatePages = await new Response(response.body.pipeThrough(new DecompressionStream("gzip"))).json();
+        }
+        const sources = new Map(D.C.paperSources.GATE.map(([year, , pdf]) => [String(year), pdf]));
+        const matches = Object.entries(gatePages).reverse().flatMap(([year, pages]) => pages
+          .filter(([, text]) => terms.every((term) => (" " + text + " ").includes(" " + term + " "))).map(([page]) => [year, page]));
+        output.innerHTML = matches.length ? `<p>${matches.length} matching PDF ${matches.length === 1 ? "page" : "pages"}</p>
+          <div class="row gate-page-links">${matches.map(([year, page]) => `<a class="chip" href="${esc(sources.get(year))}#page=${page}" target="_blank" rel="noopener">GATE ${year} · page ${page} ${IC.ext}</a>`).join("")}</div>`
+          : "<p>No PDF pages match those terms.</p>";
+      } catch {
+        output.textContent = "PDF search is temporarily unavailable. You can still open the PDFs below.";
+      } finally { button.disabled = false; }
+    });
+  }
+  function archiveBrowser(code, semester) {
+    const items = archiveItems(code, semester);
+    const years = [...new Set(items.map((p) => p.year || "unknown"))];
+    const academic = Object.hasOwn(PROG, code);
+    const typed = items.some((item) => item.typed);
+    const records = items.some((item) => item.reader);
+    return `<div class="paper-archive" data-archive="${code}" data-semester="${semester || ""}">
+      ${code === "GATE" ? gateSearch() : ""}
+      ${typed ? `<form class="archive-search" role="search" action="${L("search")}">
+        <label for="archive-query">Search typed questions</label>
+        <div><input name="q" type="search" id="archive-query" placeholder="Search a topic, theorem or formula">
+          <input name="exam" type="hidden" value="${code}">
+          <button class="btn btn-primary" type="submit">${IC.search} Search</button></div></form>` :
+        records ? `<p class="note">The GATE tiles link to official PDFs and available typed editions. <a href="https://studentaihub.tech/gate-previous-year-papers/ma#gate-ma-previous-year-questions-by-topic" target="_blank" rel="noopener">Browse GATE questions by topic</a>.</p>` : ""}
+      ${items.length ? `<div class="archive-filters">
+        <div><label class="flabel" for="archive-year">Year</label><select id="archive-year">${opt("", "All years", "")}${years.map((y) => opt(y, y === "unknown" ? "Year unlisted" : y, academic ? years[0] : "")).join("")}</select></div>
+        ${academic && !semester ? `<div><label class="flabel" for="archive-sem">Semester</label><select id="archive-sem">${opt("", "All semesters", "")}${Array.from({length:NSEM[code]}, (_, i) => opt(i + 1, "Semester " + ROMAN[i + 1], "")).join("")}</select></div>` : ""}
+        <div><label class="flabel" for="archive-format">Format</label><select id="archive-format"><option value="">All formats</option><option value="pdf">Original PDFs</option>${typed || records ? '<option value="typed">Typed papers</option>' : ""}</select></div>
+        <div><label class="flabel" for="archive-title">Paper or session</label><input type="search" id="archive-title" placeholder="Filter papers"></div>
+      </div><p class="muted archive-count" aria-live="polite"></p><div class="archive-tiles"></div>` : '<p class="empty">No question papers are listed for this semester.</p>'}
+    </div>`;
+  }
+  function bindArchive() {
+    const archive = $(".paper-archive");
+    if (!archive) return;
+    const {archive:code, semester} = archive.dataset;
+    bindGateSearch(archive);
+    const search = $('form.archive-search[action]', archive);
+    search?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      F = {...defaultFilters(), q: $("#archive-query").value.trim(), sem:semester, prog:Object.hasOwn(PROG, code) ? code : "", kind:EXAM[code] ? code : ""};
+      go("search");
+    });
+    const year = $("#archive-year", archive);
+    if (!year) return;
+    const sem = $("#archive-sem", archive), format = $("#archive-format", archive), title = $("#archive-title", archive);
+    const items = archiveItems(code, +semester);
+    const draw = () => {
+      const q = searchWords(title.value, false).trim();
+      const shown = items.filter((item) => (!year.value || year.value === String(item.year || "unknown")) &&
+        (!sem?.value || +sem.value === item.sem) && (format.value !== "pdf" || item.pdf) &&
+        (format.value !== "typed" || item.typed || item.reader) && (!q || searchWords(item.label, false).includes(q)));
+      $(".archive-count", archive).textContent = shown.length.toLocaleString() + (shown.length === 1 ? " paper" : " papers");
+      $(".archive-tiles", archive).innerHTML = shown.length ? shown.map((item) => archiveCard(item, code)).join("") : '<p class="empty">No papers match these filters.</p>';
+    };
+    [year, sem, format].filter(Boolean).forEach((el) => el.addEventListener("change", draw));
+    title.addEventListener("input", draw);
+    draw();
+  }
+
   /* ---------- papers (programme overview) ---------- */
-  function viewPapers() {
-    const tab = store.get("papersTab", "BSc");
+  function viewPapers(programme) {
+    const requested = routeParams().get("programme");
+    const tab = programme || (Object.hasOwn(PROG, requested) ? requested : store.get("papersTab", "BSc"));
     const sems = Array.from({ length: NSEM[tab] }, (_, i) => i + 1);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Papers</div>
-      <div class="pagehead"><h1>Question papers</h1><p class="lede">Choose a semester to see every typed paper by year, with internal tests and links to the original scans.</p></div>
-      <div class="progtabs" role="tablist">${["BSc", "MSc"].map((t) => `<button type="button" role="tab" aria-selected="${t === tab}" class="${t === tab ? "on" : ""}" data-tab="${t}">${PROG[t]}</button>`).join("")}</div>
+      ${editorialHeading(programme ? PROG[tab] + " Question Papers" : "Question papers", "Browse typed exam papers, internal tests and original scans by semester.")}
+      ${programme ? "" : `<div class="progtabs" role="group" aria-label="Mathematics programmes">${Object.entries(PROGRAMME_ROUTES).map(([code, route]) => `<a class="chip${code === tab ? " on" : ""}" href="${L(route)}">${PROG[code]}</a>`).join("")}</div>`}
       <div class="semgrid">${sems.map((s) => {
         const ps = semPapers(tab, s), ys = ps.map((p) => p.year), sc = D.scans.filter((x) => x.prog === tab && x.sem === s && !x.other).length;
         const codes = semCodes(tab, s).filter((c) => c.kind === "s").slice(0, 4).map((c) => c.name).join(" · ");
         return `<a class="semlink${ps.length ? "" : " none"}" href="${L("semester-" + tab.toLowerCase() + "-" + s)}"><span class="big">${ROMAN[s]}</span><b>Semester ${ROMAN[s]}</b><small>${ps.length ? `${ps.length} papers · ${Math.min(...ys)}–${Math.max(...ys)} · ${sc} scans` : sc ? sc + " scans, none typed yet" : "No papers yet"}</small><span class="codes">${esc(codes || "—")}</span></a>`;
       }).join("")}</div>
+      ${programme ? archiveBrowser(tab) : ""}
       <p class="muted" style="margin-top:18px;font-size:14px">Syllabus eras: BMC codes until 2016–17, CBCS (CC, DSE, SEC, GE) from 2017–18, NEP (MJMA, MNMA, SEC) from 2025–26. Older papers are in <a href="${L("scans")}">Scans</a>.</p></div>`;
   }
-  function bindPapers() { $$("[data-tab]").forEach((b) => b.addEventListener("click", () => { store.set("papersTab", b.dataset.tab); route(true); })); }
-
   /* ---------- one semester ---------- */
   function viewSemester(arg) {
     const m = (arg || "").match(/^(bsc|msc)-(\d)$/); if (!m) return notFound();
     const pg = m[1] === "bsc" ? "BSc" : "MSc", s = +m[2]; if (s < 1 || s > NSEM[pg]) return notFound();
     const ps = semPapers(pg, s);
-    const years = Array.from(new Set(ps.map((p) => p.year).concat(D.scans.filter((x) => x.prog === pg && x.sem === s && !x.other && x.year >= 2016).map((x) => x.year)))).sort((a, b) => b - a);
     setMeta(`${PSHORT[pg]} Mathematics Semester ${ROMAN[s]} question papers · VBMath`, `All Visva-Bharati ${PSHORT[pg]} Mathematics Semester ${ROMAN[s]} question papers${ps.length ? ", " + Math.min(...ps.map((p) => p.year)) + "–" + Math.max(...ps.map((p) => p.year)) : ""}, typed and searchable, with scans.`, L("semester-" + arg));
-    const block = (y) => {
-      const end = ps.filter((p) => p.year === y && p.kind[0] === "s"), int = ps.filter((p) => p.year === y && p.kind[0] === "i");
-      const sc = D.scans.filter((x) => x.prog === pg && x.sem === s && x.year === y && !x.other);
-      const pc = (p) => `<a class="pcard${p.kind[0] === "i" ? " int" : ""}" href="${L("paper-" + p.key)}"><span class="c">${esc(pname(p))}</span>${p.title ? `<span class="t">${esc(p.title)}</span>` : ""}<span class="m">${D.byPaper[D.byKey.get(p.key)].filter((q) => !q.stem).length} questions</span></a>`;
-      const e = era(end.concat(int).map((p) => p.code).find(Boolean));
-      return `<div class="yearblock"><div class="yr">${y}<small>${e}</small></div><div>
-        ${end.length ? `<div class="ytitle">End-semester</div><div class="pcards">${end.map(pc).join("")}</div>` : ""}
-        ${int.length ? `<div class="ytitle" style="margin-top:16px">Internal tests</div><div class="pcards">${int.map(pc).join("")}</div>` : ""}
-        ${!end.length && !int.length ? `<div class="ytitle">Not typed yet</div>` : ""}
-        ${sc.length ? `<div class="row" style="margin-top:12px"><a class="chip" href="${L("scans")}" data-scan="${pg}|${s}|${y}">${IC.scan} ${sc.length} original scan${sc.length > 1 ? "s" : ""}</a></div>` : ""}
-      </div></div>`;
-    };
     return `<div class="wrap" style="max-width:1080px"><div class="crumbs"><a href="${L("home")}">Home</a> / <a href="${L("papers")}">Papers</a> / ${PSHORT[pg]} Semester ${ROMAN[s]}</div>
       <div class="pagehead"><div class="eyebrow">${PROG[pg]}</div><h1 style="margin-top:10px">Semester ${ROMAN[s]}</h1>
         <p class="lede">${ps.length ? `${ps.length} papers from ${Math.min(...ps.map((p) => p.year))} to ${Math.max(...ps.map((p) => p.year))}. Pick a paper and a year, or browse by year below.` : "No typed papers for this semester yet."}</p></div>
       ${ps.length ? `<div class="picker"><div><span class="flabel">Paper</span>${pickerParts(pg, s, "sem")[0]}</div><div><span class="flabel">Year</span>${pickerParts(pg, s, "sem")[1]}</div><button class="btn btn-primary" type="button" id="sem-go">Open</button></div>
         <p class="muted" style="font-size:13.5px;margin-bottom:8px">“All years” opens every question of that paper code in Search, newest first.</p>` : `<div class="empty">Have these papers? <a href="${esc(D.C.forms.questions)}" target="_blank" rel="noopener">Send the scans</a>.</div>`}
-      ${years.map(block).join("")}
+      ${archiveBrowser(pg, s)}
       <div class="row" style="margin-top:28px">${Array.from({ length: NSEM[pg] }, (_, i) => i + 1).filter((x) => x !== s).map((x) => `<a class="chip" href="${L("semester-" + pg.toLowerCase() + "-" + x)}">Semester ${ROMAN[x]}</a>`).join("")}</div></div>`;
   }
   function bindSemester(arg) {
     const m = (arg || "").match(/^(bsc|msc)-(\d)$/); if (!m) return;
     const pg = m[1] === "bsc" ? "BSc" : "MSc", s = +m[2];
     if ($("#sem-go")) bindPicker(pg, s, "sem", "#sem-go");
-    $$("[data-scan]").forEach((a) => a.addEventListener("click", () => { const [p, ss, y] = a.dataset.scan.split("|"); store.set("scanF", { prog: p, sem: ss, year: y, q: "", math: true }); }));
+    bindArchive();
   }
   const notFound = () => `<div class="wrap"><div class="empty">This page isn't in the archive. <a href="${L("home")}">Go home</a></div></div>`;
 
@@ -690,7 +932,7 @@
         ${scans.slice(0, 1).map((s) => `<a class="btn btn-ghost btn-sm" href="${scanUrl(s.id)}" target="_blank" rel="noopener">${IC.scan} Original scan</a>`).join("")}
       </div>
       ${p.rule ? `<p class="rubric">${esc(plainOf(p.rule))}</p>` : ""}
-      <div id="paperqs">${html}</div>
+      ${paperSearch()}<div id="paperqs">${html}</div>
       <section class="section" style="margin-top:44px"><div class="shead"><h2 style="font-size:22px;margin:0">Original scans</h2><span class="muted">Opens in Google Drive</span></div>
         ${scans.length ? `<div class="list">${scans.map((s) => `<a class="row" href="${scanUrl(s.id)}" target="_blank" rel="noopener"><span class="t">${esc(s.label)}${s.pages ? ` <span class="muted">· ${s.pages} ${s.pages === 1 ? "page" : "pages"}</span>` : ""}</span><span class="muted">${IC.ext}</span></a>`).join("")}</div>` : `<div class="empty">No scan is linked for this exam yet.</div>`}
       </section>
@@ -700,6 +942,8 @@
   }
   function viewCompetitivePaper(p, qs) {
     const name = EXAM[p.prog];
+    const source = D.C.paperSources?.[p.prog]?.find((row) => row[4] === p.key);
+    const pdf = source?.[2] || p.source, answer = source?.[3] || p.answer_key;
     setMeta(`${name} · ${p.title} · VBMath`, `${qs.length} typed questions from ${name}, ${p.title}.`, L("paper-" + p.key));
     let section = "";
     const cards = qs.map((q, index) => {
@@ -714,16 +958,33 @@
         <a class="btn btn-primary btn-sm" href="${L("preview-" + p.key)}">${IC.file} Preview as PDF</a>
         <button class="btn btn-ghost btn-sm" type="button" id="addall">${IC.plus} Collect all</button>
         <button class="btn btn-ghost btn-sm" type="button" id="copypaper">${IC.copy} Copy LaTeX</button>
-        ${p.source ? ext(p.source, "Original paper", "btn btn-ghost btn-sm") : ""}
-        ${p.answer_key ? ext(p.answer_key, "Final answer key", "btn btn-ghost btn-sm") : ""}
+        ${pdf ? ext(pdf, "Original paper", "btn btn-ghost btn-sm") : ""}
+        ${answer ? ext(answer, "Final answer key", "btn btn-ghost btn-sm") : ""}
       </div>
-      <div id="paperqs">${cards}</div>
+      ${paperSearch()}<div id="paperqs">${cards}</div>
     </div>`;
   }
+  const paperSearch = () => `<div class="paper-find"><label for="paper-find">Find in this paper</label>
+    <input id="paper-find" type="search" placeholder="Search questions or enter a question number">
+    <span class="muted" id="paper-find-count" aria-live="polite"></span></div>`;
   function bindPaper(key) {
     const pi = D.byKey.get(key); if (pi == null) return;
     const qs = D.byPaper[pi].filter((q) => !q.stem);
-    typeset($("#paperqs"));
+    const body = $("#paperqs"), input = $("#paper-find");
+    typeset(body);
+    input?.addEventListener("input", () => {
+      const term = input.value.trim(), number = term.match(/^q(?:uestion)?\s*\.?\s*(\d+)(?:\s*\(?([a-z])\)?)?$/i);
+      const query = number ? null : scoringQuery(term);
+      let count = 0;
+      $$(".q", body).forEach((el) => {
+        const q = D.byId.get(el.dataset.id);
+        el.hidden = number ? (String(q.qno) !== number[1] || !!number[2] && q.part?.toLowerCase() !== number[2].toLowerCase())
+          : !!query && searchScore(q, query) < 0;
+        if (!el.hidden) count++;
+      });
+      $$(".secthead", body).forEach((el) => { el.hidden = Boolean(term); });
+      $("#paper-find-count").textContent = term ? count + (count === 1 ? " match" : " matches") : "";
+    });
     $("#copypaper").addEventListener("click", () => copy(toLatex(D.byPaper[pi], D.papers[pi]), "Paper LaTeX copied"));
     $("#addall").addEventListener("click", () => { let n = 0; qs.forEach((q) => { if (!coll.includes(q.id)) { coll.push(q.id); n++; } }); saveColl(); $$(".q").forEach((c) => { c.classList.add("in"); const b = $(".collect", c); b && b.classList.add("on"); }); toast(n + " added · " + coll.length + " in your collection"); });
   }
@@ -790,7 +1051,7 @@
     const f = Object.assign({ prog: "", sem: "", year: "", q: "", math: true, old: false }, store.get("scanF", {}));
     const years = Array.from(new Set(D.scans.map((s) => s.year).filter(Boolean))).sort((a, b) => b - a);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Scans</div>
-      <div class="resource-intro resource-intro-split"><div><h1>Scanned papers</h1><p class="lede">Find original exam papers by programme, semester, year or paper code.</p></div><div class="resource-stat">${IC.scan}<div><strong>${D.scans.length.toLocaleString()}</strong><small>Original PDFs</small></div></div></div>
+      ${editorialHeading("Scanned papers", "Find original exam papers by programme, semester, year or paper code.", false, `<div class="resource-stat">${IC.scan}<div><strong>${D.scans.length.toLocaleString()}</strong><small>Original PDFs</small></div></div>`)}
       <div class="scan-filters" aria-label="Scan filters">
         <div><label class="flabel" for="s-prog">Programme</label><select id="s-prog">${opt("", "All", f.prog)}${opt("BSc", "B.Sc.", f.prog)}${opt("MSc", "M.Sc.", f.prog)}</select></div>
         <div><label class="flabel" for="s-sem">Semester</label><select id="s-sem">${opt("", "All", f.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].map((s) => opt(s, "Sem " + ROMAN[s], f.sem)).join("")}</select></div>
@@ -849,18 +1110,31 @@
     const bc = D.broad.map((b, i) => D.Q.filter((q) => !q.stem && q.broads.has(i)).length);
     const order = D.broad.map((b, i) => i).sort((a, b) => bc[b] - bc[a]);
     let maxShare = 0; cell.forEach((v, k) => { const y = +k.split("|")[1]; maxShare = Math.max(maxShare, v / byYear.get(y)); });
-    const shade = (v) => `color-mix(in srgb, var(--green) ${Math.round(8 + 72 * v)}%, var(--card))`;
     const weak = D.Q.filter((q) => q.weak).length;
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Topics</div>
-      <h1>Topic map</h1><p class="lede">Each question part is tagged with up to three topics, from broad areas down to specific ones. Click any topic or any cell to see its questions.</p>
+      ${editorialHeading("Topic map", "Explore questions by topic and see how Visva-Bharati exam coverage changes from year to year.")}
       <p class="note" style="max-width:76ch">Tags come from a first automatic pass over the question text, so some are imprecise. ${weak.toLocaleString()} questions are marked for checking. The trend table shows how often an area was examined in past years; it describes patterns, it does not predict a paper.</p>
       <section class="section" style="margin-top:32px"><div class="section-head"><h2>How often each area is examined</h2><span class="muted">Share of that year's questions</span></div>
         <div class="scroll-x" style="padding:10px"><table class="heat"><thead><tr><th></th>${yrs.map((y) => `<th>’${String(y).slice(2)}</th>`).join("")}</tr></thead><tbody>
-        ${order.map((b) => `<tr><th>${esc(D.broad[b])}</th>${yrs.map((y) => { const v = cell.get(b + "|" + y) || 0, sh = byYear.get(y) ? v / byYear.get(y) : 0; return `<td style="background:${shade(sh / maxShare)};color:${sh / maxShare > 0.55 ? "#fff" : "var(--ink)"}" data-hb="${b}" data-hy="${y}" title="${esc(D.broad[b])}, ${y}: ${v} questions (${Math.round(sh * 100)}%)">${v ? Math.round(sh * 100) : ""}</td>`; }).join("")}</tr>`).join("")}
+        ${order.map((b) => `<tr><th>${esc(D.broad[b])}</th>${yrs.map((y) => { const v = cell.get(b + "|" + y) || 0, sh = byYear.get(y) ? v / byYear.get(y) : 0; return `<td style="--heat-weight:${maxShare ? Math.round(100 * sh / maxShare) : 0}%" data-hb="${b}" data-hy="${y}" title="${esc(D.broad[b])}, ${y}: ${v} questions (${Math.round(sh * 100)}%)">${v ? Math.round(sh * 100) : ""}</td>`; }).join("")}</tr>`).join("")}
         </tbody></table></div><p class="muted" style="font-size:13px;margin-top:8px">Numbers are percentages. B.Sc. and M.Sc. together; use Search filters to split them.</p></section>
       <section class="section"><div class="section-head"><h2>All topics</h2></div>
-        <div class="grid g2">${order.map((b) => `<div class="card"><h3><a href="${L("search")}" data-tb="${b}" style="color:inherit;text-decoration:none">${esc(D.broad[b])}</a> <span class="muted" style="font:400 13px var(--f-ui)">${bc[b].toLocaleString()}</span></h3>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${D.topics.map((t, k) => [t, k]).filter(([t]) => t[0] === D.broad[b]).sort((x, y) => tc[y[1]] - tc[x[1]]).map(([t, k]) => `<a class="tag" href="${L("search")}" data-tt="${k}" data-tb2="${b}">${esc(t[1])} · ${tc[k]}</a>`).join("")}</div></div>`).join("")}</div></section></div>`;
+        <div class="topic-grid">${order.map((b) => {
+          const topics = D.topics.map(([area, label], k) => ({ area, label, k, count: tc[k] }))
+            .filter(({ area }) => area === D.broad[b]).sort((a, b) => b.count - a.count);
+          return `<article class="topic-card">
+            <h3><a class="topic-area" href="${L("search")}" data-tb="${b}">
+              <span>${esc(D.broad[b])}</span>
+              <span class="topic-total">${bc[b].toLocaleString()}<span class="sr"> questions</span></span>
+              ${IC.arrow}
+            </a></h3>
+            <ul class="topic-list" role="list">${topics.map(({ label, k, count }) => `
+              <li><a class="topic-row" href="${L("search")}" data-tt="${k}" data-tb2="${b}">
+                <span>${esc(label)}</span>
+                <span class="topic-count">${count.toLocaleString()}<span class="sr"> questions</span></span>
+              </a></li>`).join("")}</ul>
+          </article>`;
+        }).join("")}</div></section></div>`;
   }
   function bindTopics() {
     $$("[data-hb]").forEach((td) => td.addEventListener("click", () => { F = defaultFilters(); F.broad = td.dataset.hb; F.from = F.to = td.dataset.hy; go("search"); }));
@@ -870,24 +1144,49 @@
 
   /* ---------- content pages ---------- */
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
-  const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
-  function viewExams() {
-    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET" };
-    const cards = D.C.exams.map((exam) => {
-      const code = routes[exam.name];
+  function editorialHeading(title, intro, art = true, aside = "") {
+    return `<header class="editorial-heading${art ? " has-art" : ""}${aside ? " has-aside" : ""}"><div>
+      <h1>${esc(title)}</h1>${intro ? `<p class="lede">${esc(intro)}</p>` : ""}</div>
+      ${aside}</header>`;
+  }
+  const illustratedPages = new Set(["Notes", "Competitive exams", "Syllabus"]);
+  const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div>
+    ${illustratedPages.has(crumb) ? editorialHeading(title, lede) : `<h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}`}${body}</div>`;
+  function viewExams(selected) {
+    const row = (label, href, external = false, attrs = "") => `<a class="exam-row" href="${esc(href)}"${external ? ' target="_blank" rel="noopener"' : ""}${attrs}><span>${esc(label)}</span>${external ? IC.ext : IC.arrow}</a>`;
+    const exams = selected ? D.C.exams.filter((exam) => EXAM_CODE[exam.name] === selected) : D.C.exams;
+    const cards = exams.map((exam) => {
+      const code = EXAM_CODE[exam.name];
       const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
-      const search = papers.length ? `<a class="note-open" href="${L("search")}${HASH ? "" : "?exam=" + code}" data-exam-search="${code}">Search questions ${IC.arrow}</a>` : "";
-      const links = exam.links.map(([label, url]) => ext(url, label, "chip")).join("");
-      return `<article class="resource-card${code ? " resource-featured" : ""}">
-        <div class="resource-card-head"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
-          <div><h2>${esc(exam.name)}</h2><p>${esc(exam.note)}</p></div></div>
-        ${search}
-        ${papers.length ? `<details class="resource-disclosure"><summary>Searchable papers <span class="muted">(${papers.length})</span></summary>
-          <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "JAM" ? p.year : p.title)}</a>`).join("")}</div></details>` : ""}
-        ${code ? `<details class="resource-disclosure"${papers.length ? "" : " open"}><summary>Original papers and resources</summary><div class="resource-links">${links}</div></details>` : `<div class="resource-links">${links}</div>`}
-        ${exam.syllabus ? `<div>${ext(exam.syllabus, "Syllabus", "chip")}</div>` : ""}
+      const search = papers.length ? row("Search questions", L("search") + (HASH ? "" : "?exam=" + code), false, ` data-exam-search="${code}"`) : "";
+      const links = (code === "GATE" ? row("Official past papers and answer keys", "https://gate2026.iitg.ac.in/download.html", true) : "") + exam.links.map(([label, url]) => row(label, url, true)).join("");
+      const syllabus = EXAM_GUIDANCE[code]?.[2] || exam.syllabus;
+      return `<article class="topic-card exam-card" id="exam-${code || "vb-admission"}" tabindex="-1">
+        <div class="exam-card-title"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
+          <div>${selected ? "" : `<h2>${code ? `<a class="exam-title-link" href="${L("exams-" + code.toLowerCase())}">${esc(exam.name)}</a>` : esc(exam.name)}</h2>`}<p>${esc(exam.note)}</p></div></div>
+        <div class="exam-rows">
+          ${search}
+          ${papers.length ? `<details class="exam-disclosure"${selected ? " open" : ""}><summary><span>Searchable papers</span><span class="topic-total" aria-label="${papers.length} papers">${papers.length}</span>${IC.down}</summary>
+            <div>${papers.map((p) => row(code === "JAM" ? p.year : p.title, L("paper-" + p.key))).join("")}</div></details>` : ""}
+          ${code && papers.length ? `<details class="exam-disclosure"><summary><span>Original papers and resources</span>${IC.down}</summary><div>${links}</div></details>` : links}
+          ${syllabus ? row(code === "NBHM" ? "Written test guidance" : "Syllabus", syllabus, true) : ""}
+        </div>
       </article>`;
     });
+    if (selected) {
+      const exam = exams[0];
+      const resources = exam.links.filter(([label]) => selected === "NET" ? !/\b20\d{2}\b/.test(label) : selected !== "JAM" || !/^\d{4}$/.test(label));
+      const guidance = EXAM_GUIDANCE[selected]?.[2] || exam.syllabus;
+      return page("Competitive exams", exam.name + " Question Papers", exam.note,
+        `${archiveBrowser(selected)}
+          <div class="archive-resources">
+            ${guidance ? ext(guidance, selected === "NBHM" ? "Written test guidance" : "Syllabus") : ""}
+            ${resources.map(([label, url]) => ext(url, label)).join("")}
+            ${selected === "GATE" ? ext("https://drive.google.com/file/d/1BV1cIm5E4v8zJUtrjeQDLjXeuPfETAt1/view", "Official Mathematics PDF bundle (2007–2026)") : ""}
+            ${selected === "NET" ? ext("https://csirhrdg.res.in/Home/Index/1/Default/919/26", "Official CSIR exam archive") : ""}
+            <a href="${L("exams")}">All competitive exams</a>
+          </div>`);
+    }
     return page("Competitive exams", "Competitive & admission exams",
       "Find previous papers and syllabi for mathematics entrance tests and fellowships.",
       `<div class="resource-grid exam-grid">${cards.join("")}</div>`);
@@ -909,22 +1208,72 @@
       <h2>${esc(title)}</h2><p>${esc(credit)}</p>
       <a class="note-open" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open notes for ${esc(title)} (new tab)">Open notes ${IC.ext}</a>
     </article>`).join("");
-    const folders = Object.entries(D.C.notes.folders).map(([label, urls]) => `<div class="card">
-      <h3>${esc(label)}</h3>
-      <div class="note-folders">${urls.map((url, i) => {
-        const name = "Semester " + (ROMAN[i + 1] || (i + 1));
-        return `<a class="chip note-folder" href="${esc(url)}" target="_blank" rel="noopener"
-          aria-label="${esc(label)}, ${name} (new tab)">${folder} ${name} ${IC.ext}</a>`;
-      }).join("")}</div>
-    </div>`).join("");
+    const folders = Object.entries(D.C.notes.folders).map(([label, urls], group) => {
+      const semesters = urls.map((url, i) => ({
+        id: `class-notes-${group}-${i + 1}`,
+        name: "Semester " + (ROMAN[i + 1] || i + 1),
+        url,
+        items: D.C.notes.folderContents?.[url] || [],
+      }));
+      return `<section class="class-note-card">
+        <h3>${esc(label)}</h3>
+        <div class="class-note-tiles">
+          ${semesters.map(({id, name, items}) => `<button type="button" class="class-note-tile" id="${id}-tile" aria-expanded="false" aria-controls="${id}">
+            <span class="class-note-folder"><span class="class-note-sheet" aria-hidden="true"></span>
+              <span class="class-note-folder-face"><strong>${name}</strong><small>${items.length ? items.length + (items.length === 1 ? " folder" : " folders") : "Browse notes"}</small></span>
+            </span>
+          </button>`).join("")}
+        </div>
+        ${semesters.map(({id, name, url, items}) => `<section class="class-note-preview" id="${id}" aria-labelledby="${id}-heading" tabindex="-1" hidden>
+          <div class="class-note-preview-head"><h4 id="${id}-heading">${name}</h4>
+            <a href="${esc(url)}" target="_blank" rel="noopener">Open in Drive ${IC.ext}</a>
+            <button type="button" class="iconbtn class-note-close" aria-label="Close ${name}">${IC.x}</button>
+          </div>
+          ${items.length ? `<ul>${items.map(([title, link]) => `<li><a href="${esc(link)}" target="_blank" rel="noopener">${folder}<span>${esc(title)}</span>${IC.ext}</a></li>`).join("")}</ul>` :
+            '<p class="muted">Browse this semester’s notes in Drive.</p>'}
+        </section>`).join("")}
+      </section>`;
+    }).join("");
     return page("Notes", "Notes", "Lecture notes shared by Visva-Bharati mathematics students and alumni.",
       `<div class="note-grid">${notes}</div>
       <section class="section"><div class="shead"><h2>Class-note folders</h2>${ext(D.C.forms.notes, "Upload your notes", "btn btn-ghost btn-sm")}</div>
-      <div class="grid g2">${folders}</div></section>`);
+      <div class="class-note-grid">${folders}</div></section>`);
+  }
+  function bindNotes() {
+    $$(".class-note-card").forEach((card) => {
+      const tiles = $$(".class-note-tile", card);
+      const panelFor = (tile) => document.getElementById(tile.getAttribute("aria-controls"));
+      const hide = (tile) => {
+        tile.setAttribute("aria-expanded", "false");
+        panelFor(tile).hidden = true;
+      };
+      tiles.forEach((tile) => tile.addEventListener("click", () => {
+        const wasOpen = tile.getAttribute("aria-expanded") === "true";
+        const previous = tiles.find((candidate) => candidate.getAttribute("aria-expanded") === "true");
+        if (previous) hide(previous);
+        if (wasOpen) return;
+        tile.setAttribute("aria-expanded", "true");
+        const panel = panelFor(tile);
+        panel.hidden = false;
+        panel.focus();
+      }));
+      card.addEventListener("click", (event) => {
+        if (!event.target.closest(".class-note-close")) return;
+        const open = tiles.find((tile) => tile.getAttribute("aria-expanded") === "true");
+        if (open) { hide(open); open.focus(); }
+      });
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const open = tiles.find((tile) => tile.getAttribute("aria-expanded") === "true");
+        if (open) { event.preventDefault(); hide(open); open.focus(); }
+      });
+    });
   }
   function viewSyllabus() {
     const groups = new Map([["B.Sc. Mathematics", []], ["M.Sc. Mathematics", []], ["Competitive & admission exams", []]]);
-    for (const item of D.C.syllabus) {
+    const syllabus = D.C.syllabus.map((item) => item[0] === "IIT JAM Mathematics" ? EXAM_GUIDANCE.JAM : item);
+    syllabus.push(EXAM_GUIDANCE.GATE, EXAM_GUIDANCE.NBHM, EXAM_GUIDANCE.TIFR);
+    for (const item of syllabus) {
       const title = item[0];
       const group = title.startsWith("B.Sc. —") ? "B.Sc. Mathematics" :
         title.startsWith("M.Sc. —") ? "M.Sc. Mathematics" : "Competitive & admission exams";
@@ -940,11 +1289,17 @@
               <span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div></section>`).join("")}</div>`);
   }
   function viewBooks() {
-    return page("Books", "Books", "Standard texts recommended by students and teachers, by subject. Please buy the book or borrow it from the library.",
-      `<div class="grid g2">${Object.entries(D.C.books).map(([s, bs]) => `<div class="card"><h3>${esc(s)}</h3><ul style="margin:8px 0 0;padding-left:1.1em;color:var(--ink-2);font:15px/1.55 var(--f-text)">${bs.map((b) => { const [t, a] = b.split(" — "); return `<li><i>${esc(t)}</i>${a ? " — " + esc(a) : ""}</li>`; }).join("")}</ul></div>`).join("")}</div>
-      <p style="margin-top:18px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
+    const subjects = Object.entries(D.C.books).map(([subject, books]) => `<section class="book-subject">
+      <h2>${esc(subject)}</h2>
+      <ul>${books.map((book) => {
+        const [title, author] = book.split(" — ");
+        const amazon = "https://www.amazon.in/s?" + new URLSearchParams({k: [title, author].filter(Boolean).join(" "), i: "stripbooks"});
+        return `<li>${ext(amazon, title)}${author ? ` <span class="muted">· ${esc(author)}</span>` : ""}</li>`;
+      }).join("")}</ul></section>`).join("");
+    return page("Books", "Books", "Mathematics books recommended by students and teachers.",
+      `<div class="book-subjects">${subjects}</div><p style="margin-top:24px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
   }
-  function viewLearn() {
+  function viewLearn(section) {
     const Ln = D.C.learn, subj = Object.fromEntries(Ln.subjects);
     const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
     const plat = (p) => p === "YouTube" ? "yt" : p.startsWith("MIT") ? "mit" : "web";
@@ -953,9 +1308,7 @@
         <div class="lc-main"><a class="lc-title" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>
           <p class="lc-by">${esc(by)}, ${esc(p)}</p><p class="lc-what">${esc(what)}</p></div>
         <div class="lc-side"><span class="lc-subj">${esc(subj[sj])}</span>${papers ? `<span class="lc-papers">For ${papers.split(/,\s*/).map((c) => `<button type="button" class="pcode" data-code="${esc(c)}" title="Questions from ${esc(c)}">${esc(c)}</button>`).join("")}</span>` : ""}</div></li>`;
-    return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Videos & websites</nav>
-      <div class="pagehead"><h1>Videos & websites</h1><p class="lede">Free courses that match the department’s papers, channels worth following, and the sites students keep coming back to.</p></div>
-      <section class="learn-block" aria-labelledby="lc-h">
+    const lectures = `<section class="learn-block" id="lectures-notes" aria-labelledby="lc-h" tabindex="-1">
         <div class="lb-head"><div><h2 id="lc-h">Courses by subject</h2><p class="muted">Each course lists the Visva-Bharati papers it helps with. Tap a code to see that paper’s questions.</p></div></div>
         <div class="lseg" role="group" aria-label="Filter by subject"><button type="button" class="on" data-s="">All</button>${Ln.subjects.map(([k, l]) => `<button type="button" data-s="${k}">${esc(l)}</button>`).join("")}</div>
         <ul class="lcourses">${Ln.courses.map(course).join("")}</ul>
@@ -964,12 +1317,16 @@
         <div class="lb-head"><div><h2 id="ch-h">Channels worth following</h2><p class="muted">Whole lecture series and regular uploads, beyond a single course.</p></div></div>
         <div class="lchannels">${Ln.channels.map(([n, d, ls]) => `<div class="lch"><h3>${esc(n)}</h3><p>${esc(d)}</p><div class="lch-links">${ls.map(([l, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${IC.ext}</a>`).join("")}</div></div>`).join("")}</div>
       </section>
-      <section class="learn-block" aria-labelledby="ws-h">
+      `;
+    const websites = `<section class="learn-block" id="useful-websites" aria-labelledby="ws-h" tabindex="-1">
         <div class="lb-head"><div><h2 id="ws-h">Websites</h2><p class="muted">Grouped by what you need them for.</p></div></div>
         <div class="lsites">${Ln.sites.map(([g, d, ls]) => `<div class="lsg"><div class="lsg-head"><h3>${esc(g)}</h3><p>${esc(d)}</p></div>
           <ul class="lsg-list">${ls.map(([n, u, w]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span class="ls-n">${esc(n)}</span>${w ? `<span class="ls-w">${esc(w)}</span>` : ""}<span class="ls-h">${esc(host(u))}</span></a></li>`).join("")}</ul></div>`).join("")}</div>
       </section>
-      <p class="gnote" style="margin-top:28px">Know a course or site that belongs here? Write to <span class="mono" style="user-select:all">${esc(D.C.email)}</span>.</p></div>`;
+      `;
+    const title = section === "lectures" ? "Lectures & Notes" : section === "websites" ? "Useful Websites" : "Lectures, notes & websites";
+    return page("Resources", title, "", `${section === "websites" ? "" : lectures}${section === "lectures" ? "" : websites}
+      <p class="gnote" style="margin-top:28px">Suggest a resource at <span class="mono">${esc(D.C.email)}</span>.</p>`);
   }
   function bindLearn() {
     const btns = $$(".lseg button");
@@ -979,11 +1336,58 @@
     }));
     $$(".pcode").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.code = b.dataset.code; F.sort = "new"; go("search"); }));
   }
-  function viewPeople() {
-    return page("People", "People", "Faculty of the Department of Mathematics, Visva-Bharati, with the courses they teach and their research interests (as listed on the earlier site).",
-      `<div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b style="color:var(--ink)">Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b style="color:var(--ink)">Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
-      <section class="section"><div class="section-head"><h2 style="font-size:20px">Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section>
-      <section class="section"><div class="section-head"><h2 style="font-size:20px">Research scholars and alumni</h2></div><p class="prose">The list of current and graduated research scholars, with their supervisors, is kept on the ${ext(D.C.scholars_link, "earlier site")}. Alumni can add their details through the alumni form there.</p></section>`);
+  function viewAlumni() {
+    const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
+    const rows = D.alumni.map(([name, years, degree]) => `<li class="people-record" data-alumnus>
+      <h2>${esc(name)}</h2><p class="people-meta">${[years, degree].filter(Boolean).map(esc).join(" · ")}</p></li>`).join("");
+    return `<div class="people-toolbar"><div><label for="alumni-find">Filter alumni</label><input id="alumni-find" type="search" placeholder="Name, years or degree"></div>
+      ${ext(alumniForm, "Register as an alumnus", "btn btn-ghost")}</div>
+      <p class="people-meta" id="alumni-count" role="status">${D.alumni.length} alumni</p>
+      <ul class="people-list">${rows}</ul>`;
+  }
+  function bindAlumni() {
+    const rows = $$("[data-alumnus]").map((row) => [row, row.textContent.toLowerCase()]);
+    const search = $("#alumni-find");
+    search.addEventListener("input", () => {
+      const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let count = 0;
+      for (const [row, text] of rows) {
+        row.hidden = !terms.every((term) => text.includes(term));
+        count += Number(!row.hidden);
+      }
+      $("#alumni-count").textContent = count === 1 ? "1 alumnus" : count + " alumni";
+    });
+  }
+  function viewStudentAchievements() {
+    const {source, highlights, cohorts} = D["student-achievements"];
+    return `<div class="people-directory"><h2>Fellowships and recognition</h2>
+      <ul class="people-list">${highlights.map(([name, achievement]) => `<li class="people-record"><strong>${esc(name)}</strong><p>${esc(achievement)}</p></li>`).join("")}</ul>
+      <h2>NET, GATE and further study</h2>
+      ${cohorts.map(({years, students}, index) => `<details class="people-cohort"${index === 0 ? " open" : ""}>
+        <summary><strong>M.Sc. ${esc(years)}</strong><span class="people-meta">${students.length} records</span></summary>
+        <ul class="people-list">${students.map(([name, exams, study]) => `<li class="people-record"><strong>${esc(name)}</strong><p>${[exams, study].filter(Boolean).map(esc).join(" · ")}</p></li>`).join("")}</ul></details>`).join("")}
+      <p>${ext(source, "Source · Visva-Bharati Department of Mathematics")}</p></div>`;
+  }
+  function viewPeople(section) {
+    if (section === "alumni") return page("People", "Alumni", "Visva-Bharati mathematics alumni directory.", viewAlumni());
+    if (section === "student-achievements") return page("People", "Student achievements", "Qualifications, further study and honours reported by the Department of Mathematics.", viewStudentAchievements());
+    const teachers = `<section id="teachers" aria-label="Teachers" tabindex="-1"><div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b>Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b>Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
+      <section class="section"><div class="section-head"><h2>Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section></section>`;
+    const scholars = `<div class="card" id="scholars" tabindex="-1"><p>See the directory of current and graduated research scholars and their supervisors.</p><p style="margin-top:12px">${ext(D.C.scholars_link, "Open the scholar directory", "btn btn-ghost")}</p></div>`;
+    const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
+    const alumni = `<div class="card" id="alumni" tabindex="-1"><p>Visva-Bharati mathematics alumni can add their details through the VBMath alumni form.</p><p style="margin-top:12px">${ext(alumniForm, "Open alumni registration", "btn btn-ghost")}</p></div>`;
+    if (section) return page("People", PEOPLE_LABELS[section], "", {teachers, scholars}[section]);
+    return page("People", "People", "", `<div class="resource-grid">${Object.entries(PEOPLE_LABELS).map(([key, label]) => `<a class="card" href="${L("people-" + key)}"><h2>${label}</h2></a>`).join("")}</div>
+      <div class="section">${teachers}</div><div class="section">${scholars}</div>`);
+  }
+  function viewTools() {
+    const coding = D.C.tools.filter(([label]) => label.startsWith("Math++"));
+    const numerical = D.C.tools.filter(([label]) => !label.startsWith("Math++"));
+    return page("Tools", "Mathematics tools", "",
+      `<div class="resource-grid">${[["Coding", coding], ["Numerical methods", numerical], ["LaTeX", D.C.latex]].map(([title, links]) => `
+        <section class="topic-card exam-card"><div class="exam-card-title"><span class="resource-icon">${IC.file}</span><h2>${title}</h2></div>
+          <div class="exam-rows">${links.map(([label, url]) => `<a class="exam-row" href="${esc(url)}" target="_blank" rel="noopener"><span>${esc(label)}</span>${IC.ext}</a>`).join("")}</div>
+        </section>`).join("")}</div>`);
   }
   function viewGuides() {
     const C = D.C;
@@ -1043,21 +1447,46 @@
   /* ---------- router ---------- */
   const ROUTES = {
     home: [viewHome, bindHome, "VBMath — Visva-Bharati Mathematics question papers, typed and searchable"],
-    search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, bindPapers, "Question papers by semester · VBMath"],
+    search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, null, "Question papers by semester · VBMath"],
+    ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), bindArchive, PROG[code] + " question papers · VBMath"]])),
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
     preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
-    exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, null, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
-    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], people: [viewPeople, null, "People · VBMath"],
+    ...Object.entries(EXAM_CODE).reduce((routes, [name, code]) => {
+      routes["exams-" + code.toLowerCase()] = [() => viewExams(code), bindArchive, name + " question papers · VBMath"];
+      return routes;
+    }, {}),
+    lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
+    websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
+    ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), key === "alumni" ? bindAlumni : null, label + " · VBMath"]])),
+    exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, bindNotes, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
+    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
-  let lastRoute = null;
-  function route(keepScroll) {
+  let lastRoute = null, routeVersion = 0;
+  function needsQuestions(route) {
+    return /^(?:home|search|topics|basket|collection|paper-.+|preview(?:-.+)?)$/.test(route);
+  }
+  async function route(keepScroll) {
+    const r = current(), version = ++routeVersion;
+    const dataset = Object.hasOwn(PEOPLE_DATA, r) ? PEOPLE_DATA[r] : null;
+    if (!catalogueReady || (needsQuestions(r) && !questionsReady) || (dataset && !D[dataset])) {
+      try {
+        await Promise.all([
+          needsQuestions(r) ? load() : loadCatalogue(),
+          dataset && !D[dataset] ? loadJSON(dataset).then((data) => { D[dataset] = data; }) : null,
+        ]);
+      }
+      catch (error) {
+        if (version === routeVersion) $("#app").innerHTML = `<div class="wrap"><div class="empty">The archive could not be loaded (${esc(error.message)}). Please reload the page.</div></div>`;
+        return;
+      }
+      if (version !== routeVersion) return;
+    }
     closeMenus();
-    const r = current();
     if (!HASH && r === "search" && !keepScroll) {
       const params = new URLSearchParams(location.search);
-      const exam = params.get("exam"), q = params.get("q");
-      if (EXAM[exam] || q !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", q: q || "" };
+      const exam = params.get("exam"), q = params.get("q"), sem = params.get("sem");
+      if (EXAM[exam] || Object.hasOwn(PROG, exam) || q !== null || sem !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", prog: Object.hasOwn(PROG, exam) ? exam : "", q: q || "", sem: /^[1-8]$/.test(sem) ? sem : "" };
     }
     let name = r, arg = null;
     const m = r.match(/^(paper|semester|preview)-(.+)$/);
@@ -1070,46 +1499,120 @@
     else if (!ROUTES[name] && name !== "basket" && name !== "collection") { app.innerHTML = `<div class="wrap" style="max-width:720px;padding-block:40px"><div class="eyebrow">Error 404</div><h1>This page isn’t here</h1><p class="lede">The link may be old or mistyped. Search the archive or open a semester instead.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn btn-primary" href="${L("search")}">Search questions</a><a class="btn btn-ghost" href="${L("papers")}">Papers by semester</a></p></div>`; setMeta("Page not found · VBMath"); }
     else { if (!ROUTES[name]) name = "home"; const [v, b, t] = ROUTES[name]; app.innerHTML = v(); b && b(); setMeta(t, name === "home" ? "Previous-year B.Sc. and M.Sc. Mathematics question papers of Visva-Bharati, typed in LaTeX, searchable by topic, year and paper code, with the original scans." : null); }
     const navName = name === "paper" || name === "semester" ? "papers" : name;
-    $$(".nav a[data-r]").forEach((a) => { if (a.dataset.r === navName) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    const navLinks = $$(".nav a");
+    navLinks.forEach((a) => {
+      const active = a.dataset.r === navName;
+      if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    $$(".nav .dd").forEach((group) => {
+      const active = group.querySelector('[aria-current="page"]') || group.dataset.routes.split(" ").includes(navName);
+      group.querySelector(".navbtn").classList.toggle("nav-current", !!active);
+    });
     if (!keepScroll && lastRoute !== r) window.scrollTo(0, 0);
+    const section = routeParams().get("section");
+    const target = section && document.getElementById(section);
+    if (target && app.contains(target)) {
+      target.focus({preventScroll: true});
+      target.scrollIntoView({block: "start"});
+    }
     lastRoute = r;
     if (window.matchMedia("(max-width:1040px)").matches) { $("#nav").hidden = true; $("#menu").setAttribute("aria-expanded", "false"); }
     updateCount();
   }
 
   /* ---------- chrome ---------- */
+  function renderNavigation(nav) {
+    const link = (route, label) => `<a href="${L(route)}" data-r="${route}">${label}</a>`;
+    const group = (id, label, links, routes) => `<div class="dd" data-routes="${routes}">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="nav-${id}">${label} <span aria-hidden="true">▾</span></button>
+      <div class="dd-menu" id="nav-${id}" hidden>${links.join("")}</div></div>`;
+    nav.innerHTML = [
+      link("home", "Home"),
+      group("pyq", "PYQ", [
+        ...Object.entries(PROGRAMME_ROUTES).map(([label, path]) => link(path, label)),
+        ...["NET", "GATE", "JAM", "TIFR", "NBHM"].map((e) => link("exams-" + e.toLowerCase(), e)),
+        link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"),
+      ], "papers exams search topics scans"),
+      group("resources", "Resources", [
+        link("notes", "VB Notes"),
+        link("lectures", "Lectures &amp; Notes"),
+        link("websites", "Useful Websites"),
+        link("books", "Books"),
+      ], "notes learn books"),
+      link("syllabus", "Syllabus"),
+      group("people", "People", [
+        ...Object.entries(PEOPLE_LABELS).map(([key, label]) => link("people-" + key, label)),
+      ], "people"),
+      link("tools", "Tools"), link("guides", "Guides"), link("about", "About"),
+    ].join("");
+  }
   function initChrome() {
     $$("a[data-r]").forEach((a) => a.setAttribute("href", L(a.dataset.r)));
     const nav = $("#nav");
+    renderNavigation(nav);
     if (window.matchMedia("(max-width:1040px)").matches) nav.hidden = true;
-    $("#menu").addEventListener("click", () => { nav.hidden = !nav.hidden; $("#menu").setAttribute("aria-expanded", String(!nav.hidden)); });
-    const dd = $("#more-dd"), btn = $("#more-btn");
-    btn.addEventListener("click", (e) => { e.stopPropagation(); dd.hidden = !dd.hidden; btn.setAttribute("aria-expanded", String(!dd.hidden)); });
-    document.addEventListener("click", (e) => { if (!e.target.closest(".dd")) { dd.hidden = true; btn.setAttribute("aria-expanded", "false"); } });
-    $$("#more-dd a").forEach((a) => a.addEventListener("click", () => { dd.hidden = true; }));
+    const menu = $("#menu"), toggles = $$(".navbtn", nav);
+    const closeGroups = () => toggles.forEach((toggle) => {
+      toggle.setAttribute("aria-expanded", "false");
+      document.getElementById(toggle.getAttribute("aria-controls")).hidden = true;
+    });
+    menu.addEventListener("click", () => {
+      nav.hidden = !nav.hidden;
+      menu.setAttribute("aria-expanded", String(!nav.hidden));
+      if (nav.hidden) closeGroups();
+    });
+    toggles.forEach((toggle) => toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      closeGroups();
+      if (!open) {
+        toggle.setAttribute("aria-expanded", "true");
+        document.getElementById(toggle.getAttribute("aria-controls")).hidden = false;
+      }
+    }));
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".dd") || e.target.closest(".dd-menu a")) closeGroups();
+    });
+    nav.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      const open = toggles.find((toggle) => toggle.getAttribute("aria-expanded") === "true");
+      if (open) { closeGroups(); open.focus(); }
+      else if (window.matchMedia("(max-width:1040px)").matches) {
+        nav.hidden = true; menu.setAttribute("aria-expanded", "false"); menu.focus();
+      }
+    });
     $("#collbtn").addEventListener("click", openDrawer);
     $("#fab").addEventListener("click", openDrawer);
     $("#scrim").addEventListener("click", closeDrawer);
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && $("#drawer").classList.contains("show")) closeDrawer();
-      if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") go("search"); setTimeout(() => $("#sq") && $("#sq").focus(), 30); }
+      if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") Promise.resolve(go("search")).then(() => { setTimeout(() => $("#sq")?.focus(), 30); }); else $("#sq")?.focus(); }
     });
-    const applyTheme = (t) => { if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); };
-    applyTheme(store.get("theme", ""));
-    $("#theme").addEventListener("click", () => {
-      const cur = document.documentElement.getAttribute("data-theme");
-      const dark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const t = dark ? "light" : "dark"; applyTheme(t); store.set("theme", t);
+    const themeToggle = $("#theme");
+    const preferredDark = window.matchMedia("(prefers-color-scheme: dark)");
+    const root = document.documentElement;
+    const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : preferredDark.matches;
+    const syncThemeToggle = () => {
+      const dark = isDark();
+      const label = dark ? "Switch to light theme" : "Switch to dark theme";
+      themeToggle.innerHTML = dark ? IC.sun : IC.moon;
+      themeToggle.setAttribute("aria-label", label);
+      themeToggle.title = label;
+    };
+    const savedTheme = store.get("theme", "");
+    if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
+    syncThemeToggle();
+    preferredDark.addEventListener("change", syncThemeToggle);
+    themeToggle.addEventListener("click", () => {
+      root.dataset.theme = isDark() ? "light" : "dark";
+      store.set("theme", root.dataset.theme);
+      syncThemeToggle();
     });
     if (HASH) window.addEventListener("hashchange", () => route());
     else window.addEventListener("popstate", () => route());
   }
-  async function start() {
+  function start() {
     initChrome();
     F = Object.assign(defaultFilters(), store.get("filters", {}));
-
-    try { await load(); }
-    catch (e) { $("#app").innerHTML = `<div class="wrap"><div class="empty">The question data could not be loaded (${esc(e.message)}). Please reload the page.</div></div>`; return; }
     route();
   }
   start();
