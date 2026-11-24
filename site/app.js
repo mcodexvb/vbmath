@@ -7,7 +7,7 @@
   const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   const PROG = { BSc: "B.Sc. Mathematics", MSc: "M.Sc. Mathematics" };
   const PSHORT = { BSc: "B.Sc.", MSc: "M.Sc." };
-  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET" };
+  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET", GATE: "GATE", TIFR: "TIFR Graduate School", NBHM: "NBHM" };
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -168,20 +168,28 @@
   /* ---------- data ---------- */
   async function load() {
     const get = (u) => fetch(BASE + u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
-    const [P, Q, S, C, E] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json"), get("data/competitive.json").catch(() => ({ papers: [], questions: [] }))]);
-    D.papers = P.papers.concat(E.papers);
-    Q.push(...E.questions.map(([i, ...q]) => [i + P.papers.length, ...q])); D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
+    const [P, Q, S, C, E, H] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json"), get("data/competitive.json"), get("data/scholarship.json")]);
+    D.papers = P.papers;
+    for (const dataset of [E, H]) {
+      const offset = D.papers.length;
+      D.papers.push(...dataset.papers);
+      Q.push(...dataset.questions.map(([i, ...q]) => [i + offset, ...q]));
+    }
+    D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
     D.papers.forEach((p, i) => D.byKey.set(p.key, i));
     D.byPaper = D.papers.map(() => []);
     D.Q = Q.map((a, i) => {
       const p = D.papers[a[0]];
-      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [], answer: a[14] };
+      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [], answer: a[14], answerOrigin: a[15] };
       q.broads = new Set(q.t.map((k) => D.broad.indexOf(D.topics[k][0])).concat(q.tb));
-      q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "") + " " + (EXAM[p.prog] || "") + " " + p.year).toLowerCase();
+      const topics = q.t.map((k) => D.topics[k].join(" ")).concat([...q.broads].map((k) => D.broad[k]));
+      q.search = [searchWords(plainOf(q.tex)), searchWords(topics.join(" ")),
+        searchWords([p.code?.replace(/\(.*/, ""), p.title, p.prog, EXAM[p.prog], p.year].join(" "))];
       D.byPaper[a[0]].push(q);
       D.byId.set(q.id, q);
       return q;
     });
+    searchVocabulary = null;
     D.years = Array.from(new Set(D.papers.map((p) => p.year))).sort();
     D.codes = Array.from(new Set(D.papers.map((p) => p.code).filter(Boolean))).sort();
     D.scans.forEach((s) => { const k = s.prog + "|" + s.sem + "|" + s.year + "|" + s.kind; if (!D.scanIdx.has(k)) D.scanIdx.set(k, []); D.scanIdx.get(k).push(s); });
@@ -268,8 +276,8 @@
     return `<article class="q${on ? " in" : ""}" data-id="${esc(q.id)}">
       <header class="qh"><span class="qn">${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
       <div class="qbody">${texToHtml(q.tex)}</div>
-      ${q.answer ? `<details class="q-answer"><summary>Official answer</summary>
-        <p>${esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
+      ${q.answer ? `<details class="q-answer"><summary>${q.answerOrigin ? "Answer from compilation" : "Official answer"}</summary>
+        <p>${q.answerOrigin ? texToHtml(q.answer) : esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
         ${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : ""}
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
@@ -389,11 +397,80 @@
   function download(name, text) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/x-tex" })); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500); }
 
   /* ---------- search ---------- */
-  function tokens(qs) {
-    const out = []; qs.toLowerCase().replace(/"([^"]+)"|(\S+)/g, (m, a, b) => { out.push(a || b); }); return out.filter((t) => t.length > 0);
+  const STOP_WORDS = new Set("a an the of in on to and or for with is are find show prove question questions about".split(" "));
+  const MATH_ALIASES = [
+    [/\b(?:rref|reduced row echelon (?:form|matrix))\b/g, "rref"],
+    [/\b(?:ivp|initial value problem)\b/g, "ivp"],
+    [/\b(?:bvp|boundary value problem)\b/g, "bvp"],
+    [/\b(?:ode|ordinary differential equations?)\b/g, "ode"],
+    [/\b(?:pde|partial differential equations?)\b/g, "pde"],
+    [/\b(?:eigen values?|eigenvalues?|characteristic roots?)\b/g, "eigenvalue"],
+    [/\b(?:null space|nullspace|kernel)\b/g, "nullspace"],
+    [/\b(?:cayley hamilton|hamilton cayley)\b/g, "cayleyhamilton"],
+    [/\b(?:converges?|convergent|convergence)\b/g, "convergence"],
+    [/\b(?:differentiability|differentiable)\b/g, "differentiable"],
+    [/\b(?:continuity|continuous)\b/g, "continuous"],
+    [/\bmatrices\b/g, "matrix"],
+  ];
+  let searchVocabulary = null;
+  const compactCode = (value) => String(value || "").toLowerCase().replace(/\(.*/, "").replace(/[^a-z0-9]/g, "");
+  function searchWords(value, aliases = true) {
+    let text = String(value || "").normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase()
+      .replace(/[’']/g, "").replace(/∫/g, " int ").replace(/∑/g, " sum ").replace(/∞/g, " infty ")
+      .replace(/\\(mathbb|mathbf|mathrm)\{([a-z]+)\}/g, "$2").replace(/\\(?=[a-z])/g, " ")
+      .replace(/\b(mjama|mjma|mnma|mdma|secma|sec|dsema|dse|gema|ccma|cc|bmc|bme|bmo|mmc|mme|mmo|gec|aecc)[\s–-]*0*(\d+[a-z]?)\b/g, "$1$2")
+      .replace(/[^a-z0-9]+/g, " ").trim();
+    if (aliases) for (const [pattern, replacement] of MATH_ALIASES) text = text.replace(pattern, replacement);
+    return text ? " " + text + " " : " ";
+  }
+  function oneEdit(a, b) {
+    if (Math.abs(a.length - b.length) > 1) return false;
+    let i = 0;
+    while (i < a.length && a[i] === b[i]) i++;
+    if (a.length === b.length) {
+      return a.slice(i + 1) === b.slice(i + 1) ||
+        (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    }
+    return a.length > b.length ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
+  }
+  function scoringQuery(value) {
+    const exact = [];
+    const plain = value.replace(/"([^"]+)"/g, (_, quoted) => { exact.push(searchWords(quoted, false)); return " "; });
+    let words = [...new Set(searchWords(plain).trim().split(/ +/).filter(Boolean))];
+    if (words.some((w) => !STOP_WORDS.has(w))) words = words.filter((w) => !STOP_WORDS.has(w));
+    if (!words.length && !exact.length) return null;
+    if (!searchVocabulary) {
+      searchVocabulary = new Set();
+      for (const q of D.Q) for (const field of q.search) for (const word of field.trim().split(" ")) searchVocabulary.add(word);
+    }
+    const terms = words.map((w) => {
+      if (w.length < 5 || searchVocabulary.has(w) || !/^[a-z]+$/.test(w)) return [" " + w + " "];
+      const typoForms = w.endsWith("s") && w.length > 6 ? [w, w.slice(0, -1)] : [w];
+      const alternatives = [...searchVocabulary].filter((term) => term[0] === w[0] && typoForms.some((form) => oneEdit(form, term)));
+      return [" " + w + " ", ...alternatives.slice(0, 8).map((t) => " " + t + " ")];
+    });
+    const phrase = searchWords(plain);
+    return { terms, exact, phrase };
+  }
+  function searchScore(q, query) {
+    const display = query.exact.length ? searchWords(plainOf(q.tex), false) : "";
+    if (query.exact.some((x) => !display.includes(x))) return -1;
+    let score = 8 * query.exact.length;
+    for (const alternatives of query.terms) {
+      let best = 0;
+      for (const [i, term] of alternatives.entries()) {
+        if (q.search[0].includes(term)) best = Math.max(best, i ? 2 : 5);
+        if (q.search[1].includes(term)) best = Math.max(best, i ? 3 : 8);
+        if (q.search[2].includes(term)) best = Math.max(best, i ? 2 : 6);
+      }
+      if (!best) return -1;
+      score += best;
+    }
+    if (query.phrase.trim().includes(" ") && q.search.some((x) => x.includes(query.phrase))) score += 6;
+    return score;
   }
   function runSearch() {
-    const tk = tokens(F.q);
+    const query = scoringQuery(F.q);
     const from = +F.from || 0, to = +F.to || 9999;
     const topic = F.topic === "" ? -1 : +F.topic, broad = F.broad === "" ? -1 : +F.broad;
     const res = [];
@@ -403,18 +480,14 @@
       if (F.prog && p.prog !== F.prog) continue;
       if (F.sem && p.sem !== +F.sem) continue;
       if (p.year < from || p.year > to) continue;
-      if (F.code && (p.code || "").replace(/\(.*/, "") !== F.code.replace(/\(.*/, "") && p.code !== F.code) continue;
+      if (F.code && compactCode(p.code) !== compactCode(F.code)) continue;
       if (F.kind && (EXAM[F.kind] ? p.prog !== F.kind : p.kind[0] !== F.kind)) continue;
       if (topic >= 0 && !q.t.includes(topic)) continue;
       if (broad >= 0 && !q.broads.has(broad)) continue;
       if (F.len && lenOf(q) !== F.len) continue;
       if (F.rep && q.rep.length < 2) continue;
-      let score = 0;
-      if (tk.length) {
-        let ok = true;
-        for (const t of tk) { const k = q.hay.indexOf(t); if (k < 0) { ok = false; break; } score += 10 - Math.min(9, k / 80); }
-        if (!ok) continue;
-      }
+      const score = query ? searchScore(q, query) : 0;
+      if (score < 0) continue;
       res.push([q, score]);
     }
     const S = F.sort;
@@ -435,20 +508,20 @@
     return `<div class="wrap">
       <div class="crumbs"><a href="${L("home")}">Home</a> / Search</div>
       <h1 style="margin-bottom:.2em">Search the question bank</h1>
-      <p class="muted" style="margin-bottom:22px">${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Type words, a theorem, or a paper code; combine with filters.</p>
+      <p class="muted" style="margin-bottom:22px">${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Search by topic, theorem, formula or paper code.</p>
       <div class="search-layout">
         <aside class="filters" id="filters" data-collapsed="1" aria-label="Filters">
           <div style="display:flex;justify-content:space-between;align-items:center"><span class="flabel" style="margin:0">Filters</span>
             <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle">Show</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
           <div class="fbody">
-          <div><span class="flabel">Programme</span><div class="seg" data-f="prog">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."]].map(([v, l]) => `<button type="button" class="chip${F.prog === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+          <div><span class="flabel">Question source</span><div class="seg" data-f="prog">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."], ...Object.keys(EXAM).map((code) => [code, code])].map(([v, l]) => `<button type="button" class="chip${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v ? " on" : ""}" data-v="${v}" aria-pressed="${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v}">${l}</button>`).join("")}</div></div>
           <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem"${EXAM[F.kind] ? " disabled" : ""}>${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
           <div><span class="flabel">Year</span><div class="two"><select id="f-from" aria-label="From year">${opt("", "From", F.from)}${yrs.map((y) => opt(y, y, F.from)).join("")}</select><select id="f-to" aria-label="To year">${opt("", "To", F.to)}${yrs.map((y) => opt(y, y, F.to)).join("")}</select></div></div>
           <div><label class="flabel" for="f-code">Paper code</label><input id="f-code" type="text" list="codes" placeholder="e.g. CC-5, MMC-21" value="${esc(F.code)}" autocomplete="off"><datalist id="codes">${D.codes.map((c) => `<option value="${esc(c)}">`).join("")}</datalist></div>
           <div><label class="flabel" for="f-broad">Topic</label><select id="f-broad">${opt("", "Any area", F.broad)}${D.broad.map((b, i) => opt(i, b, F.broad)).join("")}</select>
             <select id="f-topic" style="margin-top:8px" aria-label="Specific topic">${opt("", "Any specific topic", F.topic)}${specific.map(([i, t]) => opt(i, t[1], F.topic)).join("")}</select></div>
           <div><span class="flabel">Length</span><div class="seg" data-f="len">${[["", "Any"], ["short", "Short ≤" + SHORT_MAX], ["long", "Long ≥" + (SHORT_MAX + 1)]].map(([v, l]) => `<button type="button" class="chip${F.len === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"], ["JAM", "JAM"], ["NET", "NET"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+          <div ${EXAM[F.kind] ? "hidden" : ""}><span class="flabel">VB exam type</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
           <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> Only questions asked in more than one year</label></div>
           </div>
         </aside>
@@ -463,7 +536,7 @@
   function searchQuery() {
     const params = new URLSearchParams();
     if (F.q) params.set("q", F.q);
-    if (EXAM[F.kind]) params.set("exam", F.kind);
+    if (EXAM[F.kind] || F.prog) params.set("exam", EXAM[F.kind] ? F.kind : F.prog);
     return params.size ? "?" + params : "";
   }
   function bindSearch() {
@@ -473,16 +546,16 @@
     let deb; $("#sq").addEventListener("input", (e) => { clearTimeout(deb); deb = setTimeout(() => { F.q = e.target.value.trim(); rerun(); }, 220); });
     $$(".seg[data-f]").forEach((g) => g.addEventListener("click", (e) => {
       const b = e.target.closest("button[data-v]"); if (!b) return;
-      F[g.dataset.f] = b.dataset.v; $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
-      if (g.dataset.f === "prog") {
-        if (F.prog && EXAM[F.kind]) F.kind = "";
-        if (F.prog === "MSc" && +F.sem > 4) F.sem = "";
+      const field = g.dataset.f, value = b.dataset.v;
+      if (field === "prog") {
+        F.prog = EXAM[value] ? "" : value;
+        F.kind = EXAM[value] ? value : EXAM[F.kind] ? "" : F.kind;
+        if (EXAM[value]) F.sem = F.code = "";
+        if (value === "MSc" && +F.sem > 4) F.sem = "";
         route(true); return;
       }
-      if (g.dataset.f === "kind" && EXAM[F.kind]) {
-        F.prog = F.sem = F.code = "";
-        route(true); return;
-      }
+      F[field] = value;
+      $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
       rerun();
     }));
     const sel = { "f-sem": "sem", "f-from": "from", "f-to": "to", "f-sort": "sort", "f-topic": "topic" };
@@ -493,7 +566,7 @@
     $("#freset").addEventListener("click", () => { F = defaultFilters(); store.set("filters", F); route(true); });
     $("#ftoggle").addEventListener("click", (e) => { const f = $("#filters"); const c = f.dataset.collapsed === "1"; f.dataset.collapsed = c ? "0" : "1"; e.target.textContent = c ? "Hide" : "Show"; });
     $("#more").addEventListener("click", () => { shown += PAGE; renderResults(true); });
-    renderResults();
+    rerun();
   }
   let lastRes = [];
   function renderResults(append) {
@@ -501,6 +574,11 @@
     const box = $("#results"); if (!box) return;
     const n = lastRes.length;
     $("#rcount").textContent = n ? `${n.toLocaleString()} question${n === 1 ? "" : "s"}` : "";
+    if (!n && F.kind === "GATE" && !D.papers.some((p) => p.prog === "GATE")) {
+      box.innerHTML = `<div class="empty">GATE papers are available as PDFs on the <a href="${L("exams")}">Competitive exams page</a>.</div>`;
+      $("#more").hidden = true;
+      return;
+    }
     if (!n) { box.innerHTML = `<div class="empty">No questions match. Loosen a filter, or check the <a href="${L("scans")}">scanned papers</a> — not every scan has been typed yet.</div>`; $("#more").hidden = true; return; }
     const from = append ? box.children.length : 0;
     const html = lastRes.slice(from, shown).map((q) => qCard(q)).join("");
@@ -872,7 +950,7 @@
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
   function viewExams() {
-    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET" };
+    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET", NBHM: "NBHM", TIFR: "TIFR" };
     const cards = D.C.exams.map((exam) => {
       const code = routes[exam.name];
       const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
@@ -1057,7 +1135,7 @@
     if (!HASH && r === "search" && !keepScroll) {
       const params = new URLSearchParams(location.search);
       const exam = params.get("exam"), q = params.get("q");
-      if (EXAM[exam] || q !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", q: q || "" };
+      if (EXAM[exam] || Object.hasOwn(PROG, exam) || q !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", prog: Object.hasOwn(PROG, exam) ? exam : "", q: q || "" };
     }
     let name = r, arg = null;
     const m = r.match(/^(paper|semester|preview)-(.+)$/);

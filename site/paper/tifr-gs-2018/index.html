@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2018 · Mathematics · VBMath</title>
+<meta name="description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2018 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2018/">
+<meta property="og:title" content="TIFR Graduate School · GS 2018 · Mathematics · VBMath">
+<meta property="og:description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2018 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2018/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2018 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Let $A$ be a countable subset of $\mathbb{R}$ which is well-ordered with respect to the usual ordering on $\mathbb{R}$ (where `well-ordered&#x27; means that every nonempty subset has a minimum element in it). Then $A$ has an order preserving bijection with a subset of $\mathbb{N}$.</span></li><li><b>2</b> <span class="qbody">$\displaystyle \lim_{x \to 0} \frac{\sin x}{\log(1 + \tan x)} = 1$.</span></li><li><b>3</b> <span class="qbody">For any closed subset $A \subset \mathbb{R}$, there exists a continuous function $f$ on $\mathbb{R}$ which vanishes exactly on $A$.</span></li><li><b>4</b> <span class="qbody">Let $f$ be a nonnegative continuous function on $\mathbb{R}$ such that $\int_0^\infty f(t)\,dt$ is finite. Then $\lim_{x \to \infty} f(x) = 0$.</span></li><li><b>5</b> <span class="qbody">The function $f(x) = \cos(e^x)$ is not uniformly continuous on $\mathbb{R}$.</span></li><li><b>6</b> <span class="qbody">Let $A$ be a $3 \times 3$ real symmetric matrix such that $A^6 = I$. Then, $A^2 = I$.</span></li><li><b>7</b> <span class="qbody">In the vector space $\{f \mid f:[0,1] \to \mathbb{R}\}$ of real-valued functions on the closed interval $[0,1]$, the set $S = \{\sin(x), \cos(x), \tan(x)\}$ is linearly independent.</span></li><li><b>8</b> <span class="qbody">Let $f$ be a twice differentiable function on $\mathbb{R}$ such that both $f$ and $f&#x27;&#x27;$ are strictly positive on $\mathbb{R}$. Then $\lim_{x \to \infty} f(x) = \infty$.</span></li><li><b>9</b> <span class="qbody">Let $G, H$ be finite groups. Then any subgroup of $G \times H$ is equal to $A \times B$ for some subgroups $A &lt; G$ and $B &lt; H$.</span></li><li><b>10</b> <span class="qbody">Let $g$ be a continuous function on $[0,1]$ such that $g(1) = 0$. Then the sequence of functions $f_n(x) = x^n g(x)$ converges uniformly on $[0,1]$.</span></li><li><b>11</b> <span class="qbody">Let $A, B, C \in M_3(\mathbb{R})$ be such that $A$ commutes with $B$, $B$ commutes with $C$ and $B$ is not a scalar matrix. Then $A$ commutes with $C$.</span></li><li><b>12</b> <span class="qbody">If $A \in M_n(\mathbb{R})$ (with $n \ge 2$) has rank $1$, then the minimal polynomial of $A$ has degree $2$.</span></li><li><b>13</b> <span class="qbody">Let $V$ be the vector space over $\mathbb{R}$ consisting of polynomials of degree less than or equal to $3$. Let $T: V \to V$ be the operator sending $f(t)$ to $f(t+1)$ and $D: V \to V$ the operator sending $f(t)$ to $df(t)/dt$. Then $T$ is a polynomial in $D$.</span></li><li><b>14</b> <span class="qbody">Let $V$ be the subspace of the real vector space of real valued functions on $\mathbb{R}$, spanned by $\cos t$ and $\sin t$. Let $D: V \to V$ be the linear map sending $f(t) \in V$ to $df(t)/dt$. Then $D$ has a real eigenvalue.</span></li><li><b>15</b> <span class="qbody">The set of nilpotent matrices in $M_3(\mathbb{R})$ spans $M_3(\mathbb{R})$ considered as an $\mathbb{R}$-vector space (a matrix $A$ is said to be nilpotent if there exists $n \in \mathbb{N}$ such that $A^n = 0$).</span></li><li><b>16</b> <span class="qbody">Let $G$ be a finite group with a normal subgroup $H$ such that $G/H$ has order $7$. Then $G \cong H \times G/H$.</span></li><li><b>17</b> <span class="qbody">The multiplicative group $\mathbb{F}_7^\times$ is isomorphic to a subgroup of the multiplicative group $\mathbb{F}_{31}^\times$.</span></li><li><b>18</b> <span class="qbody">Any linear transformation $A: \mathbb{R}^4 \to \mathbb{R}^4$ has a proper non-zero invariant subspace.</span></li><li><b>19</b> <span class="qbody">Let $A, B \in M_n(\mathbb{R})$ be such that $A + B = AB$. Then $AB = BA$.</span></li><li><b>20</b> <span class="qbody">Let $A \in M_n(\mathbb{R})$ be upper triangular with all diagonal entries $1$ such that $A \ne I$. Then $A$ is not diagonalizable.</span></li><li><b>21</b> <span class="qbody">A countable group can have only countably many distinct subgroups.</span></li><li><b>22</b> <span class="qbody">There exists a continuous surjection from $\mathbb{R}^3 - S^2$ to $\mathbb{R}^2 - \{(0,0)\}$ (here $S^2 \subset \mathbb{R}^3$ denotes the unit sphere defined by the equation $x^2 + y^2 + z^2 = 1$).</span></li><li><b>23</b> <span class="qbody">The permutation group $S_{10}$ has an element of order $30$.</span></li><li><b>24</b> <span class="qbody">Let $G$ be a finite group and $g \in G$ an element of even order. Then we can colour the elements of $G$ with two colours in such a way that $x$ and $gx$ have different colours for each $x \in G$.</span></li><li><b>25</b> <span class="qbody">Let $f(x)$ and $g(x)$ be uniformly continuous functions from $\mathbb{R}$ to $\mathbb{R}$. Then their pointwise product $f(x)g(x)$ is uniformly continuous.</span></li><li><b>1</b> <span class="qbody">The set of real numbers in the open interval $(0,1)$ which have more than one decimal expansion is
+  \begin{enumerate}[label=(\alph*)]
+    \item empty.
+    \item non-empty but finite.
+    \item countably infinite.
+    \item uncountable.
+  \end{enumerate}</span></li><li><b>2</b> <span class="qbody">How many zeroes does the function $f(x) = e^x - 3x^2$ have in $\mathbb{R}$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$
+    \item $1$
+    \item $2$
+    \item $3$.
+  \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be defined as follows:
+  \[
+    f(x) = \begin{cases}
+      1, &amp; \text{if } x = 0, \\
+      0, &amp; \text{if } x \in \mathbb{R} \setminus \mathbb{Q}, \text{ and} \\
+      \frac{1}{n}, &amp; \text{if } x = \frac{m}{n} \text{ with } m, n \in \mathbb{Z}, \, n &gt; 0 \text{ and } \gcd(m,n) = 1.
+    \end{cases}
+  \]
+  Which of the following statements is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is continuous everywhere except at $0$.
+    \item $f$ is continuous only at the irrationals.
+    \item $f$ is continuous only at the non-zero rationals.
+    \item $f$ is not continuous anywhere.
+  \end{enumerate}</span></li><li><b>4</b> <span class="qbody">Suppose $p$ is a degree $3$ polynomial such that $p(0) = 1$, $p(1) = 2$ and $p(2) = 5$. Which of the following numbers cannot equal $p(3)$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$
+    \item $2$
+    \item $6$
+    \item $10$.
+  \end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $A$ be the set of all functions $f: \mathbb{R} \to \mathbb{R}$ that satisfy the following two properties:
+  \begin{itemize}
+    \item $f$ has derivatives of all orders, and
+    \item for all $x, y \in \mathbb{R}$, $f(x+y) - f(y-x) = 2x f&#x27;(y)$.
+  \end{itemize}
+  Which of the following sentences is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item Any $f \in A$ is a polynomial of degree less than or equal to $1$.
+    \item Any $f \in A$ is a polynomial of degree less than or equal to $2$.
+    \item There exists $f \in A$ which is not a polynomial.
+    \item There exists $f \in A$ which is a polynomial of degree $4$.
+  \end{enumerate}</span></li><li><b>6</b> <span class="qbody">Denote by $\mathfrak{A}$ the set of all $n \times n$ complex matrices $A$ ($n \ge 2$ a natural number) having the property that $4$ is the only eigenvalue of $A$. Consider the following four statements:
+  \begin{itemize}
+    \item $(A - 4I)^n = 0$,
+    \item $A^n = 4^n I$,
+    \item $(A^2 - 5A + 4I)^n = 0$,
+    \item $A^n = 4nI$.
+  \end{itemize}
+  How many of the above statements are true for all $A \in \mathfrak{A}$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$
+    \item $1$
+    \item $2$
+    \item $3$.
+  \end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $A$ be the set of all continuous functions $f: [0,1] \to [0,\infty)$ satisfying the following condition:
+  \[
+    \int_0^x f(t)\,dt \ge f(x), \quad \text{for all } x \in [0,1].
+  \]
+  Then which of the following statements is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item $A$ has cardinality $1$.
+    \item $A$ has cardinality $2$.
+    \item $A$ is infinite.
+    \item $A$ is empty.
+  \end{enumerate}</span></li><li><b>8</b> <span class="qbody">Consider the following four sets of maps $f: \mathbb{Z} \to \mathbb{Q}$:
+  \begin{enumerate}[label=(\roman*)]
+    \item $\{f: \mathbb{Z} \to \mathbb{Q} \mid f \text{ is bijective and increasing}\}$,
+    \item $\{f: \mathbb{Z} \to \mathbb{Q} \mid f \text{ is onto and increasing}\}$,
+    \item $\{f: \mathbb{Z} \to \mathbb{Q} \mid f \text{ is bijective, and satisfies that } \forall n \le 0, \, f(n) \ge 0\}$, and
+    \item $\{f: \mathbb{Z} \to \mathbb{Q} \mid f \text{ is onto and decreasing}\}$.
+  \end{enumerate}
+  How many of these sets are empty?
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$
+    \item $1$
+    \item $2$
+    \item $3$.
+  \end{enumerate}</span></li><li><b>9</b> <span class="qbody">What are the last $3$ digits of $2^{2017}$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $072$
+    \item $472$
+    \item $512$
+    \item $912$.
+  \end{enumerate}</span></li><li><b>10</b> <span class="qbody">The minimal polynomial of
+  \[
+    \begin{pmatrix}
+      2 &amp; 1 &amp; 0 &amp; 0 \\
+      0 &amp; 2 &amp; 0 &amp; 0 \\
+      0 &amp; 0 &amp; 2 &amp; 0 \\
+      0 &amp; 0 &amp; 1 &amp; 5
+    \end{pmatrix}
+  \]
+  is
+  \begin{enumerate}[label=(\alph*)]
+    \item $(x - 2)(x - 5)$.
+    \item $(x - 2)^2(x - 5)$.
+    \item $(x - 2)^3(x - 5)$.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>11</b> <span class="qbody">Consider a cube $C$ centered at the origin in $\mathbb{R}^3$. The number of invertible linear transformations of $\mathbb{R}^3$ which map $C$ onto itself is
+  \begin{enumerate}[label=(\alph*)]
+    \item $72$
+    \item $48$
+    \item $24$
+    \item $12$.
+  \end{enumerate}</span></li><li><b>12</b> <span class="qbody">The number of rings of order $4$, up to isomorphism, is:
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$
+    \item $2$
+    \item $3$
+    \item $4$.
+  \end{enumerate}</span></li><li><b>13</b> <span class="qbody">For a sequence $\{a_n\}$ of real numbers, which of the following is a negation of the statement `$\lim_{n \to \infty} a_n = 0$&#x27;?
+  \begin{enumerate}[label=(\alph*)]
+    \item There exists $\epsilon &gt; 0$ such that the set $\{n \in \mathbb{N} \mid |a_n| &gt; \epsilon\}$ is infinite.
+    \item For any $M &gt; 0$ there exists $N \in \mathbb{N}$ such that $|a_n| &gt; M$ for all $n \ge N$.
+    \item There exists a nonzero real number $a$ such that for every $\epsilon &gt; 0$, there exists $N \in \mathbb{N}$ with $|a_n - a| &lt; \epsilon$ for all $n \ge N$.
+    \item For any $a \in \mathbb{R}$ and every $\epsilon &gt; 0$ there exist infinitely many $n$ such that $|a_n - a| &gt; \epsilon$.
+  \end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be continuous. Then which of the following statements implies that $f(0) = 0$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $\lim_{n \to \infty} \int_0^1 f(x)^n\,dx = 0$.
+    \item $\lim_{n \to \infty} \int_0^1 f(x/n)\,dx = 0$.
+    \item $\lim_{n \to \infty} \int_0^1 f(nx)\,dx = 0$.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>15</b> <span class="qbody">Consider the following maps from $\mathbb{R}^2$ to $\mathbb{R}^2$:
+  \begin{enumerate}[label=(\roman*)]
+    \item the map $(x, y) \mapsto (2x + 5y + 1, x + 3y)$,
+    \item the map $(x, y) \mapsto (x + y^2, y + x^2)$, and
+    \item the map given in polar coordinates as $(r, \theta) \mapsto (r, \theta + r^3)$ for $r \ne 0$, with the origin mapping to the origin.
+  \end{enumerate}
+  The number of maps in the above list that preserve areas is:
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$
+    \item $1$
+    \item $2$
+    \item $3$.
+  \end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

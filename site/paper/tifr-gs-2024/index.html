@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2024 · Mathematics · VBMath</title>
+<meta name="description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2024 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2024/">
+<meta property="og:title" content="TIFR Graduate School · GS 2024 · Mathematics · VBMath">
+<meta property="og:description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2024 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2024/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2024 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">What is the number of even positive integers $n$ such that every group of order $n$ is abelian?
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$
+    \item $2$
+    \item Greater than $2$, but finite
+    \item Infinite
+  \end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $n$ be a positive integer, and let $S = \{g \in \mathbb{R}[x] \mid g \text{ is a polynomial of degree at most } n\}$. For $g \in S$ let $A_g = \{x \in \mathbb{R} \mid e^x = g(x)\} \subset \mathbb{R}$. Let $m = \min\{\#A_g \mid g \in S\}$, and $M = \max\{\#A_g \mid g \in S\}$. Then
+  \begin{enumerate}[label=(\alph*)]
+    \item $m = 0$, $M = n$
+    \item $m = 0$, $M = n + 1$
+    \item $m = 1$, $M = n$
+    \item $m = 1$, $M = n + 1$
+  \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $V, W$ be nonzero finite dimensional vector spaces over $\mathbb{C}$. Let $m$ be the dimension of the space of $\mathbb{C}$-linear transformations $V \to W$ viewed as a real vector space. Let $n$ be the dimension of the space of $\mathbb{R}$-linear transformations $V \to W$ viewed as a real vector space. Then
+  \begin{enumerate}[label=(\alph*)]
+    \item $n = m$
+    \item $2n = m$
+    \item $n = 2m$
+    \item $4n = m$
+  \end{enumerate}</span></li><li><b>4</b> <span class="qbody">Consider the real vector space of infinite sequences of real numbers
+  \[
+    S = \{(a_0, a_1, a_2, \dots) \mid a_k \in \mathbb{R}, \, k = 0, 1, 2, \dots\}.
+  \]
+  Let $W$ be the subspace of $S$ consisting of all sequences $(a_0, a_1, a_2, \dots)$ which satisfy the relation $a_{k+2} = 2a_{k+1} + a_k$, $k = 0, 1, 2, \dots$. What is the dimension of $W$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$
+    \item $2$
+    \item $3$
+    \item $\infty$
+  \end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $f: [0,\infty) \to \mathbb{R}$ be a continuous function. If $\lim_{n \to \infty} \int_0^1 f(x + n)\,dx = 2$, then which of the following statements about the limit $\lim_{n \to \infty} \int_0^1 f(nx)\,dx$ is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item The limit exists and equals $0$
+    \item The limit exists and equals $\frac{1}{2}$
+    \item The limit exists and equals $2$
+    \item None of the remaining three options is correct
+  \end{enumerate}</span></li><li><b>6</b> <span class="qbody">Let $f: \mathbb{R} \to [0,\infty)$ be a function such that for any finite set $E \subset \mathbb{R}$ we have $\sum_{x \in E} f(x) \le 1$. Let $C_f = \{x \in \mathbb{R} \mid f(x) &gt; 0\} \subset \mathbb{R}$. Then
+  \begin{enumerate}[label=(\alph*)]
+    \item $C_f$ is finite
+    \item $C_f$ is a bounded subset of $\mathbb{R}$
+    \item $C_f$ has at most one limit point
+    \item $C_f$ is a countable set
+  \end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $p$ be a prime. Which of the following statements is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item There exists a noncommutative ring with exactly $p$ elements
+    \item There exists a noncommutative ring with exactly $p^2$ elements
+    \item There exists a noncommutative ring with exactly $p^3$ elements
+    \item None of the remaining three statements is correct
+  \end{enumerate}</span></li><li><b>8</b> <span class="qbody">Consider the sequence $\{a_n\}$ for $n \ge 1$ defined by $a_n = \lim_{N \to \infty} \sum_{k=n}^N \frac{1}{k^2}$. Which of the following statements about this sequence is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item $\lim_{n \to \infty} n a_n$ does not exist
+    \item $\lim_{n \to \infty} n a_n$ exists and equals $2$
+    \item $\lim_{n \to \infty} n a_n$ exists and equals $1$
+    \item $\lim_{n \to \infty} n^2 a_n$ exists and equals $1$
+  \end{enumerate}</span></li><li><b>9</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a differentiable function that is a solution to the ordinary differential equation
+  \[
+    f&#x27;(t) = \sin^2(f(t)) \quad (\forall t \in \mathbb{R}), \qquad f(0) = 1.
+  \]
+  Which of the following statements is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is neither bounded nor periodic
+    \item $f$ is bounded and periodic
+    \item $f$ is bounded, but not periodic
+    \item None of the remaining three statements is correct
+  \end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $B$ denote the set of invertible upper triangular $2 \times 2$ matrices with entries in $\mathbb{C}$, viewed as a group under matrix multiplication. Which of the following subgroups of $B$ is the normalizer of itself in $B$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $\left\{ \begin{pmatrix} a &amp; 0 \\ 0 &amp; b \end{pmatrix} \;\middle|\; a, b \in \mathbb{C} \setminus \{0\} \right\}$
+    \item $\left\{ \begin{pmatrix} a &amp; 0 \\ 0 &amp; a \end{pmatrix} \;\middle|\; a \in \mathbb{C} \setminus \{0\} \right\}$
+    \item $\left\{ \begin{pmatrix} 1 &amp; c \\ 0 &amp; 1 \end{pmatrix} \;\middle|\; c \in \mathbb{C} \right\}$
+    \item $\left\{ \begin{pmatrix} a &amp; c \\ 0 &amp; a \end{pmatrix} \;\middle|\; a \in \mathbb{C} \setminus \{0\}, \, c \in \mathbb{C} \right\}$
+  \end{enumerate}</span></li><li><b>11</b> <span class="qbody">What is the least positive integer $n &gt; 1$ such that $x^n$ and $x$ are conjugate, for every $x \in S_{11}$? Here, $S_{11}$ denotes the symmetric group on $11$ letters.
+  \begin{enumerate}[label=(\alph*)]
+    \item $10$
+    \item $11$
+    \item $12$
+    \item $13$
+  \end{enumerate}</span></li><li><b>12</b> <span class="qbody">Consider the following statements:
+  \begin{enumerate}[label=(\Alph*)]
+    \item Let $G$ be a group and let $H \subset G$ be a subgroup of index $2$. Then $[G, G] \subseteq H$.
+    \item Let $G$ be a group and let $H \subset G$ be a subgroup that contains the commutator subgroup $[G, G]$ of $G$. Then $H$ is a normal subgroup of $G$.
+  \end{enumerate}
+  Which of the following statements is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item (A) and (B) are both true
+    \item (A) and (B) are both false
+    \item (A) is true and (B) is false
+    \item (A) is false and (B) is true
+  \end{enumerate}</span></li><li><b>13</b> <span class="qbody">For any symmetric real matrix $A$, let $\lambda(A)$ denote the largest eigenvalue of $A$. Let $S$ be the set of positive definite symmetric $3 \times 3$ real matrices. Which of the following assertions is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item There exist $A, B \in S$ such that $\lambda(A + B) &lt; \max(\lambda(A), \lambda(B))$
+    \item For all $A, B \in S$, $\lambda(A + B) &gt; \max(\lambda(A), \lambda(B))$
+    \item There exist $A, B \in S$ such that $\lambda(A + B) = \max(\lambda(A), \lambda(B))$
+    \item None of the remaining three assertions is correct
+  \end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $\theta \in (0, \pi/2)$. Let $T: \mathbb{R}^2 \to \mathbb{R}^2$ be the linear map which sends a vector $v$ to its reflection with respect to the line through $(0,0)$ and $(\cos\theta, \sin\theta)$. Then the matrix of $T$ with respect to the standard basis of $\mathbb{R}^2$ is given by
+  \begin{enumerate}[label=(\alph*)]
+    \item $\begin{pmatrix} \cos 2\theta &amp; \sin 2\theta \\ \sin 2\theta &amp; -\cos 2\theta \end{pmatrix}$
+    \item $\begin{pmatrix} \cos 2\theta &amp; \sin 2\theta \\ -\sin 2\theta &amp; \cos 2\theta \end{pmatrix}$
+    \item $\begin{pmatrix} \cos\theta &amp; \sin\theta \\ \sin\theta &amp; -\cos\theta \end{pmatrix}$
+    \item $\begin{pmatrix} \cos\theta &amp; \sin\theta \\ -\sin\theta &amp; \cos\theta \end{pmatrix}$
+  \end{enumerate}</span></li><li><b>15</b> <span class="qbody">For a polynomial $f(x, y) \in \mathbb{R}[x, y]$ let $X_f = \{(a, b) \in \mathbb{R}^2 \mid f(a, b) = 1\} \subset \mathbb{R}^2$. Which of the following statements is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item If $f(x, y) = x^2 + 4xy + 3y^2$, then $X_f$ is compact
+    \item If $f(x, y) = x^2 - 3xy + 3y^2$, then $X_f$ is compact
+    \item If $f(x, y) = x^2 - 4xy - y^2$, then $X_f$ is compact
+    \item None of the remaining three statements is correct
+  \end{enumerate}</span></li><li><b>16</b> <span class="qbody">What is the number of distinct subfields of $\mathbb{C}$ isomorphic to $\mathbb{Q}[\sqrt[3]{2}]$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$
+    \item $2$
+    \item $3$
+    \item Infinite
+  \end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $\mathbb{F}_3$ denote the finite field with $3$ elements. What is the number of one dimensional vector subspaces of the vector space $\mathbb{F}_3^5$ over $\mathbb{F}_3$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $5$
+    \item $121$
+    \item $81$
+    \item None of the remaining three options
+  \end{enumerate}</span></li><li><b>18</b> <span class="qbody">For a positive integer $n$, let $a_n, b_n, c_n, d_n$ be the real numbers such that
+  \[
+    \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}^n = \begin{pmatrix} a_n &amp; b_n \\ c_n &amp; d_n \end{pmatrix}.
+  \]
+  Which of the following numbers equals $\lim_{n \to \infty} a_n / b_n$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$
+    \item $e$
+    \item $3/2$
+    \item None of the remaining three options
+  \end{enumerate}</span></li><li><b>19</b> <span class="qbody">Consider the complex vector space
+  \[
+    V = \{f \in \mathbb{C}[x] \mid f \text{ has degree at most } 50, \text{ and } f(ix) = -f(x) \text{ for all } x \in \mathbb{C}\}.
+  \]
+  Then the dimension of $V$ equals
+  \begin{enumerate}[label=(\alph*)]
+    \item $50$
+    \item $25$
+    \item $13$
+    \item $47$
+  \end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $S$ denote the set of sequences $a = (a_1, a_2, \dots)$ of real numbers such that $a_k$ equals $0$ or $1$ for each $k$. Then the function $f: S \to \mathbb{R}$ defined by
+  \[
+    f((a_1, a_2, \dots)) = \frac{a_1}{10} + \frac{a_2}{10^2} + \dots
+  \]
+  is
+  \begin{enumerate}[label=(\alph*)]
+    \item injective but not surjective
+    \item surjective but not injective
+    \item bijective
+    \item neither injective nor surjective
+  \end{enumerate}</span></li><li><b>1</b> <span class="qbody">If $G$ is a group of order $361$, then $G$ has a normal subgroup $H$ such that $H \cong G/H$.</span></li><li><b>2</b> <span class="qbody">There exists a metric space $X$ such that the number of open subsets of $X$ is exactly $2024$.</span></li><li><b>3</b> <span class="qbody">The function $d: \mathbb{R} \times \mathbb{R} \to \mathbb{R}$ given by $d(x, y) = |e^x - e^y|$ defines a metric on $\mathbb{R}$, and $(\mathbb{R}, d)$ is a complete metric space.</span></li><li><b>4</b> <span class="qbody">Let $n$ be a positive integer, and $A$ an $n \times n$ matrix over $\mathbb{R}$ such that $A^3 = \operatorname{Id}$. Then $A$ is diagonalizable in $M_n(\mathbb{R})$, i.e., there exists $P \in M_n(\mathbb{R})$ such that $P$ is invertible and $PAP^{-1}$ is a diagonal matrix.</span></li><li><b>5</b> <span class="qbody">If $A \in M_n(\mathbb{Q})$ is such that the characteristic polynomial of $A$ is irreducible over $\mathbb{Q}$, then $A$ is diagonalizable in $M_n(\mathbb{C})$, i.e., there exists $P \in M_n(\mathbb{C})$ such that $P$ is invertible and $PAP^{-1}$ is a diagonal matrix.</span></li><li><b>6</b> <span class="qbody">The complement of any countable union of lines in $\mathbb{R}^3$ is path connected.</span></li><li><b>7</b> <span class="qbody">The subsets $\{(x, y) \in \mathbb{R}^2 \mid (y^2 - x)(y^2 - x - 1) = 0\}$ and $\{(x, y) \in \mathbb{R}^2 \mid y^2 - x^2 = 1\}$ of $\mathbb{R}^2$ (with the induced metric) are homeomorphic.</span></li><li><b>8</b> <span class="qbody">$\mathbb{Q} \cap [0,1]$ is a compact subset of $\mathbb{Q}$.</span></li><li><b>9</b> <span class="qbody">Suppose $f: X \to Y$ is a function between metric spaces, such that whenever a sequence $\{x_n\}$ converges to $x$ in $X$, the sequence $\{f(x_n)\}$ converges in $Y$ (but it is not given that the limit of $\{f(x_n)\}$ is $f(x)$). Then $f$ is continuous.</span></li><li><b>10</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be differentiable, and assume that $|f&#x27;(x)| \ge 1$ for all $x \in \mathbb{R}$. Then for each compact set $C \subset \mathbb{R}$, the set $f^{-1}(C)$ is compact.</span></li><li><b>11</b> <span class="qbody">There exists a function $f: [0,1] \to \mathbb{R}$ which is not Riemann integrable and satisfies
+  \[
+    \sum_{i=1}^n |f(t_i) - f(t_{i-1})|^2 &lt; 1
+  \]
+  for every choice of a positive integer $n$ and of $0 \le t_0 &lt; t_1 &lt; t_2 &lt; \dots &lt; t_n \le 1$.</span></li><li><b>12</b> <span class="qbody">Let $E \subset [0,1]$ be the subset consisting of numbers that have a decimal expansion which does not contain the digit $8$. Then $E$ is dense in $[0,1]$.</span></li><li><b>13</b> <span class="qbody">Let $G$ be a proper subgroup of $(\mathbb{R}, +)$ which is closed as a subset of $\mathbb{R}$. Then $G$ is generated by a single element.</span></li><li><b>14</b> <span class="qbody">There exists a unique function $f: \mathbb{R} \to \mathbb{R}$ such that $f$ is continuous at $x = 0$, and such that for all $x \in \mathbb{R}$, $f(x) + f\left(\frac{x}{2}\right) = x$.</span></li><li><b>15</b> <span class="qbody">A map $f: V \to W$ between finite dimensional vector spaces over $\mathbb{R}$ is a linear transformation if and only if $f(x) = f(x - a) + f(x - b) - f(x - a - b)$ for all $x, a, b \in V$.</span></li><li><b>16</b> <span class="qbody">Let $R$ be the ring $\mathbb{C}[x]/(x^2)$ obtained as the quotient of the polynomial ring $\mathbb{C}[x]$ by its ideal generated by $x^2$. Let $R^\times$ be the multiplicative group of units of this ring. Then there is an injective group homomorphism from $(\mathbb{Z}/2\mathbb{Z}) \times (\mathbb{Z}/2\mathbb{Z})$ into $R^\times$.</span></li><li><b>17</b> <span class="qbody">Let $A \in M_2(\mathbb{Z})$ be such that $|A_{ij}(n)| \le 50$ for all $1 \le n \le 10^{50}$ and all $1 \le i, j \le 2$, where $A_{ij}(n)$ denotes the $(i, j)$-th entry of the $2 \times 2$ matrix $A^n$. Then $|A_{ij}(n)| \le 50$ for all positive integers $n$.</span></li><li><b>18</b> <span class="qbody">Let $A, B$ be subsets of $\{0, \dots, 9\}$. It is given that, on choosing elements $a \in A$ and $b \in B$ at random, $a + b$ takes each of the values $0, \dots, 9$ with equal probability. Then one of $A$ or $B$ is singleton.</span></li><li><b>19</b> <span class="qbody">If $f: \mathbb{R} \to \mathbb{R}$ is uniformly continuous, then there exists $M &gt; 0$ such that for all $x \in \mathbb{R} \setminus [-M, M]$, we have $f(x) &lt; x^{100}$.</span></li><li><b>20</b> <span class="qbody">If a sequence $\{f_n\}$ of continuous functions from $[0,1]$ to $\mathbb{R}$ converges uniformly on $(0,1)$ to a continuous function $f: [0,1] \to \mathbb{R}$, then $\{f_n\}$ converges uniformly on $[0,1]$ to $f$.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

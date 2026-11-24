@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2020 · Mathematics · VBMath</title>
+<meta name="description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2020 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2020/">
+<meta property="og:title" content="TIFR Graduate School · GS 2020 · Mathematics · VBMath">
+<meta property="og:description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2020 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2020/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2020 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Consider the sequences $\{a_n\}_{n=1}^\infty$ and $\{b_n\}_{n=1}^\infty$ defined by
+  \[
+    a_n = (2^n + 3^n)^{1/n} \quad \text{and} \quad b_n = \frac{n}{\sum_{i=1}^n \frac{1}{a_i}}.
+  \]
+  What is the limit of $\{b_n\}_{n=1}^\infty$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $2$.
+    \item $3$.
+    \item $5$.
+    \item The limit does not exist.
+  \end{enumerate}</span></li><li><b>2</b> <span class="qbody">Consider the set of continuous functions $f: [0,1] \to \mathbb{R}$ that satisfy:
+  \[
+    \int_0^1 f(x)(1 - f(x))\,dx = \frac{1}{4}.
+  \]
+  Then the cardinality of this set is:
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$.
+    \item $1$.
+    \item $2$.
+    \item more than $2$.
+  \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be defined as:
+  \[
+    f(x) = \begin{cases}
+      x^2 \sin\frac{1}{x}, &amp; \text{if } x \ne 0, \text{ and} \\
+      0, &amp; \text{if } x = 0.
+    \end{cases}
+  \]
+  Which of the following statements is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is a surjective function.
+    \item $f$ is bounded.
+    \item The derivative of $f$ exists and is continuous on $\mathbb{R}$.
+    \item $\{x \in \mathbb{R} \mid f(x) = 0\}$ is a finite set.
+  \end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $\{a_n\}_{n=1}^\infty$ be a strictly increasing bounded sequence of real numbers such that $\lim_{n \to \infty} a_n = A$. Let $f: [a_1, A] \to \mathbb{R}$ be a continuous function such that for each positive integer $i$, $f|_{[a_i, a_{i+1}]}: [a_i, a_{i+1}] \to \mathbb{R}$ is either strictly increasing or strictly decreasing. Consider the set
+  \[
+    B = \{M \in \mathbb{R} \mid \text{there exist infinitely many } x \in [a_1, A] \text{ such that } f(x) = M\}.
+  \]
+  Then the cardinality of $B$ is:
+  \begin{enumerate}[label=(\alph*)]
+    \item necessarily $0$.
+    \item at most $1$.
+    \item possibly greater than $1$, but finite.
+    \item possibly infinite.
+  \end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a function that satisfies:
+  \[
+    |f(x) - f(y)| \le |x - y| |\sin(x - y)|, \quad \text{for all } x, y \in \mathbb{R}.
+  \]
+  Which of the following statements is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is continuous but need not be uniformly continuous.
+    \item $f$ is uniformly continuous but not necessarily differentiable.
+    \item $f$ is differentiable, but its derivative may not be continuous.
+    \item $f$ is constant.
+  \end{enumerate}</span></li><li><b>6</b> <span class="qbody">Let $\mathcal{C} = \{f: \mathbb{R} \to \mathbb{R} \mid f \text{ is differentiable, and } \lim_{x \to \infty} (2f(x) + f&#x27;(x)) = 0\}$. Which of the following statements is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item For each $L$ with $0 \ne L &lt; \infty$, there exists $f \in \mathcal{C}$ such that $\lim_{x \to \infty} f(x) = L$.
+    \item For all $f \in \mathcal{C}$, $\lim_{x \to \infty} f(x) = 0$.
+    \item There exists $f \in \mathcal{C}$ such that $\lim_{x \to \infty} f(x)$ does not exist.
+    \item There exists $f \in \mathcal{C}$ such that $\lim_{x \to \infty} f(x) = \frac{1}{2}$.
+  \end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $f(x) = \frac{\log(2+x)}{\sqrt{1+x}}$ for $x \ge 0$, and $a_m = \frac{1}{m} \int_0^m f(t)\,dt$ for every positive integer $m$. Then the sequence $\{a_m\}_{m=1}^\infty$
+  \begin{enumerate}[label=(\alph*)]
+    \item diverges to $+\infty$.
+    \item has more than one limit point.
+    \item converges and satisfies $\lim_{m \to \infty} a_m = \frac{1}{2} \log 2$.
+    \item converges and satisfies $\lim_{m \to \infty} a_m = 0$.
+  \end{enumerate}</span></li><li><b>8</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a continuous function such that $|f(x) - f(y)| \ge \log(1 + |x - y|)$ for all $x, y \in \mathbb{R}$. Then:
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is injective but not surjective.
+    \item $f$ is surjective but not injective.
+    \item $f$ is neither injective nor surjective.
+    \item $f$ is bijective.
+  \end{enumerate}</span></li><li><b>9</b> <span class="qbody">What is the greatest integer less than or equal to $\displaystyle \sum_{n=1}^{9999} \frac{1}{\sqrt[4]{n}}$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $1332$
+    \item $1352$
+    \item $1372$
+    \item $1392$
+  \end{enumerate}</span></li><li><b>10</b> <span class="qbody">Consider the following sentences:
+  \begin{enumerate}[label=(\Roman*)]
+    \item For every connected subset $Y$ of a metric space $X$, its interior $Y^\circ$ is connected.
+    \item For every connected subset $Y$ of a metric space $X$, its boundary $\partial Y$ is connected.
+  \end{enumerate}
+  Which of the following options is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item (I) is true, but (II) is false.
+    \item (II) is true, but (I) is false.
+    \item (I) and (II) are both true.
+    \item (I) and (II) are both false.
+  \end{enumerate}</span></li><li><b>11</b> <span class="qbody">Consider a set $\{A_1, \dots, A_n\}$ of events, $n &gt; 1$. Suppose that one of the events in $\{A_1, \dots, A_n\}$ is certain to occur, but that no more than two of them can occur. Suppose that for each $1 \le r, s \le n$ such that $r \ne s$, the probability of $A_r$ occurring is $p$, while the probability of both $A_r$ and $A_s$ occurring is $q$. Then:
+  \begin{enumerate}[label=(\alph*)]
+    \item $p \le 1/n$ and $q \le 2/n$.
+    \item $p \le 1/n$ and $q \ge 2/n$.
+    \item $p \ge 1/n$ and $q \le 2/n$.
+    \item $p \ge 1/n$ and $q \ge 2/n$.
+  \end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $\{z_1, z_2, \dots, z_7\}$ be a set of seven complex numbers with unit modulus. Assume that they form the vertices of a regular heptagon in the complex plane. Define $w = \sum_{i &lt; j} z_i z_j$. Then:
+  \begin{enumerate}[label=(\alph*)]
+    \item $w = 0$.
+    \item $|w| = \sqrt{7}$.
+    \item $|w| = 7$.
+    \item $|w| = 1$.
+  \end{enumerate}</span></li><li><b>13</b> <span class="qbody">Consider $\mathbb{R}^3$ as the space of $3 \times 1$ real matrices. The multiplicative group $GL_3(\mathbb{R})$ of invertible $3 \times 3$ real matrices acts on this space by left multiplication. What is the number of orbits for this action?
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$.
+    \item $2$.
+    \item $4$.
+    \item $\infty$.
+  \end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $V$ be a finite dimensional vector space over $\mathbb{R}$, and $W \subset V$ a subspace. Then $W \cap T(W) \ne \{0\}$ for every linear automorphism $T: V \to V$ if and only if:
+  \begin{enumerate}[label=(\alph*)]
+    \item $W = V$.
+    \item $\dim W &lt; \frac{1}{2} \dim V$.
+    \item $\dim W = \frac{1}{2} \dim V$.
+    \item $\dim W &gt; \frac{1}{2} \dim V$.
+  \end{enumerate}</span></li><li><b>15</b> <span class="qbody">Let $A \in M_n(\mathbb{C})$. Then $\begin{pmatrix} A &amp; A \\ 0 &amp; A \end{pmatrix}$ is diagonalizable if and only if:
+  \begin{enumerate}[label=(\alph*)]
+    \item $A = 0$.
+    \item $A = I$.
+    \item $n = 2$.
+    \item None of the other three options.
+  \end{enumerate}</span></li><li><b>16</b> <span class="qbody">Let $T: \mathbb{C} \to \mathbb{R}$ be the map defined by $T(z) = z + \overline{z}$. For a $\mathbb{C}$-vector space $V$, consider the map
+  \[
+    \varphi: \{f: V \to \mathbb{C} \mid f \text{ is } \mathbb{C}\text{-linear}\} \to \{g: V \to \mathbb{R} \mid g \text{ is } \mathbb{R}\text{-linear}\},
+  \]
+  defined by $\varphi(f) = T \circ f$. Then this map is
+  \begin{enumerate}[label=(\alph*)]
+    \item injective, but not surjective.
+    \item surjective, but not injective.
+    \item bijective.
+    \item neither injective nor surjective.
+  \end{enumerate}</span></li><li><b>17</b> <span class="qbody">Which of the following statements is correct for every linear transformation $T: \mathbb{R}^3 \to \mathbb{R}^3$ such that $T^3 - T^2 - T + I = 0$?
+  \begin{enumerate}[label=(\alph*)]
+    \item $T$ is invertible as well as diagonalizable.
+    \item $T$ is invertible, but not necessarily diagonalizable.
+    \item $T$ is diagonalizable, but not necessarily invertible.
+    \item None of the other three statements.
+  \end{enumerate}</span></li><li><b>18</b> <span class="qbody">Let $n \ge 2$. Which of the following statements is true for every $n \times n$ real matrix $A$ of rank one?
+  \begin{enumerate}[label=(\alph*)]
+    \item There exist matrices $P, Q \in M_n(\mathbb{R})$ such that all the entries of the matrix $PAQ$ are equal to $1$.
+    \item There exists an invertible matrix $P \in M_n(\mathbb{R})$ such that $PAP^{-1}$ is a diagonal matrix.
+    \item $A$ has a nonzero eigenvalue.
+    \item The vector $(1, 1, \dots, 1) \in \mathbb{R}^n$ is an eigenvector for $A$.
+  \end{enumerate}</span></li><li><b>19</b> <span class="qbody">Let $m, n$ be positive integers. Then the greatest common divisor ($\gcd$) of the polynomials $x^m - 1$ and $x^n - 1$ in the ring $\mathbb{C}[x]$ equals
+  \begin{enumerate}[label=(\alph*)]
+    \item $x^{\min(m,n)} - 1$.
+    \item $x - 1$.
+    \item $x^{\gcd(m,n)} - 1$.
+    \item None of the other three options.
+  \end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $A_4$ denote the group of even permutations of $\{1, 2, 3, 4\}$. Consider the following statements:
+  \begin{enumerate}[label=(\Roman*)]
+    \item There exists a surjective group homomorphism $A_4 \to \mathbb{Z}/4\mathbb{Z}$.
+    \item There exists a surjective group homomorphism $A_4 \to \mathbb{Z}/3\mathbb{Z}$.
+  \end{enumerate}
+  Which of the following statements is correct?
+  \begin{enumerate}[label=(\alph*)]
+    \item (I) is true and (II) is false.
+    \item (II) is true and (I) is false.
+    \item (I) and (II) are both true.
+    \item (I) and (II) are both false.
+  \end{enumerate}</span></li><li><b>1</b> <span class="qbody">There exists no monotone function $f: \mathbb{R} \to \mathbb{R}$ which is discontinuous at every rational number.</span></li><li><b>2</b> <span class="qbody">Let $C([0,1])$ denote the set of continuous real valued functions on $[0,1]$, and $\mathbb{R}^{\mathbb{N}}$ the set of all sequences of real numbers. Then there exists an injective map from $C([0,1])$ to $\mathbb{R}^{\mathbb{N}}$.</span></li><li><b>3</b> <span class="qbody">Let $\{a_n\}_{n=1}^\infty$ be a bounded sequence of positive real numbers. Then:
+  \[
+    \limsup_{n \to \infty} \frac{1}{a_n} = \frac{1}{\liminf_{n \to \infty} a_n}.
+  \]</span></li><li><b>4</b> <span class="qbody">Let $C([0,1])$ denote the metric space of continuous real valued functions on $[0,1]$ under the supremum metric, i.e., the distance between $f$ and $g$ in $C([0,1])$ equals $\sup\{|f(x) - g(x)| \mid x \in [0,1]\}$. Let $Q \subset C([0,1])$ be the set of all polynomials in $\mathbb{R}[x]$ in which the coefficient of $x^2$ is $0$. Then $Q$ is dense in $C([0,1])$.</span></li><li><b>5</b> <span class="qbody">If $X$ is a metric space such that every continuous function $f: X \to \mathbb{R}$ is uniformly continuous, then $X$ is compact.</span></li><li><b>6</b> <span class="qbody">Let $X$ be a metric space, and let $C(X)$ denote the $\mathbb{R}$-vector space of continuous real valued functions on $X$. Then $X$ is infinite if and only if $\dim_{\mathbb{R}} C(X) = \infty$.</span></li><li><b>7</b> <span class="qbody">Let $A$ be a countable union of lines in $\mathbb{R}^3$. Then $\mathbb{R}^3 \setminus A$ is connected.</span></li><li><b>8</b> <span class="qbody">An invertible linear map from $\mathbb{R}^2$ to itself takes parallel lines to parallel lines.</span></li><li><b>9</b> <span class="qbody">For any matrix $C$ with entries in $\mathbb{C}$, let $m(C)$ denote the minimal polynomial of $C$, and $p(C)$ its characteristic polynomial. Then for any $n \in \mathbb{N}$ two matrices $A, B \in M_n(\mathbb{C})$ are similar if and only if $m(A) = m(B)$ and $p(A) = p(B)$.</span></li><li><b>10</b> <span class="qbody">Let $A, B \in M_3(\mathbb{R})$. Then
+  \[
+    \det(AB - BA) = \frac{\operatorname{tr}[(AB - BA)^3]}{3}.
+  \]</span></li><li><b>11</b> <span class="qbody">There exist an integer $r \ge 1$ and a symmetric matrix $A \in M_r(\mathbb{R})$ such that for all $n \in \mathbb{N}$, we have:
+  \[
+    2^{\sqrt{n}} \le |\operatorname{tr}(A^n)| \le 2020 \cdot 2^{\sqrt{n}}.
+  \]</span></li><li><b>12</b> <span class="qbody">The polynomial $1 + x + \frac{x^2}{2!} + \dots + \frac{x^{101}}{101!}$ is irreducible in $\mathbb{Q}[x]$.</span></li><li><b>13</b> <span class="qbody">There exists an integer $n &gt; 3$ such that the group of units of the ring $\mathbb{Z}/2^n\mathbb{Z}$ is cyclic.</span></li><li><b>14</b> <span class="qbody">For every surjective ring homomorphism $\varphi: R \to S$ we have $\varphi(R^\times) = S^\times$.</span></li><li><b>15</b> <span class="qbody">Let $G$ be a finite group and $P$ a $p$-Sylow subgroup of $G$, where $p$ is a prime number. Then for every subgroup $H$ of $G$, $H \cap P$ is a $p$-Sylow subgroup of $H$.</span></li><li><b>16</b> <span class="qbody">Let $G$ be an abelian group, with identity element $e$. If $\{g \in G \mid g = e \text{ or } g \text{ has infinite order}\}$ is a subgroup of $G$, then either all elements of $G \setminus \{e\}$ have infinite order, or all elements of $G$ have finite order.</span></li><li><b>17</b> <span class="qbody">There exists a natural number $n$, with $1 &lt; n \le 10$, such that $x^n$ and $x$ are conjugate for every element $x$ of $S_7$, the group of permutations of $\{1, \dots, 7\}$.</span></li><li><b>18</b> <span class="qbody">Every noncommutative ring has at least $10$ elements.</span></li><li><b>19</b> <span class="qbody">Let $\{a_n\}_{n=1}^\infty$ be a sequence of elements in $\{0, 1\}$ such that for all positive integers $n$, $\sum_{i=n}^{n+9} a_i$ is divisible by $3$. Then there exists a positive integer $k$ such that $a_{n+k} = a_n$ for all positive integers $n$.</span></li><li><b>20</b> <span class="qbody">The interior of any strip bounded by two parallel lines in $\mathbb{R}^2$, of width strictly greater than $1$, contains a point with integer coordinates.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

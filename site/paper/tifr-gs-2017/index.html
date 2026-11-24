@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2017 · Mathematics · VBMath</title>
+<meta name="description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2017 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2017/">
+<meta property="og:title" content="TIFR Graduate School · GS 2017 · Mathematics · VBMath">
+<meta property="og:description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2017 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2017/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2017 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Let $f:[0,1] \to \mathbb{R}$ be a continuous function such that $f(x) \ge x^3$ for all $x \in [0,1]$ with $\int_0^1 f(x)\,dx = \frac{1}{4}$. Then $f(x) = x^3$ for all $x \in \mathbb{R}$.</span></li><li><b>2</b> <span class="qbody">Suppose $a, b, c$ are positive real numbers such that
+  \[
+    (1 + a + b + c)\left(1 + \frac{1}{a} + \frac{1}{b} + \frac{1}{c}\right) = 16.
+  \]
+  Then $a + b + c = 3$.</span></li><li><b>3</b> <span class="qbody">There exists a function $f:\mathbb{R} \to \mathbb{R}$ satisfying $f(-1) = -1$, $f(1) = 1$ and $|f(x) - f(y)| \le |x - y|^{3/2}$ for all $x, y \in \mathbb{R}$.</span></li><li><b>4</b> <span class="qbody">Over the real line,
+  \[
+    \lim_{x \to \infty} \log\left(1 + \sqrt{4 + x} - \sqrt{1 + x}\right) = \log(2).
+  \]</span></li><li><b>5</b> <span class="qbody">Suppose $f$ is a continuously differentiable function on $\mathbb{R}$ such that $f(x) \to 1$ and $f&#x27;(x) \to b$ as $x \to \infty$. Then $b = 1$.</span></li><li><b>6</b> <span class="qbody">If $f:\mathbb{R} \to \mathbb{R}$ is differentiable and bijective, then $f^{-1}$ is also differentiable.</span></li><li><b>7</b> <span class="qbody">Let $H_1, H_2, H_3, H_4$ be four hyperplanes in $\mathbb{R}^3$. The maximum possible number of connected components of $\mathbb{R}^3 - (H_1 \cup H_2 \cup H_3 \cup H_4)$ is $14$.</span></li><li><b>8</b> <span class="qbody">Let $n \ge 2$ be a natural number. Let $S$ be the set of all $n \times n$ real matrices whose entries are only $0$, $1$ or $2$. Then the average determinant of a matrix in $S$ is greater than or equal to $1$.</span></li><li><b>9</b> <span class="qbody">For any metric space $(X, d)$ with $X$ finite, there exists an isometric embedding $f: X \to \mathbb{R}^4$.</span></li><li><b>10</b> <span class="qbody">There exists a non-negative continuous function $f:[0,1] \to \mathbb{R}$ such that $\int_0^1 f^n\,dx \to 2$ as $n \to \infty$.</span></li><li><b>11</b> <span class="qbody">There exists a subset $A$ of $\mathbb{N}$ with exactly five elements such that the sum of any three elements of $A$ is a prime number.</span></li><li><b>12</b> <span class="qbody">There exists a finite abelian group $G$ containing exactly $60$ elements of order $2$.</span></li><li><b>13</b> <span class="qbody">Let $\alpha, \beta$ be complex numbers with non-positive real parts. Then $|e^\alpha - e^\beta| \le |\alpha - \beta|$.</span></li><li><b>14</b> <span class="qbody">Every $2 \times 2$-matrix over $\mathbb{C}$ is a square of some matrix.</span></li><li><b>15</b> <span class="qbody">Under the projection map $\mathbb{R}^2 \to \mathbb{R}$ sending $(x, y)$ to $x$, the image of any closed set is closed.</span></li><li><b>16</b> <span class="qbody">The number of ways a $2 \times 8$ rectangle can be tiled with rectangular tiles of size $2 \times 1$ is $34$.</span></li><li><b>17</b> <span class="qbody">Over the real line,
+  \[
+    \lim_{x \to \infty} \left(\frac{x + \log 9}{x - \log 9}\right)^x = 81.
+  \]</span></li><li><b>18</b> <span class="qbody">Let $f:[0,\infty) \to \mathbb{R}$ be a continuous function with $\lim_{x \to \infty} f(x) = 0$. Then $f$ has a maximum value in $[0,\infty)$.</span></li><li><b>19</b> <span class="qbody">Given a continuous function $f:\mathbb{Q} \to \mathbb{Q}$, there exists a continuous function $g:\mathbb{R} \to \mathbb{R}$ such that the restriction of $g$ to $\mathbb{Q}$ is $f$.</span></li><li><b>20</b> <span class="qbody">For all positive integers $m$ and $n$, if $A$ is an $m \times n$ real matrix, and $B$ is an $n \times m$ real matrix such that $AB = I$, then $BA = I$.</span></li><li><b>21</b> <span class="qbody">There is a continuous onto function $f: S^2 \to S^1$ from the unit sphere in $\mathbb{R}^3$ to the unit sphere in $\mathbb{R}^2$, where $S^n = \{v \in \mathbb{R}^{n+1} \mid \|v\| = 1\}$ denotes the unit sphere in $\mathbb{R}^{n+1}$.</span></li><li><b>22</b> <span class="qbody">Let $P$ be a monic, non-zero, polynomial of even degree, and $K &gt; 0$. Then the function $P(x) - K e^x$ has a real zero.</span></li><li><b>23</b> <span class="qbody">A $p$-Sylow subgroup of the underlying additive group of a finite commutative ring $R$ is an ideal in $R$.</span></li><li><b>24</b> <span class="qbody">Suppose $A$ is an $n \times n$ real matrix, all whose eigenvalues have absolute value less than $1$. Then for any $v \in \mathbb{R}^n$, $\|Av\| \le \|v\|$.</span></li><li><b>25</b> <span class="qbody">For any $x \in \mathbb{R}$, the sequence $\{a_n\}$, where $a_1 = x$ and $a_{n+1} = \cos(a_n)$ for all $n$, is convergent.</span></li><li><b>26</b> <span class="qbody">Suppose $A_1, \dots, A_m$ are distinct $n \times n$ real matrices such that $A_i A_j = 0$ for all $i \ne j$. Then $m \le n$.</span></li><li><b>27</b> <span class="qbody">In the symmetric group $S_n$ any two elements of the same order are conjugate.</span></li><li><b>28</b> <span class="qbody">If a particle moving on the Euclidean line traverses distance $1$ in time $1$ starting and ending at rest, then at some time $t \in [0,1]$, the absolute value of its acceleration should be at least $4$.</span></li><li><b>29</b> <span class="qbody">Let $y(t)$ be a real valued function defined on the real line such that $y&#x27; = y(1 - y)$, with $y(0) \in [0,1]$. Then $\lim_{t \to \infty} y(t) = 1$.</span></li><li><b>30</b> <span class="qbody">The matrices
+  \[
+    \begin{pmatrix} x &amp; 0 \\ 0 &amp; y \end{pmatrix} \quad \text{and} \quad \begin{pmatrix} x &amp; 1 \\ 0 &amp; y \end{pmatrix}, \qquad x \ne y,
+  \]
+  for any $x, y \in \mathbb{R}$ are conjugate in $M_2(\mathbb{R})$.</span></li><li><b>1</b> <span class="qbody">Show that the subset $GL_n(\mathbb{R})$ of $M_n(\mathbb{R})$ consisting of all invertible matrices is dense in $M_n(\mathbb{R})$.</span></li><li><b>2</b> <span class="qbody">Let $f$ be a continuous function on $\mathbb{R}$ satisfying the relation $f(f(f(x))) = x$ for all $x \in \mathbb{R}$. Prove or disprove that $f$ is the identity function.</span></li><li><b>3</b> <span class="qbody">Prove or disprove: the group of positive rationals under multiplication is isomorphic to its subgroup consisting of rationals which can be expressed as $p/q$ where both $p$ and $q$ are odd positive integers.</span></li><li><b>4</b> <span class="qbody">Show that the only elements in $M_n(\mathbb{R})$ commuting with every idempotent matrix are the scalar matrices. (A matrix $P$ in $M_n(\mathbb{R})$ is said to be idempotent if $P^2 = P$.)</span></li><li><b>5</b> <span class="qbody">Prove or disprove the following: let $f: X \to X$ be a continuous function from a complete metric space $(X, d)$ into itself such that $d(f(x), f(y)) &lt; d(x, y)$ whenever $x \ne y$. Then $f$ has a fixed point.</span></li><li><b>6</b> <span class="qbody">How many isomorphism classes of associative rings (with identity) are there with $35$ elements? Prove your answer.</span></li><li><b>7</b> <span class="qbody">Prove or disprove: If $G$ is a finite group and $g, h \in G$, then $g, h$ have the same order if and only if there exists a group $H$ containing $G$ such that $g$ and $h$ are conjugate in $H$.</span></li><li><b>8</b> <span class="qbody">Prove or disprove: there exists $A \subset \mathbb{N}$ with exactly five elements, such that the sum of any three elements of $A$ is a prime number.</span></li><li><b>9</b> <span class="qbody">Show that there does not exist any continuous function $f: \mathbb{R} \to \mathbb{R}$ that takes every value exactly twice.</span></li><li><b>10</b> <span class="qbody">For which positive integers $n$ does there exist an $\mathbb{R}$-linear ring homomorphism $f: \mathbb{C} \to M_n(\mathbb{R})$? Justify your answer.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>
