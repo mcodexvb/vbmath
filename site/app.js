@@ -941,8 +941,22 @@
         ${order.map((b) => `<tr><th>${esc(D.broad[b])}</th>${yrs.map((y) => { const v = cell.get(b + "|" + y) || 0, sh = byYear.get(y) ? v / byYear.get(y) : 0; return `<td style="--heat-weight:${maxShare ? Math.round(100 * sh / maxShare) : 0}%" data-hb="${b}" data-hy="${y}" title="${esc(D.broad[b])}, ${y}: ${v} questions (${Math.round(sh * 100)}%)">${v ? Math.round(sh * 100) : ""}</td>`; }).join("")}</tr>`).join("")}
         </tbody></table></div><p class="muted" style="font-size:13px;margin-top:8px">Numbers are percentages. B.Sc. and M.Sc. together; use Search filters to split them.</p></section>
       <section class="section"><div class="section-head"><h2>All topics</h2></div>
-        <div class="grid g2">${order.map((b) => `<div class="card"><h3><a href="${L("search")}" data-tb="${b}" style="color:inherit;text-decoration:none">${esc(D.broad[b])}</a> <span class="muted" style="font:400 13px var(--f-ui)">${bc[b].toLocaleString()}</span></h3>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">${D.topics.map((t, k) => [t, k]).filter(([t]) => t[0] === D.broad[b]).sort((x, y) => tc[y[1]] - tc[x[1]]).map(([t, k]) => `<a class="tag" href="${L("search")}" data-tt="${k}" data-tb2="${b}">${esc(t[1])} · ${tc[k]}</a>`).join("")}</div></div>`).join("")}</div></section></div>`;
+        <div class="topic-grid">${order.map((b) => {
+          const topics = D.topics.map(([area, label], k) => ({ area, label, k, count: tc[k] }))
+            .filter(({ area }) => area === D.broad[b]).sort((a, b) => b.count - a.count);
+          return `<article class="topic-card">
+            <h3><a class="topic-area" href="${L("search")}" data-tb="${b}">
+              <span>${esc(D.broad[b])}</span>
+              <span class="topic-total">${bc[b].toLocaleString()}<span class="sr"> questions</span></span>
+              ${IC.arrow}
+            </a></h3>
+            <ul class="topic-list" role="list">${topics.map(({ label, k, count }) => `
+              <li><a class="topic-row" href="${L("search")}" data-tt="${k}" data-tb2="${b}">
+                <span>${esc(label)}</span>
+                <span class="topic-count">${count.toLocaleString()}<span class="sr"> questions</span></span>
+              </a></li>`).join("")}</ul>
+          </article>`;
+        }).join("")}</div></section></div>`;
   }
   function bindTopics() {
     $$("[data-hb]").forEach((td) => td.addEventListener("click", () => { F = defaultFilters(); F.broad = td.dataset.hb; F.from = F.to = td.dataset.hy; go("search"); }));
