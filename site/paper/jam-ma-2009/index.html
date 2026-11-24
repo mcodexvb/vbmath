@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2009 · VBMath</title>
+<meta name="description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2009.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2009/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2009 · VBMath">
+<meta property="og:description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2009.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2009/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2009</h1></header><ol class="prerender"><li><b></b> <span class="qbody">Let $V$ be the vector space of all $6 \times 6$ real matrices over the field $\mathrm{R}$. Then the dimension of the subspace of $V$ consisting of all symmetric matrices is 
+\begin{enumerate}[label=(\alph*)]
+   \item 15 
+\item 18 
+\item 21 
+\item 35 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $R$ be the ring of all functions from $R$ to $R$ under point-wise addition and multiplication. Let $I=\{f: \mathbb{R} \rightarrow \mathbb{R} \mid f$ is a bounded function $\}, J=\{f: \mathbb{R} \rightarrow \mathbb{R} \mid f(3)=0\}$. Then 
+\begin{enumerate}[label=(\alph*)]
+   
+\item $J$ is an ideal of $R$ but $I$ is not an ideal of $R$ 
+\item $I$ is an ideal of $R$ but $J$ is not an ideal of $R$ 
+\item both $I$ and $J$ are ideals of $R$ 
+\item neither $I$ nor $J$ is an ideal of $R$ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Which of the following sequences of functions is uniformly convergent on $(0,1)$ ? 
+\begin{enumerate}[label=(\alph*)]
+    \item $x^{n}$ 
+\item $\frac{n}{n x+1}$ 
+\item $\frac{x}{n x+1}$ 
+\item $\frac{1}{n x+1}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \mathrm{R}^{4} \rightarrow \mathrm{R}^{4}$ be a linear transformation satisfying $T^{3}+3 T^{2}=4 I$, where $I$ is the identity transformation. Then the linear transformation $S=T^{4}+3 T^{3}-4 I$ is 
+\begin{enumerate}[label=(\alph*)]
+    
+\item one-one but not onto 
+\item invertible 
+\item onto but not one-one 
+\item non-invertible
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The number of all subgroups of the group $\left(Z_{60},+\right)$ of integers modulo 60 is 
+\begin{enumerate}[label=(\alph*)]
+    \item 2 
+\item 10 
+\item 12 
+\item 60
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $a_{n}= \begin{cases}\frac{1}{3^{n}} &amp; \text { if } n \text { is a prime, } \\ \frac{1}{4^{n}} &amp; \text { if } n \text { is not aprime. }\end{cases}$
+
+Then the radius of convergence of the power series $\sum_{n=1}^{\infty} a_{n} x^{n}$ is 
+\begin{enumerate}[label=(\alph*)]
+    \item 4 
+\item 3 
+\item $\frac{1}{3}$ 
+\item $\frac{1}{4}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set of all limit points of the sequence $1, \frac{1}{2}, \frac{1}{4}, \frac{3}{4}, \frac{1}{8}, \frac{3}{8}, \frac{5}{8}, \frac{7}{8}, \frac{1}{16}, \frac{3}{16}, \frac{5}{16}, \frac{7}{16}, \frac{9}{16}, \ldots$ is 
+\begin{enumerate}[label=(\alph*)]
+    \item $[0,1]$ 
+\item $(0,1]$ 
+\item the set of all rational numbers in $[0,1]$ 
+\item the set of all rational numbers in $[0,1]$ of the form $\frac{m}{2^{n}}$ where $m$ and $n$ are integers 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $F: \mathrm{R} \rightarrow \mathbb{R}$ be a continuous function and $a&gt;0$. Then the integral $\int_{0}^{a}\left[\int_{0}^{x} F(y) d y\right] d x$ equals
+\begin{enumerate}[label=(\alph*)]
+    \item $\int_{0}^{a} y F(y) d y$ 
+\item $\int_{0}^{a}(a-y) F(y) d y$ 
+\item $\int_{0}^{a}(y-a) F(y) d y$ 
+\item $\int_{a}^{0} y F(y) d y$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set of all positive values of $a$ for which the series $\sum_{n=1}^{\infty}\left(\frac{1}{n}-\tan ^{-1}\left(\frac{1}{n}\right)\right)^{a}$ converges, is 
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\left(0, \frac{1}{3}\right]$ 
+\item $\left(0, \frac{1}{3}\right)$ 
+\item $\left[\frac{1}{3}, \infty\right)$ 
+\item $\left(\frac{1}{3}, \infty\right)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $a$ be a non-zero real number. Then $\lim _{x \rightarrow a} \frac{1}{x^{2}-a^{2}} \int_{a}^{x} \sin \left(t^{2}\right) d t$ equals 
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\frac{1}{2 a} \sin \left(a^{2}\right)$ 
+\item $\frac{1}{2 a} \cos \left(a^{2}\right)$ 
+\item $-\frac{1}{2 a} \sin \left(a^{2}\right)$ 
+\item $-\frac{1}{2 a} \cos \left(a^{2}\right)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T(x, y, z)=x y^{2}+2 z-x^{2} z^{2}$ be the temperature at the point $(x, y, z)$. The unit vector in the direction in which the temperature decreases most rapidly at $(1,0,-1)$ is
+\begin{enumerate}[label=(\alph*)]
+    \item $-\frac{1}{\sqrt{5}} \hat{i}+\frac{2}{\sqrt{5}} \hat{k}$ 
+\item $\frac{1}{\sqrt{5}} \hat{i}-\frac{2}{\sqrt{5}} \hat{k}$ 
+\item $\frac{2}{\sqrt{14}} \hat{i}+\frac{3}{\sqrt{14}} \hat{j}+\frac{1}{\sqrt{14}} \hat{k}$ 
+\item $-\left(\frac{2}{\sqrt{14}} \hat{i}+\frac{3}{\sqrt{14}} \hat{j}+\frac{1}{\sqrt{14}} \hat{k}\right)$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Consider the differential equation $2 \cos \left(y^{2}\right) d x-x y \sin \left(y^{2}\right) d y=0$. Then 
+\begin{enumerate}[label=(\alph*)]
+    \item $e^{x}$ is an integrating factor 
+\item $e^{-x}$ is an integrating factor 
+\item $3 x$ is an integrating factor 
+\item $x^{3}$ is an integrating factor
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Suppose $\vec{V}=p(x, y) \hat{i}+q(x, y) \hat{j}$ is a continuously differentiable vector field defined in a domain $D$ in $R^{2}$. Which one of the following statements is NOT equivalent to the remaining ones? 
+\begin{enumerate}[label=(\alph*)]
+    \item There exists a function $\phi(x, y)$ such that $\frac{\partial \phi}{\partial x}=p(x, y)$ and $\frac{\partial \phi}{\partial y}=q(x, y)$ for all $(x, y) \in D$ 
+\item $\frac{\partial q}{\partial x}=\frac{\partial p}{\partial y}$ holds at all points of $D$ 
+\item $\oint_{C} \vec{V} \cdot d \vec{r}=0$ for every piecewise smooth closed curve $C$ in $D$ 
+\item The differential $p d x+q d y$ is exact in $D$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f, g:[-1,1] \rightarrow \mathbb{R}, f(x)=x^{3}, g(x)=x^{2}|x|$. Then 
+\begin{enumerate}[label=(\alph*)]
+   
+\item $f$ and $g$ are linearly independent on $[-1,1]$ 
+\item $f$ and $g$ are linearly dependent on $[-1,1]$ 
+\item $f(x) g^{\prime}(x)-f^{\prime}(x) g(x)$ is NOT identically zero on $[-1,1]$ 
+\item there exist continuous functions $p(x)$ and $q(x)$ such that $f$ and $g$ satisfy $y^{\prime \prime}+p y^{\prime}+q y=0$ on $[-1,1]$
+ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of $c$ for which there exists a twice differentiable vector field $\vec{F}$ with $\operatorname{curl} \vec{F}=2 x \hat{i}-7 y \hat{j}+c z \hat{k}$ is 
+\begin{enumerate}[label=(\alph*)]
+    
+\item 0 
+\item 2 
+\item 5 
+\item 7
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Container A contains $100 \mathrm{cc}$ of milk and container B contains $100 \mathrm{cc}$ of water. $5 \mathrm{cc}$ of the liquid in $\mathrm{A}$ is transferred to $\mathrm{B}$, the mixture is thoroughly stirred and $5 \mathrm{cc}$ of the mixture in B is transferred back into A. Each such two-way transfer is called a dilution. Let $a_{n}$ be the percentage of water in container A after $n$ such dilutions, with the understanding that $a_{0}=0$. 
+\begin{enumerate}
+    \item  Prove that $a_{1}=\frac{100}{21}$ and that, in general, $a_{n}=\frac{100}{21}+\frac{19}{21} a_{n-1}$ for $n=1,2,3, \ldots$ 
+\item  Using (a) prove that $a_{n}=50\left[1-\left(\frac{19}{21}\right)^{n}\right]$ for $n=1,2,3, \ldots$. 
+Find $\lim _{n \rightarrow \infty} a_{n}$ and explain why the answer is intuitively obvious.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item  Let $f: \mathrm{N} \times \mathrm{N} \rightarrow \mathrm{R}$ be a non-negative function. Assume that for every $m \in \mathrm{N}$, the series $\sum_{n=1}^{\infty} f(m, n)$ is convergent and has sum $a_{m}$ and further that the series $\sum_{m=1}^{\infty} a_{m}$ is also convergent and has sum $L$. Prove that for every $n$, the series $\sum_{m=1}^{\infty} f(m, n)$ is convergent and if we denote its sum by $b_{n}$ then the series $\sum_{n=1}^{\infty} b_{n}$ is also convergent and has sum $L$.
+
+\item  Define $f: \mathrm{N} \times \mathrm{N} \rightarrow \mathrm{R}$ by
+$$
+f(m, n)=\left\{\begin{array}{lll}
+0 &amp; \text { if } n&gt;m, \\
+\frac{-1}{2^{m-n}} &amp; \text { if } n&lt;m, \\
+1 &amp; \text { if } n=m .
+\end{array}\right.
+$$
+Show that $\sum_{m=1}^{\infty} \sum_{n=1}^{\infty} f(m, n)=2$ and $\sum_{n=1}^{\infty} \sum_{m=1}^{\infty} f(m, n)=0$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+   \item Evaluate $\iint_{R} \cos \left(\max \left\{x^{3}, y^{3 / 2}\right\}\right) d x d y$, where $R=[0,1] \times[0,1]$.
+
+\item  Let $S=\sqrt{1}+\sqrt{2}+\sqrt{3}+\ldots .+\sqrt{10000}$ and $I=\int_{n}^{10000} \sqrt{x} d x$. Show that $I \leq S \leq I+100$.(6)
+ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $D=\{(x, y): x \geq 0, y \geq 0\}$. Let $f(x, y)=\left(x^{2}+y^{2}\right) e^{-x-y}$ for $(x, y) \in D$.
+
+Prove that $f$ attains its maximum on $D$ at two boundary points.
+
+Deduce that $\frac{x^{2}+y^{2}}{4} \leq e^{x+y-2}$ for all $x \geq 0, y \geq 0$.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+\item Let $a_{1}, b_{1}, a_{2}, b_{2} \in \mathrm{R}$. Show that the condition $a_{2} b_{1}&gt;0$ is sufficient but not necessary for the system
+$$
+\begin{aligned}
+&amp;\frac{d x}{d t}=a_{1} x+b_{1} y, \\
+&amp;\frac{d y}{d t}=a_{2} x+b_{2} y,
+\end{aligned}
+$$
+to have two linearly independent solutions of the form $x=c_{1} e^{\lambda_{1} t}, y=d_{1} e^{\lambda_{1} t}$ and $x=c_{2} e^{\lambda_{2} t}, y=d_{2} e^{\lambda_{2} t}$ with $c_{1}, d_{1}, c_{2}, d_{2}, \lambda_{1}, \lambda_{2} \in \mathbb{R}$.
+
+\item  Show that the differential equation representing the family of all straight lines which have an intercept of constant length $L$ between the coordinate axes is
+$$
+x \frac{d y}{d x}-y=\frac{L \frac{d y}{d x}}{\sqrt{1+\left(\frac{d y}{d x}\right)^{2}}} .
+$$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $A, B, k&gt;0$. Solve the initial value problem
+
+Also show that
+$$
+\frac{d y}{d x}-A y+B y^{3}=0, x&gt;0, y(0)=k .
+$$
+
+\begin{enumerate}
+    \item  if $k&lt;\sqrt{\frac{A}{B}}$, then the solution $y(x)$ is monotonically increasing on $(0, \infty)$ and tends to $\sqrt{\frac{A}{B}}$ as $x \rightarrow \infty$
+
+\item  if $k&gt;\sqrt{\frac{A}{B}}$, then the solution $y(x)$ is monotonically decreasing on $(0, \infty)$ and tends to $\sqrt{\frac{A}{B}}$ as $x \rightarrow \infty$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+   \item Evaluate
+$$
+\int_{C}\left(3 y^{2}+2 z^{2}\right) d x+(6 x-10 z) y d y+\left(4 x z-5 y^{2}\right) d z
+$$
+along the portion from $(1,0,1)$ to $(3,4,5)$ of the curve $C$, which is the intersection of the two surfaces $z^{2}=x^{2}+y^{2}$ and $z=y+1$.
+
+a
+
+\item  A particle moves counterclockwise along the curve $3 x^{2}+y^{2}=3$ from $(1,0)$ to a point $P$, under the action of the force $\vec{F}(x, y)=\frac{x}{y} \hat{i}+\frac{y}{x} \hat{j}$. Prove that there are two possible locations of $P$ such that the work done by $\vec{F}$ is 1 . 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Verify Stokes&#x27;s theorem for the hemisphere $x^{2}+y^{2}+z^{2}=9, z \geq 0$ and the vector field $\vec{F}=\left(z^{2}-y\right) \hat{i}+(x-2 y z) \hat{j}+\left(2 x z-y^{2}\right) \hat{k}$.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+\item  Let $T: \mathbb{R}^{3} \rightarrow \mathbb{R}^{2}$ be the linear transformation defined by $T(x, y, z)=(x+2 y, x-z)$. Let $N(T)$ be the null space of $T$ and $W=\left\{\vec{v} \in \mathbb{R}^{3} \mid \vec{v} \cdot \vec{u}=0\right.$, for all $\left.\vec{u} \in N(T)\right\}$. Find a linear transformation $S: \mathbb{R}^{2} \rightarrow W$ such that $T S=I$, where $I$ is the identity transformation on $\mathrm{R}^{2}$.
+
+\item  Suppose $A$ is a real square matrix of odd order such that $A+A^{T}=0$. Prove that $A$ is singular. 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item  Find all pairs $(a, b)$ of real numbers for which the system of equations
+$$
+\begin{aligned}
+x+3 y &amp;=1 \\
+4 x+a y+z &amp;=0 \\
+2 x+3 z &amp;=b
+\end{aligned}
+$$
+has (i) a unique solution, (ii) infinitely many solutions, (iii) no solution.
+
+\item  Let $A$ be an $n \times n$ matrix such that $A^{n}=0$ and $A^{n-1} \neq 0$. Show that there exists a vector $v \in \mathbb{R}^{\mathrm{n}}$ such that $\left\{v, A v, \ldots, A^{n-1} v\right\}$ forms a basis for $\mathbb{R}^{\mathrm{n}}$.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+\item  In which of the following pairs are the two groups isomorphic to each other? Justify your answers.
+
+(i) $\mathrm{R} / \mathrm{Z}$ and $S^{1}$, where $\mathrm{R}$ is the additive group of real numbers and $S^{1}=\{z \in \mathbb{C}:|z|=1\}$ under complex multiplication.
+
+(ii) $(\mathrm{Z},+)$ and $(\mathrm{Q},+)$.
+
+
+
+\item Prove or disprove that if $G$ is a finite abelian group of order $n$, and 
+integer which divides $n$, then $G$ has at most one subgroup of order $k$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $I$ and $J$ be ideals of a ring $R$. Let $I J$ be the set of all possible sums $\sum_{i=1}^{n} a_{i} b_{i}$, where $a_{i} \in I, b_{i} \in J$ for $i=1,2, \ldots, n$ and $n \in \mathrm{N}$. 
+\begin{enumerate}
+    \item  Prove that $I J$ is an ideal of $R$ and $I J \subseteq I \cap J$. 
+\item  Is it true that $I J=I \cap J$ ? Justify your answer.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">A sequence $\left\{f_{n}\right\}$ of functions defined on an interval $I$ is said to be uniformly bounded on $I$ if there exists some $M$ such that $\left|f_{n}(x)\right| \leq M$ for all $x \in I$ and for all $n \in \mathrm{N}$.
+
+
+\begin{enumerate}
+    
+\item  Prove that if a sequence of functions $\left\{f_{n}\right\}$ converges to a function $f$ on $I$ and $\left\{f_{n}\right\}$ is uniformly bounded on $I$, then $f$ is bounded on $I$.
+
+\item  Suppose the sequences $\left\{f_{n}\right\}$ and $\left\{g_{n}\right\}$ of functions converge uniformly to $f$ and $g$ respectively on $I$ and both are uniformly bounded on $I$. Prove that the product sequence $\left\{f_{n} g_{n}\right\}$ converges to $f g$ uniformly on $I$. Show by an example that this may fail if only one of $\left\{f_{n}\right\}$ and $\left\{g_{n}\right\}$ is uniformly bounded on $I$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+\item Prove that if $f$ is a real-valued function which is uniformly continuous on an interval $(a, b)$, then $f$ is bounded on $(a, b)$.
+
+\item  Let $f$ be a differentiable function on an interval $(a, b)$. Assume that $f^{\prime}$ is bounded on $(a, b)$. Prove that $f$ is uniformly continuous on $(a, b)$.
+\end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

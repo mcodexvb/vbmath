@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2012 · VBMath</title>
+<meta name="description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2012.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2012/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2012 · VBMath">
+<meta property="og:description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2012.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2012/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2012</h1></header><ol class="prerender"><li><b></b> <span class="qbody">Let $\left\{x_{n}\right\}$ be the sequence $+\sqrt{1},-\sqrt{1},+\sqrt{2},-\sqrt{2},+\sqrt{3},-\sqrt{3},+\sqrt{4},-\sqrt{4}, \ldots$.
+
+If
+$$
+y_{n}=\frac{x_{1}+x_{2}+\cdots+x_{n}}{n} \text { for all } n \in \mathbb{N},
+$$
+then the sequence $\left\{y_{n}\right\}$ is
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item monotonic 
+\item NOT bounded 
+\item bounded but NOT convergent 
+\item convergent
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The number of distinct real roots of the equation $x^{9}+x^{7}+x^{5}+x^{3}+x+1=0$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 1 
+\item 3 
+\item 5 
+\item 9
+\end{enumerate}</span></li><li><b></b> <span class="qbody">If $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ is defined by
+$$
+f(x, y)=\left\{\begin{array}{cc}
+\frac{x^{3}}{x^{2}+y^{4}} &amp; \text { if }(x, y) \neq(0,0),  \\
+0 &amp; \text { if }(x, y)=(0,0),
+\end{array}\right.
+$$
+then
+
+
+\begin{enumerate}[label=(\alph*)]
+   \item $f_{x}(0,0)=0$ and $f_{y}(0,0)=0$ 
+\item $f_{x}(0,0)=1$ and $f_{y}(0,0)=0$ 
+\item $f_{x}(0,0)=0$ and $f_{y}(0,0)=1$ 
+\item $f_{x}(0,0)=1$ and $f_{y}(0,0)=1$ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of $\int_{z=0}^{1} \int_{y=0}^{z} \int_{x=0}^{y} x y^{2} z^{3} d x d y d z$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\frac{1}{90}$ 
+\item $\frac{1}{50}$ 
+\item $\frac{1}{45}$ 
+\item $\frac{1}{10}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The differential equation $\left(1+x^{2} y^{3}+\alpha x^{2} y^{2}\right) d x+\left(2+x^{3} y^{2}+x^{3} y\right) d y=0$ is exact if $\alpha$ equals 
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\frac{1}{2}$ 
+\item $\frac{3}{2}$ 
+\item 2 
+\item 3
+\end{enumerate}</span></li><li><b></b> <span class="qbody">An integrating factor for the differential equation $\left(2 x y+3 x^{2} y+6 y^{3}\right) d x+\left(x^{2}+6 y^{2}\right) d y=0$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item $x^{3}$ 
+\item $y^{3}$ 
+\item $e^{3 x}$ 
+\item $e^{3 y}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">For $c&gt;0$, if $a \hat{i}+b \hat{j}+c \hat{k}$ is the unit normal vector at $(1,1, \sqrt{2})$ to the cone $z=\sqrt{x^{2}+y^{2}}$, then 
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\quad a^{2}+b^{2}-c^{2}=0$ 
+\item $-a^{2}+b^{2}+c^{2}=0$ 
+\item $\quad a^{2}-b^{2}+c^{2}=0$ 
+\item $a^{2}+b^{2}+c^{2}=0$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Consider the quotient group $\mathbb{Q} / \mathbb{Z}$ of the additive group of rational numbers. The order of the element $\frac{2}{3}+\mathbb{Z}$ in $\mathbb{Q} / \mathbb{Z}$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 2 
+\item 3 
+\item 5 
+\item 6
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Which one of the following is TRUE ? 
+ 
+
+\begin{enumerate}[label=(\alph*)]
+    \item The characteristic of the ring $6 \mathbb{Z}$ is 6 
+\item The ring $6 \mathbb{Z}$ has a zero divisor 
+\item The characteristic of the ring $(\mathbb{Z} / 6 \mathbb{Z}) \times 6 \mathbb{Z}$ is zero 
+\item The ring $6 \mathbb{Z} \times 6 \mathbb{Z}$ is an integral domain
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $W$ be a vector space over $\mathbb{R}$ and let $T: \mathbb{R}^{6} \rightarrow W$ be a linear transformation such that $S=\left\{T e_{2}, T e_{4}, T e_{6}\right\}$ spans $W$. Which one of the following must be TRUE ? 
+
+\begin{enumerate}[label=(\alph*)]
+\item $S$ is a basis of $W$ 
+\item $T\left(\mathbb{R}^{6}\right) \neq W$ 
+\item $\left\{T e_{1}, T e_{3}, T e_{5}\right\}$ spans $W$ 
+\item $\operatorname{ker}(T)$ contains more than one element
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Consider the following subspace of $\mathbb{R}^{3}$ :
+$$
+W=\left\{(x, y, z) \in \mathbb{R}^{3} \mid 2 x+2 y+z=0,3 x+3 y-2 z=0, x+y-3 z=0\right\} .
+$$
+The dimension of $W$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item 0 
+\item 1 
+\item 2 
+\item 3
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $P$ be a $4 \times 4$ matrix whose determinant is 10 . The determinant of the matrix $-3 P$ 
+\begin{enumerate}[label=(\alph*)]
+  \item $-810$ 
+\item $-30$ 
+\item 30 
+\item 810  
+\end{enumerate}</span></li><li><b></b> <span class="qbody">If the power series $\sum_{n=0}^{\infty} a_{n} x^{n}$ converges for $x=3$, then the series $\sum_{n=0}^{\infty} a_{n} x^{n}$ 
+
+\begin{enumerate}[label=(\alph*)]
+    \item converges absolutely for $x=-2$ 
+\item converges but not absolutely for $x=-1$ 
+\item converges but not absolutely for $x=1$ 
+\item diverges for $x=-2$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">If $Y=\left\{\frac{x}{1+|x|} \mid x \in \mathbb{R}\right\}$, then the set of all limit points of $Y$ is 
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(-1,1)$ 
+\item $\quad(-1,1]$ 
+\item $[0,1]$ 
+\item $[-1,1]$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">If $C$ is a smooth curve in $\mathbb{R}^{3}$ from $(0,0,0)$ to $(2,1,-1)$, then the value of
+$$
+\int_{C}(2 x y+z) d x+\left(z+x^{2}\right) d y+(x+y) d z
+$$
+is 
+
+\begin{enumerate}[label=(\alph*)]
+    \item $-1$ 
+\item 0 
+\item 1 
+\item 2
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+     \item Examine whether the following series is convergent:
+$$
+\sum_{n=1}^{\infty} \frac{n !}{1 \cdot 3 \cdot 5 \cdots(2 n-1)} \text {. }
+$$
+\item  For each $x \in \mathbb{R}$, let $[x]$ denote the greatest integer less than or equal to $x$. Further, for a fixed $\beta \in(0,1)$, define $a_{n}=\frac{1}{n}[n \beta]+n^{2} \beta^{n}$ for all $n \in \mathbb{N}$. Show that the sequence $\left\{a_{n}\right\}$ converges to $\beta$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Evaluate $\lim _{x \rightarrow 0} \frac{\int_{0}^{x^{2}} \sqrt{4+t^{3}} d t}{x^{2}}$.
+
+\item For $a, b \in \mathbb{R}$ with $a&lt;b$, let $f:[a, b] \rightarrow \mathbb{R}$ be continuous on $[a, b]$ and twice differentiable on $(a, b)$. Further, assume that the graph of $f$ intersects the straight line segment joining the points $(a, f(a))$ and $(b, f(b))$ at a point $(c, f(c))$ for $a&lt;c&lt;b$. Show that there exists a real number $\xi \in(a, b)$ such that $f^{\prime \prime}(\xi)=0$.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Show that the point $(0,0)$ is neither a point of local minimum nor a point of local maximum for the function $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ given by $f(x, y)=3 x^{4}-4 x^{2} y+y^{2}$ for $(x, y) \in \mathbb{R}^{2}$
+
+\item Find all the critical points of the function $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ given by $f(x, y)=x^{3}+y^{3}-3 x-12 y+40$ for $(x, y) \in \mathbb{R}^{2}$. Also, examine whether the function $f$ attains a local maximum or a local minimum at each of these critical points.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Evaluate $\int_{x=0}^{4} \int_{y=\sqrt{4-x}}^{2} e^{y^{3}} d y d x$.
+
+\item Using multiple integral, find the volume of the solid region in $\mathbb{R}^{3}$ bounded above by the hemisphere $z=1+\sqrt{1-x^{2}-y^{2}}$ and bounded below by the cone $z=\sqrt{x^{2}+y^{2}}$.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Find the area of the portion of the surface $z=x^{2}-y^{2}$ in $\mathbb{R}^{3}$ which lies inside the solid cylinder $x^{2}+y^{2} \leq 1$.</span></li><li><b></b> <span class="qbody">Let $y(x)$ be the solution of the differential equation $\frac{d^{2} y}{d x^{2}}-y=0$ such that $y(0)=2$ and $y^{\prime}(0)=2 \alpha$. Find all values of $\alpha \in[0,1)$ such that the infimum of the set $\{y(x) \mid x \in \mathbb{R}\}$ is greater than or equal to 1.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+  \item Assume that $y_{1}(x)=x$ and $y_{2}(x)=x^{3}$ are two linearly independent solutions of the homogeneous differential equation $x^{2} \frac{d^{2} y}{d x^{2}}-3 x \frac{d y}{d x}+3 y=0$. Using the method of variation of parameters, find a particular solution of the differential equation $x^{2} \frac{d^{2} y}{d x^{2}}-3 x \frac{d y}{d x}+3 y=x^{5}$.
+
+\item Solve the differential equation $\frac{d y}{d x}+\frac{5 y}{6 x}=\frac{5 x^{4}}{y^{5}}$ subject to the condition $y(1)=1$.
+  
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+  \item Let $\vec{r}=x \hat{i}+y \hat{j}+z \hat{k}$ be the position vector field in $\mathbb{R}^{3}$ and let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a differentiable function. Show that $\vec{\nabla} \times\{f(|\vec{r}|) \vec{r}\}=\overrightarrow{0}$ for $\vec{r} \neq \overrightarrow{0}$.
+
+\item Let $W$ be the region inside the solid cylinder $x^{2}+y^{2} \leq 4$ between the plane $z=0$ and the paraboloid $z=x^{2}+y^{2}$. Let $S$ be the boundary of $W$. Using Gauss&#x27;s divergence theorem, evaluate $\iint_{S} \vec{F} \cdot \hat{n} d S$, where
+$$
+\vec{F}=\left(x^{2}+y^{2}-4\right) \hat{i}+(3 x y) \hat{j}+\left(2 x z+z^{2}\right) \hat{k}
+$$
+and $\hat{n}$ is the outward unit normal vector to $S$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+     \item Let $G$ be a finite group whose order is not divisible by 3 . Show that for every $g \in G$, there exists an $h \in G$ such that $g=h^{3}$.
+
+\item Let $A$ be the group of all rational numbers under addition, $B$ be the group of all non-zero rational numbers under multiplication and $C$ the group of all positive rational numbers under multiplication. Show that no two of the groups $A, B$ and $C$ are isomorphic.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Let $I$ be an ideal of a commutative ring $R$. Define
+
+Show that $A$ is an ideal of $R$.
+$$
+A=\left\{r \in R \mid r^{n} \in I \text { for some } n \in \mathbb{N}\right\} .
+$$
+\item Let $F$ be a field. For each $p(x) \in F[x]$ (the polynomial ring in $x$ over $F$ ) define $\varphi: F[x] \rightarrow F \times F$ by $\varphi(p(x))=(p(0), p(1))$.
+
+
+\begin{enumerate}
+    \item Prove that $\varphi$ is a ring homomorphism.
+
+\item  Prove that the quotient ring $F[x] /\left(x^{2}-x\right)$ is isomorphic to the ring $F \times F$.
+\end{enumerate}
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+     \item Let $P, D$ and $A$ be real square matrices of the same order such that $P$ is invertible, $D$ is diagonal and $D=P A P^{-1}$. If $A^{n}=0$ for some $n \in \mathbb{N}$, then show that $A=0$.
+
+\item Let $T: V \rightarrow W$ be a linear transformation of vector spaces. Prove the following:
+
+
+\begin{enumerate}
+    \item  If $\left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ spans $V$, and $T$ is onto, then $\left\{T v_{1}, T v_{2}, \ldots, T v_{k}\right\}$ spans $W$.
+
+\item  If $\left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ is linearly independent in $V$, and $T$ is one-one, then $\left\{T v_{1}, T v_{2}, \ldots, T v_{k}\right\}$ is linearly independent in $W$.
+
+\item  If $\left\{v_{1}, v_{2}, \ldots, v_{k}\right\}$ is a basis of $V$, and $T$ is bijective, then $\left\{T v_{1}, T v_{2}, \ldots, T v_{k}\right\}$ is a basis of $W$.
+\end{enumerate}
+
+
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+
+ \item Let $\left\{v_{1}, v_{2}, v_{3}\right\}$ be a basis of a vector space $V$ over $\mathbb{R}$. Let $T: V \rightarrow V$ be the linear transformation determined by
+$$
+T v_{1}=v_{1}, T v_{2}=v_{2}-v_{3} \text { and } T v_{3}=v_{2}+2 v_{3} .
+$$
+Find the matrix of the transformation $T$ with $\left\{v_{1}+v_{2}, v_{1}-v_{2}, v_{3}\right\}$ as a basis of both the domain and the co-domain of $T$.
+
+\item Let $W$ be a three dimensional vector space over $\mathbb{R}$ and let $S: W \rightarrow W$ be a linear transformation. Further, assume that every non-zero vector of $W$ is an eigenvector of $S$. Prove that there exists an $\alpha \in \mathbb{R}$ such that $S=\alpha I$, where $I: W \rightarrow W$ is the identity transformation.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+ \item Show that the function $f: \mathbb{R} \rightarrow \mathbb{R}$, defined by $f(x)=x^{2}$ for $x \in \mathbb{R}$, is not uniformly continuous.
+
+\item For each $n \in \mathbb{N}$, let $f_{n}: \mathbb{R} \rightarrow \mathbb{R}$ be a uniformly continuous function. If the sequence $\left\{f_{n}\right\}$ converges uniformly on $\mathbb{R}$ to a function $f: \mathbb{R} \rightarrow \mathbb{R}$, then show that $f$ is uniformly continuous.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+ \item Let $A$ be a nonempty bounded subset of $\mathbb{R}$. Show that $\{x \in \mathbb{R} \mid x \geq a$ for all $a \in A\}$ is a closed subset of $\mathbb{R}$.
+
+\item Let $\left\{x_{n}\right\}$ be a sequence in $\mathbb{R}$ such that $\left|x_{n+1}-x_{n}\right|&lt;\frac{1}{n^{2}}$ for all $n \in \mathbb{N}$. Show that the sequence $\left\{x_{n}\right\}$ is convergent.
+\end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

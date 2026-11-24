@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2010 · VBMath</title>
+<meta name="description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2010.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2010/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2010 · VBMath">
+<meta property="og:description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2010.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2010/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2010</h1></header><ol class="prerender"><li><b></b> <span class="qbody">Which of the following conditions does NOT ensure the convergence of a real sequence $\left\{a_{n}\right\}$ ? 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\left|a_{n}-a_{n+1}\right| \rightarrow 0$ as $n \rightarrow \infty$ 
+\item $\sum_{n=1}^{\infty}\left|a_{n}-a_{n+1}\right|$ is convergent 
+\item $\sum_{n=1}^{\infty} n a_{n}$ is convergent 
+\item The sequences $\left\{a_{2 n}\right\},\left\{a_{2 n+1}\right\}$ and $\left\{a_{3 n}\right\}$ are convergent
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of $\iint_{G} \frac{\ln \left(x^{2}+y^{2}\right)}{x^{2}+y^{2}} d x d y$, where $G=\left\{(x, y) \in \mathbf{R}^{2}: 1 \leq x^{2}+y^{2} \leq e^{2}\right\}$, is 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\pi$ 
+\item $ 2 \pi$ 
+\item $3 \pi$ 
+\item $4 \pi$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The number of elements of $S_{5}$ (the symmetric group on 5 letters) which are their own inverses equals 
+
+\begin{enumerate}[label=(\alph*)]
+    \item 10 
+\item 11 
+\item $ 25$ 
+\item 26
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S$ be an infinite subset of $\mathbf{R}$ such that $S \cap \mathbf{Q}=\phi$. Which of the following statements is true? 
+
+\begin{enumerate}[label=(\alph*)]
+    \item $S$ must have a limit point which belongs 10 
+\item S must have a limit point which belongs $1 \mathbf{R} \backslash \mathbf{Q}$ 
+\item $S$ cannot be a closed set in $\mathbf{R}$ 
+\item $\mathbf{R} \backslash S$ must have a limit point which belongs to $S$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f:(1,4) \rightarrow \mathbf{R}$ be a uniformly continuous function and let $\left\{a_{n}\right\}$ be a Cauchy sequence in $(1,2)$. Let $x_{n}=\alpha_{n}^{2} f\left(a_{n}^{2}\right)$ and $y_{n}=\frac{1}{1+a_{n}^{2}} f\left(a_{n}^{2}\right)$, for all $n \in \mathbf{N}$. Which of the following statements is true? 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item Both $\left\{x_{n}\right\}$ and $\left\{y_{n}\right\}$ must be Cauchy sequences in $\mathbf{R}$ 
+\item $\left\{x_{n}\right\}$ must be a Cauchy sequence in $\mathbf{R}$ but $\left\{y_{n}\right\}$ need not be a Cauchy sequence in $\mathbf{R}$ 
+\item $\left\{y_{n}\right\}$ must be a Cauchy sequence in $R$ but $\left\{x_{n}\right\}$ need not be a Cauchy sequence in $R$ 
+\item Neither $\left\{x_{n}\right\}$ nor $\left\{y_{n}\right\}$ needs to be a Cauchy sequence in $\mathbf{R}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\vec{F}=2 x y z e^{x^{2}} \hat{i}+z e^{x^{2}} \hat{j}+y e^{x^{2}} \hat{k}$ be the gradient of a scalar function. The value of $\int_{L} \vec{F} \cdot \overrightarrow{d r}$ along the oriented path $L$ from $(0,0,0)$ to $(1,0,2)$ and then to $(1,1,2)$ is 
+
+\begin{enumerate}[label=(\alph*)] 
+\item 0 
+\item $2 e$ 
+\item $e$ 
+\item $e^{2}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\vec{F}=x y \hat{i}+y \hat{j}-y z \hat{k}$ denote the force field on a particle traversing the path $L$ from $(0,0,0)$ to $(1,1,1)$ along the curve of intersection of the cylinder $y=x^{2}$ and the plane $z=x$. The work done by $F^{\prime}$ is 
+
+\begin{enumerate}[label=(\alph*)]
+    \item 0 
+\item $\frac{1}{4}$ 
+\item $\frac{1}{2}$ 
+\item 1 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\mathbf{R}[X]$ be the ring of real polynomials iu the variable $X$. The number of ideals in the quotient ring $\mathbf{R}[X] /\left(X^{2}-3 X+2\right)$ is 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 2 
+\item 3 
+\item 4 
+\item 6
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Consider the differential equation $\frac{d y}{d x}=a y-b y^{2}$, where $a, b&gt;0$ and $y(0)=y_{0}$. As $x \rightarrow+\infty$, the solution $y(x)$ tends to 
+
+\begin{enumerate}[label=(\alph*)]
+    \item 0 
+\item $\frac{a}{b}$ 
+\item $\frac{b}{a}$ 
+\item $y_{0}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Consider the differential equation $(x+y+1) d x+(2 x+2 y+1) d y=0$. Which of the following statements is true? 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item The differential equation is linear 
+\item The differential equation is exact 
+\item $e^{x+y}$ is an integrating factor of the differential equation 
+\item A suitable substitution transforms the differentiable equation to the variables separable form
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \mathbf{R}^{2} \rightarrow \mathbf{R}^{2}$ be a linear transformation such that $T((1,2))=(2,3)$ and $T((0,1))=(1,4)$. Then $T((5,6))$ is 
+
+\begin{enumerate}[label=(\alph*)]
+\item $(6,-1)$ 
+\item $(-6,1)$ 
+\item $(-1,6)$ 
+\item $(1,-6)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The number of $2 \times 2$ matrices over $\mathbf{Z}_{3}$ (the field with three elements) with determinant 1 is 
+
+\begin{enumerate}[label=(\alph*)]
+    \item 24 
+\item 60 
+\item 20 
+\item 30
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The radius of convergence of the power series $\sum_{n=0}^{n} a_{n} 2^{n^{2}}$, where $a_{0}=1, a_{n}=3^{-n} a_{n-1}$ for $n \in \mathbf{N}$, is 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 0 
+\item $\sqrt{3}$ 
+\item 3 
+\item $\quad \infty$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \mathbf{R}^{3} \rightarrow \mathbf{R}^{3}$ be the linear transformation whose matrix with respect to the standard basis $\left\{e_{1}, e_{2}, e_{9}\right\}$ of $\mathbf{R}^{3}$ is $\left(\begin{array}{lll}0 &amp; 0 &amp; 1 \\ 0 &amp; 1 &amp; 0 \\ 1 &amp; 0 &amp; 0\end{array}\right)$. Then $T$ 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item maps the subspace spanned by $e_{1}$ and $e_{2}$ into itself 
+\item has distinct eigenvalues 
+\item has eigenvectors that span $\mathbf{R}^{3}$ 
+\item has a non-zero null space 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \mathbf{R}^{3} \rightarrow \mathbf{R}^{9}$ be the linear transformation whose matrix with respect to the standard basis of $\mathbf{R}^{3}$ is $\left(\begin{array}{ccc}0 &amp; a &amp; b \\ -a &amp; 0 &amp; c \\ -b &amp; -c &amp; 0\end{array}\right)$, where $a, b, c$ are real numbers not all zero. Then $T$ 
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item is one-to-one 
+\item is onto 
+\item does not map any line through the origin onto itself 
+\item has rank 1
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+     \item  Obtain the general solution of the following system of differential equations:
+$$
+\begin{aligned}
+&amp;\frac{d x}{d t}=x+2 y \\
+&amp;\frac{d y}{d t}=4 x-y+e^{y t}
+\end{aligned}
+$$
+\item  Find the curve passing through $\left(\frac{1}{2}, 0\right)$ and having slope at $(x, y)$ given by the differential equatiou $2\left(1+y^{2}\right) d x+\left(2 x-\tan ^{-1} y\right) d y=0$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item  Find the volume of the region in the first octant bounded by the surfaces $x=0, y=x, y=2-x^{2}, z=0$ and $z=x^{2}$.
+
+\item Suppose $f: \mathbf{R} \rightarrow \mathbf{R}$ is a non-constant continuous function satisfying $f(x+y)=f(x) f(y)$ for all $x, y \in \mathbf{R}$.
+
+
+\begin{enumerate}
+    \item  Show that $f(x) \neq 0$ for all $x \in \mathbf{R}$.
+
+\item  Show that $f(x)&gt;0$ for all $x \in \mathbf{R}$.
+
+\item  Show that there exists $\beta \in \mathbf{R}$ such that $f(x)=\beta^{x}$ for all $x \in \mathbf{R}$.
+\end{enumerate}
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Let $f(x)$ and $g(x)$ be real valued functions continuous in $\lfloor\alpha, b]$, differentiable in $(a, b)$ and let $\xi^{\prime}(x) \neq 0$ for all $x \in(a, b)$. Show that there exists $c \in(a, b)$ such that $\frac{f(c)-f(a)}{g(b)-g(c)}=\frac{f^{\prime}(c)}{g^{\prime}(c)}$
+
+\item  Let $0&lt;\lambda&lt;4$ and let $\left\{a_{n}\right\}$ be a sequence of positive real numbers satisfying $a_{n+1}=\lambda a_{n}^{2}\left(1-a_{n}\right)$ for $n \in \mathbf{N}$. Prove that $\lim _{n \rightarrow-\infty} a_{n}$ exists and determine this limit.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $G$ be an open subset of $\mathbf{R}$.
+
+
+\begin{enumerate}
+    \item  If $0 \notin G$, then show that $H=\{x y: x, y \in G\}$ is an open subset of $\mathbf{R}$.
+
+\item  If $0 \in G$ and if $x+y \in G$ for all $x, y \in G$, then show that $G=\mathbf{R}$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $p(x)$ be a non-constant polynomial with real coefficients such that $p(x) \neq 0$ for all $x \in \mathbf{R}$. Define $f(x)=\frac{1}{p(x)}$ for all $x \in \mathbf{R}$. Prove that
+
+
+\begin{enumerate}
+    \item  for each $\varepsilon&gt;0$, there exists $\alpha&gt;0$ such that $|f(x)|&lt;\varepsilon$ for all $x \in \mathbf{R}$ satisfying $|x|&gt;\alpha$, and
+
+\item  $f: \mathbf{R} \rightarrow \mathbf{R}$ is a uniformly continuous function. 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    Let $M(k)$ and $m(k)$ denote respectively the absolute maximum and the absolute minimum values of $x^{3}+9 x^{2}-21 x+k$ in the closed interval $[-10,2]$. Find all the real values of $k$ for which $|M(k)|=|m(k)|$.
+
+\item Let $\alpha_{1}=0, \beta_{1}=1 ; \alpha_{2}=1, \beta_{2}=1$, and for $n \geq 3$,
+
+$\alpha_{n}=\alpha_{n-1}+2 \alpha_{n-2}$
+
+$\beta_{n}=\beta_{n-1}+2 \beta_{n-2}$
+
+Prove that, for $n \in \mathbf{N}$
+
+
+\begin{enumerate}
+\item  $\beta_{n}=2 a_{n}+(-1)^{n-1}$
+\item  $\alpha_{n}+\beta_{n}=2^{n-1}$
+\end{enumerate}
+
+Deduce that $\lim _{n \rightarrow \infty} \frac{a_{\mathrm{n}} a+\beta_{n} b}{2^{n-1}}=\frac{a+2 b}{3}$ for any $a, b \in \mathbf{R}$.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+\item  Let $f(x, y)=\alpha x^{2}+x y+\beta y^{2}, \alpha \neq 0, \beta \neq 0,4 \alpha \beta \neq 1$. Find suflicient conditions on $\alpha, \rho$ such that $(0,0)$ is
+
+
+\begin{enumerate}
+    \item a point of local maxima of $f(x, y)$
+
+    \item  a point of local minima of $f(x, y)$
+
+    \item  a saddle point of $f(x, y)$.
+\end{enumerate}
+
+
+\item  Find the derivative of $f(x, y, z)=7 x^{3}-x^{2} z-z^{2}+28 y$ at the point $A=(1,-1,0)$ along the unit vector $\frac{1}{7}(6 \hat{i}-2 \hat{j}+3 \hat{k})$. What is the unit vector along which $f$ decreases most rapidly at $A$ ? Also, find the rate of this decrease.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Using $x=e^{u}$, transform the differential equation $x^{2} \frac{d^{2} y}{d x^{2}}+4 x \frac{d y}{d x}+2 y=\cos x$ to a second order differential equation with constant coeflicients. Obtein the general solntion of the transformed diflerential equation.</span></li><li><b></b> <span class="qbody">Let $G$ be a group and let $A(G)$ denote the set of all automorphisms of $G$, i.e., all one-to-one, onto, group homomorphisms from $G$ to $G$. An automorphism $f: G \rightarrow G$ of the form $f(x)=a x a^{-1}, x \in G$ (for some $a \in G$ ) is called an inner automorphism. Let $I(G$ ) denote the set of all inner automorphisms of $G$.
+
+
+\begin{enumerate}
+   
+\item  Show that $A(G)$ is a group under composition of functions and that $I(G)$ is a normal subgroup of $A(G)$.
+
+\item  Show that $I(G)$ is isomorphic to $G / Z(G)$, where $Z(G)=\{g \in G: x g=g x$ for all $x \in G\}$ is the center of $G$. 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    
+\item  Give an example of a linear transformation $T: \mathbf{R}^{2} \rightarrow \mathbf{R}^{2}$ such that $T^{2}(v)=-v$ for all $v \in \mathbf{R}^{2}$.
+
+\item  Let $V$ be a real n-dimensional vector space and let $T: V \rightarrow V$ be a linear transformation satisfying $T^{2}(v)=-v$ for all $v \in V$.
+
+
+
+\begin{enumerate}
+    \item  Show that $n$ is even.
+
+\item  Use $T$ to make $V$ into a complex vector space such that the multiplication by complex numbers extends the multiplication by real numbers.
+
+\item  Show that, with respect to the complex vector space structure on $V$ obtained in (ii), $T: V \rightarrow V$ is a complex linear transformation. 
+\end{enumerate}
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $W$ be the region bounded by the planes $x=0, y=0, y=3, z=0$ and $x+2 z=6$.
+Let $S$ be the boundary of this region. Using Gauss&#x27; divergence theorem, evaluate $\iint_{S} \vec{F} \cdot \hat{n} d S$, where $\vec{F}=2 x y \hat{i}+y z^{2} \hat{j}+x z \hat{k}$ and $\hat{n}$ is the outward unit normal vector to $S$.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item  Using Stokes&#x27; theorem evaluate the line integral $\int_{L}(y \hat{i}+z \hat{j}+x \hat{k}) \cdot \overrightarrow{d r}$, where $L$ is the intersection of $x^{2}+y^{2}+z^{2}=1$ and $x+y=0$ traversed in the clockwise direction when viewed from the point $(1,1,0)$.
+
+\item  Change the order of integration in the integral $\int_{0}^{1} \int_{x-1}^{\sqrt{1-x^{2}}} f(x, y) d y d x$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">In a group $G, x \in G$ is said ta be conjugate to $y \in G$, written $x \sim y$, if there exists $z \in G$ such that $x=z y z^{-1}$.
+
+
+\begin{enumerate}
+    \item  Show that $\sim$ is an equivalence relation on $G$. Show that a subgroup $N$ of $G$ is a normal subgroup of $G$ if and only if $N$ is a union of equivalence classes of $~$.
+
+\item  Consider the group of all non-singular $3 \times 3$ real matrices under matrix multiplication. Show that $\left[\begin{array}{lll}1 &amp; 0 &amp; 0 \\ 1 &amp; 3 &amp; 0 \\ 1 &amp; 2 &amp; 1\end{array}\right] \sim\left[\begin{array}{lll}3 &amp; 0 &amp; 4 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1\end{array}\right]$ (i.e., the two matrices are conjugate).
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S$ denote the commutative ring of all continuous real-valued functions on $[0,1]$, under pointwise addition and multiplication. For $a \in[0,1]$, let $\left.M_{a}=|f \in S| f(a)=0\right\}$. 
+
+
+\begin{enumerate}
+    
+\item  Show that $M_{a}$ is an ideal in $S$. 
+\item  Show that $M_{\text {at }}$ is a maximal ideal in $S$.
+
+
+\end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>
