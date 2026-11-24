@@ -65,6 +65,7 @@
     x: I('<path d="M6 6l12 12M18 6 6 18"/>'),
     print: I('<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>'),
     dl: I('<path d="M12 4v11m0 0-4-4m4 4 4-4"/><path d="M5 20h14"/>'),
+    sun: I('<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
     moon: I('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'),
     menu: I('<path d="M4 7h16M4 12h16M4 17h16"/>'),
     pen: I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
@@ -931,14 +932,13 @@
     const bc = D.broad.map((b, i) => D.Q.filter((q) => !q.stem && q.broads.has(i)).length);
     const order = D.broad.map((b, i) => i).sort((a, b) => bc[b] - bc[a]);
     let maxShare = 0; cell.forEach((v, k) => { const y = +k.split("|")[1]; maxShare = Math.max(maxShare, v / byYear.get(y)); });
-    const shade = (v) => `color-mix(in srgb, var(--green) ${Math.round(8 + 72 * v)}%, var(--card))`;
     const weak = D.Q.filter((q) => q.weak).length;
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Topics</div>
       ${editorialHeading("Topic map", "Explore questions by topic and see how Visva-Bharati exam coverage changes from year to year.")}
       <p class="note" style="max-width:76ch">Tags come from a first automatic pass over the question text, so some are imprecise. ${weak.toLocaleString()} questions are marked for checking. The trend table shows how often an area was examined in past years; it describes patterns, it does not predict a paper.</p>
       <section class="section" style="margin-top:32px"><div class="section-head"><h2>How often each area is examined</h2><span class="muted">Share of that year's questions</span></div>
         <div class="scroll-x" style="padding:10px"><table class="heat"><thead><tr><th></th>${yrs.map((y) => `<th>’${String(y).slice(2)}</th>`).join("")}</tr></thead><tbody>
-        ${order.map((b) => `<tr><th>${esc(D.broad[b])}</th>${yrs.map((y) => { const v = cell.get(b + "|" + y) || 0, sh = byYear.get(y) ? v / byYear.get(y) : 0; return `<td style="background:${shade(sh / maxShare)};color:${sh / maxShare > 0.55 ? "#fff" : "var(--ink)"}" data-hb="${b}" data-hy="${y}" title="${esc(D.broad[b])}, ${y}: ${v} questions (${Math.round(sh * 100)}%)">${v ? Math.round(sh * 100) : ""}</td>`; }).join("")}</tr>`).join("")}
+        ${order.map((b) => `<tr><th>${esc(D.broad[b])}</th>${yrs.map((y) => { const v = cell.get(b + "|" + y) || 0, sh = byYear.get(y) ? v / byYear.get(y) : 0; return `<td style="--heat-weight:${maxShare ? Math.round(100 * sh / maxShare) : 0}%" data-hb="${b}" data-hy="${y}" title="${esc(D.broad[b])}, ${y}: ${v} questions (${Math.round(sh * 100)}%)">${v ? Math.round(sh * 100) : ""}</td>`; }).join("")}</tr>`).join("")}
         </tbody></table></div><p class="muted" style="font-size:13px;margin-top:8px">Numbers are percentages. B.Sc. and M.Sc. together; use Search filters to split them.</p></section>
       <section class="section"><div class="section-head"><h2>All topics</h2></div>
         <div class="grid g2">${order.map((b) => `<div class="card"><h3><a href="${L("search")}" data-tb="${b}" style="color:inherit;text-decoration:none">${esc(D.broad[b])}</a> <span class="muted" style="font:400 13px var(--f-ui)">${bc[b].toLocaleString()}</span></h3>
@@ -1183,12 +1183,25 @@
       if (e.key === "Escape" && $("#drawer").classList.contains("show")) closeDrawer();
       if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") go("search"); setTimeout(() => $("#sq") && $("#sq").focus(), 30); }
     });
-    const applyTheme = (t) => { if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); };
-    applyTheme(store.get("theme", ""));
-    $("#theme").addEventListener("click", () => {
-      const cur = document.documentElement.getAttribute("data-theme");
-      const dark = cur ? cur === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const t = dark ? "light" : "dark"; applyTheme(t); store.set("theme", t);
+    const themeToggle = $("#theme");
+    const preferredDark = window.matchMedia("(prefers-color-scheme: dark)");
+    const root = document.documentElement;
+    const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : preferredDark.matches;
+    const syncThemeToggle = () => {
+      const dark = isDark();
+      const label = dark ? "Switch to light theme" : "Switch to dark theme";
+      themeToggle.innerHTML = dark ? IC.sun : IC.moon;
+      themeToggle.setAttribute("aria-label", label);
+      themeToggle.title = label;
+    };
+    const savedTheme = store.get("theme", "");
+    if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
+    syncThemeToggle();
+    preferredDark.addEventListener("change", syncThemeToggle);
+    themeToggle.addEventListener("click", () => {
+      root.dataset.theme = isDark() ? "light" : "dark";
+      store.set("theme", root.dataset.theme);
+      syncThemeToggle();
     });
     if (HASH) window.addEventListener("hashchange", () => route());
     else window.addEventListener("popstate", () => route());
