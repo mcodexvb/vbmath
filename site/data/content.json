@@ -1,131 +1,1125 @@
 {
-"forms": {
+ "forms": {
   "questions": "https://docs.google.com/forms/d/e/1FAIpQLSdCV1ctSVpP4imwMnRHGdXdf90xu3gu-55ER1vyMLtxmJ7P7A/viewform",
   "volunteer": "https://forms.gle/ruBM4DtzSSrXM7uE6",
   "notes": "https://docs.google.com/forms/d/e/1FAIpQLSdAMYvV3Btm30pQDo-kii0vXVQiDHFUaIQa6pG46GWIB5KWLw/viewform",
   "books": "https://docs.google.com/forms/d/e/1FAIpQLSfyRukUBPaIpZ5VZ5fD76OTuSIo3OEoLf2XKauaxDlT0pssIA/viewform",
   "scholarship": "https://docs.google.com/forms/d/1c141xmvRbXEPXCihWPfUf8CVri_ZrU21EqSidbHts00/viewform"
-},
-"email": "vbmath2013@gmail.com",
-"folders": {
-  "BSc": [["Semester I","https://drive.google.com/drive/folders/1U6UJJycCfdv25IVHpiCk8TPrF17Fh86F"],["Semester II","https://drive.google.com/drive/folders/1XVG6xix_kpnPnVn7G9HvzESkAF8BGzii"],["Semester III","https://drive.google.com/drive/folders/1dMSJlbdHpixeDfVlCDclerwhqRPF-gJf"],["Semester IV","https://drive.google.com/drive/folders/1eAb4ie5C5gwC5xpkMCXRGuKauRi3BbkK"],["Semester V","https://drive.google.com/drive/folders/1ArPyxl9igS-SXjGI0x4aWzSqrmo5Ff5p"],["Semester VI","https://drive.google.com/drive/folders/1-AlTuCQpLz-s7xMbOhzpyVhbp3k0E5kH"]],
-  "MSc": [["Semester I","https://drive.google.com/drive/folders/1L7Zw-Z_O2_4eN09ttjBN5nXazDjCAmtU"],["Semester II","https://drive.google.com/drive/folders/1jLL6v6EifeIigTakZ9QvJl4CD3Xf0LVp"],["Semester III","https://drive.google.com/drive/folders/1P0hERL11pONiu_x8wZKLDHRIKmpgSwv-"],["Semester IV","https://drive.google.com/drive/folders/1RKeR3OELhAtr9sYAXSGMimnSmCoF6MCE"]],
-  "BSc_old1": [["Sem 1","https://drive.google.com/drive/folders/0B5If53vcTpKRTElKV2ZBSENIbnM?resourcekey=0-Hrt-ZVhWfeoDUv_i9QOkUw"],["Sem 2","https://drive.google.com/drive/folders/0B5If53vcTpKRSTFqRDVtdGhOM2M?resourcekey=0-Gqbk0y_k3u7lGfClPrRrSA"],["Sem 3","https://drive.google.com/drive/folders/0B5If53vcTpKRMGxqLWJlXy1oTDQ?resourcekey=0-NchDOwk0qsdUbrrSwf7gpA"],["Sem 4","https://drive.google.com/drive/folders/0B5If53vcTpKROS1YSzFKRGh6V2M?resourcekey=0-enSAQ-DYDcJSkkLBhvWyuw"],["Sem 5","https://drive.google.com/drive/folders/0B5If53vcTpKRVjN0V2VfeHV2NUk?resourcekey=0-osH_zM5XAvjinF7SjG6UNA"],["Sem 6","https://drive.google.com/drive/folders/0B5If53vcTpKRTGNJWmxlY19mUlU?resourcekey=0-A6uEz5XEjRawvHvsF6neSg"]],
-  "BSc_old2": [["Sem 1","https://drive.google.com/drive/folders/1gluqzeqJWxswMOui2vKO5rPTGKWpgHLF"],["Sem 2","https://drive.google.com/drive/folders/1Z9p6tziYbnpQyON927a1nb37xvUYNIVa"],["Sem 3","https://drive.google.com/drive/folders/1cnr1oG06_k795-bTDOMR4jalUHLb-DOI"],["Sem 4","https://drive.google.com/drive/folders/18IsvhI5k2X-PfUigKuFfccDEORGJR4tv"],["Sem 5","https://drive.google.com/drive/folders/1FirNcoH32HFUYQUPyf8IoiuqQOx0Uk9d"],["Sem 6","https://drive.google.com/drive/folders/1Kw3K-tDfmSPhOI4r3_RIFiQoNbyzS6x6"]]
-},
-"exams": [
-  {"name":"IIT JAM","note":"Joint Admission Test for M.Sc. Mathematics papers.","links":[["All years in one file (typed)","https://drive.google.com/file/d/1qhrbNoRB7di9J34UgZqJpVmxeS-y5yhO/view"],["JAM questions 2005–2025","https://drive.google.com/file/d/1yyocDYSnx7ItpYjGbk6-yk9CObqgKHuY/view"],["Paper","https://drive.google.com/file/d/1GrCcpqKdmqFQaBaaUhMTB00mvHKIokgd/view"],["Paper","https://drive.google.com/file/d/1AX-Wh5hgI2nsqOyYcvps78_WW9pMcsZQ/view"],["Paper","https://drive.google.com/file/d/186V7vVX2eeKXJjaHP8-67lNkgWj2vNaq/view"],["Paper","https://drive.google.com/file/d/1N2Fo9fnHBB6mJjW3GLLJYf9CX4s-4ndN/view"],["Paper","https://drive.google.com/file/d/1I4Jh0kKviqm51T24_LmOVl9LYEFJVQ3-/view"],["Paper","https://drive.google.com/file/d/1UmWCb0SSrv7APG8Ch5Hg6ZI3_aoqJTOS/view"],["Paper","https://drive.google.com/file/d/1e7aB_Cs9SGXW1_8cTnomvMaOwZZ-q0aE/view"],["Paper","https://drive.google.com/file/d/1swaIzomL6eXe9jTyCN2OzNgNtmS-i-fe/view"],["Paper","https://drive.google.com/file/d/1PDzysCi6o4F5775OSziZsM419b8VnEhb/view"],["Paper","https://drive.google.com/file/d/1TANYCSoxW9KQoIKekhtgxbrDYpXXjy8t/view"],["Paper","https://drive.google.com/file/d/1LhKheWWZgWgB-cq87zmthM4e6ltiH8Cz/view"],["Paper","https://drive.google.com/file/d/1UC-Ogs1imIzh4Xi8iCudyRLqI3fNf54C/view"],["Paper","https://drive.google.com/file/d/1eT9jut9rVptmSmsqJ7CanHzgcQRTrYg2/view"],["Paper","https://drive.google.com/file/d/1_wsN0l5MYmoAjBgesbMSUHTqDfJEYGnc/view"],["Paper","https://drive.google.com/file/d/1YPRNCTrAzAp6uPm9E1lbfcofxe6s6V-i/view"],["Older","https://drive.google.com/file/d/1tzdPoEXLnEY86EXYGmHVHsFI9CRQEBju/view"],["Older","https://drive.google.com/file/d/1_Pfw74qo0Oh14Adh4Lga3k4VJqTjiBvj/view"],["Older","https://drive.google.com/file/d/1e-l6OISczT-2wgjGvY_gPYlLM2l-34lv/view"],["Older","https://drive.google.com/file/d/134yynATIw3FJej1J3s41kJ6dTrtUxuIy/view"],["Older","https://drive.google.com/file/d/185xAloj8S2SNlbTUZKeGx0_5cSCERGUF/view"],["Older","https://drive.google.com/file/d/1V56PwJaESEOej8nFjPCeDGO5bbwMYE-f/view"]],"syllabus":"https://jam.iitm.ac.in/"},
-  {"name":"CSIR-UGC NET","note":"Mathematical Sciences papers conducted by NTA.","links":[["Paper","https://drive.google.com/file/d/1XSQQjydvUubOx7AVM0NxO4UndWY5RxqR/view"],["Paper","https://drive.google.com/file/d/1_13429Gwy3nHoblwJPyxGnBMK1xtGUaB/view"],["Paper","https://drive.google.com/file/d/1Ess0KVgefx0FZexy8eo81SQ_cWw0wmID/view"],["Paper","https://drive.google.com/file/d/1I6M4HXzTjtsdiB8Q-zGHSqSXXXtlIkNR/view"],["Paper","https://drive.google.com/file/d/1rylGicoYEjX1mEyretM4HOhRwi-qyUMz/view"],["Paper","https://drive.google.com/file/d/1Aw25sklRCITWo-vcZYgNZ7IdZjCnDXWR/view"],["Paper","https://drive.google.com/file/d/11xuMlCJk5vGwMn12VmEia1mexSoqG9gI/view"],["Paper","https://drive.google.com/file/d/1vnbyKJrYFLb5yKdChSoQha43yDmvDl-A/view"],["Paper","https://drive.google.com/file/d/1k-N34kMWjBH5yZ-wpibpXsYkPREAm0rm/view"],["Paper","https://drive.google.com/file/d/1KeQOhMprxBTDSCyH4Lw8JliA3Wxad05d/view"],["Paper","https://drive.google.com/file/d/1LOh64iaZuS3RBRAdQLZVXvaOqn5Da8Mq/view"],["Paper","https://drive.google.com/file/d/1oTi03wUHmtPIB5Fl4mRiNCXPsU6IIRjB/view"],["Paper","https://drive.google.com/file/d/1xSLDfxT81sIb-gMhFEJORcbiyzWRchNI/view"],["Paper","https://drive.google.com/file/d/1hiIR8qRzWuO2QzfxflLkb6095m-bslbK/view"],["Paper","https://drive.google.com/file/d/1ZSfVDOhCw-9jCdDvORCOLacaZo7UVEp8/view"],["Paper","https://drive.google.com/file/d/1mxoqJg0kxO1ySiJ8tR2LKGJQ7R14nCO9/view"],["Paper","https://drive.google.com/file/d/1NzHNGHNBjBICtM0sWh2iNjK723vFf7XO/view"],["Paper","https://drive.google.com/file/d/1D_EzDhCpgPjv9dG_fiqvIB7Yfh6JG4XJ/view"],["Paper","https://drive.google.com/file/d/1bAS2PSULxn9HkO_Y6nxlW2B1nRKlGY9K/view"],["Paper","https://drive.google.com/file/d/1VyQpgq0wZkX60zYOWFISuO2cCI6OukR1/view"],["Paper","https://drive.google.com/file/d/1-9O6VZuTiWjxaDV4T96cnKIW4falHj6X/view"],["Paper","https://drive.google.com/file/d/1ip4ODNeb2CACXVpQ8hUWjXQHBXdi3FEb/view"],["Paper","https://drive.google.com/file/d/1nzjKRjkAH2LyiUBqF3PV8d9gZH1g_9ex/view"],["Paper","https://drive.google.com/file/d/1tqEceGHAdioI8MaiIji4bNPOQ5zqGZzQ/view"],["Paper","https://drive.google.com/file/d/1fexovvHK5MRCv7jtRepjlKwYKpQxb2mo/view"],["Paper","https://drive.google.com/file/d/1C3VmtY-vZOeGr3Iy6ytTEE4H__fczecD/view"],["Paper","https://drive.google.com/file/d/1xbkNg_RWIN_3rRZZHA_uoLhiu0yQkgeR/view"],["Paper","https://drive.google.com/file/d/18ZMePkeM9eANOwmx3Y258VY2sVgzoFsR/view"],["NET/GATE notes folder","https://drive.google.com/drive/folders/1Z4ODWV7rTQ3R0SEKiBBVK1Jv-8Vkzt0b"]],"syllabus":"https://drive.google.com/file/d/0B5If53vcTpKRTVRmM2tiN1h2ZVk/view?resourcekey=0-uTUC0XYoleDOOCHjaSvx9A"},
-  {"name":"GATE Mathematics","note":"Past papers are published by the organising IIT each year.","links":[["Official GATE / JAM portal","https://www.iitg.ac.in/gate-jam/"]]},
-  {"name":"NBHM","note":"Combined, M.Sc. and Ph.D. scholarship tests.","links":[["Official question repository","https://www.imsc.res.in/~nbhm/qp/"],["NBHM home","https://nbhm.dae.gov.in"]]},
-  {"name":"TIFR","note":"Graduate School admission tests.","links":[["Official past papers","https://www.tifr.res.in/academics/past_question_papers.php"]]},
-  {"name":"M.Sc. Admission, Visva-Bharati","note":"No entrance test was held in 2020 or 2021 (interviews instead). From 2023 admission is through CUET, conducted by NTA.","links":[["2013–2017","https://drive.google.com/drive/folders/1M4vMWE_PjhU0ZvDJZTLD4te6Ao1GUwAc"],["2018","https://drive.google.com/file/d/13cYT1ummfO4vbcQoreUk20K1fFL4VVY_/view"],["2019","https://drive.google.com/file/d/13I411t2Em9snHIJ8xaxYZB7pWj_3I8mo/view"],["2022","https://drive.google.com/file/d/1xFxDRKm6aD1-c_NESTTOtyUbd94N9R3U/view"],["Extras","https://drive.google.com/drive/folders/1fuNEub4JK1iMXG70YaEPpk2Jaf38TPjB"]],"syllabus":"https://drive.google.com/open?id=1fnaSeFk22PphFQIEqScbC5TUANymakfp"}
-],
-"notes": {
-  "folders": {"B.Sc. class notes":["https://drive.google.com/drive/folders/1wQ-lVG6ZSQgdeiIhNLBMz5Pn_JZDM8_d","https://drive.google.com/drive/folders/1UwrpyN4IIy7xx4ToqDov_YxD8_Aryuyb","https://drive.google.com/drive/folders/1iDc6GnRQfooJVvrDVnFO5ESEsIp0NZnq","https://drive.google.com/drive/folders/1_tn7LkjViZYYQbqecB59ht1xlva3ExiF","https://drive.google.com/drive/folders/1V8Y92L9sfwEGHSNzc7GJPLfETvwDtaQu","https://drive.google.com/drive/folders/1PUcTGjiqxd3WcWuITsVLZbTQsKUarUuc"],
-              "M.Sc. class notes":["https://drive.google.com/drive/folders/1z6i24wMkzQp4g6nwwaTNp0IgbZUgDIoG","https://drive.google.com/drive/folders/18jSktaYPAc-zvzIAel58-SYuWS4kXx9k","https://drive.google.com/drive/folders/1HHlQC95SS2hNFxXte8fJNRj9HYA-XoBE","https://drive.google.com/drive/folders/1y76UnUMavOIZl7UGkP9FAja9mbn1kFL6"]},
-  "items": [
-    ["Numerical Analysis","Lectures of SC Sir · written by Dr. Pankaj Barman · scanned by Dr. Mainul Hossain","https://drive.google.com/file/d/0B5If53vcTpKROW1fNEpHcHVTaDA/view?resourcekey=0-hF7nS_6oboUe4hzHZqr6QA"],
-    ["Continuum Mechanics","Lectures of PKM Sir · written by Dr. Pankaj Barman · scanned by Dr. Mainul Hossain","https://drive.google.com/file/d/1SrZT9LpSjSEWoK3OP_ODFLIEzSSipwAd/view"],
-    ["Mathematical Ecology","Lectures of SC Sir · written by Dr. Sattwika Acharya · scanned by Dr. Mainul Hossain","https://drive.google.com/file/d/1HOnxVu8N_j56e8prmBnJK69St2SaE4pR/view"],
-    ["Mathematical Biology","Lectures of PKM Sir · written by Dr. Sattwika Acharya · scanned by Dr. Mainul Hossain","https://drive.google.com/file/d/1ZEmXfugwGMirWHRk4hTJoHdR35oOV8_L/view"],
-    ["Dynamical Systems","Lectures of Puspajit Sir · written by Dr. Saheb Pal","https://drive.google.com/file/d/1F_TtMYOAgEWerQQXyS4CyD7BqYvvy_iI/view"],
-    ["Complex Analysis","Written and scanned by Dr. Mainul Hossain","https://drive.google.com/file/d/15QO9XC0ywp6ilHwlCQmWARJ4boaTYwyB/view"],
-    ["Abstract Algebra","Prepared by Dr. Anjan K. Bhuniya · compiled by Dr. Mainul Hossain","https://drive.google.com/file/d/1kyeTGnlvNt22bO8RD-sNYS2_pCWccjBA/view"],
-    ["NET/GATE Notes","Prepared by Dr. Avijit Das during his preparation","https://drive.google.com/file/d/13YJnrn9XPY8-cnt9BVKrfjoV5lvHXcMU/view"]
+ },
+ "email": "vbmath2013@gmail.com",
+ "folders": {
+  "BSc": [
+   [
+    "Semester I",
+    "https://drive.google.com/drive/folders/1U6UJJycCfdv25IVHpiCk8TPrF17Fh86F"
+   ],
+   [
+    "Semester II",
+    "https://drive.google.com/drive/folders/1XVG6xix_kpnPnVn7G9HvzESkAF8BGzii"
+   ],
+   [
+    "Semester III",
+    "https://drive.google.com/drive/folders/1dMSJlbdHpixeDfVlCDclerwhqRPF-gJf"
+   ],
+   [
+    "Semester IV",
+    "https://drive.google.com/drive/folders/1eAb4ie5C5gwC5xpkMCXRGuKauRi3BbkK"
+   ],
+   [
+    "Semester V",
+    "https://drive.google.com/drive/folders/1ArPyxl9igS-SXjGI0x4aWzSqrmo5Ff5p"
+   ],
+   [
+    "Semester VI",
+    "https://drive.google.com/drive/folders/1-AlTuCQpLz-s7xMbOhzpyVhbp3k0E5kH"
+   ]
+  ],
+  "MSc": [
+   [
+    "Semester I",
+    "https://drive.google.com/drive/folders/1L7Zw-Z_O2_4eN09ttjBN5nXazDjCAmtU"
+   ],
+   [
+    "Semester II",
+    "https://drive.google.com/drive/folders/1jLL6v6EifeIigTakZ9QvJl4CD3Xf0LVp"
+   ],
+   [
+    "Semester III",
+    "https://drive.google.com/drive/folders/1P0hERL11pONiu_x8wZKLDHRIKmpgSwv-"
+   ],
+   [
+    "Semester IV",
+    "https://drive.google.com/drive/folders/1RKeR3OELhAtr9sYAXSGMimnSmCoF6MCE"
+   ]
+  ],
+  "BSc_old1": [
+   [
+    "Sem 1",
+    "https://drive.google.com/drive/folders/0B5If53vcTpKRTElKV2ZBSENIbnM?resourcekey=0-Hrt-ZVhWfeoDUv_i9QOkUw"
+   ],
+   [
+    "Sem 2",
+    "https://drive.google.com/drive/folders/0B5If53vcTpKRSTFqRDVtdGhOM2M?resourcekey=0-Gqbk0y_k3u7lGfClPrRrSA"
+   ],
+   [
+    "Sem 3",
+    "https://drive.google.com/drive/folders/0B5If53vcTpKRMGxqLWJlXy1oTDQ?resourcekey=0-NchDOwk0qsdUbrrSwf7gpA"
+   ],
+   [
+    "Sem 4",
+    "https://drive.google.com/drive/folders/0B5If53vcTpKROS1YSzFKRGh6V2M?resourcekey=0-enSAQ-DYDcJSkkLBhvWyuw"
+   ],
+   [
+    "Sem 5",
+    "https://drive.google.com/drive/folders/0B5If53vcTpKRVjN0V2VfeHV2NUk?resourcekey=0-osH_zM5XAvjinF7SjG6UNA"
+   ],
+   [
+    "Sem 6",
+    "https://drive.google.com/drive/folders/0B5If53vcTpKRTGNJWmxlY19mUlU?resourcekey=0-A6uEz5XEjRawvHvsF6neSg"
+   ]
+  ],
+  "BSc_old2": [
+   [
+    "Sem 1",
+    "https://drive.google.com/drive/folders/1gluqzeqJWxswMOui2vKO5rPTGKWpgHLF"
+   ],
+   [
+    "Sem 2",
+    "https://drive.google.com/drive/folders/1Z9p6tziYbnpQyON927a1nb37xvUYNIVa"
+   ],
+   [
+    "Sem 3",
+    "https://drive.google.com/drive/folders/1cnr1oG06_k795-bTDOMR4jalUHLb-DOI"
+   ],
+   [
+    "Sem 4",
+    "https://drive.google.com/drive/folders/18IsvhI5k2X-PfUigKuFfccDEORGJR4tv"
+   ],
+   [
+    "Sem 5",
+    "https://drive.google.com/drive/folders/1FirNcoH32HFUYQUPyf8IoiuqQOx0Uk9d"
+   ],
+   [
+    "Sem 6",
+    "https://drive.google.com/drive/folders/1Kw3K-tDfmSPhOI4r3_RIFiQoNbyzS6x6"
+   ]
   ]
-},
-"syllabus": [
-  ["B.Sc. — NEP 2020 (from 2025–26)","Four-year UG programme, recommended by the Board of Studies on 16 July 2025.","https://drive.google.com/file/d/1f1N22ed-8kvjEwS3GOiolctP64Tbzz5Q/view"],
-  ["B.Sc. — CBCS 2020–21","Choice Based Credit System, revised.","https://drive.google.com/file/d/13CByQX7d9l5JPoOg7baLTxhmtGQ-xjFZ/view"],
-  ["B.Sc. — CBCS 2017–18","First CBCS syllabus.","https://drive.google.com/open?id=1FG9ikHG8I6OGi393OQG5ds-t32yQXcBO"],
-  ["B.Sc. — BMC (2011–12)","The older semester syllabus with BMC course codes.","https://drive.google.com/open?id=0B5If53vcTpKRVlg0bjRiTU82X2c"],
-  ["M.Sc. — with added links","","https://drive.google.com/file/d/1KKMeC7LNqu5c0QrKZyD9Rw6j1iq_aCsS/view"],
-  ["M.Sc. — original","","https://drive.google.com/file/d/1jBA5B8RzgdLAxBlQXLhMu0Fzpq0pg08u/view"],
-  ["CSIR-UGC NET Mathematical Sciences","Units I–IV: analysis and linear algebra; complex analysis, algebra, topology; ODE, PDE, numerics, calculus of variations, integral equations, mechanics; statistics.","https://drive.google.com/file/d/0B5If53vcTpKRTVRmM2tiN1h2ZVk/view?resourcekey=0-uTUC0XYoleDOOCHjaSvx9A"],
-  ["IIT JAM Mathematics","Official syllabus on the JAM website.","https://jam.iitm.ac.in/"],
-  ["M.Sc. admission test (VB)","","https://drive.google.com/open?id=1fnaSeFk22PphFQIEqScbC5TUANymakfp"]
-],
-"books": {
-  "Algebra":["Linear Algebra and Its Applications — Lay, Lay & McDonald","Linear Algebra — Friedberg, Insel & Spence","Linear Algebra — Hoffman & Kunze","Schaum's Outline of Linear Algebra — Lipschutz & Lipson","Linear Algebra Done Right — Sheldon Axler","Linear Algebra: A Geometric Approach — S. Kumaresan","Contemporary Abstract Algebra — Joseph A. Gallian","Fundamentals of Abstract Algebra — Malik, Mordeson & Sen","Topics in Abstract Algebra — Sen, Ghosh & Mukhopadhyay","Abstract Algebra — Dummit & Foote","Abstract Algebra Manual: Problems and Solutions — Ayman Badawi","Topics in Algebra — I. N. Herstein","Rings and their Modules — Paul E. Bland"],
-  "Real Analysis":["An Introduction to Real Analysis — Bartle & Sherbert","Introduction to Real Analysis — S. K. Mapa","A Basic Course in Real Analysis — Ajit Kumar & S. Kumaresan","Principles of Mathematical Analysis — Walter Rudin","Real Analysis — Bruckner & Bruckner"],
-  "Calculus":["Differential Calculus — Ghosh & Maity","Calculus: Early Transcendentals — Dennis Zill","Thomas' Calculus — Thomas, Weir & Hass","Calculus, Vol. 1 — Tom M. Apostol","Calculus, Vol. 2 — Tom M. Apostol","Calculus: Early Transcendentals — James Stewart"],
-  "Differential Equations":["Differential Equations — Shepley L. Ross","Elementary Differential Equations and Boundary Value Problems — Boyce & DiPrima","An Introduction to Ordinary Differential Equations — E. A. Coddington","Elementary Differential Equations — Rainville & Bedient","An Elementary Treatise on Differential Equations — H. T. H. Piaggio","A First Course in Differential Equations with Modeling Applications — Dennis G. Zill","Advanced Differential Equations — M. D. Raisinghania","Differential Equations — Chakravorty & Ghosh","An Elementary Course in Partial Differential Equations — T. Amaranath","Differential Equations: Theory, Technique and Practice — George Simmons"],
-  "Dynamical Systems":["Nonlinear Dynamics and Chaos — Steven Strogatz","An Introduction to Dynamical Systems and Chaos — G. C. Layek","An Introduction to Dynamical Systems: Continuous and Discrete — R. Clark Robinson","Introduction to Applied Nonlinear Dynamical Systems and Chaos — Stephen Wiggins"],
-  "Lie Groups & Transformations":["Symmetries and Differential Equations — Bluman & Kumei","A Course in Differential Geometry and Lie Groups — S. Kumaresan"],
-  "Topology":["Topology — James R. Munkres","Introduction to General Topology — K. D. Joshi","Topology — James Dugundji"],
-  "Complex Analysis":["Complex Analysis — B. K. Lahiri","Complex Variables: Theory and Applications — H. S. Kasana","Foundations of Complex Analysis — S. Ponnusamy","Complex Analysis — Dennis Zill","Real and Complex Analysis — Walter Rudin","Complex Analysis — Lars Ahlfors","Complex Variables (Schaum's) — Spiegel & Lipschutz","Functions of One Complex Variable I — John B. Conway","Functions of a Complex Variable — Goyal & Gupta","Complex Variables and Applications — Brown & Churchill","Complex Analysis — Serge Lang","Complex Analysis — Theodore Gamelin"],
-  "Discrete Mathematics":["Discrete Mathematics and Its Applications — Kenneth Rosen","Discrete Mathematics — Lipschutz & Lipson","Introduction to Discrete Mathematics — M. K. Sen & B. C. Chakraborty","Graph Theory — Bondy & Murty","Graph Theory with Applications to Engineering and Computer Science — Narsingh Deo","Graph Theory — R. Diestel","Combinatorics and Graph Theory — Harris, Hirst & Mossinghoff"],
-  "Biomathematics":["Elements of Mathematical Ecology — Mark Kot","Mathematical Biology I: An Introduction — J. D. Murray","Mathematical Biology II: Spatial Models and Biomedical Applications — J. D. Murray","Mathematical Models in Biology and Medicine — J. N. Kapur"],
-  "Programming":["Let Us C — Yashavant Kanetkar","Programming in ANSI C — E. Balagurusamy","Getting Started with MATLAB — Rudra Pratap"],
-  "Numerical Analysis":["Numerical Analysis and Computational Procedures — S. A. Mollah","Numerical Methods for Scientific and Engineering Computation — Jain, Iyengar & Jain","Introductory Methods of Numerical Analysis — S. S. Sastry","Introduction to Numerical Analysis — F. B. Hildebrand","An Introduction to Numerical Analysis — Kendall Atkinson"],
-  "Probability & Statistics":["Groundwork of Mathematical Probability and Statistics — Amritava Gupta","Probability and Statistics (Schaum's) — Spiegel & Schiller","An Introduction to Probability and Statistics — Rohatgi & Saleh","Fundamentals of Mathematical Statistics — S. C. Gupta & V. K. Kapoor"]
-},
-"video": [
-  ["3Blue1Brown","Animated, visual explanations that build intuition.",[["Channel","https://www.youtube.com/@3blue1brown/videos"],["Linear Algebra","https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab"],["Calculus","https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr"],["Differential Equations","https://www.youtube.com/playlist?list=PLZHQObOWTQDNPOjrT6KVlfJuKtYTftqH6"],["Neural Networks","https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"]]],
-  ["CodeWithHarry","Beginner-friendly programming tutorials, mostly in Hindi.",[["Channel","https://www.youtube.com/@CodeWithHarry/videos"],["C Programming","https://www.youtube.com/playlist?list=PLu0W_9lII9aiXlHcLx-mDH1Qul38wD3aR"],["Python","https://www.youtube.com/playlist?list=PLu0W_9lII9agwh1XjRt242xIpHhPT2llg"],["Machine Learning","https://www.youtube.com/playlist?list=PLu0W_9lII9ai6fAMHp-acBmJONT7Y4BSG"],["HTML, CSS, JS","https://www.youtube.com/playlist?list=PLu0W_9lII9aiQiOwthuSvinxoflmhRxM3"]]]
-],
-"websites": [
-  ["Learning",[["Visva-Bharati Library Network","https://vblibrarynetwork.in/"],["Math Stack Exchange","https://math.stackexchange.com"],["MathOverflow","https://mathoverflow.net"],["Yutsumura — solved problems","https://yutsumura.com/"],["Scholarpedia","http://www.scholarpedia.org/"]]],
-  ["Research",[["arXiv Mathematics","https://arxiv.org/archive/math"],["MathSciNet","https://mathscinet.ams.org"],["ResearchGate","https://www.researchgate.net/"],["Shodhganga — VB Mathematics theses","https://shodhganga.inflibnet.ac.in/jspui/handle/10603/21702"]]],
-  ["Exams & fellowships",[["CSIR-UGC NET","https://csirnet.nta.nic.in"],["GATE / JAM","https://www.iitg.ac.in/gate-jam/"],["NBHM","https://nbhm.dae.gov.in"],["INSPIRE","http://www.online-inspire.gov.in/"]]],
-  ["Institutes",[["TIFR","https://www.tifr.res.in"],["ISI","https://www.isical.ac.in"],["IISc","https://www.iisc.ac.in"],["IMSc","https://www.imsc.res.in"],["CMI","https://www.cmi.ac.in"]]],
-  ["Teaching & government jobs",[["WB College Service Commission","https://www.wbcsconline.in/"],["WB Public Service Commission","https://psc.wb.gov.in/notification_announcement.jsp"],["WB School Service Commission","http://www.westbengalssc.com/sscorg/wbssc/home/"],["WB Madrasah Service Commission","http://wbmsc.com/"],["UPSC","https://www.upsc.gov.in"],["SSC","http://ssc.nic.in/"],["RRB Kolkata","https://www.rrbkolkata.gov.in/"],["RBI","https://opportunities.rbi.org.in/Scripts/Vacancies.aspx"],["ISRO","https://www.isro.gov.in/careers"],["DRDO","https://www.drdo.gov.in/careers"],["MoSPI / NSSO","https://mospi.gov.in/recruitment"]]]
-],
-"tools": [["Interpolation","https://sites.google.com/view/vbmath/more/interpolation"],["Integration","https://sites.google.com/view/vbmath/more/integration"],["Root finding","https://sites.google.com/view/vbmath/more/rootfinder"],["Sturm–Liouville problem","https://sites.google.com/view/vbmath/more/sl"],["Initial value problems","https://sites.google.com/view/vbmath/more/ivp"],["Phase-plane plotter","https://sites.google.com/view/vbmath/more/phaseplane"],["Boundary value problems","https://sites.google.com/view/vbmath/more/bvp"],["BVP (shooting)","https://sites.google.com/view/vbmath/more/bvpp"],["Math++ (C, Fortran, numerical lab)","https://sites.google.com/view/math-plus-plus/home"]],
-"latex": [["Texmaker (recommended editor)","http://www.xm1math.net/texmaker/download.html"],["TeXstudio","http://www.texstudio.org/#download"],["TeX Live mirrors","https://ctan.org/mirrors"],["MiKTeX","https://miktex.org/download"],["Learn LaTeX in 30 minutes","https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes"],["Overleaf thesis templates","https://www.overleaf.com/gallery/tagged/thesis"],["Beamer guide","https://www.overleaf.com/learn/latex/Beamer"],["Free LaTeX book (Wikibooks)","https://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf"],["Project starter template","https://drive.google.com/open?id=17SZOVKBREBT2X2tMNNdyqZve6pgcyWmV"],["Video tutorial series","https://www.youtube.com/playlist?list=PL1D4EAB31D3EBC449"]],
-"scholarships": [
-  ["DST INSPIRE Fellowship","M.Sc. with 65% (6.5 CGPA) or first rank. JRF and SRF with HRA and annual contingency; SRF upgrade needs a first-authored paper.","http://www.online-inspire.gov.in/"],
-  ["CSIR / UGC JRF–SRF","Qualify CSIR NET (June and December) with 55% at M.Sc. (50% for SC/ST/PwD) and enrol for Ph.D. within two years.","https://csirhrdg.res.in/"],
-  ["NBHM Ph.D. scholarship","Through the NBHM Ph.D. screening test.","https://nbhm.dae.gov.in/"],
-  ["NBHM M.Sc. scholarship","Through the NBHM M.Sc. screening test.","https://nbhm.dae.gov.in/"],
-  ["INSPIRE SHE","Top 1% of a higher-secondary board (science). Annual scholarship plus summer-project grant.","http://www.online-inspire.gov.in/"],
-  ["UGC rank-holder scholarship","For first and second rank holders of B.Sc.","https://www.ugc.ac.in/"],
-  ["Visva-Bharati Non-NET fellowship","Ask the departmental office or the Bhavana office.","https://visvabharati.ac.in/"],
-  ["Swami Vivekananda Merit-cum-Means","Government of West Bengal.","https://svmcm.wbhed.gov.in/"],
-  ["Single Girl Child PG scholarship","UGC; first-year regular PG students under 30.","https://www.ugc.ac.in/"]
-],
-"admission": [
+ },
+ "exams": [
+  {
+   "name": "IIT JAM",
+   "note": "Joint Admission Test for M.Sc. Mathematics papers.",
+   "links": [
+    [
+     "All years in one file (typed)",
+     "https://drive.google.com/file/d/1qhrbNoRB7di9J34UgZqJpVmxeS-y5yhO/view"
+    ],
+    [
+     "JAM questions 2005–2025",
+     "https://drive.google.com/file/d/1yyocDYSnx7ItpYjGbk6-yk9CObqgKHuY/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1GrCcpqKdmqFQaBaaUhMTB00mvHKIokgd/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1AX-Wh5hgI2nsqOyYcvps78_WW9pMcsZQ/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/186V7vVX2eeKXJjaHP8-67lNkgWj2vNaq/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1N2Fo9fnHBB6mJjW3GLLJYf9CX4s-4ndN/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1I4Jh0kKviqm51T24_LmOVl9LYEFJVQ3-/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1UmWCb0SSrv7APG8Ch5Hg6ZI3_aoqJTOS/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1e7aB_Cs9SGXW1_8cTnomvMaOwZZ-q0aE/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1swaIzomL6eXe9jTyCN2OzNgNtmS-i-fe/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1PDzysCi6o4F5775OSziZsM419b8VnEhb/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1TANYCSoxW9KQoIKekhtgxbrDYpXXjy8t/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1LhKheWWZgWgB-cq87zmthM4e6ltiH8Cz/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1UC-Ogs1imIzh4Xi8iCudyRLqI3fNf54C/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1eT9jut9rVptmSmsqJ7CanHzgcQRTrYg2/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1_wsN0l5MYmoAjBgesbMSUHTqDfJEYGnc/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1YPRNCTrAzAp6uPm9E1lbfcofxe6s6V-i/view"
+    ],
+    [
+     "Older",
+     "https://drive.google.com/file/d/1tzdPoEXLnEY86EXYGmHVHsFI9CRQEBju/view"
+    ],
+    [
+     "Older",
+     "https://drive.google.com/file/d/1_Pfw74qo0Oh14Adh4Lga3k4VJqTjiBvj/view"
+    ],
+    [
+     "Older",
+     "https://drive.google.com/file/d/1e-l6OISczT-2wgjGvY_gPYlLM2l-34lv/view"
+    ],
+    [
+     "Older",
+     "https://drive.google.com/file/d/134yynATIw3FJej1J3s41kJ6dTrtUxuIy/view"
+    ],
+    [
+     "Older",
+     "https://drive.google.com/file/d/185xAloj8S2SNlbTUZKeGx0_5cSCERGUF/view"
+    ],
+    [
+     "Older",
+     "https://drive.google.com/file/d/1V56PwJaESEOej8nFjPCeDGO5bbwMYE-f/view"
+    ]
+   ],
+   "syllabus": "https://jam.iitm.ac.in/"
+  },
+  {
+   "name": "CSIR-UGC NET",
+   "note": "Mathematical Sciences papers conducted by NTA.",
+   "links": [
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1XSQQjydvUubOx7AVM0NxO4UndWY5RxqR/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1_13429Gwy3nHoblwJPyxGnBMK1xtGUaB/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1Ess0KVgefx0FZexy8eo81SQ_cWw0wmID/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1I6M4HXzTjtsdiB8Q-zGHSqSXXXtlIkNR/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1rylGicoYEjX1mEyretM4HOhRwi-qyUMz/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1Aw25sklRCITWo-vcZYgNZ7IdZjCnDXWR/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/11xuMlCJk5vGwMn12VmEia1mexSoqG9gI/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1vnbyKJrYFLb5yKdChSoQha43yDmvDl-A/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1k-N34kMWjBH5yZ-wpibpXsYkPREAm0rm/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1KeQOhMprxBTDSCyH4Lw8JliA3Wxad05d/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1LOh64iaZuS3RBRAdQLZVXvaOqn5Da8Mq/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1oTi03wUHmtPIB5Fl4mRiNCXPsU6IIRjB/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1xSLDfxT81sIb-gMhFEJORcbiyzWRchNI/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1hiIR8qRzWuO2QzfxflLkb6095m-bslbK/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1ZSfVDOhCw-9jCdDvORCOLacaZo7UVEp8/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1mxoqJg0kxO1ySiJ8tR2LKGJQ7R14nCO9/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1NzHNGHNBjBICtM0sWh2iNjK723vFf7XO/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1D_EzDhCpgPjv9dG_fiqvIB7Yfh6JG4XJ/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1bAS2PSULxn9HkO_Y6nxlW2B1nRKlGY9K/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1VyQpgq0wZkX60zYOWFISuO2cCI6OukR1/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1-9O6VZuTiWjxaDV4T96cnKIW4falHj6X/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1ip4ODNeb2CACXVpQ8hUWjXQHBXdi3FEb/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1nzjKRjkAH2LyiUBqF3PV8d9gZH1g_9ex/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1tqEceGHAdioI8MaiIji4bNPOQ5zqGZzQ/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1fexovvHK5MRCv7jtRepjlKwYKpQxb2mo/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1C3VmtY-vZOeGr3Iy6ytTEE4H__fczecD/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/1xbkNg_RWIN_3rRZZHA_uoLhiu0yQkgeR/view"
+    ],
+    [
+     "Paper",
+     "https://drive.google.com/file/d/18ZMePkeM9eANOwmx3Y258VY2sVgzoFsR/view"
+    ],
+    [
+     "NET/GATE notes folder",
+     "https://drive.google.com/drive/folders/1Z4ODWV7rTQ3R0SEKiBBVK1Jv-8Vkzt0b"
+    ]
+   ],
+   "syllabus": "https://drive.google.com/file/d/0B5If53vcTpKRTVRmM2tiN1h2ZVk/view?resourcekey=0-uTUC0XYoleDOOCHjaSvx9A"
+  },
+  {
+   "name": "GATE Mathematics",
+   "note": "Past papers are published by the organising IIT each year.",
+   "links": [
+    [
+     "Official GATE / JAM portal",
+     "https://www.iitg.ac.in/gate-jam/"
+    ]
+   ]
+  },
+  {
+   "name": "NBHM",
+   "note": "Combined, M.Sc. and Ph.D. scholarship tests.",
+   "links": [
+    [
+     "Official question repository",
+     "https://www.imsc.res.in/~nbhm/qp/"
+    ],
+    [
+     "NBHM home",
+     "https://nbhm.dae.gov.in"
+    ]
+   ]
+  },
+  {
+   "name": "TIFR",
+   "note": "Graduate School admission tests.",
+   "links": [
+    [
+     "Official past papers",
+     "https://www.tifr.res.in/academics/past_question_papers.php"
+    ]
+   ]
+  },
+  {
+   "name": "M.Sc. Admission, Visva-Bharati",
+   "note": "No entrance test was held in 2020 or 2021 (interviews instead). From 2023 admission is through CUET, conducted by NTA.",
+   "links": [
+    [
+     "2013–2017",
+     "https://drive.google.com/drive/folders/1M4vMWE_PjhU0ZvDJZTLD4te6Ao1GUwAc"
+    ],
+    [
+     "2018",
+     "https://drive.google.com/file/d/13cYT1ummfO4vbcQoreUk20K1fFL4VVY_/view"
+    ],
+    [
+     "2019",
+     "https://drive.google.com/file/d/13I411t2Em9snHIJ8xaxYZB7pWj_3I8mo/view"
+    ],
+    [
+     "2022",
+     "https://drive.google.com/file/d/1xFxDRKm6aD1-c_NESTTOtyUbd94N9R3U/view"
+    ],
+    [
+     "Extras",
+     "https://drive.google.com/drive/folders/1fuNEub4JK1iMXG70YaEPpk2Jaf38TPjB"
+    ]
+   ],
+   "syllabus": "https://drive.google.com/open?id=1fnaSeFk22PphFQIEqScbC5TUANymakfp"
+  }
+ ],
+ "notes": {
+  "folders": {
+   "B.Sc. class notes": [
+    "https://drive.google.com/drive/folders/1wQ-lVG6ZSQgdeiIhNLBMz5Pn_JZDM8_d",
+    "https://drive.google.com/drive/folders/1UwrpyN4IIy7xx4ToqDov_YxD8_Aryuyb",
+    "https://drive.google.com/drive/folders/1iDc6GnRQfooJVvrDVnFO5ESEsIp0NZnq",
+    "https://drive.google.com/drive/folders/1_tn7LkjViZYYQbqecB59ht1xlva3ExiF",
+    "https://drive.google.com/drive/folders/1V8Y92L9sfwEGHSNzc7GJPLfETvwDtaQu",
+    "https://drive.google.com/drive/folders/1PUcTGjiqxd3WcWuITsVLZbTQsKUarUuc"
+   ],
+   "M.Sc. class notes": [
+    "https://drive.google.com/drive/folders/1z6i24wMkzQp4g6nwwaTNp0IgbZUgDIoG",
+    "https://drive.google.com/drive/folders/18jSktaYPAc-zvzIAel58-SYuWS4kXx9k",
+    "https://drive.google.com/drive/folders/1HHlQC95SS2hNFxXte8fJNRj9HYA-XoBE",
+    "https://drive.google.com/drive/folders/1y76UnUMavOIZl7UGkP9FAja9mbn1kFL6"
+   ]
+  },
+  "items": [
+   [
+    "Numerical Analysis",
+    "Lectures of SC Sir · written by Dr. Pankaj Barman · scanned by Dr. Mainul Hossain",
+    "https://drive.google.com/file/d/0B5If53vcTpKROW1fNEpHcHVTaDA/view?resourcekey=0-hF7nS_6oboUe4hzHZqr6QA"
+   ],
+   [
+    "Continuum Mechanics",
+    "Lectures of PKM Sir · written by Dr. Pankaj Barman · scanned by Dr. Mainul Hossain",
+    "https://drive.google.com/file/d/1SrZT9LpSjSEWoK3OP_ODFLIEzSSipwAd/view"
+   ],
+   [
+    "Mathematical Ecology",
+    "Lectures of SC Sir · written by Dr. Sattwika Acharya · scanned by Dr. Mainul Hossain",
+    "https://drive.google.com/file/d/1HOnxVu8N_j56e8prmBnJK69St2SaE4pR/view"
+   ],
+   [
+    "Mathematical Biology",
+    "Lectures of PKM Sir · written by Dr. Sattwika Acharya · scanned by Dr. Mainul Hossain",
+    "https://drive.google.com/file/d/1ZEmXfugwGMirWHRk4hTJoHdR35oOV8_L/view"
+   ],
+   [
+    "Dynamical Systems",
+    "Lectures of Puspajit Sir · written by Dr. Saheb Pal",
+    "https://drive.google.com/file/d/1F_TtMYOAgEWerQQXyS4CyD7BqYvvy_iI/view"
+   ],
+   [
+    "Complex Analysis",
+    "Written and scanned by Dr. Mainul Hossain",
+    "https://drive.google.com/file/d/15QO9XC0ywp6ilHwlCQmWARJ4boaTYwyB/view"
+   ],
+   [
+    "Abstract Algebra",
+    "Prepared by Dr. Anjan K. Bhuniya · compiled by Dr. Mainul Hossain",
+    "https://drive.google.com/file/d/1kyeTGnlvNt22bO8RD-sNYS2_pCWccjBA/view"
+   ],
+   [
+    "NET/GATE Notes",
+    "Prepared by Dr. Avijit Das during his preparation",
+    "https://drive.google.com/file/d/13YJnrn9XPY8-cnt9BVKrfjoV5lvHXcMU/view"
+   ]
+  ]
+ },
+ "syllabus": [
+  [
+   "B.Sc. — NEP 2020 (from 2025–26)",
+   "Four-year UG programme, recommended by the Board of Studies on 16 July 2025.",
+   "https://drive.google.com/file/d/1f1N22ed-8kvjEwS3GOiolctP64Tbzz5Q/view"
+  ],
+  [
+   "B.Sc. — CBCS 2020–21",
+   "Choice Based Credit System, revised.",
+   "https://drive.google.com/file/d/13CByQX7d9l5JPoOg7baLTxhmtGQ-xjFZ/view"
+  ],
+  [
+   "B.Sc. — CBCS 2017–18",
+   "First CBCS syllabus.",
+   "https://drive.google.com/open?id=1FG9ikHG8I6OGi393OQG5ds-t32yQXcBO"
+  ],
+  [
+   "B.Sc. — BMC (2011–12)",
+   "The older semester syllabus with BMC course codes.",
+   "https://drive.google.com/open?id=0B5If53vcTpKRVlg0bjRiTU82X2c"
+  ],
+  [
+   "M.Sc. — with added links",
+   "",
+   "https://drive.google.com/file/d/1KKMeC7LNqu5c0QrKZyD9Rw6j1iq_aCsS/view"
+  ],
+  [
+   "M.Sc. — original",
+   "",
+   "https://drive.google.com/file/d/1jBA5B8RzgdLAxBlQXLhMu0Fzpq0pg08u/view"
+  ],
+  [
+   "CSIR-UGC NET Mathematical Sciences",
+   "Units I–IV: analysis and linear algebra; complex analysis, algebra, topology; ODE, PDE, numerics, calculus of variations, integral equations, mechanics; statistics.",
+   "https://drive.google.com/file/d/0B5If53vcTpKRTVRmM2tiN1h2ZVk/view?resourcekey=0-uTUC0XYoleDOOCHjaSvx9A"
+  ],
+  [
+   "IIT JAM Mathematics",
+   "Official syllabus on the JAM website.",
+   "https://jam.iitm.ac.in/"
+  ],
+  [
+   "M.Sc. admission test (VB)",
+   "",
+   "https://drive.google.com/open?id=1fnaSeFk22PphFQIEqScbC5TUANymakfp"
+  ]
+ ],
+ "books": {
+  "Algebra": [
+   "Linear Algebra and Its Applications — Lay, Lay & McDonald",
+   "Linear Algebra — Friedberg, Insel & Spence",
+   "Linear Algebra — Hoffman & Kunze",
+   "Schaum's Outline of Linear Algebra — Lipschutz & Lipson",
+   "Linear Algebra Done Right — Sheldon Axler",
+   "Linear Algebra: A Geometric Approach — S. Kumaresan",
+   "Contemporary Abstract Algebra — Joseph A. Gallian",
+   "Fundamentals of Abstract Algebra — Malik, Mordeson & Sen",
+   "Topics in Abstract Algebra — Sen, Ghosh & Mukhopadhyay",
+   "Abstract Algebra — Dummit & Foote",
+   "Abstract Algebra Manual: Problems and Solutions — Ayman Badawi",
+   "Topics in Algebra — I. N. Herstein",
+   "Rings and their Modules — Paul E. Bland"
+  ],
+  "Real Analysis": [
+   "An Introduction to Real Analysis — Bartle & Sherbert",
+   "Introduction to Real Analysis — S. K. Mapa",
+   "A Basic Course in Real Analysis — Ajit Kumar & S. Kumaresan",
+   "Principles of Mathematical Analysis — Walter Rudin",
+   "Real Analysis — Bruckner & Bruckner"
+  ],
+  "Calculus": [
+   "Differential Calculus — Ghosh & Maity",
+   "Calculus: Early Transcendentals — Dennis Zill",
+   "Thomas' Calculus — Thomas, Weir & Hass",
+   "Calculus, Vol. 1 — Tom M. Apostol",
+   "Calculus, Vol. 2 — Tom M. Apostol",
+   "Calculus: Early Transcendentals — James Stewart"
+  ],
+  "Differential Equations": [
+   "Differential Equations — Shepley L. Ross",
+   "Elementary Differential Equations and Boundary Value Problems — Boyce & DiPrima",
+   "An Introduction to Ordinary Differential Equations — E. A. Coddington",
+   "Elementary Differential Equations — Rainville & Bedient",
+   "An Elementary Treatise on Differential Equations — H. T. H. Piaggio",
+   "A First Course in Differential Equations with Modeling Applications — Dennis G. Zill",
+   "Advanced Differential Equations — M. D. Raisinghania",
+   "Differential Equations — Chakravorty & Ghosh",
+   "An Elementary Course in Partial Differential Equations — T. Amaranath",
+   "Differential Equations: Theory, Technique and Practice — George Simmons"
+  ],
+  "Dynamical Systems": [
+   "Nonlinear Dynamics and Chaos — Steven Strogatz",
+   "An Introduction to Dynamical Systems and Chaos — G. C. Layek",
+   "An Introduction to Dynamical Systems: Continuous and Discrete — R. Clark Robinson",
+   "Introduction to Applied Nonlinear Dynamical Systems and Chaos — Stephen Wiggins"
+  ],
+  "Lie Groups & Transformations": [
+   "Symmetries and Differential Equations — Bluman & Kumei",
+   "A Course in Differential Geometry and Lie Groups — S. Kumaresan"
+  ],
+  "Topology": [
+   "Topology — James R. Munkres",
+   "Introduction to General Topology — K. D. Joshi",
+   "Topology — James Dugundji"
+  ],
+  "Complex Analysis": [
+   "Complex Analysis — B. K. Lahiri",
+   "Complex Variables: Theory and Applications — H. S. Kasana",
+   "Foundations of Complex Analysis — S. Ponnusamy",
+   "Complex Analysis — Dennis Zill",
+   "Real and Complex Analysis — Walter Rudin",
+   "Complex Analysis — Lars Ahlfors",
+   "Complex Variables (Schaum's) — Spiegel & Lipschutz",
+   "Functions of One Complex Variable I — John B. Conway",
+   "Functions of a Complex Variable — Goyal & Gupta",
+   "Complex Variables and Applications — Brown & Churchill",
+   "Complex Analysis — Serge Lang",
+   "Complex Analysis — Theodore Gamelin"
+  ],
+  "Discrete Mathematics": [
+   "Discrete Mathematics and Its Applications — Kenneth Rosen",
+   "Discrete Mathematics — Lipschutz & Lipson",
+   "Introduction to Discrete Mathematics — M. K. Sen & B. C. Chakraborty",
+   "Graph Theory — Bondy & Murty",
+   "Graph Theory with Applications to Engineering and Computer Science — Narsingh Deo",
+   "Graph Theory — R. Diestel",
+   "Combinatorics and Graph Theory — Harris, Hirst & Mossinghoff"
+  ],
+  "Biomathematics": [
+   "Elements of Mathematical Ecology — Mark Kot",
+   "Mathematical Biology I: An Introduction — J. D. Murray",
+   "Mathematical Biology II: Spatial Models and Biomedical Applications — J. D. Murray",
+   "Mathematical Models in Biology and Medicine — J. N. Kapur"
+  ],
+  "Programming": [
+   "Let Us C — Yashavant Kanetkar",
+   "Programming in ANSI C — E. Balagurusamy",
+   "Getting Started with MATLAB — Rudra Pratap"
+  ],
+  "Numerical Analysis": [
+   "Numerical Analysis and Computational Procedures — S. A. Mollah",
+   "Numerical Methods for Scientific and Engineering Computation — Jain, Iyengar & Jain",
+   "Introductory Methods of Numerical Analysis — S. S. Sastry",
+   "Introduction to Numerical Analysis — F. B. Hildebrand",
+   "An Introduction to Numerical Analysis — Kendall Atkinson"
+  ],
+  "Probability & Statistics": [
+   "Groundwork of Mathematical Probability and Statistics — Amritava Gupta",
+   "Probability and Statistics (Schaum's) — Spiegel & Schiller",
+   "An Introduction to Probability and Statistics — Rohatgi & Saleh",
+   "Fundamentals of Mathematical Statistics — S. C. Gupta & V. K. Kapoor"
+  ]
+ },
+ "video": [
+  [
+   "3Blue1Brown",
+   "Animated, visual explanations that build intuition.",
+   [
+    [
+     "Channel",
+     "https://www.youtube.com/@3blue1brown/videos"
+    ],
+    [
+     "Linear Algebra",
+     "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab"
+    ],
+    [
+     "Calculus",
+     "https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr"
+    ],
+    [
+     "Differential Equations",
+     "https://www.youtube.com/playlist?list=PLZHQObOWTQDNPOjrT6KVlfJuKtYTftqH6"
+    ],
+    [
+     "Neural Networks",
+     "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi"
+    ]
+   ]
+  ],
+  [
+   "CodeWithHarry",
+   "Beginner-friendly programming tutorials, mostly in Hindi.",
+   [
+    [
+     "Channel",
+     "https://www.youtube.com/@CodeWithHarry/videos"
+    ],
+    [
+     "C Programming",
+     "https://www.youtube.com/playlist?list=PLu0W_9lII9aiXlHcLx-mDH1Qul38wD3aR"
+    ],
+    [
+     "Python",
+     "https://www.youtube.com/playlist?list=PLu0W_9lII9agwh1XjRt242xIpHhPT2llg"
+    ],
+    [
+     "Machine Learning",
+     "https://www.youtube.com/playlist?list=PLu0W_9lII9ai6fAMHp-acBmJONT7Y4BSG"
+    ],
+    [
+     "HTML, CSS, JS",
+     "https://www.youtube.com/playlist?list=PLu0W_9lII9aiQiOwthuSvinxoflmhRxM3"
+    ]
+   ]
+  ]
+ ],
+ "websites": [
+  [
+   "Learning",
+   [
+    [
+     "Visva-Bharati Library Network",
+     "https://vblibrarynetwork.in/"
+    ],
+    [
+     "Math Stack Exchange",
+     "https://math.stackexchange.com"
+    ],
+    [
+     "MathOverflow",
+     "https://mathoverflow.net"
+    ],
+    [
+     "Yutsumura — solved problems",
+     "https://yutsumura.com/"
+    ],
+    [
+     "Scholarpedia",
+     "http://www.scholarpedia.org/"
+    ]
+   ]
+  ],
+  [
+   "Research",
+   [
+    [
+     "arXiv Mathematics",
+     "https://arxiv.org/archive/math"
+    ],
+    [
+     "MathSciNet",
+     "https://mathscinet.ams.org"
+    ],
+    [
+     "ResearchGate",
+     "https://www.researchgate.net/"
+    ],
+    [
+     "Shodhganga — VB Mathematics theses",
+     "https://shodhganga.inflibnet.ac.in/jspui/handle/10603/21702"
+    ]
+   ]
+  ],
+  [
+   "Exams & fellowships",
+   [
+    [
+     "CSIR-UGC NET",
+     "https://csirnet.nta.nic.in"
+    ],
+    [
+     "GATE / JAM",
+     "https://www.iitg.ac.in/gate-jam/"
+    ],
+    [
+     "NBHM",
+     "https://nbhm.dae.gov.in"
+    ],
+    [
+     "INSPIRE",
+     "http://www.online-inspire.gov.in/"
+    ]
+   ]
+  ],
+  [
+   "Institutes",
+   [
+    [
+     "TIFR",
+     "https://www.tifr.res.in"
+    ],
+    [
+     "ISI",
+     "https://www.isical.ac.in"
+    ],
+    [
+     "IISc",
+     "https://www.iisc.ac.in"
+    ],
+    [
+     "IMSc",
+     "https://www.imsc.res.in"
+    ],
+    [
+     "CMI",
+     "https://www.cmi.ac.in"
+    ]
+   ]
+  ],
+  [
+   "Teaching & government jobs",
+   [
+    [
+     "WB College Service Commission",
+     "https://www.wbcsconline.in/"
+    ],
+    [
+     "WB Public Service Commission",
+     "https://psc.wb.gov.in/notification_announcement.jsp"
+    ],
+    [
+     "WB School Service Commission",
+     "http://www.westbengalssc.com/sscorg/wbssc/home/"
+    ],
+    [
+     "WB Madrasah Service Commission",
+     "http://wbmsc.com/"
+    ],
+    [
+     "UPSC",
+     "https://www.upsc.gov.in"
+    ],
+    [
+     "SSC",
+     "http://ssc.nic.in/"
+    ],
+    [
+     "RRB Kolkata",
+     "https://www.rrbkolkata.gov.in/"
+    ],
+    [
+     "RBI",
+     "https://opportunities.rbi.org.in/Scripts/Vacancies.aspx"
+    ],
+    [
+     "ISRO",
+     "https://www.isro.gov.in/careers"
+    ],
+    [
+     "DRDO",
+     "https://www.drdo.gov.in/careers"
+    ],
+    [
+     "MoSPI / NSSO",
+     "https://mospi.gov.in/recruitment"
+    ]
+   ]
+  ]
+ ],
+ "tools": [
+  [
+   "Interpolation",
+   "https://sites.google.com/view/vbmath/more/interpolation"
+  ],
+  [
+   "Integration",
+   "https://sites.google.com/view/vbmath/more/integration"
+  ],
+  [
+   "Root finding",
+   "https://sites.google.com/view/vbmath/more/rootfinder"
+  ],
+  [
+   "Sturm–Liouville problem",
+   "https://sites.google.com/view/vbmath/more/sl"
+  ],
+  [
+   "Initial value problems",
+   "https://sites.google.com/view/vbmath/more/ivp"
+  ],
+  [
+   "Phase-plane plotter",
+   "https://sites.google.com/view/vbmath/more/phaseplane"
+  ],
+  [
+   "Boundary value problems",
+   "https://sites.google.com/view/vbmath/more/bvp"
+  ],
+  [
+   "BVP (shooting)",
+   "https://sites.google.com/view/vbmath/more/bvpp"
+  ],
+  [
+   "Math++ (C, Fortran, numerical lab)",
+   "https://sites.google.com/view/math-plus-plus/home"
+  ]
+ ],
+ "latex": [
+  [
+   "Texmaker (recommended editor)",
+   "http://www.xm1math.net/texmaker/download.html"
+  ],
+  [
+   "TeXstudio",
+   "http://www.texstudio.org/#download"
+  ],
+  [
+   "TeX Live mirrors",
+   "https://ctan.org/mirrors"
+  ],
+  [
+   "MiKTeX",
+   "https://miktex.org/download"
+  ],
+  [
+   "Learn LaTeX in 30 minutes",
+   "https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes"
+  ],
+  [
+   "Overleaf thesis templates",
+   "https://www.overleaf.com/gallery/tagged/thesis"
+  ],
+  [
+   "Beamer guide",
+   "https://www.overleaf.com/learn/latex/Beamer"
+  ],
+  [
+   "Free LaTeX book (Wikibooks)",
+   "https://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf"
+  ],
+  [
+   "Project starter template",
+   "https://drive.google.com/open?id=17SZOVKBREBT2X2tMNNdyqZve6pgcyWmV"
+  ],
+  [
+   "Video tutorial series",
+   "https://www.youtube.com/playlist?list=PL1D4EAB31D3EBC449"
+  ]
+ ],
+ "scholarships": [
+  [
+   "DST INSPIRE Fellowship",
+   "M.Sc. with 65% (6.5 CGPA) or first rank. JRF and SRF with HRA and annual contingency; SRF upgrade needs a first-authored paper.",
+   "http://www.online-inspire.gov.in/"
+  ],
+  [
+   "CSIR / UGC JRF–SRF",
+   "Qualify CSIR NET (June and December) with 55% at M.Sc. (50% for SC/ST/PwD) and enrol for Ph.D. within two years.",
+   "https://csirhrdg.res.in/"
+  ],
+  [
+   "NBHM Ph.D. scholarship",
+   "Through the NBHM Ph.D. screening test.",
+   "https://nbhm.dae.gov.in/"
+  ],
+  [
+   "NBHM M.Sc. scholarship",
+   "Through the NBHM M.Sc. screening test.",
+   "https://nbhm.dae.gov.in/"
+  ],
+  [
+   "INSPIRE SHE",
+   "Top 1% of a higher-secondary board (science). Annual scholarship plus summer-project grant.",
+   "http://www.online-inspire.gov.in/"
+  ],
+  [
+   "UGC rank-holder scholarship",
+   "For first and second rank holders of B.Sc.",
+   "https://www.ugc.ac.in/"
+  ],
+  [
+   "Visva-Bharati Non-NET fellowship",
+   "Ask the departmental office or the Bhavana office.",
+   "https://visvabharati.ac.in/"
+  ],
+  [
+   "Swami Vivekananda Merit-cum-Means",
+   "Government of West Bengal.",
+   "https://svmcm.wbhed.gov.in/"
+  ],
+  [
+   "Single Girl Child PG scholarship",
+   "UGC; first-year regular PG students under 30.",
+   "https://www.ugc.ac.in/"
+  ]
+ ],
+ "admission": [
   "B.A./B.Sc. and M.A./M.Sc. admissions are now through CUET, conducted by NTA. Applications usually open in February and run for about a month; internal students have a quota.",
   "Selection is on a merit list from CUET marks and department criteria; counselling does not by itself guarantee a seat.",
   "B.Sc. Mathematics eligibility (as listed earlier on this site): UR 60% aggregate and 60% in Mathematics at 10+2; OBC 54%; SC/ST a pass in Mathematics. Always confirm with the current prospectus.",
   "Bring a photo ID, date-of-birth proof, CUET score card, 10+2 mark sheet, category certificate where applicable, and a copy of the online form."
-],
-"reach": [
-  ["By train","Bolpur (Santiniketan) BHP or Prantik on Eastern Railway. Trains from Howrah/Sealdah and New Jalpaiguri.","https://indiarailinfo.com/search/hwh-howrah-junction-to-bhp-bolpur-shantiniketan/1/0/1008"],
-  ["By bus","Jambuni or Lodge More (Bolpur), Kalisayor More (Sriniketan).",""],
-  ["Locally","E-rickshaws (toto) drop you near the department.",""],
-  ["Map","Department of Mathematics, Visva-Bharati, Santiniketan 731235.","https://www.google.com/maps?q=23.681515,87.67482"]
-],
-"thesis": {
-  "steps": ["Apply to the Board of Studies through your supervisor with title, registration number and publications.","Prepare a 30-minute pre-Ph.D. seminar; bring the report format and a list of examiners (three from West Bengal, three from outside).","Write the thesis and synopsis; the supervisor runs the plagiarism check (Drillbit).","Collect the No-Dues certificate signatures in sequence.","Print hard-bound copies (4, or 5 with a co-supervisor) and prepare CDs.","Fill the submission form with Annexures I and II and pay the fee through SBI Collect.","Submit with self-attested documents and take the submission certificate.","Viva-voce after the examiners' reports; then apply for the provisional certificate."],
-  "links": [["Application format","https://drive.google.com/open?id=1wDWtXwjVSH2nr-tPmjH5tUYffjzvcV1zZWKtkf-MO0g"],["Sample pre-Ph.D. report","https://drive.google.com/open?id=1Ps1A7s_SCGuQ0hv3ixCL25K2osmZ19amLoIENjNMn3k"],["Beamer sample (Overleaf)","https://www.overleaf.com/read/frzphkqbjcrh"],["No-Dues form","https://drive.google.com/file/d/1P59zi88yl71dXDJKndTLg6hoazD_uma5/view"],["SBI Collect","https://www.onlinesbi.sbi/sbicollect/"],["VB result notices","https://www.visvabharati.ac.in/list_all_notice.html/type/result"],["VB forms","https://www.visvabharati.ac.in/DownloadForms.html"],["Shodhganga — VB Mathematics","https://shodhganga.inflibnet.ac.in/jspui/handle/10603/21702"]]
-},
-"faculty": [
-  ["Prof. Tapas Ray Mahapatra","Fluid Dynamics, Numerical Analysis","Computational fluid dynamics, hydrodynamics"],
-  ["Prof. Prasanta Chatterjee","Nonlinear Dynamics, Plasma Dynamics, Differential Equations","Plasma dynamics, nonlinear PDEs"],
-  ["Prof. Madan Mohan Panja","Differential Equations, Symmetry Analysis, Classical Mechanics","Wavelet-based numerical schemes, symmetry analysis, Sturm–Liouville problems"],
-  ["Prof. Prashanta Kumar Mandal","Dynamics of Particles, Statics, Continuum Mechanics, Mathematical Pharmacology","Biofluid dynamics, mathematical pharmacology and biology"],
-  ["Dr. Amar Prasad Misra","Probability & Statistics, EM Theory, MHD, MATLAB","Plasma physics, MHD, nonlinear dynamics, chaos-based cryptography"],
-  ["Prof. Tarapada Bag","Functional Analysis","Functional analysis, fuzzy mathematics"],
-  ["Prof. Dibyendu Banerjee","Complex Analysis, Metric Spaces",""],
-  ["Prof. Subhasis Ray","Calculus, Lebesgue Measure, Advanced Real Analysis","Real function theory, generalised derivatives, non-absolute integration, soft sets"],
-  ["Dr. Anjan Kumar Bhuniya","Algebra","Algebraic theory of semirings"],
-  ["Dr. Lakshmi Narayan Guin","Differential Equations, LPP, Mathematical Ecology","Mathematical ecology, nonlinear dynamics, infectious diseases"],
-  ["Dr. Kalyan Hansda","Algebra, Coding Theory","Algebraic coding theory"],
-  ["Dr. Nikhil Pal","Differential Equations, Ecology, Programming in C","Dynamical systems, bifurcation, chaos, mathematical biology"],
-  ["Dr. Sougata Biswas","Numerical Analysis, FORTRAN, Geometry & Vector Calculus","Structural bifurcation in incompressible flows, vortex dynamics"],
-  ["Dr. Bipul Pal","Complex Analysis, Real Analysis, Topology",""],
-  ["Dr. Jaitra Chattopadhyay","Algebraic Number Theory","Class groups of number fields, Euclidean ideal classes"]
-],
-"retired": ["Prof. Swapan Raha","Prof. Puspajit Mandal","Prof. Syamal Kumar Samanta","Prof. Santabrata Chakravarty","Prof. Dulal Pal"],
-"scholars_link": "https://sites.google.com/view/vbmath/people/scholars",
-"credits": {
-  "Idea, design and administration":["Mainul Hossain (Alumni)"],
-  "Contributors":["Koustav Kundu","Bubai Sou","Rahul Bachhar","Prahlad Mukherjee","Chandan Mondal","Subhamoy Pal","Rudranil Maji","Riddhiman Bhattacharya"],
-  "Useful suggestions":["Kousik Karmakar","Swaraj Paul"],
-  "Sorting and scanning questions":["Sk Mosaraf Ahmed","Masum Mondal","Monirul Islam","Subrata Dey","Debdip","Mrinmoy","Bikash","Pritam Saha","Bhavani","Amartya","Aparameyo","Dip","Chandan","Subhadrika Kisku","Sk Arif Uddin"],
-  "Gallery":["Masum Mondal"]
-},
-"oldsite": "https://sites.google.com/view/vbmath"
+ ],
+ "reach": [
+  [
+   "By train",
+   "Bolpur (Santiniketan) BHP or Prantik on Eastern Railway. Trains from Howrah/Sealdah and New Jalpaiguri.",
+   "https://indiarailinfo.com/search/hwh-howrah-junction-to-bhp-bolpur-shantiniketan/1/0/1008"
+  ],
+  [
+   "By bus",
+   "Jambuni or Lodge More (Bolpur), Kalisayor More (Sriniketan).",
+   ""
+  ],
+  [
+   "Locally",
+   "E-rickshaws (toto) drop you near the department.",
+   ""
+  ],
+  [
+   "Map",
+   "Department of Mathematics, Visva-Bharati, Santiniketan 731235.",
+   "https://www.google.com/maps?q=23.681515,87.67482"
+  ]
+ ],
+ "thesis": {
+  "steps": [
+   "Apply to the Board of Studies through your supervisor with title, registration number and publications.",
+   "Prepare a 30-minute pre-Ph.D. seminar; bring the report format and a list of examiners (three from West Bengal, three from outside).",
+   "Write the thesis and synopsis; the supervisor runs the plagiarism check (Drillbit).",
+   "Collect the No-Dues certificate signatures in sequence.",
+   "Print hard-bound copies (4, or 5 with a co-supervisor) and prepare CDs.",
+   "Fill the submission form with Annexures I and II and pay the fee through SBI Collect.",
+   "Submit with self-attested documents and take the submission certificate.",
+   "Viva-voce after the examiners' reports; then apply for the provisional certificate."
+  ],
+  "links": [
+   [
+    "Application format",
+    "https://drive.google.com/open?id=1wDWtXwjVSH2nr-tPmjH5tUYffjzvcV1zZWKtkf-MO0g"
+   ],
+   [
+    "Sample pre-Ph.D. report",
+    "https://drive.google.com/open?id=1Ps1A7s_SCGuQ0hv3ixCL25K2osmZ19amLoIENjNMn3k"
+   ],
+   [
+    "Beamer sample (Overleaf)",
+    "https://www.overleaf.com/read/frzphkqbjcrh"
+   ],
+   [
+    "No-Dues form",
+    "https://drive.google.com/file/d/1P59zi88yl71dXDJKndTLg6hoazD_uma5/view"
+   ],
+   [
+    "SBI Collect",
+    "https://www.onlinesbi.sbi/sbicollect/"
+   ],
+   [
+    "VB result notices",
+    "https://www.visvabharati.ac.in/list_all_notice.html/type/result"
+   ],
+   [
+    "VB forms",
+    "https://www.visvabharati.ac.in/DownloadForms.html"
+   ],
+   [
+    "Shodhganga — VB Mathematics",
+    "https://shodhganga.inflibnet.ac.in/jspui/handle/10603/21702"
+   ]
+  ]
+ },
+ "faculty": [
+  [
+   "Prof. Tapas Ray Mahapatra",
+   "Fluid Dynamics, Numerical Analysis",
+   "Computational fluid dynamics, hydrodynamics"
+  ],
+  [
+   "Prof. Prasanta Chatterjee",
+   "Nonlinear Dynamics, Plasma Dynamics, Differential Equations",
+   "Plasma dynamics, nonlinear PDEs"
+  ],
+  [
+   "Prof. Prashanta Kumar Mandal",
+   "Dynamics of Particles, Statics, Continuum Mechanics, Mathematical Pharmacology",
+   "Biofluid dynamics, mathematical pharmacology and biology"
+  ],
+  [
+   "Dr. Amar Prasad Misra",
+   "Probability & Statistics, EM Theory, MHD, MATLAB",
+   "Plasma physics, MHD, nonlinear dynamics, chaos-based cryptography"
+  ],
+  [
+   "Prof. Tarapada Bag",
+   "Functional Analysis",
+   "Functional analysis, fuzzy mathematics"
+  ],
+  [
+   "Prof. Dibyendu Banerjee",
+   "Complex Analysis, Metric Spaces",
+   ""
+  ],
+  [
+   "Prof. Subhasis Ray",
+   "Calculus, Lebesgue Measure, Advanced Real Analysis",
+   "Real function theory, generalised derivatives, non-absolute integration, soft sets"
+  ],
+  [
+   "Dr. Anjan Kumar Bhuniya",
+   "Algebra",
+   "Algebraic theory of semirings"
+  ],
+  [
+   "Dr. Lakshmi Narayan Guin",
+   "Differential Equations, LPP, Mathematical Ecology",
+   "Mathematical ecology, nonlinear dynamics, infectious diseases"
+  ],
+  [
+   "Dr. Kalyan Hansda",
+   "Algebra, Coding Theory",
+   "Algebraic coding theory"
+  ],
+  [
+   "Dr. Nikhil Pal",
+   "Differential Equations, Ecology, Programming in C",
+   "Dynamical systems, bifurcation, chaos, mathematical biology"
+  ],
+  [
+   "Dr. Sougata Biswas",
+   "Numerical Analysis, FORTRAN, Geometry & Vector Calculus",
+   "Structural bifurcation in incompressible flows, vortex dynamics"
+  ],
+  [
+   "Dr. Bipul Pal",
+   "Complex Analysis, Real Analysis, Topology",
+   ""
+  ],
+  [
+   "Dr. Jaitra Chattopadhyay",
+   "Algebraic Number Theory",
+   "Class groups of number fields, Euclidean ideal classes"
+  ]
+ ],
+ "retired": [
+  "Prof. Swapan Raha",
+  "Prof. Puspajit Mandal",
+  "Prof. Syamal Kumar Samanta",
+  "Prof. Santabrata Chakravarty",
+  "Prof. Dulal Pal",
+  "Prof. Madan Mohan Panja"
+ ],
+ "scholars_link": "https://sites.google.com/view/vbmath/people/scholars",
+ "credits": {
+  "Idea, design and administration": [
+   "Mainul Hossain (Alumni)"
+  ],
+  "Contributors": [
+   "Koustav Kundu",
+   "Bubai Sou",
+   "Rahul Bachhar",
+   "Prahlad Mukherjee",
+   "Chandan Mondal",
+   "Subhamoy Pal",
+   "Rudranil Maji",
+   "Riddhiman Bhattacharya"
+  ],
+  "Useful suggestions": [
+   "Kousik Karmakar",
+   "Swaraj Paul"
+  ],
+  "Sorting and scanning questions": [
+   "Sk Mosaraf Ahmed",
+   "Masum Mondal",
+   "Monirul Islam",
+   "Subrata Dey",
+   "Debdip",
+   "Mrinmoy",
+   "Bikash",
+   "Pritam Saha",
+   "Bhavani",
+   "Amartya",
+   "Aparameyo",
+   "Dip",
+   "Chandan",
+   "Subhadrika Kisku",
+   "Sk Arif Uddin"
+  ],
+  "Gallery": [
+   "Masum Mondal"
+  ]
+ },
+ "oldsite": "https://sites.google.com/view/vbmath"
 }

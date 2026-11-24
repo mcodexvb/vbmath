@@ -261,7 +261,8 @@
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
           <button type="button" class="qbtn" data-act="copy" title="Copy LaTeX" aria-label="Copy LaTeX">${IC.copy}<span class="sr">Copy LaTeX</span></button>
-          <details class="qmore"><summary class="qbtn" aria-label="More actions" title="More">${IC.dots}</summary><div class="qmenu">
+          <details class="qmore"><summary class="qbtn" aria-label="More actions" title="More">${IC.dots}</summary><div class="qmenu" role="menu">
+            <div class="qmh"><b>${esc(opts.num != null ? opts.num : "Q" + qLabel(q))}</b><button type="button" class="qmclose" data-close-menu aria-label="Close">${IC.x}</button></div>
             <button type="button" data-act="copytext">${IC.copy} Copy as plain text</button>
             <a href="${L("paper-" + p.key)}">${IC.file} Open the full paper</a>
             <a href="${GH}4-submit-solution.yml&qid=${encodeURIComponent(q.id)}" target="_blank" rel="noopener">${IC.pen} Submit a solution</a>
@@ -284,6 +285,7 @@
       const d = b.closest("details"); if (d) d.open = false;
       return;
     }
+    if (e.target.closest("[data-close-menu]") || e.target.matches(".menuscrim")) { closeMenus(); return; }
     $$("details.qmore[open]").forEach((d) => { if (!d.contains(e.target)) d.open = false; });
     const t = e.target.closest("[data-ft],[data-fb]");
     if (t) { F = defaultFilters(); if (t.dataset.ft) { F.topic = t.dataset.ft; F.broad = String(D.broad.indexOf(D.topics[+t.dataset.ft][0])); } else F.broad = t.dataset.fb; }
@@ -293,6 +295,36 @@
       if (href.startsWith("/") && !href.startsWith("//") && !/\.(json|svg|xml|txt|png)$/.test(href)) { e.preventDefault(); if (href !== location.pathname + location.search) { history.pushState({}, "", href); route(); } else route(true); }
     }
   });
+
+  /* ---------- the ⋯ menu: kept inside the window; a bottom sheet on phones ---------- */
+  function closeMenus() { $$("details.qmore[open]").forEach((d) => { d.open = false; }); }
+  function placeMenu(d) {
+    const m = d.querySelector(".qmenu"), s = d.querySelector("summary");
+    const phone = window.matchMedia("(max-width:640px)").matches;
+    let scrim = $(".menuscrim");
+    if (phone) {
+      m.classList.add("sheet"); m.style.cssText = "";
+      if (!scrim) { scrim = document.createElement("div"); scrim.className = "menuscrim"; document.body.appendChild(scrim); }
+      scrim.hidden = false;
+      return;
+    }
+    m.classList.remove("sheet"); if (scrim) scrim.hidden = true;
+    m.style.cssText = "position:fixed;visibility:hidden;left:0;top:0";
+    const r = s.getBoundingClientRect(), mw = m.offsetWidth, mh = m.offsetHeight, W = document.documentElement.clientWidth, H = window.innerHeight;
+    let left = Math.min(Math.max(8, r.right - mw), W - mw - 8);
+    let top = r.bottom + 6;
+    if (top + mh > H - 8) top = Math.max(8, r.top - 6 - mh);
+    m.style.cssText = `position:fixed;left:${left}px;top:${top}px`;
+  }
+  document.addEventListener("toggle", (e) => {
+    const d = e.target;
+    if (!(d instanceof HTMLDetailsElement) || !d.classList.contains("qmore")) return;
+    if (d.open) { $$("details.qmore[open]").forEach((o) => { if (o !== d) o.open = false; }); placeMenu(d); const f = d.querySelector(".qmenu a, .qmenu button:not(.qmclose)"); f && f.focus({ preventScroll: true }); }
+    else { const sc = $(".menuscrim"); if (sc && !$("details.qmore[open]")) sc.hidden = true; }
+  }, true);
+  window.addEventListener("scroll", () => { if (!window.matchMedia("(max-width:640px)").matches) closeMenus(); }, { passive: true });
+  window.addEventListener("resize", closeMenus);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("details.qmore[open]")) { const d = $("details.qmore[open]"); closeMenus(); d.querySelector("summary").focus(); } });
 
   function toLatex(qs, p, head) {
     const h = head || (p ? paperHead(p) : store.get("pvhead", defaultHead()));
@@ -781,16 +813,36 @@
   }
   function viewGuides() {
     const C = D.C;
-    return page("Guides", "Guides", "Practical help: scholarships, admission, reaching Santiniketan, LaTeX, numerical tools and the Ph.D. thesis submission process.",
-      `<div class="tabs">${[["sch", "Scholarships"], ["adm", "Admission"], ["reach", "How to reach"], ["latex", "LaTeX"], ["tools", "Numerical tools"], ["thesis", "Thesis submission"]].map(([k, l]) => `<a class="chip" href="${L("guides")}" data-jump="${k}">${l}</a>`).join("")}</div>
-      <section class="section" id="g-sch" style="margin-top:28px"><div class="section-head"><h2>Scholarships</h2></div><div class="grid g2">${C.scholarships.map(([n, d, u]) => `<div class="card"><h3>${esc(n)}</h3><p>${esc(d)}</p><p style="margin-top:10px">${ext(u, "Official site ↗")}</p></div>`).join("")}</div><p class="muted" style="margin-top:10px;font-size:13.5px">Amounts and rules change; check the official notice. ${ext(C.forms.scholarship, "Suggest a scholarship")}.</p></section>
-      <section class="section" id="g-adm"><div class="section-head"><h2>Admission to Visva-Bharati</h2></div><div class="prose">${C.admission.map((x) => `<p>${esc(x)}</p>`).join("")}</div></section>
-      <section class="section" id="g-reach"><div class="section-head"><h2>How to reach the department</h2></div><div class="grid g2">${C.reach.map(([t, d, u]) => `<div class="card"><h3>${esc(t)}</h3><p>${esc(d)}</p>${u ? `<p style="margin-top:8px">${ext(u, "Open ↗")}</p>` : ""}</div>`).join("")}</div></section>
-      <section class="section" id="g-latex"><div class="section-head"><h2>LaTeX for project work</h2></div><p class="prose">LaTeX positions text and equations for you, so long mathematical documents stay tidy as you edit. Install an editor and a TeX distribution, or write online on Overleaf.</p><div style="display:flex;flex-wrap:wrap;gap:8px">${C.latex.map(([l, u]) => ext(u, l, "chip")).join("")}</div></section>
-      <section class="section" id="g-tools"><div class="section-head"><h2>Numerical tools</h2><span class="muted">From Math++</span></div><div style="display:flex;flex-wrap:wrap;gap:8px">${C.tools.map(([l, u]) => ext(u, l, "chip")).join("")}</div></section>
-      <section class="section" id="g-thesis"><div class="section-head"><h2>Ph.D. thesis submission</h2></div><ol class="prose">${C.thesis.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">${C.thesis.links.map(([l, u]) => ext(u, l, "chip")).join("")}</div></section>`);
+    const parts = [["sch", "Scholarships"], ["adm", "Admission"], ["reach", "Reaching the department"], ["latex", "LaTeX"], ["tools", "Numerical tools"], ["thesis", "Ph.D. thesis submission"]];
+    const linkList = (items) => `<ul class="glinks">${items.map(([l, u]) => `<li>${ext(u, l)}</li>`).join("")}</ul>`;
+    return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Guides</nav>
+      <div class="pagehead"><h1>Guides</h1><p class="lede">Practical help for students of the department, from scholarships and admission to submitting a Ph.D. thesis.</p></div>
+      <div class="guide">
+        <aside class="gnav" aria-label="On this page"><b>On this page</b>${parts.map(([k, l]) => `<a href="#g-${k}" data-jump="${k}">${l}</a>`).join("")}</aside>
+        <div class="gbody">
+          <section id="g-sch"><h2>Scholarships</h2><p class="gnote">Rules and amounts change every year, so check the official notice before applying.</p>
+            <div class="gtable" role="table" aria-label="Scholarships">
+              <div class="gr gh" role="row"><span role="columnheader">Scholarship</span><span role="columnheader">Who can apply</span></div>
+              ${C.scholarships.map(([n, d, u]) => `<div class="gr" role="row"><span role="cell"><a href="${esc(u)}" target="_blank" rel="noopener">${esc(n)}</a></span><span role="cell">${esc(d)}</span></div>`).join("")}
+            </div>
+            <p class="gnote">Know one that is missing? ${ext(C.forms.scholarship, "Suggest a scholarship")}.</p></section>
+          <section id="g-adm"><h2>Admission to Visva-Bharati</h2>${C.admission.map((x) => `<p>${esc(x)}</p>`).join("")}</section>
+          <section id="g-reach"><h2>Reaching the department</h2><dl class="gdl">${C.reach.map(([t, d, u]) => `<dt>${esc(t)}</dt><dd>${esc(d)}${u ? ` ${ext(u, t === "Map" ? "Open in Google Maps" : "Train timings")}` : ""}</dd>`).join("")}</dl></section>
+          <section id="g-latex"><h2>LaTeX for project work</h2><p>LaTeX places text and equations for you, so a long mathematical document stays tidy as you edit it. Install an editor with a TeX distribution, or write online on Overleaf.</p>${linkList(C.latex)}</section>
+          <section id="g-tools"><h2>Numerical tools</h2><p>Small calculators for common numerical methods, hosted on Math++.</p>${linkList(C.tools)}</section>
+          <section id="g-thesis"><h2>Ph.D. thesis submission</h2><p>The usual order of steps at Visva-Bharati. Confirm details with your supervisor and the Bhavana office.</p>
+            <ol class="gsteps">${C.thesis.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+            <h3>Forms and links</h3>${linkList(C.thesis.links)}</section>
+        </div>
+      </div></div>`;
   }
-  function bindGuides() { $$("[data-jump]").forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); const t = $("#g-" + a.dataset.jump); t && t.scrollIntoView({ behavior: "smooth", block: "start" }); })); }
+  function bindGuides() {
+    const links = $$(".gnav a");
+    links.forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); const t = $("#g-" + a.dataset.jump); t && t.scrollIntoView({ behavior: "smooth", block: "start" }); }));
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((es) => { es.forEach((en) => { if (en.isIntersecting) links.forEach((a) => a.classList.toggle("on", "g-" + a.dataset.jump === en.target.id)); }); }, { rootMargin: "-20% 0px -70% 0px" });
+    $$(".gbody section").forEach((s) => io.observe(s));
+  }
   function viewContribute() {
     const C = D.C;
     return page("Contribute", "Contribute", "VBMath runs on volunteers. Every scan, correction and note makes the archive better for the next batch.",
