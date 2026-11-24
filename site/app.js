@@ -1027,26 +1027,66 @@
       <h2>${esc(title)}</h2><p>${esc(credit)}</p>
       <a class="note-open" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open notes for ${esc(title)} (new tab)">Open notes ${IC.ext}</a>
     </article>`).join("");
-    const folders = Object.entries(D.C.notes.folders).map(([label, urls]) => `<section class="class-note-card">
-      <h3>${folder}${esc(label)}</h3>
-      ${urls.map((url, i) => {
-        const semester = ROMAN[i + 1] || i + 1;
-        const name = "Semester " + semester;
-        const items = D.C.notes.folderContents?.[url] || [];
-        const openFolder = `<a class="class-note-drive" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open ${esc(label)}, ${name} in Drive">Open in Drive ${IC.ext}</a>`;
-        return `<div class="class-note-semester">
-          <span class="class-note-number" aria-hidden="true">${semester}</span>
-          <div class="class-note-name">${items.length ? `<details class="class-note-details">
-            <summary><strong>${name}</strong><span class="class-note-count">${items.length} ${items.length === 1 ? "folder" : "folders"}</span>${IC.down}</summary>
-            <ul>${items.map(([title, link]) => `<li><a href="${esc(link)}" target="_blank" rel="noopener">${esc(title)}${IC.ext}</a></li>`).join("")}</ul>
-          </details>` : `<strong>${name}</strong>`}</div>
-          ${openFolder}
-        </div>`;
-      }).join("")}</section>`).join("");
+    const folders = Object.entries(D.C.notes.folders).map(([label, urls], group) => {
+      const semesters = urls.map((url, i) => ({
+        id: `class-notes-${group}-${i + 1}`,
+        name: "Semester " + (ROMAN[i + 1] || i + 1),
+        url,
+        items: D.C.notes.folderContents?.[url] || [],
+      }));
+      return `<section class="class-note-card">
+        <h3>${esc(label)}</h3>
+        <div class="class-note-tiles">
+          ${semesters.map(({id, name, items}) => `<button type="button" class="class-note-tile" id="${id}-tile" aria-expanded="false" aria-controls="${id}">
+            <span class="class-note-folder"><span class="class-note-sheet" aria-hidden="true"></span>
+              <span class="class-note-folder-face"><strong>${name}</strong><small>${items.length ? items.length + (items.length === 1 ? " folder" : " folders") : "Browse notes"}</small></span>
+            </span>
+          </button>`).join("")}
+        </div>
+        ${semesters.map(({id, name, url, items}) => `<section class="class-note-preview" id="${id}" aria-labelledby="${id}-heading" tabindex="-1" hidden>
+          <div class="class-note-preview-head"><h4 id="${id}-heading">${name}</h4>
+            <a href="${esc(url)}" target="_blank" rel="noopener">Open in Drive ${IC.ext}</a>
+            <button type="button" class="iconbtn class-note-close" aria-label="Close ${name}">${IC.x}</button>
+          </div>
+          ${items.length ? `<ul>${items.map(([title, link]) => `<li><a href="${esc(link)}" target="_blank" rel="noopener">${folder}<span>${esc(title)}</span>${IC.ext}</a></li>`).join("")}</ul>` :
+            '<p class="muted">Browse this semester’s notes in Drive.</p>'}
+        </section>`).join("")}
+      </section>`;
+    }).join("");
     return page("Notes", "Notes", "Lecture notes shared by Visva-Bharati mathematics students and alumni.",
       `<div class="note-grid">${notes}</div>
       <section class="section"><div class="shead"><h2>Class-note folders</h2>${ext(D.C.forms.notes, "Upload your notes", "btn btn-ghost btn-sm")}</div>
       <div class="class-note-grid">${folders}</div></section>`);
+  }
+  function bindNotes() {
+    $$(".class-note-card").forEach((card) => {
+      const tiles = $$(".class-note-tile", card);
+      const panelFor = (tile) => document.getElementById(tile.getAttribute("aria-controls"));
+      const hide = (tile) => {
+        tile.setAttribute("aria-expanded", "false");
+        panelFor(tile).hidden = true;
+      };
+      tiles.forEach((tile) => tile.addEventListener("click", () => {
+        const wasOpen = tile.getAttribute("aria-expanded") === "true";
+        const previous = tiles.find((candidate) => candidate.getAttribute("aria-expanded") === "true");
+        if (previous) hide(previous);
+        if (wasOpen) return;
+        tile.setAttribute("aria-expanded", "true");
+        const panel = panelFor(tile);
+        panel.hidden = false;
+        panel.focus();
+      }));
+      card.addEventListener("click", (event) => {
+        if (!event.target.closest(".class-note-close")) return;
+        const open = tiles.find((tile) => tile.getAttribute("aria-expanded") === "true");
+        if (open) { hide(open); open.focus(); }
+      });
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+        const open = tiles.find((tile) => tile.getAttribute("aria-expanded") === "true");
+        if (open) { event.preventDefault(); hide(open); open.focus(); }
+      });
+    });
   }
   function viewSyllabus() {
     const groups = new Map([["B.Sc. Mathematics", []], ["M.Sc. Mathematics", []], ["Competitive & admission exams", []]]);
@@ -1203,7 +1243,7 @@
     lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
     websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
     ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), null, label + " · VBMath"]])),
-    exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, null, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
+    exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, bindNotes, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
     books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
