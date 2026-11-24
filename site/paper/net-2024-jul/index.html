@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>CSIR-UGC NET · 25 July 2024 · VBMath</title>
+<meta name="description" content="100 questions from the VBMath transcription of CSIR-UGC NET · 25 July 2024.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/net-2024-jul/">
+<meta property="og:title" content="CSIR-UGC NET · 25 July 2024 · VBMath">
+<meta property="og:description" content="100 questions from the VBMath transcription of CSIR-UGC NET · 25 July 2024.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/net-2024-jul/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="176" height="34"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="176" height="34"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>CSIR-UGC NET · 25 July 2024</h1></header><ol class="prerender"><li><b>21</b> <span class="qbody">Let $V$ be the real vector space of $2 \times 2$ matrices with entries in $\mathbb{R}$. Let $T: V \rightarrow V$ denote the linear transformation defined by $T(B)=A B$ for all $B \in V$, where $A=\begin{pmatrix} 2 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}$. What is the characteristic polynomial of $T$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   $(x-2)(x-1)$
+    \item   $x^2(x-2)(x-1)$
+    \item   $(x-2)^2(x-1)^2$
+    \item   $\left(x^2-2\right)\left(x^2-1\right)$
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $A: \mathbb{R}^n \rightarrow \mathbb{R}^n$ be a non-zero linear transformation. Which of the following statement is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $A$ is one-to-one but not onto, then $m&gt;n$
+    \item   If $A$ is onto but not one-to-one, then $m&lt;n$
+    \item   If $A$ is bijective, then $m=n$
+    \item   If $A$ is one-to-one, then $m=n$
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">Consider the set $A=\{x \in \mathbb{Q}: 0&lt;(\sqrt{2}-1) x&lt;\sqrt{2}+1\}$ as a subset of $\mathbb{R}$. Which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\sup A=2+2 \sqrt{3}$
+    \item   $\sup A=3+2 \sqrt{2}$
+    \item   $\inf A=2+2 \sqrt{3}$
+    \item   $\inf A=3+2 \sqrt{2}$
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $u$ be the solution of the Volterra integral equation
+
+\[
+ \int\limits_0^1 \left[\frac{1}{2} + \sin (t - \tau)\right] u(\tau) d \tau = \sin t.
+\]
+
+Then the value of $u(1)$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   0
+    \item   1
+    \item   2
+    \item   $2 e^{-1}$
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $\begin{pmatrix} 2 &amp; a \\ b &amp; c \end{pmatrix}$ be a $2 \times 2$ real matrix for which 6 is an eigenvalue. Which of the following statements is necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $24 - ab = 4c$
+    \item   $a + b = 8$
+    \item   $c = 6$
+    \item   $ab = 0$
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">Consider the initial value problem (IVP)
+
+\[
+\left\{
+\begin{array}{c}
+y&#x27;(x) = \sqrt{|y(x) + \varepsilon|}, \quad x \in \mathbb{R} \\
+y(0) = y_0
+\end{array}
+\right.
+\]
+
+Consider the following statements: \\
+S1: There is an $\varepsilon &gt; 0$ such that for all $y_0 \in \mathbb{R}$, the IVP has more than one solution. \\
+S2: There is a $y_0 \in \mathbb{R}$ such that for all $\varepsilon &gt; 0$, the IVP has more than one solution. \\
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item   both $S_1$ and $S_2$ are true
+    \item   $S_1$ is true but $S_2$ is false
+    \item   $S_1$ is false but $S_2$ is true
+    \item   both $S_1$ and $S_2$ are false
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">The expected number of distinct units in a simple random sample of 3 units drawn with replacement from a population of 100 units is
+\begin{enumerate}[label=(\alph*)]
+    \item   $3 - \left(\frac{99}{100}\right)^3$
+    \item   $100 - \frac{99^3}{100^2}$
+    \item   $2 + \frac{99^2}{100^3}$
+    \item   $3 - \left(\frac{99}{100}\right)^2$
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">Let $f$ be an entire function. Which of the following statements is FALSE?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $\operatorname{Re}(f), \operatorname{Im}(f)$ are bounded then $f$ is constant
+    \item   If $e^{|\operatorname{Re}(f)| + |\operatorname{Im}(f)|}$ is bounded, then $f$ is constant
+    \item   If the sum $\operatorname{Re}(f) + \operatorname{Im}(f)$ and the product $\operatorname{Re}(f) \operatorname{Im}(f)$ are bounded, then $f$ is constant
+    \item   If $\sin (\operatorname{Re}\{f\} + \operatorname{Im}(f))$ is bounded, then $f$ is constant
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">Let $\{X_n \mid n \geq 0\}$ be a homogeneous Markov chain with state spaces $S = \{0, 1, 2, 3, 4\}$ and transition probability matrix
+
+\[
+\begin{array}{c|rrrrr}
+ &amp; 0 &amp; 1 &amp; 2 &amp; 3 &amp; 4 \\
+\hline
+0 &amp; 1/4 &amp; 0 &amp; 0 &amp; 3/4 &amp; 0 \\
+1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+2 &amp; 1/3 &amp; 2/3 &amp; 0 &amp; 0 &amp; 0 \\
+3 &amp; 3/4 &amp; 0 &amp; 0 &amp; 1/4 &amp; 0 \\
+4 &amp; 1/8 &amp; 1/8 &amp; 1/2 &amp; 1/8 &amp; 1/8 \\
+\end{array}
+\]
+
+Let $\alpha$ denote the probability that starting with state 4 the chain will eventually get absorbed in closed class $\{0, 3\}$. Then the value of $\alpha$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{6}{21}$
+    \item   $\frac{11}{21}$
+    \item   $\frac{8}{21}$
+    \item   $\frac{10}{21}$
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">The number of group homomorphism from $\mathbb{Z} / 150 \mathbb{Z}$ to $\mathbb{Z} / 90 \mathbb{Z}$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   30
+    \item   60
+    \item   45
+    \item   10
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">Consider a petrol pump which has a single petrol dispensing unit. Customers arrive there in accordance with a Poisson process having rate $\lambda = 1$ minutes. An arriving customer enters the petrol pump only if there are two or less customers in the petrol pump, otherwise he/she leaves the petrol pump without taking the petrol (at any point of time a maximum of three customers are present in the petrol pump). Successive service times of the petrol dispensing unit are independent exponential random variables having mean $\frac{1}{2}$ minutes. Let $X$ denote the average number of customers in the petrol pump in the long run. Then $E(X)$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item   $7 / 15$
+    \item   $3 / 5$
+    \item   $11 / 15$
+    \item   $13 / 15$
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">Consider a solid cylinder of radius 2 meters and height 3 meters of uniform density. If the density of the cylinder is $\rho \, \mathrm{kg} / \mathrm{meter}^3$, then the moment of inertia (in $\mathrm{kg} \, \mathrm{meter}^2$) of the cylinder about a diameter of its base is
+\begin{enumerate}[label=(\alph*)]
+    \item   $48 \pi \rho$
+    \item   $43 \pi \rho$
+    \item   $24 \pi \rho$
+    \item   $4 \pi \rho$
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $S = \{x \in \mathbb{R}: x &gt; 1$ and $\frac{1 - x^4}{1 - x^3} &gt; 22\}$. Which of the following is true about $S$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   $S$ is empty.
+    \item   There is a bijection between $S$ and $\mathbb{N}$
+    \item   There is a bijection between $S$ and $\mathbb{R}$
+    \item   There is a bijection between $S$ and non-empty finite set
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">Let $X_0, X_1, \ldots, X_p (p \geq 2)$ be independent and identically distributed random variables with mean 0 and variance 1. Suppose $Y_i = X_0 + X_i, i = 1, \ldots, p$. The first principal component based on the covariance matrix of $\underline{Y} = (Y_1, \ldots, Y_p)^T$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{1}{\sqrt{p}}  \sum\limits_{i=1}^p Y_i$
+    \item   $\frac{1}{p}  \sum\limits_{i=1}^p Y_i$
+    \item   $\sqrt{p}  \sum\limits_{i=1}^p Y_i$
+    \item   $ \sum\limits_{i=1}^p Y_i$
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">How many arrangements of the digits of the number 1234567 are there, such that exactly three of them occur in their original position. (e.g., in the arrangement 5214763, exactly the digits 2,4 and 6 are in their original positions. In the arrangement 1243576, exactly the digits 1,2 and 5 in their original positions)
+\begin{enumerate}[label=(\alph*)]
+    \item   525
+    \item   35
+    \item   840
+    \item   315
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Let $S$ be a dense subset of $\mathbb{R}$ and $f: \mathbb{R} \rightarrow \mathbb{R}$ a given function. Define $g: S \rightarrow \mathbb{R}$ by $g(x) = f(x)$. Which of the following statements is necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $f$ is continuous on the set $S$, then $f$ is continuous on the set $\mathbb{R} \backslash S$
+    \item   If $g$ is continuous, then $f$ is continuous on the set $S$
+    \item   If $g$ is identically 0 and $f$ is continuous on the set $\mathbb{R} \backslash S$, then $f$ is identically 0
+    \item   If $g$ is identically 0 and $f$ is continuous on the set $S$, then $f$ identically 0
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">An analyst consider standardized values of observations on three variables, consumption (C), saving (S) and total income (TI) so that they have zero means and unit variances. She further considers disposable income (DI) where $DI = C + S$. In the simple linear regressions of $DI$ on $TI, DI$ on $C$ and $S$ on $TI$, the regression coefficients are $0.8, 0.5$ and $0.4$, respectively. There are 21 sample observations. Sample covariances and variances are calculated with divisor 20. Then, the value of sum of squared residuals in the regression of $DI$ on $S$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   5
+    \item   10
+    \item   15
+    \item   20
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">For a quadratic form $f(x, y, z) \in \mathbb{R}[x, y, z]$, we say that $(a, b, c) \in \mathbb{R}^3$ is a zero of $f$ if $f(a, b, c) = 0$. Which of the following quadratic forms has at least one zero different from $(0,0,0)$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   $x^2 + 2 y^2 + 3 z^2$
+    \item   $x^2 + 2 y^2 + 3 z^2 - 2 xy$
+    \item   $x^2 + 2 y^2 + 3 z^2 - 2 xy - 2 yz$
+    \item   $x^2 + 2 y^2 - 3 z^2$
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">If the value of the approximate solution of the initial value problem
+
+\[
+\left\{
+\begin{array}{l}
+y&#x27;(x) = x (y(x) + 1), \quad x \in \mathbb{R} \\
+y(0) = \beta
+\end{array}
+\right.
+\]
+
+at $x = 0.2$ using the forward Euler method with step size 0.1 is 1.02, then the value of $\beta$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   0
+    \item   -1
+    \item   2
+    \item   1
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">For a complex number $a$ such that $0 &lt; |a| &lt; 1$, which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $|z| &lt; 1$, then $|1 - \bar{a} z| &lt; |z - a|$
+    \item   If $|z - a| = |1 - \bar{a} z|$, then $|z| = 1$
+    \item   If $|z| = 1$ then $|z - a| &lt; |1 - \bar{a} z|$
+    \item   If $|1 - \bar{a} z| &lt; |z - a|$, then $|z| &lt; 1$
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">Consider the contour $\gamma$ given by
+
+\[
+\gamma(\rho) = 
+\begin{cases}
+e^{2 i \sigma} &amp; \text{for } \theta \in [0, \pi / 2] \\
+1 + 2 e^{2 i \sigma} &amp; \text{for } \theta \in [\pi / 2, 3 \pi / 2] \\
+e^{2 i \sigma} &amp; \text{for } \theta \in [3 \pi / 2, 2 \pi]
+\end{cases}
+\]
+
+Then what is the value of $ \int\limits_\gamma \frac{dz}{z(z - 2)}$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   0
+    \item   $\pi i$
+    \item   $-\pi i$
+    \item   $2 \pi i$
+\end{enumerate}</span></li><li><b>42</b> <span class="qbody">Let $A$ be a $10 \times 10$ real matrix. Assume that the rank of $A$ is 7. Which of the following statements is necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exists a vector $v \in \mathbb{R}^{10}$ such that $A v \neq 0$ and $A^2 v = 0$
+    \item   There exists a vector $v \in \mathbb{R}^{10}$ such that $A^2 v \neq 0$
+    \item   $A$ must have a non-zero eigenvalue
+    \item   $A^7 = 0$
+\end{enumerate}</span></li><li><b>43</b> <span class="qbody">Let $A_1, A_2, A_3$ be events satisfying $0 &lt; P(A_1) &lt; 1$ for $i = 1, 2, 3$. Which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $P(A_1 \mid A_2) P(A_2 \mid A_3) \leq P(A_1 \mid A_3)$
+    \item   $P(A_1 \mid A_2) P(A_3 \mid A_2) \geq P(A_1 \cap A_3 \mid A_2)$
+    \item   $P(A_1 \mid A_2) + P(A_3 \mid A_2) \geq P(A_1 \cup A_3 \mid A_2)$
+    \item   $P(A_1 \mid A_2) + P(A_2 \mid A_3) \leq P(A_1 \mid A_3)$
+\end{enumerate}</span></li><li><b>44</b> <span class="qbody">Let $B(0,1) = \{(x, y) \in \mathbb{R}^2 \mid x^2 + y^2 &lt; 1\}$ be the open unit disc in $\mathbb{R}^2$, $\partial B(0,1)$ denote the boundary of $B(0,1)$ and $v$ denote unit outward normal to $\partial B(0,1)$. Let $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ be a given continuous function. The Euler-Lagrange equation of the minimization problem
+
+\[
+\min \left\{ \frac{1}{2} \iint_{B(0,1)} |\nabla u|^2 dx dy + \frac{1}{2} \iint_{B(0,1)} e^{u^2} dx dy +  \int\limits_{\partial B(0,1)} f u ds \right\} \text{ subject to } u \in \mathcal{C}^1(\overline{B(0,1)})
+\]
+
+is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\left\{ \begin{array}{l} \Delta u = -u e^{u^2} \quad \text{in } B(0,1) \\ \frac{\partial u}{\partial v} = f \quad \text{on } \partial B(0,1) \end{array} \right.$
+    \item   $\left\{ \begin{array}{l} \Delta u = u e^{u^2} + f \quad \text{in } B(0,1) \\ u = 0 \quad \text{on } \partial B(0,1) \end{array} \right.$ 
+    \item   $\left\{ \begin{array}{l} \Delta u = u e^{u^2} \quad \text{in } B(0,1) \\ \frac{\partial u}{\partial v} = -f \quad \text{on } \partial B(0,1) \end{array} \right.$ 
+    \item   $\left\{ \begin{array}{l} \Delta u = u e^{x^2} \quad \text{in } B(0,1) \\ \frac{\partial u}{\partial v} + u = f \quad \text{on } \partial B(0,1) \end{array} \right.$ 
+\end{enumerate}</span></li><li><b>45</b> <span class="qbody">Consider the ring $R = \left\{  \sum\limits_{n \in \mathbb{Z}} a_n X^n \mid a_n \in \mathbb{Z} \text{ and } a_n \neq 0 \text{ only for finitely many } n \in \mathbb{Z} \right\}$ where addition and multiplication are given by
+
+\[
+ \sum\limits_{n \in \mathbb{Z}} a_n X^n +  \sum\limits_{n \in \mathbb{Z}} b_n X^n =  \sum\limits_{n \in \mathbb{Z}} (a_n + b_n) X^n
+\]
+
+\[
+\left(  \sum\limits_{n \in \mathbb{Z}} a_n X^n \right) \left(  \sum\limits_{n \in \mathbb{Z}} b_n X^n \right) =  \sum\limits_{k \in \mathbb{Z}} \left(  \sum\limits_{n + m = k} a_n b_m \right) X^k
+\]
+
+Which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $R$ is not commutative
+    \item   The ideal $(X - 1)$ is a maximal ideal in $R$
+    \item   The ideal $(X - 1, 2)$ is a prime ideal in $R$
+    \item   The ideal $(X, 5)$ is a maximal ideal in $R$
+\end{enumerate}</span></li><li><b>46</b> <span class="qbody">Let a point $P$ be chosen at random on the line segment $AB$ of length $\alpha$. Let $Z_1$ and $Z_2$ denote the lengths of line segments $AP$ and $BP$ respectively. Then the value of $E(|Z_1 - Z_2|)$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\alpha$
+    \item   $2 \alpha$
+    \item   $\frac{\alpha}{2}$
+    \item   $\frac{2 \alpha}{3}$
+\end{enumerate}</span></li><li><b>47</b> <span class="qbody">Let $u = u(x, t)$ be the solution of the following initial value problem
+
+\[
+\left\{
+\begin{array}{l}
+u_t + 2024 u_x = 0, \quad x \in \mathbb{R}, t &gt; 0 \\
+u(x, 0) = u_0(x), \quad x \in \mathbb{R}
+\end{array}
+\right.
+\]
+
+where $u_0: \mathbb{R} \rightarrow \mathbb{R}$ is an arbitrary $C^1$ function. Consider the following statements: \\
+$\mathrm{S}_1$: If $A_t = \{x \in \mathbb{R}: u(x, t) &lt; 1\}$ and $|A_t|$ denotes the Lebesgue measure of $A_t$ for every $t \geq 0$, then
+
+\[
+|A_t| = |A_0|, \forall t &gt; 0.
+\]
+
+S2: If $u_0$ is Lebesgue integrable, then for every $t &gt; 0$, the function $x \mapsto u(x, t)$ is Lebesgue integrable. \\
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item   both $S_1$ and $S_2$ are true
+    \item   $S_1$ is true but $S_2$ is false
+    \item   $S_2$ is true but $S_1$ is false
+    \item   both $S_1$ and $S_2$ are false
+\end{enumerate}</span></li><li><b>48</b> <span class="qbody">Let $C$ be the collection of all sets $S$ such that power set of $S$ is countably infinite. Which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exists a non-empty finite set in $C$
+    \item   There exists a countably infinite set in $C$
+    \item   There exists a uncountable set in $C$
+    \item   $C$ is empty
+\end{enumerate}</span></li><li><b>49</b> <span class="qbody">Let $X$ be a random variable with cumulative distribution function given by
+
+\[
+F(x) = 
+\begin{cases}
+0, &amp; \text{if } x &lt; 0 \\
+\frac{x + 1}{3}, &amp; \text{if } 0 \leq x &lt; 1, \\
+1, &amp; \text{if } x \geq 1
+\end{cases}
+\]
+
+Then the value of $P\left(\frac{1}{3} &lt; X &lt; \frac{3}{4}\right) + P(X = 0)$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{7}{36}$
+    \item   $\frac{11}{36}$
+    \item   $\frac{13}{36}$
+    \item   $\frac{17}{36}$
+\end{enumerate}</span></li><li><b>50</b> <span class="qbody">Let $a, b$ be two real numbers such that $a &lt; 0 &lt; b$. For a positive real number $r$, define $\gamma_r(t) = r e^{it}$ (where $t \in [0, 2 \pi)$) and $I_r = \frac{1}{2 \pi i}  \int\limits_{\gamma_r} \frac{x^2 + 1}{(z - a)(z - b)} dz$. Which of the following statements is necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $I_r \neq 0$ if $r &gt; \max \{|a|, b\}$
+    \item   $I_r \neq 0$ if $r &lt; \max \{|a|, b\}$
+    \item   $I_r = 0$ if $r &gt; \max \{|a|, b\}$ and $|a| = b$
+    \item   $I_r = 0$ if $|a| &lt; r &lt; b$
+\end{enumerate}</span></li><li><b>51</b> <span class="qbody">Let $(a_n)_{n \geq 1}$ be a bounded sequence in $\mathbb{R}$. Which of the following statements is FALSE?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $\liminf_{n \rightarrow \infty} a_n = \limsup_{n \rightarrow \infty} a_n$, then $(a_n)$ is convergent
+    \item   If $\inf \{a_n \mid n \geq 1\} = \limsup_{n \rightarrow \infty} a_n$, then $(a_n)$ is convergent
+    \item   If $\sup \{a_n \mid n \geq 1\} = \liminf_{n \rightarrow \infty} a_n$, then $(a_n)$ is constant
+    \item   If $\sup \{a_n \mid n \geq 1\} = \inf \{a_n \mid n \geq 1\}$, then $(a_n)$ is constant
+\end{enumerate}</span></li><li><b>52</b> <span class="qbody">Consider a distribution with probability mass function
+
+\[
+f(x \mid \theta) = 
+\begin{cases}
+\frac{1 - \theta}{2}, &amp; \text{if } x = 0 \\
+\frac{1}{2}, &amp; \text{if } x = 1 \\
+\frac{\theta}{2}, &amp; \text{if } x = 2 \\
+0 &amp; \text{otherwise}
+\end{cases}
+\]
+
+where $\theta \in (0, 1)$ is an unknown parameter. In a random sample of size 100 from the above distribution, the observed counts of 0, 1 and 2 and 20, 30 and 50 respectively. Then, the maximum likelihood estimate of $\theta$ based on the observed data is
+\begin{enumerate}[label=(\alph*)]
+    \item   1
+    \item   $5 / 7$
+    \item   $1 / 2$
+    \item   $2 / 7$
+\end{enumerate}</span></li><li><b>53</b> <span class="qbody">Let $X_1, X_2$ be a random sample from $N(0, \sigma^2)$ distribution, where $\sigma &gt; 0$ and $N(\mu, \sigma^2)$ denotes a normal distribution with mean $\mu$ and variance $\sigma^2$. Suppose, for some constant $c$, $(c (X_1^2 + X_2^2), \infty)$ is a confidence interval for variance $\sigma^2$ with confidence coefficient 0.95. Then the value of $c$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item   $-2 \ln (0.05)$
+    \item   $-2 \ln (0.95)$
+    \item   $-\frac{1}{2 \ln (0.05)}$
+    \item   $-\frac{1}{2 \ln (0.95)}$
+\end{enumerate}</span></li><li><b>54</b> <span class="qbody">What is the cardinality of the set of real solutions of $e^x + x = 1$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   0
+    \item   1
+    \item   Countably infinite
+    \item   Uncountable
+\end{enumerate}</span></li><li><b>55</b> <span class="qbody">If $u = u(x, t)$ is the solution of the initial value problem
+
+\[
+\left\{
+\begin{array}{cc}
+u_t = u_{xx}, &amp; x \in \mathbb{R}, t &gt; 0 \\
+u(x, 0) = \sin (4 x) + x + 1, &amp; x \in \mathbb{R}
+\end{array}
+\right.
+\]
+
+Satisfying $|u(x, t)| &lt; 3 e^{x^2}$ for all $x \in \mathbb{R}$ and $t &gt; 0$, then
+\begin{enumerate}[label=(\alph*)]
+    \item   $u\left(\frac{\pi}{8}, 1\right) + u\left(-\frac{\pi}{8}, 1\right) = 2$
+    \item   $u\left(\frac{\pi}{8}, 1\right) = u\left(-\frac{\pi}{8}, 1\right)$
+    \item   $u\left(\frac{\pi}{8}, 1\right) + 2 u\left(-\frac{\pi}{8}, 1\right) = 2$
+    \item   $u\left(\frac{\pi}{8}, 1\right) = -u\left(-\frac{\pi}{8}, t\right)$
+\end{enumerate}</span></li><li><b>56</b> <span class="qbody">Let $X_1, \ldots, X_{10}$ be a random sample from a distribution with the probability density function
+
+\[
+f(x \mid \theta) = 
+\begin{cases}
+\theta x^{\theta - 1}, &amp; \text{if } 0 &lt; x &lt; 1 \\
+0, &amp; \text{otherwise}
+\end{cases}
+\]
+
+where $\theta &gt; 0$ is an unknown parameter. The prior distribution of $\theta$ is given by
+
+\[
+\pi(\theta) = 
+\begin{cases}
+\theta e^{-\theta}, &amp; \text{if } \theta &gt; 0, \\
+0, &amp; \text{otherwise}
+\end{cases}
+\]
+
+The Bayes estimator of $\theta$ under squared error loss is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{12}{1 -  \sum\limits_{i=1}^{12} \ln X_i}$
+    \item   $\frac{11}{2 -  \sum\limits_{i=1}^{12} \ln X_i}$
+    \item   $\frac{3 +  \sum\limits_{i=1}^{12} \ln X_i}{13}$
+    \item   $\frac{2 +  \sum\limits_{i=1}^{12} \ln X_i}{11}$
+\end{enumerate}</span></li><li><b>57</b> <span class="qbody">Let $A = \begin{pmatrix} 0 &amp; 1 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 1 \end{pmatrix}$, and consider the symmetric bilinear form on $\mathbb{R}^4$ given by $\langle v, w \rangle = v^T A w$, for $v, w \in \mathbb{R}^4$. Which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $A$ is invertible
+    \item   There exist non-zero vectors $v, w$ such that $\langle v, w \rangle = 0$
+    \item   $\langle u, v \rangle \neq \langle u, w \rangle$ for all non-zero vectors $u, v, w$ with $v \neq w$
+    \item   Every eigenvalue of $A^2$ is positive
+\end{enumerate}</span></li><li><b>58</b> <span class="qbody">For each $n \geq 1$ define $f_n: \mathbb{R} \rightarrow \mathbb{R}$ by $f_n(x) = \frac{x^2}{\sqrt{x^2 + \frac{1}{n}}}, x \in \mathbb{R}$ where $\sqrt{}$ denotes the non-negative square root. Wherever $\lim_{n \rightarrow \infty} f_n(x)$ exists, denote it by $f(x)$. Which of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exist $x \in \mathbb{R}$ such that $f(x)$ is not defined
+    \item   $f(x) = 0$ for all $x \in \mathbb{R}$
+    \item   $f(x) = x$ for all $x \in \mathbb{R}$
+    \item   $f(x) = |x|$ for all $x \in \mathbb{R}$
+\end{enumerate}</span></li><li><b>59</b> <span class="qbody">Let $X_1, X_2$ be a random sample from a population having probability density function $f \in \{f_0, f_1\}$ where $f_0(x) = \begin{cases} \frac{1}{2} &amp; \text{if } 0 \leq x \leq 2 \\ 0 &amp; \text{otherwise}, \end{cases}$ and $f_1(x) = \begin{cases} \frac{1}{4} &amp; \text{if } 0 \leq x \leq 4 \\ 0 &amp; \text{otherwise}. \end{cases}$. For testing the null hypothesis $H_0: f = f_0$ against the alternate hypothesis $H_1: f = f_1$, the power of a most powerful test of size $\alpha = 0.05$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item   0.4625
+    \item   0.5425
+    \item   0.7625
+    \item   0.6225
+\end{enumerate}</span></li><li><b>60</b> <span class="qbody">Let $\varphi$ denote the solution to the boundary value problem (BVP)
+
+\[
+\left\{
+\begin{array}{cc}
+(x y&#x27;)&#x27; - 2 y&#x27; + \frac{y}{x} = 1, &amp; 1 &lt; x &lt; e^{-1} \\
+y(1) = 0, &amp; y(e^{-1}) = 4 e^{-1}
+\end{array}
+\right.
+\]
+
+Then the value of $\varphi(e)$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $-\frac{e}{2}$
+    \item   $-\frac{e}{3}$
+    \item   $\frac{e}{3}$
+    \item   $e$
+\end{enumerate}</span></li><li><b>61</b> <span class="qbody">Let $X_1, X_2$ denote lifetimes (in years) of 2 components of an electronic system. Let $Y_1 = X_1 + X_2$, $Y_2 = \max \{X_1, X_2\}$, and $Y_3 = \min \{X_1, X_2\}$. Assume that $X_1$ and $X_2$ are independent, each following exponential distribution with probability density function
+
+\[
+f(x) = 
+\begin{cases}
+\frac{1}{2} e^{-x / 2}, &amp; \text{if } x &gt; 0 \\
+0, &amp; \text{otherwise}
+\end{cases}
+\]
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $P(Y_1 &gt; 2) = 2 e^{-1}$
+    \item   $P(Y_2 &gt; 2) = e^{-2}$
+    \item   $P(Y_3 &gt; 2) = e^{-2}$
+    \item   $\operatorname{Var}(Y_1 + Y_2 + Y_3) = 32$
+\end{enumerate}</span></li><li><b>62</b> <span class="qbody">Define $f: \mathbb{R} \rightarrow \mathbb{R}$ by $f(x) = x |x|$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f$ is continuous on $\mathbb{R}$
+    \item   $f$ is differentiable on $\mathbb{R}$
+    \item   $f$ is differentiable only at 0
+    \item   $f$ is not differentiable at 0
+\end{enumerate}</span></li><li><b>63</b> <span class="qbody">Let $f$ be an entire function such that for every integer $k \geq 1$ there is an infinite set $X_k$ such that $f(z) = \frac{1}{k}$ for all $z \in X_k$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exists an infinite set $X$ such that $f(z) = 0$ for all $z \in X$
+    \item   There exists a non-empty closed set $X$ such that $f(z) = 0$ for all $z \in X$
+    \item   The set $X_k$ is unbounded for each $k \geq 1$
+    \item   If there exists a bounded sequence $(z_k)_{k \geq 1}$ such that $z_k \in X_k$ for each $k \geq 1$, then $f$ has a zero
+\end{enumerate}</span></li><li><b>64</b> <span class="qbody">For two indeterminates $x, y$, let $R = \mathbb{F}_3[x]$ and $S = R[y]$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $S$ is a principal ideal domain
+    \item   $S / (y^2 + x^2)$ is a unique factorization domain
+    \item   $S$ is a unique factorization domain
+    \item   $S / (x)$ is a principal ideal domain
+\end{enumerate}</span></li><li><b>65</b> <span class="qbody">Let $Y_1, \ldots, Y_n (n \geq 2)$ be independent observation; $Y_i \sim N(\beta x_i, \sigma^2), i = 1, \ldots, n$; where $x_1, \ldots, x_n$ and $\sigma^2 (&gt; 0)$ are known constants and $\beta \in \mathbb{R}$ is an unknown parameter. Consider $N(\beta_0, \tau^2)$ prior for the parameter $\beta$, where $\beta_0$ and $\tau^2 (&gt; 0)$ are known constants, and $N(\mu, \lambda^2)$ denotes a normal distribution with mean $\mu$ and variance $\lambda^2$. Suppose $\bar{y} = \frac{1}{n}  \sum\limits_{i=1}^n y_i$ and $\bar{x} = \frac{1}{n}  \sum\limits_{i=1}^n x_i$ are observed sample means. Under squared error loss function which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   Bayes estimate of $\beta$ tends to $\beta_0$ as $\tau^2 \rightarrow 0$
+    \item   Bayes estimate of $\beta$ tends to $\frac{\bar{y}}{\bar{x}}$ as $\tau^2 \rightarrow 0$
+    \item   Bayes estimate of $\beta$ tends to the BLUE of $\beta$ as $\tau^2 \rightarrow \infty$
+    \item   Bayes estimate of $\beta$ tends to MLE of $\beta$ as $\tau^2 \rightarrow \infty$
+\end{enumerate}</span></li><li><b>66</b> <span class="qbody">Consider the boundary value problem (BVP)
+
+\[
+\begin{aligned}
+&amp; (e^{-5x} y&#x27;)&#x27; + 6 e^{-5x} y = -f(x), \quad 0 &lt; x &lt; \ln 2 \\
+&amp; y(0) = 0, \quad y(\ln 2) = 0 .
+\end{aligned}
+\]
+
+If $G(x, \xi) = \begin{cases} (e^{3x} + B e^{2x})(C e^{2\xi} + D e^{3\xi}), &amp; 0 \leq \xi \leq x \\ (e^{3\xi} + B e^{2\xi})(C e^{2\xi} + D e^{3\xi}), &amp; x \leq \xi \leq \ln 2 \end{cases}$ (Green&#x27;s function) is such that $ \int\limits_0^{\ln 2} G(x, \xi) f(\xi) d \xi$ is the solution of the BVP, then values of $B$, $C$ and $D$ are
+\begin{enumerate}[label=(\alph*)]
+    \item   $B = -2, C = -1, D = 1$
+    \item   $B = -2, C = 1, D = -1$
+    \item   $B = 2, C = 1, D = 1$
+    \item   $B = 2, C = -1, D = -1$
+\end{enumerate}</span></li><li><b>67</b> <span class="qbody">Consider a six faced die whose $i$-th face is marked with $i$ dots, $i = 1, 2, \ldots, 6$. In a single random throw of the die, let $p_i$ denote the probability that the obtained upper face has $i$ dots, $i = 1, 2, \ldots, 6$. The die is rolled 240 times independently and the following result is obtained
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Face observed &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\
+\hline
+Frequency &amp; 40 &amp; 55 &amp; 40 &amp; 25 &amp; 35 &amp; 45 \\
+\hline
+\end{tabular}
+\end{center}
+
+Suppose we want to test $H_0: p_i = \frac{1}{6}$ for $i = 1, 2, \ldots, 6$; against $H_1: p_i \neq \frac{1}{6}$ for at least one $i$; $i = 1, 2, \ldots, 6$. It is given that $\chi_{5,0.05}^2 = 11.07, \chi_{0,0.05}^2 = 12.59, \chi_{5,0.01}^2 = 15.09, \chi_{0,0.01}^2 = 16.81$. Based on the asymptotic goodness of fit $\chi^2$ test for testing $H_0$ against $H_1$, which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $H_0$ is rejected at $5\%$ level of significance
+    \item   $H_0$ is rejected at $1\%$ level of significance
+    \item   $H_0$ is not rejected at $5\%$ level of significance
+    \item   Observed value of the test statistic is 12.5
+\end{enumerate}</span></li><li><b>68</b> <span class="qbody">In a standard linear regression model, let $R^2$ and $\bar{R}^2$, respectively, denote the coefficient of determination and adjusted coefficient of determination. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\bar{R}^2 &lt; R^2$
+    \item   $R^2$ increases as the number of independent variables increase
+    \item   $\bar{R}^2$ decreases as the number of independent variables increase
+    \item   $\bar{R}^2 &gt; 0$
+\end{enumerate}</span></li><li><b>69</b> <span class="qbody">Let $A$ be a $4 \times 4$ real matrix whose minimal polynomial is $x^2 + x + 1$ and let $B = A + I_4$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   The minimal polynomial of $B$ is $x^2 + x + 1$
+    \item   The minimal polynomial of $B$ is $x^2 - x + 1$
+    \item   $B^3 = I_4$
+    \item   $B^3 + I_4 = 0$
+\end{enumerate}</span></li><li><b>70</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a continuous and one-to-one function. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f$ is strictly increasing
+    \item   $f$ is strictly decreasing
+    \item   $f$ is either strictly increasing or strictly decreasing
+    \item   $f$ is onto
+\end{enumerate}</span></li><li><b>71</b> <span class="qbody">Let $\underline{X} = \begin{pmatrix} X_1 \\ X_2 \end{pmatrix}$ be a bivariate random vector with covariance matrix
+
+\[
+\Sigma = \begin{pmatrix} 1 &amp; \sqrt{2} \\ \sqrt{2} &amp; 2 \end{pmatrix}.
+\]
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   The first principal component based on $\Sigma$ explains exactly $90\%$ of the total variability
+    \item   The second principal component based on $\Sigma$ explains exactly $10\%$ of the total variability
+    \item   $\sup \{\underline{a}^T \underline{X} : \underline{a} \in \mathbb{R}^2 \text{ and } \underline{a}^T \underline{a} = 1\} = 3$
+    \item   The first principal component based on $\Sigma$ is $\frac{1}{\sqrt{3}} (X_1 + \sqrt{2} X_2)$
+\end{enumerate}</span></li><li><b>72</b> <span class="qbody">Let $R$ and $S$ be non-zero commutative rings with multiplicative identities $1_R, 1_S$, respectively. Let $f: R \rightarrow S$ be a ring homomorphism with $f(1_R) = 1_S$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $f(a)$ is a unit in $S$ for every non-zero element $a \in R$, then $S$ is a field
+    \item   If $f(a)$ is a unit in $S$ for every non-zero element $a \in R$, then $f(R)$ is a field
+    \item   If $R$ is a field, then $f(a)$ is a unit in $S$ for every non-zero element $a \in R$
+    \item   If $a$ is unit in $R$, then $f(a)$ is a unit in $S$
+\end{enumerate}</span></li><li><b>73</b> <span class="qbody">For $z \in \mathbb{C} \backslash \{0\}$, let $f(z) = \frac{1}{z} \sin \left(\frac{1}{z}\right)$ and $g(z) = f(z) \sin (z)$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f$ has an essential singularity at 0
+    \item   $g$ has an essential singularity at 0
+    \item   $f$ has a removable singularity at 0
+    \item   $g$ has a removable singularity at 0
+\end{enumerate}</span></li><li><b>74</b> <span class="qbody">Observations on the shear strength of concrete from 5 randomly selected are given below:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Structure &amp; 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 \\
+\hline
+Shear Strength &amp; 1718.4 &amp; 1787.4 &amp; 2562.3 &amp; 2356.9 &amp; 2153.2 \\
+\hline
+\end{tabular}
+\end{center}
+
+The null hypothesis $H_0$ that the median shear strength is 2000 units is tested against the alternative hypothesis $H_1$ that the median shear strength is greater than 2000 units at $5\%$ level of significance. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $p$-value of the sign test is 0.04
+    \item   $H_0$ is NOT rejected at $5\%$ level of significance by the sign test
+    \item   The observed value of Wilcoxon signed rank test statistic $W^+$ is equal to 10
+    \item   If $P_{H_0}(W^+ \geq 14) = 0.06$, then $H_0$ is rejected at $5\%$ level of significance by the Wilcoxon signed rank test
+\end{enumerate}</span></li><li><b>75</b> <span class="qbody">Let $X_1, \ldots, X_n (n \geq 3)$ be a random sample from a distribution having probability function
+
+\[
+f(x \mid \theta) = 
+\begin{cases}
+\theta e^{-\theta x}, &amp; \text{if } x &gt; 0 \\
+0, &amp; \text{otherwise}
+\end{cases}
+\]
+
+where $\theta &gt; 0$ is an unknown parameter. Let $T_n = \frac{1}{n}  \sum\limits_{i=1}^n X_i$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   Uniformly minimum variance unbiased estimator of $\theta$ is $\frac{n-1}{n T_n}$
+    \item   Cramer-Rao lower bound for the variance of an unbiased estimator of $\theta$ is $\frac{\theta^2}{n}$
+    \item   Uniformly minimum variance unbiased estimator of $\theta$ attains the Cramer-Rao lower bound
+    \item   $\left(1 - e^{-\frac{1}{T_n}}\right)$ is a consistent estimator of $P_\theta(X_1 \leq 1)$
+\end{enumerate}</span></li><li><b>76</b> <span class="qbody">Which of the following conditions ensure that the power series $ \sum\limits_{n=0}^\infty a_n z^n$ defines an entire function?
+\begin{enumerate}[label=(\alph*)]
+    \item   The power series converges for every $z \in \mathbb{C}$
+    \item   The power series converges for every $z \in \mathbb{R}$
+    \item   The power series converges for every $z \in \{2^n : n \in \mathbb{N}\}$
+    \item   The power series converges for every $z \in \{\frac{1}{5^n} : n \in \mathbb{N}\}$
+\end{enumerate}</span></li><li><b>77</b> <span class="qbody">Which of the following numbers are order of some element of the symmetric group $S_5$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   3
+    \item   4
+    \item   5
+    \item   6
+\end{enumerate}</span></li><li><b>78</b> <span class="qbody">Transition probability matrix of a homogeneous Markov chain with states $0, 1, 2, 3$ is
+
+\[
+P = \begin{array}{c|cccc}
+ &amp; 0 &amp; 1 &amp; 2 &amp; 3 \\
+\hline
+0 &amp; 1/4 &amp; 3/4 &amp; 0 &amp; 0 \\
+1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+2 &amp; 2/3 &amp; 0 &amp; 1/3 &amp; 0 \\
+3 &amp; 0 &amp; 0 &amp; 2/5 &amp; 3/5 \\
+\end{array}.
+\]
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   State 0 is positive recurrent
+    \item   State 3 is transient
+    \item   State 1 is aperiodic and positive recurrent
+    \item   State 2 is aperiodic and null-recurrent
+\end{enumerate}</span></li><li><b>79</b> <span class="qbody">Consider the following ANOVA table for a randomized block design:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Source of variation &amp; Sum of squares &amp; Degrees of Freedom &amp; Mean squares &amp; F calculated \\
+\hline
+Treatments &amp; 48 &amp; 4 &amp; 12 &amp; $\beta$ \\
+Blocks &amp; 72 &amp; 3 &amp; 24 &amp; 12 \\
+Error &amp; $\alpha$ &amp; $m$ &amp; $\gamma$ &amp; \\
+Total &amp; 144 &amp; 19 &amp; &amp; \\
+\hline
+\end{tabular}
+\end{center}
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\alpha = 20$
+    \item   $\beta = 6$
+    \item   $m = 10$
+    \item   $\gamma = 2$
+\end{enumerate}</span></li><li><b>80</b> <span class="qbody">Let $S$ denotes the set of all $2 \times 2$ matrices $A$ such that the iterative sequence generated by the Gauss-Seidel method applied to the system of linear equations
+
+\[
+A \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} 2 \\ 3 \end{pmatrix}
+\]
+
+Converges for every initial guess. Then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\begin{pmatrix} 5 &amp; 8 \\ 1 &amp; 2 \end{pmatrix} \in S$
+    \item   $\begin{pmatrix} 3 &amp; 2 \\ 1 &amp; 2 \end{pmatrix} \in S$
+    \item   $\begin{pmatrix} -3 &amp; 1 \\ 2 &amp; 3 \end{pmatrix} \in S$
+    \item   $\begin{pmatrix} 2 &amp; 2 \\ 4 &amp; 3 \end{pmatrix} \in S$
+\end{enumerate}</span></li><li><b>81</b> <span class="qbody">Let $T: \mathbb{R}^4 \rightarrow \mathbb{R}^4$ be a linear map with four distinct eigenvalues and satisfying $T^4 - 15 T^2 + 10 T + 24 I = 0$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exists a non-zero vector $v_1 \in \mathbb{R}^4$ such that $T v_1 = 2 v_1$
+    \item   There exists a non-zero vector $v_2 \in \mathbb{R}^4$ such that $T v_2 = v_2$
+    \item   For every non-zero vector $v \in \mathbb{R}^4$, the set $\{2v, 3 T v\}$ is linearly independent
+    \item   $T$ is one-one function
+\end{enumerate}</span></li><li><b>82</b> <span class="qbody">Consider the initial value problem (IVP)
+
+\[
+\begin{aligned}
+&amp; y&#x27;(x) = \frac{\sin (y(x))}{1 + y^4(x)}, \quad x \in \mathbb{R}, \\
+&amp; y(0) = y_0 .
+\end{aligned}
+\]
+
+Then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There is a positive $y_0$ such that the solution of the IVP is unbounded
+    \item   There is a negative $y_0$ such that the solution of the IVP is bounded
+    \item   For every $y_0 \in \mathbb{R}$, every solution of the IVP is bounded
+    \item   For every $y_0 \in \mathbb{R}$, there is a solution to the IVP for all $x \in \mathbb{R}$
+\end{enumerate}</span></li><li><b>83</b> <span class="qbody">Let $X_1, X_2, X_3$ be a random sample from a continuous distribution having cumulative distribution function $F(t)$, probability density function $f(t)$, and failure rate function $r(t) = \frac{f(t)}{1 - F(t)}, t &gt; 0$, where $F(0) = 0$. If $r(t) = 1$ for all $t &gt; 0$, then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $P(\max \{X_1, X_2\} &lt; 1) = \frac{1}{2 e}$
+    \item   $P(\min \{X_1, X_2\} &gt; 1) = \frac{1}{2 e}$
+    \item   $P(\min \{X_1, X_2\} &lt; X_3) = \frac{2}{3}$
+    \item   $P(\max \{X_1, X_2\} &lt; X_3) = \frac{1}{3}$
+\end{enumerate}</span></li><li><b>84</b> <span class="qbody">Consider the two-way ANOVA model
+
+\[
+Y_{ij} = \mu + \alpha_i + \beta_j + \varepsilon_{ij}, \quad i = 1, 2; \quad j = 1, 2.
+\]
+
+where $\mu$ is the overall mean effect, $\alpha_i$ is the effect of the $i$-th level of factor $A$, $\beta_j$ is the effect of the $j$-th level of factor $B$, $Y_{ij}$ is the response of the $(i, j)$-th experimental unit and $\varepsilon_{ij}$ is the corresponding error with $E(\varepsilon_{ij}) = 0$ for $i = 1, 2; j = 1, 2$. Which of the following are estimable linear parametric function?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\mu + \alpha_2 + \beta_2$
+    \item   $\alpha_1 - \beta_1$
+    \item   $\alpha_2 - \beta_2$
+    \item   $\mu - \alpha_1 - \beta_1$
+\end{enumerate}</span></li><li><b>85</b> <span class="qbody">The infimum of the set $\left\{  \int\limits_0^b \sqrt{1 + (y&#x27;(t))^2} dt : y \in C^1[a, b], y(a) = a^2, y(b) = b - 5 \right\}$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{19 \sqrt{2}}{8}$
+    \item   $19 \sqrt{2}$
+    \item   $\frac{19}{8}$
+    \item   $\frac{19}{2 \sqrt{2}}$
+\end{enumerate}</span></li><li><b>86</b> <span class="qbody">Consider a solid torus of constant density $\rho$, formed by revolving the disc $(y - b)^2 + z^2 \leq a^2, x = 0$ about the $z$-axis, where $0 &lt; a &lt; b$. Then the moment of inertia of the solid torus about the $z$-axis is
+\begin{enumerate}[label=(\alph*)]
+    \item   $2 \pi^2 a^2 b^2 (4 b^2 + 3 a^2) \rho$
+    \item   $\frac{\pi^2}{2} a^2 b (4 b^2 + 3 a^2) \rho$
+    \item   $\frac{\pi^2}{2} a^2 b (4 b^2 + 3 b^2) \rho$
+    \item   $2 \pi^2 a^2 b^2 (4 b^2 + 3 b^2) \rho$
+\end{enumerate}</span></li><li><b>87</b> <span class="qbody">Let $V$ be the subspace spanned by the vectors
+
+\[
+v_1 = (1, 0, 2, 3, 1), \quad v_2 = (0, 0, 1, 3, 5), \quad v_3 = (0, 0, 0, 0, 1)
+\]
+
+in the real vector space $\mathbb{R}^5$. Which of the following vectors are in $V$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   $(1, 1, 1, 1, 1)$
+    \item   $(0, 0, 1, 2, 4)$
+    \item   $(1, 0, 1, 0, 1)$
+    \item   $(1, 0, 1, 0, 2)$
+\end{enumerate}</span></li><li><b>88</b> <span class="qbody">Let $K \subseteq \mathbb{R}$ be non-empty and $f: K \rightarrow K$ be continuous such that $|x - y| \leq |f(x) - f(y)| \forall x, y \in K$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f$ need not be surjective
+    \item   $f$ must be surjective if $K = [0, 1]$
+    \item   $f$ is injective and $f^{-1}: f(K) \rightarrow K$ is continuous
+    \item   $f$ is injective, but $f^{-1}: f(K) \rightarrow K$ need not be continuous
+\end{enumerate}</span></li><li><b>89</b> <span class="qbody">Let $g(x)$ be the polynomial of degree at most 4 that interpolates the data
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+$x$ &amp; -1 &amp; 0 &amp; 2 &amp; 3 &amp; 6 \\
+\hline
+$y$ &amp; -30 &amp; 1 &amp; $c$ &amp; 10 &amp; 19 \\
+\hline
+\end{tabular}
+\end{center}
+
+If $g(4) = 5$, then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $c = 13$
+    \item   $g(5) = 6$
+    \item   $g(1) = 14$
+    \item   $c = 15$
+\end{enumerate}</span></li><li><b>90</b> <span class="qbody">Let $V \setminus \{0\}$ be a finite dimensional vector space over $\mathbb{R}$ and $T: V \rightarrow V$ be a linear operator. Suppose that the kernel of $T$ equals the image of $T$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   The dimension of $V$ is even
+    \item   The trace of $T$ is zero
+    \item   The minimal polynomial of $T$ cannot have two distinct roots
+    \item   The minimal polynomial of $T$ is equal to its characteristic polynomial
+\end{enumerate}</span></li><li><b>91</b> <span class="qbody">Let $X$ and $Y$ be jointly distributed continuous random variables with joint probability density function
+
+\[
+f(x, y) = 
+\begin{cases}
+\frac{x}{y}, &amp; \text{if } 0 &lt; x &lt; y &lt; 2 \\
+0, &amp; \text{otherwise}
+\end{cases}
+\]
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $P\left(X &lt; \frac{1}{2} \mid Y = 1\right) = \frac{1}{4}$
+    \item   $E(Y) = \frac{1}{4}$
+    \item   $P\left(X &lt; \frac{Y}{2}\right) = \frac{1}{4}$
+    \item   $E\left(\frac{Y}{X}\right) = \frac{1}{4}$
+\end{enumerate}</span></li><li><b>92</b> <span class="qbody">Consider the improper integrals
+
+\[
+I =  \int\limits_{\pi/2}^\pi \frac{1}{\sqrt{\sin x}} dx \text{ and, for } a \geq 0
+\]
+
+\[
+I_a =  \int\limits_a^\infty \frac{1}{x \sqrt{1 + x^2}} dx
+\]
+
+\begin{enumerate}[label=(\alph*)]
+    \item   The integral $I$ is convergent
+    \item   The integral $I$ is not convergent
+    \item   The integral $I_a$ converges for $a = \frac{1}{2}$ but not for $a = 0$
+    \item   The integral $I_a$ converges for all $a \geq 0$
+\end{enumerate}</span></li><li><b>93</b> <span class="qbody">If $x_1 = x_1(t), x_2 = x_2(t)$ is the solution of the initial value problem
+
+\[
+\begin{aligned}
+&amp; e^{-t} \frac{d x_1}{d t} = -x_1 + x_2, \\
+&amp; e^{-t} \frac{d x_2}{d t} = -x_1 - x_2, \\
+&amp; x_1(0) = 1, x_2(0) = 0
+\end{aligned}
+\]
+
+and $r(t) = \sqrt{x_1^2(t) + x_2^2(t)}$, then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $r(t) \rightarrow 0$ as $t \rightarrow +\infty$
+    \item   $r(\ln 2) = e^{-1}$
+    \item   $r(\ln 2) = 2 e^{-1}$
+    \item   $r(t) e^t \rightarrow 0$ as $t \rightarrow +\infty$
+\end{enumerate}</span></li><li><b>94</b> <span class="qbody">Consider the linear programming problem:
+
+\[
+\max \{x_1 + x_2 + x_3\}
+\]
+
+Subject to constraints
+
+\[
+\begin{aligned}
+&amp; x_1 + x_2 - x_3 \leq 1 \\
+&amp; x_1 + x_3 \leq 2, \\
+&amp; 0 \leq x_1 \leq \frac{1}{2}, x_2 \geq 0, \\
+&amp; \text{and } 0 \leq x_3 \leq 1 .
+\end{aligned}
+\]
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   The optimum value is 3
+    \item   The optimum value is $\frac{3}{2}$
+    \item   $(0, 2, 1)$ is an extreme point of the feasible region
+    \item   $\left(\frac{1}{2}, 0, 1\right)$ is the optimal solution
+\end{enumerate}</span></li><li><b>95</b> <span class="qbody">For $\lambda \in \mathbb{R}$ such that $|\lambda| &lt; \frac{5}{32}$, let $R(x, t, \lambda)$ and $u$ denote the resolvent kernel and the solution, respectively, of the Fredholm integral equation
+
+\[
+u(x) = x + \frac{\lambda}{2}  \int\limits_{-2}^2 (x t + x^2 t^2) u(t) dt .
+\]
+
+Then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $R(x, t, \lambda) = \frac{3 x t}{3 - 8 \lambda} - \frac{5 x^2 t^2}{5 - 32 \lambda}$
+    \item   $R(x, t, \lambda) = \frac{3 x t}{3 - 8 \lambda} + \frac{5 x^2 t^2}{5 - 32 \lambda}$
+    \item   $u(1) = -\frac{5}{5 - 32 \lambda}$
+    \item   $u(1) = \frac{3}{3 - 8 \lambda}$
+\end{enumerate}</span></li><li><b>96</b> <span class="qbody">Suppose that $f$ is an entire function such that $|f(z)| \geq 2024$ for all $z \in \mathbb{C}$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f(z) = 2024$ for all $z \in \mathbb{C}$
+    \item   $f$ is a constant function
+    \item   $f$ is an injective function
+    \item   $f$ is a bijective function
+\end{enumerate}</span></li><li><b>97</b> <span class="qbody">Let $\{X_n\}_{n=1}^\infty$ be a sequence of independent and identically distributed random variables with $E(X_1) = 0$ and $\operatorname{Var}(X_1) = 1$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\lim_{n \rightarrow \infty} P\left(\frac{\sqrt{n}  \sum\limits_{i=1}^n X_i}{ \sum\limits_{i=1}^n X_i^2} \leq 0\right) = \frac{1}{2}$
+    \item   $ \sum\limits_{i=1}^n \frac{X_i}{X_i^2}$ converges in probability to 0 as $n \rightarrow \infty$
+    \item   $\frac{1}{n}  \sum\limits_{i=1}^n X_i^2$ converges in probability to 1 as $n \rightarrow \infty$
+    \item   $\lim_{n \rightarrow \infty} P\left(\frac{ \sum\limits_{i=1}^n X_i}{\sqrt{n}} \leq 0\right) = \frac{1}{2}$
+\end{enumerate}</span></li><li><b>98</b> <span class="qbody">Let $B(0, 2) = \{(x, y) \in \mathbb{R}^2 : x^2 + y^2 &lt; 4\}$, and $\partial B$ denote the boundary of $B(0, 2)$. Assume $(\alpha, \beta) \neq (0, 0), k \in \mathbb{R}$, and $u$ is any solution to
+
+\[
+\left\{
+\begin{array}{cc}
+-\Delta u = 0 &amp; \text{in } B(0, 2), \\
+\alpha u(x, y) + \beta \frac{\partial u}{\partial v}(x, y) = 1 + (x^2 + y^2) k &amp; \text{on } \partial B,
+\end{array}
+\right.
+\]
+
+where $v(x, y)$ is the unit outward normal to $B(0, 2)$ at $(x, y) \in \partial B$. Consider the following statements: \\
+$S_1$: If $\beta = 0$, then there exists a $(x_0, y_0) \in B(0, 2)$ such that $|u(x_0, y_0)| = \frac{|1 + 4k|}{|\alpha|}$. \\
+$S_2$: If $\alpha = 0$, then $k = -\frac{1}{4}$. \\
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item   $S_1$ is true but $S_2$ is false
+    \item   $S_2$ is true but $S_1$ is false
+    \item   both $S_1$ and $S_2$ are true
+    \item   both $S_1$ and $S_2$ are false
+\end{enumerate}</span></li><li><b>99</b> <span class="qbody">Let $\tau$ be the smallest topology on the set $\mathbb{R}$ containing
+
+\[
+\beta = \{ [a, b) : a &lt; b ; a, b \in \mathbb{R} \}.
+\]
+
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\beta$ is a basis for topology $\tau$
+    \item   $\mathbb{R}$ is compact in the topology $\tau$
+    \item   Topology $\tau$ is the same as the Euclidean topology
+    \item   Topology $\tau$ is Hausdorff
+\end{enumerate}</span></li><li><b>100</b> <span class="qbody">Let $R$ be a principal ideal domain with a unique maximal ideal. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   Every quotient ring of $R$ is a principal ideal domain
+    \item   There exists a quotient ring $S$ of $R$ and an ideal $I \subseteq S$ which is not principal
+    \item   $R$ has countably many ideals
+    \item   Every quotient ring $S \setminus \{0\}$ of $R$ has a unique maximal ideal which is principal
+\end{enumerate}</span></li><li><b>101</b> <span class="qbody">Let $I$ be the ideal of the ring $\mathbb{R}_2[t] / (t^2 (1 - t)^2)$. Which of the following are the possible values of the cardinality of $I$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   1
+    \item   8
+    \item   16
+    \item   24
+\end{enumerate}</span></li><li><b>102</b> <span class="qbody">Let $(a_n)_{n \geq 1}$ be a bounded sequence of real numbers such that $\lim_{n \rightarrow \infty} a_n$ does not exist. Let $\mathcal{S} = \{ l \in \mathbb{R} : \text{there exists a subsequence of } (a_n) \text{ converges to } l \}$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\mathcal{S}$ is the empty set
+    \item   $\mathcal{S}$ has exactly one element
+    \item   $\mathcal{S}$ has at least two elements
+    \item   $\mathcal{S}$ has to be a finite set
+\end{enumerate}</span></li><li><b>103</b> <span class="qbody">Let $M_5(\mathbb{C})$ be the complex vector space of $5 \times 5$ matrices with entries in $\mathbb{C}$. Let $V$ be a non-zero subspace of $M_5(\mathbb{C})$ such that every non-zero $A \in V$ invertible. Which among the following are possible values for the dimension of $V$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item   1
+    \item   2
+    \item   3
+    \item   5
+\end{enumerate}</span></li><li><b>104</b> <span class="qbody">Let $q_1(x_1, x_2)$ and $q_2(y_1, y_2)$ be real quadratic forms such that there exist $(u_1, u_2), (v_1, v_2) \in \mathbb{R}^2$ such that $q_1(u_1, u_2) = 1 = q_2(v_1, v_2)$. Define $q(x_1, x_2, y_1, y_2) = q_1(x_1, x_2) - q_2(y_1, y_2)$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $q$ is a quadratic form in $x_1, x_2, y_1, y_2$
+    \item   There exists $(t_1, t_2) \in \mathbb{R}^2$ such that $q_1(t_1, t_2) = 5$
+    \item   There does not exist $(s_1, s_2) \in \mathbb{R}^2$ such that $q_2(s_1, s_2) = -5$
+    \item   Given $\alpha \in \mathbb{R}$, there exists a vector $w \in \mathbb{R}^4$ such that $q(w) = \alpha$
+\end{enumerate}</span></li><li><b>105</b> <span class="qbody">Let $f: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ be a differentiable function such that $\{D f\}(0, 0)$ has rank 2. Write $f = (f_1, f_2, f_3)$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f$ is injective in a neighbourhood of $(0, 0)$
+    \item   There exists an open neighbourhood $U$ of $(0, 0)$ in $\mathbb{R}^2$ such that $f_3$ is a function of $f_1$ and $f_2$
+    \item   $f$ maps an open neighbourhood of $(0, 0)$ in $\mathbb{R}^2$ onto an open subset of $\mathbb{R}^3$
+    \item   $(0, 0)$ is an isolated point of $f^{-1}(\{f(0, 0)\})$
+\end{enumerate}</span></li><li><b>106</b> <span class="qbody">For $c \in \mathbb{R}$, consider the following Fredholm integral equation
+\[
+y(x) = 1 + x + c x^2 + 2  \int\limits_0^1 (1 - 3 x t) y(t) \, dt .
+\]
+Then the values of $c$ for which the integral equation admits a solution are
+\begin{enumerate}[label=(\alph*)]
+    \item   -8
+    \item   -6
+    \item   2
+    \item   6
+\end{enumerate}</span></li><li><b>107</b> <span class="qbody">Let $X$ and $Y$ be independent random variables with $X \sim N(2,4)$ and $Y \sim N(-4,9)$ where $N(\mu, \sigma^2)$ denotes a normal distribution with mean $\mu$ and variance $\sigma^2$. Given $\Phi(1)=0.8413$, $\Phi(2)=0.9772$ and $\Phi(3)=0.9987$ where $\Phi(.)$ is the cumulative distribution function of a standard normal random variable. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\operatorname{Var}(2 X + Y) = 17$
+    \item   $P(|2 X + Y| \leq 15) = 0.9974$
+    \item   $\operatorname{cov}(3 X + 2 Y, 3 X - 2 Y) = 0$
+    \item   $2 X - Y \sim N(0, 25)$
+\end{enumerate}</span></li><li><b>108</b> <span class="qbody">Let $X_1, \ldots, X_n$ be independent and identically distributed $U(0, \theta)$, $\theta &gt; 0$ random variables. Define $X_{\langle n\rangle} = \max \{X_1, \ldots, X_n\}$ and $X_{\langle 1\rangle} = \min \{X_1, \ldots, X_n\}$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\operatorname{cov}\left(\frac{X_{\langle n\rangle}}{X_{\langle 1\rangle}}, X_{\langle n\rangle}\right) = 0$
+    \item   $E\left(\frac{X_{\langle 1\rangle}}{X_{\langle n\rangle}}\right) = \frac{E(X_{\langle 1\rangle})}{E(X_{\langle n\rangle})}$
+    \item   $\operatorname{cov}\left(\frac{X_{\langle 1\rangle}}{X_{\langle n\rangle}}, X_{\langle n\rangle}\right) = 0$
+    \item   $\operatorname{cov}\left(\ln(X_{\langle 1\rangle}) - \ln(X_{\langle 1\rangle} + X_{\langle n\rangle}), X_{\langle n\rangle}\right) &lt; 0$
+\end{enumerate}</span></li><li><b>109</b> <span class="qbody">Define $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ by
+\[
+f(x, y) = 
+\begin{cases}
+\frac{y \sqrt{x^2 + y^2}}{x} &amp; \text{if } x \neq 0 \\
+0, &amp; x = 0
+\end{cases}.
+\]
+Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{\partial f}{\partial x}(0,0)$ exists
+    \item   $\frac{\partial f}{\partial y}(0,0)$ exists
+    \item   $f$ is not continuous at $(0,0)$
+    \item   $f$ is not differentiable at $(0,0)$
+\end{enumerate}</span></li><li><b>110</b> <span class="qbody">Let $X$ denote the topological space $\mathbb{R}$ with the cofinite topology (i.e., the finite complement topology) and let $Y$ denote the topological space $\mathbb{R}$ with the Euclidean topology. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $X \times [0,1]$ is closed in $X \times Y$ with respect to the product topology
+    \item   $X \times [0,1]$ is compact with respect to the product topology
+    \item   $X$ is compact
+    \item   $X \times Y$ is compact with respect to the product topology
+\end{enumerate}</span></li><li><b>111</b> <span class="qbody">Let $X_1, \ldots, X_{12}$ be a random sample from the $N(2,4)$ distribution and $Y_1, \ldots, Y_{15}$ be a random sample from the $N(-2,5)$ distribution, where $N(\mu, \sigma^2)$ denotes a normal distribution with mean $\mu$ and variance $\sigma^2$. Assume that two random samples are mutually independent. Let
+\[
+\bar{X} = \frac{1}{12}  \sum\limits_{i=1}^{12} X_i, \quad S_1^2 = \frac{1}{11}  \sum\limits_{i=1}^{12} (X_i - \bar{X})^2,
+\]
+\[
+\bar{Y} = \frac{1}{15}  \sum\limits_{j=1}^{15} Y_j, \quad S_2^2 = \frac{1}{14}  \sum\limits_{j=1}^{15} (Y_j - \bar{Y})^2,
+\]
+which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   The distribution of $\bar{X} + \bar{Y}$ is $N\left(0, \frac{2}{3}\right)$
+    \item   The distribution of $\frac{1}{20} (55 S_1^2 + 56 S_2^2)$ is $\chi_{25}^2$
+    \item   The distribution of $\frac{5}{4} \frac{S_1^2}{S_2^2}$ is $F_{11,14}$
+    \item   The distribution of $\frac{2 \sqrt{3} (\bar{Y} + 2)}{S_1}$ is $t_{14}$
+\end{enumerate}</span></li><li><b>112</b> <span class="qbody">Let $(a_n)_{n \geq 1}$ be a sequence of positive real numbers. Let $b_n = \frac{a_n}{\max \{a_1, \ldots, a_n\}}, n \geq 1$. Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   If $\lim_{n \rightarrow \infty} b_n$ exists in $\mathbb{R}$, then $\{a_n : n \geq 1\}$ is bounded
+    \item   If $\lim_{n \rightarrow \infty} b_n = 1$ then $\lim_{n \rightarrow \infty} a_n$ exists in $\mathbb{R}$
+    \item   If $\lim_{n \rightarrow \infty} b_n = \frac{1}{2}$, then $\lim_{n \rightarrow \infty} a_n$ exists in $\mathbb{R}$
+    \item   If $\lim_{n \rightarrow \infty} b_n = 0$, then $\lim_{n \rightarrow \infty} a_n = 0$
+\end{enumerate}</span></li><li><b>113</b> <span class="qbody">Consider the initial boundary value problem (IBVP)
+\[
+\begin{cases}
+u_t + u_x = 2 u, &amp; x &gt; 0, t &gt; 0 \\
+u(0, t) = 1 + \sin t, &amp; t &gt; 0 \\
+u(x, 0) = e^x \cos x, &amp; x &gt; 0
+\end{cases}
+\]
+If $u$ is the solution of the IBVP, then the value of $\frac{u(2 \pi, \pi)}{u(\pi, 2 \pi)}$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $e^x$
+    \item   $e^{-x}$
+    \item   $-e^x$
+    \item   $-e^{-x}$
+\end{enumerate}</span></li><li><b>114</b> <span class="qbody">Let $f: [0,1) \rightarrow [1, \infty)$ be defined by $f(x) = \frac{1}{1 - x}$. For $n \geq 1$, let $p_n(x) = 1 + x + \cdots + x^n$. Then which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $f(x)$ is not uniformly continuous on $[0,1)$
+    \item   The sequence $(p_n(x))$ converges to $f(x)$ pointwise on $[0,1)$
+    \item   The sequence $(p_n(x))$ converges to $f(x)$ uniformly on $[0,1)$
+    \item   The sequence $(p_n(x))$ converges to $f(x)$ uniformly on $[0, c]$ for every $0 &lt; c &lt; 1$
+\end{enumerate}</span></li><li><b>115</b> <span class="qbody">Consider the real vector space $V = \mathbb{R}[x]$ equipped with an inner product. Let $W$ be the subspace of $V$ consisting of polynomials of degree at most 2. Let $W^\perp$ denote the orthogonal complement of $W$ in $V$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exists a polynomial $p(x) \in W$ such that $x^4 - p(x) \in W^\perp$
+    \item   $W^\perp = \{0\}$
+    \item   $W$ and $W^\perp$ have the same dimension over $\mathbb{R}$
+    \item   $W^\perp$ is an infinite dimensional vector space over $\mathbb{R}$
+\end{enumerate}</span></li><li><b>116</b> <span class="qbody">Let $X_1, \ldots, X_n (n \geq 2)$ be a random sample from a $U(-\theta, 2\theta)$ distribution, where $\theta &gt; 0$ is an unknown parameter. Let $\bar{X} = \frac{1}{n}  \sum\limits_{i=1}^n X_i$, $X_{\langle 1\rangle} = \min \{X_1, \ldots, X_n\}$ and $X_{\langle n\rangle} = \max \{X_1, \ldots, X_n\}$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   Maximum likelihood estimator of $\theta$ is $\min \{X_{\langle 1\rangle}, \frac{X_{\langle n\rangle}}{2}\}$
+    \item   Maximum likelihood estimator of $\theta$ is $\max \{-X_{\langle 1\rangle}, \frac{X_{\langle n\rangle}}{2}\}$
+    \item   Method of moments estimator of $\theta$ is $2 \bar{X}$
+    \item   Method of moments estimator of $\theta$ is $\frac{2 \bar{X}}{3}$
+\end{enumerate}</span></li><li><b>117</b> <span class="qbody">Consider $\mathbb{R}$ and $\mathbb{Q}[x]$ as vector spaces over $\mathbb{Q}$. Which of the following statements are true?
+\begin{enumerate}[label=(\alph*)]
+    \item   There exists an injective $\mathbb{Q}$-linear transformation $T: \mathbb{R} \rightarrow \mathbb{Q}[x]$
+    \item   There exists an injective $\mathbb{Q}$-linear transformation $T: \mathbb{Q}[x] \rightarrow \mathbb{R}$
+    \item   The $\mathbb{Q}$-vector spaces $\mathbb{Q}[x]$ and $\mathbb{R}$ are isomorphic
+    \item   There do not exist non-zero $\mathbb{Q}$-linear transformations $T: \mathbb{R} \rightarrow \mathbb{Q}[x]$
+\end{enumerate}</span></li><li><b>118</b> <span class="qbody">For which of the following values of $q$, does a finite field of order $q$ have exactly 6 subfields?
+\begin{enumerate}[label=(\alph*)]
+    \item   $q = 2^{18}$
+    \item   $q = 2^{32}$
+    \item   $q = 2^{12}$
+    \item   $q = 2^{243}$
+\end{enumerate}</span></li><li><b>119</b> <span class="qbody">The extremizer of the problem $\min \left[ \frac{1}{2}  \int\limits_{-1}^1 \left[ (y&#x27;(x))^2 + (y(x))^2 \right] \, dx \right]$ subject to $y \in C^1[-1,1]$, $ \int\limits_{-1}^1 x y(x) \, dx = 0$ and $y(-1) = y(1) = 1$ is
+\begin{enumerate}[label=(\alph*)]
+    \item   $\frac{e}{1 + e^2} (e^x + e^{-x}) + x^2 - 1$
+    \item   $\frac{e}{1 + e^x} (e^x + e^{-x}) + 1 - x^2$
+    \item   $\frac{e}{1 + e^x} (e^x + e^{-x})$
+    \item   $\frac{e}{1 + e^x} (e^x + e^{-x}) + \sin(2 \pi x)$
+\end{enumerate}</span></li><li><b>120</b> <span class="qbody">Let $ \sum\limits_{n=1}^{\infty} a_n$ be a convergent series of real numbers. For $n \geq 1$ define
+\[
+A_n = 
+\begin{cases}
+a_n, &amp; \text{if } a_n &gt; 0 \\
+0, &amp; \text{otherwise};
+\end{cases}
+\]
+\[
+B_n = 
+\begin{cases}
+a_n, &amp; \text{if } a_n &lt; 0 \\
+0, &amp; \text{otherwise}.
+\end{cases}
+\]
+Which of the following statements are necessarily true?
+\begin{enumerate}[label=(\alph*)]
+    \item   $A_n \rightarrow 0$ and $B_n \rightarrow 0$ as $n \rightarrow \infty$
+    \item   If $ \sum\limits_{n=1}^{\infty} a_n$ is absolutely convergent, then both $ \sum\limits_{n=1}^{\infty} A_n$ and $ \sum\limits_{n=1}^{\infty} B_n$ are absolutely convergent
+    \item   Both $ \sum\limits_{n=1}^{\infty} A_n$ and $ \sum\limits_{n=1}^{\infty} B_n$ are convergent
+    \item   If $ \sum\limits_{n=1}^{\infty} a_n$ is not absolutely convergent, then both $ \sum\limits_{n=1}^{\infty} A_n$ and $ \sum\limits_{n=1}^{\infty} B_n$ are divergent
+\end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2016 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2016.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2016/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2016 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2016.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2016/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="176" height="34"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="176" height="34"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2016</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">The sequence $\left\{s_{n}\right\}$ of real numbers given by
+$$
+s_{n}=\frac{\sin \frac{\pi}{2}}{1 \cdot 2}+\frac{\sin \frac{\pi}{2^{2}}}{2 \cdot 3}+\cdots+\frac{\sin \frac{\pi}{2^{n}}}{n \cdot(n+1)}
+$$
+is
+
+\begin{enumerate}[label=(\alph*)] 
+\item a divergent sequence
+\item an oscillatory sequence
+\item not a Cauchy sequence
+\item a Cauchy sequence
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $P$ be the vector space (over $\mathbb{R}$ ) of all polynomials of degree $\leq 3$ with real coefficients. Consider the linear transformation $T: P \rightarrow P$ defined by
+$$
+T\left(a_{0}+a_{1} x+a_{2} x^{2}+a_{3} x^{3}\right)=a_{3}+a_{2} x+a_{1} x^{2}+a_{0} x^{3} .
+$$
+Then the matrix representation $M$ of $T$ with respect to the ordered basis $\left\{1, x, x^{2}, x^{3}\right\}$ satisfies
+
+\begin{enumerate}[label=(\alph*)]
+    \item $M^{2}+I_{4}=0$
+\item $M-I_{4}=0$
+\item $ M^{2}-I_{4}=0$
+\item $M+I_{4}=0$
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f:[-1,1] \rightarrow \mathbb{R}$ be a continuous function. Then the integral
+$$
+\int_{0}^{\pi} x f(\sin x) d x
+$$
+is equivalent to
+
+\begin{enumerate}[label=(\alph*)]
+  \item 
+$$
+\frac{\pi}{2}\int_{0}^{\pi} f(\sin x) d x
+$$
+
+\item 
+$$
+\frac{\pi}{2}\int_{0}^{\pi} f(\cos x) d x
+$$
+
+\item 
+$$
+\pi \int_{0}^{\pi} f(\cos x) d x
+$$
+
+\item 
+$$
+\pi \int_{0}^{\pi} f(\sin x) d x
+$$  
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $\sigma$ be an element of the permutation group $S_{5}$. Then the maximum possible order of $\sigma$ is
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 5
+\item 6
+\item 10
+\item 15
+
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $f$ be a strictly monotonic contimuous real valued function defined on $[a, b]$ such that $f(a)&lt;a$ and $f(b)&gt;b$. Then which one of the following is TRUE?
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item There exists exactly one $c \in(a, b)$ such that $f(c)=c$
+
+\item There exist exactly two points $c_{1}, c_{2} \in(a, b)$ such that $f\left(a_{i}\right)=c_{i}, i=1,2$
+
+\item There exists no $c \in(a, b)$ such that $f(c)=c$
+
+\item There exist infinitely many points $c \in(a, b)$ such that $f(c)=c$
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">The value of $\lim _{(x, y) \rightarrow(2,-2)} \frac{\sqrt{(x-y)}-2}{x-y-4}$ is
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item 0
+\item $\frac{1}{4}$
+\item $\frac{1}{3}$
+\item $\frac{1}{2}$
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $\vec{r}=(x \hat{\imath}+y \hat{\jmath}+z \hat{k})$ and $r=|\vec{r}|$. If $f(r)=\ln r$ and $g(r)=\frac{1}{r}, r \neq 0$, satisfy $2 \nabla f+h(r) \nabla g=\overrightarrow{0}$, then $h(r)$ is
+
+\begin{enumerate}[label=(\alph*)]
+\item $r$
+\item $\frac{1}{r}$
+\item $2 r$
+\item $\frac{2}{r}$
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">The nonzero value of $n$ for which the differential equation
+$$
+\left(3 x y^{2}+n^{2} x^{2} y\right) d x+\left(n x^{3}+3 x^{2} y\right) d y=0, \quad x \neq 0,
+$$
+
+becomes exact is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $-3$
+\item $-2$
+\item $2$
+\item $3$
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">One of the points which lies on the solution curve of the differential equation
+$$
+(y-x) d x+(x+y) d y=0
+$$
+with the given condition $y(0)=1$, is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(1,-2)$
+    \item $(2,-1)$
+\item $(2,1)$
+\item $(-1,2)$
+\end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $S$ be a closed subset of $\mathbb{R}, T$ a compact subset of $\mathbb{R}$ such that $S \cap T \neq \phi$. Then $S \cap T$ is
+
+
+\begin{enumerate}[label=(\alph*)]
+   \item closed but not compact
+\item not closed
+\item conmact
+\item neither closed nor compact 
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $S$ be the series 
+$$
+\sum_{k=1}^{\infty} \frac{1}{(2 k-1) 2^{(2 k-1)}}
+$$
+and $T$ be the series
+$$
+\sum_{k=2}^{\infty}\left(\frac{3 k-4}{3 k+2}\right)^{\frac{(k+1)}{3}}
+$$
+of real numbers. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item Both the series $S$ and $T$ are convergent
+\item $S$ is convergent and $T$ is divergent
+\item $S$ is divergent and $T$ is convergent
+\item Both the series $S$ and $T$ are divergent
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $\left\{a_{n}\right\}$ be a sequence of positive real numbers satisfying
+$$
+\frac{4}{a_{n+1}}=\frac{3}{a_{n}}+\frac{a_{n}^{3}}{81}, \quad n \geq 1, a_{1}=1 .
+$$
+Then all the terms of the sequence lie in
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\left[\frac{1}{2}, \frac{3}{2}\right]$
+\item $[0,1]$
+\item $[1,2]$
+\item $[1,3]$
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">The largest eigenvalue of the matix $\left[\begin{array}{ccc}1 &amp; 4 &amp; 16 \\ 4 &amp; 16 &amp; 1 \\ 16 &amp; 1 &amp; 4\end{array}\right]$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item 16
+    \item 21
+    \item 48
+    \item 64
+\end{enumerate}</span></li><li><b>14</b> <span class="qbody">The value of the integral
+$$
+\frac{(2 n) !}{2^{2 n}(n !)} \int_{-1}^{1}\left(1-x^{2}\right)^{n} d x, \quad n \in \mathbb{N}
+$$
+is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\quad \frac{2}{(2 n+1) !}$
+    \item $\frac{2(n)}{2 n+1}$
+    \item $\quad \frac{2 \pi}{(2 \pi+1) !}$
+    \item $\frac{(n+1) n}{2 n+1}$
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">If the triple integral over the region bounded by the planes
+$$
+2 x+y+z=4, \quad x=0, \quad y=0, \quad z=0
+$$
+is given by
+$$
+\int_{0}^{2} \int_{0}^{\lambda(x)} \int_{0}^{\mu(x, y)} d z d y d x,
+$$
+then the function $\lambda(x)-\mu(x, y)$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $x+y$
+\item $x-y$
+\item $x$
+\item $y$
+\end{enumerate}</span></li><li><b>16</b> <span class="qbody">The suface area of the portion of the plane $y+2 z=2$ within the cylinder $x^{2}+y^{2}=3$ is
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{3 \sqrt{5}}{2} \pi$
+\item $\frac{5 \sqrt{5}}{2} \pi$
+\item $\frac{7 \sqrt{5}}{2} \pi$
+\item $\frac{9 \sqrt{5}}{2} \pi$
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be defined by
+$$
+f(x, y)=\left\{\begin{array}{ll}
+\frac{x y^{2}}{x+y} &amp; \text { if } x+y \neq 0 \\
+0 &amp; \text { if } x+y=0
+\end{array}\right. \text {. }
+$$
+Then the value of $\left(\frac{\partial^{2} f}{\partial x \partial y}+\frac{\partial^{2} f}{\partial y \partial x}\right)$ at the point $(0,0)$ is
+\begin{enumerate}[label=(\alph*)]
+    \item 0
+\item 1
+\item 2
+\item 4
+\end{enumerate}</span></li><li><b>18</b> <span class="qbody">The function $f(x, y)=3 x^{2} y+4 y^{3}-3 x^{2}-12 y^{2}+1$ has a saddle point at
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(0,0)$
+\item $(0,2)$
+\item $(1,1)$
+\item $(-2,1)$
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Consider the vector field $\vec{F}=x^{\beta}(y \hat{\imath}-x \hat{\jmath})$, where $\beta \in \mathbb{R}$, $\vec{r}=x \hat{\imath}+y \hat{\jmath}$ and $r=|\vec{r}|$. If the absolute value of the line integal $\oint_{c} \vec{F} \cdot d \vec{r}$ along the closed curve $C: x^{2}+y^{2}=a^{2}$ (onented counter clockwise) is $2 \pi$, then $\beta$ is
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $-2$
+\item $-1$
+\item $1$
+\item $2$
+
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $S$ be the surface of the cone $z=\sqrt{x^{2}+y^{2}}$ bounded by the planes $z=0$ and $z=3$. Futher, let $C$ be the closed curve forming the boundary of the suuface $S$. A vector field $\vec{F}$ is such that $\nabla \times \vec{F}=-x \hat{\imath}-y \hat{\jmath}$. The absolute value of the line integal $\oint_{c} \vec{F} \cdot d \vec{r}$, where $\vec{r}=x \hat{\imath}+y \hat{\jmath}+z \hat{k}$ and $r=|\vec{r}|$, is
+
+\begin{enumerate}[label=(\alph*)]
+\item 0
+\item $9 \pi$
+\item $15 \pi$
+\item $18 \pi$
+\end{enumerate}</span></li><li><b>21</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation
+$$
+\frac{d}{d x}\left(x \frac{d y}{d x}\right)=x ; \quad y(1)=0,\left.\frac{d y}{d x}\right|_{x=1}=0 .
+$$
+Then $y(2)$ is
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\frac{3}{4}+\frac{1}{2} \ln 2$
+\item $\frac{3}{4}-\frac{1}{2} \ln 2$
+\item $\frac{3}{4}+\ln 2$
+\item $\frac{3}{4}-\ln 2$
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">The general solution of the differential equation with constant coefficients
+$$
+\frac{d^{2} y}{d x^{2}}+b \frac{d y}{d x}+c y=0
+$$
+approaches zero as $x \rightarrow \infty$, if
+
+\begin{enumerate}[label=(\alph*)]
+    \item $b$ is negative and $c$ is positive
+\item $b$ is positive and $c$ is negative
+\item both $b$ and $c$ are positive
+\item both $b$ and $c$ are negative 
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $S \subset \mathbb{R}$ and $\partial S$ denote the set of points $x$ in $\mathbb{R}$ such that every neighbourhood of $x$ contains some points of $S$ as well as some points of complement of S. Further, let $\bar{S}$ denote the closure of $S$. Then which one of the following is FALSE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\partial \mathbb{Q}=\mathbb{R}$
+\item $\partial(\mathbb{R} \backslash T)=\partial T, \quad T \subset \mathbb{R}$
+\item $\partial(T \cup V)=\partial T \cup \partial V, \quad T, V \subset \mathbb{R}, T \cap V \neq \phi$
+\item $\partial T=\bar{T} \cap(\overline{\mathbb{R} \backslash T}), \quad T \subset \mathbb{R}$
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">The sum of the series
+$$
+\sum_{n=2}^{\infty} \frac{(-1)^{n}}{n^{2}+n-2}
+$$
+is
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\frac{1}{3} \ln 2-\frac{5}{18}$
+\item $\frac{1}{3} \ln 2-\frac{5}{6}$
+\item $\frac{2}{3} \ln 2-\frac{5}{18}$
+\item $\frac{2}{3} \ln 2-\frac{5}{6}$
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $f(x)=\frac{1}{1+|x|}+\frac{1}{1+|x-1|}$ for all $x \in[-1,1]$. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item Maximum value of $f(x)$ is $\frac{3}{2}$
+\item Minimum value of $f(x)$ is $\frac{1}{3}$
+\item Maximum of $f(x)$ occurs at $x=\frac{1}{2}$
+\item Minimum of $f(x)$ occurs at $x=1$
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">The matrix $M=\left[\begin{array}{cc}\cos \alpha &amp; \sin \alpha \\ i \sin \alpha &amp; i \cos \alpha\end{array}\right]$ is a unitary matrix when $\alpha$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(2 n+1) \frac{\pi}{2}, n \in \mathbb{Z}$
+\item $(3 n+1) \frac{\pi}{3}, n \in \mathbb{Z}$
+\item $(4 n+1) \frac{\pi}{4}, n \in Z$
+\item $(5 n+1) \frac{\pi}{5}, n \in Z$
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">Let $M=\left[\begin{array}{rrr}0 &amp; 1 &amp; -2 \\ -1 &amp; 0 &amp; \alpha \\ 2 &amp; -\alpha &amp; 0\end{array}\right], \alpha \in \mathbb{R} \backslash\{0\}$ and $b$ a non-zero vector such that $M x=b$ for some $x \in \mathbb{R}^{3}$. Then the value of $x^{T} b$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $-\alpha$
+\item $\alpha$
+\item $0$
+\item $1$
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">The number of group homomorphisms from the cyclic group $Z_{4}$ to the cyclic group $Z_{7}$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item 7
+\item 3
+\item 2
+\item 1
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">In the permutation group $S_{n}(n \geq 5)$, if $H$ is the smallest subgroup containing all the 3-cycles, then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item Order of $H$ is 2
+\item Index of $H$ in $S_{n}$ is 2
+\item $\mathrm{H}$ is abelian
+\item $H=S_{n}$
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be defined as
+$$
+f(x)= \begin{cases}x\left(1+x^{\alpha} \sin \left(\ln x^{2}\right)\right) &amp; \text { if } x \neq 0 \\ 0 &amp; \text { if } x=0\end{cases}
+$$
+Then, at $x=0$, the function $f$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item continuous and differentiable when $\alpha=0$
+\item continuous and differentiable when $\alpha&gt;0$
+\item continuous and differentiable when $-1&lt;\alpha&lt;0$
+\item continuous and differentiable when $\alpha&lt;-1$ 
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">Let $\left\{s_{n}\right\}$ be a sequence of positive real numbers satisfying
+$$
+2 s_{n+1}=s_{n}^{2}+\frac{3}{4}, \quad n \geq 1 .
+$$
+If $\alpha$ and $\beta$ are the roots of the equation $x^{2}-2 x+\frac{3}{4}=0$ and $\alpha&lt;s_{1}&lt;\beta$, then which of the following statement(s) is(are) TRUE ?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\left\{s_{n}\right\}$ is monotonically decreasing
+\item $\left\{s_{n}\right\}$ is monotonically increasing
+\item $\lim _{n \rightarrow \infty} s_{n}=\alpha$
+\item $\lim _{n \rightarrow \infty} s_{n}=\beta$
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">The value(s) of the integral
+$$
+\int_{-\pi}^{\pi}|x| \cos n x d x, n \geq 1
+$$
+is (are)
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 0 when $n$ is even
+\item 0 when $n$ is odd
+\item $-\frac{4}{n^{2}}$ when $n$ is even
+\item $-\frac{4}{n^{2}}$ when $n$ is odd
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be defined by
+$$
+f(x, y)=\left\{\begin{array}{cl}
+\frac{x y}{|x|} &amp; \text { if } x \neq 0 \\
+0 &amp; \text { elsewhere }
+\end{array}\right.
+$$
+Then at the point $(0,0)$, which of the following statement(s) is(are) TRUE ?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ is not continuous
+\item $f$ is continuous
+\item $f$ is differentiable
+\item Both first order partial derivatives of $f$ exist
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">Consider the vector field $\vec{F}=x \hat{\imath}+y \hat{\jmath}$ on an open connected set $S \subset \mathbb{R}^{2}$. Then which of the following statement(s) is(are) TRUE ?
+
+\begin{enumerate}[label=(\alph*)]
+    \item Divergence of $\vec{F}$ is zero on $S$
+\item The line integral of $\vec{F}$ is independent of path in $S$
+\item $\vec{F}$ can be expressed as a gradient of a scalar function on $S$
+\item The line integral of $\vec{F}$ is zero around any piecewise smooth closed path in $S$
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">Consider the differential equation
+$$
+\sin 2 x \frac{d y}{d x}=2 y+2 \cos x, y\left(\frac{\pi}{4}\right)=1-\sqrt{2}
+$$
+Then which of the following statement(s) is(are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item The solution is unbounded when $x \rightarrow 0$
+\item The solution is unbounded when $x \rightarrow \frac{\pi}{2}$
+\item The solution is bounded when $x \rightarrow 0$
+\item The solution is bounded when $x \rightarrow \frac{\pi}{2}$
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Which of the following statement(s) is(are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item There exists a connected set in $\mathbb{R}$ which is not compact
+
+\item Arbitrary umion of closed intervals in $\mathbb{R}$ need not be compact
+
+\item Arbitrary union of closed intervals in $\mathbb{R}$ is always closed
+
+\item Every bounded infinite subset $V$ of $\mathbb{R}$ has a limit point in $V$ itself
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let $P(x)=\left(\frac{5}{13}\right)^{x}+\left(\frac{12}{13}\right)^{x}-1$ for all $x \in \mathbb{R}$. Then which of the following statement(s) is(are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item The equation $P(x)=0$ has exactly one solution in $\mathbb{R}$
+\item $P(x)$ is strictly increasing for all $x \in \mathbb{R}$
+\item The equation $P(x)=0$ has exactly two solutions in $\mathbb{R}$
+\item $P(x)$ is strictly decreasing for all $x \in \mathbb{R}$
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">Let $G$ be a finite group and $o(G)$ denotes its order. Then which of the following statement( $s)$ is(are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $G$ is abelian if $o(G)=p q$ where $p$ and $q$ are distinct primes
+\item $G$ is abelian if every non identity element of $G$ is of order 2
+\item $G$ is abelian if the quotient group $\frac{G}{z(G)}$ is cyclic, where $Z(G)$ is the center of $G$
+\item $G$ is abelian if $o(G)=p^{3}$, where $p$ is prime
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Consider the set $V=\left\{\left[\begin{array}{l}x \\ y \\ z\end{array}\right] \in \mathbb{R}^{3} \mid \alpha x+\beta y+z=\gamma, \alpha, \beta, \gamma \in \mathbb{R}\right\}$. For which of the following choice(s) the set $V$ becomes a two dimensional subspace of $\mathbb{R}^{3}$ over $\mathbb{R}$ ?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\alpha=0, \beta=1, \gamma=0$
+\item $\alpha=0, \beta=1, \gamma=1$
+\item $\alpha=1, \beta=0, \gamma=0$
+\item $\alpha=1, \beta=1, \gamma=0$
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $S=\left\{\frac{1}{3^{n}}+\frac{1}{7^{m}} \mid n, m \in \mathbb{N}\right\}$. Then which of the following statement(s) is(are) TRUE?
+\begin{enumerate}[label=(\alph*)]
+    \item $S$ is closed
+\item $S$ is not open
+\item $S$ is connected
+\item 0 is a limit point of $S$
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">Let $\left\{s_{n}\right\}$ be a sequence of real numbers given by
+$$
+s_{n}=2^{(-1)^{n}}\left(1-\frac{1}{n}\right) \sin \frac{n \pi}{2}, \quad n \in \mathbb{N} .
+$$
+Then the least upper bound of the sequence $\left\{s_{n}\right\}$ is \rule{3cm}{1pt}.
+\hfill [JAM 2015]</span></li><li><b>42</b> <span class="qbody">Let $\left\{s_{k}\right\}$ be a sequence of real numbers, where
+
+Then
+$$
+\begin{gathered}
+s_{k}=k^{\alpha / k}, \quad k \geq 1, \quad \alpha&gt;0 . \\
+\lim _{n \rightarrow \infty}\left(s_{1} s_{2} \ldots s_{n}\right)^{1 / n}
+\end{gathered}
+$$</span></li><li><b>43</b> <span class="qbody">Let $x=\left[\begin{array}{l}x_{1} \\ x_{2} \\ x_{3}\end{array}\right] \in \mathbb{R}^{3}$ be a non-zero vector and $A=\frac{x x^{T}}{x^{\top} x}$. Then the dimension of the vector space $\left\{y \in \mathbb{R}^{3} \mid A y=0\right\}$ over $\mathbb{R}$ is \rule{3cm}{1pt}.</span></li><li><b>44</b> <span class="qbody">Let $f$ be a real valued function defined by
+$$
+f(x, y)=2 \ln \left(x^{2} y^{2} e^{\frac{y}{x}}\right), \quad x&gt;0, y&gt;0.
+$$
+Then the value of $x \frac{\partial f}{\partial x}+y \frac{\partial f}{\partial y}$ at any point $(x, y)$, where $x&gt;0, y&gt;0$, is \rule{3cm}{1pt}.</span></li><li><b>45</b> <span class="qbody">Let $\vec{F}=\sqrt{x} \hat{\imath}+\left(x+y^{3}\right) \hat{\jmath}$ be a vector field for all $(x, y)$ with $x \geq 0$ and $\vec{r}=x \hat{\imath}+y \hat{y}$. Then the value of the line integral $\int_{C} \vec{F} \cdot d \vec{r}$ from $(0,0)$ to $(1,1)$ along the path C: $x=t^{2}, y=t^{3}, 0 \leq t \leq 1$ is \rule{3cm}{1pt}.</span></li><li><b>46</b> <span class="qbody">If $f:(-1, \infty) \rightarrow \mathbb{R}$ defined by $f(x)=\frac{x}{1+x}$ is expressed as
+$$
+f(x)=\frac{2}{3}+\frac{1}{9}(x-2)+\frac{c(x-2)^{2}}{(1+\xi)^{3}},
+$$
+where $\xi$ lies between 2 and $x$, then the value of $c$ is</span></li><li><b>47</b> <span class="qbody">Let $y_{1}(x), y_{2}(x)$ and $y_{3}(x)$ be linearly independent solutions of the differential equation
+$$
+\frac{d^{3} y}{d x^{3}}-6 \frac{d^{2} y}{d x^{2}}+11 \frac{d y}{d x}-6 y=0 .
+$$
+If the Wronskian $W\left(y_{1}, y_{2}, y_{3}\right)$ is of the form $k e^{b x}$ for some constant $k$, then the value of $b$ is \rule{3cm}{1pt}.</span></li><li><b>48</b> <span class="qbody">The radius of convergence of the power series
+$$
+\sum_{n=1}^{\infty} \frac{(-4)^{n}}{n(n+1)}(x+2)^{2 n}
+$$
+is  \rule{3cm}{1pt}.</span></li><li><b>49</b> <span class="qbody">Let $f:(0, \infty) \rightarrow \mathbb{R}$ be a continuous function such that
+$$
+\int_{0}^{x} f(t) d t=-2+\frac{x^{2}}{2}+4 x \sin 2 x+2 \cos 2 x
+$$
+Then the value of $\frac{1}{\pi} f\left(\frac{\pi}{4}\right)$ is \rule{3cm}{1pt}.</span></li><li><b>50</b> <span class="qbody">Let $G$ be a cyclic group of order 12 . Then the number of non-isomorphic subgroups of $G$ is \rule{3cm}{1pt}.</span></li><li><b>51</b> <span class="qbody">The value of $\lim _{n \rightarrow \infty}\left(8 n-\frac{1}{n}\right)^{\frac{(-1)^{n}}{n^{2}}}$ is equal to \rule{3cm}{1pt}.</span></li><li><b>52</b> <span class="qbody">Let $R$ be the region enclosed by $x^{2}+4 y^{2} \geq 1$ and $x^{2}+y^{2} \leq 1$. Then the value of
+$$
+\iint_{R}|x y| d x d y 
+$$
+is  \rule{3cm}{1pt}.</span></li><li><b>53</b> <span class="qbody">Let
+$$
+M=\left[\begin{array}{ccc}
+\alpha &amp; 1 &amp; 1 \\
+1 &amp; \beta &amp; 1 \\
+1 &amp; 1 &amp; \gamma
+\end{array}\right], \quad \alpha \beta \gamma=1, \quad \alpha, \beta, \gamma \in \mathbb{R} \text { and } x=\left[\begin{array}{l}
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array}\right] \in \mathbb{R}^{3}
+$$
+Then $M x=0$ has infinitely many solutions if $\operatorname{trace}(M)$ is \rule{3cm}{1pt}.</span></li><li><b>54</b> <span class="qbody">Let $C$ be the boundary of the region enclosed by $y=x^{2}, y=x+2$, and $x=0$. Then the value of the line integral
+$$
+\oint_{C}\left(x y-y^{2}\right) d x-x^{3} d y
+$$
+where $C$ is traversed in the counter clockwise direction, is \rule{3cm}{1pt}.</span></li><li><b>55</b> <span class="qbody">Let $\mathrm{S}$ be the closed surface forming the boundary of the region $\mathrm{V}$ bounded by $x^{2}+y^{2}=3$,
+$z=0, z=6$. A vector field $\vec{F}$ is defined over $\mathrm{V}$ with $\nabla \cdot \vec{F}=2 y+z+1$. Then the value of
+$$
+\frac{1}{\pi} \iint_{S} \vec{F} \cdot \hat{n} d s,
+$$
+
+where $\hat{n}$ is the unit outward drawn normal to the surface $S$, is  \rule{3cm}{1pt}.</span></li><li><b>56</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation
+$$
+\frac{d^{2} y}{d x^{2}}+5 \frac{d y}{d x}+6 y=0, \quad y(0)=1,\left.\quad \frac{d y}{d x}\right|_{x=0}=-1 .
+$$
+Then $y(x)$ attains its maximum value at $x=$ \rule{3cm}{1pt}.</span></li><li><b>57</b> <span class="qbody">The value of the double integral
+
+$$
+\int_{0}^{\pi} \int_{0}^{x} \frac{\sin y}{\pi-y} d y d x
+$$ 
+is \rule{3cm}{1pt}.</span></li><li><b>58</b> <span class="qbody">Let $H$ denote the group of all $2 \times 2$ invertible matrices over $\mathrm{Z}_{5}$ under usual matrix multiplication.
+
+Then the order of the matrix $\left[\begin{array}{ll}2 &amp; 3 \\ 1 &amp; 2\end{array}\right]$ in $H$ is \rule{3cm}{1pt}.</span></li><li><b>59</b> <span class="qbody">Let $A=\left[\begin{array}{rrr}1 &amp; 2 &amp; 0 \\ -1 &amp; 5 &amp; 2\end{array}\right], B=\left[\begin{array}{rr}1 &amp; 2 \\ -1 &amp; 0 \\ 3 &amp; 1\end{array}\right], N(A)$ the null space of $A$ and $R(B)$ the range space of $B$.
+
+Then the dimension of $N(A) \cap R(B)$ over $\mathbb{R}$ is \rule{3cm}{1pt}.</span></li><li><b>60</b> <span class="qbody">The maximum value of $f(x, y)=x^{2}+2 y^{2}$ subject to the constraint $y-x^{2}+1=0$ is \rule{3cm}{1pt}.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

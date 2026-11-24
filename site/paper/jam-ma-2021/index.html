@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2021 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2021.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2021/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2021 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2021.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2021/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="176" height="34"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="176" height="34"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2021</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Let $0&lt;\alpha&lt;1$ be a real number. The number of differentiable functions $y:[0,1] \rightarrow[0, \infty)$, having continuous derivative on $[0,1]$ and satisfying
+$$
+\begin{aligned}
+&amp;y^{\prime}(t)=(y(t))^{\alpha}, \quad t \in[0,1], \\
+&amp;y(0)=0
+\end{aligned}
+$$
+is
+\begin{enumerate}[label=(\alph*)]
+    \item exactly one.
+\item exactly two.
+\item finite but more than two.
+\item infinite.
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $P: \mathbb{R} \rightarrow \mathbb{R}$ be a continuous function such that $P(x)&gt;0$ for all $x \in \mathbb{R}$. Let $y$ be a twice differentiable function on $\mathbb{R}$ satisfying $y^{\prime \prime}(x)+P(x) y^{\prime}(x)-y(x)=0$ for all $x \in \mathbb{R}$. Suppose that there exist two real numbers $a, b(a&lt;b)$ such that $y(a)=y(b)=0$. Then
+
+\begin{enumerate}[label=(\alph*)]
+    \item $y(x)=0$ for all $x \in[a, b]$.
+\item $y(x)&gt;0$ for all $x \in(a, b)$.
+\item $y(x)&lt;0$ for all $x \in(a, b)$.
+\item $y(x)$ changes sign on $(a, b)$.
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a continuous function satisfying $f(x)=f(x+1)$ for all $x \in \mathbb{R}$. Then
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ is not necessarily bounded above.
+\item there exists a unique $x_{0} \in \mathbb{R}$ such that $f\left(x_{0}+\pi\right)=f\left(x_{0}\right)$.
+\item there is no $x_{0} \in \mathbb{R}$ such that $f\left(x_{0}+\pi\right)=f\left(x_{0}\right)$.
+\item there exist infinitely many $x_{0} \in \mathbb{R}$ such that $f\left(x_{0}+\pi\right)=f\left(x_{0}\right)$. 
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a continuous function such that for all $x \in \mathbb{R}$,
+$$
+\int_{0}^{1} f(x t) d t=0
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ must be identically 0 on the whole of $\mathbb{R}$.
+\item there is an $f$ satisfying $(*)$ that is identically 0 on $(0,1)$ but not identically 0 on the whole of $\mathbb{R}$.
+\item there is an $f$ satisfying $(*)$ that takes both positive and negative values.
+\item there is an $f$ satisfying $(*)$ that is 0 at infinitely many points, but is not identically zero.
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $p$ and $t$ be positive real numbers. Let $D_{t}$ be the closed disc of radius $t$ centered at $(0,0)$, i.e., $D_{t}=\left\{(x, y) \in \mathbb{R}^{2}: x^{2}+y^{2} \leq t^{2}\right\}$. Define
+$$
+I(p, t)=\iint_{D_{t}} \frac{d x d y}{\left(p^{2}+x^{2}+y^{2}\right)^{p}}
+$$
+Then $\lim _{t \rightarrow \infty} I(p, t)$ is finite
+\begin{enumerate}[label=(\alph*)]
+    
+\item only if $p&gt;1$.
+\item only if $p=1$.
+\item only if $p&lt;1$.
+\item for no value of $p$.
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">How many elements of the group $\mathbb{Z}_{50}$ have order 10 ?
+\begin{enumerate}[label=(\alph*)]
+    \item 10
+\item 4
+\item 5
+\item 8 
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">For every $n \in \mathbb{N}$, let $f_{n}: \mathbb{R} \rightarrow \mathbb{R}$ be a function. From the given choices, pick the statement that is the negation of
+
+&quot;For every $x \in \mathbb{R}$ and for every real number $\epsilon&gt;0$, there exists an integer $N&gt;0$ such that $\sum_{i=1}^{p}\left|f_{N+i}(x)\right|&lt;\epsilon$ for every integer $p&gt;0 . &quot;$
+
+\begin{enumerate}[label=(\alph*)]
+    \item For every $x \in \mathbb{R}$ and for every real number $\epsilon&gt;0$, there does not exist any integer $N&gt;0$ such that $\sum_{i=1}^{p}\left|f_{N+i}(x)\right|&lt;\epsilon$ for every integer $p&gt;0$.
+
+\item For every $x \in \mathbb{R}$ and for every real number $\epsilon&gt;0$, there exists an integer $N&gt;0$ such that $\sum_{i=1}^{p}\left|f_{N+i}(x)\right| \geq \epsilon$ for some integer $p&gt;0$
+
+\item There exists $x \in \mathbb{R}$ and there exists a real number $\epsilon&gt;0$ such that for every integer $N&gt;0$, there exists an integer $p&gt;0$ for which the inequality $\sum_{i=1}^{p}\left|f_{N+i}(x)\right| \geq \epsilon$ holds.
+
+\item There exists $x \in \mathbb{R}$ and there exists a real number $\epsilon&gt;0$ such that for every integer $N&gt;0$ and for every integer $p&gt;0$ the inequality $\sum_{i=1}^{p}\left|f_{N+i}(x)\right| \geq \epsilon$ holds.
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">Which one of the following subsets of $\mathbb{R}$ has a non-empty interior?
+\begin{enumerate}[label=(\alph*)]
+    
+\item The set of all irrational numbers in $\mathbb{R}$.
+\item The set $\{a \in \mathbb{R}: \sin (a)=1\}$.
+\item The set $\left\{b \in \mathbb{R}: x^{2}+b x+1=0\right.$ has distinct roots $\}$.
+\item The set of all rational numbers in $\mathbb{R}$.
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">For an integer $k \geq 0$, let $P_{k}$ denote the vector space of all real polynomials in one variable of degree less than or equal to $k$. Define a linear transformation $T: P_{2} \longrightarrow P_{3}$ by
+$$
+T f(x)=f^{\prime \prime}(x)+x f(x) .
+$$
+Which one of the following polynomials is not in the range of $T ?$
+\begin{enumerate}[label=(\alph*)]
+\item $x+x^{2}$
+\item $x^{2}+x^{3}+2$
+\item $x+x^{3}+2$
+\item $x+1$
+\end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $n&gt;1$ be an integer. Consider the following two statements for an arbitrary $n \times n$ matrix $A$ with complex entries.
+
+I. If $A^{k}=I_{n}$ for some integer $k \geq 1$, then all the eigenvalues of $A$ are $k^{\text {th }}$ roots of unity.
+
+II. If, for some integer $k \geq 1$, all the eigenvalues of $A$ are $k^{\text {th }}$ roots of unity, then $A^{k}=I_{n}$.
+
+Then
+\begin{enumerate}[label=(\alph*)]
+\item both I and II are TRUE.
+\item I is TRUE but II is FALSE.
+\item I is FALSE but II is TRUE.
+\item neither I nor II is TRUE.
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $M_{n}(\mathbb{R})$ be the real vector space of all $n \times n$ matrices with real entries, $n \geq 2$.
+
+Let $A \in M_{n}(\mathbb{R})$. Consider the subspace $W$ of $M_{n}(\mathbb{R})$ spanned by $\left\{I_{n}, A, A^{2}, \ldots\right\}$. Then the dimension of $W$ over $\mathbb{R}$ is necessarily
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\infty$.
+\item $n^{2}$
+\item $n$.
+\item at most $n$.
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $y$ be the solution of
+$$
+\begin{gathered}
+(1+x) y^{\prime \prime}(x)+y^{\prime}(x)-\frac{1}{1+x} y(x)=0, \quad x \in(-1, \infty) \\
+y(0)=1, y^{\prime}(0)=0
+\end{gathered}
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    
+\item $y$ is bounded on $(0, \infty)$
+\item $y$ is bounded on $(-1,0]$
+\item $y(x) \geq 2$ on $(-1, \infty)$
+\item $y$ attains its minimum at $x=0$.
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">Consider the surface $S=\left\{(x, y, x y) \in \mathbb{R}^{3}: x^{2}+y^{2} \leq 1\right\}$. Let $\vec{F}=y \hat{i}+x \hat{j}+\hat{k}$. If $\hat{n}$ is the continuous unit normal field to the surface $S$ with positive $z$-component, then
+$$
+\iint_{S} \vec{F} \cdot \hat{n} d S
+$$
+equals
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{\pi}{4}$.
+\item $\frac{\pi}{2}$.
+\item $\pi$.
+\item $2 \pi$
+\end{enumerate}</span></li><li><b>14</b> <span class="qbody">Consider the following statements.
+
+I. The group $(\mathbb{Q},+)$ has no proper subgroup of finite index.
+
+II. The group $(\mathbb{C} \backslash\{0\}, \cdot)$ has no proper subgroup of finite index.
+
+Which one of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item Both I and II are TRUE.
+\item I is TRUE but II is FALSE.
+\item II is TRUE but I is FALSE.
+\item Neither I nor II is TRUE.
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">Let $f: \mathbb{N} \rightarrow \mathbb{N}$ be a bijective map such that
+$$
+\sum_{n=1}^{\infty} \frac{f(n)}{n^{2}}&lt;+\infty
+$$
+The number of such bijective maps is
+\begin{enumerate}[label=(\alph*)]
+    
+\item exactly one.
+\item zero.
+\item finite but more than one.
+\item infinite.
+\end{enumerate}</span></li><li><b>16</b> <span class="qbody">Define
+$$
+S=\lim _{n \rightarrow \infty}\left(1-\frac{1}{2^{2}}\right)\left(1-\frac{1}{3^{2}}\right) \cdots\left(1-\frac{1}{n^{2}}\right) .
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item $S=1 / 2$.
+\item $S=1 / 4$
+\item $S=1$.
+\item $S=3 / 4$.
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be an infinitely differentiable function such that for all $a, b \in \mathbb{R}$ with $a&lt;b$,
+$$
+\frac{f(b)-f(a)}{b-a}=f^{\prime}\left(\frac{a+b}{2}\right) .
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ must be a polynomial of degree less than or equal to 2 .
+\item $f$ must be a polynomial of degree greater than 2.
+\item $f$ is not a polynomial.
+\item $f$ must be a linear polynomial. 
+
+\end{enumerate}</span></li><li><b>18</b> <span class="qbody">Consider the function
+$$
+f(x)=\left\{\begin{array}{cl}
+1 &amp; \text { if } x \in(\mathbb{R} \backslash \mathbb{Q}) \cup\{0\} \\
+1-\frac{1}{p} &amp; \text { if } x=\frac{n}{p}, n \in \mathbb{Z} \backslash\{0\}, p \in \mathbb{N} \text { and } \operatorname{gcd}(n, p)=1
+\end{array}\right.
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item all $x \in \mathbb{Q} \backslash\{0\}$ are strict local minima for $f$.
+\item $f$ is continuous at all $x \in \mathbb{Q}$.
+\item $f$ is not continuous at all $x \in \mathbb{R} \backslash \mathbb{Q}$.
+\item $f$ is not continuous at $x=0$.
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Consider the family of curves $x^{2}-y^{2}=k y$ with parameter $k \in \mathbb{R}$. The equation of the orthogonal trajectory to this family passing through $(1,1)$ is given by
+\begin{enumerate}[label=(\alph*)]
+    
+\item $x^{3}+3 x y^{2}=4$.
+\item $x^{2}+2 x y=3$.
+\item $y^{2}+2 x^{2} y=3$.
+\item $x^{3}+2 x y^{2}=3$
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">Which one of the following statements is true?
+\begin{enumerate}[label=(\alph*)]
+    \item Exactly half of the elements in any even order subgroup of $S_{5}$ must be even permutations.
+\item Any abelian subgroup of $S_{5}$ is trivial.
+\item There exists a cyclic subgroup of $S_{5}$ of order 6.
+\item There exists a normal subgroup of $S_{5}$ of index 7.
+\end{enumerate}</span></li><li><b>21</b> <span class="qbody">Let $f:[0,1] \rightarrow[0, \infty)$ be a continuous function such that
+$$
+(f(t))^{2}&lt;1+2 \int_{0}^{t} f(s) d s, \text { for all } t \in[0,1] .
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item $f(t)&lt;1+t$ for all $t \in[0,1]$.
+\item $f(t)&gt;1+t$ for all $t \in[0,1]$.
+\item $f(t)=1+t$ for all $t \in[0,1]$.
+\item $f(t)&lt;1+\frac{t}{2}$ for all $t \in[0,1]$.
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $A$ be an $n \times n$ invertible matrix and $C$ be an $n \times n$ nilpotent matrix. If $X=\left(\begin{array}{ll}X_{11} &amp; X_{12} \\ X_{21} &amp; X_{22}\end{array}\right)$ is a $2 n \times 2 n$ matrix (each $X_{i j}$ being $n \times n$ ) that commutes with the $2 n \times 2 n$ matrix $B=$ $\left(\begin{array}{ll}A &amp; 0 \\ 0 &amp; C\end{array}\right)$, then
+\begin{enumerate}[label=(\alph*)]
+    
+\item $X_{11}$ and $X_{22}$ are necessarily zero matrices.
+\item $X_{12}$ and $X_{21}$ are necessarily zero matrices.
+\item $X_{11}$ and $X_{21}$ are necessarily zero matrices.
+\item $X_{12}$ and $X_{22}$ are necessarily zero matrices.
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $D \subseteq \mathbb{R}^{2}$ be defined by $D=\mathbb{R}^{2} \backslash\{(x, 0): x \in \mathbb{R}\}$. Consider the function $f: D \rightarrow \mathbb{R}$ defined by
+$$
+f(x, y)=x \sin \frac{1}{y} .
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ is a discontinuous function on $D$.
+\item $f$ is a continuous function on $D$ and cannot be extended continuously to any point outside D.
+\item $f$ is a continuous function on $D$ and can be extended continuously to $D \cup\{(0,0)\}$.
+\item $f$ is a continuous function on $D$ and can be extended continuously to the whole of $\mathbb{R}^{2}$.
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">Which one of the following statements is true?
+
+\begin{enumerate}[label=(\alph*)]
+\item $(\mathbb{Z},+)$ is isomorphic to $(\mathbb{R},+)$.
+\item $(\mathbb{Z},+)$ is isomorphic to $(\mathbb{Q},+)$.
+\item $(\mathbb{Q} / \mathbb{Z},+)$ is isomorphic to $(\mathbb{Q} / 2 \mathbb{Z},+)$.
+\item $(\mathbb{Q} / \mathbb{Z},+)$ is isomorphic to $(\mathbb{Q},+)$.
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $y$ be a twice differentiable function on $\mathbb{R}$ satisfying
+$$
+\begin{aligned}
+&amp;y^{\prime \prime}(x)=2+e^{-|x|}, \quad x \in \mathbb{R}, \\
+&amp;y(0)=-1, \quad y^{\prime}(0)=0
+\end{aligned}
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+    \item $y=0$ has exactly one root.
+\item $y=0$ has exactly two roots.
+\item $y=0$ has more than two roots.
+\item there exists an $x_{0} \in \mathbb{R}$ such that $y\left(x_{0}\right) \geq y(x)$ for all $x \in \mathbb{R}$.
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">Let $f:[0,1] \rightarrow[0,1]$ be a non-constant continuous function such that $f \circ f=f$. Define
+$$
+E_{f}=\{x \in[0,1]: f(x)=x\} .
+$$
+Then
+\begin{enumerate}[label=(\alph*)]
+\item $E_{f}$ is neither open nor closed.
+\item $E_{f}$ is an interval.
+\item $E_{f}$ is empty.
+\item $E_{f}$ need not be an interval.
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">Let $g$ be an element of $S_{7}$ such that $g$ commutes with the element $(2,6,4,3)$. The number of such $g$ is
+\begin{enumerate}[label=(\alph*)]
+    
+\item 6.
+\item 4.
+\item 24.
+\item 48.
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">Let $G$ be a finite abelian group of odd order. Consider the following two statements:
+
+I. The map $f: G \rightarrow G$ defined by $f(g)=g^{2}$ is a group isomorphism.
+
+II. The product $\prod_{g \in G} g=e$.
+\begin{enumerate}[label=(\alph*)]
+\item Both I and II are TRUE.
+\item I is TRUE but II is FALSE.
+\item II is TRUE but I is FALSE.
+\item Neither I nor II is TRUE. 
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">Let $n \geq 2$ be an integer. Let $A: \mathbb{C}^{n} \longrightarrow \mathbb{C}^{n}$ be the linear transformation defined by
+$$
+A\left(z_{1}, z_{2}, \ldots, z_{n}\right)=\left(z_{n}, z_{1}, z_{2}, \ldots, z_{n-1}\right)
+$$
+Which one of the following statements is true for every $n \geq 2$ ?
+\begin{enumerate}[label=(\alph*)]
+    \item $A$ is nilpotent.
+\item All eigenvalues of $A$ are of modulus 1 .
+\item Every eigenvalue of $A$ is either 0 or 1 .
+\item $A$ is singular.
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">Consider the two series
+$$
+\text { I. } \sum_{n=1}^{\infty} \frac{1}{n^{1+(1 / n)}} \text { and II. } \sum_{n=1}^{\infty} \frac{1}{n^{2-n^{1 / n}}} \text {. }
+$$
+Which one of the following holds?
+\begin{enumerate}[label=(\alph*)]
+    \item Both I and II converge.
+\item Both I and II diverge.
+\item I converges and II diverges.
+\item I diverges and II converges.
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a function with the property that for every $y \in \mathbb{R}$, the value of the expression
+$$
+\sup _{x \in \mathbb{R}}[x y-f(x)]
+$$
+is finite. Define $g(y)=\sup _{x \in \mathbb{R}}[x y-f(x)]$ for $y \in \mathbb{R}$. Then
+\begin{enumerate}[label=(\alph*)]
+    \item $g$ is even if $f$ is even.
+\item $f$ must satisfy $\lim _{|x| \rightarrow \infty} \frac{f(x)}{|x|}=+\infty$
+\item $g$ is odd if $f$ is even.
+\item $f$ must satisfy $\lim _{|x| \rightarrow \infty} \frac{f(x)}{|x|}=-\infty$.
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">Consider the equation
+$$
+x^{2021}+x^{2020}+\cdots+x-1=0 .
+$$
+Then
+
+\begin{enumerate}[label=(\alph*)]
+\item all real roots are positive.
+\item exactly one real root is positive.
+\item exactly one real root is negative.
+\item no real root is positive.
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $D=\mathbb{R}^{2} \backslash\{(0,0)\}$. Consider the two functions $u, v: D \rightarrow \mathbb{R}$ defined by
+$$
+u(x, y)=x^{2}-y^{2} \text { and } v(x, y)=x y .
+$$
+Consider the gradients $\nabla u$ and $\nabla v$ of the functions $u$ and $v$, respectively. Then
+
+\begin{enumerate}[label=(\alph*)]
+
+
+\item $\nabla u$ and $\nabla v$ are parallel at each point $(x, y)$ of $D$.
+\item $\nabla u$ and $\nabla v$ are perpendicular at each point $(x, y)$ of $D$.
+\item $\nabla u$ and $\nabla v$ do not exist at some points $(x, y)$ of $D$.
+\item $\nabla u$ and $\nabla v$ at each point $(x, y)$ of $D$ span $\mathbb{R}^{2}$. 
+
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">Consider the two functions $f(x, y)=x+y$ and $g(x, y)=x y-16$ defined on $\mathbb{R}^{2}$. Then
+
+\begin{enumerate}[label=(\alph*)]
+\item the function $f$ has no global extreme value subject to the condition $g=0$.
+\item the function $f$ attains global extreme values at $(4,4)$ and $(-4,-4)$ subject to the condition $g=0$.
+\item the function $g$ has no global extreme value subject to the condition $f=0$.
+\item the function $g$ has a global extreme value at $(0,0)$ subject to the condition $f=0$.
+
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">Let $f:(a, b) \rightarrow \mathbb{R}$ be a differentiable function on $(a, b)$. Which of the following statements is/are true?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $f^{\prime}&gt;0$ in $(a, b)$ implies that $f$ is increasing in $(a, b)$.
+\item $f$ is increasing in $(a, b)$ implies that $f^{\prime}&gt;0$ in $(a, b)$.
+\item If $f^{\prime}\left(x_{0}\right)&gt;0$ for some $x_{0} \in(a, b)$, then there exists a $\delta&gt;0$ such that $f(x)&gt;f\left(x_{0}\right)$ for all $x \in\left(x_{0}, x_{0}+\delta\right)$.
+\item If $f^{\prime}\left(x_{0}\right)&gt;0$ for some $x_{0} \in(a, b)$, then $f$ is increasing in a neighbourhood of $x_{0}$.
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Let $G$ be a finite group of order 28 . Assume that $G$ contains a subgroup of order 7 . Which of the following statements is/are true?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $G$ contains a unique subgroup of order 7.
+\item $G$ contains a normal subgroup of order 7.
+\item $G$ contains no normal subgroup of order 7.
+\item $G$ contains at least two subgroups of order 7.
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Which of the following subsets of $\mathbb{R}$ is/are connected?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item The set $\{x \in \mathbb{R}: x$ is irrational $\}$.
+\item The set $\left\{x \in \mathbb{R}: x^{3}-1 \geq 0\right\}$.
+\item The set $\left\{x \in \mathbb{R}: x^{3}+x+1 \geq 0\right\}$.
+\item The set $\left\{x \in \mathbb{R}: x^{3}-2 x+1 \geq 0\right\}$.
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">Consider the four functions from $\mathbb{R}$ to $\mathbb{R}$ :
+$$
+f_{1}(x)=x^{4}+3 x^{3}+7 x+1, \quad f_{2}(x)=x^{3}+3 x^{2}+4 x, \quad f_{3}(x)=\arctan (x)
+$$
+and
+$$
+f_{4}(x)= \begin{cases}x &amp; \text { if } x \notin \mathbb{Z} \\ 0 &amp; \text { if } x \in \mathbb{Z}\end{cases}
+$$
+Which of the following subsets of $\mathbb{R}$ are open?
+
+\begin{enumerate}[label=(\alph*)]
+\item The range of $f_{1}$.
+\item The range of $f_{2}$.
+\item The range of $f_{3}$.
+\item The range of $f_{4}$.
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Let $V$ be a finite dimensional vector space and $T: V \rightarrow V$ be a linear transformation. Let $\mathcal{R}(T)$ denote the range of $T$ and $\mathcal{N}(T)$ denote the null space $\{v \in V: T v=0\}$ of $T$. If $\operatorname{rank}(T)=\operatorname{rank}\left(T^{2}\right)$, then which of the following is/are necessarily true?
+
+\begin{enumerate}[label=(\alph*)]
+\item $\mathcal{N}(T)=\mathcal{N}\left(T^{2}\right)$
+\item $\mathcal{R}(T)=\mathcal{R}\left(T^{2}\right)$
+\item $\mathcal{N}(T) \cap \mathcal{R}(T)=\{0\}$
+\item $\mathcal{N}(T)=\{0\}$
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $m&gt;1$ and $n&gt;1$ be integers. Let $A$ be an $m \times n$ matrix such that for some $m \times 1$ matrix $b_{1}$, the equation $A x=b_{1}$ has infinitely many solutions. Let $b_{2}$ denote an $m \times 1$ matrix different from $b_{1}$. Then $A x=b_{2}$ has
+
+\begin{enumerate}[label=(\alph*)]
+
+\item infinitely many solutions for some $b_{2}$.
+\item a unique solution for some $b_{2}$.
+\item no solution for some $b_{2}$.
+\item finitely many solutions for some $b_{2}$.
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">The number of cycles of length 4 in $S_{6}$ is</span></li><li><b>42</b> <span class="qbody">The value of
+$$
+\lim _{n \rightarrow \infty}\left(3^{n}+5^{n}+7^{n}\right)^{\frac{1}{n}}
+$$
+is \rule{3cm}{1pt}</span></li><li><b>43</b> <span class="qbody">Let $B=\left\{(x, y, z) \in \mathbb{R}^{3}: x^{2}+y^{2}+z^{2} \leq 1\right\}$ and define $u(x, y, z)=\sin \left(\left(1-x^{2}-y^{2}-z^{2}\right)^{2}\right)$ for $(x, y, z) \in B$. Then the value of
+$$
+\iiint_{B}\left(\frac{\partial^{2} u}{\partial x^{2}}+\frac{\partial^{2} u}{\partial y^{2}}+\frac{\partial^{2} u}{\partial z^{2}}\right) d x d y d z
+$$
+is \rule{3cm}{1pt}</span></li><li><b>44</b> <span class="qbody">Consider the subset $S=\left\{(x, y): x^{2}+y^{2}&gt;0\right\}$ of $\mathbb{R}^{2}$. Let
+$$
+P(x, y)=\frac{y}{x^{2}+y^{2}} \text { and } Q(x, y)=-\frac{x}{x^{2}+y^{2}}
+$$
+for $(x, y) \in S$. If $C$ denotes the unit circle traversed in the counter-clockwise direction, then the value of
+$$
+\frac{1}{\pi} \int_{C}(P d x+Q d y)
+$$
+is \rule{3cm}{1pt}</span></li><li><b>45</b> <span class="qbody">Consider the set $A=\left\{a \in \mathbb{R}: x^{2}=a(a+1)(a+2)\right.$ has a real root $\}$. The number of connected components of $A$ is \rule{3cm}{1pt}</span></li><li><b>46</b> <span class="qbody">Let $V$ be the real vector space of all continuous functions $f:[0,2] \rightarrow \mathbb{R}$ such that the restriction of $f$ to the interval $[0,1]$ is a polynomial of degree less than or equal to 2 , the restriction of $f$ to the interval [1,2] is a polynomial of degree less than or equal to 3 and $f(0)=0$. Then the dimension of $V$ is equal to</span></li><li><b>47</b> <span class="qbody">The number of group homomorphisms from the group $\mathbb{Z}_{4}$ to the group $S_{3}$ is \rule{3cm}{1pt}</span></li><li><b>48</b> <span class="qbody">Let $y:\left(\frac{9}{10}, 3\right) \rightarrow \mathbb{R}$ be a differentiable function satisfying
+$$
+(x-2 y) \frac{d y}{d x}+(2 x+y)=0, \quad x \in\left(\frac{9}{10}, 3\right), \quad \text { and } y(1)=1 .
+$$
+Then $y(2)$ equals \rule{3cm}{1pt}</span></li><li><b>49</b> <span class="qbody">Let $\vec{F}=(y+1) e^{y} \cos (x) \hat{i}+(y+2) e^{y} \sin (x) \hat{j}$ be a vector field in $\mathbb{R}^{2}$ and $C$ be a continuously differentiable path with the starting point $(0,1)$ and the end point $\left(\frac{\pi}{2}, 0\right)$. Then
+$$
+\int_{C} \vec{F} \cdot d \vec{r}
+$$
+equals \rule{3cm}{1pt}</span></li><li><b>50</b> <span class="qbody">The value of
+$$
+\frac{\pi}{2} \lim _{n \rightarrow \infty} \cos \left(\frac{\pi}{4}\right) \cos \left(\frac{\pi}{8}\right) \cdots \cos \left(\frac{\pi}{2^{n+1}}\right)
+$$
+is \rule{3cm}{1pt}</span></li><li><b>51</b> <span class="qbody">The number of elements of order two in the group $S_{4}$ is equal to \rule{3cm}{1pt}</span></li><li><b>52</b> <span class="qbody">The least possible value of $k$, accurate up to two decimal places, for which the following problem
+$$
+\begin{array}{r}
+y^{\prime \prime}(t)+2 y^{\prime}(t)+k y(t)=0, t \in \mathbb{R}, \\
+y(0)=0, y(1)=0, y(1 / 2)=1,
+\end{array}
+$$
+has a solution is \rule{3cm}{1pt}</span></li><li><b>53</b> <span class="qbody">Consider those continuous functions $f: \mathbb{R} \rightarrow \mathbb{R}$ that have the property that given any $x \in \mathbb{R}$,
+$$
+f(x) \in \mathbb{Q} \text { if and only if } f(x+1) \in \mathbb{R} \backslash \mathbb{Q}
+$$
+The number of such functions is \rule{3cm}{1pt}</span></li><li><b>54</b> <span class="qbody">The largest positive number $a$ such that
+$$
+\int_{0}^{5} f(x) d x+\int_{0}^{3} f^{-1}(x) d x \geq a
+$$
+for every strictly increasing surjective continuous function $f:[0, \infty) \rightarrow[0, \infty)$ is \rule{3cm}{1pt}</span></li><li><b>55</b> <span class="qbody">Define the sequence
+$$
+s_{n}= \begin{cases}\frac{1}{2^{n}} \sum_{j=0}^{n-2} 2^{2 j} &amp; \text { if } n&gt;0 \text { is even } \\ \frac{1}{2^{n}} \sum_{j=0}^{n-1} 2^{2 j} &amp; \text { if } n&gt;0 \text { is odd. }\end{cases}
+$$
+Define $\sigma_{m}=\frac{1}{m} \sum_{n=1}^{m} s_{n}$. The number of limit points of the sequence $\left\{\sigma_{m}\right\}$ is \rule{3cm}{1pt}</span></li><li><b>56</b> <span class="qbody">The determinant of the matrix
+$$
+\left(\begin{array}{llll}
+2021 &amp; 2020 &amp; 2020 &amp; 2020 \\
+2021 &amp; 2021 &amp; 2020 &amp; 2020 \\
+2021 &amp; 2021 &amp; 2021 &amp; 2020 \\
+2021 &amp; 2021 &amp; 2021 &amp; 2021
+\end{array}\right)
+$$
+is</span></li><li><b>57</b> <span class="qbody">The value of
+$$
+\lim _{n \rightarrow \infty} \int_{0}^{1} e^{x^{2}} \sin (n x) d x
+$$
+is \rule{3cm}{1pt}</span></li><li><b>58</b> <span class="qbody">Let $S$ be the surface defined by
+$$
+\left\{(x, y, z) \in \mathbb{R}^{3}: z=1-x^{2}-y^{2}, z \geq 0\right\} .
+$$
+Let $\vec{F}=-y \hat{i}+(x-1) \hat{j}+z^{2} \hat{k}$ and $\hat{n}$ be the continuous unit normal field to the surface $S$ with positive $z$-component. Then the value of
+$$
+\frac{1}{\pi} \iint_{S}(\nabla \times \vec{F}) \cdot \hat{n} d S
+$$
+is \rule{3cm}{1pt}</span></li><li><b>59</b> <span class="qbody">Let $A=\left(\begin{array}{rrr}2 &amp; -1 &amp; 3 \\ 2 &amp; -1 &amp; 3 \\ 3 &amp; 2 &amp; -1\end{array}\right)$. Then the largest eigenvalue of $A$ is</span></li><li><b>60</b> <span class="qbody">Let $A=\left(\begin{array}{cccc}1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; -1\end{array}\right)$. Consider the linear map $T_{A}$ from the real vector space $M_{4}(\mathbb{R})$ to itself defined by $T_{A}(X)=A X-X A$, for all $X \in M_{4}(\mathbb{R})$. The dimension of the range of $T_{A}$ is \rule{3cm}{1pt}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

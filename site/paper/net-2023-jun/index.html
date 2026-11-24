@@ -1,0 +1,960 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>CSIR-UGC NET · 7 June 2023 · VBMath</title>
+<meta name="description" content="117 questions from the VBMath transcription of CSIR-UGC NET · 7 June 2023.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/net-2023-jun/">
+<meta property="og:title" content="CSIR-UGC NET · 7 June 2023 · VBMath">
+<meta property="og:description" content="117 questions from the VBMath transcription of CSIR-UGC NET · 7 June 2023.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/net-2023-jun/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="176" height="34"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="176" height="34"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>CSIR-UGC NET · 7 June 2023</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">On a spherical globe of radius 10 units, the distance between $A$ and $B$ is 25 units. If it is uniformly expanded to a globe of radius 50 units, the distance between them in the same units would be
+    \begin{enumerate}[label=(\alph*)]
+        \item 75
+        \item 125
+        \item 150
+        \item 625
+    \end{enumerate}</span></li><li><b>2</b> <span class="qbody">The ratio of ages of a mother and daughter is 14:1 at present. After your years, the ratio of their ages will be 16:3. What was the age of mother when the daughter was born?
+    \begin{enumerate}[label=(\alph*)]
+        \item 26
+        \item 28
+        \item 30
+        \item 32
+    \end{enumerate}</span></li><li><b>3</b> <span class="qbody">In an examination containing 10 questions, each correct answer is awarded 2 marks, each incorrect answer is awarded -1 and each unattempted question is awarded zero. What of the following CANNOT be a possible score in the examination?
+    \begin{enumerate}[label=(\alph*)]
+        \item -9
+        \item -7
+        \item 17
+        \item 19
+    \end{enumerate}</span></li><li><b>4</b> <span class="qbody">If the speed of a train is increased by $20\%$, its travel time between two stations reduces by 2 hrs. If its speed is decreased by $20\%$, the travel time increases by $3 \mathrm{hrs}$. What is the normal duration of travel (in hrs)?
+    \begin{enumerate}[label=(\alph*)]
+        \item 11.5
+        \item 12.0
+        \item 13.2
+        \item 14.0
+    \end{enumerate}</span></li><li><b>5</b> <span class="qbody">An approximate diagram to depict the relationships between the categories INSECTS, BIRDS, EXTINCT ANIMALS and PEACOCKS is
+    \begin{enumerate}[label=(\alph*)]
+        \item 
+        \item 
+        \item 
+        \item 
+    \end{enumerate}</span></li><li><b>6</b> <span class="qbody">[9.] A person takes loan of Rs. 1,50,000 at a compound interest rate of $10\%$ per annum. If the loan is repaid at the end of the $3^{\text{rd}}$ year, what is the total interest paid?
+    \begin{enumerate}[label=(\alph*)]
+        \item 45000
+        \item 82600
+        \item 94600
+        \item 49650
+    \end{enumerate}</span></li><li><b>7</b> <span class="qbody">[10.] The figure shows map of a field bounded by $ABCDE$. If $AB$ and $DE$ are perpendicular to $AE$, then the perimeter of the field is
+    \begin{enumerate}[label=(\alph*)]
+        \item $70 \, \text{m}$
+        \item $75 \, \text{m}$
+        \item $80 \, \text{m}$
+        \item $85 \, \text{m}$
+    \end{enumerate}</span></li><li><b>8</b> <span class="qbody">[11.] A boy can escape through a window of size at least 4 feet. The 28 windows of a house are of sizes $2,3,4$ or 5 feet and their numbers are proportional to their sizes. The number of windows available for the boy to escape through is
+    \begin{enumerate}[label=(\alph*)]
+        \item 2
+        \item 9
+        \item 10
+        \item 18
+    \end{enumerate}</span></li><li><b>9</b> <span class="qbody">[12.] In a group of 7 people, 4 have exactly one sibling and 3 have exactly two siblings. Two people selected at random from the group, what is the probability that they are NOT sibling?
+    \begin{enumerate}[label=(\alph*)]
+        \item $5/21$
+        \item $16/21$
+        \item $3/7$
+        \item $4/7$
+    \end{enumerate}</span></li><li><b>10</b> <span class="qbody">[13.] Person A tells the truth $30\%$ of the times and B tells the truth $40\%$ of the times, independently. What is the minimum probability that they would contradict each other?
+    \begin{enumerate}[label=(\alph*)]
+        \item 0.18
+        \item 0.42
+        \item 0.46
+        \item 0.50
+    \end{enumerate}</span></li><li><b>11</b> <span class="qbody">[14.] Two datasets A and B have the same mean. Which of the following MUST be true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Sum of the observations in $A=$ Sum of the observations in $B$
+        \item Mean of the squares of the observations in $A=$ Mean of the squares of the observations in $B$
+        \item If the two datasets are combined, then the mean of the combined dataset $=$ mean of $A+$ mean of $B$
+        \item If the two datasets are combined, then the mean of the combined dataset $=$ mean of $A$
+    \end{enumerate}</span></li><li><b>12</b> <span class="qbody">[15.] In an assembly selection, parties A, B, C, D and E won 30, 25, 20, 10 and 4 seats, respectively; whereas independents won 9 sets. Based on this data, which of the following statements must be INCORRECT?
+    \begin{enumerate}[label=(\alph*)]
+        \item No party has majority
+        \item A and C together can form the government
+        \item A and D with the support of independents get the majority
+        \item An MLA from E can become Chief Minister
+    \end{enumerate}</span></li><li><b>13</b> <span class="qbody">[16.] The difference of the squares of two distinct two-digit numbers with one being obtained by reversing the digits of the other is always divisible by
+    \begin{enumerate}[label=(\alph*)]
+        \item 4
+        \item 6
+        \item 10
+        \item 11
+    \end{enumerate}</span></li><li><b>14</b> <span class="qbody">[17.] In terms of increases in per capita GDP from 2010-2020, their ranking from high to low is
+    \begin{enumerate}[label=(\alph*)]
+        \item $A, B, C$
+        \item $B, A, C$
+        \item $B, C, A$
+        \item $C, A, B$
+    \end{enumerate}</span></li><li><b>15</b> <span class="qbody">[18.] A device needs 4 batteries to run. Each battery runs for 2 days. If there are a total of 6 batteries available, what is the maximum number of days for which the device can be run by strategically replacing the batteries till all the batteries are completely drained of power?
+    \begin{enumerate}[label=(\alph*)]
+        \item 2
+        \item 3
+        \item 4
+        \item 5
+    \end{enumerate}</span></li><li><b>16</b> <span class="qbody">[19.] A and B have in their collection, coins of Rs. 1, Rs. 2, Rs. 5 and Rs. 10 in the ratio 3:2:2:1 and $4:3:2:1$, respectively. The total number of coins with each of them is equal. If the value of coins with $A$ is Rs. 270/-, what is the value of the coins (in Rs) with B?
+    \begin{enumerate}[label=(\alph*)]
+        \item 213
+        \item 240
+        \item 275
+        \item 282
+    \end{enumerate}</span></li><li><b>17</b> <span class="qbody">[20.] Consider the following paragraph: \\
+    THE ABILITY OF REASON ACCURATELY IS VERY IMPORTANT, AS IS THE ABILITY TO COUNT. AS AN EXERCISE IN BOTH, LET US COUNT HOW MANY TIMES THE LETTER &quot;E&quot; OCCURS IN THIS PARAGRAPH. THE CORRECT COUNT IS \\
+    Which option when put in the blank in the above paragraph will make the final sentence accurate?
+    \begin{enumerate}[label=(\alph*)]
+        \item Sixteen
+        \item SEVENTEEN
+        \item EIGHTEEN
+        \item NINETEEN
+    \end{enumerate}</span></li><li><b>21</b> <span class="qbody">[21.] Consider the function $f$ defined by $f(z)=\frac{1}{1-z-z^2}$ for $z \in \mathbb{C}$ such that $1-z-z^2 \neq 0$. Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f$ is an entire function
+        \item $f$ has a simple pole at $z=0$
+        \item $f$ has a Taylor series expansion $f(x)=\sum\limits_{n=0}^{\infty} a_n z^n$, where coefficients $a_n$ are recursively defined as follows: $a_0=1, a_1=0$ and $a_{n+2}=a_n+a_{n+1}$ for $n \geq 0$
+        \item $f$ has a Taylor series expansion $f(z)=\sum\limits_{n=0}^{\infty} a_n z^n$, where coefficients $a_n$ are recursively defined as follows: $a_0=1, a_1=1$ and $a_{n+2}=a_n+a_{n+1}$ for $n \geq 0$
+    \end{enumerate}</span></li><li><b>22</b> <span class="qbody">[22.] Let $X_1, \ldots, X_7$ and $Y_1, \ldots, Y_7$ be two random samples drawn independently from two populations with continuous CDFs $F$ and $G$ respectively. Consider the Wald-Wolfowitz run test in the context of the following two sample testing problems: $H_0: F(x)=G(x) \forall x$ vs. $H_1: F(x) \neq G(x)$ for some $x$. If the random variable $R$ denotes the total number of runs in the combined ordered arrangement of the two given samples, then which of the following is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $P_{H_0}(R=6)=\frac{28}{286}, P_{H_0}(R=9)=\frac{28}{143}$
+        \item $P_{H_0}(R=6)=\frac{21}{286}, P_{H_0}(R=9)=\frac{15}{286}$
+        \item $P_{H_0}(R=6)=\frac{21}{286}, P_{H_0}(R=9)=\frac{28}{143}$
+        \item $P_{H_0}(R=6)=\frac{21}{286}, P_{H_0}(R=9)=\frac{15}{286}$
+    \end{enumerate}</span></li><li><b>23</b> <span class="qbody">[23.] For the unknown $y:[0,1] \rightarrow \mathbb{R}$, consider the following two-point boundary value problem:
+    \[
+    \left\{
+    \begin{array}{c}
+    y^{\prime \prime}(x)+2 y(x)=0 \text{ for } x \in(0,1), \\
+    y(0)=y(1)=0
+    \end{array}
+    \right.
+    \]
+    It is given that the above boundary value problem corresponds to the following integral equation:
+    \[
+    y(x)=2 \int\limits_0^1 K(x, t) y(t) \, dt \text{ for } x \in[0,1] .
+    \]
+    Which of the following is the kernel $K(x, t)$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $K(x, t)= \begin{cases}t(1-x) &amp; \text{ for } t&lt;x \\ x(1-t) &amp; \text{ for } t&gt;x\end{cases}$
+        \item $K(x, t)= \begin{cases}t^2(1-x) &amp; \text{ for } t&lt;x \\ x^2(1-t) &amp; \text{ for } t&gt;x\end{cases}$
+        \item $K(x, t)= \begin{cases}\sqrt{t}(1-x) &amp; \text{ for } t&lt;x \\ \sqrt{x}(1-t) &amp; \text{ for } t&gt;x\end{cases}$
+        \item $K(x, t)= \begin{cases}\sqrt{t^3}(1-x) &amp; \text{ for } t&lt;x \\ \sqrt{x^3}(1-t) &amp; \text{ for } t&gt;x\end{cases}$
+    \end{enumerate}</span></li><li><b>24</b> <span class="qbody">[24.] Let $A$ be a $3 \times 3$ real matrix whose characteristic polynomial $p(T)$ is divisible by $T^2$. Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The eigenspace of $A$ for the eigenvalue $0$ is two-dimensional
+        \item All the eigenvalues of $A$ are real
+        \item $A^3=0$
+        \item $A$ is diagonalizable
+    \end{enumerate}</span></li><li><b>25</b> <span class="qbody">[25.] Which of the following is a valid cumulative distribution function?
+    \begin{enumerate}[label=(\alph*)]
+        \item $F(x)= \begin{cases}\frac{1}{2+x^2} &amp; \text{ if } x&lt;0, \\ \frac{2+x^2}{3+x^2} &amp; \text{ if } x \geq 0\end{cases}$
+        \item $F(x)= \begin{cases}\frac{1}{2+x^2} &amp; \text{ if } x&lt;0, \\ \frac{2+x^2}{3+2 x^2} &amp; \text{ if } x \geq 0\end{cases}$
+        \item $F(x)= \begin{cases}\frac{1}{2+x^2} &amp; \text{ if } x&lt;0, \\ \frac{2 \cos (x)+x^2}{4+x^2} &amp; \text{ if } x \geq 0\end{cases}$
+        \item $F(x)= \begin{cases}\frac{1}{2+x^2} &amp; \text{ if } x&lt;0, \\ \frac{1+x^2}{4+x^2} &amp; \text{ if } x \geq 0\end{cases}$
+    \end{enumerate}</span></li><li><b>26</b> <span class="qbody">[26.] Let $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ be a locally Lipschitz function. Consider the initial value problem $x=f(t, x), x(t_0)=x_0$ for $(t_0, x_0) \in \mathbb{R}^2$. Suppose $J(t_0, x_0)$ represents the maximal interval of existence for the initial value problem. Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $J(t_0, x_0)=\mathbb{R}$
+        \item $J(t_0, x_0)$ is an open set
+        \item $J(t_0, x_0)$ is a closed set
+        \item $J(t_0, x_0)$ could be an empty set
+    \end{enumerate}</span></li><li><b>27</b> <span class="qbody">[27.] Let $x, y \in[0,1]$ be such that $x \neq y$. Which of the following statements is true for every $\varepsilon&gt;0$?
+    \begin{enumerate}[label=(\alph*)]
+        \item There exists a positive integer $N$ such that $|x-y|&lt;2^x \varepsilon$ for every integer $n \geq N$
+        \item There exists a positive integer $N$ such that $2^n \varepsilon&lt;|x-y|$ for every integer $n \geq N$
+        \item There exists a positive integer $N$ such that $|x-y|&lt;2^{-n} \varepsilon$ for every integer $n \geq N$
+        \item For every positive integer $N,|x-y|&lt;2^{-n} \varepsilon$ for some integer $n \geq N$
+    \end{enumerate}</span></li><li><b>28</b> <span class="qbody">[28.] Consider the series $\sum\limits_{n=1}^\infty a_n$, where $a_n=(-1)^{n+1}(\sqrt{n+1}-\sqrt{n})$. Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The series is divergent
+        \item The series is convergent
+        \item The series is conditionally convergent
+        \item The series is absolutely convergent
+    \end{enumerate}</span></li><li><b>29</b> <span class="qbody">[29.] Let $l \geq 1$ be a positive integer. What is the dimension of the $\mathbb{R}$-vector space of all polynomials in two variables over $\mathbb{R}$ having a total degree of at most $l$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $l+1$
+        \item $l(l-1)$
+        \item $l(l+1)/2$
+        \item $(l+1)(l+2)/2$
+    \end{enumerate}</span></li><li><b>30</b> <span class="qbody">[30.] Let $\{\varepsilon_n: n \geq 1\}$ represents the results of independent rolls of a dice with probability of the face $i$ turning up being $p_i&gt;0$ for $i=1,2, \ldots, 6$ and $\sum\limits_{i=1}^6 p_i=1$. Let $\{X_n: n \geq 0\}$ be the Markov chain on the state space $\{1,2, \ldots, 6\}$ where $X_n=\max \{\varepsilon_1, \varepsilon_2, \ldots, \varepsilon_{n+1}\}$. Then, $\lim\limits_{n \to \infty} P(X_n=4 \mid X_0=3)$ equals
+    \begin{enumerate}[label=(\alph*)]
+        \item $p_4$
+        \item 1
+        \item $1-p_3$
+        \item 0
+    \end{enumerate}</span></li><li><b>31</b> <span class="qbody">[31.] Consider the quadratic form $Q(x, y, z)$ associated to the matrix $B=\begin{bmatrix} 1 &amp; 1 &amp; 0 \\ 1 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; -2 \end{bmatrix}$. Let $S=\left\{\begin{bmatrix} a \\ b \\ c \end{bmatrix} \in \mathbb{R}^3 \mid Q(a, b, c)=0\right\}$. Which of the following statements is FALSE?
+    \begin{enumerate}[label=(\alph*)]
+        \item The intersection of $S$ with the $xy$-plane is a line
+        \item The intersection of $S$ with the $xz$-plane is an ellipse
+        \item $S$ is the union of two planes
+        \item $Q$ is a degenerate quadratic form
+    \end{enumerate}</span></li><li><b>32</b> <span class="qbody">[32.] Consider the linear programming problem maximize $x+3y$, subject to $A\begin{pmatrix} x \\ y \end{pmatrix} \leq b$, where $A=\begin{pmatrix} -1 &amp; -1 \\ 0 &amp; 1 \\ -1 &amp; 1 \\ 1 &amp; 2 \\ 0 &amp; -1 \end{pmatrix}$ and $b=\begin{pmatrix} -1 \\ 5 \\ 5 \\ 14 \\ 0 \end{pmatrix}$. Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The objective function attains its maximum at $\begin{pmatrix} 0 \\ 5 \end{pmatrix}$ in the feasible region
+        \item The objective function attains its maximum at $\begin{pmatrix} -2 \\ 3 \end{pmatrix}$ in the feasible region
+        \item The objective function attains its maximum at $\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ in the feasible region
+        \item The objective function does not attain its maximum at $\begin{pmatrix} 14 \\ 0 \end{pmatrix}$ in the feasible region
+    \end{enumerate}</span></li><li><b>33</b> <span class="qbody">[33.] If $f(x)$ is a probability density on the real line, then which of the following is NOT a valid probability density?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f(x+1)$
+        \item $f(2x)$
+        \item $2f(2x-1)$
+        \item $3x^2 f(x^3)$
+    \end{enumerate}</span></li><li><b>34</b> <span class="qbody">[34.] Let $u(x, y)$ be the solution of the Cauchy problem
+    \[
+    \begin{aligned}
+    &amp; u u_x + u_y = 0, \, x \in \mathbb{R}, \, y &gt; 0, \\
+    &amp; u(x, 0) = x, \, x \in \mathbb{R}.
+    \end{aligned}
+    \]
+    Which of the following is the value of $u(2,3)$?
+    \begin{enumerate}[label=(\alph*)]
+        \item 2
+        \item 3
+        \item $1/2$
+        \item $1/3$
+    \end{enumerate}</span></li><li><b>35</b> <span class="qbody">[35.] Suppose $x(t)$ is the solution of the following initial value problem in $\mathbb{R}^2$
+    \[
+    \dot{x} = A x, \, x(0) = x_0, \text{ where } A = \begin{bmatrix} 5 &amp; 4 \\ 1 &amp; 2 \end{bmatrix}.
+    \]
+    Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $x(t)$ is a bounded solution for some $x_0 \neq 0$
+        \item $e^{-6t}|x(t)| \to 0$ as $t \to \infty$, for all $x_0 \neq 0$
+        \item $e^{-t}|x(t)| \to \infty$ as $t \to \infty$, for all $x_0 \neq 0$
+        \item $e^{-10t}|x(t)| \to 0$ as $t \to \infty$, for all $x_0 \neq 0$
+    \end{enumerate}</span></li><li><b>36</b> <span class="qbody">[36.] Let $f$ be an entire function that satisfies $|f(z)| \leq e^y$ for all $z=x+iy \in \mathbb{C}$, where $x, y \in \mathbb{R}$. Which of the following statements is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f(z) = c e^{z}$ for some $c \in \mathbb{C}$ with $|c| \leq 1$
+        \item $f(z) = c e^{ix}$ for some $c \in \mathbb{C}$ with $|c| \leq 1$
+        \item $f(z) = e^{-ix}$ for some $c \in \mathbb{C}$ with $|c| \leq 1$
+        \item $f(z) = e^{-ix}$ for some $c \in \mathbb{C}$ with $|c| \leq 1$
+    \end{enumerate}</span></li><li><b>37</b> <span class="qbody">[37.] Let $X_1, X_2, X_3$ and $X_4$ be independent and identically distributed Bernoulli $\left(\frac{1}{3}\right)$ random variables. Let $X_{(1)}, X_{(2)}, X_{(3)}$ and $X_{(4)}$ denote the corresponding order statistics. Which of the following is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $X_{(1)}$ and $X_{(4)}$ are independent
+        \item Expectation of $X_{(2)}$ is $\frac{1}{2}$
+        \item Variance of $X_{(2)}$ is $\frac{8}{81}$
+        \item $X_{(4)}$ is a degenerate random variable
+    \end{enumerate}</span></li><li><b>38</b> <span class="qbody">[38.] Let $T$ be a linear operator on $\mathbb{R}^3$. Let $f(X) \in \mathbb{R}[X]$ denote its characteristic polynomial. Consider the following statements. \\
+    A. Suppose $T$ is non-zero and $0$ is an eigenvalue of $T$. If we write $f(X)=X g(X)$ in $\mathbb{R}[X]$, then the linear operator $g(T)$ is zero \\
+    B. Suppose $0$ is an eigenvalue of $T$ with at least two linearly independent eigenvectors. If we write $f(X)=X g(X)$ in $\mathbb{R}[X]$, then the linear operator $g(T)$ is zero. \\
+    Which of the following is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Both (A) and (B) are true
+        \item Both (A) and (B) are false
+        \item (A) is true and (B) is false
+        \item (A) is false and (B) is true
+    \end{enumerate}</span></li><li><b>39</b> <span class="qbody">[39.] Let $C$ be the positively oriented circle in the complex plane of radius 3 centered at the origin. What is the value of the integral $\int\limits_C \frac{dz}{z^2(e^z - e^{-z})}$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $i \pi / 12$
+        \item $-i \pi / 12$
+        \item $i \pi / 6$
+        \item $-i \pi / 6$
+    \end{enumerate}</span></li><li><b>40</b> <span class="qbody">[40.] Let $f(z)=\exp \left(z+\frac{1}{z}\right), z \in \mathbb{C} \setminus \{0\}$. Then residue of $f$ at $z=0$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item $\sum\limits_{l=0}^\infty \frac{1}{(l+1)!}$
+        \item $\sum\limits_{l=0}^\infty \frac{1}{l!(l+1)}$
+        \item $\sum\limits_{l=0}^\infty \frac{1}{l!(l+1)!}$
+        \item $\sum\limits_{l=0}^\infty \frac{1}{(l^2+l)!}$
+    \end{enumerate}</span></li><li><b>41</b> <span class="qbody">[41.] Suppose $\mathbf{X}=(X_1, X_2, X_3, X_4)^T$ has a multivariate normal $N_4(\mathbf{0}, I_2 \otimes \Sigma)$, where $I_2$ is the $2 \times 2$ identity matrix, $\otimes$ is the Kronecker product, and $\Sigma=\begin{bmatrix} 2 &amp; -1 \\ -1 &amp; 2 \end{bmatrix}$. Define $Z=\begin{pmatrix} X_1 &amp; X_2 \\ X_3 &amp; X_4 \end{pmatrix}$ and $Q=\{(Q_{ij})\}=Z^T Z$. Suppose $\chi_n^2$ denotes a chi-square random variable with $n$ degrees of freedom, and $W_m(n, \Sigma)$ denotes a Wishart distribution of order $m$ with parameters $n$ and $\Sigma$. The distribution of $(Q_{11}+Q_{12}+Q_{21}+Q_{22})$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item $W_1(2,2)$
+        \item $W_1(1,2)$
+        \item $W_1(2,1)$
+        \item $2 \chi_4^2$
+    \end{enumerate}</span></li><li><b>42</b> <span class="qbody">[42.] Let $X$ be a Poisson random variable with mean $\lambda$. Which of the following parametric function is not estimable?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\lambda^{-1}$
+        \item $\lambda$
+        \item $\lambda^2$
+        \item $e^{-1}$
+    \end{enumerate}</span></li><li><b>43</b> <span class="qbody">[43.] Let $u(x, t)$ be the solution of
+    \[
+    \begin{aligned}
+    &amp; u_t - u_{xx} = 0, \, 0 &lt; x &lt; 2, \, t &gt; 0, \\
+    &amp; u(0, t) = 0 = u(2, t), \, \forall t &gt; 0, \\
+    &amp; u(x, 0) = \sin(\pi x) + 2 \sin(2 \pi x), \, 0 \leq x \leq 2, \\
+    &amp; u_t(x, 0) = 0, \, 0 \leq x \leq 2.
+    \end{aligned}
+    \]
+    Which of the following is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $u(1,1)=-1$
+        \item $u(1/2,1)=0$
+        \item $u(1/2,2)=1$
+        \item $u_t(1/2,1/2)=\pi$
+    \end{enumerate}</span></li><li><b>44</b> <span class="qbody">[44.] Which of the following assertions is correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\limsup_n e^{\cos \left(\frac{n \pi (1-1)^2 2 \pi}{2 n}\right)} &gt; 1$
+        \item $\lim\limits_n e^{\left[\frac{n \pi (1-1)^2 2}{7 n}\right]}$ does not exist
+        \item $\liminf_n e^{\sin \left(\frac{n \pi (1-1)^2 2 \pi}{2 n}\right)} &lt; \pi$
+        \item $\lim\limits_n e^{\tan \left(\frac{n \pi (1-1)^2 \pi^2}{7 n}\right)}$ does not exist
+    \end{enumerate}</span></li><li><b>45</b> <span class="qbody">[45.] How many real roots does the polynomial $x^3 + 3x - 2023$ have?
+    \begin{enumerate}[label=(\alph*)]
+        \item 0
+        \item 1
+        \item 2
+        \item 3
+    \end{enumerate}</span></li><li><b>46</b> <span class="qbody">[46.] Suppose $S$ is an infinite set. Assuming that the axiom of choice holds, which of the following is true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $S$ is in bijection with the set of rational numbers
+        \item $S$ is in bijection with the set of real numbers
+        \item $S$ is in bijection with $S \times S$
+        \item $S$ is in bijection with the power set of $S$
+    \end{enumerate}</span></li><li><b>47</b> <span class="qbody">[47.] Let $X=(X_1, X_2)^T$ follow a bivariate normal distribution with mean vector $(0,0)^T$ and covariance matrix $\Sigma$ such that $\Sigma=\begin{bmatrix} 5 &amp; -3 \\ -3 &amp; 10 \end{bmatrix}$. The mean vector and covariance matrix of $Y=(X_1, 5-2X_2)^T$ are
+    \begin{enumerate}[label=(\alph*)]
+        \item $\begin{pmatrix} 0 \\ 5 \end{pmatrix}, \begin{bmatrix} 5 &amp; -3 \\ -3 &amp; 40 \end{bmatrix}$
+        \item $\begin{pmatrix} 0 \\ 5 \end{pmatrix}, \begin{bmatrix} 5 &amp; -6 \\ -6 &amp; 20 \end{bmatrix}$
+        \item $\begin{pmatrix} 0 \\ 5 \end{pmatrix}, \begin{bmatrix} 5 &amp; 3 \\ 3 &amp; 20 \end{bmatrix}$
+        \item $\begin{pmatrix} 0 \\ 5 \end{pmatrix}, \begin{bmatrix} 5 &amp; 6 \\ 6 &amp; 40 \end{bmatrix}$
+    \end{enumerate}</span></li><li><b>48</b> <span class="qbody">[48.] Consider the random sample $\{3,6,9\}$ of size 3 from a normal distribution with mean $\mu \in (-\infty, 5]$ and variance 1. Then the maximum likelihood estimate of $\mu$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item 6
+        \item 5
+        \item 3
+        \item 9
+    \end{enumerate}</span></li><li><b>49</b> <span class="qbody">[49.] Suppose $X_1, X_2, \ldots, X_n$ are independently and identically distributed $N(\theta, 1)$ random variables, for $\theta \in \mathbb{R}$. Suppose $\bar{X}=n^{-1} \sum\limits_{i=1}^n X_i$ denotes the sample mean and let $t_{0.975, n-1}$ denote the 0.975 quantile of a Student&#x27;s-$t$ distribution with $n-1$ degrees of freedom. Which of the following statements is true for the following interval $\bar{X} \pm t_{0.975, n-1} \frac{1}{\sqrt{n}}$?
+    \begin{enumerate}[label=(\alph*)]
+        \item The interval is a confidence interval for $\theta$ with confidence level of exactly 0.95
+        \item The interval is a confidence interval for $\theta$ with confidence level being less than 0.95
+        \item The interval is a confidence interval for $\theta$ with confidence level being more than 0.95
+        \item The interval is not a confidence interval
+    \end{enumerate}</span></li><li><b>50</b> <span class="qbody">[50.] The number of solutions of equation $x^2=1$ in the ring $\mathbb{Z}/105\mathbb{Z}$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item 0
+        \item 2
+        \item 4
+        \item 8
+    \end{enumerate}</span></li><li><b>51</b> <span class="qbody">[51.] Consider $\mathbb{R}$ with the usual topology. Which of the following assertions is correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item A finite set containing 33 elements has at least 3 different Hausdorff topologies
+        \item Let $X$ be a non-empty finite set with a Hausdorff topology. Consider $X \times X$ with the product topology. Then, every function $f: X \times X \to \mathbb{R}$ is continuous
+        \item Let $X$ be a discrete topological space having infinitely many elements. Let $f: \mathbb{R} \to X$ be a continuous function and $g: X \to \mathbb{R}$ be any non-constant function. Then the range of $g \circ f$ contains at least 2 elements
+        \item If a non-empty metric space $X$ has a finite dense subset, then there exists a discontinuous function $f: X \to \mathbb{R}$
+    \end{enumerate}</span></li><li><b>52</b> <span class="qbody">[52.] Consider the simple linear regression model $Y_i = \beta x_i + \varepsilon_i$, for $i=1, \ldots, n$; where $E(\varepsilon_i)=0$, $\operatorname{Cov}(\varepsilon_i, \varepsilon_k)=0$ if $i \neq k$ and $\operatorname{Var}(\varepsilon_i)=x_i^2 \sigma^2$. The best linear unbiased estimator of $\beta$ is:
+    \begin{enumerate}[label=(\alph*)]
+        \item $\frac{\sum\limits_{i=1}^n Y_i x_i}{\sum\limits_{i=1}^n x_i^2}$
+        \item $\frac{\sum\limits_{i=1}^n Y_i x_i}{\sum\limits_{i=1}^n x_i}$
+        \item $\frac{1}{n} \sum\limits_{i=1}^n \frac{Y_i}{x_i}$
+        \item $\frac{1}{n} \sum\limits_{i=1}^n \frac{Y_i x_i}{x_i^2}$
+    \end{enumerate}</span></li><li><b>53</b> <span class="qbody">[53.] Let $A$ be a $3 \times 3$ matrix with real entries. Which of the following assertions is FALSE?
+    \begin{enumerate}[label=(\alph*)]
+        \item $A$ must have a real eigenvalue
+        \item If the determinant of $A$ is 0, then 0 is an eigenvalue of $A$
+        \item If the determinant of $A$ is negative and 3 is an eigenvalue of $A$, then $A$ must have three real eigenvalues
+        \item If the determinant of $A$ is positive and 3 is an eigenvalue of $A$, then $A$ must have three real eigenvalues
+    \end{enumerate}</span></li><li><b>54</b> <span class="qbody">[54.] Consider the variational problem $(P)$
+    \[
+    J(y(x)) = \int\limits_0^1 \left[ (y&#x27;)^2 - y |y| + x y \right] \, dx, \, y(0)=0, \, y(1)=0.
+    \]
+    Which of the following statements is correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $(P)$ has no stationary function (extremal)
+        \item $y=0$ is the only stationary function (extremal) for $(P)$
+        \item $(P)$ has a unique stationary function (extremal) $y$ not identically equal to 0
+        \item $(P)$ has infinitely many stationary functions (extremal)
+    \end{enumerate}</span></li><li><b>55</b> <span class="qbody">[55.] Consider the constants $a$ and $b$ such that the following generalized coordinate transformation from $(p, q)$ to $(P, Q)$ is canonical $Q=p q^{a+1}, P=q^b$. What are the values of $a$ and $b$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $a=-1, b=0$
+        \item $a=-1, b=1$
+        \item $a=1, b=0$
+        \item $a=1, b=-1$
+    \end{enumerate}</span></li><li><b>56</b> <span class="qbody">[56.] Which one of the following functions is uniformly continuous on the interval $(0,1)$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f(x)=\sin \frac{1}{x}$
+        \item $f(x)=e^{-1/x^2}$
+        \item $f(x)=e^x \cos \frac{1}{x}$
+        \item $f(x)=\cos x \cos \frac{x}{x}$
+    \end{enumerate}</span></li><li><b>57</b> <span class="qbody">[57.] Which of the following equations can occur as the class equation of a group of order 10?
+    \begin{enumerate}[label=(\alph*)]
+        \item $10=1+1+\ldots+1$ (10 times)
+        \item $10=1+1+2+2+2$
+        \item $10=1+1+1+2+5$
+        \item $10=1+2+3+4$
+    \end{enumerate}</span></li><li><b>58</b> <span class="qbody">[58.] Which of the following values of $a, b, c$ and $d$ will produce a quadrature formula $\int\limits_{-1}^1 f(x) \, dx \approx a f(-1) + b f(1) + c f&#x27;(-1) + d f&#x27;(1)$ that has degree precision 3?
+    \begin{enumerate}[label=(\alph*)]
+        \item $a=1, b=1, c=\frac{1}{3}, d=-\frac{1}{3}$
+        \item $a=-1, b=1, c=\frac{1}{3}, d=-\frac{1}{3}$
+        \item $a=1, b=1, c=-\frac{1}{3}, d=\frac{1}{3}$
+        \item $a=1, b=-1, c=\frac{1}{3}, d=-\frac{1}{3}$
+    \end{enumerate}</span></li><li><b>59</b> <span class="qbody">[59.] Let $x=(x_1, \ldots, x_n)$ and $y=(y_1, \ldots, y_n)$ denote vectors in $\mathbb{R}^n$ for a fixed $n \geq 2$. Which of the following defines an inner product on $\mathbb{R}^n$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\langle x, y \rangle = \sum\limits_{i,j=1}^n x_i y_j$
+        \item $\langle x, y \rangle = \sum\limits_{i,j=1}^n (x_i^2 + y_j^2)$
+        \item $\langle x, y \rangle = \sum\limits_{j=1}^n j^3 x_j y_j$
+        \item $\langle x, y \rangle = \sum\limits_{j=1}^n x_j y_{n-j+1}$
+    \end{enumerate}</span></li><li><b>60</b> <span class="qbody">[60.] Let $p$ be a prime number. Let $G$ be a group such that for each $g \in G$ there exists an $n \in \mathbb{N}$ such that $g^{p^n}=1$. Which of the following statements is FALSE?
+    \begin{enumerate}[label=(\alph*)]
+        \item If $|G|=p^5$, then $G$ has a subgroup of index $p^2$
+        \item If $|G|=p^5$, then $G$ has at least five normal subgroups
+        \item Center of $G$ can be infinite
+        \item There exists $G$ with $|G|=p^5$ such that $G$ has exactly six normal subgroups
+    \end{enumerate}
+
+
+% Part C</span></li><li><b>61</b> <span class="qbody">[61.] Let $u=u(x, y)$ be the solution to the following Cauchy problem $u_x+u_y=e^u$ for $(x, y) \in \mathbb{R} \times\left(0, \frac{1}{e}\right)$ and $u(x, 0)=1$ for $x \in \mathbb{R}$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $u\left(\frac{1}{2 e}, \frac{1}{2 e}\right)=1$
+        \item $u_x\left(\frac{1}{2 e}, \frac{1}{2 e}\right)=0$
+        \item $u_y\left(\frac{1}{4 e}, \frac{1}{4 e}\right)=\log 4$
+        \item $u_y\left(0, \frac{1}{4 e}\right)=\frac{4 e}{3}$
+    \end{enumerate}</span></li><li><b>62</b> <span class="qbody">[62.] Consider the multiple linear regression model $Y=X \beta+\varepsilon$; where $Y$ is $n \times 1$ observed data vector with $n&gt;5$; $X$ is $n \times 5$ matrix of known constants with $\operatorname{rank}(X)=5$; $\beta=\left(\beta_0, \beta_1, \beta_2, \beta_3, \beta_4\right)^{\top}$ and $\varepsilon=\left(\varepsilon_1, \ldots, \varepsilon_n\right)^T$, where $\varepsilon_i$ for $i=1, \ldots, n$ are independent and identically distributed $N(0,1)$ random variables. Consider testing of the linear hypothesis $H_0: \beta_1=\beta_2=\beta_3=\beta_4=c$, (a known constant) against the alternative $H_1: H_0$ is not true. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The sum of squares residuals under $H_0$ follows a central $\chi^2$ distribution with $(n-5)$ degrees of freedom
+        \item The sum of squares residuals under $H_0$ follows a central $\chi^2$ distribution with $(n-1)$ degrees of freedom
+        \item The test statistic follows a central $F$ distribution with $(5, n-1)$ degrees of freedom
+        \item The test statistic follows a central $F$ distribution with $(4, n-5)$ degrees of freedom
+    \end{enumerate}</span></li><li><b>63</b> <span class="qbody">[63.] Let $f \in C^1(\mathbb{R})$ be bounded. Let us consider the initial-value problem
+    \[
+    \left\{
+    \begin{array}{l}
+    x^{\prime}(t)=f(x(t)), t&gt;0, \\
+    x(0)=0.
+    \end{array}
+    \right.
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item (P) has solution(s) defined for all $t&gt;0$
+        \item (P) has a unique solution
+        \item (P) has infinitely many solutions
+        \item The solution(s) of (P) is/are Lipschitz
+    \end{enumerate}</span></li><li><b>64</b> <span class="qbody">[64.] Let $f:\{z:|z|&lt;1\} \rightarrow\left\{z:|z| \leq \frac{1}{2}\right\}$ be a holomorphic function such that $f(0)=0$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $|f(z)| \leq|z|$ for all $z$ in $\{z:|z|&lt;1\}$
+        \item $|f(z)| \leq\left|\frac{z}{2}\right|$ for all $z$ in $\{z:|z|&lt;1\}$
+        \item $|f(z)| \leq \frac{1}{2}$ for all $z$ in $\{z:|z|&lt;1\}$
+        \item It is possible that $f\left(\frac{1}{2}\right)=\frac{1}{2}$
+    \end{enumerate}</span></li><li><b>65</b> <span class="qbody">[65.] Let $n \geq 2$ be a positive integer. Consider a Markov chain on the state space $\{1,2, \ldots, n\}$ with a given transition probability matrix $P$. Let $I_n$ denote the identity matrix of order $n$. Which of the following statements are necessarily true?
+    \begin{enumerate}[label=(\alph*)]
+        \item At least one state is recurrent
+        \item At least one state is transient
+        \item $-\frac{1}{3} I_n+\frac{4}{3} P$ is also a transition probability matrix of some Markov chain
+        \item 5 is an eigenvalue of $I_n+3 P+P^2$
+    \end{enumerate}</span></li><li><b>66</b> <span class="qbody">[66.] Let $V$ be the real vector space of all real polynomials in one variable with degree less than or equal to 10 (including the zero polynomial). Let $T: V \rightarrow V$ be the linear map defined by $T(p)=p^{\prime}$, where $p^{\prime}$ denotes the derivative of $p$. Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\operatorname{rank}(T)=10$
+        \item $\operatorname{det}(T)=0$
+        \item $\operatorname{trace}(T)=0$
+        \item All the eigenvalues of $T$ are equal to 0
+    \end{enumerate}</span></li><li><b>67</b> <span class="qbody">[67.] A cumulative hazard function $H(t)$ of a non-negative continuous random variable satisfies which of the following conditions?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\lim\limits_{t \to \infty} H(t)=\infty$
+        \item $H(0)=0$
+        \item $H(1)=1$
+        \item $H(t)$ is a non-decreasing function of $t$
+    \end{enumerate}</span></li><li><b>68</b> <span class="qbody">[68.] Define a function $f: \mathbb{R} \rightarrow \mathbb{R}$ by
+    \[
+    f(x)=\left\{
+    \begin{array}{cc}
+    \sin \left(\frac{\pi}{x}\right) &amp; \text{when } x \neq 0, \\
+    0 &amp; \text{when } x=0.
+    \end{array}
+    \right.
+    \]
+    On which of the following subsets of $\mathbb{R}$, the restriction of $f$ is a continuous function?
+    \begin{enumerate}[label=(\alph*)]
+        \item $[-1,1]$
+        \item $(0,1)$
+        \item $\{0\} \cup\left\{\frac{1}{n}: n \in \mathbb{N}\right\}$
+        \item $\left\{\frac{1}{2^n}: n \in \mathbb{N}\right\}$
+    \end{enumerate}</span></li><li><b>69</b> <span class="qbody">[69.] A point particle having unit mass is moving in $x, y$ plane having the Lagrangian as follows $L=\dot{x} \dot{y}-2 x^2-2 y^2$. What are possible values of $p_r$ (conjugate momentum to radial coordinate in plane polar coordinate)?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\dot{r}$
+        \item $\dot{r} \sin 2 \theta + 2 \dot{\theta} \cos 2 \theta$
+        \item $\dot{r} \sin \theta + r \dot{\theta} \cos \theta$
+        \item $2 \dot{r} \sin \theta + r \ddot{\theta} \cos \theta$
+    \end{enumerate}</span></li><li><b>70</b> <span class="qbody">[70.] Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item The set of open right half-planes is a basis for the usual (Euclidean) topology on $\mathbb{R}^2$
+        \item The set of lines parallel to $Y$-axis is a basis for the dictionary order topology on $\mathbb{R}^2$
+        \item The set of open rectangles is a basis for the usual (Euclidean) topology on $\mathbb{R}^2$
+        \item The set of line segments (without end points) parallel to $Y$-axis is a basis for the dictionary order topology on $\mathbb{R}^2$
+    \end{enumerate}</span></li><li><b>71</b> <span class="qbody">[71.] Let $A, B$ be two events in a discrete probability space with $\mathbb{P}(A)&gt;0$ and $\mathbb{P}(B)&gt;0$. Which of the following are necessarily true?
+    \begin{enumerate}[label=(\alph*)]
+        \item If $\mathbb{P}(A \mid B)=0$ then $\mathbb{P}(B \mid A)=0$
+        \item If $\mathbb{P}(A \mid B)=1$ then $\mathbb{P}(B \mid A)=1$
+        \item If $\mathbb{P}(A \mid B)&gt;\mathbb{P}(A)$ then $\mathbb{P}(B \mid A)&gt;\mathbb{P}(B)$
+        \item If $\mathbb{P}(A \mid B)&gt;\mathbb{P}(B)$ then $\mathbb{P}(B \mid A)&gt;\mathbb{P}(A)$
+    \end{enumerate}</span></li><li><b>72</b> <span class="qbody">[72.] Consider the function $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ defined by $f(x, y)=x^2-y^2$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item There is no continuous real-valued function $g$ defined on any interval of $\mathbb{R}$ containing 0 such that $f(x, g(x))=0$
+        \item There is exactly one continuous real-valued function $g$ defined on an interval of $\mathbb{R}$ containing 0 such that $f(x, g(x))=0$
+        \item There is exactly one differentiable real-valued function $g$ defined on an interval of $\mathbb{R}$ containing 0 such that $f(x, g(x))=0$
+        \item There are two distinct differentiable real-valued functions $g$ on an interval of $\mathbb{R}$ containing 0 such that $f(x, g(x))=0$
+    \end{enumerate}</span></li><li><b>73</b> <span class="qbody">[73.] Let $X$ and $Y$ be independent Poisson random variables with parameters 2 and 3, respectively. Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\operatorname{Var}(X \mid X+Y=2)=\frac{12}{25}$
+        \item $E\left(\frac{2}{1+X} \mid X+Y=2\right)=\frac{98}{3}$
+        \item $P\left(X^2=0 \mid X+Y=2\right)=e^{-2}+\frac{9}{25}\left(1-e^{-2}\right)$
+        \item $X \mid Y=3 \sim \text{Binomial}(3,2)$
+    \end{enumerate}</span></li><li><b>74</b> <span class="qbody">[74.] Let $E$ be a finite algebraic Galois extension of $F$ with Galois group $G$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item There is an intermediate field $K$ with $K \neq F$ and $K \neq E$ such that $K$ is a Galois extension of $F$
+        \item If every proper intermediate field $K$ is a Galois extension of $F$ then $G$ is Abelian
+        \item If $E$ has exactly three intermediate fields including $F$ and $E$ then $G$ is Abelian
+        \item If $[E:F]=99$ then every intermediate field is a Galois extension of $F$
+    \end{enumerate}</span></li><li><b>75</b> <span class="qbody">[75.] Let $X_i$, for $i=1,2,\ldots,2n, n \geq 1$, be independent random variables each distributed as $N(0,1)$. Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left(X_1+\ldots+X_n-X_{n+1}-\ldots-X_{2n}\right)/2n \sim N(0,2)$
+        \item $\left(X_1-X_2\right)^2+\left(X_3-X_4\right)^2+\ldots+\left(X_{2n-1}-X_{2n}\right)^2 \sim 2 \chi_n^2$
+        \item $E\left[\max\left(\left|X_1\right|,\left|X_{n+1}\right|\right)\right] = \frac{2}{\sqrt{\pi}}$
+        \item $E\left[\max\left(\left|X_1\right|,\left|X_{n+1}\right|\right)\right] = \frac{4}{\sqrt{\pi}}$
+    \end{enumerate}</span></li><li><b>76</b> <span class="qbody">[76.] Let $K \in C([0,1] \times [0,1])$ satisfy $|K(x, y)|&lt;1$ for all $x, y \in [0,1]$. For every $g \in C[0,1]$, let us consider the integral equation
+    \[
+    \left(P_g\right) \quad f(x) + \int\limits_0^1 K(x, y) f(y) \, dy = g(x), \text{ for all } x \in [0,1].
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item There exists a $g \in C[0,1]$ for which $\left(P_g\right)$ has no solution in $C[0,1]$
+        \item $\left(P_g\right)$ has a solution in $C[0,1]$ for infinitely many $g \in C[0,1]$
+        \item The solution of $\left(P_g\right)$ in $C[0,1]$ is unique if $g \in C^1[0,1]$
+        \item There exists a $g \in C[0,1]$ for which $\left(P_g\right)$ has infinitely many solutions in $C[0,1]$
+    \end{enumerate}</span></li><li><b>77</b> <span class="qbody">[77.] Let $D=\{z \in \mathbb{C}: |z|&lt;1\}$. Consider the following statements:
+    \begin{itemize}
+        \item[A.] $f: D \to D$ be a holomorphic function. Suppose $\alpha, \beta$ are distinct complex numbers in $D$ such that $f(\alpha)=\alpha$ and $f(\beta)=\beta$. Then $f(z)=z$ for all $z \in D$
+        \item[B.] There does not exist a bijective holomorphic function from $D$ to the set of all complex numbers whose imaginary part is positive
+        \item[C.] $f: D \to D$ be a holomorphic function. Suppose $\alpha \in D$ be such that $f(\alpha)=\alpha$ and $f^{\prime}(\alpha)=1$. Then $f(z)=z$ for all $z \in D$
+    \end{itemize}
+    Which of the following options are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item (A), (B) and (C) are true
+        \item (A) is true
+        \item Both (A) and (B) are false
+        \item Both (A) and (C) are true
+    \end{enumerate}</span></li><li><b>78</b> <span class="qbody">[78.] Let $f(z)$ be an entire function on $\mathbb{C}$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f(\bar{z})$ is an entire function
+        \item $\overline{f(z)}$ is an entire function
+        \item $\overline{f(\bar{z})}$ is an entire function
+        \item $\overline{f(z)} + f(\bar{z})$ is an entire function
+    \end{enumerate}</span></li><li><b>79</b> <span class="qbody">[79.] Consider the following two sequences $\left\{a_n\right\}$ and $\left\{b_n\right\}$ given by
+    \[
+    a_n = \frac{1}{n+1} + \frac{1}{n+2} + \ldots + \frac{1}{2n}, \quad b_n = \frac{1}{n}.
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left\{a_n\right\}$ converges to $\log 2$, and has the same convergence rate as the sequence $\left\{b_n\right\}$
+        \item $\left\{a_n\right\}$ converges to $\log 4$, and has the same convergence rate as the sequence $\left\{b_n\right\}$
+        \item $\left\{a_n\right\}$ converges to $\log 2$, but does not have the same convergence rate as the sequence $\left\{b_n\right\}$
+        \item $\left\{a_n\right\}$ does not converge
+    \end{enumerate}</span></li><li><b>80</b> <span class="qbody">[80.] Let $V$ be the vector space of all polynomials in one variable of degree at most 10 with real coefficients. Let $W_1$ be the subspace of $V$ consisting of polynomials of degree at most 5 and let $W_2$ be the subspace of $V$ consisting of polynomials such that the sum of their coefficients is 0. Let $W$ be the smallest subspace of $V$ containing both $W_1$ and $W_2$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The dimension of $W$ is at most 10
+        \item $W=V$
+        \item $W_1 \subset W_2$
+        \item The dimension of $W_1 \cap W_2$ is at most 5
+    \end{enumerate}</span></li><li><b>81</b> <span class="qbody">[81.] Let $\mathbb{D}=\{z \in \mathbb{C}: |z|&lt;1\}$ be the open unit disc and $C$ the positively oriented boundary $\{|z|=1\}$. Fix a finite set $\left\{z_1, z_2, \ldots, z_n\right\} \subseteq \mathbb{D}$ of distinct points and consider the polynomial $g(z)=\left(z-z_1\right)\left(z-z_2\right) \ldots \left(z-z_n\right)$ of degree $n$. Let $f$ be a holomorphic function in an open neighbourhood of $\overline{\mathbb{D}}$ and define
+    \[
+    P(z) = \frac{1}{2 \pi i} \int\limits_C f(\zeta) \frac{g(\zeta)-g(z)}{(\zeta-z) g(\zeta)} \, d\zeta.
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $P$ is a polynomial of degree $n$
+        \item $P$ is a polynomial of degree $n-1$
+        \item $P$ is a rational function on $C$ with poles at $z_1, z_2, \ldots, z_n$
+        \item $P\left(z_j\right)=f\left(z_j\right)$ for $j=1,2,\ldots,n$
+    \end{enumerate}</span></li><li><b>82</b> <span class="qbody">[82.] Let $u: \mathbb{R}^2 \to \mathbb{R}$ be the solution to the Cauchy problem:
+    \[
+    \left\{
+    \begin{array}{l}
+    \partial_x u + 2 \partial_y u = 0 \quad \text{for } (x, y) \in \mathbb{R}^2, \\
+    u(x, y) = \sin(x) \text{ for } y=3x+1, x \in \mathbb{R}.
+    \end{array}
+    \right.
+    \]
+    Let $v: \mathbb{R}^2 \to \mathbb{R}$ be the solution to the Cauchy problem:
+    \[
+    \left\{
+    \begin{array}{l}
+    \partial_x v + 2 \partial_y v = 0 \quad \text{for } (x, y) \in \mathbb{R}^2, \\
+    v(x, 0) = \sin(x) \text{ for } x \in \mathbb{R}.
+    \end{array}
+    \right.
+    \]
+    Let $\mathcal{S}=[0,1] \times [0,1]$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $u$ changes sign in the interior of $\mathcal{S}$
+        \item $u(x, y)=v(x, y)$ along a line in $\mathcal{S}$
+        \item $v$ changes sign in the interior of $\mathcal{S}$
+        \item $v$ vanishes along a line in $\mathcal{S}$
+    \end{enumerate}</span></li><li><b>83</b> <span class="qbody">[83.] Let $\left\{X_i: 1 \leq i \leq 2n\right\}$ be independently and identically distributed normal random variables with mean $\mu$ and variance 1, and independent of a standard Cauchy random variable $W$. Which of the following statistics are consistent for $\mu$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $n^{-1} \sum\limits_{i=1}^n X_i$
+        \item $n^{-1} \sum\limits_{i=1}^{2n} X_i$
+        \item $n^{-1} \sum\limits_{i=1}^n X_{2i-1}$
+        \item $n^{-1}\left(\sum\limits_{i=1}^n X_i + W\right)$
+    \end{enumerate}</span></li><li><b>84</b> <span class="qbody">[84.] Define $f: \mathbb{R}^4 \to \mathbb{R}$ by $f(x, y, z, w)=x w - y z$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f$ is continuous
+        \item If $U=\left\{(x, y, z, w) \in \mathbb{R}^4: x y + z w = 0, x^2 + z^2 = 1, y^2 + w^2 = 1\right\}$, then $f$ is uniformly continuous on $U$
+        \item If $V=\left\{(x, y, z, w) \in \mathbb{R}^4: x=y, z=w\right\}$, then $f$ is uniformly continuous on $V$
+        \item If $W=\left\{(x, y, z, w) \in \mathbb{R}^4: 0 \leq x+y+z+w \leq 1\right\}$, then $f$ is unbounded on $W$
+    \end{enumerate}</span></li><li><b>85</b> <span class="qbody">[85.] Under which of the following conditions is the sequence $\left\{x_n\right\}$ of real numbers convergent?
+    \begin{enumerate}[label=(\alph*)]
+        \item The subsequences $\left\{x_{2n+1}\right\},\left\{x_{2n}\right\}$ and $\left\{x_{3n}\right\}$ are convergent and have the same limit
+        \item The subsequences $\left\{x_{2n+1}\right\},\left\{x_{2n}\right\}$ and $\left\{x_{3n}\right\}$ are convergent
+        \item The subsequences $\left\{x_{kn}\right\}_n$ are convergent for every $k \geq 2$
+        \item $\lim\limits_n \left|x_{n+1} - x_n\right| = 0$
+    \end{enumerate}</span></li><li><b>86</b> <span class="qbody">[86.] Suppose under the null hypothesis $H$, $X \sim p$, where $p(x)=P(X=x)=1/20$, $x \in \{1,2,\ldots,20\}$ and under the alternative hypothesis $K$, $X \sim q$ where $q(x)=P(X=x)=\frac{x}{210}$, $x \in \{1,2,\ldots,20\}$. Define two test functions $\phi$ and $\psi$ for testing $H$ against $K$ such that,
+    \[
+    \phi(x)=\left\{
+    \begin{array}{ll}
+    1 &amp; \text{if } x \leq 2, \\
+    0 &amp; \text{otherwise,}
+    \end{array}
+    \right.
+    \quad \text{and} \quad
+    \psi(x)=\left\{
+    \begin{array}{ll}
+    1 &amp; \text{if } x \geq 19, \\
+    0 &amp; \text{otherwise.}
+    \end{array}
+    \right.
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Size of the test $\phi$ is 0.1
+        \item Size of the test $\psi$ is 0.05
+        \item (Power of the test $\psi$) $&gt; 0.05$
+        \item (Power of the test $\psi$) $&gt;$ (Power of the test $\phi$)
+    \end{enumerate}</span></li><li><b>87</b> <span class="qbody">[87.] Let $X=\prod_{n=1}^{\infty} [0,1]$, that is, the space of the sequences $\left\{x_n\right\}_{n=1}$ with $x_n \in [0,1]$, $n \geq 1$. Define the metric $d: X \times X \to [0,\infty)$ by $d\left(\left\{x_n\right\}_{n=1},\left\{y_n\right\}_{n=1}\right)=\sup_{n \geq 1} \frac{\left|x_n - y_n\right|}{2^n}$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The metric topology on $X$ is finer than the product topology on $X$
+        \item The metric topology on $X$ is coarser than the product topology on $X$
+        \item The metric topology on $X$ is same as the product topology on $X$
+        \item The metric topology on $X$ and the product topology on $X$ are not comparable
+    \end{enumerate}</span></li><li><b>88</b> <span class="qbody">[88.] Suppose $X_1, X_2, \ldots, X_n$ are independently and identically distributed $N(0,\tau^{-2})$ random variables, for $\tau^{-2}&gt;0$. Let the prior distribution on $\tau^2$ have density $\pi(\tau^2) \propto \left(\frac{1}{\tau^2}\right)^\alpha$ for some $\alpha&gt;0$. Which of the following are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The prior distribution is an improper distribution for $\alpha&gt;0$
+        \item The posterior distribution is a proper distribution for all $\alpha&gt;0$
+        \item Under a squared error loss, the generalized Bayes estimator of $\tau^2$ is $\frac{n/2 - \alpha}{\sum\limits_{i=1}^n X_i^2 / 2}$
+        \item The posterior distribution is proper for $\alpha=1$
+    \end{enumerate}</span></li><li><b>89</b> <span class="qbody">[89.] Suppose $A$ is a $5 \times 5$ block diagonal real matrix with diagonal blocks $\begin{pmatrix} e &amp; 1 \\ 0 &amp; e \end{pmatrix}$, $\begin{pmatrix} e &amp; 1 &amp; 0 \\ 0 &amp; e &amp; 0 \\ 0 &amp; 0 &amp; e \end{pmatrix}$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The algebraic multiplicity of $e$ in $A$ is 5
+        \item $A$ is not diagonalisable
+        \item The geometric multiplicity of $e$ in $A$ is 3
+        \item The geometric multiplicity of $e$ in $A$ is 2
+    \end{enumerate}</span></li><li><b>90</b> <span class="qbody">[90.] Suppose that $\mathbf{X}_1, \ldots, \mathbf{X}_n, \mathbf{X}_{n+1}$ is a random sample of size $n+1$, where $p&gt;2$ and $n&gt;p+3$, from a multivariate normal population, $N_p(\boldsymbol{\mu}, \boldsymbol{\Sigma})$; $\boldsymbol{\mu} \in \mathbb{R}^p$ and $\boldsymbol{\Sigma}&gt;0$. Let $\overline{\mathbf{X}}_n=\frac{1}{n} \sum\limits_{i=1}^n \mathbf{X}_i$ and $(n-1)\mathbf{S}=\sum\limits_{i=1}^n \left(\mathbf{X}_i - \overline{\mathbf{X}}_n\right)\left(\mathbf{X}_i - \overline{\mathbf{X}}_n\right)^{\top}$. Which of the following are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left(\overline{\mathbf{X}}_n - \mathbf{X}_{n+1}\right)^{\top} \mathbf{S}^{-1} \left(\overline{\mathbf{X}}_n - \mathbf{X}_{n+1}\right) \sim \frac{p(n^2-1)}{n(n-p)} F_{p,n-p}$
+        \item $E\left(\overline{\mathbf{X}}_n^{\top} \mathbf{S} \overline{\mathbf{X}}_n\right) = \operatorname{trace}\left(\frac{\boldsymbol{\Sigma}^2}{n}\right) + \boldsymbol{\mu}^{\top} \boldsymbol{\Sigma} \boldsymbol{\mu}$
+        \item $E\left(\mathbf{S}^{-1}\right) = \frac{n-1}{n-p-2} \boldsymbol{\Sigma}^{-1}$
+        \item $\left(\overline{\mathbf{X}}_n - \mathbf{X}_{n+1}\right)^{\top} \boldsymbol{\Sigma}^{-1} \left(\overline{\mathbf{X}}_n - \mathbf{X}_{n+1}\right) \sim \frac{n+1}{n} \chi_p^2$
+    \end{enumerate}</span></li><li><b>91</b> <span class="qbody">[91.] Which of the following statements are true for an arbitrary normed linear space $U$?
+    \begin{enumerate}[label=(\alph*)]
+        \item Every bounded linear functional from $U$ to $\mathbb{R}$ is continuous
+        \item $U$ is isomorphic to its double-dual $U^{**}$
+        \item For every $x \in U$, we have $\|x\| = \sup_f |f(x)|$, where $f$ denotes elements of $U^*$
+        \item The closed unit ball in $U$ is compact
+    \end{enumerate}</span></li><li><b>92</b> <span class="qbody">[92.] Let $\lambda_1 &lt; \lambda_2$ be two real characteristic numbers for the following homogeneous integral equation:
+    \[
+    \varphi(x) = \lambda \int\limits_0^{2\pi} \sin(x+t) \varphi(t) \, dt;
+    \]
+    and let $\mu_1 &lt; \mu_2$ be two real characteristic numbers for the following homogeneous integral equation:
+    \[
+    \psi(x) = \mu \int\limits_0^{2\pi} \cos(x+t) \psi(t) \, dt.
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\mu_1 &lt; \lambda_1 &lt; \lambda_2 &lt; \mu_2$
+        \item $\lambda_1 &lt; \mu_1 &lt; \mu_2 &lt; \lambda_2$
+        \item $|\mu_1 - \lambda_1| = |\mu_2 - \lambda_2|$
+        \item $|\mu_1 - \lambda_1| = 2 |\mu_2 - \lambda_2|$
+    \end{enumerate}</span></li><li><b>93</b> <span class="qbody">[93.] Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item If $G$ is a group of order 244, then $G$ contains a unique subgroup of order 27
+        \item If $G$ is a group of order 1694, then $G$ contains a unique subgroup of order 121
+        \item There exists a group of order 154 which contains a unique subgroup of order 7
+        \item There exists a group of order 121 which contains two subgroups of order 11
+    \end{enumerate}</span></li><li><b>94</b> <span class="qbody">[94.] Let $T: \mathbb{R}^3 \to \mathbb{R}^3$ be a linear transformation satisfying $T^3 - 3T^2 = -2I$, where $I: \mathbb{R}^3 \to \mathbb{R}^3$ is the identity transformation. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\mathbb{R}^3$ must admit a basis $\mathcal{B}_1$ such that the matrix of $T$ with respect to $\mathcal{B}_1$ is symmetric
+        \item $\mathbb{R}^3$ must admit a basis $\mathcal{B}_2$ such that the matrix of $T$ with respect to $\mathcal{B}_2$ is upper triangular
+        \item $\mathbb{R}^3$ must contain a non-zero vector $v$ such that $Tv=v$
+        \item $\mathbb{R}^3$ must contain two linearly independent vectors $v_1, v_2$ such that $Tv_1=v_1$ and $Tv_2=v_2$
+    \end{enumerate}</span></li><li><b>95</b> <span class="qbody">[95.] Let a continuous random variable $X$ follow $\text{Uniform}(-1,1)$. Define $Y=X^2$. Which of the following are NOT true for $X$ and $Y$?
+    \begin{enumerate}[label=(\alph*)]
+        \item They are independent and uncorrelated
+        \item They are independent but correlated
+        \item They are not independent but correlated
+        \item They are neither independent nor correlated
+    \end{enumerate}</span></li><li><b>96</b> <span class="qbody">[96.] Suppose $y(x)$ is an extremal of the following functional
+    \[
+    J(y(x)) = \int\limits_0^1 \left(y(x)^2 - 4 y(x) y^{\prime}(x) + 4 y^{\prime}(x)^2\right) \, dx
+    \]
+    subject to $y(0)=1$ and $y^{\prime}(0)=\frac{1}{2}$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $y$ is a convex function
+        \item $y$ is a concave function
+        \item $y(x_1 + x_2) = y(x_1) y(x_2)$ for all $x_1, x_2$ in $[0,1]$
+        \item $y(x_1 x_2) = y(x_1) + y(x_2)$ for all $x_1, x_2$ in $[0,1]$
+    \end{enumerate}</span></li><li><b>97</b> <span class="qbody">[97.] Consider the following initial value problem (IVP),
+    \[
+    \frac{du}{dt} = t^2 u^{1/3}, \quad u(0)=0.
+    \]
+    Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item The function $g(t, u)=t^2 u^{1/3}$ does not satisfy the Lipschitz condition with respect to $u$ in any neighbourhood of $u=0$
+        \item There is no solution for the IVP
+        \item There exist more than one solution for the IVP
+        \item The function $g(t, u)=t^2 u^{1/3}$ satisfies the Lipschitz condition with respect to $u$ in some neighbourhood of $u=0$ and hence there exists a unique solution for the IVP
+    \end{enumerate}</span></li><li><b>98</b> <span class="qbody">[98.] Suppose that $f: \mathbb{R}^n \to \mathbb{R}$, $n \geq 2$ is a $C^2$ function satisfying $f(y) \geq f(x) + \nabla f(x) \cdot (y-x)$ for every $x, y$ in $\mathbb{R}^n$. Here $\nabla$ denotes the gradient. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f$ is constant
+        \item $f$ is convex
+        \item $f$ is convex and bounded
+        \item $f$ is constant if $f$ is bounded
+    \end{enumerate}</span></li><li><b>99</b> <span class="qbody">[99.] Consider the linear model $E(Y_1)=2\beta_1 - \beta_2 - \beta_3$, $E(Y_2)=\beta_2 - \beta_4$, $E(Y_3)=\beta_2 + \beta_5 - 2\beta_4$ with uncorrelated and homoscedastic random error. Which of the following linear parametric functions are estimable?
+    \begin{enumerate}[label=(\alph*)]
+        \item $16\beta_1 - 9\beta_2 - 7\beta_3$
+        \item $\beta_3 - \beta_4$
+        \item $57\beta_1 - 18\beta_2 - 13\beta_3 - 26\beta_4$
+        \item $23\beta_1 - 9\beta_2 - 10\beta_3 + 4\beta_4$
+    \end{enumerate}</span></li><li><b>100</b> <span class="qbody">[100.] Which of the following are maximal ideals of $\mathbb{Z}[X]$?
+    \begin{enumerate}[label=(\alph*)]
+        \item Ideal generated by 2 and $\left(1+X^2\right)$
+        \item Ideal generated by 2 and $\left(1+X+X^2\right)$
+        \item Ideal generated by 3 and $\left(1+X^2\right)$
+        \item Ideal generated by 3 and $\left(1+X+X^2\right)$
+    \end{enumerate}</span></li><li><b>101</b> <span class="qbody">[101.] Let $V$ be a finite dimensional real vector space and $T_1, T_2$ be two nilpotent operators on $V$. Let $W_1=\{v \in V: T_1(v)=0\}$ and $W_2=\{v \in V: T_2(v)=0\}$. Which of the following statements are FALSE?
+    \begin{enumerate}[label=(\alph*)]
+        \item If $T_1$ and $T_2$ are similar, then $W_1$ and $W_2$ are isomorphic vector spaces
+        \item If $W_1$ and $W_2$ are isomorphic vector spaces, then $T_1$ and $T_2$ have the same minimal polynomial
+        \item If $W_1=W_2=V$, then $T_1$ and $T_2$ are similar
+        \item If $W_1$ and $W_2$ are isomorphic, then $T_1$ and $T_2$ have the same characteristic polynomial
+    \end{enumerate}</span></li><li><b>102</b> <span class="qbody">[102.] Let $G$ be a group of order 2023. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $G$ is an Abelian group
+        \item $G$ is a cyclic group
+        \item $G$ is a simple group
+        \item $G$ is not a simple group
+    \end{enumerate}</span></li><li><b>103</b> <span class="qbody">[103.] Let $\left\{x_n\right\}$ be a sequence of positive real numbers. If $\sigma_n = \frac{1}{n} \left(x_1 + x_2 + \ldots + x_n\right)$, then which of the following are true? (Here $\limsup$ denotes the limit supremum of a sequence.)
+    \begin{enumerate}[label=(\alph*)]
+        \item If $\limsup \left\{x_n\right\} = \ell$ and $\left\{x_n\right\}$ is decreasing, then $\limsup \left\{\sigma_n\right\} = \ell$
+        \item $\limsup \left\{x_n\right\} = \ell$ if and only if $\limsup \left\{\sigma_n\right\} = \ell$
+        \item If $\limsup \left\{n \left(\frac{x_n}{x_{n+1}} - 1\right)\right\} &lt; 1$, then $\sum\limits_n x_n$ is convergent
+        \item If $\limsup \left\{n \left(\frac{x_n}{x_{n+1}} - 1\right)\right\} &lt; 1$, then $\sum\limits_n x_n$ is divergent
+    \end{enumerate}</span></li><li><b>104</b> <span class="qbody">[104.] Let $\left(X_1, Y_1\right), \ldots, \left(X_4, Y_4\right)$ be a random sample from a continuous bivariate distribution function $F_{X,Y}$ with marginal distributions of $X$ and $Y$ being $F_X$ and $F_Y$ respectively. In order to test the null hypothesis $H_0$: `$X$ and $Y$ are independent&#x27; against the alternative $H_1$: `$X$ and $Y$ are positively associated&#x27;, consider the Kendall sample correlation statistic
+    \[
+    K = \sum\limits_{i=1}^3 \sum\limits_{j=1}^3 \psi\left(\left(X_i, Y_i\right), \left(X_j, Y_j\right)\right),
+    \]
+    where
+    \[
+    \psi((a, b), (c, d)) = \left\{
+    \begin{array}{cc}
+    1, &amp; \text{if } (d-b)(c-a)&gt;0, \\
+    -1, &amp; \text{if } (d-b)(c-a)&lt;0.
+    \end{array}
+    \right.
+    \]
+    Assuming no ties, which of the following are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The test that rejects $H_0$ for $K \geq 4$ has size $1/4$
+        \item The test that rejects $H_0$ for $K \geq 4$ has size $1/6$
+        \item $P_{H_0}(K=4)=3/24$
+        \item $P_{H_0}(K=6)=1/12$
+    \end{enumerate}</span></li><li><b>105</b> <span class="qbody">[105.] Let $X_1$ and $X_2$ be two independent random variables such that $X_1$ follows a gamma distribution with mean 10 and variance 10, and $X_2 \sim N(3,4)$. Let $f_1$ and $f_2$ denote the density functions of $X_1$ and $X_2$, respectively. Define a new random variable $Y$ so that for $y \in \mathbb{R}$, it has density function $f(y)=0.4 f_1(y) + q f_2(y)$. Which of the following are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $q=0.6$
+        \item $E[Y]=5.8$
+        \item $\operatorname{Var}(Y)=3.04$
+        \item $Y=0.4 X_1 + q X_2$
+    \end{enumerate}</span></li><li><b>106</b> <span class="qbody">[106.] Suppose that cars arrive at a petrol pump following a Poisson distribution at the rate of 10 per hour. The time to perform the refilling is exponentially distributed and the single available staff takes an average of 4 minutes to refill each car. Further assume that the cars leave immediately after refilling. Let $\alpha$ denote the probability of finding 3 or more cars waiting to refill and let $\beta$ denote the mean number of cars in the queue. Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\alpha = \frac{8}{27}$
+        \item $\beta = 1$
+        \item $\beta - \alpha = \frac{46}{27}$
+        \item $\alpha \beta = 3$
+    \end{enumerate}</span></li><li><b>107</b> <span class="qbody">[107.] Let us consider the following two initial value problems
+    \[
+    (P) \left\{
+    \begin{array}{l}
+    x^{\prime}(t) = \sqrt{x(t)}, \quad t&gt;0, \\
+    x(0)=0,
+    \end{array}
+    \right.
+    \quad \text{and} \quad
+    (Q) \left\{
+    \begin{array}{l}
+    y^{\prime}(t) = -\sqrt{y(t)}, \quad t&gt;0, \\
+    y(0)=0.
+    \end{array}
+    \right.
+    \]
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item (P) has a unique solution in $[0,\infty)$
+        \item (Q) has a unique solution in $[0,\infty)$
+        \item (P) has infinitely many solutions in $[0,\infty)$
+        \item (Q) has infinitely many solutions in $[0,\infty)$
+    \end{enumerate}</span></li><li><b>108</b> <span class="qbody">[108.] Let $\mu$ denote the Lebesgue measure on $\mathbb{R}$ and $\mu^*$ be the associated Lebesgue outer measure. Let $A$ be a non-empty subset of $[0,1]$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item If both interior and closure of $A$ have the same outer measure, then $A$ is Lebesgue measurable
+        \item If $A$ is open, then $A$ is Lebesgue measurable and $\mu(A)&gt;0$
+        \item If $A$ is not Lebesgue measurable, then the set of irrationals in $A$ must have positive outer measure
+        \item If $\mu^*(A)=0$, then $A$ has empty interior
+    \end{enumerate}</span></li><li><b>109</b> <span class="qbody">[109.] Let $f: \mathbb{R} \to \mathbb{R}$ be defined as $f(x) = \frac{1}{4} + x - x^2$. Given $a \in \mathbb{R}$, let us define the sequence $\left\{x_n\right\}$ by $x_0=a$ and $x_n=f(x_{n-1})$ for $n \geq 1$. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item If $a=0$, then the sequence $\left\{x_n\right\}$ converges to $\frac{1}{2}$
+        \item If $a=0$, then the sequence $\left\{x_n\right\}$ converges to $-\frac{1}{2}$
+        \item The sequence $\left\{x_n\right\}$ converges for every $a \in \left(-\frac{1}{2}, \frac{3}{2}\right)$, and it converges to $\frac{1}{2}$
+        \item If $a=0$, then the sequence $\left\{x_n\right\}$ does not converge
+    \end{enumerate}</span></li><li><b>110</b> <span class="qbody">[110.] Suppose $X_1, X_2, \ldots$ are independent and identically distributed $N(0,1)$ random variables and $Y_n = X_1^2 + X_2^2 + \ldots + X_n^2$. Which of the following probabilities converge to $\frac{1}{2}$ as $n \to \infty$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\mathbb{P}\{Y_n \in [0,2n]\}$
+        \item $\mathbb{P}\{Y_n \in [n,3n]\}$
+        \item $\mathbb{P}\{Y_n \in [2n,4n]\}$
+        \item $\mathbb{P}\{Y_n \in [3n,5n]\}$
+    \end{enumerate}</span></li><li><b>111</b> <span class="qbody">[111.] Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Maximum likelihood estimator may not be unique
+        \item A complete statistic is always sufficient
+        \item A sufficient statistic may not be complete
+        \item Any function of a sufficient statistic is always sufficient
+    \end{enumerate}</span></li><li><b>112</b> <span class="qbody">[112.] Let $n \geq 1$ be a positive integer and $S_n$ the symmetric group on $n$ symbols. Let $\Delta = \{(g,g): g \in S_n\}$. Which of the following statements are necessarily true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The map $f: S_n \times S_n \to S_n$ given by $f(a,b) = ab$ is a group homomorphism
+        \item $\Delta$ is a subgroup of $S_n \times S_n$
+        \item $\Delta$ is a normal subgroup of $S_n \times S_n$
+        \item $\Delta$ is a normal subgroup of $S_n \times S_n$, if $n$ is a prime number
+    \end{enumerate}</span></li><li><b>113</b> <span class="qbody">[113.] Let $V$ be an inner product space and let $v_1, v_2, v_3 \in V$ be an orthogonal set of vectors. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item The vectors $v_1 + v_2 + 2 v_3, v_2 + v_3, v_2 + 3 v_3$ can be extended to a basis of $V$
+        \item The vectors $v_1 + v_2 + 2 v_3, v_2 + v_3, v_2 + 3 v_3$ can be extended to an orthogonal basis of $V$
+        \item The vectors $v_1 + v_2 + 2 v_3, v_2 + v_3, v_2 + v_3 + 3 v_3$ can be extended to a basis of $V$
+        \item The vectors $v_1 + v_2 + 2 v_3, 2 v_1 + v_2 + v_3, 2 v_1 + v_2 + 3 v_3$ can be extended to a basis of $V$
+    \end{enumerate}</span></li><li><b>114</b> <span class="qbody">[114.] Which of the following are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item For $n \geq 1$, the sequence of functions $f_n: (0,1) \to (0,1)$ defined by $f_n(x)=x^n$ is uniformly convergent
+        \item For $n \geq 1$, the sequence of functions $f_n: (0,1) \to (0,1)$ defined by $f_n(x)=\frac{x^n}{\log(n+1)}$ is uniformly convergent
+        \item For $n \geq 1$, the sequence of functions $f_n: (0,1) \to (0,1)$ defined by $f_n(x)=\frac{x^n}{1+x^n}$ is uniformly convergent
+        \item For $n \geq 1$, the sequence of functions $f_n: (0,1) \to (0,1)$ defined by $f_n(x)=\frac{x^n}{1+n x^n}$ is not uniformly convergent
+    \end{enumerate}</span></li><li><b>115</b> <span class="qbody">[115.] Let $G_1$ and $G_2$ be two groups and $\varphi: G_1 \to G_2$ be a surjective group homomorphism. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item If $G_1$ is cyclic then $G_2$ is cyclic
+        \item If $G_1$ is Abelian then $G_2$ is Abelian
+        \item If $H$ is a subgroup of $G_1$ then $\varphi(H)$ is a subgroup of $G_2$
+        \item If $N$ is a normal subgroup of $G_1$ then $\varphi(N)$ is a normal subgroup of $G_2$
+    \end{enumerate}</span></li><li><b>116</b> <span class="qbody">[116.] Let $y(x)$ and $z(x)$ be the stationary functions (extremals) of the variational problem
+    \[
+    J(y(x), z(x)) = \int\limits_0^1 \left[ \left(y^{\prime}\right)^2 + \left(z^{\prime}\right)^2 + y^{\prime} z^{\prime} \right] \, dx
+    \]
+    subject to $y(0)=1$, $y(1)=0$, $z(0)=-1$, $z(1)=2$. Which of the following statements are correct?
+    \begin{enumerate}[label=(\alph*)]
+        \item $z(x) + 3 y(x) = 2$ for $x \in [0,1]$
+        \item $3 z(x) + y(x) = 2$ for $x \in [0,1]$
+        \item $y(x) + z(x) = 2x$ for $x \in [0,1]$
+        \item $y(x) + z(x) = x$ for $x \in [0,1]$
+    \end{enumerate}</span></li><li><b>117</b> <span class="qbody">[117.] Consider the following quadratic forms over $\mathbb{R}$:
+    \begin{itemize}
+        \item[A.] $6X^2 - 13XY + 6Y^2$
+        \item[B.] $X^2 - XY + 2Y^2$
+        \item[C.] $X^2 - XY - 2Y^2$
+    \end{itemize}
+    Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Quadratic forms (A) and (B) are equivalent
+        \item Quadratic forms (A) and (C) are equivalent
+        \item Quadratic form (B) is positive definite
+        \item Quadratic form (C) is positive definite
+    \end{enumerate}</span></li><li><b>118</b> <span class="qbody">[118.] Consider the following statements:
+    \begin{itemize}
+        \item[A.] Let $f$ be a continuous function on $[1,\infty)$ taking non-negative values such that $\int\limits_1^{\infty} f(x) \, dx$ converges. Then $\sum\limits_{n=1}^{\infty} f(n)$ converges.
+        \item[B.] Let $f$ be a function on $[1,\infty)$ taking non-negative values such that $\int\limits_1^{\infty} f(x) \, dx$ converges. Then $\lim\limits_{x \to \infty} f(x)=0$.
+        \item[C.] Let $f$ be a continuous, decreasing function on $[1,\infty)$ taking non-negative values such that $\int\limits_1^{\infty} f(x) \, dx$ does not converge. Then $\sum\limits_{n=1}^{\infty} f(n)$ does not converge.
+    \end{itemize}
+    Which of the following options are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item (A), (B) and (C) all are true
+        \item Both (A) and (B) are false
+        \item (C) is true
+        \item (D) is true
+    \end{enumerate}</span></li><li><b>119</b> <span class="qbody">[119.] Let $B$ be a $3 \times 5$ matrix with entries from $\mathbb{Q}$. Assume that $\{v \in \mathbb{R}^3 \mid Bv=0\}$ is a three-dimensional real vector space. Which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\{v \in \mathbb{Q}^3 \mid Bv=0\}$ is a three-dimensional vector space over $\mathbb{Q}$
+        \item The linear transformation $T: \mathbb{Q}^3 \to \mathbb{Q}^3$ given by $T(v)=B^t v$ is injective
+        \item The column span of $B$ is two-dimensional
+        \item The linear transformation $T: \mathbb{Q}^3 \to \mathbb{Q}^3$ given by $T(v)=B B^t v$ is injective
+    \end{enumerate}</span></li><li><b>120</b> <span class="qbody">[120.] Let $Y_i = \alpha + \beta x_i + \varepsilon_i$, $i=1,2,3$, where $x_i$&#x27;s are fixed covariates, $\alpha$ and $\beta$ are unknown parameters and $\varepsilon_i$&#x27;s are independently and identically distributed normal random variables with mean 0 and variance $\sigma^2&gt;0$. Given the following observations, which of the following statements are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Maximum likelihood estimate of $\alpha$ is 0.1
+        \item Least square estimate of $\alpha$ is 0.1
+        \item Best linear unbiased estimate of $\alpha$ is 0.1
+        \item Maximum likelihood estimate of $\frac{\beta}{\alpha}$ is 19.5
+    \end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

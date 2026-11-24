@@ -7,6 +7,7 @@
   const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   const PROG = { BSc: "B.Sc. Mathematics", MSc: "M.Sc. Mathematics" };
   const PSHORT = { BSc: "B.Sc.", MSc: "M.Sc." };
+  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET" };
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -94,6 +95,8 @@
       const rows = body.split(/\\\\(?:\[[^\]]*\])?/).map((r) => r.replace(/\\hline|\\cline\{[^}]*\}/g, "").trim()).filter((r) => r);
       return hold('<div class="tblwrap"><table>' + rows.map((r) => "<tr>" + r.split(/(?<!\\)&/).map((c) => "<td>" + texToHtml(c.trim()) + "</td>").join("") + "</tr>").join("") + "</table></div>");
     });
+    s = s.replace(/\\includegraphics(?:\[[^\]]*\])?\{(assets\/competitive\/[a-f0-9]{16}\.png)\}/g,
+      (m, path) => hold(`<img class="question-figure" src="${BASE + path}" alt="Figure supplied with the question" loading="lazy">`));
     let out = "", last = 0, m;
     SEG.lastIndex = 0;
     while ((m = SEG.exec(s))) {
@@ -119,7 +122,11 @@
       [/\\unreadable\{([^{}]*)\}/g, '<span class="unr" title="Not legible in the scan">$1</span>'],
       [/\\gapmark\{[^{}]*\}/g, '<span class="unr" title="Gap in the source">…</span>'],
       [/\\missingglyph\b/g, '<span class="unr" title="Symbol missing in the source">□</span>'],
-      [/\\begin\{(?:enumerate|romanparts)\}(?:\[[^\]]*\])?/g, '<ol class="sub">'],
+      [/\\begin\{(?:enumerate|romanparts)\}(?:\[([^\]]*)\])?/g, (m, label = "") => {
+        const type = label.includes("\\alph") ? "a" : label.includes("\\Alph") ? "A" :
+          label.includes("\\Roman") ? "I" : label.includes("\\arabic") ? "1" : "i";
+        return `<ol class="sub" style="list-style-type:${({ a: "lower-alpha", A: "upper-alpha", I: "upper-roman", 1: "decimal", i: "lower-roman" })[type]}">`;
+      }],
       [/\\begin\{itemize\}(?:\[[^\]]*\])?/g, '<ol class="sub" style="list-style:disc">'],
       [/\\end\{(?:enumerate|romanparts|itemize)\}/g, "</ol>"],
       [/\\item\s*\[([^\]]*)\]/g, '<li style="list-style:none"><b>$1</b> '],
@@ -159,15 +166,16 @@
   /* ---------- data ---------- */
   async function load() {
     const get = (u) => fetch(BASE + u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
-    const [P, Q, S, C] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json")]);
-    D.papers = P.papers; D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
+    const [P, Q, S, C, E] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json"), get("data/competitive.json").catch(() => ({ papers: [], questions: [] }))]);
+    D.papers = P.papers.concat(E.papers);
+    Q.push(...E.questions.map(([i, ...q]) => [i + P.papers.length, ...q])); D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
     D.papers.forEach((p, i) => D.byKey.set(p.key, i));
     D.byPaper = D.papers.map(() => []);
     D.Q = Q.map((a, i) => {
       const p = D.papers[a[0]];
-      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12] };
+      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [] };
       q.broads = new Set(q.t.map((k) => D.broad.indexOf(D.topics[k][0])).concat(q.tb));
-      q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "")).toLowerCase();
+      q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "") + " " + (EXAM[p.prog] || "") + " " + p.year).toLowerCase();
       D.byPaper[a[0]].push(q);
       D.byId.set(q.id, q);
       return q;
@@ -182,7 +190,7 @@
   const hue = (b) => `hsl(${Math.round((b * 360) / 16 + 140) % 360} 42% 45%)`;
   const pname = (p) => p.code || (p.kind[0] === "i" ? "Internal test" : "Paper " + p.key.split("-").pop());
   const paperLabel = (p) => pname(p) + (p.title ? " · " + p.title : "");
-  const semLabel = (p) => PSHORT[p.prog] + " Sem " + ROMAN[p.sem];
+  const semLabel = (p) => EXAM[p.prog] || PSHORT[p.prog] + " Sem " + ROMAN[p.sem];
   const scanUrl = (id) => "https://drive.google.com/file/d/" + id + "/view";
   const scansFor = (p) => {
     const list = (D.scanIdx.get(p.prog + "|" + p.sem + "|" + p.year + "|" + (p.kind[0] === "i" ? "i" : "s")) || []).filter((s) => !s.other);
@@ -191,7 +199,7 @@
   };
   const qLabel = (q) => q.qno + (q.part ? "(" + q.part + ")" : "");
   const lenOf = (q) => (q.marks == null ? "" : q.marks <= SHORT_MAX ? "short" : "long");
-  const fmtMarks = (q) => (q.mraw && /[+×x]/.test(q.mraw) ? q.mraw.replace(/x/g, "×") : q.marks != null ? (Number.isInteger(q.marks) ? q.marks : q.marks.toFixed(1)) : "");
+  const fmtMarks = (q) => (q.mraw && /[+×x]/.test(q.mraw) ? q.mraw.replace(/x/g, "×") : q.marks != null ? (Number.isInteger(q.marks) ? q.marks : String(q.marks)) : "");
   const era = (code) => !code ? "" : /^BM|^BME|^BMO/.test(code) ? "BMC syllabus" : /^(MJ|MN|MD|SEC-)/.test(code) ? "NEP syllabus" : /^(CC|DSE|GE|SEC|AECC)/.test(code) ? "CBCS syllabus" : "";
   function toast(msg) { $$(".toast").forEach((t) => t.remove()); const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 1900); }
   async function copy(text, label) {
@@ -256,13 +264,13 @@
     if (q.rep.length > 1) tags.push(`<span class="tag rep" title="Same wording in ${q.rep.join(", ")}">↻ Asked ${q.rep.length}× · ${q.rep.slice(-3).join(", ")}${q.rep.length > 3 ? "…" : ""}</span>`);
     const src = opts.noSource ? `<span class="qsrc"></span>` : `<a class="qsrc" href="${L("paper-" + p.key)}">${esc(semLabel(p))} · ${p.year}${p.kind[0] === "i" ? " · Internal" : ""} · <span class="code">${esc(pname(p))}</span></a>`;
     return `<article class="q${on ? " in" : ""}" data-id="${esc(q.id)}">
-      <header class="qh"><span class="qn">${esc(opts.num != null ? opts.num : "Q" + qLabel(q))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
+      <header class="qh"><span class="qn">${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
       <div class="qbody">${texToHtml(q.tex)}</div>
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
           <button type="button" class="qbtn" data-act="copy" title="Copy LaTeX" aria-label="Copy LaTeX">${IC.copy}<span class="sr">Copy LaTeX</span></button>
-          <details class="qmore"><summary class="qbtn" aria-label="More actions" title="More">${IC.dots}</summary><div class="qmenu" role="menu">
-            <div class="qmh"><b>${esc(opts.num != null ? opts.num : "Q" + qLabel(q))}</b><button type="button" class="qmclose" data-close-menu aria-label="Close">${IC.x}</button></div>
+          <details class="qmore"><summary class="qbtn" aria-label="More actions" title="More">${IC.dots}</summary><div class="qmenu" popover="manual" role="group" aria-label="Question actions">
+            <div class="qmh"><b>${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</b><button type="button" class="qmclose" data-close-menu aria-label="Close">${IC.x}</button></div>
             <button type="button" data-act="copytext">${IC.copy} Copy as plain text</button>
             <a href="${L("paper-" + p.key)}">${IC.file} Open the full paper</a>
             <a href="${GH}4-submit-solution.yml&qid=${encodeURIComponent(q.id)}" target="_blank" rel="noopener">${IC.pen} Submit a solution</a>
@@ -289,6 +297,14 @@
     $$("details.qmore[open]").forEach((d) => { if (!d.contains(e.target)) d.open = false; });
     const t = e.target.closest("[data-ft],[data-fb]");
     if (t) { F = defaultFilters(); if (t.dataset.ft) { F.topic = t.dataset.ft; F.broad = String(D.broad.indexOf(D.topics[+t.dataset.ft][0])); } else F.broad = t.dataset.fb; }
+    const exam = e.target.closest("[data-exam-search]");
+    if (exam && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      F = { ...defaultFilters(), kind: exam.dataset.examSearch };
+      if (HASH) go("search");
+      else { history.pushState({}, "", L("search") + searchQuery()); route(); }
+      return;
+    }
     const a = e.target.closest("a[href]");
     if (a && !HASH && !a.target && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
       const href = a.getAttribute("href");
@@ -297,11 +313,20 @@
   });
 
   /* ---------- the ⋯ menu: kept inside the window; a bottom sheet on phones ---------- */
-  function closeMenus() { $$("details.qmore[open]").forEach((d) => { d.open = false; }); }
+  function closeMenus() {
+    $$("details.qmore[open]").forEach((d) => {
+      const m = d.querySelector(".qmenu");
+      if (m.hidePopover) m.hidePopover();
+      d.open = false;
+    });
+    const scrim = $(".menuscrim");
+    if (scrim) scrim.hidden = true;
+  }
   function placeMenu(d) {
     const m = d.querySelector(".qmenu"), s = d.querySelector("summary");
-    const phone = window.matchMedia("(max-width:640px)").matches;
+    const phone = window.matchMedia("(max-width:767px)").matches;
     let scrim = $(".menuscrim");
+    if (m.showPopover && !m.matches(":popover-open")) m.showPopover();
     if (phone) {
       m.classList.add("sheet"); m.style.cssText = "";
       if (!scrim) { scrim = document.createElement("div"); scrim.className = "menuscrim"; document.body.appendChild(scrim); }
@@ -311,7 +336,7 @@
     m.classList.remove("sheet"); if (scrim) scrim.hidden = true;
     m.style.cssText = "position:fixed;visibility:hidden;left:0;top:0";
     const r = s.getBoundingClientRect(), mw = m.offsetWidth, mh = m.offsetHeight, W = document.documentElement.clientWidth, H = window.innerHeight;
-    let left = Math.min(Math.max(8, r.right - mw), W - mw - 8);
+    const left = Math.max(8, Math.min(r.right - mw, W - mw - 8));
     let top = r.bottom + 6;
     if (top + mh > H - 8) top = Math.max(8, r.top - 6 - mh);
     m.style.cssText = `position:fixed;left:${left}px;top:${top}px`;
@@ -320,22 +345,27 @@
     const d = e.target;
     if (!(d instanceof HTMLDetailsElement) || !d.classList.contains("qmore")) return;
     if (d.open) { $$("details.qmore[open]").forEach((o) => { if (o !== d) o.open = false; }); placeMenu(d); const f = d.querySelector(".qmenu a, .qmenu button:not(.qmclose)"); f && f.focus({ preventScroll: true }); }
-    else { const sc = $(".menuscrim"); if (sc && !$("details.qmore[open]")) sc.hidden = true; }
+    else {
+      const m = d.querySelector(".qmenu");
+      if (m.hidePopover) m.hidePopover();
+      const sc = $(".menuscrim");
+      if (sc && !$("details.qmore[open]")) sc.hidden = true;
+    }
   }, true);
-  window.addEventListener("scroll", () => { if (!window.matchMedia("(max-width:640px)").matches) closeMenus(); }, { passive: true });
-  window.addEventListener("resize", closeMenus);
+  window.addEventListener("scroll", () => { if (!window.matchMedia("(max-width:767px)").matches) closeMenus(); }, { passive: true });
+  window.addEventListener("resize", () => { const open = $("details.qmore[open]"); if (open) placeMenu(open); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("details.qmore[open]")) { const d = $("details.qmore[open]"); closeMenus(); d.querySelector("summary").focus(); } });
 
   function toLatex(qs, p, head) {
     const h = head || (p ? paperHead(p) : store.get("pvhead", defaultHead()));
-    const lines = ["\\documentclass[11pt,a4paper]{article}", "\\usepackage{amsmath,amssymb,enumitem}", "\\usepackage[margin=2cm]{geometry}", "\\newcommand{\\printedmarks}[1]{}", "\\newcommand{\\unreadable}[1]{#1}", "\\newcommand{\\gapmark}[1]{\\ldots}", "\\newcommand{\\missingglyph}{\\square}", "\\newenvironment{romanparts}{\\begin{enumerate}[label=(\\roman*)]}{\\end{enumerate}}", "\\pagestyle{empty}", "\\begin{document}",
+    const lines = ["\\documentclass[11pt,a4paper]{article}", "\\usepackage{amsmath,amssymb,enumitem,graphicx}", "\\usepackage[margin=2cm]{geometry}", "\\newcommand{\\printedmarks}[1]{}", "\\newcommand{\\unreadable}[1]{#1}", "\\newcommand{\\gapmark}[1]{\\ldots}", "\\newcommand{\\missingglyph}{\\square}", "\\newenvironment{romanparts}{\\begin{enumerate}[label=(\\roman*)]}{\\end{enumerate}}", "\\pagestyle{empty}", "\\begin{document}",
       "\\begin{center}", h.inst ? "{\\large\\textbf{" + h.inst + "}}\\\\[2pt]" : "", h.exam ? "\\textbf{" + h.exam + "}\\\\[2pt]" : "", h.paper ? "\\textit{" + h.paper + "}" : "", "\\end{center}",
       "\\noindent\\textbf{" + (h.time || "") + "}\\hfill\\textbf{" + (h.full ? "Full Marks: " + h.full : "") + "}\\\\[-4pt]", "\\rule{\\textwidth}{0.6pt}", h.instr ? "\\begin{center}\\textit{" + h.instr + "}\\end{center}" : "",
       "\\begin{enumerate}[leftmargin=*,label=\\textbf{\\arabic*.}]"];
     let sec = null;
     qs.forEach((q) => {
       if (p && q.sec !== sec) { sec = q.sec; if (sec) lines.push("\\item[] \\begin{center}\\textbf{" + plainOf(sec) + "}\\end{center}"); }
-      const tag = p ? "[\\textbf{" + qLabel(q) + "}]" : "";
+      const tag = p && q.qno ? "[\\textbf{" + qLabel(q) + "}]" : "";
       const src = p ? "" : " % " + semLabel(D.papers[q.p]) + " " + D.papers[q.p].year + " " + pname(D.papers[q.p]) + " Q" + qLabel(q);
       lines.push("\\item" + tag + " " + q.tex.trim().replace(/\\hfill\s*\\printedmarks\{[^}]*\}/g, "") + (q.marks != null ? " \\hfill [" + fmtMarks(q) + "]" : "") + src);
     });
@@ -343,7 +373,9 @@
     return lines.filter((l) => l !== "").join("\n");
   }
   function defaultHead() { return { inst: "Department of Mathematics", exam: "Practice Paper", paper: "", time: "Time: 2 Hours", full: "", instr: "Answer all questions. Figures in the margin indicate full marks." }; }
-  function paperHead(p) { return { inst: "Visva-Bharati", exam: (p.prog === "BSc" ? "B.Sc." : "M.Sc.") + " Mathematics " + (p.kind[0] === "i" ? "Internal Assessment" : "Examination") + " " + p.year + ", Semester " + ROMAN[p.sem], paper: (p.code || "") + (p.title ? " — " + p.title : ""), time: "", full: p.full || "", instr: p.rule ? plainOf(p.rule) : "Figures in the margin indicate full marks." }; }
+  function paperHead(p) {
+    if (EXAM[p.prog]) return { inst: EXAM[p.prog], exam: p.title, paper: "", time: "", full: p.full || "", instr: "" };
+    return { inst: "Visva-Bharati", exam: (p.prog === "BSc" ? "B.Sc." : "M.Sc.") + " Mathematics " + (p.kind[0] === "i" ? "Internal Assessment" : "Examination") + " " + p.year + ", Semester " + ROMAN[p.sem], paper: (p.code || "") + (p.title ? " — " + p.title : ""), time: "", full: p.full || "", instr: p.rule ? plainOf(p.rule) : "Figures in the margin indicate full marks." }; }
   function overleaf(tex) {
     const f = document.createElement("form"); f.method = "post"; f.action = "https://www.overleaf.com/docs"; f.target = "_blank";
     [["encoded_snip", encodeURIComponent(tex)], ["snip_name", "vbmath-paper.tex"]].forEach(([n, v]) => { const i = document.createElement("input"); i.type = "hidden"; i.name = n; i.value = v; f.appendChild(i); });
@@ -367,7 +399,7 @@
       if (F.sem && p.sem !== +F.sem) continue;
       if (p.year < from || p.year > to) continue;
       if (F.code && (p.code || "").replace(/\(.*/, "") !== F.code.replace(/\(.*/, "") && p.code !== F.code) continue;
-      if (F.kind && p.kind[0] !== F.kind) continue;
+      if (F.kind && (EXAM[F.kind] ? p.prog !== F.kind : p.kind[0] !== F.kind)) continue;
       if (topic >= 0 && !q.t.includes(topic)) continue;
       if (broad >= 0 && !q.broads.has(broad)) continue;
       if (F.len && lenOf(q) !== F.len) continue;
@@ -405,13 +437,13 @@
             <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle">Show</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
           <div class="fbody">
           <div><span class="flabel">Programme</span><div class="seg" data-f="prog">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."]].map(([v, l]) => `<button type="button" class="chip${F.prog === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem">${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
+          <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem"${EXAM[F.kind] ? " disabled" : ""}>${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
           <div><span class="flabel">Year</span><div class="two"><select id="f-from" aria-label="From year">${opt("", "From", F.from)}${yrs.map((y) => opt(y, y, F.from)).join("")}</select><select id="f-to" aria-label="To year">${opt("", "To", F.to)}${yrs.map((y) => opt(y, y, F.to)).join("")}</select></div></div>
           <div><label class="flabel" for="f-code">Paper code</label><input id="f-code" type="text" list="codes" placeholder="e.g. CC-5, MMC-21" value="${esc(F.code)}" autocomplete="off"><datalist id="codes">${D.codes.map((c) => `<option value="${esc(c)}">`).join("")}</datalist></div>
           <div><label class="flabel" for="f-broad">Topic</label><select id="f-broad">${opt("", "Any area", F.broad)}${D.broad.map((b, i) => opt(i, b, F.broad)).join("")}</select>
             <select id="f-topic" style="margin-top:8px" aria-label="Specific topic">${opt("", "Any specific topic", F.topic)}${specific.map(([i, t]) => opt(i, t[1], F.topic)).join("")}</select></div>
           <div><span class="flabel">Length</span><div class="seg" data-f="len">${[["", "Any"], ["short", "Short ≤" + SHORT_MAX], ["long", "Long ≥" + (SHORT_MAX + 1)]].map(([v, l]) => `<button type="button" class="chip${F.len === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"], ["JAM", "JAM"], ["NET", "NET"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
           <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> Only questions asked in more than one year</label></div>
           </div>
         </aside>
@@ -423,15 +455,29 @@
         </section>
       </div></div>`;
   }
+  function searchQuery() {
+    const params = new URLSearchParams();
+    if (F.q) params.set("q", F.q);
+    if (EXAM[F.kind]) params.set("exam", F.kind);
+    return params.size ? "?" + params : "";
+  }
   function bindSearch() {
     shown = PAGE;
-    const rerun = (reset = true) => { if (reset) shown = PAGE; store.set("filters", F); if (!HASH) history.replaceState({}, "", "/search/" + (F.q ? "?q=" + encodeURIComponent(F.q) : "")); renderResults(); };
+    const rerun = (reset = true) => { if (reset) shown = PAGE; store.set("filters", F); if (!HASH) history.replaceState({}, "", "/search/" + searchQuery()); renderResults(); };
     $("#sform").addEventListener("submit", (e) => { e.preventDefault(); F.q = $("#sq").value.trim(); rerun(); });
     let deb; $("#sq").addEventListener("input", (e) => { clearTimeout(deb); deb = setTimeout(() => { F.q = e.target.value.trim(); rerun(); }, 220); });
     $$(".seg[data-f]").forEach((g) => g.addEventListener("click", (e) => {
       const b = e.target.closest("button[data-v]"); if (!b) return;
       F[g.dataset.f] = b.dataset.v; $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
-      if (g.dataset.f === "prog") { route(true); return; }
+      if (g.dataset.f === "prog") {
+        if (F.prog && EXAM[F.kind]) F.kind = "";
+        if (F.prog === "MSc" && +F.sem > 4) F.sem = "";
+        route(true); return;
+      }
+      if (g.dataset.f === "kind" && EXAM[F.kind]) {
+        F.prog = F.sem = F.code = "";
+        route(true); return;
+      }
       rerun();
     }));
     const sel = { "f-sem": "sem", "f-from": "from", "f-to": "to", "f-sort": "sort", "f-topic": "topic" };
@@ -526,7 +572,7 @@
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
           </div>
           <article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
-            <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(PSHORT[qp.prog])} Semester ${ROMAN[qp.sem]}, ${qp.year}</a></div>
+            <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(semLabel(qp))}, ${qp.year}</a></div>
             <div class="qh"><span class="qn">Q${esc(qLabel(qod))}</span><span class="qsrc">${qp.title ? esc(qp.title) : ""}</span>${qod.marks != null ? `<span class="qmk">${esc(fmtMarks(qod))} marks</span>` : ""}</div>
             <div class="qbody">${texToHtml(qod.tex)}</div>
             <div class="qodf"><a class="btn btn-ghost btn-sm" href="${L("paper-" + qp.key)}">Open the paper</a><button type="button" class="qbtn collect${coll.includes(qod.id) ? " on" : ""}" data-act="collect"><span class="lbl-off">${IC.plus}</span><span class="lbl-on">${IC.check}</span><span class="lbl-off">Collect</span><span class="lbl-on">Collected</span></button></div>
@@ -613,7 +659,9 @@
   /* ---------- one paper ---------- */
   function viewPaper(key) {
     const pi = D.byKey.get(key); if (pi == null) return notFound();
-    const p = D.papers[pi], qs = D.byPaper[pi], scans = scansFor(p);
+    const p = D.papers[pi], qs = D.byPaper[pi];
+    if (EXAM[p.prog]) return viewCompetitivePaper(p, qs);
+    const scans = scansFor(p);
     setMeta(`${pname(p)}${p.title ? " " + p.title : ""} ${p.year} · ${PSHORT[p.prog]} Semester ${ROMAN[p.sem]} · VBMath`, `Visva-Bharati ${PSHORT[p.prog]} Mathematics Semester ${ROMAN[p.sem]} ${p.year} ${p.kind[0] === "i" ? "internal" : "end-semester"} question paper ${p.code || ""}${p.title ? " (" + p.title + ")" : ""}: all ${qs.filter((q) => !q.stem).length} questions typed in LaTeX, with the original scan.`, L("paper-" + key));
     let html = "", sec = null;
     for (const q of qs) {
@@ -645,6 +693,27 @@
       ${siblings.length ? `<section class="section" style="margin-top:28px"><div class="shead"><h2 style="font-size:22px;margin:0">Same semester, same year</h2></div><div class="row">${siblings.map((x) => `<a class="chip" href="${L("paper-" + x.key)}">${esc(paperLabel(x))}</a>`).join("")}</div></section>` : ""}
     </div>`;
   }
+  function viewCompetitivePaper(p, qs) {
+    const name = EXAM[p.prog];
+    setMeta(`${name} · ${p.title} · VBMath`, `${qs.length} typed questions from ${name}, ${p.title}.`, L("paper-" + p.key));
+    let section = "";
+    const cards = qs.map((q, index) => {
+      const heading = q.sec === section ? "" : `<h2 class="secthead">${esc(q.sec)}</h2>`;
+      section = q.sec;
+      return heading + qCard(q, { noSource: true, num: q.qno ? "Q" + q.qno : "Item " + (index + 1) });
+    }).join("");
+    return `<div class="wrap" style="max-width:920px">
+      <div class="crumbs"><a href="${L("home")}">Home</a> / <a href="${L("exams")}">Competitive exams</a> / ${esc(name)}</div>
+      <header class="exam-head"><div class="inst">${esc(name)}</div><h1>${esc(p.title)}</h1><div class="fm"><span>${qs.length} typed questions</span></div></header>
+      <div class="toolbar">
+        <a class="btn btn-primary btn-sm" href="${L("preview-" + p.key)}">${IC.file} Preview as PDF</a>
+        <button class="btn btn-ghost btn-sm" type="button" id="addall">${IC.plus} Collect all</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="copypaper">${IC.copy} Copy LaTeX</button>
+        ${p.source ? ext(p.source, "Original paper", "btn btn-ghost btn-sm") : ""}
+      </div>
+      <div id="paperqs">${cards}</div>
+    </div>`;
+  }
   function bindPaper(key) {
     const pi = D.byKey.get(key); if (pi == null) return;
     const qs = D.byPaper[pi].filter((q) => !q.stem);
@@ -660,14 +729,15 @@
     const qs = p ? D.byPaper[pi] : coll.map((id) => D.byId.get(id)).filter(Boolean);
     const h = p ? Object.assign(paperHead(p), store.get("pvhead-p", {})) : store.get("pvhead", defaultHead());
     if (!qs.length) return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Preview</div><h1>Paper preview</h1><div class="empty"><p>Your collection is empty. Collect questions from any paper or search result, then preview them here as an A4 paper.</p><a class="btn btn-primary" href="${L("search")}">Find questions</a></div></div>`;
-    const total = qs.filter((q) => !q.stem).reduce((s, q) => s + (q.marks || 0), 0);
+    const total = (p?.prog === "NET" ? [] : qs.filter((q) => !q.stem)).reduce((s, q) => s + (q.marks || 0), 0);
     let sec = null, n = 0;
+    const figures = [...new Set(qs.flatMap((q) => q.tex.match(/assets\/competitive\/[a-f0-9]{16}\.png/g) || []))];
     const items = qs.map((q) => {
       let pre = "";
       if (p && q.sec !== sec) { sec = q.sec; if (sec) pre = `<li class="sec">${esc(plainOf(sec))}</li>`; }
       if (q.stem) return pre + `<li><span class="qno">${esc(q.qno)}.</span><div class="qbody"><i>${texToHtml(q.tex)}</i></div><span></span></li>`;
       n++;
-      return pre + `<li><span class="qno">${p ? esc(qLabel(q)) : n + "."}</span><div class="qbody">${texToHtml(q.tex)}</div><span class="mk">${q.marks != null ? esc(fmtMarks(q)) : ""}</span></li>`;
+      return pre + `<li><span class="qno">${p && q.qno ? esc(qLabel(q)) : n + "."}</span><div class="qbody">${texToHtml(q.tex)}</div><span class="mk">${q.marks != null ? esc(fmtMarks(q)) : ""}</span></li>`;
     }).join("");
     const fld = (k, l) => `<div><span class="flabel">${l}</span><input type="text" data-h="${k}" value="${esc(h[k] || "")}"></div>`;
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${p ? `<a href="${L("paper-" + p.key)}">${esc(pname(p))} ${p.year}</a> / ` : ""}Preview</div>
@@ -680,6 +750,8 @@
           <hr style="border:0;border-top:1px solid var(--rule);margin:4px 0">
           ${fld("inst", "Institution")}${fld("exam", "Examination")}${fld("paper", "Paper")}<div class="two">${fld("time", "Time")}${fld("full", "Full marks")}</div>${fld("instr", "Instructions")}
           ${p ? "" : `<button class="btn btn-ghost btn-sm" type="button" id="pvedit">${IC.stack} Edit the collection</button>`}
+          ${figures.length ? `<details><summary>Figure files for LaTeX export</summary><p class="muted">Save these files under assets/competitive in the LaTeX project.</p>
+            ${figures.map((path, i) => `<a class="chip" href="${BASE + path}" download>Figure ${i + 1}</a>`).join(" ")}</details>` : ""}
           <p class="muted" style="font-size:12.5px;margin:0">“Print” uses your browser's Save as PDF. Overleaf compiles the same LaTeX into a typeset PDF.</p>
         </aside>
         <div class="pv-stage"><article class="a4" id="sheet">
@@ -752,7 +824,7 @@
     const yrs = D.years;
     const byYear = new Map(yrs.map((y) => [y, 0]));
     const cell = new Map();
-    D.Q.forEach((q) => { if (q.stem) return; const y = D.papers[q.p].year; byYear.set(y, byYear.get(y) + 1); q.broads.forEach((b) => cell.set(b + "|" + y, (cell.get(b + "|" + y) || 0) + 1)); });
+    D.Q.forEach((q) => { if (q.stem || EXAM[D.papers[q.p].prog]) return; const y = D.papers[q.p].year; byYear.set(y, byYear.get(y) + 1); q.broads.forEach((b) => cell.set(b + "|" + y, (cell.get(b + "|" + y) || 0) + 1)); });
     const tc = D.topics.map(() => 0); D.Q.forEach((q) => !q.stem && q.t.forEach((k) => tc[k]++));
     const bc = D.broad.map((b, i) => D.Q.filter((q) => !q.stem && q.broads.has(i)).length);
     const order = D.broad.map((b, i) => i).sort((a, b) => bc[b] - bc[a]);
@@ -780,8 +852,15 @@
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
   function viewExams() {
+    const typed = Object.entries(EXAM).map(([code, name]) => {
+      const papers = D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key));
+      if (!papers.length) return "";
+      return `<section class="section"><div class="shead"><h2>${esc(name)} question bank</h2>
+        <a class="lnk" href="${L("search")}${HASH ? "" : "?exam=" + code}" data-exam-search="${code}">Search these questions</a></div>
+        <div class="list">${papers.map((p) => `<a class="row" href="${L("paper-" + p.key)}"><span class="t">${esc(p.title)}</span><span class="muted">${p.n} questions</span></a>`).join("")}</div></section>`;
+    }).join("");
     return page("Competitive exams", "Competitive & admission exams", "Previous papers for IIT JAM, CSIR-UGC NET, GATE, NBHM, TIFR and the Visva-Bharati M.Sc. admission test.",
-      `<div class="grid g2">${D.C.exams.map((e) => `<div class="card"><h3>${esc(e.name)}</h3><p style="margin-bottom:12px">${esc(e.note)}</p>
+      `${typed}<div class="grid g2">${D.C.exams.map((e) => `<div class="card"><h3>${esc(e.name)}</h3><p style="margin-bottom:12px">${esc(e.note)}</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px">${e.links.map(([l, u], i) => ext(u, l === "Paper" ? "Paper " + (e.links.slice(0, i + 1).filter((x) => x[0] === "Paper").length) : l, "chip")).join("")}</div>
         ${e.syllabus ? `<p style="margin-top:12px">${ext(e.syllabus, "Syllabus ↗")}</p>` : ""}</div>`).join("")}</div>`);
   }
@@ -878,7 +957,13 @@
   };
   let lastRoute = null;
   function route(keepScroll) {
+    closeMenus();
     const r = current();
+    if (!HASH && r === "search" && !keepScroll) {
+      const params = new URLSearchParams(location.search);
+      const exam = params.get("exam"), q = params.get("q");
+      if (EXAM[exam] || q !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", q: q || "" };
+    }
     let name = r, arg = null;
     const m = r.match(/^(paper|semester|preview)-(.+)$/);
     if (m) { name = m[1]; arg = m[2]; }
@@ -927,10 +1012,10 @@
   async function start() {
     initChrome();
     F = Object.assign(defaultFilters(), store.get("filters", {}));
-    if (!HASH) { const q = new URLSearchParams(location.search).get("q"); if (q != null && current() === "search") { F = defaultFilters(); F.q = q; } }
+
     try { await load(); }
     catch (e) { $("#app").innerHTML = `<div class="wrap"><div class="empty">The question data could not be loaded (${esc(e.message)}). Please reload the page.</div></div>`; return; }
-    route(true);
+    route();
   }
   start();
 })();

@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2017 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2017.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2017/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2017 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2017.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2017/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="176" height="34"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="176" height="34"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2017</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Consider the function $f(x, y)=5-4 \sin x+y^{2}$ for $0&lt;x&lt;2 \pi$ and $y \in \mathbb{R}$. The set of critical points of $f(x, y)$ consists of
+
+\begin{enumerate}[label=(\alph*)]
+
+\item a point of local maximum and a point of local minimum
+\item a point of local maximum and a saddle point
+\item a point of local maximum, a point of local minimum and a saddle point
+\item a point of local minimum and a saddle point
+
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $\varphi: \mathbb{R} \rightarrow \mathbb{R}$ be a differentiable function such that $\varphi^{\prime}$ is strictly increasing with $\varphi^{\prime}(1)=0$. Let $\alpha$ and $\beta$ denote the minimum and maximum values of $\varphi(x)$ on the interval [2,3], respectively. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item $\beta=\varphi(3)$
+\item $\alpha=\varphi(2.5)$
+\item $\beta=\varphi(2.5)$
+\item $\alpha=\varphi(3)$
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">The number of generators of the additive group $\mathbb{Z}_{36}$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+\item 6
+\item 12
+\item 18
+\item 36
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">$$
+\lim _{n \rightarrow \infty} \frac{\pi}{n} \sum_{k=1}^{n} \sin \left(\frac{\pi}{2}+\frac{5 \pi}{2} \cdot \frac{k}{n}\right)=
+$$
+
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{2 \pi}{5}$
+\item $\frac{5}{2}$
+\item $\frac{2}{5}$
+\item $\frac{5 \pi}{2}$
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a twice differentiable function. If $g(u, v)=f\left(u^{2}-v^{2}\right)$, then
+$$
+\frac{\partial^{2} g}{\partial u^{2}}+\frac{\partial^{2} g}{\partial v^{2}}=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item $4\left(u^{2}-v^{2}\right) f^{\prime \prime}\left(u^{2}-v^{2}\right)$
+\item $4\left(u^{2}+v^{2}\right) f^{\prime \prime}\left(u^{2}-v^{2}\right)$
+\item $2 f^{\prime}\left(u^{2}-v^{2}\right)+4\left(u^{2}-v^{2}\right) f^{\prime \prime}\left(u^{2}-v^{2}\right)$
+\item $2(u-v)^{2} f^{\prime \prime}\left(u^{2}-v^{2}\right)$
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">$$
+\int_{0}^{1} \int_{x}^{1} \sin \left(y^{2}\right) d y d x=
+$$
+
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{1+\cos 1}{2}$
+\item $1-\cos 1$
+\item $1+\cos 1$
+\item $\frac{1-\cos 1}{2}$
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $f_{1}(x), f_{2}(x), g_{1}(x), g_{2}(x)$ be differentiable functions on $\mathbb{R}$. Let $F(x)=\left|\begin{array}{ll}f_{1}(x) &amp; f_{2}(x) \\ g_{1}(x) &amp; g_{2}(x)\end{array}\right|$ be the determinant of the matrix $\left[\begin{array}{ll}f_{1}(x) &amp; f_{2}(x) \\ g_{1}(x) &amp; g_{2}(x)\end{array}\right]$. Then $F^{\prime}(x)$ is equal to\\
+ 
+
+\begin{enumerate}[label=(\alph*)]
+\item $\left|\begin{array}{cc}f_{1}^{\prime}(x) &amp; f_{2}^{\prime}(x) \\ g_{1}(x) &amp; g_{2}(x)\end{array}\right|+\left|\begin{array}{cc}f_{1}(x) &amp; g_{1}^{\prime}(x) \\ f_{2}^{\prime}(x) &amp; g_{2}(x)\end{array}\right|$
+\item $\left|\begin{array}{cc}f_{1}^{\prime}(x) &amp; f_{2}^{\prime}(x) \\ g_{1}(x) &amp; g_{2}(x)\end{array}\right|+\left|\begin{array}{ll}f_{1}(x) &amp; g_{1}^{\prime}(x) \\ f_{2}(x) &amp; g_{2}^{\prime}(x)\end{array}\right|$
+\item $\left|\begin{array}{ll}f_{1}{ }^{\prime}(x) &amp; f_{2}^{\prime}(x) \\ g_{1}(x) &amp; g_{2}(x)\end{array}\right|-\left|\begin{array}{ll}f_{1}(x) &amp; g_{1}{ }^{\prime}(x) \\ f_{2}(x) &amp; g_{2}{ }^{\prime}(x)\end{array}\right|$
+\item $\left|\begin{array}{ll}f_{1}^{\prime}(x) &amp; f_{2}^{\prime}(x) \\ g_{1}^{\prime}(x) &amp; g_{2}^{\prime}(x)\end{array}\right|$
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">Let
+$$
+f(x)=\frac{x+|x|(1+x)}{x} \sin \left(\frac{1}{x}\right), \quad x \neq 0 .
+$$
+Write $L=\lim _{x \rightarrow 0^{-}} f(x)$ and $R=\lim _{x \rightarrow 0^{+}} f(x)$. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item $L$ exists but $R$ does not exist
+\item $L$ does not exist but $R$ exists
+\item Both $L$ and $R$ exist
+\item Neither $L$ nor $R$ exists
+
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">If $\lim _{T \rightarrow \infty} \int_{0}^{T} e^{-x^{2}} d x=\frac{\sqrt{\pi}}{2}$, then
+$$
+\lim _{T \rightarrow \infty} \int_{0}^{T} x^{2} e^{-x^{2}} d x=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{\sqrt{\pi}}{4}$
+\item $\frac{\sqrt{\pi}}{2}$
+\item $\sqrt{2 \pi}$
+\item $2 \sqrt{\pi}$
+\end{enumerate}</span></li><li><b>10</b> <span class="qbody">If
+$$
+f(x)= \begin{cases}1+x &amp; \text { if } x&lt;0 \\ (1-x)(p x+q) &amp; \text { if } x \geq 0\end{cases}
+$$
+satisfies the assumptions of Rolle&#x27;s theorem in the interval $[-1,1]$, then the ordered pair $(p, q)$ is
+
+\begin{enumerate}[label=(\alph*)]
+\item $(2,-1)$
+\item $(-2,-1)$
+\item $(-2,1)$
+\item $(2,1)$
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">The flux of the vector field
+$$
+\vec{F}=\left(2 \pi x+\frac{2 x^{2} y^{2}}{\pi}\right) \hat{\imath}+\left(2 \pi x y-\frac{4 y}{\pi}\right) \hat{\jmath}
+$$
+along the outward normal, across the ellipse $x^{2}+16 y^{2}=4$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $4 \pi^{2}-2$
+\item $2 \pi^{2}-4$
+\item $\pi^{2}-2$
+\item $2 \pi$ 
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $\mathcal{M}$ be the set of all invertible $5 \times 5$ matrices with entries 0 and 1 . For each $M \in \mathcal{M}$, let $n_{1}(M)$ and $n_{0}(M)$ denote the number of 1 &#x27;s and 0 &#x27;s in $M$, respectively. Then
+$$
+\min _{M \in \mathcal{M}}\left|n_{1}(M)-n_{0}(M)\right|=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item 1
+\item 3
+\item 5
+\item 15
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">Let $M=\left[\begin{array}{ll}\frac{1}{2} &amp; \frac{1}{4} \\ 0 &amp; 1\end{array}\right]$ and $x=\left[\begin{array}{l}3 \\ 4\end{array}\right]$. Then
+$$
+\lim _{n \rightarrow \infty} M^{n} x
+$$
+
+
+\begin{enumerate}[label=(\alph*)]
+\item does not exist
+\item is $\left[\begin{array}{l}1 \\ 2\end{array}\right]$
+\item is $\left[\begin{array}{l}2 \\ 4\end{array}\right]$
+\item is $\left[\begin{array}{l}3 \\ 4\end{array}\right]$
+\end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $\vec{F}=(3+2 x y) \hat{\imath}+\left(x^{2}-3 y^{2}\right) \hat{\jmath}$ and let $L$ be the curve
+$$
+\vec{r}(t)=e^{t} \sin t \hat{\imath}+e^{t} \cos t \hat{\jmath}, \quad 0 \leq t \leq \pi .
+$$
+Then
+$$
+\int_{L} \vec{F} \cdot d \vec{r}=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $e^{-3 \pi}+1$
+\item $e^{-6 \pi}+2$
+\item $e^{6 \pi}+2$
+\item $e^{3 \pi}+1$
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">The line integral of the vector field
+$$
+\vec{F}=z x \hat{\imath}+x y \hat{\jmath}+y z \hat{k}
+$$
+along the boundary of the triangle with vertices $(1,0,0),(0,1,0)$ and $(0,0,1)$, oriented anticlockwise, when viewed from the point $(2,2,2)$, is
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{-1}{2}$
+\item $-2$
+\item $\frac{1}{2}$
+\item 2
+\end{enumerate}</span></li><li><b>16</b> <span class="qbody">The area of the surface $z=\frac{x y}{3}$ intercepted by the cylinder $x^{2}+y^{2} \leq 16$ lies in the interval
+
+\begin{enumerate}[label=(\alph*)]
+\item $(20 \pi, 22 \pi]$
+\item $(22 \pi, 24 \pi]$
+\item $(24 \pi, 26 \pi]$
+\item $(26 \pi, 28 \pi]$
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">For $a&gt;0, b&gt;0$, let $\vec{F}=\frac{x \hat{\jmath}-y \hat{\imath}}{b^{2} x^{2}+a^{2} y^{2}}$ be a planar vector field. Let
+$$
+C=\left\{(x, y) \in \mathbb{R}^{2} \mid x^{2}+y^{2}=a^{2}+b^{2}\right\}
+$$
+be the circle oriented anti-clockwise. Then
+$$
+\oint_{C} \vec{F} \cdot d \vec{r}=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{2 \pi}{a b}$
+\item $2 \pi$
+\item $2 \pi a b$
+\item 0
+\end{enumerate}</span></li><li><b>18</b> <span class="qbody">The flux of $\vec{F}=y \hat{\imath}-x \hat{\jmath}+z^{2} \hat{k}$ along the outward normal, across the surface of the solid
+$$
+\left\{(x, y, z) \in \mathbb{R}^{3} \mid 0 \leq x \leq 1,0 \leq y \leq 1,0 \leq z \leq \sqrt{2-x^{2}-y^{2}}\right\}
+$$
+is equal to
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{2}{3}$
+\item $\frac{5}{3}$
+\item $\frac{8}{3}$
+\item $\frac{4}{3}$
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a differentiable function such that $f(2)=2$ and
+$$
+|f(x)-f(y)| \leq 5(|x-y|)^{3 / 2}
+$$
+for all $x \in \mathbb{R}, y \in \mathbb{R}$. Let $g(x)=x^{3} f(x)$. Then $g^{\prime}(2)=$
+
+\begin{enumerate}[label=(\alph*)]
+\item 5
+\item $\frac{15}{2}$
+\item 12
+\item 24
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow[0, \infty)$ be a continuous function. Then which one of the following is NOT TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item There exists $x \in \mathbb{R}$ such that $f(x)=\frac{f(0)+f(1)}{2}$
+\item There exists $x \in \mathbb{R}$ such that $f(x)=\sqrt{f(-1) f(1)}$
+\item There exists $x \in \mathbb{R}$ such that $f(x)=\int_{-1}^{1} f(t) d t$
+\item There exists $x \in \mathbb{R}$ such that $f(x)=\int_{0}^{1} f(t) d t$ 
+\end{enumerate}</span></li><li><b>21</b> <span class="qbody">The interval of convergence of the power series
+$$
+\sum_{n=1}^{\infty} \frac{1}{(-3)^{n+2}} \frac{(4 x-12)^{n}}{n^{2}+1}
+$$
+is
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{10}{4} \leq x&lt;\frac{14}{4}$
+\item $\frac{9}{4} \leq x&lt;\frac{15}{4}$
+\item $\frac{10}{4} \leq x \leq \frac{14}{4}$
+\item $\frac{9}{4} \leq x \leq \frac{15}{4}$
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $\mathcal{P}_{3}$ denote the real vector space of all polynomials with real coefficients of degree at most 3 . Consider the map $T: \mathcal{P}_{3} \rightarrow \mathcal{P}_{3}$ given by $T(p(x))=p^{\prime \prime}(x)+p(x)$. Then
+
+\begin{enumerate}[label=(\alph*)]
+\item $T$ is neither one-one nor onto
+\item $T$ is both one-one and onto
+\item $T$ is one-one but not onto
+\item $T$ is onto but not one-one
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $f(x, y)=\frac{x^{2} y}{x^{2}+y^{2}}$ for $(x, y) \neq(0,0)$. Then
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{\partial f}{\partial x}$ and $f$ are bounded
+\item $\frac{\partial f}{\partial x}$ is bounded and $f$ is unbounded
+\item $\frac{\partial f}{\partial x}$ is unbounded and $f$ is bounded
+\item $\frac{\partial f}{\partial x}$ and $f$ are unbounded
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $S$ be an infinite subset of $\mathbb{R}$ such that $S \backslash\{\alpha\}$ is compact for some $\alpha \in S$. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item $S$ is a connected set
+\item $S$ contains no limit points
+\item $S$ is a union of open intervals
+\item Every sequence in $S$ has a subsequence converging to an element in $S$
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">$$
+\sum_{n=1}^{\infty} \tan ^{-1} \frac{2}{n^{2}}=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{\pi}{4}$
+\item $\frac{\pi}{2}$
+\item $\frac{3 \pi}{4}$
+\item $\pi$ 
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">Let $0&lt;a_{1}&lt;b_{1}$. For $n \geq 1$, define
+$$
+a_{n+1}=\sqrt{a_{n} b_{n}} \text { and } b_{n+1}=\frac{a_{n}+b_{n}}{2}.
+$$
+Then which one of the following is NOT TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item Both $\left\{a_{n}\right\}$ and $\left\{b_{n}\right\}$ converge, but the limits are not equal
+\item Both $\left\{a_{n}\right\}$ and $\left\{b_{n}\right\}$ converge and the limits are equal
+\item $\left\{b_{n}\right\}$ is a decreasing sequence
+\item $\left\{a_{n}\right\}$ is an increasing sequence
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">$$
+\lim _{n \rightarrow \infty} \frac{1}{\sqrt{n}}\left(\frac{1}{\sqrt{3}+\sqrt{6}}+\frac{1}{\sqrt{6}+\sqrt{9}}+\cdots+\frac{1}{\sqrt{3 n}+\sqrt{3 n+3}}\right)=
+$$
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $1+\sqrt{3}$
+\item $\sqrt{3}$
+\item $\frac{1}{\sqrt{3}}$
+\item $\frac{1}{1+\sqrt{3}}$
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">Which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Every sequence that has a convergent subsequence is a Cauchy sequence
+\item Every sequence that has a convergent subsequence is a bounded sequence
+\item The sequence $\{\sin n\}$ has a convergent subsequence
+\item The sequence $\left\{n \cos \frac{1}{n}\right\}$ has a convergent subsequence
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">A particular integral of the differential equation
+$$
+\frac{d^{2} y}{d x^{2}}-2 \frac{d y}{d x}=e^{2 x} \sin x
+$$
+is
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $\frac{e^{2 x}}{10}(3 \cos x-2 \sin x)$
+\item $-\frac{e^{2 x}}{10}(3 \cos x-2 \sin x)$
+\item $-\frac{e^{2 x}}{5}(2 \cos x+\sin x)$
+\item $\frac{e^{2 x}}{5}(2 \cos x-\sin x)$
+
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation
+$$
+\left(x y+y+e^{-x}\right) d x+\left(x+e^{-x}\right) d y=0
+$$
+satisfying $y(0)=1$. Then $y(-1)$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+\item $\frac{e}{e-1}$
+\item $\frac{2 e}{e-1}$
+\item $\frac{e}{1-e}$
+\item 0
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">For $\alpha, \beta \in \mathbb{R}$, define the $\operatorname{map} \varphi_{\alpha, \beta}: \mathbb{R} \rightarrow \mathbb{R}$ by $\varphi_{\alpha, \beta}(x)=\alpha x+\beta$. Let
+$$
+G=\left\{\varphi_{\alpha, \beta} \mid(\alpha, \beta) \in \mathbb{R}^{2}\right\}
+$$
+For $f, g \in G$, define $g \circ f \in G$ by $(g \circ f)(x)=g(f(x))$. Then which of the following statements is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item The binary operation $\circ$ is associative
+\item The binary operation $\circ$ is commutative
+\item For every $(\alpha, \beta) \in \mathbb{R}^{2}, \alpha \neq 0$ there exists $(a, b) \in \mathbb{R}^{2}$ such that $\varphi_{\alpha, \beta} \circ \varphi_{a, b}=\varphi_{1,0}$
+\item $(G, \circ)$ is a group
+
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">The volume of the solid
+$$
+\left\{(x, y, z) \in \mathbb{R}^{3} \mid 1 \leq x \leq 2, \quad 0 \leq y \leq \frac{2}{x}, \quad 0 \leq z \leq x\right\}
+$$
+is expressible as
+
+\begin{enumerate}[label=(\alph*)]
+\item $\int_{1}^{2} \int_{0}^{2 / x} \int_{0}^{x} d z d y d x$
+\item $\int_{1}^{2} \int_{0}^{x} \int_{0}^{2 / x} d y d z d x$
+\item $\int_{0}^{2} \int_{1}^{z} \int_{0}^{2 / x} d y d x d z$
+\item $\int_{0}^{2} \int_{\max \{z, 1\}}^{2} \int_{0}^{2 / x} d y d x d z$
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be a function. Then which of the following statements is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item If $f$ is differentiable at $(0,0)$, then all directional derivatives of $f$ exist at $(0,0)$
+\item If all directional derivatives of $f$ exist at $(0,0)$, then $f$ is differentiable at $(0,0)$
+\item If all directional derivatives of $f$ exist at $(0,0)$, then $f$ is continuous at $(0,0)$
+\item If the partial derivatives $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ exist and are continuous in a disc centered at $(0,0)$, then $f$ is differentiable at $(0,0)$
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">If $X$ and $Y$ are $n \times n$ matrices with real entries, then which of the following is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item If $P^{-1} X P$ is diagonal for some real invertible matrix $P$, then there exists a basis for $\mathbb{R}^{n}$ consisting of eigenvectors of $X$
+\item If $X$ is diagonal with distinct diagonal entries and $X Y=Y X$, then $Y$ is also diagonal
+\item If $X^{2}$ is diagonal, then $X$ is diagonal
+\item If $X$ is diagonal and $X Y=Y X$ for all $Y$, then $X=\lambda I$ for some $\lambda \in \mathbb{R}$
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">Let $G$ be a group of order 20 in which the conjugacy classes have sizes $1,4,5,5,5$. Then which of the following is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $G$ contains a normal subgroup of order 5
+\item $G$ contains a non-normal subgroup of order 5
+\item $G$ contains a subgroup of order 10
+\item $G$ contains a normal subgroup of order 4
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Let $\left\{x_{n}\right\}$ be a real sequence such that $7 x_{n+1}=x_{n}^{3}+6$ for $n \geq 1$. Then which of the following statements is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item If $x_{1}=\frac{1}{2}$, then $\left\{x_{n}\right\}$ converges to 1
+\item If $x_{1}=\frac{1}{2}$, then $\left\{x_{n}\right\}$ converges to 2
+\item If $x_{1}=\frac{3}{2}$, then $\left\{x_{n}\right\}$ converges to 1
+\item If $x_{1}=\frac{3}{2}$, then $\left\{x_{n}\right\}$ converges to $-3$
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let $S$ be the set of all rational numbers in $(0,1)$. Then which of the following statements is / are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item $S$ is a closed subset of $\mathbb{R}$
+\item $S$ is not a closed subset of $\mathbb{R}$
+\item $S$ is an open subset of $\mathbb{R}$
+\item Every $x \in(0,1) \backslash S$ is a limit point of $S$
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">Let $M$ be an $n \times n$ matrix with real entries such that $M^{3}=I$. Suppose that $M v \neq v$ for any nonzero vector $v$. Then which of the following statements is / are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+
+\item $M$ has real eigenvalues
+\item $M+M^{-1}$ has real eigenvalues
+\item $n$ is divisible by 2
+\item $n$ is divisible by 3
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation
+$$
+\frac{d y}{d x}=(y-1)(y-3)
+$$
+satisfying the condition $y(0)=2$. Then which of the following is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+\item The function $y(x)$ is not bounded above
+\item The function $y(x)$ is bounded
+\item $\lim _{x \rightarrow+\infty} y(x)=1$
+\item $\lim _{x \rightarrow-\infty} y(x)=3$ 
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $k, \ell \in \mathbb{R}$ be such that every solution of
+$$
+\frac{d^{2} y}{d x^{2}}+2 k \frac{d y}{d x}+\ell y=0
+$$
+satisfies $\lim _{x \rightarrow \infty} y(x)=0$. Then
+
+\begin{enumerate}[label=(\alph*)]
+\item $3 k^{2}+\ell&lt;0$ and $k&gt;0$
+\item $k^{2}+\ell&gt;0$ and $k&lt;0$
+\item $k^{2}-\ell \leq 0$ and $k&gt;0$
+\item $k^{2}-\ell&gt;0, k&gt;0$ and $\ell&gt;0$
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">If the orthogonal trajectories of the family of ellipses $x^{2}+2 y^{2}=c_{1}, c_{1}&gt;0$, are given by $y=c_{2} x^{\alpha}, c_{2} \in \mathbb{R}$, then $\alpha=$ \rule{3cm}{1pt}</span></li><li><b>42</b> <span class="qbody">Let $G$ be a subgroup of $G L_{2}(\mathbb{R})$ generated by $\left[\begin{array}{ll}0 &amp; 1 \\ 1 &amp; 0\end{array}\right]$ and $\left[\begin{array}{ll}0 &amp; -1 \\ 1 &amp; -1\end{array}\right]$. Then the order of $G$ is  \rule{3cm}{1pt}</span></li><li><b>43</b> <span class="qbody">Consider the permutations $\sigma = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8\\
+    4 &amp; 5 &amp; 3 &amp; 7 &amp; 8 &amp; 6 &amp; 1 &amp; 2
+\end{pmatrix}$ and $\tau = \begin{pmatrix}
+    1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 &amp; 7 &amp; 8\\
+    4 &amp; 5 &amp; 3 &amp; 1 &amp; 7 &amp; 6 &amp; 8 &amp; 2
+\end{pmatrix}$ in $S_{8}$. The number of $\eta \in S_{8}$ such that $\eta^{-1} \sigma \eta=\tau$ is equal to \rule{3cm}{1pt}</span></li><li><b>44</b> <span class="qbody">Let $P$ be the point on the surface $z=\sqrt{x^{2}+y^{2}}$ closest to the point $(4,2,0)$. Then the square of the distance between the origin and $P$ is \rule{3cm}{1pt}</span></li><li><b>45</b> <span class="qbody">$$
+\left(\int_{0}^{1} x^{4}(1-x)^{5} d x\right)^{-1} =~ \rule{3cm}{1pt}
+$$</span></li><li><b>46</b> <span class="qbody">Let $v_{1}=\left[\begin{array}{l}1 \\ 1 \\ 0\end{array}\right]$ and $v_{2}=\left[\begin{array}{l}0 \\ 1 \\ 1\end{array}\right]$. Let $M$ be the matrix whose columns are $v_{1}, v_{2}, 2 v_{1}-v_{2}, v_{1}+2 v_{2}$ in that order. Then the number of linearly independent solutions of the homogeneous system of linear equations $M x=0$ is  \rule{3cm}{1pt}</span></li><li><b>47</b> <span class="qbody">$$
+\frac{1}{2 \pi}\left(\frac{\pi^{3}}{1 ! 3}-\frac{\pi^{5}}{3 ! 5}+\frac{\pi^{7}}{5 ! 7}-\cdots+\frac{(-1)^{n-1} \pi^{2 n+1}}{(2 n-1) !(2 n+1)}+\cdots\right)=\rule{3cm}{1pt}
+$$</span></li><li><b>48</b> <span class="qbody">Let $P$ be a $7 \times 7$ matrix of rank 4 with real entries. Let $\boldsymbol{a} \in \mathbb{R}^{7}$ be a column vector. Then the rank of $P+a a^{T}$ is at least \rule{3cm}{1pt}</span></li><li><b>49</b> <span class="qbody">For $x&gt;0$, let $\lfloor x\rfloor$ denote the greatest integer less than or equal to $x$. Then 
+$$
+\lim _{x \rightarrow 0^{+}} x\left(\left\lfloor\frac{1}{x}\right\rfloor+\left\lfloor\frac{2}{x}\right\rfloor+\cdots+\left\lfloor\frac{10}{x}\right\rfloor\right)=~\rule{3cm}{1pt}
+$$</span></li><li><b>50</b> <span class="qbody">The number of subgroups of $\mathbb{Z}_{7} \times \mathbb{Z}_{7}$ of order 7 is  \rule{3cm}{1pt}</span></li><li><b>51</b> <span class="qbody">Let $y(x), x&gt;0$ be the solution of the differential equation
+$$
+x^{2} \frac{d^{2} y}{d x^{2}}+5 x \frac{d y}{d x}+4 y=0
+$$
+satisfying the conditions $y(1)=1$ and $y^{\prime}(1)=0$. Then the value of $e^{2} y(e)$ is  \rule{3cm}{1pt}\\</span></li><li><b>52</b> <span class="qbody">Let $T$ be the smallest positive real number such that the tangent to the helix
+$$
+\cos t \hat{\imath}+\sin t \hat{\jmath}+\frac{t}{\sqrt{2}} \hat{k}
+$$
+at $t=T$ is orthogonal to the tangent at $t=0$. Then the line integral of $\vec{F}=x \hat{\jmath}-y \hat{\imath}$ along the section of the helix from $t=0$ to $t=T$ is   \rule{3cm}{1pt}</span></li><li><b>53</b> <span class="qbody">Let $f(x)=\frac{\sin \pi x}{\pi \sin x}, x \in(0, \pi)$, and let $x_{0} \in(0, \pi)$ be such that $f^{\prime}\left(x_{0}\right)=0$. Then
+$$
+\left(f\left(x_{0}\right)\right)^{2}\left(1+\left(\pi^{2}-1\right) \sin ^{2} x_{0}\right)=~ \rule{3cm}{1pt}
+$$</span></li><li><b>54</b> <span class="qbody">The maximum order of a permutation $\sigma$ in the symmetric group $S_{10}$ is \rule{3cm}{1pt}</span></li><li><b>55</b> <span class="qbody">Let $a_{n}=\sqrt{n}, n \geq 1$, and let $s_{n}=a_{1}+a_{2}+\cdots+a_{n}$. Then
+$$
+\lim _{n \rightarrow \infty}\left(\frac{a_{n} / s_{n}}{-\ln \left(1-a_{n} / s_{n}\right)}\right)=~\rule{3cm}{1pt}
+$$</span></li><li><b>56</b> <span class="qbody">For a real number $x$, define $\lceil x\rceil$ to be the smallest integer greater than or equal to $x$. Then
+$$
+\int_{0}^{1} \int_{0}^{1} \int_{0}^{1}(\lceil x\rceil+\lceil y\rceil+\lceil z\rceil) d x d y d z=~ \rule{3cm}{1pt}
+$$</span></li><li><b>57</b> <span class="qbody">For $x&gt;1$, let
+$$
+f(x)=\int_{1}^{x}\left(\sqrt{\log t}-\frac{1}{2} \log \sqrt{t}\right) d t
+$$
+The number of tangents to the curve $y=f(x)$ parallel to the line $x+y=0$ is  \rule{3cm}{1pt}\\</span></li><li><b>58</b> <span class="qbody">Let $\alpha, \beta, \gamma, \delta$ be the eigenvalues of the matrix
+$$
+\left[\begin{array}{rrrr}
+0 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; -2 \\
+0 &amp; 1 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 1 &amp; 2
+\end{array}\right]
+$$
+Then $\alpha^{2}+\beta^{2}+\gamma^{2}+\delta^{2}=$  \rule{3cm}{1pt}</span></li><li><b>59</b> <span class="qbody">The radius of convergence of the power series
+
+
+$$
+\sum_{0}^{\infty} n ! x^{n^{2}}
+$$
+is   \rule{3cm}{1pt}</span></li><li><b>60</b> <span class="qbody">If
+$$
+y(x)=\int_{\sqrt{x}}^{x} \frac{e^{t}}{t} d t, x&gt;0
+$$
+
+then $y^{\prime}(1)=$ \rule{3cm}{1pt}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

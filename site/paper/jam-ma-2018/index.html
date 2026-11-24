@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2018 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2018.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2018/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2018 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2018.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2018/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="176" height="34"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="176" height="34"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2018</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\mathbb{Z}_{n}$ is cyclic if and only if $n$ is prime
+\item Every proper subgroup of $\mathbb{Z}_{n}$ is cyclic
+\item Every proper subgroup of $S_{4}$ is cyclic
+\item If every proper subgroup of a group is cyclic, then the group is cyclic
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $a_{n}=\frac{b_{n+1}}{b_{n}}$, where $b_{1}=1, b_{2}=1$ and $b_{n+2}=b_{n}+b_{n+1}, n \in \mathbb{N}$. Then $\lim _{n \rightarrow \infty} a_{n}$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{1-\sqrt{5}}{2}$
+\item $\frac{1-\sqrt{3}}{2}$
+\item $\frac{1+\sqrt{3}}{2}$
+\item $\frac{1+\sqrt{5}}{2}$
+
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">If $\left\{v_{1}, v_{2}, v_{3}\right\}$ is a linearly independent set of vectors in a vector space over $\mathbb{R}$, then which one of the following sets is also linearly independent?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\left\{v_{1}+v_{2}-v_{3}, 2 v_{1}+v_{2}+3 v_{3}, 5 v_{1}+4 v_{2}\right\}$\\
+\item $\left\{v_{1}-v_{2}, v_{2}-v_{3}, v_{3}-v_{1}\right\}$\\
+\item $\left\{v_{1}+v_{2}-v_{3}, \quad v_{2}+v_{3}-v_{1}, v_{3}+v_{1}-v_{2}, \quad v_{1}+v_{2}+v_{3}\right\}$\\
+\item $\left\{v_{1}+v_{2}, v_{2}+2 v_{3}, v_{3}+3 v_{1}\right\}$
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $a$ be a positive real number. If $f$ is a continuous and even function defined on the interval $[-a, a]$, then $\int_{-a}^{a} \frac{f(x)}{1+e^{x}} d x$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\int_{0}^{a} f(x) d x$
+\item $\quad 2 \int_{0}^{a} \frac{f(x)}{1+e^{x}} d x$
+\item $2 \int_{0}^{a} f(x) d x$
+\item $\quad 2 a \int_{0}^{a} \frac{f(x)}{1+e^{x}} d x$
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">The tangent plane to the surface $z=\sqrt{x^{2}+3 y^{2}}$ at $(1,1,2)$ is given by
+
+\begin{enumerate}[label=(\alph*)]
+    \item $x-3 y+z=0$
+\item $x+3 y-2 z=0$
+\item $2 x+4 y-3 z=0$
+\item $3 x-7 y+2 z=0$ 
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">In $\mathbb{R}^{3}$, the cosine of the acute angle between the surfaces $x^{2}+y^{2}+z^{2}-9=0$ and $z-x^{2}-y^{2}+3=0$ at the point $(2,1,2)$ is
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\frac{8}{5 \sqrt{21}}$
+\item $\frac{10}{5 \sqrt{21}}$
+\item $\frac{8}{3 \sqrt{21}}$
+\item $\frac{10}{3 \sqrt{21}}$
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $f: \mathbb{R}^{3} \rightarrow \mathbb{R}$ be a scalar field, $\vec{v}: \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ be a vector field and let $\vec{a} \in \mathbb{R}^{3}$ be a constant vector. If $\vec{r}$ represents the position vector $x \hat{\imath}+y \hat{\jmath}+z \hat{k}$, then which one of the following is FALSE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\operatorname{curl}(f \vec{v})=\operatorname{grad}(f) \times \vec{v}+f \operatorname{curl}(\vec{v})$\\
+\item $\operatorname{div}(\operatorname{grad}(f))=\left(\frac{\partial^{2}}{\partial x^{2}}+\frac{\partial^{2}}{\partial y^{2}}+\frac{\partial^{2}}{\partial z^{2}}\right) f$\\
+\item $\operatorname{curl}(\vec{a} \times \vec{r})=2|\vec{a}| \vec{r}$\\
+\item $\operatorname{div}\left(\frac{\vec{r}}{|\vec{r}|^{3}}\right)=0$, for $\vec{r} \neq \overrightarrow{0}$
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">In $\mathbb{R}^{2}$, the family of trajectories orthogonal to the family of asteroids $x^{2 / 3}+y^{2 / 3}=a^{2 / 3}$ is given by
+
+\begin{enumerate}[label=(\alph*)]
+    \item $x^{4 / 3}+y^{4 / 3}=c^{4 / 3}$
+\item $x^{4 / 3}-y^{4 / 3}=c^{4 / 3}$
+\item $x^{5 / 3}-y^{5 / 3}=c^{5 / 3}$
+\item $x^{2 / 3}-y^{2 / 3}=c^{2 / 3}$
+
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">Consider the vector space $V$ over $\mathbb{R}$ of polynomial functions of degree less than or equal to 3 defined on $\mathbb{R}$. Let $T: V \rightarrow V$ be defined by $(T f)(x)=f(x)-x f^{\prime}(x)$. Then the rank of $T$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item 1
+\item 2
+\item 3
+\item 4
+\end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $s_{n}=1+\frac{1}{1 !}+\frac{1}{2 !}+\cdots+\frac{1}{n !}$ for $n \in \mathbb{N}$. Then which one of the following is TRUE for the sequence $\left\{s_{n}\right\}_{n=1}^{\infty}$
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\left\{s_{n}\right\}_{n=1}^{\infty}$ converges in $\mathbb{Q}$
+\item $\left\{s_{n}\right\}_{n=1}^{\infty}$ is a Cauchy sequence but does not converge in $\mathbb{Q}$
+\item the subsequence $\left\{s_{k^{n}}\right\}_{n=1}^{\infty}$ is convergent in $\mathbb{R}$, only when $k$ is even natural number
+\item $\left\{s_{n}\right\}_{n=1}^{\infty}$ is not a Cauchy sequence
+
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $a_{n}=\left\{\begin{array}{cc}2+\frac{(-1)^{\frac{n-1}{2}}}{n}, &amp; \text { if } n \text { is odd } \\ 1+\frac{1}{2^{n}}, &amp; \text { if } n \text { is even }\end{array}, n \in \mathbb{N}\right.$.
+
+Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\sup \left\{a_{n} \mid n \in \mathbb{N}\right\}=3$ and $\inf \left\{a_{n} \mid n \in \mathbb{N}\right\}=1$
+\item $\lim \inf \left(a_{n}\right)=\lim \sup \left(a_{n}\right)=\frac{3}{2}$
+\item $\sup \left\{a_{n} \mid n \in \mathbb{N}\right\}=2$ and $\inf \left\{a_{n} \mid n \in \mathbb{N}\right\}=1$
+\item $\lim \inf \left(a_{n}\right)=1$ and $\lim \sup \left(a_{n}\right)=3$
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $a, b, c \in \mathbb{R}$. Which of the following values of $a, b, c$ do NOT result in the convergence of the series
+$$
+\sum_{n=3}^{\infty} \frac{a^{n}}{n^{b}\left(\log _{\mathrm{e}} n\right)^{c}} \quad ?
+$$
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $|a|&lt;1, b \in \mathbb{R}, c \in \mathbb{R}$
+\item $a=1, b&gt;1, c \in \mathbb{R}$
+\item $a=1, b \geq 0, c&lt;1$
+\item $a=-1, b \geq 0, c&gt;0$
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">Let $a_{n}=n+\frac{1}{n}, n \in \mathbb{N}$. Then the sum of the series $\sum_{n=1}^{\infty}(-1)^{n+1} \frac{a_{n+1}}{n !}$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $e^{-1}-1$
+\item $e^{-1}$
+\item $1-e^{-1}$
+\item $1+e^{-1}$
+\end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $a_{n}=\frac{(-1)^{n}}{\sqrt{1+n}}$ and let $c_{n}=\sum_{k=0}^{n} a_{n-k} a_{k}$, where $n \in \mathbb{N} \cup\{0\}$. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item Both $\sum_{n=0}^{\infty} a_{n}$ and $\sum_{n=1}^{\infty} c_{n}$ are convergent
+\item $\sum_{n=0}^{\infty} a_{n}$ is convergent but $\sum_{n=1}^{\infty} c_{n}$ is not convergent
+\item $\sum_{n=1}^{\infty} c_{n}$ is convergent but $\sum_{n=0}^{\infty} a_{n}$ is not convergent
+\item Neither $\sum_{n=0}^{\infty} a_{n}$ nor $\sum_{n=1}^{\infty} c_{n}$ is convergent 
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">Suppose that $f, g: \mathbb{R} \rightarrow \mathbb{R}$ are differentiable functions such that $f$ is strictly increasing and $g$ is strictly decreasing. Define $p(x)=f(g(x))$ and $q(x)=g(f(x)), \forall x \in \mathbb{R}$. Then, for $t&gt;0$, the sign of $\int_{0}^{t} p^{\prime}(x)\left(q^{\prime}(x)-3\right) d x$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item positive
+\item negative
+\item dependent on $t$
+\item dependent on $f$ and $g$
+\end{enumerate}</span></li><li><b>16</b> <span class="qbody">For $x \in \mathbb{R}$, let $f(x)=\left\{\begin{array}{cc}x^{3} \sin \left(\frac{1}{x}\right), &amp; x \neq 0 \\ 0, &amp; x=0\end{array}\right.$. Then which one of the following is FALSE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\lim _{x \rightarrow 0} \frac{f(x)}{x}=0$
+\item $\lim _{x \rightarrow 0} \frac{f(x)}{x^{2}}=0$
+\item $\frac{f(x)}{x^{2}}$ has infinitely many maxima and minima on the interval $(0,1)$
+\item $\frac{f(x)}{x^{4}}$ is continuous at $x=0$ but not differentiable at $x=0$
+
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $f(x, y)= \begin{cases}\frac{x y}{\left(x^{2}+y^{2}\right)^{\alpha}}, &amp; (x, y) \neq(0,0) \\ 0, &amp; (x, y)=(0,0)\end{cases}$
+
+Then which one of the following is TRUE for $f$ at the point $(0,0)$ ?
+
+\begin{enumerate}[label=(\alph*)]
+\item For $\alpha=1, f$ is continuous but not differentiable
+\item For $\alpha=\frac{1}{2}, f$ is continuous and differentiable
+\item For $\alpha=\frac{1}{4}, f$ is continuous and differentiable
+\item For $\alpha=\frac{3}{4}, f$ is neither continuous nor differentiable
+\end{enumerate}</span></li><li><b>18</b> <span class="qbody">Let $a, b \in \mathbb{R}$ and let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a thrice differentiable function. If $z=e^{u} f(v)$, where $u=a x+b y$ and $v=a x-b y$, then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $b^{2} z_{x x}-a^{2} z_{y y}=4 a^{2} b^{2} e^{u} f^{\prime}(v)$
+\item $b^{2} z_{x x}-a^{2} z_{y y}=-4 e^{u} f^{\prime}(v)$
+\item $b z_{x}+a z_{y}=a b z$
+\item $b z_{x}+a z_{y}=-a b z$
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Consider the region $D$ in the $y z$ plane bounded by the line $y=\frac{1}{2}$ and the curve $y^{2}+z^{2}=1$, where $y \geq 0$. If the region $D$ is revolved about the $z$-axis in $\mathbb{R}^{3}$, then the volume of the resulting solid is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{\pi}{\sqrt{3}}$
+\item $\frac{2 \pi}{\sqrt{3}}$
+\item $\frac{\pi \sqrt{3}}{2}$
+\item $\pi \sqrt{3}$
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">If $\vec{F}(x, y)=(3 x-8 y) \hat{\imath}+(4 y-6 x y) \hat{\jmath}$ for $(x, y) \in \mathbb{R}^{2}$, then $\oint_{C} \vec{F} \cdot d \vec{r}$, where $C$ is the boundary of the triangular region bounded by the lines $x=0, y=0$ and $x+y=1$ oriented in the anti-clockwise direction, is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{5}{2}$
+\item 3
+\item 4
+\item 5
+\end{enumerate}</span></li><li><b>21</b> <span class="qbody">Let $U, V$ and $W$ be finite dimensional real vector spaces, $T: U \rightarrow V, S: V \rightarrow W$ and $P: W \rightarrow U$ be linear transformations. If range $(S T)=$ nullspace $(P)$, nullspace $(S T)=$ range $(P)$ and $\operatorname{rank}(T)=\operatorname{rank}(S)$, then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item nullity of $T=$ nullity of $S$
+\item dimension of $U \neq$ dimension of $W$
+\item If dimension of $V=3$, dimension of $U=4$, then $P$ is not identically zero
+\item If dimension of $V=4$, dimension of $U=3$ and $T$ is one-one, then $P$ is identically zero
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation $\frac{d y}{d x}+y=f(x)$, for $x \geq 0, y(0)=0$, where $f(x)=\left\{\begin{array}{rr}2, &amp; 0 \leq x&lt;1 \\ 0, &amp; x \geq 1\end{array}\right.$. Then $y(x)=$
+
+\begin{enumerate}[label=(\alph*)]
+    \item $2\left(1-e^{-x}\right)$ when $0 \leq x&lt;1$ and $2(e-1) e^{-x}$ when $x \geq 1$
+\item $2\left(1-e^{-x}\right)$ when $0 \leq x&lt;1$ and 0 when $x \geq 1$
+\item $2\left(1-e^{-x}\right)$ when $0 \leq x&lt;1$ and $2\left(1-e^{-1}\right) e^{-x}$ when $x \geq 1$
+\item $2\left(1-e^{-x}\right)$ when $0 \leq x&lt;1$ and $2 e^{1-x}$ when $x \geq 1$
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">An integrating factor of the differential equation $\left(y+\frac{1}{3} y^{3}+\frac{1}{2} x^{2}\right) d x+\frac{1}{4}\left(x+x y^{2}\right) d y=0$ is
+
+\begin{enumerate}[label=(\alph*)]
+\item $x^{2}$
+\item $3 \log _{e} x$
+\item $x^{3}$
+\item $2 \log _{e} x$
+    
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">A particular integral of the differential equation $y^{\prime \prime}+3 y^{\prime}+2 y=e^{e^{x}}$ is
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $e^{e^{x}} e^{-x}$
+\item $e^{e^{x}} e^{-2 x}$
+\item $e^{e^{x}} e^{2 x}$
+\item $e^{e^{x}} e^{x}$
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $G$ be a group satisfying the property that $f: G \rightarrow \mathbb{Z}_{221}$ is a homomorphism implies $f(g)=0, \forall g \in G$. Then a possible group $G$ is
+
+\begin{enumerate}[label=(\alph*)]
+\item $\mathbb{Z}_{21}$
+\item $\mathbb{Z}_{51}$
+\item $\mathbb{Z}_{91}$
+\item $\mathbb{Z}_{119}$ 
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">Let $H$ be the quotient group $\mathbb{Q} / \mathbb{Z}$. Consider the following statements.
+
+I. Every cyclic subgroup of $H$ is finite.
+
+II. Every finite cyclic group is isomorphic to a subgroup of $H$.
+
+Which one of the following holds?
+
+\begin{enumerate}[label=(\alph*)]
+    \item I is TRUE but II is FALSE
+\item II is TRUE but I is FALSE
+\item both I and II are TRUE
+\item neither I nor II is TRUE
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">Let $I$ denote the $4 \times 4$ identity matrix. If the roots of the characteristic polynomial of a $4 \times 4$ matrix $M$ are $\pm \sqrt{\frac{1 \pm \sqrt{5}}{2}}$, then $M^{8}=$
+
+\begin{enumerate}[label=(\alph*)]
+\item $I+M^{2}$
+\item $2 I+M^{2}$
+\item $2 I+3 M^{2}$
+\item $3 I+2 M^{2}$
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">Consider the group $\mathbb{Z}^{2}=\{(a, b) \mid a, b \in \mathbb{Z}\}$ under component-wise addition. Then which of the following is a subgroup of $\mathbb{Z}^{2}$ ?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\quad\left\{(a, b) \in \mathbb{Z}^{2} \mid a b=0\right\}$
+\item $\left\{(a, b) \in \mathbb{Z}^{2} \mid 3 a+2 b=15\right\}$
+\item $\left\{(a, b) \in \mathbb{Z}^{2} \mid 7\right.$ divides $\left.a b\right\}$
+\item $\left\{(a, b) \in \mathbb{Z}^{2} \mid 2\right.$ divides $a$ and 3 divides $\left.b\right\}$
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a function and let $J$ be a bounded open interval in $\mathbb{R}$. Define
+$$
+W(f, J)=\sup \{f(x) \mid x \in J\}-\inf \{f(x) \mid x \in J\} .
+$$
+Which one of the following is FALSE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $W\left(f, J_{1}\right) \leq W\left(f, J_{2}\right)$ if $J_{1} \subset J_{2}$
+\item If $f$ is a bounded function in $J$ and $J \supset J_{1} \supset J_{2} \cdots \supset J_{n} \supset \cdots$ such that the length of the interval $J_{n}$ tends to 0 as $n \rightarrow \infty$, then $\lim _{n \rightarrow \infty} W\left(f, J_{n}\right)=0$
+\item If $f$ is discontinuous at a point $a \in J$, then $W(f, J) \neq 0$
+\item If $f$ is continuous at a point $a \in J$, then for any given $\epsilon&gt;0$ there exists an interval $I \subset J$ such that $W(f, I)&lt;\epsilon$
+
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">For $x&gt;\frac{-1}{2}$, let $f_{1}(x)=\frac{2 x}{1+2 x}, f_{2}(x)=\log _{e}(1+2 x)$ and $f_{3}(x)=2 x$. Then which one of the following is TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $f_{3}(x)&lt;f_{2}(x)&lt;f_{1}(x)$ for $0&lt;x&lt;\frac{\sqrt{3}}{2}$
+\item $f_{1}(x)&lt;f_{3}(x)&lt;f_{2}(x)$ for $x&gt;0$
+\item $f_{1}(x)+f_{2}(x)&lt;\frac{f_{3}(x)}{2} \quad$ for $x&gt;\frac{\sqrt{3}}{2}$
+\item $f_{2}(x)&lt;f_{1}(x)&lt;f_{3}(x)$ for $x&gt;0$
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">Let $f: \mathbb{R} \backslash\{0\} \rightarrow \mathbb{R}$ be defined by $f(x)=x+\frac{1}{x^{3}}$. On which of the following interval(s) is $f$ one-one?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(-\infty,-1)$
+\item $(0,1)$
+\item $(0,2)$
+\item $(0, \infty)$
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">The solution(s) of the differential equation $\frac{d y}{d x}=(\sin 2 x) y^{1 / 3}$ satisfying $y(0)=0$ is (are)
+
+\begin{enumerate}[label=(\alph*)]
+    \item $y(x)=0$
+\item $y(x)=\sqrt{\frac{8}{27}} \sin ^{3} x$
+\item $y(x)=-\sqrt{\frac{8}{27}} \sin ^{3} x$
+\item $y(x)=\sqrt{\frac{8}{27}} \cos ^{3} x$
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Suppose $f, g, h$ are permutations of the set $\{\alpha, \beta, \gamma, \delta\}$, where
+
+$f$ interchanges $\alpha$ and $\beta$ but fixes $\gamma$ and $\delta$,
+
+g interchanges $\beta$ and $\gamma$ but fixes $\alpha$ and $\delta$,
+
+$h$ interchanges $\gamma$ and $\delta$ but fixes $\alpha$ and $\beta$.
+
+Which of the following permutations interchange(s) $\alpha$ and $\delta$ but fix(es) $\beta$ and $\gamma$ ?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $f \circ g \circ h \circ g \circ f$
+\item $g \circ h \circ f \circ h \circ g$
+\item $g \circ f \circ h \circ f \circ g$
+\item $h \circ g \circ f \circ g \circ h$
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">Let $P$ and $Q$ be two non-empty disjoint subsets of $\mathbb{R}$. Which of the following is (are) FALSE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item If $P$ and $Q$ are compact, then $P \cup Q$ is also compact
+\item If $P$ and $Q$ are not connected, then $P \cup Q$ is also not connected
+\item If $P \cup Q$ and $P$ are closed, then $Q$ is closed
+\item If $P \cup Q$ and $P$ are open, then $Q$ is open
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">Let $\mathbb{C}^{*}=\mathbb{C} \backslash\{0\}$ denote the group of non-zero complex numbers under multiplication. Suppose $Y_{n}=\left\{z \in \mathbb{C} \mid z^{n}=1\right\}, n \in \mathbb{N}$. Which of the following is (are) subgroup(s) of $\mathbb{C}^{*}$ ?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\bigcup_{n=1}^{100} Y_{n}$
+\item $\bigcup_{n=1}^{\infty} Y_{2^{n}}$
+\item $\bigcup_{n=100}^{\infty} Y_{n}$
+\item $\bigcup_{n=1}^{\infty} Y_{n}$
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Suppose $\alpha, \beta, \gamma \in \mathbb{R}$. Consider the following system of linear equations.
+
+$x+y+z=\alpha, x+\beta y+z=\gamma, \quad x+y+\alpha z=\beta$. If this system has at least one solution, then which of the following statements is (are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item If $\alpha=1$ then $\gamma=1$
+\item If $\beta=1$ then $\gamma=\alpha$
+\item If $\beta \neq 1$ then $\alpha=1$
+\item If $\gamma=1$ then $\alpha=1$
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let $m, n \in \mathbb{N}, m&lt;n, \quad P \in M_{n \times m}(\mathbb{R}), Q \in M_{m \times n}(\mathbb{R})$. Then which of the following is (are) NOT possible?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\operatorname{rank}(P Q)=n$
+\item $\operatorname{rank}(Q P)=m$
+\item $\operatorname{rank}(P Q)=m$
+\item $\operatorname{rank}(Q P)=\left[\frac{m+n}{2}\right]$, the smallest integer larger than or equal to $\frac{m+n}{2}$
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">If $\vec{F}(x, y, z)=(2 x+3 y z) \hat{\imath}+(3 x z+2 y) \hat{\jmath}+(3 x y+2 z) \hat{k}$ for $(x, y, z) \in \mathbb{R}^{3}$, then which among the following is (are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\nabla \times \vec{F}=\overrightarrow{0}$
+\item $\oint_{C} \vec{F} \cdot d \vec{r}=0$ along any simple closed curve $C$
+\item There exists a scalar function $\phi: \mathbb{R}^{3} \rightarrow \mathbb{R}$ such that $\nabla \cdot \vec{F}=\phi_{x x}+\phi_{y y}+\phi_{z z}$
+\item $\nabla \cdot \vec{F}=0$
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Which of the following subsets of $\mathbb{R}$ is (are) connected?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\left\{x \in \mathbb{R} \mid x^{2}+x&gt;4\right\}$
+\item $\left\{x \in \mathbb{R} \mid x^{2}+x&lt;4\right\}$
+\item $\{x \in \mathbb{R}|| x|&lt;| x-4 \mid\}$
+\item $\{x \in \mathbb{R}|| x|&gt;| x-4 \mid\}$ 
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $S$ be a subset of $\mathbb{R}$ such that 2018 is an interior point of $S$. Which of the following is (are) TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $S$ contains an interval
+\item There is a sequence in $S$ which does not converge to 2018
+\item There is an element $y \in S, \quad y \neq 2018$ such that $y$ is also an interior point of $S$
+\item There is a point $z \in S$, such that $|z-2018|=0.002018$
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">The order of the element $\left(\begin{array}{lll}1 &amp; 2 &amp; 3\end{array}\right)\left(\begin{array}{lll}2 &amp; 4 &amp; 5\end{array}\right)\left(\begin{array}{ll}4 &amp; 5\end{array}\right)$ in the group $S_{6}$ is \rule{3cm}{1pt}</span></li><li><b>42</b> <span class="qbody">Let $\phi(x, y, z)=3 y^{2}+3 y z$ for $(x, y, z) \in \mathbb{R}^{3}$. Then the absolute value of the directional derivative of $\phi$ in the direction of the line $\frac{x-1}{2}=\frac{y-2}{-1}=\frac{z}{-2}$, at the point $(1,-2,1)$ is \rule{3cm}{1pt}</span></li><li><b>43</b> <span class="qbody">Let $f(x)=\sum_{n=0}^{\infty}(-1)^{n} x(x-1)^{n}$ for $0&lt;x&lt;2$. Then the value of $f\left(\frac{\pi}{4}\right)$ is \rule{3cm}{1pt}</span></li><li><b>44</b> <span class="qbody">Let $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be given by
+$$
+f(x, y)= \begin{cases}\frac{x^{2} y(x-y)}{x^{2}+y^{2}}, &amp; (x, y) \neq(0,0) \\ 0, &amp; (x, y)=(0,0)\end{cases}
+$$
+Then $\frac{\partial}{\partial x}\left(\frac{\partial f}{\partial y}\right)-\frac{\partial}{\partial y}\left(\frac{\partial f}{\partial x}\right)$ at the point $(0,0)$ is \rule{3cm}{1pt}</span></li><li><b>45</b> <span class="qbody">Let $f(x, y)=\sqrt{x^{3} y} \sin \left(\frac{\pi}{2} e^{\left(\frac{y}{x}-1\right)}\right)+x y \cos \left(\frac{\pi}{3} e^{\left(\frac{x}{y}-1\right)}\right)$ for $\quad(x, y) \in \mathbb{R}^{2}, x&gt;0, y&gt;0$.
+
+Then $f_{x}(1,1)+f_{y}(1,1)=$ \rule{3cm}{1pt}</span></li><li><b>46</b> <span class="qbody">Let $f:[0, \infty) \rightarrow[0, \infty)$ be continuous on $[0, \infty)$ and differentiable on $(0, \infty)$. If $f(x)=\int_{0}^{x} \sqrt{f(t)} d t$, then $f(6)=$</span></li><li><b>47</b> <span class="qbody">Let $a_{n}=\frac{\left(1+(-1)^{n}\right)}{2^{n}}+\frac{\left(1+(-1)^{n-1}\right)}{3^{n}}$. Then the radius of convergence of the power series $\sum_{n=1}^{\infty} a_{n} x^{n}$ about $x=0$ is \rule{3cm}{1pt}</span></li><li><b>48</b> <span class="qbody">Let $A_{6}$ be the group of even permutations of 6 distinct symbols. Then the number of elements of order 6 in $A_{6}$ is \rule{3cm}{1pt}</span></li><li><b>49</b> <span class="qbody">Let $W_{1}$ be the real vector space of all $5 \times 2$ matrices such that the sum of the entries in each row is zero. Let $W_{2}$ be the real vector space of all $5 \times 2$ matrices such that the sum of the entries in each column is zero. Then the dimension of the space $W_{1} \cap W_{2}$ is \rule{3cm}{1pt}</span></li><li><b>50</b> <span class="qbody">The coefficient of $x^{4}$ in the power series expansion of $e^{\sin x}$ about $x=0$ is (correct up to three decimal places).</span></li><li><b>51</b> <span class="qbody">Let $a_{k}=(-1)^{k-1}, s_{n}=a_{1}+a_{2}+\cdots+a_{n}$ and $\sigma_{n}=\left(s_{1}+s_{2}+\cdots+s_{n}\right) / n$, where $k, n \in \mathbb{N}$. Then $\lim _{n \rightarrow \infty} \sigma_{n}$ is  \rule{3cm}{1pt} (correct up to one decimal place).</span></li><li><b>52</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be such that $f^{\prime \prime}$ is continuous on $\mathbb{R}$ and $f(0)=1, f^{\prime}(0)=0$ and $f^{\prime \prime}(0)=-1$. Then $\lim _{x \rightarrow \infty}\left(f\left(\sqrt{\frac{2}{x}}\right)\right)^{x}$ is \rule{3cm}{1pt}  (correct up to three decimal places).</span></li><li><b>53</b> <span class="qbody">Suppose $x, y, z$ are positive real numbers such that $x+2 y+3 z=1$. If $M$ is the maximum value of $x y z^{2}$, then the value of $\frac{1}{M}$ is  \rule{3cm}{1pt}</span></li><li><b>54</b> <span class="qbody">If the volume of the solid in $\mathbb{R}^{3}$ bounded by the surfaces
+$$
+x=-1, \quad x=1, \quad y=-1, \quad y=1, \quad z=2, \quad y^{2}+z^{2}=2
+$$
+is $\alpha-\pi$, then $\alpha=$ \rule{3cm}{1pt}</span></li><li><b>55</b> <span class="qbody">If $\alpha=\int_{\pi / 6}^{\pi / 3} \frac{\sin t+\cos t}{\sqrt{\sin 2 t}} d t$, then the value of $\left(2 \sin \frac{\alpha}{2}+1\right)^{2}$ is \rule{3cm}{1pt}</span></li><li><b>56</b> <span class="qbody">The value of the integral
+$$
+\int_{0}^{1} \int_{x}^{1} y^{4} e^{x y^{2}} d y d x
+$$
+is  \rule{3cm}{1pt} (correct up to three decimal places).</span></li><li><b>57</b> <span class="qbody">Suppose $Q \in M_{3 \times 3}(\mathbb{R})$ is a matrix of rank 2 . Let $T: M_{3 \times 3}(\mathbb{R}) \rightarrow M_{3 \times 3}(\mathbb{R})$ be the linear transformation defined by $T(P)=Q P$. Then the rank of $T$ is</span></li><li><b>58</b> <span class="qbody">The area of the parameterized surface
+$$
+S=\left\{((2+\cos u) \cos v,(2+\cos u) \sin v, \sin u) \in \mathbb{R}^{3} \mid 0 \leq u \leq \frac{\pi}{2}, 0 \leq v \leq \frac{\pi}{2}\right\}
+$$
+is  \rule{3cm}{1pt} (correct up to two decimal places).</span></li><li><b>59</b> <span class="qbody">If $x(t)$ is the solution to the differential equation $\frac{d x}{d t}=x^{2} t^{3}+x t$, for $t&gt;0$, satisfying $x(0)=1$, then the value of $x(\sqrt{2})$ is  \rule{3cm}{1pt} (correct up to two decimal places).</span></li><li><b>60</b> <span class="qbody">If $y(x)=v(x) \sec x$ is the solution of $y^{\prime \prime}-(2 \tan x) y^{\prime}+5 y=0,-\frac{\pi}{2}&lt;x&lt;\frac{\pi}{2}$, satisfying $y(0)=0$ and $y^{\prime}(0)=\sqrt{6}$, then $v\left(\frac{\pi}{6 \sqrt{6}}\right)$ is   \rule{3cm}{1pt} (correct up to two decimal places).</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

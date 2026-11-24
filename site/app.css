@@ -451,3 +451,12 @@ details.more summary{cursor:pointer;font-weight:600}
   .gdl dd{margin-bottom:12px}
   .glinks{grid-template-columns:1fr}
 }
+
+/* Popover viewport bounds and competitive exam figures */
+.qmenu{inset:auto;margin:0;min-width:min(236px,calc(100vw - 16px));max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain}
+.qmenu[popover]:not(:popover-open){display:none}
+@supports not selector(:popover-open){
+  .qmore:not([open]) .qmenu{display:none}
+}
+.qmenu.sheet{min-width:0;max-height:calc(100dvh - 24px)}
+.question-figure{display:block;max-width:min(100%,36rem);height:auto;margin:.65em auto}
