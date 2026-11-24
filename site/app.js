@@ -502,19 +502,22 @@
     return res.map((r) => r[0]);
   }
   function opt(v, label, cur) { return `<option value="${esc(v)}"${String(cur) === String(v) ? " selected" : ""}>${esc(label)}</option>`; }
+  let searchFiltersOpen = false;
   function viewSearch() {
     const yrs = D.years;
     const specific = D.topics.map((t, i) => [i, t]).filter(([i, t]) => F.broad === "" || t[0] === D.broad[+F.broad]);
     return `<div class="wrap">
       <div class="crumbs"><a href="${L("home")}">Home</a> / Search</div>
-      <h1 style="margin-bottom:.2em">Search the question bank</h1>
-      <p class="muted" style="margin-bottom:22px">${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Search by topic, theorem, formula or paper code.</p>
+      ${editorialHeading("Search the question bank", `${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Find a topic, theorem, formula or paper code.`, false)}
+      <div class="search-console">
+        <form class="searchbar" id="sform" role="search">${IC.search}<input name="q" type="search" id="sq" placeholder="Try: Cayley-Hamilton, Sylow, Frobenius, &quot;uniformly continuous&quot;" value="${esc(F.q)}" aria-label="Search questions"><button class="btn btn-primary" type="submit">Search</button></form>
+        <div class="source-picker"><span class="flabel" id="source-label">Question source</span><div class="seg" data-f="prog" role="group" aria-labelledby="source-label">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."], ...Object.keys(EXAM).map((code) => [code, code])].map(([v, l]) => `<button type="button" class="chip${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v ? " on" : ""}" data-v="${v}" aria-pressed="${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v}">${l}</button>`).join("")}</div></div>
+      </div>
       <div class="search-layout">
-        <aside class="filters" id="filters" data-collapsed="1" aria-label="Filters">
+        <aside class="filters" id="filters" data-collapsed="${searchFiltersOpen ? "0" : "1"}" aria-label="Filters">
           <div style="display:flex;justify-content:space-between;align-items:center"><span class="flabel" style="margin:0">Filters</span>
-            <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle">Show</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
-          <div class="fbody">
-          <div><span class="flabel">Question source</span><div class="seg" data-f="prog">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."], ...Object.keys(EXAM).map((code) => [code, code])].map(([v, l]) => `<button type="button" class="chip${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v ? " on" : ""}" data-v="${v}" aria-pressed="${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v}">${l}</button>`).join("")}</div></div>
+            <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle" aria-controls="search-refinements" aria-expanded="${searchFiltersOpen}">${searchFiltersOpen ? "Hide" : "Show"}</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
+          <div class="fbody" id="search-refinements">
           <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem"${EXAM[F.kind] ? " disabled" : ""}>${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
           <div><span class="flabel">Year</span><div class="two"><select id="f-from" aria-label="From year">${opt("", "From", F.from)}${yrs.map((y) => opt(y, y, F.from)).join("")}</select><select id="f-to" aria-label="To year">${opt("", "To", F.to)}${yrs.map((y) => opt(y, y, F.to)).join("")}</select></div></div>
           <div><label class="flabel" for="f-code">Paper code</label><input id="f-code" type="text" list="codes" placeholder="e.g. CC-5, MMC-21" value="${esc(F.code)}" autocomplete="off"><datalist id="codes">${D.codes.map((c) => `<option value="${esc(c)}">`).join("")}</datalist></div>
@@ -526,7 +529,6 @@
           </div>
         </aside>
         <section style="min-width:0">
-          <form class="searchbar" id="sform" role="search"><input name="q" type="search" id="sq" placeholder="Try: Cayley-Hamilton, Sylow, Frobenius, &quot;uniformly continuous&quot;" value="${esc(F.q)}" aria-label="Search questions"><button class="btn btn-primary" type="submit">Search</button></form>
           <div class="resultbar"><span id="rcount"></span><label>Sort <select id="f-sort">${opt("rel", "Relevance", F.sort)}${opt("new", "Newest first", F.sort)}${opt("old", "Oldest first", F.sort)}${opt("marks", "Most marks", F.sort)}${opt("rep", "Most repeated", F.sort)}</select></label></div>
           <div id="results"></div>
           <div class="pager"><button class="btn btn-ghost" type="button" id="more" hidden>Show more</button></div>
@@ -552,7 +554,9 @@
         F.kind = EXAM[value] ? value : EXAM[F.kind] ? "" : F.kind;
         if (EXAM[value]) F.sem = F.code = "";
         if (value === "MSc" && +F.sem > 4) F.sem = "";
-        route(true); return;
+        route(true);
+        $$('.source-picker .chip').find((chip) => chip.dataset.v === value)?.focus({ preventScroll: true });
+        return;
       }
       F[field] = value;
       $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
@@ -564,7 +568,7 @@
     $("#f-code").addEventListener("change", (e) => { F.code = e.target.value.trim().toUpperCase(); rerun(); });
     $("#f-rep").addEventListener("change", (e) => { F.rep = e.target.checked; rerun(); });
     $("#freset").addEventListener("click", () => { F = defaultFilters(); store.set("filters", F); route(true); });
-    $("#ftoggle").addEventListener("click", (e) => { const f = $("#filters"); const c = f.dataset.collapsed === "1"; f.dataset.collapsed = c ? "0" : "1"; e.target.textContent = c ? "Hide" : "Show"; });
+    $("#ftoggle").addEventListener("click", (e) => { const f = $("#filters"); const c = f.dataset.collapsed === "1"; f.dataset.collapsed = c ? "0" : "1"; searchFiltersOpen = c; e.currentTarget.setAttribute("aria-expanded", String(c)); e.currentTarget.textContent = c ? "Hide" : "Show"; });
     $("#more").addEventListener("click", () => { shown += PAGE; renderResults(true); });
     rerun();
   }
@@ -649,17 +653,17 @@
     return `<section class="hero-band"><div class="wrap">
         <div class="hero">
           <div>
-            <h1>Visva-Bharati mathematics question papers, typed and searchable</h1>
+            <h1>Visva-Bharati mathematics question papers</h1>
             <p class="lede">B.Sc. and M.Sc. examination questions from ${yrs[0]} to ${yrs[yrs.length - 1]}, written in LaTeX, sorted by semester and topic, and linked to the original scans.</p>
             <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
           </div>
-          <article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
+          <div class="hero-feature"><div class="hero-illustration" aria-hidden="true"></div><article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
             <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(semLabel(qp))}, ${qp.year}</a></div>
             <div class="qh"><span class="qn">Q${esc(qLabel(qod))}</span><span class="qsrc">${qp.title ? esc(qp.title) : ""}</span>${qod.marks != null ? `<span class="qmk">${esc(fmtMarks(qod))} marks</span>` : ""}</div>
             <div class="qbody">${texToHtml(qod.tex)}</div>
             <div class="qodf"><a class="btn btn-ghost btn-sm" href="${L("paper-" + qp.key)}">Open the paper</a><button type="button" class="qbtn collect${coll.includes(qod.id) ? " on" : ""}" data-act="collect"><span class="lbl-off">${IC.plus}</span><span class="lbl-on">${IC.check}</span><span class="lbl-off">Collect</span><span class="lbl-on">Collected</span></button></div>
-          </article>
+          </article></div>
         </div>
         <div class="statbar"><div><b>${nq.toLocaleString()}</b><span>questions</span></div><div><b>${D.papers.length}</b><span>typed papers</span></div><div><b>${D.scans.length}</b><span>original scans</span></div><div><b>${yrs[0]}–${yrs[yrs.length - 1]}</b><span>examination years</span></div></div>
       </div></section>
@@ -693,7 +697,7 @@
     const tab = store.get("papersTab", "BSc");
     const sems = Array.from({ length: NSEM[tab] }, (_, i) => i + 1);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Papers</div>
-      <div class="pagehead"><h1>Question papers</h1><p class="lede">Choose a semester to see every typed paper by year, with internal tests and links to the original scans.</p></div>
+      ${editorialHeading("Question papers", "Browse typed exam papers, internal tests and original scans by programme and semester.")}
       <div class="progtabs" role="tablist">${["BSc", "MSc"].map((t) => `<button type="button" role="tab" aria-selected="${t === tab}" class="${t === tab ? "on" : ""}" data-tab="${t}">${PROG[t]}</button>`).join("")}</div>
       <div class="semgrid">${sems.map((s) => {
         const ps = semPapers(tab, s), ys = ps.map((p) => p.year), sc = D.scans.filter((x) => x.prog === tab && x.sem === s && !x.other).length;
@@ -868,7 +872,7 @@
     const f = Object.assign({ prog: "", sem: "", year: "", q: "", math: true, old: false }, store.get("scanF", {}));
     const years = Array.from(new Set(D.scans.map((s) => s.year).filter(Boolean))).sort((a, b) => b - a);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Scans</div>
-      <div class="resource-intro resource-intro-split"><div><h1>Scanned papers</h1><p class="lede">Find original exam papers by programme, semester, year or paper code.</p></div><div class="resource-stat">${IC.scan}<div><strong>${D.scans.length.toLocaleString()}</strong><small>Original PDFs</small></div></div></div>
+      ${editorialHeading("Scanned papers", "Find original exam papers by programme, semester, year or paper code.", false, `<div class="resource-stat">${IC.scan}<div><strong>${D.scans.length.toLocaleString()}</strong><small>Original PDFs</small></div></div>`)}
       <div class="scan-filters" aria-label="Scan filters">
         <div><label class="flabel" for="s-prog">Programme</label><select id="s-prog">${opt("", "All", f.prog)}${opt("BSc", "B.Sc.", f.prog)}${opt("MSc", "M.Sc.", f.prog)}</select></div>
         <div><label class="flabel" for="s-sem">Semester</label><select id="s-sem">${opt("", "All", f.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].map((s) => opt(s, "Sem " + ROMAN[s], f.sem)).join("")}</select></div>
@@ -930,7 +934,7 @@
     const shade = (v) => `color-mix(in srgb, var(--green) ${Math.round(8 + 72 * v)}%, var(--card))`;
     const weak = D.Q.filter((q) => q.weak).length;
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Topics</div>
-      <h1>Topic map</h1><p class="lede">Each question part is tagged with up to three topics, from broad areas down to specific ones. Click any topic or any cell to see its questions.</p>
+      ${editorialHeading("Topic map", "Explore questions by topic and see how Visva-Bharati exam coverage changes from year to year.")}
       <p class="note" style="max-width:76ch">Tags come from a first automatic pass over the question text, so some are imprecise. ${weak.toLocaleString()} questions are marked for checking. The trend table shows how often an area was examined in past years; it describes patterns, it does not predict a paper.</p>
       <section class="section" style="margin-top:32px"><div class="section-head"><h2>How often each area is examined</h2><span class="muted">Share of that year's questions</span></div>
         <div class="scroll-x" style="padding:10px"><table class="heat"><thead><tr><th></th>${yrs.map((y) => `<th>’${String(y).slice(2)}</th>`).join("")}</tr></thead><tbody>
@@ -948,7 +952,14 @@
 
   /* ---------- content pages ---------- */
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
-  const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
+  function editorialHeading(title, intro, art = true, aside = "") {
+    return `<header class="editorial-heading${art ? " has-art" : ""}${aside ? " has-aside" : ""}"><div>
+      <h1>${esc(title)}</h1>${intro ? `<p class="lede">${esc(intro)}</p>` : ""}</div>
+      ${aside}</header>`;
+  }
+  const illustratedPages = new Set(["Notes", "Competitive exams", "Syllabus"]);
+  const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div>
+    ${illustratedPages.has(crumb) ? editorialHeading(title, lede) : `<h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}`}${body}</div>`;
   function viewExams() {
     const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET", NBHM: "NBHM", TIFR: "TIFR" };
     const cards = D.C.exams.map((exam) => {
