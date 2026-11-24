@@ -1,6 +1,7 @@
 """Import the supplied JAM JSONL and NET LaTeX archive into VBMath's question format."""
 import argparse
 import bisect
+import csv
 import hashlib
 import json
 from pathlib import Path
@@ -185,6 +186,47 @@ def net(archive):
             yield row
 
 
+def jam_2026():
+    """Join the visually transcribed master paper to the official final key."""
+    file = "sources/jam-ma-2026.tex"
+    source = (ROOT / "data" / file).read_text()
+    with (ROOT / "data/sources/jam-ma-2026-key.csv").open() as f:
+        key = list(csv.DictReader(f))
+    questions = list(entries(source))
+    if len(questions) != 60 or [int(k["question"]) for k in key] != list(range(1, 61)):
+        raise ValueError("JAM 2026 must have matching questions and answers 1–60")
+    if sum(int(k["marks"]) for k in key) != 100:
+        raise ValueError("JAM 2026 final key must total 100 marks")
+    notes = {
+        7: "The set symbol at the end of options C and D is absent in the supplied PDF (printed page 7).",
+        9: "The group symbol in option B is faint or incomplete in the supplied PDF (printed page 8).",
+        17: "The first coordinate in the zero case is faint or absent in the supplied PDF (printed page 14).",
+        22: "Faint occurrences of x were restored from the surrounding expressions (printed page 17).",
+        31: "Faint occurrences of x were restored from context (printed page 23).",
+        34: "Faint occurrences of f were restored from context (printed page 24).",
+        36: "Faint occurrences of f were restored from context (printed page 25).",
+        41: "The summation begins at n=1 in the supplied PDF (printed page 28). The printed logarithmic factor is undefined at that index.",
+        59: "The membership symbol before the real vector space was restored from context (printed page 33).",
+    }
+    for (item, stop), k in zip(questions, key, strict=True):
+        n = int(k["question"])
+        kind = k["type"]
+        section = {"MCQ": "A", "MSQ": "B", "NAT": "C"}[kind]
+        tex = source[item.end():stop].strip()
+        if tex.count(r"\begin{enumerate}") != int(kind != "NAT"):
+            raise ValueError(f"Unexpected options in JAM 2026 Q{n}")
+        row = question("JAM", "jam-ma-2026", 2026, "Mathematics (MA), 2026",
+                       n, f"Section {section} · {kind}", int(k["marks"]), tex,
+                       file, source.count("\n", 0, item.start()) + 1,
+                       "https://jam2026.iitb.ac.in/files/MA_QP.pdf")
+        row["full_marks"] = 100
+        row["answer_key_url"] = "https://jam2026.iitb.ac.in/files/MA_AK.pdf"
+        row["answer"] = k["answer"]
+        if n in notes:
+            row["review_notes"] = [notes[n]]
+        yield row
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("jam_jsonl", type=Path)
@@ -202,6 +244,7 @@ def main():
         row["full_marks"] = 100
         row["review_notes"] = q["notes"]
         records.append(row)
+    records.extend(jam_2026())
     with ZipFile(args.net_zip) as archive:
         records.extend(net(archive))
     assert len({r["id"] for r in records}) == len(records)

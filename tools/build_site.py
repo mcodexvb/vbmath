@@ -103,11 +103,11 @@ if os.path.exists(competitive_path):
                 CPI[key]=len(CP)
                 CP.append(dict(key=key,prog=row['programme'],sem=0,year=row['year'],
                     kind='c',code=row['programme'],title=row['paper_title'],
-                    full=row.get('full_marks'),source=row.get('source_scan'),n=0))
+                    full=row.get('full_marks'),source=row.get('source_scan'),answer_key=row.get('answer_key_url'),n=0))
             i=CPI[key]
             CP[i]['n']+=1
             tags=[TI[t['broad'],t['specific']] for t in row['topics'] if (t['broad'],t['specific']) in TI]
-            CQ.append([i,row['section'],row['qno'],'',row['marks'],'',row['latex'],tags,[],0,row['id'],[],0,row.get('review_notes',[])])
+            CQ.append([i,row['section'],row['qno'],'',row['marks'],'',row['latex'],tags,[],0,row['id'],[],0,row.get('review_notes',[]),row.get('answer')])
 with open(f'{OUT}/competitive.json','w',encoding='utf-8') as f:
     json.dump(dict(papers=CP,questions=CQ),f,ensure_ascii=False,separators=(',',':'))
 

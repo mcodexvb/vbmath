@@ -101,7 +101,7 @@
     SEG.lastIndex = 0;
     while ((m = SEG.exec(s))) {
       out += textPart(s.slice(last, m.index));
-      let seg = m[0];
+      let seg = m[0].replace(/\\rule\{[^{}]+\}\{[^{}]+\}/g, "\\underline{\\qquad}");
       if (m[1]) seg = "\\[" + seg + "\\]";
       out += esc(seg);
       last = SEG.lastIndex;
@@ -118,6 +118,7 @@
       [/\\[hv]space\*?\{[^}]*\}/g, " "],
       [/\\(?:quad|qquad|enspace|,|;|:)/g, " "],
       [/\\hfill/g, " "],
+      [/\\rule\{[^{}]+\}\{[^{}]+\}/g, "______"],
       [/\\printedmarks\{([^{}]*)\}/g, '<span class="pm">[$1]</span>'],
       [/\\unreadable\{([^{}]*)\}/g, '<span class="unr" title="Not legible in the scan">$1</span>'],
       [/\\gapmark\{[^{}]*\}/g, '<span class="unr" title="Gap in the source">…</span>'],
@@ -173,7 +174,7 @@
     D.byPaper = D.papers.map(() => []);
     D.Q = Q.map((a, i) => {
       const p = D.papers[a[0]];
-      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [] };
+      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [], answer: a[14] };
       q.broads = new Set(q.t.map((k) => D.broad.indexOf(D.topics[k][0])).concat(q.tb));
       q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "") + " " + (EXAM[p.prog] || "") + " " + p.year).toLowerCase();
       D.byPaper[a[0]].push(q);
@@ -266,6 +267,9 @@
     return `<article class="q${on ? " in" : ""}" data-id="${esc(q.id)}">
       <header class="qh"><span class="qn">${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
       <div class="qbody">${texToHtml(q.tex)}</div>
+      ${q.answer ? `<details class="q-answer"><summary>Official answer</summary>
+        <p>${esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
+        ${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : ""}
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
           <button type="button" class="qbtn" data-act="copy" title="Copy LaTeX" aria-label="Copy LaTeX">${IC.copy}<span class="sr">Copy LaTeX</span></button>
@@ -710,6 +714,7 @@
         <button class="btn btn-ghost btn-sm" type="button" id="addall">${IC.plus} Collect all</button>
         <button class="btn btn-ghost btn-sm" type="button" id="copypaper">${IC.copy} Copy LaTeX</button>
         ${p.source ? ext(p.source, "Original paper", "btn btn-ghost btn-sm") : ""}
+        ${p.answer_key ? ext(p.answer_key, "Final answer key", "btn btn-ghost btn-sm") : ""}
       </div>
       <div id="paperqs">${cards}</div>
     </div>`;

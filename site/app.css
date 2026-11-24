@@ -460,3 +460,6 @@ details.more summary{cursor:pointer;font-weight:600}
 }
 .qmenu.sheet{min-width:0;max-height:calc(100dvh - 24px)}
 .question-figure{display:block;max-width:min(100%,36rem);height:auto;margin:.65em auto}
+.q-answer{margin-top:12px;font:400 14px/1.5 var(--f-ui);color:var(--ink-2)}
+.q-answer summary{cursor:pointer;font-weight:600;color:var(--green-ink)}
+.q-answer p{margin:6px 0 0}
