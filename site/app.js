@@ -1027,18 +1027,26 @@
       <h2>${esc(title)}</h2><p>${esc(credit)}</p>
       <a class="note-open" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open notes for ${esc(title)} (new tab)">Open notes ${IC.ext}</a>
     </article>`).join("");
-    const folders = Object.entries(D.C.notes.folders).map(([label, urls]) => `<div class="card">
-      <h3>${esc(label)}</h3>
-      <div class="note-folders">${urls.map((url, i) => {
-        const name = "Semester " + (ROMAN[i + 1] || (i + 1));
-        return `<a class="chip note-folder" href="${esc(url)}" target="_blank" rel="noopener"
-          aria-label="${esc(label)}, ${name} (new tab)">${folder} ${name} ${IC.ext}</a>`;
-      }).join("")}</div>
-    </div>`).join("");
+    const folders = Object.entries(D.C.notes.folders).map(([label, urls]) => `<section class="class-note-card">
+      <h3>${folder}${esc(label)}</h3>
+      ${urls.map((url, i) => {
+        const semester = ROMAN[i + 1] || i + 1;
+        const name = "Semester " + semester;
+        const items = D.C.notes.folderContents?.[url] || [];
+        const openFolder = `<a class="class-note-drive" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open ${esc(label)}, ${name} in Drive">Open in Drive ${IC.ext}</a>`;
+        return `<div class="class-note-semester">
+          <span class="class-note-number" aria-hidden="true">${semester}</span>
+          <div class="class-note-name">${items.length ? `<details class="class-note-details">
+            <summary><strong>${name}</strong><span class="class-note-count">${items.length} ${items.length === 1 ? "folder" : "folders"}</span>${IC.down}</summary>
+            <ul>${items.map(([title, link]) => `<li><a href="${esc(link)}" target="_blank" rel="noopener">${esc(title)}${IC.ext}</a></li>`).join("")}</ul>
+          </details>` : `<strong>${name}</strong>`}</div>
+          ${openFolder}
+        </div>`;
+      }).join("")}</section>`).join("");
     return page("Notes", "Notes", "Lecture notes shared by Visva-Bharati mathematics students and alumni.",
       `<div class="note-grid">${notes}</div>
       <section class="section"><div class="shead"><h2>Class-note folders</h2>${ext(D.C.forms.notes, "Upload your notes", "btn btn-ghost btn-sm")}</div>
-      <div class="grid g2">${folders}</div></section>`);
+      <div class="class-note-grid">${folders}</div></section>`);
   }
   function viewSyllabus() {
     const groups = new Map([["B.Sc. Mathematics", []], ["M.Sc. Mathematics", []], ["Competitive & admission exams", []]]);
