@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>MMC-13 Linear Algebra 2020 · M.Sc. Mathematics Semester I · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester I 2020 end-semester question paper MMC-13 (Linear Algebra): 18 questions typed in LaTeX.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/msc-1-2020-s-3/">
+<meta property="og:title" content="MMC-13 Linear Algebra 2020 · M.Sc. Mathematics Semester I · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester I 2020 end-semester question paper MMC-13 (Linear Algebra): 18 questions typed in LaTeX.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/msc-1-2020-s-3/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-13 Linear Algebra 2020 · M.Sc. Mathematics Semester I", "url": "https://vbmath.pages.dev/paper/msc-1-2020-s-3/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester I", "item": "https://vbmath.pages.dev/semester/msc-1/"}, {"@type": "ListItem", "position": 3, "name": "MMC-13 2020", "item": "https://vbmath.pages.dev/paper/msc-1-2020-s-3/"}]}}</script>
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1410" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="166" height="36"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="166" height="36"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">JAM · NET · GATE</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-1/">M.Sc. Semester I</a> / 2020</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-13</h1><div class="sub">Linear Algebra</div><div class="fm"><span>M.Sc. Mathematics · Semester I</span><span>2020</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Define $T$-cyclic subspace. Consider the linear operator $D:P_3(\mathbb R)\to P_3(\mathbb R)$ defined by $D(p(x))=p&#x27;(x)$. Find the $D$-cyclic subspace generated by $x^2+x+1$.</span> [1+2]</li><li><b>1(b)</b> <span class="qbody">Let $V$ be a two dimensional vector space and $T:V\to V$ be a linear operator. Show that either $V$ is $T$-cyclic or $T=cI$ for some scalar $c$.</span> [3]</li><li><b>1(c)</b> <span class="qbody">Let $T:V\to V$ be a linear operator such that the characteristic polynomial splits over $F$ and has the distinct eigen values $\lambda_1,\lambda_2,\ldots,\lambda_k$. Show that $T$ is diagonalizable if and only if $V=E_{\lambda_1}\oplus E_{\lambda_2}\oplus\cdots\oplus E_{\lambda_k}$.</span> [4]</li><li><b>2(a)</b> <span class="qbody">Let $T:V\to V$ be a linear operator. Then there is a unique monic nonconstant polynomial $m(t)$ of least degree such that $m(T)=T_0$.</span> [3]</li><li><b>2(b)</b> <span class="qbody">Let $T:V\to V$ be a linear operator and $m(t)$ is the minimal polynomial of $T$. Prove that $\lambda\in F$ is an eigen value of $T$ if and only if $m(\lambda)=0$.</span> [2]</li><li><b>2(c)</b> <span class="qbody">Show that the linear operator $T(x,y,z)=(x-3y+3z,3x-5y+3z,6x-6y+4z)$ is diagonalizable. Find a basis $\beta$ of $\mathbb R^3$ such that $[T]_\beta$ is a diagonal matrix.</span> [3]</li><li><b>2(d)</b> <span class="qbody">Let $A$ be an $n\times n$ complex matrix such that every nonzero vector in $\mathbb C^n$ is an eigen vector of $A$. Is $A$ a scalar matrix?</span> [2]</li><li><b>3(a)</b> <span class="qbody">Let $\lambda$ be an eigen value of a linear operator $T$ and $G_\lambda$ be the corresponding generalized eigen space. Show that the subspace $G_\lambda$ is $T$-invariant and $\lambda$ is the only eigen value of $T|_{G_\lambda}$.</span> [3]</li><li><b>3(b)</b> <span class="qbody">Let $T:V\to V$ be a linear operator. Prove that nonzero generalized eigen vectors corresponding to distinct eigenvalues of $T$ are linearly independent.</span> [3]</li><li><b>3(c)</b> <span class="qbody">Let $T$ be a linear operator on $V$ whose characteristic polynomial splits over $F$, and $\lambda$ be an eigenvalue of $T$. If a basis for $G_\lambda$ is the union of $q$ disjoint cycles of generalized eigenvectors, prove that $q\geq\dim E_\lambda$. When does the equality hold? Justify.</span> [2+2]</li><li><b>4(a)</b> <span class="qbody">Let $T:V\to V$ be a nilpotent linear operator. Prove that $k$ is the index of nilpotence of $T$ if and only if $t^k$ is the minimal polynomial of $T$.</span> [3]</li><li><b>4(b)</b> <span class="qbody">Let $T:V\to V$ be a nilpotent operator. Prove that the number of Jordan blocks in a Jordan canonical form is equal to the geometric multiplicity of the eigen value 0.</span> [3]</li><li><b>4(c)</b> <span class="qbody">Let $T$ be a linear operator which has the characteristic polynomial $t^2(t-1)^4$ and the minimal polynomial $t(t-1)^2$. Find all possible Jordan canonical forms of $T$. In each case find the rank and nullity of the matrix; and the dimension of the eigen spaces.</span> [4]</li><li><b>5(a)</b> <span class="qbody">Consider the inner product space $P_2(\mathbb R)$ where the inner product is defined by $\langle p(x),q(x)\rangle=\int_0^1p(x)q(x)dx$ and a linear functional $\phi$ on $P_2(\mathbb R)$ is defined by $\phi(a+bx+cx^2)=a+2b+3c$. Find an orthonormal basis of this inner product space and find $q(x)\in P_2(\mathbb R)$ such that $\phi(p(x))=\langle p(x),q(x)\rangle$. Also find the adjoint of the linear operator $T:P_2(\mathbb R)\to P_2(\mathbb R)$ defined by $\phi(p(x))=p(0)+xp&#x27;(x)$.</span> [3+1+2]</li><li><b>5(b)</b> <span class="qbody">Let $T:U\to V$ be a linear transformation. Show that $\ker T^*=(\mathit{Im}\,T)^\perp$ and $\ker TT^*=\ker T^*$.</span> [2+2]</li><li><b>6(a)</b> <span class="qbody">Let $T$ be a normal operator on an Euclidean space $V$. Show that the eigen vectors belonging to two distinct eigen values are orthogonal and the minimal polynomial of $T$ is a product of distinct irreducible factors over $\mathbb R$.</span> [1+2]</li><li><b>6(b)</b> <span class="qbody">Let $T$ be an unitary operator over a complex inner product space $V$. Prove that $T$ maps every orthonormal basis of $V$ into an orthonormal basis of $V$.</span> [3]</li><li><b>6(c)</b> <span class="qbody">Let $T$ be a linear operator over an Euclidean space $V$. Show that $T$ is symmetric if and only if it is orthogonally diagonalizable. 
+
+\renewcommand{\exam}[5]{\begin{center}\textbf{#1}\\#2\\\textbf{#3}\\#4\end{center}\textbf{Time: #5}\hfill\textbf{Full Marks: 40}\par
+Questions are of values as indicated in the margin.\par
+Notations and symbols have their usual meanings.}</span> [4]</li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">JAM · NET · GATE</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

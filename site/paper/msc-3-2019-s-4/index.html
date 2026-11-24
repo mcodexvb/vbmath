@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>MMC-34 Calculus of Variations and Special Functions 2019 · M.Sc. Mathematics Semester III · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester III 2019 end-semester question paper MMC-34 (Calculus of Variations and Special Functions): 18 questions typed in LaTeX.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/msc-3-2019-s-4/">
+<meta property="og:title" content="MMC-34 Calculus of Variations and Special Functions 2019 · M.Sc. Mathematics Semester III · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester III 2019 end-semester question paper MMC-34 (Calculus of Variations and Special Functions): 18 questions typed in LaTeX.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/msc-3-2019-s-4/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-34 Calculus of Variations and Special Functions 2019 · M.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/msc-3-2019-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/msc-3/"}, {"@type": "ListItem", "position": 3, "name": "MMC-34 2019", "item": "https://vbmath.pages.dev/paper/msc-3-2019-s-4/"}]}}</script>
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1410" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="166" height="36"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="166" height="36"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">JAM · NET · GATE</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-3/">M.Sc. Semester III</a> / 2019</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-34</h1><div class="sub">Calculus of Variations and Special Functions</div><div class="fm"><span>M.Sc. Mathematics · Semester III</span><span>2019</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Show that the validity of Euler&#x27;s differential equation is a necessary condition for the existence of the extremum of the functional\par
+\[J(y)=\int_{x_0}^{x_1}F(x,y,y&#x27;)\,dx.\]</span> [3]</li><li><b>1(b)</b> <span class="qbody">Find the stationary function and stationary value of\par
+\[I(y)=\int_0^{\pi/2}\left[y^2+(y&#x27;)^2-2y\sin x\right]dx,\ y(0)=0,\ y(\pi/2)=\tfrac12.\]</span> [3]</li><li><b>1(c)</b> <span class="qbody">Find the plane curve of fixed perimeter which has maximum area above $x$-axis.</span> [4]</li><li><b>2(a)</b> <span class="qbody">Show that the curve which extremizes the functional\par
+\[I=\int_0^{\pi/4}\left(y&#x27;&#x27;^2-y^2+x^2\right)dx,\]
+under the conditions $y(0)=0,\ y&#x27;(0)=1,\ y(\pi/4)=y&#x27;(\pi/4)=\frac1{\sqrt2}$ is $y=\sin x$.</span> [4]</li><li><b>2(b)</b> <span class="qbody">A particle of mass $m$ is falling vertically, under the action of gravity. If $y$ is the distance measured downward and no resistive forces are present then show that the Lagrangian function is $L=T-V=m\left(\frac12\dot y^2+gy\right)+$ constant, and verify that the Euler equation of the problem $\delta\displaystyle\int_{t_1}^{t_2}L\,dt=0$ is the proper equation of motion of the particle.</span> [4]</li><li><b>2(c)</b> <span class="qbody">Reduce the following boundary value problem into a variational problem:\par
+\[\frac d{dx}\left(x\frac{dy}{dx}\right)+y=x\ \text{ with }y(0)=0,\ y(1)=1.\]</span> [2]</li><li><b>3(a)</b> <span class="qbody">Find the shortest distance between the parabola $y=x^2$ and the straight line $x-y=5$.</span> [5]</li><li><b>3(b)</b> <span class="qbody">Solve the boundary value problem\par
+\hspace*{2em}$y&#x27;&#x27;-y+x=0\ (0\le x\le1)$, with $y(0)=y(1)=0$ by Rayleigh Ritz method.</span> [3]</li><li><b>3(c)</b> <span class="qbody">Describe Galerkin method for solving a boundary value problem. 
+\par\hfill P.T.O.</span> [2]</li><li><b>4(a)</b> <span class="qbody">Define the generating function for Legendre polynomials $P_n(x)$ of degree $n$. Hence prove the following recurrence relation\par
+\hspace*{2em}$(n+1)P_{n+1}(x)-(2n+1)xP_n(x)+nP_{n-1}(x)=0.$</span> [1+3]</li><li><b>4(b)</b> <span class="qbody">Express $x^4+2x^3+2x^2-x-3$ in terms of Legendre&#x27;s polynomials.</span> [3]</li><li><b>4(c)</b> <span class="qbody">Use Rodrigue&#x27;s formula to show that $\displaystyle\int_{-1}^{1}P_n(x)\,dx=0$ for $n\ge1$.</span> [3]</li><li><b>5(a)</b> <span class="qbody">If $J_n(x)$ denotes the Bessel&#x27;s function of the first kind of order $n$ and $n$ an integer, then show that $J_n&#x27;(x)=\dfrac12\left[J_{n-1}(x)-J_{n+1}(x)\right]$.</span> [3]</li><li><b>5(b)</b> <span class="qbody">Show that the Laguerre&#x27;s polynomials of order $n$, $L_n(x)$ are orthogonal over the interval $(0,\infty)$ with respect to the weighted function $e^{-x}$.</span> [4]</li><li><b>5(c)</b> <span class="qbody">Prove that $e^{2tx-t^2}=\displaystyle\sum_{n=0}^{\infty}\frac{t^n}{n!}H_n(x)$, where $H_n(x)$ denotes the Hermite polynomial of order $n$.</span> [3]</li><li><b>6(a)</b> <span class="qbody">When is a series $\sum_{n=0}^{\infty}C_n$ called hypergeometric? Define the hypergeometric function.</span> [1+3]</li><li><b>6(b)</b> <span class="qbody">Solve the differential equation\par
+\[x^2\frac{d^2y}{dx^2}+x\frac{dy}{dx}+\left(4x^4-\frac14\right)y=0\ \text{ in terms of Bessel&#x27;s function.}\]</span> [3]</li><li><b>6(c)</b> <span class="qbody">Prove that if $m&lt;n$, then\par
+\[\frac{d^m}{dx^m}\left(H_n(x)\right)=\frac{2^mn!}{(n-m)!}H_{n-m}(x),\ \text{where }H_n(x)\text{ denotes the Hermite polynomial of order }n.\]</span> [3]</li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">JAM · NET · GATE</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

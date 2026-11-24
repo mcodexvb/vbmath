@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>MMC-15 Partial Differential Equations 2024 · M.Sc. Mathematics Semester I · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester I 2024 end-semester question paper MMC-15 (Partial Differential Equations): 15 questions typed in LaTeX.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/msc-1-2024-s-5/">
+<meta property="og:title" content="MMC-15 Partial Differential Equations 2024 · M.Sc. Mathematics Semester I · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester I 2024 end-semester question paper MMC-15 (Partial Differential Equations): 15 questions typed in LaTeX.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/msc-1-2024-s-5/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-15 Partial Differential Equations 2024 · M.Sc. Mathematics Semester I", "url": "https://vbmath.pages.dev/paper/msc-1-2024-s-5/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester I", "item": "https://vbmath.pages.dev/semester/msc-1/"}, {"@type": "ListItem", "position": 3, "name": "MMC-15 2024", "item": "https://vbmath.pages.dev/paper/msc-1-2024-s-5/"}]}}</script>
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1410" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="166" height="36"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="166" height="36"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">JAM · NET · GATE</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-1/">M.Sc. Semester I</a> / 2024</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-15</h1><div class="sub">Partial Differential Equations</div><div class="fm"><span>M.Sc. Mathematics · Semester I</span><span>2024</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">When is a partial differential equation (PDE) said to be well-posed in the sense of Hadamard?</span> [2]</li><li><b>1(b)</b> <span class="qbody">Solve the the following Cauchy problem and find the value of $u(1/\sqrt2,1/\sqrt2)$.
+\[
+x\frac{\partial u}{\partial y}-y\frac{\partial u}{\partial x}=u,\quad
+u(x,0)=\sin\left(\frac{\pi x}4\right).
+\]
+Also, characterize the nature of the integral surface so obtained.</span> [3+1]</li><li><b>1(c)</b> <span class="qbody">Obtain the singular integral of the following PDE and give its geometrical interpretation.
+\[
+\left(x\frac{\partial u}{\partial x}+y\frac{\partial u}{\partial y}-u\right)^2
+=1+\left(\frac{\partial u}{\partial x}\right)^2+\left(\frac{\partial u}{\partial y}\right)^2.
+\]</span> [4]</li><li><b>2(a)</b> <span class="qbody">Find by the Cauchy&#x27;s method of characteristics the integral surface of the following PDE that passes through the curve $u=y$, $x=0$.
+\[
+x\frac{\partial u}{\partial x}+y\frac{\partial u}{\partial y}
+=\frac{\partial u}{\partial x}\frac{\partial u}{\partial y}.
+\]</span> [5]</li><li><b>2(b)</b> <span class="qbody">Show that a linear PDE of the form
+\[
+\sum_{r,s}C_{rs}x^ry^s\frac{\partial^{r+s}u}{\partial x^r\partial y^s}=f(x,y)
+\]
+can be reduced to one with constant coefficients by the substitutions: $\xi=\log_e x$ and $\eta=\log_e y$. Hence, find the complete integral of the following PDE.
+\[
+x^2\frac{\partial^2u}{\partial x^2}-3xy\frac{\partial^2u}{\partial x\partial y}
++2y^2\frac{\partial^2u}{\partial y^2}+5y\frac{\partial u}{\partial y}-2u=\cos[\log_e(xy)].
+\]</span></li><li><b>3(a)</b> <span class="qbody">Solve the following PDE by Monge&#x27;s method.
+\[
+xy\left(\frac{\partial^2u}{\partial x^2}-\frac{\partial^2u}{\partial y^2}\right)
+-(x^2-y^2)\frac{\partial^2u}{\partial x\partial y}+y\frac{\partial u}{\partial x}-x\frac{\partial u}{\partial y}=0.
+\]</span> [5]</li><li><b>3(b)</b> <span class="qbody">Find the two families of characteristics of the PDE, given by,
+\[
+\frac{\partial^2u}{\partial x^2}-2\frac{\partial^2u}{\partial x\partial y}
++\frac{\partial^2u}{\partial y^2}+\frac{\partial u}{\partial x}-\frac{\partial u}{\partial y}=e^{2x+3y}
+\]
+and hence convert the equation to a canonical form.</span></li><li><b>4(a)</b> <span class="qbody">Using Laplace integral transform method, solve the following initial boundary value problem (IBVP):
+\[
+\frac{\partial^2u}{\partial x^2}=\frac1{c^2}\frac{\partial^2u}{\partial t^2}-\cos(2t),\quad
+0\leq x&lt;\infty,\ 0\leq t&lt;\infty,
+\]
+BC&#x27;s: $u(0,t)=0$, $u(x,t)$ is bounded as $x\to\infty$,
+
+IC&#x27;s: $u(x,0)=0$, $\frac{\partial u}{\partial t}|_{(x,0)}=0$.</span> [5]</li><li><b>4(b)</b> <span class="qbody">Solve the following PDE by using the finite Fourier sine transform method:
+\begin{align*}
+\frac{\partial u}{\partial t}&amp;=4\frac{\partial^2u}{\partial x^2},\quad 0&lt;x&lt;2,\ t&gt;0,\\
+u(0,t)&amp;=0=u(2,t),\quad t&gt;0,\\
+u(x,0)&amp;=\begin{cases}x,&amp;0\leq x\leq1\\2-x,&amp;1\leq x\leq2.\end{cases}
+\end{align*}</span> [5]</li><li><b>5(a)</b> <span class="qbody">Find the value of $u(2,3)$ for the following PDE.
+\[
+\frac{\partial^2u}{\partial x\partial y}+x^3y^2u=0,\qquad u(x,0)=e^{(x^4/4)}.
+\]</span> [4]</li><li><b>5(b)</b> <span class="qbody">If $u(x,t)=Ae^{-t}\sin x$ is a solution of the following IBVP, then find the value of $A$.
+\begin{align*}
+\frac{\partial u}{\partial t}&amp;=\frac{\partial^2u}{\partial x^2},\quad 0&lt;x&lt;\pi,\ t&gt;0,\\
+u(0,t)&amp;=0=u(\pi,t),\quad t&gt;0,\\
+u(x,0)&amp;=\begin{cases}60,&amp;0\leq x\leq\frac\pi2\\40,&amp;\frac\pi2\leq x\leq\pi.\end{cases}
+\end{align*}</span> [3]</li><li><b>5(c)</b> <span class="qbody">Let $u(x,t)$ be a function that satisfies the PDE:
+\[
+\frac{\partial^2u}{\partial x^2}-\frac{\partial^2u}{\partial t^2}=e^x+6t,\quad x\in\mathbb R,\ t&gt;0,
+\]
+with $u,\frac{\partial u}{\partial x}\to0$ as $x\to\pm\infty$ and the initial conditions: $u(x,0)=\sin x$, $\frac{\partial u}{\partial t}|_{(x,0)}=0$ for every $x\in\mathbb R$. Find the value of $u(\frac\pi2,\frac\pi2)$.</span> [3]</li><li><b>6(a)</b> <span class="qbody">State maximum-minimum principle for a function $u(x,y)$, which is continuous in a closed region: $\overline{\mathbb R}$ ($=\mathbb R\cup\partial\mathbb R$) and which satisfies the Laplace equation: $\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}=0$ in the interior of $\mathbb R$.</span> [2]</li><li><b>6(b)</b> <span class="qbody">Prove that, if the Dirichlet problem has a solution $u(x,y)$, which is continuous in a bounded region: $\overline{\mathbb R}$ and which satisfies the Laplace equation: $\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}=0$ in the interior of $\mathbb R$, then it is unique.</span> [2]</li><li><b>6(c)</b> <span class="qbody">Solve the following Neumann problem for a rectangle.
+
+PDE: $\dfrac{\partial^2u}{\partial x^2}+\dfrac{\partial^2u}{\partial y^2}=0$, $0\leq x\leq a$, $0\leq y\leq b$,
+
+BC&#x27;s: $\dfrac{\partial u}{\partial x}|_{(0,y)}=0=\dfrac{\partial u}{\partial x}|_{(a,y)}$, $\dfrac{\partial u}{\partial y}|_{(x,0)}=0$, $\dfrac{\partial u}{\partial y}|_{(x,b)}=f(x)$.</span> [6]</li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">JAM · NET · GATE</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

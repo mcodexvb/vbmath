@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>MMO-31(A4) Differential Equations in Ecology 2018 · M.Sc. Mathematics Semester III · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester III 2018 end-semester question paper MMO-31(A4) (Differential Equations in Ecology): 14 questions typed in LaTeX.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/msc-3-2018-s-14/">
+<meta property="og:title" content="MMO-31(A4) Differential Equations in Ecology 2018 · M.Sc. Mathematics Semester III · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester III 2018 end-semester question paper MMO-31(A4) (Differential Equations in Ecology): 14 questions typed in LaTeX.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/msc-3-2018-s-14/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMO-31(A4) Differential Equations in Ecology 2018 · M.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/msc-3-2018-s-14/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/msc-3/"}, {"@type": "ListItem", "position": 3, "name": "MMO-31(A4) 2018", "item": "https://vbmath.pages.dev/paper/msc-3-2018-s-14/"}]}}</script>
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAF6EC" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1410" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo.svg" alt="VBMath" width="166" height="36"><img class="logo logo-d" src="/assets/logo-dark.svg" alt="VBMath" width="166" height="36"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">JAM · NET · GATE</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-3/">M.Sc. Semester III</a> / 2018</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMO-31(A4)</h1><div class="sub">Differential Equations in Ecology</div><div class="fm"><span>M.Sc. Mathematics · Semester III</span><span>2018</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Find the equilibria, the yield curve, and the maximum sustainable yield for a fish population that is growing according to the following Gompertz equation and that is being harvested so that the catch per unit effort is proportional to the stock size:\par
+\[\frac{dN}{dt}=\alpha N\,\ell n\!\left(\frac kN\right)-qEN.\]</span> [1+1+2]</li><li><b>2</b> <span class="qbody">Consider the logistic equation with constant rate harvesting:\par
+\[\frac{dN}{dt}=rN\left(1-\frac Nk\right)-h.\]
+Treat the harvest rate $h$ as a bifurcation parameter. Find he critical value of $h$ for a bifurcation to occur. Which bifurcation is this? Sketch the bifurcation diagram. What are the effects of over harvesting of the system.</span> [1+1+1+1]</li><li><b>3</b> <span class="qbody">What is Functional response? Derive the expression of Holling type-II functional response. Find the half saturation constant.</span></li><li><b>4</b> <span class="qbody">Use centre manifold theorem to determine the qualitative behaviour of the origin for the system\par
+\hspace*{2em}$\dot x=xy,$\par
+\hspace*{2em}$\dot y=-y-x^2.$</span> [4]</li><li><b>5</b> <span class="qbody">A biologist begins a laboratory study of a certain animal population at a time $t=0$, when the population consists of 18 individuals. On the basis of the data collected during the experiments, the biologist finds that the differential equation\par
+\[\frac{dP}{dt}=\frac1{1000}(30-P)P\]
+describes the growth and regulation of the population. Solve the above equation for the population size $P$ as a function of $t$. Find the point of inflection if there be any. Sketch the graph of the function. Is there an instant of time when the growth rate of the population is maximum? 
+\par\hfill P.T.O.</span> [1+1+1+1]</li><li><b>6</b> <span class="qbody">Find the $Z$-controller $u_{pred}(t)$ of the disease model\par
+\[\frac{ds}{dt}=rs-bs^2-csI-\frac{\beta sI}{a+s}-\frac{\alpha_1sP}{e+s},\]
+\[\frac{dI}{dt}=\frac{\beta sI}{a+s}-\frac{\alpha_2IP}{d+I}-MI,\]
+\[\frac{dP}{dt}=\frac{c_1\alpha_1sP}{e+s}+\frac{c_2\alpha_2IP}{d+I}-u_{pred}(t)P,\]
+so that the infected prey population $I(t)$ achieve a desired state $I_d(t)$.</span> [4]</li><li><b>7</b> <span class="qbody">Find the necessary and sufficient condition for Hopf-bifurcation of the cooperation model by treating $\alpha$ as a bifurcation parameter:\par
+\[\frac{dx}{dt}=\frac{r_0x}{1+\rho\alpha y}-dx-ax^2-(P+\alpha y)xy,\]
+\[\frac{dy}{dt}=c(P+\alpha y)xy-my.\]
+Also find the critical value of $\alpha$, at which Hopf-bifurcation occurs.</span> [3+1]</li><li><b>8</b> <span class="qbody">Write the properties of fear function $f(k,v)=\dfrac1{1+kv}$, where $k$ is the strength of fear effect and $v$ is the predator population.\par
+Prove that the unique positive equilibrium of the model\par
+\[\frac{du}{dt}=\frac{r_0}{1+kv}u-du-au^2-Puv,\]
+\[\frac{dv}{dt}=cPuv-mv,\]
+is globally asymptotically stable if $r_0&gt;d+\dfrac{am}{cP}$.</span></li><li><b>9</b> <span class="qbody">What are the advantages of a dimension-less model.\par
+By using suitable dimensionless variables, non-dimensionalize the Hastings-Powell model\par
+\[\frac{dX}{dT}=R_0X\left(1-\frac Xk\right)-\frac{c_1A_1XY}{B_1+X},\]
+\[\frac{dY}{dT}=\frac{A_1XY}{B_1+X}-\frac{A_2YZ}{B_2+Y}-D_1Y,\]
+\[\frac{dZ}{dT}=\frac{c_2A_2YZ}{B_2+Y}-D_2Z.\]</span> [4]</li><li><b>10</b> <span class="qbody">Prove that the system\par
+\[\frac{dx}{dt}=\frac{r_0}{1+ky}x-dx-ax^2-xy(P+\alpha y),\]
+\[\frac{dy}{dt}=c(P+\alpha y)xy-my,\]
+is dissipative.</span> [4]</li><li><b>11</b> <span class="qbody">Prove that the disease model with Allee phenomenon\par
+\[\frac{ds}{dt}=rs(s-\theta)(1-s)-csI,\]
+\[\frac{dI}{dt}=csI-\mu I,\]
+shows bistability behaviour between equilibrium points.</span> [4]</li><li><b>12</b> <span class="qbody">Find the characteristic equation of the Jacobian matrix for the delay model\par
+\[\frac{dx}{dt}=x(1-x)-\frac{a_1xy}{1+b_1x},\]
+\[\frac{dy}{dt}=\frac{a_1xy}{1+b_1x}-\frac{a_2yz}{1+b_2y}-d_1y,\]
+\[\frac{dz}{dt}=\frac{a_2y(t-\tau)z(t-\tau)}{1+b_2y(t-\tau)}-d_2y,\]
+where $\tau$ is the delay parameter.</span> [4]</li><li><b>13</b> <span class="qbody">Prove that two systems\par
+\[\frac{dx}{dt}=x(1-x)-\frac{a_1xy}{1+b_1x},\]
+\[\frac{dy}{dt}=\frac{a_1xy}{1+b_1x}-\frac{a_2yz}{1+b_2y}-d_1y,\]
+\[\frac{dz}{dt}=\frac{a_2yz}{1+b_2y}-d_2y,\]
+and\par
+\[\frac{dx}{dt}=x(1-x)-\frac{a_1xy}{1+b_1x},\]
+\[\frac{dy}{dt}=\frac{a_1xy}{1+b_1x}-\frac{a_2yz}{1+b_2y}-d_1y,\]
+\[\frac{dz}{dt}=cz^2-\frac{wz^2}{y+D},\]
+can be synchronized via bi-directional migration.</span> [4]</li><li><b>14</b> <span class="qbody">Write a MATLAB code to draw the phase portrait and time-series solutions in a single figure for the system\par
+\[\frac{dx}{dt}=ax\left(1-\frac x{k_1}\right)-\frac{pxy}{mx+ny},\]
+\[\frac{dy}{dt}=by\left(1-\frac y{k_2}\right)+\frac{\rho pxy}{mx+ny}.\]</span> [4]</li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo.svg" alt="VBMath" height="32" style="height:32px;width:auto" class="logo-l"><img src="/assets/logo-dark.svg" alt="" height="32" style="height:32px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">JAM · NET · GATE</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

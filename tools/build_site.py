@@ -1,5 +1,5 @@
 """Build site/data/*.json from data/questions.jsonl and the Drive scan index."""
-import json,re,os,sys,collections
+import json,re,os,sys,collections,datetime
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 R=[json.loads(l) for l in open(os.path.join(ROOT,'data/questions.jsonl'),encoding='utf-8')]
 TOP=json.load(open(os.path.join(ROOT,'data/topics.json'),encoding='utf-8'))
@@ -31,6 +31,9 @@ def clean_title(t):
     if not t: return None
     t=re.sub(r'\s+',' ',t).strip(' ()')
     if re.fullmatch(r'(Honours|Hons\.?|Mathematics|Major|Minor)',t,re.I): return None
+    # file tags and unit/semester labels are not course titles
+    if '_' in t or re.match(r'(nep|sem(ester)?|unit|paper|internal|tutorial|test|cia)\b[\s\-:.]*[ivx\d]*',t,re.I) and len(t)<22: return None
+    if re.fullmatch(r'[A-Z]{2,6}-?\d+[A-Z]?',t): return None
     return t
 for p in P: p['title']=clean_title(p['title'])
 # fill missing titles from the nearest-year paper with the same programme+code
@@ -87,3 +90,80 @@ with open(f'{OUT}/questions.json','w',encoding='utf-8') as f:
     f.write('[\n'+',\n'.join(json.dumps(q,ensure_ascii=False,separators=(',',':')) for q in Q)+'\n]')
 json.dump(S,open(f'{OUT}/scans.json','w',encoding='utf-8'),ensure_ascii=False,separators=(',',':'))
 print(len(P),'papers',len(Q),'questions',len(S),'scans')
+
+
+# ---------------------------------------------------------------- static pages for search engines
+import html as H, shutil
+SITE='https://vbmath.pages.dev'
+ROMAN=['','I','II','III','IV','V','VI','VII','VIII']
+PS={'BSc':'B.Sc.','MSc':'M.Sc.'}
+TPL=open(os.path.join(ROOT,'site/index.html'),encoding='utf-8').read()
+def page(path,title,desc,body,ld=None):
+    head=(f'<title>{H.escape(title)}</title>\n<meta name="description" content="{H.escape(desc)}">\n<link rel="canonical" href="{SITE}{path}">\n'
+          f'<meta property="og:title" content="{H.escape(title)}">\n<meta property="og:description" content="{H.escape(desc)}">\n<meta property="og:url" content="{SITE}{path}">\n')
+    if ld: head+=f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>\n'
+    t=re.sub(r'<!--HEAD-->.*?<!--/HEAD-->','<!--HEAD-->\n'+head.replace('\\','\\\\')+'<!--/HEAD-->',TPL,flags=re.S)
+    t=re.sub(r'<!--APP-->.*?<!--/APP-->','<!--APP-->'+body.replace('\\','\\\\')+'<!--/APP-->',t,flags=re.S)
+    d=os.path.join(ROOT,'site',path.strip('/'))
+    os.makedirs(d,exist_ok=True)
+    open(os.path.join(d,'index.html'),'w',encoding='utf-8').write(t)
+for d in ('paper','semester'):
+    shutil.rmtree(os.path.join(ROOT,'site',d),ignore_errors=True)
+pname=lambda p: p['code'] or ('Internal test' if p['kind'][0]=='i' else 'Paper')
+byp=collections.defaultdict(list)
+for q in Q: byp[q[0]].append(q)
+urls=[('/','1.0'),('/papers/','0.9'),('/search/','0.8'),('/topics/','0.7'),('/scans/','0.7'),('/exams/','0.6'),('/syllabus/','0.5'),('/notes/','0.5'),('/books/','0.4'),('/learn/','0.3'),('/people/','0.3'),('/guides/','0.4'),('/contribute/','0.4'),('/about/','0.3')]
+TOP={'search':('Search questions · VBMath','Search 7,700+ Visva-Bharati mathematics exam questions by text, semester, year, paper code, topic and length.'),
+     'papers':('Question papers by semester · VBMath','Visva-Bharati B.Sc. (Semesters I–VIII) and M.Sc. (Semesters I–IV) Mathematics question papers by semester and year.'),
+     'topics':('Topics and trends · VBMath','How often each area of mathematics appears in Visva-Bharati B.Sc. and M.Sc. papers, year by year.'),
+     'scans':('Original scanned papers · VBMath','All scanned Visva-Bharati mathematics question papers in Google Drive, from 2004 onwards.'),
+     'exams':('JAM, NET, GATE, NBHM, TIFR papers · VBMath','Previous papers for IIT JAM, CSIR-UGC NET, GATE, NBHM, TIFR and the Visva-Bharati M.Sc. admission test.'),
+     'notes':('Notes · VBMath','Class notes from the Department of Mathematics, Visva-Bharati, shared by former students.'),
+     'syllabus':('Syllabus · VBMath','Visva-Bharati B.Sc. and M.Sc. Mathematics syllabi: NEP 2025, CBCS 2020 and 2017, BMC; NET and JAM syllabi.'),
+     'books':('Books · VBMath','Recommended mathematics textbooks by subject.'),'learn':('Videos and websites · VBMath','Video courses and useful websites for mathematics students.'),
+     'people':('People · VBMath','Faculty of the Department of Mathematics, Visva-Bharati.'),'guides':('Guides · VBMath','Scholarships, admission, reaching Santiniketan, LaTeX and Ph.D. thesis submission at Visva-Bharati.'),
+     'contribute':('Contribute · VBMath','Send question papers, type questions, fix topic tags or share solutions.'),'about':('About · VBMath','About VBMath, the student-run archive of Visva-Bharati mathematics question papers.'),
+     'preview':('Paper preview · VBMath','Preview your collected questions as an A4 question paper.')}
+for k,(t,d) in TOP.items():
+    page(f'/{k}/',t,d,f'<div class="wrap"><h1>{H.escape(t.split(" · ")[0])}</h1><p class="lede">{H.escape(d)}</p></div>')
+for (pg,s) in [('BSc',i) for i in range(1,9)]+[('MSc',i) for i in range(1,5)]:
+    ps=[(i,p) for i,p in enumerate(P) if p['prog']==pg and p['sem']==s]
+    path=f'/semester/{pg.lower()}-{s}/'
+    ys=sorted({p['year'] for _,p in ps},reverse=True)
+    body=f'<div class="wrap"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / {PS[pg]} Semester {ROMAN[s]}</nav><h1>{PS[pg]} Mathematics Semester {ROMAN[s]}</h1>'
+    for y in ys:
+        body+=f'<h2>{y}</h2><ul>'+''.join(f'<li><a href="/paper/{p["key"]}/">{H.escape(pname(p))}{(" — "+H.escape(p["title"])) if p["title"] else ""}{" (internal)" if p["kind"][0]=="i" else ""}</a></li>' for _,p in ps if p['year']==y)+'</ul>'
+    body+='</div>'
+    title=f'{PS[pg]} Mathematics Semester {ROMAN[s]} question papers · VBMath'
+    desc=(f'Visva-Bharati {PS[pg]} Mathematics Semester {ROMAN[s]} question papers'+(f', {min(ys)}–{max(ys)}' if ys else '')+', typed and searchable, with the original scans.')
+    page(path,title,desc,body,{'@context':'https://schema.org','@type':'CollectionPage','name':title,'url':SITE+path,'isPartOf':{'@type':'WebSite','name':'VBMath','url':SITE+'/'}})
+    urls.append((path,'0.8'))
+for i,p in enumerate(P):
+    path=f'/paper/{p["key"]}/'
+    qs=byp[i]
+    nm=pname(p)
+    title=f'{nm}{(" "+p["title"]) if p["title"] else ""} {p["year"]} · {PS[p["prog"]]} Mathematics Semester {ROMAN[p["sem"]]} · VBMath'
+    first=next((q for q in qs if not q[12]),None)
+    desc=(f'Visva-Bharati {PS[p["prog"]]} Mathematics Semester {ROMAN[p["sem"]]} {p["year"]} {"internal" if p["kind"][0]=="i" else "end-semester"} question paper {nm}'
+          +(f' ({p["title"]})' if p['title'] else '')+f': {sum(1 for q in qs if not q[12])} questions typed in LaTeX.')
+    lis=''.join(f'<li><b>{H.escape(str(q[2]))}{("("+H.escape(q[3])+")") if q[3] else ""}</b> <span class="qbody">{H.escape(q[6])}</span>{(" ["+H.escape(q[5] or str(q[4]))+"]") if q[4] is not None else ""}</li>' for q in qs)
+    body=(f'<div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/{p["prog"].lower()}-{p["sem"]}/">{PS[p["prog"]]} Semester {ROMAN[p["sem"]]}</a> / {p["year"]}</nav>'
+          f'<header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>{H.escape(nm)}</h1>'
+          +(f'<div class="sub">{H.escape(p["title"])}</div>' if p['title'] else '')+f'<div class="fm"><span>{PS[p["prog"]]} Mathematics · Semester {ROMAN[p["sem"]]}</span><span>{p["year"]}</span></div></header><ol class="prerender">{lis}</ol></div>')
+    ld={'@context':'https://schema.org','@type':'LearningResource','name':title.replace(' · VBMath',''),'url':SITE+path,'learningResourceType':'Exam question paper','educationalLevel':'Undergraduate' if p['prog']=='BSc' else 'Postgraduate',
+        'inLanguage':'en','isAccessibleForFree':True,'about':'Mathematics','provider':{'@type':'Organization','name':'VBMath'},
+        'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'Papers','item':SITE+'/papers/'},{'@type':'ListItem','position':2,'name':f'{PS[p["prog"]]} Semester {ROMAN[p["sem"]]}','item':SITE+f'/semester/{p["prog"].lower()}-{p["sem"]}/'},{'@type':'ListItem','position':3,'name':f'{nm} {p["year"]}','item':SITE+path}]}}
+    page(path,title,desc,body,ld)
+    urls.append((path,'0.7'))
+# 404 page for Cloudflare Pages (served with status 404 for unknown paths)
+nf=re.sub(r'<!--HEAD-->.*?<!--/HEAD-->','<!--HEAD-->\n<title>Page not found · VBMath</title>\n<meta name="robots" content="noindex">\n<!--/HEAD-->',TPL,flags=re.S)
+nf=re.sub(r'<!--APP-->.*?<!--/APP-->','<!--APP--><div class="wrap"><h1>This page isn’t here</h1><p><a href="/search/">Search questions</a> or open <a href="/papers/">papers by semester</a>.</p></div><!--/APP-->',nf,flags=re.S)
+open(os.path.join(ROOT,'site/404.html'),'w',encoding='utf-8').write(nf)
+# the preview page is personal: keep it out of search results
+pv=os.path.join(ROOT,'site/preview/index.html')
+pvt=open(pv,encoding='utf-8').read().replace('<!--/HEAD-->','<meta name="robots" content="noindex">\n<!--/HEAD-->',1)
+open(pv,'w',encoding='utf-8').write(pvt)
+today=datetime.date.today().isoformat()
+open(os.path.join(ROOT,'site/sitemap.xml'),'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>{today}</lastmod><priority>{pr}</priority></url>\n' for u,pr in urls)+'</urlset>\n')
+open(os.path.join(ROOT,'site/robots.txt'),'w').write(f'User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n')
+print(len(urls),'urls in sitemap')

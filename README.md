@@ -24,13 +24,14 @@ VBMath turns ten years of scanned B.Sc. and M.Sc. Mathematics papers into a sear
 | | |
 |---|---|
 | **Questions** | 7,700+ question parts from 456 papers, 2016–2026, typed in LaTeX |
+| **Semesters** | B.Sc. I–VIII (four-year NEP programme) and M.Sc. I–IV, one page each with paper and year pickers |
 | **Scans** | 738 original PDFs in Google Drive, each with its own link, back to 2004 |
 | **Topics** | 16 broad areas and 84 specific topics, with a year-by-year trend table |
 | **Repeats** | Questions set in more than one year are marked, with the years |
-| **Teachers** | A paper builder: collect questions, reorder, copy or download LaTeX |
+| **Collection** | Collect questions like a cart, reorder them, preview an A4 paper, print or save as PDF, open in Overleaf, or download .tex |
 | **Resources** | JAM, NET, GATE, NBHM, TIFR papers; notes; syllabi; books; guides |
 
-The site is a static page: no server, no database, no cost. Search runs in the browser and the maths is rendered with MathJax.
+The site is static: no server, no database, no cost. Every semester and every paper has its own prerendered page with a proper title, description and structured data, listed in `sitemap.xml`, so search engines can find individual papers. Search runs in the browser and the maths is rendered with MathJax.
 
 ## Contributing
 
@@ -51,9 +52,12 @@ On the website, the **⋯** menu on every question opens these forms with the qu
 ## Repository layout
 
 ```
-site/                  the website — deploy this folder
-  index.html, app.js, app.css
-  assets/logo.svg      replace with the final logo (keep the name); favicon.svg too
+site/                  the website — deploy this folder as it is
+  index.html           page template (also the home page)
+  app.js, app.css      the app and its design
+  assets/              logo.svg, logo-dark.svg, logo-mark.svg, favicon.svg, og.png
+  paper/, semester/…   prerendered pages written by build_site.py
+  sitemap.xml, robots.txt, 404.html
   data/                generated JSON the site reads, plus content.json (hand-edited links)
 data/
   questions.jsonl      master records: one line per question part
@@ -86,7 +90,7 @@ tools/
 ## Working locally
 
 ```bash
-python3 tools/build_site.py          # regenerate site/data after editing data/
+python3 tools/build_site.py          # regenerate site/data and all prerendered pages
 cd site && python3 -m http.server    # open http://localhost:8000
 ```
 
