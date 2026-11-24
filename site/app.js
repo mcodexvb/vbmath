@@ -884,6 +884,8 @@
         ${search}
         ${papers.length ? `<details class="resource-disclosure"><summary>Searchable papers <span class="muted">(${papers.length})</span></summary>
           <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "JAM" ? p.year : p.title)}</a>`).join("")}</div></details>` : ""}
+        ${exam.years ? `<details class="resource-disclosure"><summary>Papers by year <span class="muted">(${exam.years.length})</span></summary>
+          <div class="yeartable" role="table" aria-label="${esc(exam.name)} papers by year">${exam.years.map(([y, groups]) => `<div class="yt-row" role="row"><span class="yt-year" role="rowheader">${esc(y)}</span><div class="yt-cells">${groups.map(([lab, ls]) => `<div class="yt-group"><span class="yt-lab">${esc(lab)}</span><span class="yt-links">${ls.map(([l, u]) => ext(u, l)).join("")}</span></div>`).join("")}</div></div>`).join("")}</div></details>` : ""}
         ${code ? `<details class="resource-disclosure"${papers.length ? "" : " open"}><summary>Original papers and resources</summary><div class="resource-links">${links}</div></details>` : `<div class="resource-links">${links}</div>`}
         ${exam.syllabus ? `<div>${ext(exam.syllabus, "Syllabus", "chip")}</div>` : ""}
       </article>`;

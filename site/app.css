@@ -606,3 +606,15 @@ details.more summary{cursor:pointer;font-weight:600}
   .lseg{flex-wrap:nowrap;overflow-x:auto;margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-right:16px;scrollbar-width:none}
   .lseg button{flex:none}
 }
+
+/* ---------- exam papers by year ---------- */
+.yeartable{display:grid;margin-top:10px;border-top:1px solid var(--rule)}
+.yt-row{display:grid;grid-template-columns:64px minmax(0,1fr);gap:4px 14px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:start}
+.yt-year{font:600 15px/1.5 var(--f-display);color:var(--green-ink);font-variant-numeric:tabular-nums}
+.yt-cells{display:grid;gap:6px;min-width:0}
+.yt-group{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px}
+.yt-lab{font:600 14px/1.5 var(--f-ui);color:var(--ink);flex:1 1 150px}
+.yt-links{display:inline-flex;gap:8px;flex-wrap:wrap}
+.yt-links a{font:600 13.5px/1 var(--f-ui);color:var(--green-ink);text-decoration:none;padding:6px 10px;border:1px solid var(--rule-2);border-radius:6px;background:var(--card)}
+.yt-links a:hover{border-color:var(--green-2);background:var(--green-tint)}
+@media (max-width:520px){.yt-row{grid-template-columns:1fr}}
