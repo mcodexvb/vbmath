@@ -812,3 +812,40 @@ details.more summary{cursor:pointer;font-weight:600}
 .book-subject h2{font:600 23px/1.25 var(--f-editorial);margin:0 0 8px}
 .book-subject ul{margin:0;padding-inline-start:20px}
 .book-subject li{padding-block:2px;overflow-wrap:anywhere}
+
+/* PDF and typed-paper tiles */
+.paper-archive{margin-top:22px}
+.archive-search,.archive-filters{border:1px solid var(--rule);border-radius:12px;padding:14px 16px;background:var(--card)}
+.archive-search{margin-bottom:14px}
+.archive-search label,.paper-find label{display:block;font-weight:600;margin-bottom:6px}
+.archive-search>div{display:flex;gap:8px}
+.archive-search input{min-width:0}
+.archive-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px}
+.archive-count{margin:12px 0 8px}
+.archive-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,215px),1fr));gap:12px}
+.archive-item{min-width:0;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--rule);
+  background:var(--card);border-radius:12px}
+.archive-item-head{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;
+  min-height:75px;padding:12px;color:var(--ink);text-decoration:none}
+a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
+.archive-year{display:grid;place-items:center;gap:1px;padding:6px 7px;border:1px solid var(--gold-border);
+  border-radius:8px;color:var(--amber-ink);background:var(--amber-soft);min-width:50px}
+.archive-year .ico{width:15px;height:15px}
+.archive-year strong{font:600 15px/1.2 var(--f-ui);font-variant-numeric:tabular-nums}
+.archive-label{display:block;font-weight:600;overflow-wrap:anywhere;line-height:1.25}
+.archive-item small{color:var(--ink-3)}
+.archive-actions{display:flex;flex-direction:column;padding:0 9px 7px}
+.archive-actions a{display:flex;align-items:center;gap:9px;padding:6px 4px;border-top:1px solid var(--rule);
+  min-height:36px;color:var(--green-ink);font-size:14px;text-decoration:none}
+.archive-actions a:hover,.archive-actions a:focus-visible{background:var(--green-tint);text-decoration:underline}
+.archive-actions .ico{width:15px;height:15px}
+.archive-resources{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px}
+.paper-find{margin-bottom:16px;padding:12px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--card)}
+#paper-find-count:not(:empty){display:block;margin-top:6px}
+@media(max-width:460px){.archive-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.archive-item-head{padding:8px;gap:6px}
+  .archive-year{min-width:38px;padding:5px}.archive-year strong{font-size:13px}}
+@media(max-width:330px){.archive-tiles{grid-template-columns:1fr}}
+#gate-matches:not(:empty){margin-bottom:14px}
+#gate-matches p{margin-bottom:8px}
+.gate-page-links{max-height:240px;overflow:auto;padding:3px}
+.archive-year>span{font:600 11px/1.2 var(--f-ui);white-space:nowrap}

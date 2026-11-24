@@ -550,6 +550,7 @@
     const params = new URLSearchParams();
     if (F.q) params.set("q", F.q);
     if (EXAM[F.kind] || F.prog) params.set("exam", EXAM[F.kind] ? F.kind : F.prog);
+    if (F.sem) params.set("sem", F.sem);
     return params.size ? "?" + params : "";
   }
   function bindSearch() {
@@ -590,7 +591,7 @@
     const n = lastRes.length;
     $("#rcount").textContent = n ? `${n.toLocaleString()} question${n === 1 ? "" : "s"}` : "";
     if (!n && F.kind === "GATE" && !D.papers.some((p) => p.prog === "GATE")) {
-      box.innerHTML = `<div class="empty">GATE papers are available as PDFs on the <a href="${L("exams")}">Competitive exams page</a>.</div>`;
+      box.innerHTML = `<div class="empty">Use the <a href="${L("exams-gate")}">GATE archive</a> to search PDF text and browse available typed editions.</div>`;
       $("#more").hidden = true;
       return;
     }
@@ -703,6 +704,138 @@
     typeset($("#qod"));
   }
 
+  /* ---------- paper archives ---------- */
+  const originalPaperLink = (href, label, icon = IC.ext) => `<a href="${esc(href)}" target="_blank" rel="noopener">${icon}<span>${esc(label)}</span></a>`;
+  function archiveItems(code, semester) {
+    const academic = Object.hasOwn(PROG, code);
+    const sources = academic ? [] : D.C.paperSources?.[code] || [];
+    const byPaper = new Map(sources.filter((row) => row[4]).map((row) => [row[4], row]));
+    const seen = new Set(sources.map((row) => row[2]).filter(Boolean));
+    const records = D.papers.filter((p) => p.prog === code && (!semester || p.sem === semester)).map((p) => {
+      const source = byPaper.get(p.key);
+      const pdf = source?.[2] || p.source || "";
+      if (pdf) seen.add(pdf);
+      return {year:p.year, sem:p.sem, label:source?.[1] || (academic ? paperLabel(p) : code === "JAM" ? "Mathematics (MA)" : p.title),
+        pdf, answer:source?.[3] || p.answer_key, typed:p.key, internal:p.kind[0] === "i", questions:p.n};
+    });
+    records.push(...sources.filter((row) => !row[4] || !D.byKey.has(row[4])).map(([year, label, pdf, answer, , reader]) => ({year,label,pdf,answer,reader})));
+    if (academic) {
+      records.push(...D.scans.filter((scan) => !scan.other && scan.prog === code && (!semester || scan.sem === semester)).map((scan) =>
+        ({year:scan.year, sem:scan.sem, label:scan.label, pdf:scanUrl(scan.id), internal:scan.kind === "i"})));
+    } else if (code === "NET" || code === "JAM") {
+      const exam = D.C.exams.find((item) => EXAM_CODE[item.name] === code);
+      for (const [label, url] of exam.links) {
+        const year = code === "JAM" ? /^\d{4}$/.test(label) && +label : Number(label.match(/\b20\d{2}\b/)?.[0]);
+        if (year && !seen.has(url)) {
+          const jam = code === "JAM" && records.find((row) => row.year === year && row.typed);
+          if (!jam) records.push({year,label:code === "JAM" ? "Mathematics (MA)" : label,pdf:url});
+        }
+      }
+    }
+    return records.sort((a, b) => (b.year || 0) - (a.year || 0) || (a.sem || 0) - (b.sem || 0) || Number(!!b.typed) - Number(!!a.typed) || a.label.localeCompare(b.label, undefined, {numeric:true}));
+  }
+  function archiveCard(item, code) {
+    const actions = [
+      item.pdf && originalPaperLink(item.pdf, "Original PDF", IC.file),
+      item.typed && `<a href="${L("paper-" + item.typed)}">${IC.stack}<span>Typed questions</span></a>`,
+      item.reader && originalPaperLink(item.reader, "Typed paper (external)", IC.stack),
+      item.answer && originalPaperLink(item.answer, "Answer key"),
+    ].filter(Boolean).join("");
+    const session = code === "NET" && item.label.match(/^(?:(\d{1,2}) )?(January|February|March|April|May|June|July|August|September|October|November|December)/i);
+    const sessionLabel = session ? [session[1], session[2].slice(0, 3)].filter(Boolean).join(" ") : "";
+    const mark = `<span class="archive-year" aria-hidden="true">${IC.file}<strong>${item.year || "—"}</strong>${sessionLabel ? `<span>${sessionLabel}</span>` : ""}</span>`;
+    const assignment = `<span class="archive-label">${esc(item.label)}</span>${item.sem ? `<small>${semLabel({prog:code,sem:item.sem})}${item.internal ? " · Internal" : ""}</small>` : ""}`;
+    const heading = item.pdf ? `<a class="archive-item-head" href="${esc(item.pdf)}" target="_blank" rel="noopener" aria-label="Open original PDF, ${item.year || "year unlisted"}, ${esc(item.label)}">${mark}<span>${assignment}</span></a>` :
+      `<div class="archive-item-head">${mark}<span>${assignment}</span></div>`;
+    return `<article class="archive-item">${heading}<div class="archive-actions">${actions}</div></article>`;
+  }
+  let gatePages;
+  function gateSearch() {
+    return `<form class="archive-search" id="gate-search" role="search">
+      <label for="gate-query">Find text in GATE PDFs (2022–2026)</label>
+      <div><input id="gate-query" type="search" placeholder="Try eigenvalue, compact, or differential equation" required>
+        <button type="submit" class="btn btn-primary">${IC.search} Search PDFs</button></div>
+      <small class="muted">Search extracted PDF text. Open the original page to read formulas and figures.</small>
+    </form><div id="gate-matches" aria-live="polite"></div>`;
+  }
+  function bindGateSearch(archive) {
+    const form = $("#gate-search", archive);
+    if (!form) return;
+    const output = $("#gate-matches", archive);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const terms = $("#gate-query", archive).value.toLowerCase().match(/[a-z0-9]+/g) || [];
+      if (!terms.length) { output.textContent = "Enter a word or question number to search."; return; }
+      const button = $("button", form);
+      button.disabled = true;
+      output.textContent = "Searching PDF pages…";
+      try {
+        if (!gatePages) {
+          const response = await fetch(BASE + "data/gate-pages.json.gz");
+          if (!response.ok || !response.body) throw Error("PDF index unavailable");
+          gatePages = await new Response(response.body.pipeThrough(new DecompressionStream("gzip"))).json();
+        }
+        const sources = new Map(D.C.paperSources.GATE.map(([year, , pdf]) => [String(year), pdf]));
+        const matches = Object.entries(gatePages).reverse().flatMap(([year, pages]) => pages
+          .filter(([, text]) => terms.every((term) => (" " + text + " ").includes(" " + term + " "))).map(([page]) => [year, page]));
+        output.innerHTML = matches.length ? `<p>${matches.length} matching PDF ${matches.length === 1 ? "page" : "pages"}</p>
+          <div class="row gate-page-links">${matches.map(([year, page]) => `<a class="chip" href="${esc(sources.get(year))}#page=${page}" target="_blank" rel="noopener">GATE ${year} · page ${page} ${IC.ext}</a>`).join("")}</div>`
+          : "<p>No PDF pages match those terms.</p>";
+      } catch {
+        output.textContent = "PDF search is temporarily unavailable. You can still open the PDFs below.";
+      } finally { button.disabled = false; }
+    });
+  }
+  function archiveBrowser(code, semester) {
+    const items = archiveItems(code, semester);
+    const years = [...new Set(items.map((p) => p.year || "unknown"))];
+    const academic = Object.hasOwn(PROG, code);
+    const typed = items.some((item) => item.typed);
+    const records = items.some((item) => item.reader);
+    return `<div class="paper-archive" data-archive="${code}" data-semester="${semester || ""}">
+      ${code === "GATE" ? gateSearch() : ""}
+      ${typed ? `<form class="archive-search" role="search" action="${L("search")}">
+        <label for="archive-query">Search typed questions</label>
+        <div><input name="q" type="search" id="archive-query" placeholder="Search a topic, theorem or formula">
+          <input name="exam" type="hidden" value="${code}">
+          <button class="btn btn-primary" type="submit">${IC.search} Search</button></div></form>` :
+        records ? `<p class="note">The GATE tiles link to official PDFs and available typed editions. <a href="https://studentaihub.tech/gate-previous-year-papers/ma#gate-ma-previous-year-questions-by-topic" target="_blank" rel="noopener">Browse GATE questions by topic</a>.</p>` : ""}
+      ${items.length ? `<div class="archive-filters">
+        <div><label class="flabel" for="archive-year">Year</label><select id="archive-year">${opt("", "All years", "")}${years.map((y) => opt(y, y === "unknown" ? "Year unlisted" : y, academic ? years[0] : "")).join("")}</select></div>
+        ${academic && !semester ? `<div><label class="flabel" for="archive-sem">Semester</label><select id="archive-sem">${opt("", "All semesters", "")}${Array.from({length:NSEM[code]}, (_, i) => opt(i + 1, "Semester " + ROMAN[i + 1], "")).join("")}</select></div>` : ""}
+        <div><label class="flabel" for="archive-format">Format</label><select id="archive-format"><option value="">All formats</option><option value="pdf">Original PDFs</option>${typed || records ? '<option value="typed">Typed papers</option>' : ""}</select></div>
+        <div><label class="flabel" for="archive-title">Paper or session</label><input type="search" id="archive-title" placeholder="Filter papers"></div>
+      </div><p class="muted archive-count" aria-live="polite"></p><div class="archive-tiles"></div>` : '<p class="empty">No question papers are listed for this semester.</p>'}
+    </div>`;
+  }
+  function bindArchive() {
+    const archive = $(".paper-archive");
+    if (!archive) return;
+    const {archive:code, semester} = archive.dataset;
+    bindGateSearch(archive);
+    const search = $('form.archive-search[action]', archive);
+    search?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      F = {...defaultFilters(), q: $("#archive-query").value.trim(), sem:semester, prog:Object.hasOwn(PROG, code) ? code : "", kind:EXAM[code] ? code : ""};
+      go("search");
+    });
+    const year = $("#archive-year", archive);
+    if (!year) return;
+    const sem = $("#archive-sem", archive), format = $("#archive-format", archive), title = $("#archive-title", archive);
+    const items = archiveItems(code, +semester);
+    const draw = () => {
+      const q = searchWords(title.value, false).trim();
+      const shown = items.filter((item) => (!year.value || year.value === String(item.year || "unknown")) &&
+        (!sem?.value || +sem.value === item.sem) && (format.value !== "pdf" || item.pdf) &&
+        (format.value !== "typed" || item.typed || item.reader) && (!q || searchWords(item.label, false).includes(q)));
+      $(".archive-count", archive).textContent = shown.length.toLocaleString() + (shown.length === 1 ? " paper" : " papers");
+      $(".archive-tiles", archive).innerHTML = shown.length ? shown.map((item) => archiveCard(item, code)).join("") : '<p class="empty">No papers match these filters.</p>';
+    };
+    [year, sem, format].filter(Boolean).forEach((el) => el.addEventListener("change", draw));
+    title.addEventListener("input", draw);
+    draw();
+  }
+
   /* ---------- papers (programme overview) ---------- */
   function viewPapers(programme) {
     const requested = routeParams().get("programme");
@@ -716,6 +849,7 @@
         const codes = semCodes(tab, s).filter((c) => c.kind === "s").slice(0, 4).map((c) => c.name).join(" · ");
         return `<a class="semlink${ps.length ? "" : " none"}" href="${L("semester-" + tab.toLowerCase() + "-" + s)}"><span class="big">${ROMAN[s]}</span><b>Semester ${ROMAN[s]}</b><small>${ps.length ? `${ps.length} papers · ${Math.min(...ys)}–${Math.max(...ys)} · ${sc} scans` : sc ? sc + " scans, none typed yet" : "No papers yet"}</small><span class="codes">${esc(codes || "—")}</span></a>`;
       }).join("")}</div>
+      ${programme ? archiveBrowser(tab) : ""}
       <p class="muted" style="margin-top:18px;font-size:14px">Syllabus eras: BMC codes until 2016–17, CBCS (CC, DSE, SEC, GE) from 2017–18, NEP (MJMA, MNMA, SEC) from 2025–26. Older papers are in <a href="${L("scans")}">Scans</a>.</p></div>`;
   }
   /* ---------- one semester ---------- */
@@ -723,33 +857,20 @@
     const m = (arg || "").match(/^(bsc|msc)-(\d)$/); if (!m) return notFound();
     const pg = m[1] === "bsc" ? "BSc" : "MSc", s = +m[2]; if (s < 1 || s > NSEM[pg]) return notFound();
     const ps = semPapers(pg, s);
-    const years = Array.from(new Set(ps.map((p) => p.year).concat(D.scans.filter((x) => x.prog === pg && x.sem === s && !x.other && x.year >= 2016).map((x) => x.year)))).sort((a, b) => b - a);
     setMeta(`${PSHORT[pg]} Mathematics Semester ${ROMAN[s]} question papers · VBMath`, `All Visva-Bharati ${PSHORT[pg]} Mathematics Semester ${ROMAN[s]} question papers${ps.length ? ", " + Math.min(...ps.map((p) => p.year)) + "–" + Math.max(...ps.map((p) => p.year)) : ""}, typed and searchable, with scans.`, L("semester-" + arg));
-    const block = (y) => {
-      const end = ps.filter((p) => p.year === y && p.kind[0] === "s"), int = ps.filter((p) => p.year === y && p.kind[0] === "i");
-      const sc = D.scans.filter((x) => x.prog === pg && x.sem === s && x.year === y && !x.other);
-      const pc = (p) => `<a class="pcard${p.kind[0] === "i" ? " int" : ""}" href="${L("paper-" + p.key)}"><span class="c">${esc(pname(p))}</span>${p.title ? `<span class="t">${esc(p.title)}</span>` : ""}<span class="m">${D.byPaper[D.byKey.get(p.key)].filter((q) => !q.stem).length} questions</span></a>`;
-      const e = era(end.concat(int).map((p) => p.code).find(Boolean));
-      return `<div class="yearblock"><div class="yr">${y}<small>${e}</small></div><div>
-        ${end.length ? `<div class="ytitle">End-semester</div><div class="pcards">${end.map(pc).join("")}</div>` : ""}
-        ${int.length ? `<div class="ytitle" style="margin-top:16px">Internal tests</div><div class="pcards">${int.map(pc).join("")}</div>` : ""}
-        ${!end.length && !int.length ? `<div class="ytitle">Not typed yet</div>` : ""}
-        ${sc.length ? `<div class="row" style="margin-top:12px"><a class="chip" href="${L("scans")}" data-scan="${pg}|${s}|${y}">${IC.scan} ${sc.length} original scan${sc.length > 1 ? "s" : ""}</a></div>` : ""}
-      </div></div>`;
-    };
     return `<div class="wrap" style="max-width:1080px"><div class="crumbs"><a href="${L("home")}">Home</a> / <a href="${L("papers")}">Papers</a> / ${PSHORT[pg]} Semester ${ROMAN[s]}</div>
       <div class="pagehead"><div class="eyebrow">${PROG[pg]}</div><h1 style="margin-top:10px">Semester ${ROMAN[s]}</h1>
         <p class="lede">${ps.length ? `${ps.length} papers from ${Math.min(...ps.map((p) => p.year))} to ${Math.max(...ps.map((p) => p.year))}. Pick a paper and a year, or browse by year below.` : "No typed papers for this semester yet."}</p></div>
       ${ps.length ? `<div class="picker"><div><span class="flabel">Paper</span>${pickerParts(pg, s, "sem")[0]}</div><div><span class="flabel">Year</span>${pickerParts(pg, s, "sem")[1]}</div><button class="btn btn-primary" type="button" id="sem-go">Open</button></div>
         <p class="muted" style="font-size:13.5px;margin-bottom:8px">“All years” opens every question of that paper code in Search, newest first.</p>` : `<div class="empty">Have these papers? <a href="${esc(D.C.forms.questions)}" target="_blank" rel="noopener">Send the scans</a>.</div>`}
-      ${years.map(block).join("")}
+      ${archiveBrowser(pg, s)}
       <div class="row" style="margin-top:28px">${Array.from({ length: NSEM[pg] }, (_, i) => i + 1).filter((x) => x !== s).map((x) => `<a class="chip" href="${L("semester-" + pg.toLowerCase() + "-" + x)}">Semester ${ROMAN[x]}</a>`).join("")}</div></div>`;
   }
   function bindSemester(arg) {
     const m = (arg || "").match(/^(bsc|msc)-(\d)$/); if (!m) return;
     const pg = m[1] === "bsc" ? "BSc" : "MSc", s = +m[2];
     if ($("#sem-go")) bindPicker(pg, s, "sem", "#sem-go");
-    $$("[data-scan]").forEach((a) => a.addEventListener("click", () => { const [p, ss, y] = a.dataset.scan.split("|"); store.set("scanF", { prog: p, sem: ss, year: y, q: "", math: true }); }));
+    bindArchive();
   }
   const notFound = () => `<div class="wrap"><div class="empty">This page isn't in the archive. <a href="${L("home")}">Go home</a></div></div>`;
 
@@ -782,7 +903,7 @@
         ${scans.slice(0, 1).map((s) => `<a class="btn btn-ghost btn-sm" href="${scanUrl(s.id)}" target="_blank" rel="noopener">${IC.scan} Original scan</a>`).join("")}
       </div>
       ${p.rule ? `<p class="rubric">${esc(plainOf(p.rule))}</p>` : ""}
-      <div id="paperqs">${html}</div>
+      ${paperSearch()}<div id="paperqs">${html}</div>
       <section class="section" style="margin-top:44px"><div class="shead"><h2 style="font-size:22px;margin:0">Original scans</h2><span class="muted">Opens in Google Drive</span></div>
         ${scans.length ? `<div class="list">${scans.map((s) => `<a class="row" href="${scanUrl(s.id)}" target="_blank" rel="noopener"><span class="t">${esc(s.label)}${s.pages ? ` <span class="muted">· ${s.pages} ${s.pages === 1 ? "page" : "pages"}</span>` : ""}</span><span class="muted">${IC.ext}</span></a>`).join("")}</div>` : `<div class="empty">No scan is linked for this exam yet.</div>`}
       </section>
@@ -792,6 +913,8 @@
   }
   function viewCompetitivePaper(p, qs) {
     const name = EXAM[p.prog];
+    const source = D.C.paperSources?.[p.prog]?.find((row) => row[4] === p.key);
+    const pdf = source?.[2] || p.source, answer = source?.[3] || p.answer_key;
     setMeta(`${name} · ${p.title} · VBMath`, `${qs.length} typed questions from ${name}, ${p.title}.`, L("paper-" + p.key));
     let section = "";
     const cards = qs.map((q, index) => {
@@ -806,16 +929,33 @@
         <a class="btn btn-primary btn-sm" href="${L("preview-" + p.key)}">${IC.file} Preview as PDF</a>
         <button class="btn btn-ghost btn-sm" type="button" id="addall">${IC.plus} Collect all</button>
         <button class="btn btn-ghost btn-sm" type="button" id="copypaper">${IC.copy} Copy LaTeX</button>
-        ${p.source ? ext(p.source, "Original paper", "btn btn-ghost btn-sm") : ""}
-        ${p.answer_key ? ext(p.answer_key, "Final answer key", "btn btn-ghost btn-sm") : ""}
+        ${pdf ? ext(pdf, "Original paper", "btn btn-ghost btn-sm") : ""}
+        ${answer ? ext(answer, "Final answer key", "btn btn-ghost btn-sm") : ""}
       </div>
-      <div id="paperqs">${cards}</div>
+      ${paperSearch()}<div id="paperqs">${cards}</div>
     </div>`;
   }
+  const paperSearch = () => `<div class="paper-find"><label for="paper-find">Find in this paper</label>
+    <input id="paper-find" type="search" placeholder="Search questions or enter a question number">
+    <span class="muted" id="paper-find-count" aria-live="polite"></span></div>`;
   function bindPaper(key) {
     const pi = D.byKey.get(key); if (pi == null) return;
     const qs = D.byPaper[pi].filter((q) => !q.stem);
-    typeset($("#paperqs"));
+    const body = $("#paperqs"), input = $("#paper-find");
+    typeset(body);
+    input?.addEventListener("input", () => {
+      const term = input.value.trim(), number = term.match(/^q(?:uestion)?\s*\.?\s*(\d+)(?:\s*\(?([a-z])\)?)?$/i);
+      const query = number ? null : scoringQuery(term);
+      let count = 0;
+      $$(".q", body).forEach((el) => {
+        const q = D.byId.get(el.dataset.id);
+        el.hidden = number ? (String(q.qno) !== number[1] || !!number[2] && q.part?.toLowerCase() !== number[2].toLowerCase())
+          : !!query && searchScore(q, query) < 0;
+        if (!el.hidden) count++;
+      });
+      $$(".secthead", body).forEach((el) => { el.hidden = Boolean(term); });
+      $("#paper-find-count").textContent = term ? count + (count === 1 ? " match" : " matches") : "";
+    });
     $("#copypaper").addEventListener("click", () => copy(toLatex(D.byPaper[pi], D.papers[pi]), "Paper LaTeX copied"));
     $("#addall").addEventListener("click", () => { let n = 0; qs.forEach((q) => { if (!coll.includes(q.id)) { coll.push(q.id); n++; } }); saveColl(); $$(".q").forEach((c) => { c.classList.add("in"); const b = $(".collect", c); b && b.classList.add("on"); }); toast(n + " added · " + coll.length + " in your collection"); });
   }
@@ -1004,8 +1144,20 @@
         </div>
       </article>`;
     });
-    if (selected) return page("Competitive exams", exams[0].name + " Question Papers", "",
-      `<div class="exam-detail">${cards.join("")}<p><a href="${L("exams")}">All competitive exams</a></p></div>`);
+    if (selected) {
+      const exam = exams[0];
+      const resources = exam.links.filter(([label]) => selected === "NET" ? !/\b20\d{2}\b/.test(label) : selected !== "JAM" || !/^\d{4}$/.test(label));
+      const guidance = EXAM_GUIDANCE[selected]?.[2] || exam.syllabus;
+      return page("Competitive exams", exam.name + " Question Papers", exam.note,
+        `${archiveBrowser(selected)}
+          <div class="archive-resources">
+            ${guidance ? ext(guidance, selected === "NBHM" ? "Written test guidance" : "Syllabus") : ""}
+            ${resources.map(([label, url]) => ext(url, label)).join("")}
+            ${selected === "GATE" ? ext("https://drive.google.com/file/d/1BV1cIm5E4v8zJUtrjeQDLjXeuPfETAt1/view", "Official Mathematics PDF bundle (2007–2026)") : ""}
+            ${selected === "NET" ? ext("https://csirhrdg.res.in/Home/Index/1/Default/919/26", "Official CSIR exam archive") : ""}
+            <a href="${L("exams")}">All competitive exams</a>
+          </div>`);
+    }
     return page("Competitive exams", "Competitive & admission exams",
       "Find previous papers and syllabi for mathematics entrance tests and fellowships.",
       `<div class="resource-grid exam-grid">${cards.join("")}</div>`);
@@ -1233,11 +1385,11 @@
   const ROUTES = {
     home: [viewHome, bindHome, "VBMath — Visva-Bharati Mathematics question papers, typed and searchable"],
     search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, null, "Question papers by semester · VBMath"],
-    ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), null, PROG[code] + " question papers · VBMath"]])),
+    ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), bindArchive, PROG[code] + " question papers · VBMath"]])),
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
     preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
     ...Object.entries(EXAM_CODE).reduce((routes, [name, code]) => {
-      routes["exams-" + code.toLowerCase()] = [() => viewExams(code), null, name + " question papers · VBMath"];
+      routes["exams-" + code.toLowerCase()] = [() => viewExams(code), bindArchive, name + " question papers · VBMath"];
       return routes;
     }, {}),
     lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
@@ -1253,8 +1405,8 @@
     const r = current();
     if (!HASH && r === "search" && !keepScroll) {
       const params = new URLSearchParams(location.search);
-      const exam = params.get("exam"), q = params.get("q");
-      if (EXAM[exam] || Object.hasOwn(PROG, exam) || q !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", prog: Object.hasOwn(PROG, exam) ? exam : "", q: q || "" };
+      const exam = params.get("exam"), q = params.get("q"), sem = params.get("sem");
+      if (EXAM[exam] || Object.hasOwn(PROG, exam) || q !== null || sem !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", prog: Object.hasOwn(PROG, exam) ? exam : "", q: q || "", sem: /^[1-8]$/.test(sem) ? sem : "" };
     }
     let name = r, arg = null;
     const m = r.match(/^(paper|semester|preview)-(.+)$/);
