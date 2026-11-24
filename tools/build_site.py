@@ -125,6 +125,10 @@ def competitive_dataset(name):
     return CP,CQ
 
 competitive=[competitive_dataset('competitive'), competitive_dataset('scholarship')]
+with open(f'{OUT}/competitive-catalog.json','w',encoding='utf-8') as f:
+    json.dump([paper for papers,_ in competitive for paper in papers],f,ensure_ascii=False,separators=(',',':'))
+    f.write('\n')
+
 
 # ---------------------------------------------------------------- static pages for search engines
 import html as H, shutil

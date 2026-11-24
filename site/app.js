@@ -53,8 +53,8 @@
     return s || "home";
   }
   function go(r) {
-    if (HASH) { if (location.hash === "#" + r) route(); else location.hash = r; }
-    else { history.pushState({}, "", L(r)); route(); }
+    if (HASH) { if (location.hash === "#" + r) return route(); location.hash = r; }
+    else { history.pushState({}, "", L(r)); return route(); }
   }
 
   /* ---------- icons ---------- */
@@ -177,17 +177,43 @@
   window.__vbmMathReady = () => { $$('[data-pending-math="1"]').forEach((el) => { el.removeAttribute("data-pending-math"); typeset(el); }); };
 
   /* ---------- data ---------- */
-  async function load() {
-    const get = (u) => fetch(BASE + u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
-    const [P, Q, S, C, E, H] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json"), get("data/competitive.json"), get("data/scholarship.json")]);
-    D.papers = P.papers;
-    for (const dataset of [E, H]) {
-      const offset = D.papers.length;
-      D.papers.push(...dataset.papers);
-      Q.push(...dataset.questions.map(([i, ...q]) => [i + offset, ...q]));
-    }
-    D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
-    D.papers.forEach((p, i) => D.byKey.set(p.key, i));
+  function loadJSON(name) {
+    return fetch(BASE + "data/" + name + ".json").then((response) => {
+      if (!response.ok) throw Error(name + " " + response.status);
+      return response.json();
+    });
+  }
+  let catalogueReady = false, questionsReady = false;
+  let catalogueRequest, questionRequest;
+  function loadCatalogue() {
+    catalogueRequest ??= Promise.all(["papers", "scans", "content", "competitive-catalog"].map(loadJSON))
+      .then(([papers, scans, content, competitive]) => {
+        D.papers = papers.papers.concat(competitive);
+        D.topics = papers.topics; D.broad = papers.broad; D.scans = scans; D.C = content;
+        D.papers.forEach((paper, i) => D.byKey.set(paper.key, i));
+        D.years = Array.from(new Set(D.papers.map((p) => p.year))).sort();
+        D.codes = Array.from(new Set(D.papers.map((p) => p.code).filter(Boolean))).sort();
+        D.scans.forEach((scan) => {
+          const key = [scan.prog, scan.sem, scan.year, scan.kind].join("|");
+          if (!D.scanIdx.has(key)) D.scanIdx.set(key, []);
+          D.scanIdx.get(key).push(scan);
+        });
+        catalogueReady = true;
+      }).catch((error) => { catalogueRequest = null; throw error; });
+    return catalogueRequest;
+  }
+  function load() {
+    questionRequest ??= Promise.all([loadCatalogue(), ...["questions", "competitive", "scholarship"].map(loadJSON)])
+      .then(([, rows, ...datasets]) => {
+        for (const dataset of datasets) {
+          rows.push(...dataset.questions.map(([index, ...q]) => [D.byKey.get(dataset.papers[index].key), ...q]));
+        }
+        indexQuestions(rows);
+        questionsReady = true;
+      }).catch((error) => { questionRequest = null; throw error; });
+    return questionRequest;
+  }
+  function indexQuestions(Q) {
     D.byPaper = D.papers.map(() => []);
     D.Q = Q.map((a, i) => {
       const p = D.papers[a[0]];
@@ -201,9 +227,6 @@
       return q;
     });
     searchVocabulary = null;
-    D.years = Array.from(new Set(D.papers.map((p) => p.year))).sort();
-    D.codes = Array.from(new Set(D.papers.map((p) => p.code).filter(Boolean))).sort();
-    D.scans.forEach((s) => { const k = s.prog + "|" + s.sem + "|" + s.year + "|" + s.kind; if (!D.scanIdx.has(k)) D.scanIdx.set(k, []); D.scanIdx.get(k).push(s); });
     coll = coll.filter((id) => D.byId.has(id));
   }
 
@@ -248,7 +271,12 @@
     $$(`.q[data-id="${CSS.escape(id)}"]`).forEach((card) => { card.classList.toggle("in", on); const b = $(".collect", card); if (b) b.classList.toggle("on", on); });
     toast(on ? `Added · ${coll.length} in your collection` : "Removed from your collection");
   }
-  function openDrawer() { renderDrawer(); $("#scrim").hidden = false; requestAnimationFrame(() => { $("#scrim").classList.add("show"); $("#drawer").classList.add("show"); }); $("#fab").hidden = true; setTimeout(() => $("#dclose") && $("#dclose").focus(), 50); }
+  async function openDrawer() {
+    if (coll.length && !questionsReady) {
+      try { await load(); }
+      catch { toast("Could not load collected questions. Try again."); return; }
+    }
+    renderDrawer(); $("#scrim").hidden = false; requestAnimationFrame(() => { $("#scrim").classList.add("show"); $("#drawer").classList.add("show"); }); $("#fab").hidden = true; setTimeout(() => $("#dclose") && $("#dclose").focus(), 50); }
   function closeDrawer() { $("#scrim").classList.remove("show"); $("#drawer").classList.remove("show"); setTimeout(() => { $("#scrim").hidden = true; }, 220); updateCount(); }
   function renderDrawer() {
     const qs = coll.map((id) => D.byId.get(id)).filter(Boolean);
@@ -1399,10 +1427,21 @@
     books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
-  let lastRoute = null;
-  function route(keepScroll) {
+  let lastRoute = null, routeVersion = 0;
+  function needsQuestions(route) {
+    return /^(?:home|search|topics|basket|collection|paper-.+|preview(?:-.+)?)$/.test(route);
+  }
+  async function route(keepScroll) {
+    const r = current(), version = ++routeVersion;
+    if (!catalogueReady || (needsQuestions(r) && !questionsReady)) {
+      try { await (needsQuestions(r) ? load() : loadCatalogue()); }
+      catch (error) {
+        if (version === routeVersion) $("#app").innerHTML = `<div class="wrap"><div class="empty">The archive could not be loaded (${esc(error.message)}). Please reload the page.</div></div>`;
+        return;
+      }
+      if (version !== routeVersion) return;
+    }
     closeMenus();
-    const r = current();
     if (!HASH && r === "search" && !keepScroll) {
       const params = new URLSearchParams(location.search);
       const exam = params.get("exam"), q = params.get("q"), sem = params.get("sem");
@@ -1505,7 +1544,7 @@
     $("#scrim").addEventListener("click", closeDrawer);
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && $("#drawer").classList.contains("show")) closeDrawer();
-      if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") go("search"); setTimeout(() => $("#sq") && $("#sq").focus(), 30); }
+      if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") Promise.resolve(go("search")).then(() => { setTimeout(() => $("#sq")?.focus(), 30); }); else $("#sq")?.focus(); }
     });
     const themeToggle = $("#theme");
     const preferredDark = window.matchMedia("(prefers-color-scheme: dark)");
@@ -1530,12 +1569,9 @@
     if (HASH) window.addEventListener("hashchange", () => route());
     else window.addEventListener("popstate", () => route());
   }
-  async function start() {
+  function start() {
     initChrome();
     F = Object.assign(defaultFilters(), store.get("filters", {}));
-
-    try { await load(); }
-    catch (e) { $("#app").innerHTML = `<div class="wrap"><div class="empty">The question data could not be loaded (${esc(e.message)}). Please reload the page.</div></div>`; return; }
     route();
   }
   start();
