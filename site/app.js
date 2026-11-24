@@ -870,10 +870,34 @@
         ${e.syllabus ? `<p style="margin-top:12px">${ext(e.syllabus, "Syllabus ↗")}</p>` : ""}</div>`).join("")}</div>`);
   }
   function viewNotes() {
-    return page("Notes", "Notes", "Class notes from the department, written and shared by former students. These notes are for reference only; they cannot replace the classes taken by your teachers.",
-      `<div class="grid g2">${D.C.notes.items.map(([t, by, u]) => `<a class="card" href="${esc(u)}" target="_blank" rel="noopener"><h3>${esc(t)} <span class="muted">↗</span></h3><p>${esc(by)}</p></a>`).join("")}</div>
-      <section class="section"><div class="section-head"><h2>Class-note folders</h2></div><div class="grid g2">${Object.entries(D.C.notes.folders).map(([k, us]) => `<div class="card"><h3>${esc(k)}</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">${us.map((u, i) => ext(u, "Folder " + (i + 1), "chip")).join("")}</div></div>`).join("")}</div>
-      <p style="margin-top:18px">${ext(D.C.forms.notes, "Upload your notes")}</p></section>`);
+    const symbols = {
+      "Numerical Analysis": I('<path d="M3 4v16h17M6 16l5-6 4 2 5-7"/><circle cx="11" cy="10" r="1"/><circle cx="15" cy="12" r="1"/>'),
+      "Continuum Mechanics": I('<path d="m3 8 15-4 3 13-15 4zM4.5 14.5l15-4M10.5 6l3 13"/>'),
+      "Mathematical Ecology": I('<path d="M20 4c-7 0-14 3-14 10a5 5 0 0 0 5 5c7 0 9-8 9-15ZM4 21l11-11"/>'),
+      "Mathematical Biology": I('<path d="M6 3c0 9 12 9 12 18M18 3c0 9-12 9-12 18M7 6h10M7 18h10M10 9h4M10 15h4"/>'),
+      "Dynamical Systems": I('<path d="M21 11c0-5-4-8-9-8S3 7 3 12s4 9 9 9 8-3 8-7-3-6-7-6-5 2-5 5 2 4 4 4 3-1 3-3M18 11h3v-3"/>'),
+      "Complex Analysis": I('<path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="7"/><path d="m12 12 5-5"/>'),
+      "Abstract Algebra": I('<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9zM4 7.5l8 4.5 8-4.5M12 12v9"/>'),
+      "NET/GATE Notes": IC.stack,
+    };
+    const folder = I('<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>');
+    const notes = D.C.notes.items.map(([title, credit, url]) => `<article class="note-card">
+      <span class="note-symbol">${symbols[title] || IC.file}</span>
+      <h2>${esc(title)}</h2><p>${esc(credit)}</p>
+      <a class="note-open" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open notes for ${esc(title)} (new tab)">Open notes ${IC.ext}</a>
+    </article>`).join("");
+    const folders = Object.entries(D.C.notes.folders).map(([label, urls]) => `<div class="card">
+      <h3>${esc(label)}</h3>
+      <div class="note-folders">${urls.map((url, i) => {
+        const name = "Semester " + (ROMAN[i + 1] || (i + 1));
+        return `<a class="chip note-folder" href="${esc(url)}" target="_blank" rel="noopener"
+          aria-label="${esc(label)}, ${name} (new tab)">${folder} ${name} ${IC.ext}</a>`;
+      }).join("")}</div>
+    </div>`).join("");
+    return page("Notes", "Notes", "Lecture notes shared by Visva-Bharati mathematics students and alumni.",
+      `<div class="note-grid">${notes}</div>
+      <section class="section"><div class="shead"><h2>Class-note folders</h2>${ext(D.C.forms.notes, "Upload your notes", "btn btn-ghost btn-sm")}</div>
+      <div class="grid g2">${folders}</div></section>`);
   }
   function viewSyllabus() {
     return page("Syllabus", "Syllabus", "Official syllabi, newest first. Paper codes in the archive follow these eras: BMC (2011–12), CBCS (2017–18 and 2020–21), NEP (2025–26).",

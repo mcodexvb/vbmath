@@ -463,3 +463,33 @@ details.more summary{cursor:pointer;font-weight:600}
 .q-answer{margin-top:12px;font:400 14px/1.5 var(--f-ui);color:var(--ink-2)}
 .q-answer summary{cursor:pointer;font-weight:600;color:var(--green-ink)}
 .q-answer p{margin:6px 0 0}
+
+/* ---------- notes library ---------- */
+.note-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.note-card{display:flex;flex-direction:column;align-items:flex-start;min-width:0;gap:10px;
+  padding:clamp(16px,2vw,24px);border:1px solid var(--rule);border-radius:14px;background:var(--card)}
+.note-symbol{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;
+  background:var(--green-soft);color:var(--green-ink);margin-bottom:3px}
+.note-card:nth-child(4n+2) .note-symbol,.note-card:nth-child(4n+3) .note-symbol{background:var(--amber-soft);color:var(--amber-ink)}
+.note-symbol .ico{width:25px;height:25px}
+.note-card h2{margin:0;font-size:clamp(17px,1.6vw,20px);line-height:1.25}
+.note-card p{margin:0 0 6px;color:var(--ink-2);font-size:15px;line-height:1.5}
+.note-open{display:inline-flex;gap:10px;align-items:center;justify-content:space-between;min-height:44px;
+  margin-top:auto;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;text-decoration:none;
+  background:var(--green-tint);color:var(--green-ink);font:600 15px/1.2 var(--f-ui)}
+.note-open:hover,.note-open:focus-visible{background:var(--green);color:var(--on-green);border-color:var(--green)}
+.note-open .ico,.note-folder .ico{width:16px;height:16px}
+.note-folders{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.note-folder{min-height:44px}
+.note-folder .ico:last-child{width:13px;height:13px;margin-left:2px}
+@media (prefers-reduced-motion:no-preference){
+  .note-card,.note-open,.note-open .ico{transition:background-color .18s,border-color .18s,color .18s,box-shadow .18s,transform .18s}
+  .note-card:focus-within{border-color:var(--green-2);box-shadow:var(--shadow)}
+  .note-open:hover .ico,.note-open:focus-visible .ico{transform:translate(2px,-2px)}
+  .note-open:active{transform:translateY(1px)}
+}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .note-card:hover{transform:translateY(-3px);border-color:var(--green-2);box-shadow:var(--shadow)}
+}
+@media (max-width:1040px){.note-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.note-grid{grid-template-columns:1fr}}
