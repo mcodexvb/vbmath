@@ -189,7 +189,7 @@ for q in CQ:
     competitive_questions[q[0]].append(q)
 for i,p in enumerate(CP):
     path=f'/paper/{p["key"]}/'
-    name='IIT JAM' if p['prog']=='JAM' else 'CSIR-UGC NET'
+    name={'JAM':'IIT JAM','NET':'CSIR-UGC NET','NBHM':'NBHM','TIFR':'TIFR GS'}[p['prog']]
     label=f'{name} · {p["title"]}'
     desc=f'{p["n"]} questions from the VBMath transcription of {label}.'
     lis=''.join(f'<li><b>{H.escape(q[2])}</b> <span class="qbody">{H.escape(q[6])}</span></li>' for q in competitive_questions[i])

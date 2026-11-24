@@ -7,7 +7,7 @@
   const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   const PROG = { BSc: "B.Sc. Mathematics", MSc: "M.Sc. Mathematics" };
   const PSHORT = { BSc: "B.Sc.", MSc: "M.Sc." };
-  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET" };
+  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET", NBHM: "NBHM", TIFR: "TIFR GS" };
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -448,7 +448,7 @@
           <div><label class="flabel" for="f-broad">Topic</label><select id="f-broad">${opt("", "Any area", F.broad)}${D.broad.map((b, i) => opt(i, b, F.broad)).join("")}</select>
             <select id="f-topic" style="margin-top:8px" aria-label="Specific topic">${opt("", "Any specific topic", F.topic)}${specific.map(([i, t]) => opt(i, t[1], F.topic)).join("")}</select></div>
           <div><span class="flabel">Length</span><div class="seg" data-f="len">${[["", "Any"], ["short", "Short ≤" + SHORT_MAX], ["long", "Long ≥" + (SHORT_MAX + 1)]].map(([v, l]) => `<button type="button" class="chip${F.len === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"], ["JAM", "JAM"], ["NET", "NET"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"], ["JAM", "JAM"], ["NET", "NET"], ["NBHM", "NBHM"], ["TIFR", "TIFR"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
           <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> Only questions asked in more than one year</label></div>
           </div>
         </aside>
@@ -873,7 +873,7 @@
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
   function viewExams() {
-    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET" };
+    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET", NBHM: "NBHM", TIFR: "TIFR" };
     const cards = D.C.exams.map((exam) => {
       const code = routes[exam.name];
       const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
@@ -884,7 +884,7 @@
           <div><h2>${esc(exam.name)}</h2><p>${esc(exam.note)}</p></div></div>
         ${search}
         ${papers.length ? `<details class="resource-disclosure"><summary>Searchable papers <span class="muted">(${papers.length})</span></summary>
-          <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "JAM" ? p.year : p.title)}</a>`).join("")}</div></details>` : ""}
+          <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "NET" ? p.title : p.year + (p.key.endsWith("-cam") ? " CAM" : ""))}</a>`).join("")}</div></details>` : ""}
         ${exam.years ? `<details class="resource-disclosure"><summary>Papers by year <span class="muted">(${exam.years.length})</span></summary>
           <div class="yeartable" role="table" aria-label="${esc(exam.name)} papers by year">${exam.years.map(([y, groups]) => `<div class="yt-row" role="row"><span class="yt-year" role="rowheader">${esc(y)}</span><div class="yt-cells">${groups.map(([lab, ls]) => `<div class="yt-group"><span class="yt-lab">${esc(lab)}</span><span class="yt-links">${ls.map(([l, u]) => ext(u, l)).join("")}</span></div>`).join("")}</div></div>`).join("")}</div></details>` : ""}
         ${code ? `<details class="resource-disclosure"${papers.length ? "" : " open"}><summary>Original papers and resources</summary><div class="resource-links">${links}</div></details>` : `<div class="resource-links">${links}</div>`}
