@@ -1060,16 +1060,15 @@
               <span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div></section>`).join("")}</div>`);
   }
   function viewBooks() {
-    const shelves = Object.entries(D.C.books).map(([subject, books]) => `<section class="topic-card exam-card">
-      <div class="exam-card-title"><h2>${esc(subject)}</h2></div>
-      <ul class="book-list">${books.map((book) => {
+    const subjects = Object.entries(D.C.books).map(([subject, books]) => `<section class="book-subject">
+      <h2>${esc(subject)}</h2>
+      <ul>${books.map((book) => {
         const [title, author] = book.split(" — ");
         const amazon = "https://www.amazon.in/s?" + new URLSearchParams({k: [title, author].filter(Boolean).join(" "), i: "stripbooks"});
-        return `<li><div><strong>${esc(title)}</strong>${author ? `<small>${esc(author)}</small>` : ""}</div>
-          <a class="chip" href="${esc(amazon)}" target="_blank" rel="noopener" aria-label="Find ${esc(title)} on Amazon India">Amazon ${IC.ext}</a></li>`;
+        return `<li>${ext(amazon, title)}${author ? ` <span class="muted">· ${esc(author)}</span>` : ""}</li>`;
       }).join("")}</ul></section>`).join("");
     return page("Books", "Books", "Mathematics books recommended by students and teachers.",
-      `<div class="resource-grid">${shelves}</div><p style="margin-top:18px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
+      `<div class="book-subjects">${subjects}</div><p style="margin-top:24px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
   }
   function viewLearn(section) {
     const Ln = D.C.learn, subj = Object.fromEntries(Ln.subjects);
