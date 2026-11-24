@@ -1143,14 +1143,19 @@
         if (isStudio) {
           floatingBarHtml = `
             <div class="pv-q-floating-bar" role="toolbar" aria-label="Question actions">
-              <span class="pv-act-btn pv-drag-handle" title="Drag to reorder" draggable="true">⠿ Drag</span>
-              <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search a replacement question">🔍 Replace</button>
-              <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX">✏️ Edit</button>
-              <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add subpart (+Part)">➕ + Part</button>
-              <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (+OR)">🔀 + OR</button>
-              <button type="button" class="pv-act-btn" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>↑</button>
-              <button type="button" class="pv-act-btn" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>↓</button>
-              <button type="button" class="pv-act-btn pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">🗑️</button>
+              <div class="pv-q-bar-left">
+                <span class="pv-q-badge">Question ${esc(currentQnum)}</span>
+                <span class="pv-act-btn pv-drag-handle" title="Drag to reorder" draggable="true">⠿ Drag</span>
+              </div>
+              <div class="pv-q-bar-right">
+                <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search a replacement question">🔍 Replace</button>
+                <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX">✏️ Edit</button>
+                <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add subpart (+Part)">➕ Part</button>
+                <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (+OR)">🔀 OR</button>
+                <button type="button" class="pv-act-btn" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>↑</button>
+                <button type="button" class="pv-act-btn" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>↓</button>
+                <button type="button" class="pv-act-btn pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">🗑️</button>
+              </div>
             </div>`;
         }
 
@@ -1327,6 +1332,7 @@
             </div>
           </div>
           <div class="studio-bar-right">
+            <button class="btn btn-ghost btn-sm" type="button" id="m-theme-toggle" title="Switch light or dark theme">🌓 Theme</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-undo" title="Undo (Ctrl+Z)" disabled style="opacity:0.45">↶ Undo</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-redo" title="Redo (Ctrl+Y)" disabled style="opacity:0.45">↷ Redo</button>
             <button class="btn btn-primary btn-sm" type="button" id="m-add-q">➕ Add Question</button>
@@ -1735,6 +1741,10 @@
         rBtn.style.opacity = redoStack.length === 0 ? "0.45" : "1";
       }
     };
+
+    document.body.classList.add("is-studio-mode");
+    const thBtn = $("#m-theme-toggle");
+    if (thBtn) thBtn.onclick = () => $("#theme")?.click();
 
     const uBtn = $("#m-undo");
     if (uBtn) uBtn.onclick = doUndo;
@@ -2523,7 +2533,15 @@
     $$(".nav a[data-r]").forEach((a) => { if (a.dataset.r === navName) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     if (!keepScroll && lastRoute !== r) window.scrollTo(0, 0);
     lastRoute = r;
-    if (window.matchMedia("(max-width:1040px)").matches) { $("#nav").hidden = true; $("#menu").setAttribute("aria-expanded", "false"); }
+    if (name !== "preview" && name !== "maker") {
+      document.body.classList.remove("is-studio-mode");
+    }
+    if (window.matchMedia("(max-width:1040px)").matches) {
+      const navEl = $("#nav");
+      if (navEl) navEl.hidden = true;
+      const menuBtn = $("#menu");
+      if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+    }
     updateCount();
   }
 
@@ -2532,7 +2550,23 @@
     $$("a[data-r]").forEach((a) => a.setAttribute("href", L(a.dataset.r)));
     const nav = $("#nav");
     if (window.matchMedia("(max-width:1040px)").matches) nav.hidden = true;
-    $("#menu").addEventListener("click", () => { nav.hidden = !nav.hidden; $("#menu").setAttribute("aria-expanded", String(!nav.hidden)); });
+    $("#menu").addEventListener("click", (e) => {
+      e.stopPropagation();
+      nav.hidden = !nav.hidden;
+      $("#menu").setAttribute("aria-expanded", String(!nav.hidden));
+    });
+    document.addEventListener("click", (e) => {
+      if (!nav.hidden && !e.target.closest("#nav") && !e.target.closest("#menu")) {
+        nav.hidden = true;
+        $("#menu").setAttribute("aria-expanded", "false");
+      }
+    });
+    $$("#nav a").forEach((a) => a.addEventListener("click", () => {
+      if (window.matchMedia("(max-width:1040px)").matches) {
+        nav.hidden = true;
+        $("#menu").setAttribute("aria-expanded", "false");
+      }
+    }));
     const dd = $("#more-dd"), btn = $("#more-btn");
     btn.addEventListener("click", (e) => { e.stopPropagation(); dd.hidden = !dd.hidden; btn.setAttribute("aria-expanded", String(!dd.hidden)); });
     document.addEventListener("click", (e) => { if (!e.target.closest(".dd")) { dd.hidden = true; btn.setAttribute("aria-expanded", "false"); } });
