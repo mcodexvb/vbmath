@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2023 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2023.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2023/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2023 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2023.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2023/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2023</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Let $v_1, \ldots, v_9$ be the column vectors of a non-zero $9 \times 9$ real matrix $A$. Let $a_1, \ldots, a_9 \in \mathbb{R}$, not all zero, be such that $\sum_{i=1}^9 a_i v_i = 0$. Then the system $A x = \sum_{i=1}^9 v_i$ has
+    \begin{enumerate}[label=(\alph*)]
+        \item more than one but only finitely many solutions
+        \item no solution
+        \item infinitely many solutions
+        \item a unique solution
+    \end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $a_n = \left(1 + \frac{1}{n}\right)^n$ and $b_n = n \cos \left( \frac{n! \pi}{2^{10}} \right)$ for $n \in \mathbb{N}$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left(a_n\right)$ is NOT convergent and $\left(b_n\right)$ is bounded
+        \item $\left(a_n\right)$ is convergent and $\left(b_n\right)$ is bounded
+        \item $\left(a_n\right)$ is NOT convergent and $\left(b_n\right)$ is unbounded
+        \item $\left(a_n\right)$ is convergent and $\left(b_n\right)$ is unbounded
+    \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}^2$ be defined by $f(x, y) = \left( e^x \cos(y), e^x \sin(y) \right)$. Then the number of points in $\mathbb{R}^2$ that do NOT lie in the range of $f$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item 2
+        \item 0
+        \item 1
+        \item infinite
+    \end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $p(x) = x^{57} + 3x^{10} - 21x^3 + x^2 + 21$ and $q(x) = p(x) + \sum_{j=1}^{57} p^{(j)}(x)$ for all $x \in \mathbb{R}$, where $p^{(j)}(x)$ denotes the $j^{\text{th}}$ derivative of $p(x)$. Then the function $q$ admits
+    \begin{enumerate}[label=(\alph*)]
+        \item a global minimum but NOT a global maximum on $\mathbb{R}$
+        \item NEITHER a global maximum NOR a global minimum on $\mathbb{R}$
+        \item a global minimum and a global maximum on $\mathbb{R}$
+        \item a global maximum but NOT a global minimum on $\mathbb{R}$
+    \end{enumerate}</span></li><li><b>5</b> <span class="qbody">The limit
+    \[
+    \lim_{a \to 0} \left( \frac{\int_0^a \sin(x^2) \, dx}{\int_0^a (\ln(x+1))^2 \, dx} \right)
+    \]
+    is
+    \begin{enumerate}[label=(\alph*)]
+        \item $\frac{\pi}{e}$
+        \item non-existent
+        \item 0
+        \item 1
+    \end{enumerate}</span></li><li><b>6</b> <span class="qbody">Consider the initial value problem
+    \[
+    \frac{dy}{dx} + \alpha y = 0, \quad y(0) = 1,
+    \]
+    where $\alpha \in \mathbb{R}$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item there is an $\alpha$ such that $y(1) = 0$
+        \item there is NO $\alpha$ such that $y(2) = 1$
+        \item there is a unique $\alpha$ such that $\lim_{x \to \infty} y(x) = 0$
+        \item there is a unique $\alpha$ such that $y(1) = 2$
+    \end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $\left(a_n\right)$ be a sequence of real numbers defined by
+    \[
+    a_n = \begin{cases} 
+    1 &amp; \text{if } n \text{ is prime} \\ 
+    -1 &amp; \text{if } n \text{ is not prime}
+    \end{cases}
+    \]
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left(a_n\right)$ is NOT convergent but $\left(b_n\right)$ is convergent
+        \item both $\left(a_n\right)$ and $\left(b_n\right)$ are convergent
+        \item $\left(a_n\right)$ is convergent but $\left(b_n\right)$ is NOT convergent
+        \item both $\left(a_n\right)$ and $\left(b_n\right)$ are NOT convergent
+    \end{enumerate}</span></li><li><b>8</b> <span class="qbody">The value of
+    \[
+    \int_0^1 \int_0^{1-x} \cos(x^3 + y^2) \, dy \, dx - \int_0^1 \int_0^{1-y} \cos(x^3 + y^2) \, dx \, dy
+    \]
+    is
+    \begin{enumerate}[label=(\alph*)]
+        \item $\frac{\cos(1)}{2}$
+        \item $\frac{\sin(1)}{2}$
+        \item $\cos\left(\frac{1}{2}\right) - \sin\left(\frac{1}{2}\right)$
+        \item 0
+    \end{enumerate}</span></li><li><b>9</b> <span class="qbody">Let $G$ be a finite group. Then $G$ is necessarily a cyclic group if the order of $G$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item 10
+        \item 6
+        \item 7
+        \item 4
+    \end{enumerate}</span></li><li><b>10</b> <span class="qbody">Which of the following is a subspace of the real vector space $\mathbb{R}^3$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left\{ (x, y, z) \in \mathbb{R}^3 : y \in \mathbb{Q} \right\}$
+        \item $\left\{ (x, y, z) \in \mathbb{R}^3 : (y + z)^2 + (2x - 3y)^2 = 0 \right\}$
+        \item $\left\{ (x, y, z) \in \mathbb{R}^3 : x + 2y - 3z + 1 = 0 \right\}$
+        \item $\left\{ (x, y, z) \in \mathbb{R}^3 : yz = 0 \right\}$
+    \end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $\left(a_n\right)$ be a sequence of real numbers such that the series $\sum_{n=0}^\infty a_n (x - 2)^n$ converges at $x = -5$. Then this series also converges at
+    \begin{enumerate}[label=(\alph*)]
+        \item $x = 9$
+        \item $x = 12$
+        \item $x = -6$
+        \item $x = 5$
+    \end{enumerate}</span></li><li><b>12</b> <span class="qbody">Consider the following statements:
+    \begin{itemize}
+        \item[I.] Every infinite group has infinitely many subgroups.
+        \item[II.] There are only finitely many non-isomorphic groups of a given finite order.
+    \end{itemize}
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item I is FALSE but II is TRUE
+        \item I is TRUE but II is FALSE
+        \item both I and II are TRUE
+        \item both I and II are FALSE
+    \end{enumerate}</span></li><li><b>13</b> <span class="qbody">Suppose $f: (-1, 1) \to \mathbb{R}$ is an infinitely differentiable function such that the series $\sum_{j=0}^\infty a_j \frac{x^j}{j!}$ converges to $f(x)$ for each $x \in (-1, 1)$, where
+    \[
+    a_j = \int_0^{\pi/2} \theta^j \cos^j(\tan \theta) \, d\theta + \int_{\pi/2}^\pi (\theta - \pi)^j \cos^j(\tan \theta) \, d\theta
+    \]
+    for $j \geq 0$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $f$ is a non-constant even function on $(-1, 1)$
+        \item $f(x) = 0$ for all $x \in (-1, 1)$
+        \item $f$ is NEITHER an odd function NOR an even function on $(-1, 1)$
+        \item $f$ is a non-constant odd function on $(-1, 1)$
+    \end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $a_n = \frac{1 + 2^{-2} + \cdots + n^{-2}}{n}$ for $n \in \mathbb{N}$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item both the sequence $\left(a_n\right)$ and the series $\sum_{n=1}^\infty a_n$ are NOT convergent
+        \item the sequence $\left(a_n\right)$ is NOT convergent but the series $\sum_{n=1}^\infty a_n$ is convergent
+        \item the sequence $\left(a_n\right)$ is convergent but the series $\sum_{n=1}^\infty a_n$ is NOT convergent
+        \item both the sequence $\left(a_n\right)$ and the series $\sum_{n=1}^\infty a_n$ are convergent
+    \end{enumerate}</span></li><li><b>15</b> <span class="qbody">Let $a_n = \sin\left( \frac{1}{n^1} \right)$ and $b_n = \sin\left( \frac{1}{n} \right)$ for $n \in \mathbb{N}$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\sum_{n=1}^\infty a_n$ is NOT convergent but $\sum_{n=1}^\infty b_n$ is convergent
+        \item $\sum_{n=1}^\infty a_n$ is convergent but $\sum_{n=1}^\infty b_n$ is NOT convergent
+        \item both $\sum_{n=1}^\infty a_n$ and $\sum_{n=1}^\infty b_n$ are convergent
+        \item both $\sum_{n=1}^\infty a_n$ and $\sum_{n=1}^\infty b_n$ are NOT convergent
+    \end{enumerate}</span></li><li><b>16</b> <span class="qbody">Let
+    \[
+    A = \begin{pmatrix}
+    1 &amp; -1 &amp; 0 \\
+    0 &amp; 0 &amp; 0 \\
+    -2 &amp; 2 &amp; 2
+    \end{pmatrix}
+    \]
+    and $B = A^5 + A^4 + I_3$. Which of the following is NOT an eigenvalue of $B$?
+    \begin{enumerate}[label=(\alph*)]
+        \item 3
+        \item 2
+        \item 49
+        \item 1
+    \end{enumerate}</span></li><li><b>17</b> <span class="qbody">Consider the family of curves $x^2 + y^2 = 2x + 4y + k$ with a real parameter $k &gt; -5$. Then the orthogonal trajectory to this family of curves passing through $(2, 3)$ also passes through
+    \begin{enumerate}[label=(\alph*)]
+        \item $(3, 4)$
+        \item $(3, 5)$
+        \item $(1, 0)$
+        \item $(-1, 1)$
+    \end{enumerate}</span></li><li><b>18</b> <span class="qbody">Let $y: \mathbb{R} \to \mathbb{R}$ be a twice differentiable function such that $y&#x27;&#x27;$ is continuous on $[0, 1]$ and $y(0) = y(1) = 0$. Suppose $y&#x27;&#x27;(x) + x^2 &lt; 0$ for all $x \in [0, 1]$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $y(x) = 0$ has exactly one solution in $[0, 1]$
+        \item $y(x) &gt; 0$ for all $x \in (0, 1)$
+        \item $y(x) = 0$ has more than one solution in $[0, 1]$
+        \item $y(x) &lt; 0$ for all $x \in (0, 1)$
+    \end{enumerate}</span></li><li><b>19</b> <span class="qbody">How many group homomorphisms are there from $\mathbb{Z}_2$ to $S_5$?
+    \begin{enumerate}[label=(\alph*)]
+        \item 41
+        \item 26
+        \item 25
+        \item 40
+    \end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $S$ and $T$ be non-empty subsets of $\mathbb{R}^2$, and $W$ be a non-zero proper subspace of $\mathbb{R}^2$. Consider the following statements:
+    \begin{itemize}
+        \item[I.] If $\operatorname{span}(S) = \mathbb{R}^2$, then $\operatorname{span}(S \cap W) = W$.
+        \item[II.] $\operatorname{span}(S \cup T) = \operatorname{span}(S) \cup \operatorname{span}(T)$.
+    \end{itemize}
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item II is TRUE but I is FALSE
+        \item both I and II are TRUE
+        \item I is TRUE but II is FALSE
+        \item both I and II are FALSE
+    \end{enumerate}</span></li><li><b>21</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be an infinitely differentiable function such that $f&#x27;&#x27;$ has exactly two distinct zeroes. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $f$ has at most 3 distinct zeroes
+        \item $f$ has at least 2 distinct zeroes
+        \item $f&#x27;$ has at least 1 zero
+        \item $f&#x27;$ has at most 3 distinct zeroes
+    \end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let
+    \[
+    f(x, y) = \iint_{(u - x)^2 + (v - y)^2 \leq 1} e^{-\sqrt{(u - x)^2 + (v - y)^2}} \, du \, dv
+    \]
+    Then $\lim_{n \to \infty} f(n, n^2)$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item non-existent
+        \item $\pi(1 - e^{-1})$
+        \item 0
+        \item $2\pi(1 - 2e^{-1})$
+    \end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $\left(a_n\right)$ and $\left(b_n\right)$ be sequences of real numbers such that
+    \[
+    |a_n - a_{n+1}| = \frac{1}{2^n} \quad \text{and} \quad |b_n - b_{n+1}| = \frac{1}{\sqrt{n}}
+    \]
+    for $n \in \mathbb{N}$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item both $\left(a_n\right)$ and $\left(b_n\right)$ need NOT be Cauchy sequences
+        \item $\left(a_n\right)$ is a Cauchy sequence but $\left(b_n\right)$ need NOT be a Cauchy sequence
+        \item both $\left(a_n\right)$ and $\left(b_n\right)$ are Cauchy sequences
+        \item $\left(a_n\right)$ need NOT be a Cauchy sequence but $\left(b_n\right)$ is a Cauchy sequence
+    \end{enumerate}</span></li><li><b>24</b> <span class="qbody">The area of the curved surface
+    \[
+    S = \left\{ (x, y, z) \in \mathbb{R}^3 : z^2 = (x - 1)^2 + (y - 2)^2 \right\}
+    \]
+    lying between the planes $z = 2$ and $z = 3$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item $9\pi$
+        \item $4\pi \sqrt{2}$
+        \item $5\pi \sqrt{2}$
+        \item $9\pi \sqrt{2}$
+    \end{enumerate}</span></li><li><b>25</b> <span class="qbody">Consider the following statements:
+    \begin{itemize}
+        \item[I.] There exists a linear transformation from $\mathbb{R}^3$ to itself such that its range space and null space are the same.
+        \item[II.] There exists a linear transformation from $\mathbb{R}^2$ to itself such that its range space and null space are the same.
+    \end{itemize}
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item II is TRUE but I is FALSE
+        \item both I and II are FALSE
+        \item I is TRUE but II is FALSE
+        \item both I and II are TRUE
+    \end{enumerate}</span></li><li><b>26</b> <span class="qbody">Let $f(x, y) = e^{x^2 + y^2}$ for $(x, y) \in \mathbb{R}^2$, and $a_n$ be the determinant of the matrix
+    \[
+    \begin{pmatrix}
+    \frac{\partial^2 f}{\partial x^2} &amp; \frac{\partial^2 f}{\partial x \partial y} \\
+    \frac{\partial^2 f}{\partial y \partial x} &amp; \frac{\partial^2 f}{\partial y^2}
+    \end{pmatrix}
+    \]
+    evaluated at the point $(\cos(n), \sin(n))$. Then the limit $\lim_{n \to \infty} a_n$ is
+    \begin{enumerate}[label=(\alph*)]
+        \item $12e^2$
+        \item 0
+        \item non-existent
+        \item $6e^2$
+    \end{enumerate}</span></li><li><b>27</b> <span class="qbody">From the additive group $\mathbb{Q}$ to which one of the following groups does there exist a non-trivial group homomorphism?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\mathbb{Q}^\times$, the multiplicative group of non-zero rational numbers
+        \item $\mathbb{R}^\times$, the multiplicative group of non-zero real numbers
+        \item $\mathbb{Z}$, the additive group of integers
+        \item $\mathbb{Z}_2$, the additive group of integers modulo 2
+    \end{enumerate}</span></li><li><b>28</b> <span class="qbody">The system of linear equations in $x_1, x_2, x_3$
+    \[
+    \begin{pmatrix}
+    1 &amp; 1 &amp; 1 \\
+    0 &amp; -1 &amp; 1 \\
+    2 &amp; 3 &amp; \alpha
+    \end{pmatrix}
+    \begin{pmatrix}
+    x_1 \\
+    x_2 \\
+    x_3
+    \end{pmatrix}
+    = \begin{pmatrix}
+    3 \\
+    1 \\
+    \beta
+    \end{pmatrix}
+    \]
+    where $\alpha, \beta \in \mathbb{R}$, has
+    \begin{enumerate}[label=(\alph*)]
+        \item NO solution for any $\alpha$ when $\beta \neq 5$
+        \item at least one solution for any $\alpha$ and $\beta$
+        \item a unique solution for any $\beta$ when $\alpha \neq 1$
+        \item infinitely many solutions for any $\alpha$ when $\beta = 5$
+    \end{enumerate}</span></li><li><b>29</b> <span class="qbody">Let $f(x, y) = \ln(1 + x^2 + y^2)$ for $(x, y) \in \mathbb{R}^2$. Define
+    \[
+    P = \left. \frac{\partial^2 f}{\partial x^2} \right|_{(0,0)}, \quad Q = \left. \frac{\partial^2 f}{\partial x \partial y} \right|_{(0,0)}, \quad R = \left. \frac{\partial^2 f}{\partial y \partial x} \right|_{(0,0)}, \quad S = \left. \frac{\partial^2 f}{\partial y^2} \right|_{(0,0)}
+    \]
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $PS - QR &lt; 0$ and $P &lt; 0$
+        \item $PS - QR &lt; 0$ and $P &gt; 0$
+        \item $PS - QR &gt; 0$ and $P &gt; 0$
+        \item $PS - QR &gt; 0$ and $P &lt; 0$
+    \end{enumerate}</span></li><li><b>30</b> <span class="qbody">Let $f(x) = \cos(x)$ and $g(x) = 1 - \frac{x^2}{2}$ for $x \in \left( -\frac{\pi}{2}, \frac{\pi}{2} \right)$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $f(x) - g(x)$ changes sign exactly once on $\left( -\frac{\pi}{2}, \frac{\pi}{2} \right)$
+        \item $f(x) &gt; g(x)$ for all $x \in \left( -\frac{\pi}{2}, \frac{\pi}{2} \right)$
+        \item $f(x) - g(x)$ changes sign more than once on $\left( -\frac{\pi}{2}, \frac{\pi}{2} \right)$
+        \item $f(x) \leq g(x)$ for all $x \in \left( -\frac{\pi}{2}, \frac{\pi}{2} \right)$
+    \end{enumerate}</span></li><li><b>31</b> <span class="qbody">For each $t \in (0, 1)$, the surface $P_t$ in $\mathbb{R}^3$ is defined by
+    \[
+    P_t = \left\{ (x, y, z) : (x^2 + y^2)z = 1, \, t^2 \leq x^2 + y^2 \leq 1 \right\}
+    \]
+    Let $a_t \in \mathbb{R}$ be the surface area of $P_t$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item the limit $\lim_{t \to 0^+} a_t$ does NOT exist
+        \item $a_t = \iint_{t^2 \leq x^2 + y^2 \leq 1} \sqrt{1 + \frac{4x^2}{(x^2 + y^2)^2} + \frac{4y^2}{(x^2 + y^2)^2}} \, dx \, dy$
+        \item $a_t = \iint_{t^2 \leq x^2 + y^2 \leq 1} \sqrt{1 + \frac{4x^2}{(x^2 + y^2)^4} + \frac{4y^2}{(x^2 + y^2)^4}} \, dx \, dy$
+        \item the limit $\lim_{t \to 0^+} a_t$ exists
+    \end{enumerate}</span></li><li><b>32</b> <span class="qbody">Which of the following is/are true?
+    \begin{enumerate}[label=(\alph*)]
+        \item Every bijective linear transformation from $\mathbb{R}^2$ to $\mathbb{R}^2$ maps pairs of parallel lines to pairs of parallel lines
+        \item Every surjective linear transformation from $\mathbb{R}^2$ to $\mathbb{R}^2$ maps lines onto lines
+        \item Every linear transformation from $\mathbb{R}^2$ to $\mathbb{R}^2$ maps lines onto points or lines
+        \item Every bijective linear transformation from $\mathbb{R}^2$ to $\mathbb{R}^2$ maps pairs of perpendicular lines to pairs of perpendicular lines
+    \end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $f: (-1, 1) \to \mathbb{R}$ be a differentiable function satisfying $f(0) = 0$. Suppose there exists an $M &gt; 0$ such that $|f&#x27;(x)| \leq M |x|$ for all $x \in (-1, 1)$. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $f&#x27;$ is differentiable at $x = 0$
+        \item $f f&#x27;$ is differentiable at $x = 0$
+        \item $(f&#x27;)^2$ is differentiable at $x = 0$
+        \item $f&#x27;$ is continuous at $x = 0$
+    \end{enumerate}</span></li><li><b>34</b> <span class="qbody">Let $R_1$ and $R_2$ be the radii of convergence of the power series $\sum_{n=1}^\infty (-1)^n x^{n-1}$ and $\sum_{n=1}^\infty (-1)^n \frac{x^{n+1}}{n(n+1)}$, respectively. Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\sum_{n=1}^\infty (-1)^n \frac{x^{n+1}}{n(n+1)}$ converges for all $x \in [-1, 1]$
+        \item $R_1 = R_2$
+        \item $R_2 &gt; 1$
+        \item $\sum_{n=1}^\infty (-1)^n x^{n-1}$ converges for all $x \in [-1, 1]$
+    \end{enumerate}</span></li><li><b>35</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be defined as follows:
+    \[
+    f(x, y) = \begin{cases}
+    \frac{x^4 y^3}{x^6 + y^6} &amp; \text{if } (x, y) \neq (0, 0) \\
+    0 &amp; \text{if } (x, y) = (0, 0)
+    \end{cases}
+    \]
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left. \frac{\partial f}{\partial y} \right|_{(0,0)}$ exists and equals 0
+        \item $\lim_{t \to 0} \frac{f(t, 2t) - f(0,0)}{t}$ exists and equals $\frac{1}{3}$
+        \item $\lim_{t \to 0} \frac{f(t, t) - f(0,0)}{t}$ exists and equals $\frac{1}{2}$
+        \item $\left. \frac{\partial f}{\partial x} \right|_{(0,0)}$ exists and equals 0
+    \end{enumerate}</span></li><li><b>36</b> <span class="qbody">Which of the following is/are linear transformations?
+    \begin{enumerate}[label=(\alph*)]
+        \item $T: \mathbb{R} \to \mathbb{R}$ given by $T(x) = \sin(x)$
+        \item $T: \mathbb{R}^2 \to \mathbb{R}$ given by $T(x, y) = x + y + 1$
+        \item $T: M_2(\mathbb{R}) \to \mathbb{R}$ given by $T(A) = \operatorname{trace}(A)$
+        \item $T: P_2(\mathbb{R}) \to \mathbb{R}$ given by $T(p(x)) = p(1)$
+    \end{enumerate}</span></li><li><b>37</b> <span class="qbody">A subset $S \subseteq \mathbb{R}^2$ is said to be bounded if there is an $M &gt; 0$ such that $|x| \leq M$ and $|y| \leq M$ for all $(x, y) \in S$. Which of the following subsets of $\mathbb{R}^2$ is/are bounded?
+    \begin{enumerate}[label=(\alph*)]
+        \item $\left\{ (x, y) \in \mathbb{R}^2 : e^{x^2} + y^2 \leq 4 \right\}$
+        \item $\left\{ (x, y) \in \mathbb{R}^2 : |x| + |y| \leq 4 \right\}$
+        \item $\left\{ (x, y) \in \mathbb{R}^2 : x^4 + y^2 \leq 4 \right\}$
+        \item $\left\{ (x, y) \in \mathbb{R}^2 : e^{x^3} + y^2 \leq 4 \right\}$
+    \end{enumerate}</span></li><li><b>38</b> <span class="qbody">Which of the following functions is/are Riemann integrable on $[0, 1]$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $f(x) = \begin{cases}
+        x &amp; \text{if } x \in [0, 1) \\
+        0 &amp; \text{if } x = 1
+        \end{cases}$
+        \item $f(x) = \begin{cases}
+        x \sin(1/x) &amp; \text{if } x \neq 0 \\
+        0 &amp; \text{if } x = 0
+        \end{cases}$
+        \item $f(x) = \begin{cases}
+        1 &amp; \text{if } x \in \mathbb{Q} \cap [0, 1] \\
+        -1 &amp; \text{otherwise}
+        \end{cases}$
+        \item $f(x) = \int_0^x \left| \frac{1}{2} - t \right| \, dt$
+    \end{enumerate}</span></li><li><b>39</b> <span class="qbody">Let $A \subseteq \mathbb{Z}$ with $0 \in A$. For $r, s \in \mathbb{Z}$, define
+    \[
+    rA = \{ ra : a \in A \}, \quad rA + sA = \{ ra + sb : a, b \in A \}.
+    \]
+    Which of the following conditions imply that $A$ is a subgroup of the additive group $\mathbb{Z}$?
+    \begin{enumerate}[label=(\alph*)]
+        \item $2A \subseteq A$, $A + A = A$
+        \item $-2A \subseteq A$, $A + A = A$
+        \item $A = -A$, $A + A = A$
+        \item $A = -A$, $A + 2A = A$
+    \end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $y: (\sqrt{2/3}, \infty) \to \mathbb{R}$ be the solution of
+    \[
+    (2x - y)y&#x27; + (2y - x) = 0, \quad y(1) = 3.
+    \]
+    Then
+    \begin{enumerate}[label=(\alph*)]
+        \item $y&#x27;$ is bounded on $(1, \infty)$
+        \item $y&#x27;$ is bounded on $(\sqrt{2/3}, 1)$
+        \item $y(3) = 1$
+        \item $y(2) = 4 + \sqrt{10}$
+    \end{enumerate}</span></li><li><b>41</b> <span class="qbody">If $y$ is the solution of
+    \[
+    y&#x27;&#x27; - 2y&#x27; + y = e^x, \quad y(0) = 0, \quad y&#x27;(0) = -\frac{1}{2},
+    \]
+    then $y(1)$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 0
+    \]</span></li><li><b>42</b> <span class="qbody">Let $T: P_2(\mathbb{R}) \to P_4(\mathbb{R})$ be the linear transformation given by $T(p(x)) = p(x^2)$. Then the rank of $T$ is equal to
+    \[
+    \text{Given: } 2
+    \]</span></li><li><b>43</b> <span class="qbody">The value of
+    \[
+    \lim_{n \to \infty} \left( n \int_0^1 \frac{x^n}{x + 1} \, dx \right)
+    \]
+    is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 0.50
+    \]</span></li><li><b>44</b> <span class="qbody">The value of
+    \[
+    \lim_{n \to \infty} \left( 1 + \frac{1}{2^n} + \frac{1}{3^n} + \cdots + \frac{1}{(2023)^n} \right)^{\frac{1}{n}}
+    \]
+    is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 1.00
+    \]</span></li><li><b>45</b> <span class="qbody">The sum of the series
+    \[
+    \sum_{n=1}^\infty \frac{2n + 1}{(n^2 + 1)(n^2 + 2n + 2)}
+    \]
+    is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 1.00
+    \]</span></li><li><b>46</b> <span class="qbody">Let $V$ be the volume of the region $S \subseteq \mathbb{R}^3$ defined by
+    \[
+    S = \left\{ (x, y, z) \in \mathbb{R}^3 : xy \leq z \leq 4, \, 0 \leq x^2 + y^2 \leq 1 \right\}.
+    \]
+    Then $\frac{V}{\pi}$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: Not provided}
+    \]</span></li><li><b>47</b> <span class="qbody">Let $f(x) = \sqrt[3]{x}$ for $x \in (0, \infty)$, and $\theta(h)$ be a function such that
+    \[
+    f(3 + h) - f(3) = h f&#x27;(3 + \theta(h) h)
+    \]
+    for all $h \in (-1, 1)$. Then $\lim_{h \to 0} \theta(h)$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 0
+    \]</span></li><li><b>48</b> <span class="qbody">For $\sigma \in S_5$, let $o(\sigma)$ denote the order of $\sigma$. Then $\max \{ o(\sigma) : \sigma \in S_5 \}$ is equal to
+    \[
+    \text{Given: } 40320
+    \]</span></li><li><b>49</b> <span class="qbody">For $g \in \mathbb{Z}$, let $\bar{g} \in \mathbb{Z}_8$ denote the residue class of $g$ modulo 8. Consider the group $\mathbb{Z}_8^\times = \left\{ \bar{x} \in \mathbb{Z}_8 : 1 \leq x \leq 7, \gcd(x, 8) = 1 \right\}$ with respect to multiplication modulo 8. The number of group isomorphisms from $\mathbb{Z}_8^\times$ onto itself is equal to
+    \[
+    \text{Given: } 4
+    \]</span></li><li><b>50</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be the function defined as follows:
+    \[
+    f(x, y) = \begin{cases}
+    (x^2 - 1)^2 \cos^2\left( \frac{y^2}{(x^2 - 1)^2} \right) &amp; \text{if } x \neq \pm 1 \\
+    0 &amp; \text{if } x = \pm 1
+    \end{cases}
+    \]
+    The number of points of discontinuity of $f(x, y)$ is equal to
+    \[
+    \text{Given: } 0
+    \]</span></li><li><b>51</b> <span class="qbody">Let $y: (1, \infty) \to \mathbb{R}$ be the solution of the differential equation
+    \[
+    y&#x27;&#x27; - \frac{2y}{(1 - x)^2} = 0
+    \]
+    satisfying $y(2) = 1$ and $\lim_{x \to \infty} y(x) = 0$. Then $y(3)$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } -0.50
+    \]</span></li><li><b>52</b> <span class="qbody">Let $f: \mathbb{R}^3 \to \mathbb{R}$ be defined as $f(x, y, z) = x^3 + y^3 + z^3$, and let $L: \mathbb{R}^3 \to \mathbb{R}$ be the linear map satisfying
+    \[
+    \lim_{(x, y, z) \to (0, 0, 0)} \frac{f(1 + x, 1 + y, 1 + z) - f(1, 1, 1) - L(x, y, z)}{\sqrt{x^2 + y^2 + z^2}} = 0
+    \]
+    Then $L(1, 2, 4)$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 157
+    \]</span></li><li><b>53</b> <span class="qbody">The number of permutations in $S_4$ that have exactly two cycles in their cycle decompositions is equal to
+    \[
+    \text{Given: } 9
+    \]</span></li><li><b>54</b> <span class="qbody">Let $S$ be the triangular region whose vertices are $(0, 0)$, $\left( 0, \frac{\pi}{2} \right)$, and $\left( \frac{\pi}{2}, 0 \right)$. The value of
+    \[
+    \iint_S \sin(x) \cos(y) \, dx \, dy
+    \]
+    is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } -1.00
+    \]</span></li><li><b>55</b> <span class="qbody">The maximum number of linearly independent eigenvectors of the matrix
+    \[
+    \begin{pmatrix}
+    1 &amp; 1 &amp; 0 &amp; 0 \\
+    2 &amp; 2 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; 3 &amp; 0 \\
+    0 &amp; 0 &amp; 1 &amp; 3
+    \end{pmatrix}
+    \]
+    is equal to
+    \[
+    \text{Given: } 3
+    \]</span></li><li><b>56</b> <span class="qbody">Let $W$ be the subspace of $M_3(\mathbb{R})$ consisting of all matrices with the property that the sum of the entries in each row is zero and the sum of the entries in each column is zero. Then the dimension of $W$ is equal to
+    \[
+    \text{Given: } 3
+    \]</span></li><li><b>57</b> <span class="qbody">The global minimum value of
+    \[
+    f(x) = |x - 1| + |x - 2|^2
+    \]
+    on $\mathbb{R}$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: Not provided}
+    \]</span></li><li><b>58</b> <span class="qbody">Let
+    \[
+    A = \begin{pmatrix}
+    1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    1 &amp; 1 &amp; 1 &amp; 1 &amp; 3 \\
+    1 &amp; 1 &amp; 4 &amp; 4 &amp; 4
+    \end{pmatrix}
+    \]
+    and $B$ be a $5 \times 5$ real matrix such that $AB$ is the zero matrix. Then the maximum possible rank of $B$ is equal to
+    \[
+    \text{Given: } 3
+    \]</span></li><li><b>59</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a bijective function such that for all $x \in \mathbb{R}$, $f(x) = \sum_{n=1}^\infty a_n x^n$ and $f^{-1}(x) = \sum_{n=1}^\infty b_n x^n$, where $f^{-1}$ is the inverse function of $f$. If $a_1 = 2$ and $a_2 = 4$, then $b_1$ is equal to
+    \[
+    \text{Given: Not provided}
+    \]</span></li><li><b>60</b> <span class="qbody">Let $S$ be the set of all real numbers $\alpha$ such that the solution $y$ of the initial value problem
+    \[
+    \frac{dy}{dx} = y(2 - y), \quad y(0) = \alpha
+    \]
+    exists on $[0, \infty)$. Then the minimum of the set $S$ is equal to (rounded off to two decimal places)
+    \[
+    \text{Given: } 0
+    \]</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

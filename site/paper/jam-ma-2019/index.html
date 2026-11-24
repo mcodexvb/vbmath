@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2019 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2019.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2019/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2019 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2019.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2019/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2019</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Let $a_{1}=b_{1}=0$, and for each $n \geq 2$, let $a_{n}$ and $b_{n}$ be real numbers given by
+$$
+a_{n}=\sum_{m=2}^{n} \frac{(-1)^{m} m}{(\log (m))^{m}} \text { and } b_{n}=\sum_{m=2}^{n} \frac{1}{(\log (m))^{m}} .
+$$
+Then which one of the following is TRUE about the sequences $\left\{a_{n}\right\}$ and $\left\{b_{n}\right\}$ ?
+
+\begin{enumerate}[label=(\alph*)]
+    
+
+\item Both $\left\{a_{n}\right\}$ and $\left\{b_{n}\right\}$ are divergent
+\item $\left\{a_{n}\right\}$ is convergent and $\left\{b_{n}\right\}$ is divergent
+\item $\left\{a_{n}\right\}$ is divergent and $\left\{b_{n}\right\}$ is convergent
+\item Both $\left\{a_{n}\right\}$ and $\left\{b_{n}\right\}$ are convergent
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $T \in M_{m \times n}(\mathbb{R})$. Let $V$ be the subspace of $M_{n \times p}(\mathbb{R})$ defined by
+$$
+V=\left\{X \in M_{n \times p}(\mathbb{R}): T X=0\right\} .
+$$
+Then the dimension of $V$ is
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $p n-\operatorname{rank}(T)$
+\item $p(m-\operatorname{rank}(T))$
+\item $m n-p \operatorname{rank}(T)$
+\item $p(n-\operatorname{rank}(T))$
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $g: \mathbb{R} \rightarrow \mathbb{R}$ be a twice differentiable function. Define $f: \mathbb{R}^{3} \rightarrow \mathbb{R}$ by
+$$
+f(x, y, z)=g\left(x^{2}+y^{2}-2 z^{2}\right)
+$$
+Then $\frac{\partial^{2} f}{\partial x^{2}}+\frac{\partial^{2} f}{\partial y^{2}}+\frac{\partial^{2} f}{\partial z^{2}}$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $4\left(x^{2}+y^{2}-4 z^{2}\right) g^{\prime \prime}\left(x^{2}+y^{2}-2 z^{2}\right)$
+\item $4\left(x^{2}+y^{2}+4 z^{2}\right) g^{\prime \prime}\left(x^{2}+y^{2}-2 z^{2}\right)$
+\item $4\left(x^{2}+y^{2}-2 z^{2}\right) g^{\prime \prime}\left(x^{2}+y^{2}-2 z^{2}\right)$
+\item $4\left(x^{2}+y^{2}+4 z^{2}\right) g^{\prime \prime}\left(x^{2}+y^{2}-2 z^{2}\right)+8 g^{\prime}\left(x^{2}+y^{2}-2 z^{2}\right)$
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $\left\{a_{n}\right\}_{n=0}^{\infty}$ and $\left\{b_{n}\right\}_{n=0}^{\infty}$ be sequences of positive real numbers such that $n a_{n}&lt;b_{n}&lt;n^{2} a_{n}$ for all $n \geq 2$. If the radius of convergence of the power series $\sum_{n=0}^{\infty} a_{n} x^{n}$ is 4 , then the power series $\sum_{n=0}^{\infty} b_{n} x^{n}$
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item converges for all $x$ with $|x|&lt;2$
+\item converges for all $x$ with $|x|&gt;2$
+\item does not converge for any $x$ with $|x|&gt;2$
+\item does not converge for any $x$ with $|x|&lt;2$
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $S$ be the set of all limit points of the set $\left\{\frac{n}{\sqrt{2}}+\frac{\sqrt{2}}{n}: n \in \mathbb{N}\right\}$. Let $\mathbb{Q}_{+}$be the set of all positive rational numbers. Then
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\mathbb{Q}_{+} \subseteq S$
+\item $S \cap\left(\mathbb{R} \backslash \mathbb{Q}_{+}\right) \neq \varnothing$
+\item $S \subseteq \mathbb{Q}_{+}$
+\item $S \cap \mathbb{Q}_{+} \neq \varnothing$
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">If $x^{h} y^{k}$ is an integrating factor of the differential equation
+$$
+y(1+x y) d x+x(1-x y) d y=0
+$$
+then the ordered pair $(h, k)$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(-2,-2)$
+\item $(-2,-1)$
+\item $(-1,-2)$
+\item $(-1,-1)$
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">If $y(x)=\lambda e^{2 x}+e^{\beta x}, \beta \neq 2$, is a solution of the differential equation
+$$
+\frac{d^{2} y}{d x^{2}}+\frac{d y}{d x}-6 y=0
+$$
+satisfying $\frac{d y}{d x}(0)=5$, then $y(0)$ is equal to
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item 1
+\item 4
+\item 5
+\item 9
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">The equation of the tangent plane to the surface $x^{2} z+\sqrt{8-x^{2}-y^{4}}=6$ at the point $(2,0,1)$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $2 x+z=5$
+\item $3 x+4 z=10$
+\item $3 x-z=10$
+\item $7 x-4 z=10$
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">The value of the integral
+$$
+\int_{y=0}^{1} \int_{x=0}^{1-y^{2}} y \sin \left(\pi(1-x)^{2}\right) d x d y
+$$
+is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{1}{2 \pi}$
+\item $2 \pi$
+\item $\frac{\pi}{2}$
+\item $\frac{2}{\pi}$
+\end{enumerate}
+
+\hfill [JAM 2019]
+
+
+% MAINUL</span></li><li><b>10</b> <span class="qbody">The area of the surface generated by rotating the curve $x=y^{3}, 0 \leq y \leq 1$, about the $y$-axis, is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{\pi}{27} 10^{3 / 2}$
+\item $\frac{4 \pi}{3}\left(10^{3 / 2}-1\right)$
+\item $\frac{\pi}{27}\left(10^{3 / 2}-1\right)$
+\item $\frac{4 \pi}{3} 10^{3 / 2}$
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $H$ and $K$ be subgroups of $\mathbb{Z}_{144}$. If the order of $H$ is 24 and the order of $K$ is 36 , then the order of the subgroup $H \cap K$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item 3
+\item 4
+\item 6
+\item 12
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $P$ be a $4 \times 4$ matrix with entries from the set of rational numbers. If $\sqrt{2}+i$, with $i=\sqrt{-1}$, is a root of the characteristic polynomial of $P$ and $I$ is the $4 \times 4$ identity matrix, then
+
+\begin{enumerate}[label=(\alph*)]
+    \item $P^{4}=4 P^{2}+9 I$
+\item $P^{4}=4 P^{2}-9 I$
+\item $P^{4}=2 P^{2}-9 I$
+\item $P^{4}=2 P^{2}+9 I$
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">The set $\left\{\frac{x}{1+x}:-1&lt;x&lt;1\right\}$, as a subset of $\mathbb{R}$, is
+
+\begin{enumerate}[label=(\alph*)]
+\item connected and compact
+\item connected but not compact
+\item not connected but compact
+\item neither connected nor compact
+\end{enumerate}
+
+\hfill [JAM 2019]
+
+
+% MAINUL</span></li><li><b>14</b> <span class="qbody">The set $\left\{\frac{1}{m}+\frac{1}{n}: m, n \in \mathbb{N}\right\} \cup\{0\}$, as a subset of $\mathbb{R}$, is
+
+\begin{enumerate}[label=(\alph*)]
+    \item compact and open
+\item not compact but open
+\item compact but not open
+\item neither compact nor open
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">For $-1&lt;x&lt;1$, the sum of the power series $1+\sum_{n=2}^{\infty}(-1)^{n-1} n^{2} x^{n-1}$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{1-x}{(1+x)^{3}}$
+\item $\frac{1+x^{2}}{(1+x)^{4}}$
+\item $\frac{1-x}{(1+x)^{2}}$
+\item $\frac{1+x^{2}}{(1+x)^{3}}$
+\end{enumerate}
+
+\hfill [JAM 2019]
+
+
+
+% MAINUL</span></li><li><b>16</b> <span class="qbody">Let $f(x)=(\ln x)^{2}, x&gt;0$. Then
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\lim _{x \rightarrow \infty} \frac{f(x)}{x}$ does not exist
+\item $\lim _{x \rightarrow \infty} f^{\prime}(x)=2$
+\item $\lim _{x \rightarrow \infty}(f(x+1)-f(x))=0$
+\item $\lim _{x \rightarrow \infty}(f(x+1)-f(x))$ does not exist
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a differentiable function such that $f^{\prime}(x)&gt;f(x)$ for all $x \in \mathbb{R}$, and $f(0)=1$.
+
+Then $f(1)$ lies in the interval
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\left(0, e^{-1}\right)$
+\item $\left(e^{-1}, \sqrt{e}\right)$
+\item $(\sqrt{e}, e)$
+\item $(e, \infty)$
+\end{enumerate}
+
+\hfill [JAM 2019]
+
+
+% MAINUL</span></li><li><b>18</b> <span class="qbody">For which one of the following values of $k$, the equation
+$$
+2 x^{3}+3 x^{2}-12 x-k=0
+$$
+has three distinct real roots?
+
+\begin{enumerate}[label=(\alph*)]
+    \item 16
+\item 20
+\item 26
+\item 31
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Which one of the following series is divergent?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\sum_{n=1}^{\infty} \frac{1}{n} \sin ^{2} \frac{1}{n}$
+\item $\sum_{n=1}^{\infty} \frac{1}{n^{2}} \sin \frac{1}{n}$
+\item $\sum_{n=1}^{\infty} \frac{1}{n} \log n$
+\item $\sum_{n=1}^{\infty} \frac{1}{n} \tan \frac{1}{n}$
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $S$ be the family of orthogonal trajectories of the family of curves
+$$
+2 x^{2}+y^{2}=k, \text { for } k \in \mathbb{R} \text { and } k&gt;0
+$$
+If $\mathcal{C} \in S$ and $\mathcal{C}$ passes through the point $(1,2)$, then $\mathcal{C}$ also passes through
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(4,-\sqrt{2})$
+\item $(2,-4)$
+\item $(2,2 \sqrt{2})$
+\item $(4,2 \sqrt{2})$
+\end{enumerate}
+
+\hfill [JAM 2019]
+
+
+
+% MAINUL</span></li><li><b>21</b> <span class="qbody">Let $x, x+e^{x}$ and $1+x+e^{x}$ be solutions of a linear second order ordinary differential equation with constant coefficients. If $y(x)$ is the solution of the same equation satisfying $y(0)=3$ and $y^{\prime}(0)=4$, then $y(1)$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+\item $e+1$
+\item $2 e+3$
+\item $3 e+2$
+\item $3 e+1$
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">The function
+$$
+f(x, y)=x^{3}+2 x y+y^{3}
+$$
+has a saddle point at
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(0,0)$
+\item $\left(-\frac{2}{3},-\frac{2}{3}\right)$
+\item $\left(-\frac{3}{2},-\frac{3}{2}\right)$
+\item $(-1,-1)$
+
+\end{enumerate}
+
+\hfill [JAM 2019]
+
+
+% MAINUL</span></li><li><b>23</b> <span class="qbody">The area of the part of the surface of the paraboloid $x^{2}+y^{2}+z=8$ lying inside the cylinder $x^{2}+y^{2}=4$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{\pi}{2}\left(17^{3 / 2}-1\right)$
+\item $\pi\left(17^{3 / 2}-1\right)$
+\item $\frac{\pi}{6}\left(17^{3 / 2}-1\right)$
+\item $\frac{\pi}{3}\left(17^{3 / 2}-1\right)$
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $\mathcal{C}$ be the circle $(x-1)^{2}+y^{2}=1$, oriented counter clockwise. Then the value of the line integral
+$$
+\oint_{\mathcal{C}}-\frac{4}{3} x y^{3} d x+x^{4} d y
+$$
+is
+
+\begin{enumerate}[label=(\alph*)]
+\item $6 \pi$
+\item $8 \pi$
+\item $12 \pi$
+\item $14 \pi$
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $\vec{F}(x, y, z)=2 y \hat{\imath}+x^{2} \hat{\jmath}+x y \hat{k}$ and let $\mathcal{C}$ be the curve of intersection of the plane $x+y+z=1$ and the cylinder $x^{2}+y^{2}=1$. Then the value of
+$$
+\left|\oint_{\mathcal{C}} \vec{F} \cdot d \vec{r}\right|
+$$
+is
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\pi$
+\item $\frac{3 \pi}{2}$
+\item $2 \pi$
+\item $3 \pi$
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">The tangent line to the curve of intersection of the surface $x^{2}+y^{2}-z=0$ and the plane $x+z=3$ at the point $(1,1,2)$ passes through
+
+\begin{enumerate}[label=(\alph*)]
+    \item $(-1,-2,4)$
+\item $(-1,4,4)$
+\item $(3,4,4)$
+\item $(-1,4,0)$
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">The set of eigenvalues of which one of the following matrices is NOT equal to the set of eigenvalues of $\left(\begin{array}{ll}1 &amp; 2 \\ 4 &amp; 3\end{array}\right)$ ?
+
+\begin{enumerate}[label=(\alph*)]
+\item $\left(\begin{array}{ll}1 &amp; 4 \\ 2 &amp; 3\end{array}\right)$
+\item $\left(\begin{array}{ll}3 &amp; 2 \\ 4 &amp; 1\end{array}\right)$
+\item $\left(\begin{array}{ll}3 &amp; 4 \\ 2 &amp; 1\end{array}\right)$
+\item $\left(\begin{array}{ll}2 &amp; 3 \\ 1 &amp; 4\end{array}\right)$
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">Let $\left\{a_{n}\right\}$ be a sequence of positive real numbers. The series $\sum_{n=1}^{\infty} a_{n}$ converges if the series
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\sum_{n=1}^{\infty} a_{n}^{2}$ converges
+\item $\sum_{n=1}^{\infty} \frac{a_{n}}{2^{n}}$ converges
+\item $\sum_{n=1}^{\infty} \frac{a_{n+1}}{a_{n}}$ converges
+\item $\sum_{n=1}^{\infty} \frac{a_{n}}{a_{n+1}}$ converges
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">For $\beta \in \mathbb{R}$, define
+$$
+f(x, y)= \begin{cases}\frac{x^{2}|x|^{\beta} y}{x^{4}+y^{2}}, &amp; x \neq 0 \\ 0, &amp; x=0\end{cases}
+$$
+Then, at $(0,0)$, the function $f$ is
+
+\begin{enumerate}[label=(\alph*)]
+    \item continuous for $\beta=0$
+\item continuous for $\beta&gt;0$
+\item not differentiable for any $\beta$
+\item continuous for $\beta&lt;0$
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">Let $\left\{a_{n}\right\}$ be a sequence of positive real numbers such that
+$$
+a_{1}=1, a_{n+1}^{2}-2 a_{n} a_{n+1}-a_{n}=0 \text { for all } n \geq 1 .
+$$
+Then the sum of the series $\sum_{n=1}^{\infty} \frac{a_{n}}{3^{n}}$ lies in the interval
+
+\begin{enumerate}[label=(\alph*)]
+\item $(1,2]$
+\item $(2,3]$
+\item $(3,4]$
+\item $(4,5]$
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">Let $G$ be a noncyclic group of order 4. Consider the statements I and II:
+
+I. There is NO injective (one-one) homomorphism from $G$ to $\mathbb{Z}_{8}$
+
+II. There is NO surjective (onto) homomorphism from $\mathbb{Z}_{8}$ to $G$
+
+Then
+
+\begin{enumerate}[label=(\alph*)]
+    \item I is true
+\item I is false
+\item II is true
+\item II is false
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">Let $G$ be a nonabelian group, $y \in G$, and let the maps $f, g, h$ from $G$ to itself be defined by
+$$
+f(x)=y x y^{-1}, g(x)=x^{-1} \text { and } h=g \circ g .
+$$
+Then
+
+\begin{enumerate}[label=(\alph*)]
+\item $g$ and $h$ are homomorphisms and $f$ is not a homomorphism
+\item $h$ is a homomorphism and $g$ is not a homomorphism
+\item $f$ is a homomorphism and $g$ is not a homomorphism
+\item $f, g$ and $h$ are homomorphisms
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $S$ and $T$ be linear transformations from a finite dimensional vector space $V$ to itself such that $S(T(v))=0$ for all $v \in V$. Then
+
+\begin{enumerate}[label=(\alph*)]
+\item $\operatorname{rank}(T) \geq \operatorname{nullity}(S)$
+\item $\operatorname{rank}(T) \leq \operatorname{nullity}(S)$
+\item $\operatorname{rank}(S) \geq \operatorname{nullity}(T)$
+\item $\operatorname{rank}(S) \leq \operatorname{nullity}(T)$
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">Let $\vec{F}$ and $\vec{G}$ be differentiable vector fields and let $g$ be a differentiable scalar function. Then
+
+\begin{enumerate}[label=(\alph*)]
+    \item $\nabla \cdot(\vec{F} \times \vec{G})=\vec{G} \cdot \nabla \times \vec{F}-\vec{F} \cdot \nabla \times \vec{G}$
+\item $\nabla \cdot(g \vec{F})=g \nabla \cdot \vec{F}-\nabla g \cdot \vec{F}$
+\item $\nabla \cdot(\vec{F} \times \vec{G})=\vec{G} \cdot \nabla \times \vec{F}+\vec{F} \cdot \nabla \times \vec{G}$
+\item $\nabla \cdot(g \vec{F})=g \nabla \cdot \vec{F}+\nabla g \cdot \vec{F}$
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">Consider the intervals $S=(0,2]$ and $T=[1,3)$. Let $S^{\circ}$ and $T^{\circ}$ be the sets of interior points of $S$ and $T$, respectively. Then the set of interior points of $S \backslash T$ is equal to
+
+\begin{enumerate}[label=(\alph*)]
+    \item $S \backslash T^{\circ}$
+\item $S \backslash T$
+\item $S^{\circ} \backslash T^{\circ}$
+\item $S^{\circ} \backslash T$
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Let $\left\{a_{n}\right\}$ be the sequence given by
+$$
+a_{n}=\max \left\{\sin \left(\frac{n \pi}{3}\right), \cos \left(\frac{n \pi}{3}\right)\right\}, \quad n \geq 1 .
+$$
+Then which of the following statements is/are TRUE about the subsequences $\left\{a_{6 n-1}\right\}$ and $\left\{a_{6 n+4}\right\}$ ?
+
+\begin{enumerate}[label=(\alph*)]
+    \item Both the subsequences are convergent
+\item Only one of the subsequences is convergent
+\item $\left\{a_{6 n-1}\right\}$ converges to $-\frac{1}{2}$
+\item $\left\{a_{6 n+4}\right\}$ converges to $\frac{1}{2}$
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let
+$$
+f(x)=\cos (|\pi-x|)+(x-\pi) \sin |x| \text { and } g(x)=x^{2} \text { for } x \in \mathbb{R} \text {. }
+$$
+If $h(x)=f(g(x))$, then
+
+\begin{enumerate}[label=(\alph*)]
+\item $h$ is not differentiable at $x=0$
+\item $h^{\prime}(\sqrt{\pi})=0$
+\item $h^{\prime \prime}(x)=0$ has a solution in $(-\pi, \pi)$
+\item there exists $x_{0} \in(-\pi, \pi)$ such that $h\left(x_{0}\right)=x_{0}$
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">Let $f:\left(0, \frac{\pi}{2}\right) \rightarrow \mathbb{R}$ be given by
+$$
+f(x)=(\sin x)^{\pi}-\pi \sin x+\pi .
+$$
+Then which of the following statements is/are TRUE?
+
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ is an increasing function
+\item $f$ is a decreasing function
+\item $f(x)&gt;0$ for all $x \in\left(0, \frac{\pi}{2}\right)$
+\item $f(x)&lt;0$ for some $x \in\left(0, \frac{\pi}{2}\right)$
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Let
+$$
+f(x, y)= \begin{cases}\frac{|x|}{|x|+|y|} \sqrt{x^{4}+y^{2}}, &amp; (x, y) \neq(0,0) \\ 0, &amp; (x, y)=(0,0) .\end{cases}
+$$
+Then at $(0,0)$,
+
+\begin{enumerate}[label=(\alph*)]
+    \item $f$ is continuous
+\item $\frac{\partial f}{\partial x}=0$ and $\frac{\partial f}{\partial y}$ does not exist
+\item $\frac{\partial f}{\partial x}$ does not exist and $\frac{\partial f}{\partial y}=0$
+\item $\frac{\partial f}{\partial x}=0$ and $\frac{\partial f}{\partial y}=0$
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $\left\{a_{n}\right\}$ be the sequence of real numbers such that
+$$
+a_{1}=1 \text { and } a_{n+1}=a_{n}+a_{n}^{2} \text { for all } n \geq 1 .
+$$
+Then
+
+\begin{enumerate}[label=(\alph*)]
+    \item $a_{4}=a_{1}\left(1+a_{1}\right)\left(1+a_{2}\right)\left(1+a_{3}\right)$
+\item $\lim _{n \rightarrow \infty} \frac{1}{a_{n}}=1$
+\item $\lim _{n \rightarrow \infty} \frac{1}{a_{n}}=0$
+\item $\lim _{n \rightarrow \infty} a_{n}=0$
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">Let $x$ be the 100-cycle ( $\left(\begin{array}{lllll}1 &amp; 2 &amp; 3 &amp; \cdots &amp; 100\end{array}\right)$ and let $y$ be the transposition (49 50 ) in the permutation group $S_{100}$. Then the order of $x y$ is \rule{3cm}{1pt}</span></li><li><b>42</b> <span class="qbody">Let $W_{1}$ and $W_{2}$ be subspaces of the real vector space $\mathbb{R}^{100}$ defined by
+$$
+\begin{aligned}
+&amp;W_{1}=\left\{\left(x_{1}, x_{2}, \ldots, x_{100}\right): x_{i}=0 \text { if } i \text { is divisible by } 4\right\}, \\
+&amp;W_{2}=\left\{\left(x_{1}, x_{2}, \ldots, x_{100}\right): x_{i}=0 \text { if } i \text { is divisible by } 5\right\} .
+\end{aligned}
+$$
+Then the dimension of $W_{1} \cap W_{2}$ is \rule{3cm}{1pt}</span></li><li><b>43</b> <span class="qbody">Consider the following system of three linear equations in four unknowns $x_{1}, x_{2}, x_{3}$ and $x_{4}$
+$$
+\begin{aligned}
+&amp;x_{1}+x_{2}+x_{3}+x_{4}=4, \\
+&amp;x_{1}+2 x_{2}+3 x_{3}+4 x_{4}=5 \\
+&amp;x_{1}+3 x_{2}+5 x_{3}+k x_{4}=5
+\end{aligned}
+$$
+If the system has no solutions, then $k=$ \rule{3cm}{1pt}</span></li><li><b>44</b> <span class="qbody">Let $\vec{F}(x, y)=-y \hat{\imath}+x \hat{\jmath}$ and let $\mathcal{C}$ be the ellipse
+$$
+\frac{x^{2}}{16}+\frac{y^{2}}{9}=1
+$$
+oriented counter clockwise. Then the value of $\oint_{\mathcal{C}} \vec{F} \cdot d \vec{r}$ (round off to 2 decimal places) is \rule{3cm}{1pt}</span></li><li><b>45</b> <span class="qbody">The coefficient of $\left(x-\frac{\pi}{2}\right)$ in the Taylor series expansion of the function
+$$
+f(x)=\left\{\begin{array}{cc}
+\frac{4(1-\sin x)}{2 x-\pi}, &amp; x \neq \frac{\pi}{2} \\
+0, &amp; x=\frac{\pi}{2}
+\end{array}\right.
+$$
+about $x=\frac{\pi}{2}$, is \rule{3cm}{1pt}</span></li><li><b>46</b> <span class="qbody">Let $f:[0,1] \rightarrow \mathbb{R}$ be given by
+$$
+f(x)=\frac{\left(1+x^{\frac{1}{3}}\right)^{3}+\left(1-x^{\frac{1}{3}}\right)^{3}}{8(1+x)}
+$$
+Then
+$$
+\max \{f(x): x \in[0,1]\}-\min \{f(x): x \in[0,1]\}
+$$
+is \rule{3cm}{1pt}</span></li><li><b>47</b> <span class="qbody">If
+$$
+g(x)=\int_{x(x-2)}^{4 x-5} f(t) d t, \text { where } f(x)=\sqrt{1+3 x^{4}} \text { for } x \in \mathbb{R}
+$$
+then $g^{\prime}(1)=$ \rule{3cm}{1pt}</span></li><li><b>48</b> <span class="qbody">Let
+$$
+f(x, y)= \begin{cases}\frac{x^{3}+y^{3}}{x^{2}-y^{2}}, &amp; x^{2}-y^{2} \neq 0 \\ 0, &amp; x^{2}-y^{2}=0\end{cases}
+$$
+Then the directional derivative of $f$ at $(0,0)$ in the direction of $\frac{4}{5} \hat{\imath}+\frac{3}{5} \hat{\jmath}$ is \rule{3cm}{1pt}</span></li><li><b>49</b> <span class="qbody">The value of the integral
+$$
+\int_{-1}^{1} \int_{-1}^{1}|x+y| d x d y
+$$
+(round off to 2 decimal places) is \rule{3cm}{1pt}</span></li><li><b>50</b> <span class="qbody">The volume of the solid bounded by the surfaces $x=1-y^{2}$ and $x=y^{2}-1$, and the planes $z=0$ and $z=2$ (round off to 2 decimal places) is \rule{3cm}{1pt}</span></li><li><b>51</b> <span class="qbody">The volume of the solid of revolution of the loop of the curve $y^{2}=x^{4}(x+2)$ about the $x$-axis (round off to 2 decimal places) is</span></li><li><b>52</b> <span class="qbody">The greatest lower bound of the set
+$$
+\left\{\left(e^{n}+2^{n}\right)^{\frac{1}{n}}: n \in \mathbb{N}\right\}
+$$
+(round off to 2 decimal places) is \rule{3cm}{1pt}</span></li><li><b>53</b> <span class="qbody">Let $G=\{n \in \mathbb{N}: n \leq 55$, $\operatorname{gcd}(n, 55)=1\}$ be the group under multiplication modulo 55 .
+
+Let $x \in G$ be such that $x^{2}=26$ and $x&gt;30$. Then $x$ is equal to
+ \rule{3cm}{1pt}</span></li><li><b>54</b> <span class="qbody">The number of critical points of the function
+$$
+f(x, y)=\left(x^{2}+3 y^{2}\right) e^{-\left(x^{2}+y^{2}\right)}
+$$
+is \rule{3cm}{1pt}</span></li><li><b>55</b> <span class="qbody">The number of elements in the set $\left\{x \in S_{3}: x^{4}=e\right\}$, where $e$ is the identity element of the permutation group $S_{3}$, is \rule{3cm}{1pt}</span></li><li><b>56</b> <span class="qbody">If $\left(\begin{array}{l}2 \\ y \\ z\end{array}\right), y, z \in \mathbb{R}$, is an eigenvector corresponding to a real eigenvalue of the matrix $\left(\begin{array}{rrr}0 &amp; 0 &amp; 2 \\ 1 &amp; 0 &amp; -4 \\ 0 &amp; 1 &amp; 3\end{array}\right)$ then $z-y$ is equal to \rule{3cm}{1pt}</span></li><li><b>57</b> <span class="qbody">Let $M$ and $N$ be any two $4 \times 4$ matrices with integer entries satisfying
+$$
+M N=2\left(\begin{array}{llll}
+1 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 1 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{array}\right) \text {. }
+$$
+Then the maximum value of $\operatorname{det}(M)+\operatorname{det}(N)$ is \rule{3cm}{1pt}</span></li><li><b>58</b> <span class="qbody">Let $M$ be a $3 \times 3$ matrix with real entries such that $M^{2}=M+2 I$, where $I$ denotes the $3 \times 3$ identity matrix. If $\alpha, \beta$ and $\gamma$ are eigenvalues of $M$ such that $\alpha \beta \gamma=-4$, then $\alpha+\beta+\gamma$ is equal to \rule{3cm}{1pt}</span></li><li><b>59</b> <span class="qbody">Let $y(x)=x v(x)$ be a solution of the differential equation
+$$
+x^{2} \frac{d^{2} y}{d x^{2}}-3 x \frac{d y}{d x}+3 y=0 .
+$$
+If $v(0)=0$ and $v(1)=1$, then $v(-2)$ is equal to \rule{3cm}{1pt}</span></li><li><b>60</b> <span class="qbody">If $y(x)$ is the solution of the initial value problem
+$$
+\frac{d^{2} y}{d x^{2}}+4 \frac{d y}{d x}+4 y=0, y(0)=2, \frac{d y}{d x}(0)=0,
+$$
+then $y(\ln 2)$ is (round off to 2 decimal places) equal to \rule{3cm}{1pt}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

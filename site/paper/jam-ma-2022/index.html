@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2022 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2022.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2022/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2022 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2022.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2022/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2022</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Consider the $2 \times 2$ matrix $M=\left(\begin{array}{ll}1 &amp; 1 \\ 1 &amp; 0\end{array}\right) \in M_{2}(\mathbb{R})$. If the eighth power of $M$ satisfies $M^{8}\left(\begin{array}{l}1 \\ 0\end{array}\right)=\left(\begin{array}{l}x \\ y\end{array}\right)$, then the value of $x$ is
+\begin{enumerate}[label=(\alph*)]
+    \item 21
+\item 22
+\item 34
+\item 35
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">The rank of the $4 \times 6$ matrix $\left(\begin{array}{llllll}1 &amp; 1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\ 1 &amp; 0 &amp; 0 &amp; 1 &amp; 1 &amp; 0 \\ 0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 1 \\ 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; 1\end{array}\right)$ with entries in $\mathbb{R}$, is
+\begin{enumerate}[label=(\alph*)]
+    
+\item 1
+\item 2
+\item 3
+\item 4
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $V$ be the real vector space consisting of all polynomials in one variable with real coefficients and having degree at most 6 , together with the zero polynomial. Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    \item $\{f \in V: f(1 / 2) \notin \mathbb{Q}\}$ is a subspace of $V$.
+\item $\{f \in V: f(1 / 2)=1\}$ is a subspace of $V$.
+\item $\{f \in V: f(1 / 2)=f(1)\}$ is a subspace of $V$.
+\item $\left\{f \in V: f^{\prime}(1 / 2)=1\right\}$ is a subspace of $V$.
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $G$ be a group of order 2022. Let $H$ and $K$ be subgroups of $G$ of order 337 and 674, respectively. If $H \cup K$ is also a subgroup of $G$, then which one of the following is FALSE?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $H$ is a normal subgroup of $H \cup K$.
+\item The order of $H \cup K$ is 1011 .
+\item The order of $H \cup K$ is 674 .
+\item $K$ is a normal subgroup of $H \cup K$. 
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">The radius of convergence of the power series
+$$
+\sum_{n=1}^{\infty}\left(\frac{n^{3}}{4^{n}}\right) x^{5 n}
+$$
+is
+\begin{enumerate}[label=(\alph*)]
+    
+\item 4
+\item $\sqrt[5]{4}$
+\item 1
+\item $\frac{1}{\sqrt[5]{4}}$
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">Let $\left(x_{n}\right)$ and $\left(y_{n}\right)$ be sequences of real numbers defined by
+
+$$
+x_{1}=1, \quad y_{1}=\frac{1}{2}, \quad x_{n+1}=\frac{x_{n}+y_{n}}{2}, \quad \text { and } \quad y_{n+1}=\sqrt{x_{n} y_{n}} \quad \text { for all } n \in \mathbb{N}
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    \item  $\left(x_{n}\right)$ is convergent, but $\left(y_{n}\right)$ is not convergent.
+\item  $\left(x_{n}\right)$ is not convergent, but $\left(y_{n}\right)$ is convergent.
+\item  Both $\left(x_{n}\right)$ and $\left(y_{n}\right)$ are convergent and $\lim _{n \rightarrow \infty} x_{n}&gt;\lim _{n \rightarrow \infty} y_{n}$.
+\item  Both $\left(x_{n}\right)$ and $\left(y_{n}\right)$ are convergent and $\lim _{n \rightarrow \infty} x_{n}=\lim _{n \rightarrow \infty} y_{n}$.
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">Suppose
+$$
+a_{n}=\frac{3^{n}+3}{5^{n}-5} \quad \text { and } \quad b_{n}=\frac{1}{\left(1+n^{2}\right)^{\frac{1}{4}}} \quad \text { for } n=2,3,4, \ldots
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    \item  Both $\sum_{n=2}^{\infty} a_{n}$ and $\sum_{n=2}^{\infty} b_{n}$ are convergent.
+
+\item  Both $\sum_{n=2}^{\infty} a_{n}$ and $\sum_{n=2}^{\infty} b_{n}$ are divergent.
+
+\item  $\quad \sum_{n=2}^{\infty} a_{n}$ is convergent and $\sum_{n=2}^{\infty} b_{n}$ is divergent.
+
+\item  $\quad \sum_{n=2}^{\infty} a_{n}$ is divergent and $\sum_{n=2}^{\infty} b_{n}$ is convergent.
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">Consider the series
+$$
+\sum_{n=1}^{\infty} \frac{1}{n^{m}\left(1+\frac{1}{n^{p}}\right)}
+$$
+
+where $m$ and $p$ are real numbers.
+
+Under which of the following conditions does the above series converge?
+\begin{enumerate}[label=(\alph*)]
+    
+\item  $\quad m&gt;1$.
+\item  $0&lt;m&lt;1$ and $p&gt;1$.
+\item  $0&lt;m \leq 1$ and $0 \leq p \leq 1$.
+\item  $m=1$ and $p&gt;1$.
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">Let $c$ be a positive real number and let $u: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be defined by 
+$$
+u(x, t)=\frac{1}{2 c} \int_{x-c t}^{x+c t} e^{s^{2}} d s \text { for }(x, t) \in \mathbb{R}^{2} .
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item  $\frac{\partial^{2} u}{\partial t^{2}}=c^{2} \frac{\partial^{2} u}{\partial x^{2}}$ on $\mathbb{R}^{2}$.
+\item  $\frac{\partial u}{\partial t}=c^{2} \frac{\partial^{2} u}{\partial x^{2}} \quad$ on $\mathbb{R}^{2}$.
+\item  $\frac{\partial u}{\partial t} \frac{\partial u}{\partial x}=0 \quad$ on $\mathbb{R}^{2}$.
+\item  $\frac{\partial^{2} u}{\partial t \partial x}=0$ on $\mathbb{R}^{2}$.
+\end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $\theta \in\left(\frac{\pi}{4}, \frac{\pi}{2}\right)$. Consider the functions
+
+$$
+u: \mathbb{R}^{2}-\{(0,0)\} \rightarrow \mathbb{R} \text { and } v: \mathbb{R}^{2}-\{(0,0)\} \rightarrow \mathbb{R}
+$$
+
+given by
+
+$$
+u(x, y)=x-\frac{x}{x^{2}+y^{2}} \quad \text { and } \quad v(x, y)=y+\frac{y}{x^{2}+y^{2}}
+$$
+
+The value of the determinant $\left|\begin{array}{ll}\frac{\partial u}{\partial x} &amp; \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} &amp; \frac{\partial v}{\partial y}\end{array}\right|$ at the point $(\cos \theta, \sin \theta)$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item  $4 \sin \theta$.
+\item  $4 \cos \theta$.
+\item  $4 \sin ^{2} \theta$
+\item  $4 \cos ^{2} \theta$
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">Consider the open rectangle $G=\left\{(s, t) \in \mathbb{R}^{2}: 0&lt;s&lt;1\right.$ and $\left.0&lt;t&lt;1\right\}$ and the map $T: G \rightarrow \mathbb{R}^{2}$ given by
+
+$$
+T(s, t)=\left(\frac{\pi s(1-t)}{2}, \frac{\pi(1-s)}{2}\right) \quad \text { for }(s, t) \in G .
+$$
+
+Then the area of the image $T(G)$ of the map $T$ is equal to
+\begin{enumerate}[label=(\alph*)]
+\item  $\frac{\pi}{4}$
+\item  $\frac{\pi^{2}}{4}$
+\item  $\frac{\pi^{2}}{8}$
+\item  1
+
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $T$ denote the sum of the convergent series
+
+$$
+1-\frac{1}{2}+\frac{1}{3}-\frac{1}{4}+\frac{1}{5}-\frac{1}{6}+\cdots+\frac{(-1)^{n+1}}{n}+\cdots
+$$
+
+and let $S$ denote the sum of the convergent series
+
+where
+
+$$
+1-\frac{1}{2}-\frac{1}{4}+\frac{1}{3}-\frac{1}{6}-\frac{1}{8}+\frac{1}{5}-\frac{1}{10}-\frac{1}{12}+\cdots=\sum_{n=1}^{\infty} a_{n}
+$$
+
+$$
+a_{3 m-2}=\frac{1}{2 m-1}, \quad a_{3 m-1}=\frac{-1}{4 m-2} \quad \text { and } \quad a_{3 m}=\frac{-1}{4 m} \quad \text { for } m \in \mathbb{N} \text {. }
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    \item  $T=S$ and $S \neq 0$.
+\item  $2 T=S$ and $S \neq 0$.
+\item  $T=2 S$ and $S \neq 0$.
+\item  $T=S=0$.
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">Let $u: \mathbb{R} \rightarrow \mathbb{R}$ be a twice continuously differentiable function such that $u(0)&gt;0$ and $u^{\prime}(0)&gt;0$. Suppose $u$ satisfies
+
+$$
+u^{\prime \prime}(x)=\frac{u(x)}{1+x^{2}} \text { for all } x \in \mathbb{R} .
+$$
+
+Consider the following two statements:
+
+I. The function $u u^{\prime}$ is monotonically increasing on $[0, \infty)$.
+
+II. The function $u$ is monotonically increasing on $[0, \infty)$.
+
+Then which one of the following is correct?
+\begin{enumerate}[label=(\alph*)]
+    \item  Both I and II are false.
+
+\item  Both I and II are true.
+
+\item  I is false, but II is true.
+
+\item  I is true, but II is false.
+\end{enumerate}</span></li><li><b>14</b> <span class="qbody">The value of
+$$
+\lim _{n \rightarrow \infty} \sum_{k=2}^{n} \frac{\sqrt{n+1}-\sqrt{n}}{k(\ln k)^{2}}
+$$
+
+is equal to
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item  $\infty$
+\item  1
+\item  $e$
+\item  0
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">For $t \in \mathbb{R}$, let $[t]$ denote the greatest integer less than or equal to $t$. Define functions $h: \mathbb{R}^{2} \rightarrow \mathbb{R}$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ by
+
+$$
+h(x, y)=\left\{\begin{array}{ll}
+\frac{-1}{x^{2}-y} &amp; \text { if } x^{2} \neq y, \\
+0 &amp; \text { if } x^{2}=y
+\end{array} \text { and } g(x)= \begin{cases}\frac{\sin x}{x} &amp; \text { if } x \neq 0, \\
+0 &amp; \text { if } x=0 .\end{cases}\right.
+$$
+
+Then which one of the following is FALSE?
+
+
+\begin{enumerate}[label=(\alph*)]
+\item $\lim_{(x, y) \rightarrow(\sqrt{2}, \pi)} \cos \left(\frac{x^{2} y}{x^{2}+1}\right)=\frac{-1}{2} $
+\item $\lim_{(x, y) \rightarrow(\sqrt{2}, 2)} e^{h(x, y)}=0 $
+\item  $\lim_{(x, y) \rightarrow(e, e)} \ln \left(x^{y-[y]}\right)=e-2$ 
+ \item  $ \lim _{(x, y) \rightarrow(0,0)} e^{2 y} g(x)=1.$
+\end{enumerate}</span></li><li><b>16</b> <span class="qbody">Let $P \in M_{4}(\mathbb{R})$ be such that $P^{4}$ is the zero matrix, but $P^{3}$ is a nonzero matrix. Then which one of the following is FALSE?
+\begin{enumerate}[label=(\alph*)]
+    \item For every nonzero vector $v \in \mathbb{R}^{4}$, the subset $\left\{v, P v, P^{2} v, P^{3} v\right\}$ of the real vector space $\mathbb{R}^{4}$ is linearly independent.
+
+\item  The rank of $P^{k}$ is $4-k$ for every $k \in\{1,2,3,4\}$.
+
+\item  0 is an eigenvalue of $P$.
+
+\item If $Q \in M_{4}(\mathbb{R})$ is such that $Q^{4}$ is the zero matrix, but $Q^{3}$ is a nonzero matrix, then there exists a nonsingular matrix $S \in M_{4}(\mathbb{R})$ such that $S^{-1} Q S=P$.
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">For $X, Y \in M_{2}(\mathbb{R})$, define $(X, Y)=X Y-Y X$. Let $\mathbf{0} \in M_{2}(\mathbb{R})$ denote the zero matrix. Consider the two statements:
+
+$P:(X,(Y, Z))+(Y,(Z, X))+(Z,(X, Y))=\mathbf{0}$ for all $X, Y, Z \in M_{2}(\mathbb{R})$.
+
+$Q:(X,(Y, Z))=((X, Y), Z)$ for all $X, Y, Z \in M_{2}(\mathbb{R})$
+
+Then which one of the following is correct?
+\begin{enumerate}[label=(\alph*)]
+ \item  Both $P$ and $Q$ are true.
+
+\item  $P$ is true, but $Q$ is false.
+
+\item  $P$ is false, but $Q$ is true.
+
+\item Both $P$ and $Q$ are false.
+\end{enumerate}</span></li><li><b>18</b> <span class="qbody">Consider the system of linear equations
+
+$$
+\begin{array}{cl}
+x+y+t &amp; =4, \\
+2 x-4 t &amp; =7, \\
+x+y+z &amp; =5, \\
+x-3 y-z-10 t &amp; =\lambda,
+\end{array}
+$$
+
+where $x, y, z, t$ are variables and $\lambda$ is a constant. Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+     \item  If $\lambda=1$, then the system has a unique solution.
+
+\item  If $\lambda=2$, then the system has infinitely many solutions.
+
+\item  If $\lambda=1$, then the system has infinitely many solutions.
+
+\item  If $\lambda=2$, then the system has a unique solution.
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Consider the group $(\mathbb{Q},+)$ and its subgroup $(\mathbb{Z},+)$.
+
+For the quotient group $\mathbb{Q} / \mathbb{Z}$, which one of the following is FALSE?
+\begin{enumerate}[label=(\alph*)]
+    \item $\mathbb{Q} / \mathbb{Z}$ contains a subgroup isomorphic to $(\mathbb{Z},+)$.
+\item There is exactly one group homomorphism from $\mathbb{Q} / \mathbb{Z}$ to $(\mathbb{Q},+)$.
+\item For all $n \in \mathbb{N}$, there exists $g \in \mathbb{Q} / \mathbb{Z}$ such that the order of $g$ is $n$.
+\item $\mathbb{Q} / \mathbb{Z}$ is not a cyclic group.
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">For $P \in M_{5}(\mathbb{R})$ and $i, j \in\{1,2, \ldots, 5\}$, let $p_{i j}$ denote the $(i, j)^{\text {th }}$ entry of $P$. Let
+
+$$
+S=\left\{P \in M_{5}(\mathbb{R}): p_{i j}=p_{r s} \text { for } i, j, r, s \in\{1,2, \ldots, 5\} \text { with } i+r=j+s\right\}
+$$
+
+Then which one of the following is FALSE?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $S$ is a subspace of the vector space over $\mathbb{R}$ of all $5 \times 5$ symmetric matrices.
+\item The dimension of $S$ over $\mathbb{R}$ is 5 .
+\item The dimension of $S$ over $\mathbb{R}$ is 11 .
+\item If $P \in S$ and all the entries of $P$ are integers, then 5 divides the sum of all the diagonal entries of $P$.
+\end{enumerate}</span></li><li><b>21</b> <span class="qbody">On the open interval $(-c, c)$, where $c$ is a positive real number, $y(x)$ is an infinitely differentiable solution of the differential equation
+
+$$
+\frac{d y}{d x}=y^{2}-1+\cos x
+$$
+
+with the initial condition $y(0)=0$. Then which one of the following is correct?
+\begin{enumerate}[label=(\alph*)]
+    \item $y(x)$ has a local maximum at the origin.
+
+\item $y(x)$ has a local minimum at the origin.
+
+\item $y(x)$ is strictly increasing on the open interval $(-\delta, \delta)$ for some positive real number $\delta$.
+
+\item $y(x)$ is strictly decreasing on the open interval $(-\delta, \delta)$ for some positive real number $\delta$.
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $H: \mathbb{R} \rightarrow \mathbb{R}$ be the function given by $H(x)=\frac{1}{2}\left(e^{x}+e^{-x}\right)$ for $x \in \mathbb{R}$. Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be defined by
+
+$$
+f(x)=\int_{0}^{\pi} H(x \sin \theta) d \theta \quad \text { for } x \in \mathbb{R}
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $x f^{\prime \prime}(x)+f^{\prime}(x)+x f(x)=0$ for all $x \in \mathbb{R}$.
+\item $x f^{\prime \prime}(x)-f^{\prime}(x)+x f(x)=0$ for all $x \in \mathbb{R}$.
+\item $x f^{\prime \prime}(x)+f^{\prime}(x)-x f(x)=0$ for all $x \in \mathbb{R}$.
+\item $x f^{\prime \prime}(x)-f^{\prime}(x)-x f(x)=0$ for all $x \in \mathbb{R}$
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">Consider the differential equation
+
+$$
+y^{\prime \prime}+a y^{\prime}+y=\sin x \quad \text { for } x \in \mathbb{R} . \quad(* *)
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item If $a=0$, then all the solutions of (**) are unbounded over $\mathbb{R}$.
+
+\item If $a=1$, then all the solutions of $(* *)$ are unbounded over $(0, \infty)$.
+
+\item If $a=1$, then all the solutions of $(* *)$ tend to zero as $x \rightarrow \infty$.
+
+\item If $a=2$, then all the solutions of $(* *)$ are bounded over $(-\infty, 0)$.
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">For $g \in \mathbb{Z}$, let $\bar{g} \in \mathbb{Z}_{37}$ denote the residue class of $g$ modulo 37 . Consider the group $U_{37}=\left\{\bar{g} \in \mathbb{Z}_{37}: 1 \leq g \leq 37\right.$ with $\left.\operatorname{gcd}(g, 37)=1\right\}$ with respect to multiplication modulo 37 . Then which one of the following is FALSE?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item The set $\left\{\bar{g} \in U_{37}: \bar{g}=(\bar{g})^{-1}\right\}$ contains exactly 2 elements.
+
+\item The order of the element $\overline{10}$ in $U_{37}$ is 36.
+
+\item There is exactly one group homomorphism from $U_{37}$ to $(\mathbb{Z},+)$.
+
+\item There is exactly one group homomorphism from $U_{37}$ to $(\mathbb{Q},+)$.
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">For some real number $c$ with $0&lt;c&lt;1$, let $\phi:(1-c, 1+c) \rightarrow(0, \infty)$ be a differentiable function such that $\phi(1)=1$ and $y=\phi(x)$ is a solution of the differential equation
+
+$$
+\left(x^{2}+y^{2}\right) d x-4 x y d y=0
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+\item $\left(3(\phi(x))^{2}+x^{2}\right)^{2}=4 x$
+\item $\left(3(\phi(x))^{2}-x^{2}\right)^{2}=4 x$.
+\item $\left(3(\phi(x))^{2}+x^{2}\right)^{2}=4 \phi(x)$.
+\item $\left(3(\phi(x))^{2}-x^{2}\right)^{2}=4 \phi(x)$
+\end{enumerate}</span></li><li><b>26</b> <span class="qbody">For a $4 \times 4$ matrix $M \in M_{4}(\mathbb{C})$, let $\bar{M}$ denote the matrix obtained from $M$ by replacing each entry of $M$ by its complex conjugate. Consider the real vector space
+
+$$
+H=\left\{M \in M_{4}(\mathbb{C}): \quad M^{\top}=\bar{M}\right\}
+$$
+
+where $M^{\top}$ denotes the transpose of $M$. The dimension of $H$ as a vector space over $\mathbb{R}$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item 6
+\item 16
+\item 15
+\item 12
+\end{enumerate}</span></li><li><b>27</b> <span class="qbody">Let $a, b$ be positive real numbers such that $a&lt;b$. Given that
+
+the value of
+
+$$
+\lim _{N \rightarrow \infty} \int_{0}^{N} e^{-t^{2}} d t=\frac{\sqrt{\pi}}{2}
+$$
+
+$$
+\lim _{N \rightarrow \infty} \int_{0}^{N} \frac{1}{t^{2}}\left(e^{-a t^{2}}-e^{-b t^{2}}\right) d t
+$$
+
+is equal to
+\begin{enumerate}[label=(\alph*)]
+\item $\sqrt{\pi}(\sqrt{a}-\sqrt{b})$
+\item $\sqrt{\pi}(\sqrt{a}+\sqrt{b})$
+\item $-\sqrt{\pi}(\sqrt{a}+\sqrt{b})$.
+\item $\sqrt{\pi}(\sqrt{b}-\sqrt{a})$
+\end{enumerate}</span></li><li><b>28</b> <span class="qbody">For $-1 \leq x \leq 1$, if $f(x)$ is the sum of the convergent power series
+
+$$
+x+\frac{x^{2}}{2^{2}}+\frac{x^{3}}{3^{2}}+\cdots+\frac{x^{n}}{n^{2}}+\cdots
+$$
+
+then $f\left(\frac{1}{2}\right)$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item $\frac{1}{2}\int_{0}^{\frac{1}{2}} \frac{\ln (1-t)}{t} d t$
+\item  $-\int_{0}^{\frac{1}{2}} \frac{\ln (1-t)}{t} d t$
+\item $\frac{1}{2}\int_{0}^{2} t \ln (1+t) d t$
+\item $\frac{1}{2}\int_{0}^{2} t \ln (1-t) d t$
+\end{enumerate}</span></li><li><b>29</b> <span class="qbody">For $n \in \mathbb{N}$ and $x \in[1, \infty)$, let
+
+$$
+f_{n}(x)=\int_{0}^{\pi}\left(x^{2}+(\cos \theta) \sqrt{x^{2}-1}\right)^{n} d \theta.
+$$
+
+Then which one of the following is true?
+\begin{enumerate}[label=(\alph*)]
+    \item $f_{n}(x)$ is not a polynomial in $x$ if $n$ is odd and $n \geq 3$.
+\item $f_{n}(x)$ is not a polynomial in $x$ if $n$ is even and $n \geq 4$.
+\item $f_{n}(x)$ is a polynomial in $x$ for all $n \in \mathbb{N}$.
+\item $f_{n}(x)$ is not a polynomial in $x$ for any $n \geq 3$.
+\end{enumerate}</span></li><li><b>30</b> <span class="qbody">Let $P$ be a $3 \times 3$ real matrix having eigenvalues $\lambda_{1}=0, \lambda_{2}=1$ and $\lambda_{3}=-1$. Further, $v_{1}=\left(\begin{array}{l}1 \\ 0 \\ 0\end{array}\right), v_{2}=\left(\begin{array}{l}1 \\ 1 \\ 0\end{array}\right)$ and $v_{3}=\left(\begin{array}{l}1 \\ 0 \\ 1\end{array}\right)$ are eigenvectors of the matrix $P$ corresponding to the eigenvalues $\lambda_{1}, \lambda_{2}$ and $\lambda_{3}$, respectively. Then the entry in the first row and the third column of $P$ is
+\begin{enumerate}[label=(\alph*)]  
+\item 0
+\item 1
+\item $-1$
+\item $ 2$
+\end{enumerate}</span></li><li><b>31</b> <span class="qbody">Let $(-c, c)$ be the largest open interval in $\mathbb{R}$ (where $c$ is either a positive real number or $c=\infty$ ) on which the solution $y(x)$ of the differential equation
+
+$$
+\frac{d y}{d x}=x^{2}+y^{2}+1 \quad \text { with initial condition } \quad y(0)=0
+$$
+
+exists and is unique. Then which of the following is/are true?
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $y(x)$ is an odd function on $(-c, c)$.
+
+\item $y(x)$ is an even function on $(-c, c)$.
+
+\item $(y(x))^{2}$ has a local minimum at 0.
+
+\item $(y(x))^{2}$ has a local maximum at 0.
+\end{enumerate}</span></li><li><b>32</b> <span class="qbody">Let $S$ be the set of all continuous functions $f:[-1,1] \rightarrow \mathbb{R}$ satisfying the following three conditions:
+
+(i) $f$ is infinitely differentiable on the open interval $(-1,1)$,
+
+(ii) the Taylor series $f(0)+f^{\prime}(0) x+\frac{f^{\prime \prime}(0)}{2 !} x^{2}+\cdots$
+
+of $f$ at 0 converges to $f(x)$ for each $x \in(-1,1)$,
+
+(iii) $f\left(\frac{1}{n}\right)=0$ for all $n \in \mathbb{N}$. 
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+    \item $f(0)=0$ for every $f \in S$.
+    \item $f^{\prime}\left(\frac{1}{2}\right)=0$ for every $f \in S$.
+    \item There exists $f \in S$ such that $f^{\prime}\left(\frac{1}{2}\right) \neq 0$.
+    \item There exists $f \in S$ such that $f(x) \neq 0$ for some $x \in[-1,1]$.
+\end{enumerate}</span></li><li><b>33</b> <span class="qbody">Define $f:[0,1] \rightarrow[0,1]$ by
+$$
+\begin{aligned}
+&amp; 1 \text { if } x=0 \text {, } \\
+&amp; f(x)=\frac{1}{n} \quad \text { if } x=\frac{m}{n} \text { for some } m, n \in \mathbb{N} \text { with } m \leq n \text { and } \operatorname{gcd}(m, n)=1 \text {, } \\
+&amp; \text { l } 0 \quad \text { if } x \in[0,1] \text { is irrational. }
+\end{aligned}
+$$
+
+and define $g:[0,1] \rightarrow[0,1]$ by
+
+$$
+g(x)= \begin{cases}0 &amp; \text { if } x=0 \\ 1 &amp; \text { if } x \in(0,1]\end{cases}
+$$
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $f$ is Riemann integrable on $[0,1]$.
+
+\item $g$ is Riemann integrable on $[0,1]$.
+
+\item The composite function $f \circ g$ is Riemann integrable on $[0,1]$.
+
+\item The composite function $g \circ f$ is Riemann integrable on $[0,1]$.
+\end{enumerate}</span></li><li><b>34</b> <span class="qbody">Let $S$ be the set of all functions $f: \mathbb{R} \rightarrow \mathbb{R}$ satisfying
+
+$$
+|f(x)-f(y)|^{2} \leq|x-y|^{3} \quad \text { for all } x, y \in \mathbb{R}
+$$
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item Every function in $S$ is differentiable.
+
+\item There exists a function $f \in S$ such that $f$ is differentiable, but $f$ is not twice differentiable.
+
+\item There exists a function $f \in S$ such that $f$ is twice differentiable, but $f$ is not thrice differentiable.
+
+\item Every function in $S$ is infinitely differentiable.
+\end{enumerate}</span></li><li><b>35</b> <span class="qbody">A real-valued function $y(x)$ defined on $\mathbb{R}$ is said to be periodic if there exists a real number $T&gt;0$ such that $y(x+T)=y(x)$ for all $x \in \mathbb{R}$.
+
+Consider the differential equation
+
+$$
+\frac{d^{2} y}{d x^{2}}+4 y=\sin (a x), \quad x \in \mathbb{R},
+$$
+
+where $a \in \mathbb{R}$ is a constant.
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item All solutions of $(*)$ are periodic for every choice of $a$.
+
+\item All solutions of $(*)$ are periodic for every choice of $a \in \mathbb{R}-\{-2,2\}$.
+
+\item All solutions of $(*)$ are periodic for every choice of $a \in \mathbb{Q}-\{-2,2\}$.
+
+\item If $a \in \mathbb{R}-\mathbb{Q}$, then there is a unique periodic solution of $(*)$.
+
+\end{enumerate}</span></li><li><b>36</b> <span class="qbody">Let $M$ be a positive real number and let $u, v: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be continuous functions satisfying
+
+$$
+\sqrt{u(x, y)^{2}+v(x, y)^{2}} \geq M \sqrt{x^{2}+y^{2}} \text { for all }(x, y) \in \mathbb{R}^{2} \text {. }
+$$
+
+Let $F: \mathbb{R}^{2} \rightarrow \mathbb{R}^{2}$ be given by
+
+$$
+F(x, y)=(u(x, y), v(x, y)) \quad \text { for }(x, y) \in \mathbb{R}^{2} .
+$$
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $F$ is injective.
+
+\item If $K$ is open in $\mathbb{R}^{2}$, then $F(K)$ is open in $\mathbb{R}^{2}$.
+
+\item If $K$ is closed in $\mathbb{R}^{2}$, then $F(K)$ is closed in $\mathbb{R}^{2}$.
+
+\item If $E$ is closed and bounded in $\mathbb{R}^{2}$, then $F^{-1}(E)$ is closed and bounded in $\mathbb{R}^{2}$.
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let $G$ be a finite group of order at least two and let $e$ denote the identity element of $G$. Let $\sigma: G \rightarrow G$ be a bijective group homomorphism that satisfies the following two conditions:
+
+(i) If $\sigma(g)=g$ for some $g \in G$, then $g=e$,
+
+(ii) $(\sigma \circ \sigma)(g)=g$ for all $g \in G$.
+
+Then which of the following is/are correct?
+\begin{enumerate}[label=(\alph*)]
+    
+\item For each $g \in G$, there exists $h \in G$ such that $h^{-1} \sigma(h)=g$.
+
+\item There exists $x \in G$ such that $x \sigma(x) \neq e$.
+
+\item The map $\sigma$ satisfies $\sigma(x)=x^{-1}$ for every $x \in G$.
+
+\item The order of the group $G$ is an odd number.
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">Let $\left(x_{n}\right)$ be a sequence of real numbers. Consider the set
+
+$$
+P=\left\{n \in \mathbb{N}: x_{n}&gt;x_{m} \text { for all } m \in \mathbb{N} \text { with } m&gt;n\right\}
+$$
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+\item If $P$ is finite, then $\left(x_{n}\right)$ has a monotonically increasing subsequence.
+
+\item If $P$ is finite, then no subsequence of $\left(x_{n}\right)$ is monotonically increasing.
+
+\item If $P$ is infinite, then $\left(x_{n}\right)$ has a monotonically decreasing subsequence.
+
+\item If $P$ is infinite, then no subsequence of $\left(x_{n}\right)$ is monotonically decreasing.
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Let $V$ be the real vector space consisting of all polynomials in one variable with real coefficients and having degree at most 5 , together with the zero polynomial. Let $T: V \rightarrow \mathbb{R}$ be the linear map defined by $T(1)=1$ and
+
+$$
+T(x(x-1) \cdots(x-k+1))=1 \text { for } 1 \leq k \leq 5
+$$
+
+Then which of the following is/are true?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $T\left(x^{4}\right)=15$.
+\item $T\left(x^{3}\right)=5$
+\item $T\left(x^{4}\right)=14$.
+\item $\quad T\left(x^{3}\right)=3$
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Let $P$ be a fixed $3 \times 3$ matrix with entries in $\mathbb{R}$. Which of the following maps from $M_{3}(\mathbb{R})$ to $M_{3}(\mathbb{R})$ is/are linear?
+\begin{enumerate}[label=(\alph*)]
+    
+\item $\quad T_{1}: M_{3}(\mathbb{R}) \rightarrow M_{3}(\mathbb{R})$ given by $T_{1}(M)=M P-P M$ for $M \in M_{3}(\mathbb{R})$.
+\item $\quad T_{2}: M_{3}(\mathbb{R}) \rightarrow M_{3}(\mathbb{R})$ given by $T_{2}(M)=M^{2} P-P^{2} M$ for $M \in M_{3}(\mathbb{R})$.
+\item $\quad T_{3}: M_{3}(\mathbb{R}) \rightarrow M_{3}(\mathbb{R})$ given by $T_{3}(M)=M P^{2}+P^{2} M$ for $M \in M_{3}(\mathbb{R})$.
+\item $\quad T_{4}: M_{3}(\mathbb{R}) \rightarrow M_{3}(\mathbb{R})$ given by $T_{4}(M)=M P^{2}-P M^{2}$ for $M \in M_{3}(\mathbb{R})$.
+
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">The value of the limit
+
+$$
+\lim _{n \rightarrow \infty}\left(\frac{\left(1^{4}+2^{4}+\cdots+n^{4}\right)}{n^{5}}+\frac{1}{\sqrt{n}}\left(\frac{1}{\sqrt{n+1}}+\frac{1}{\sqrt{n+2}}+\cdots+\frac{1}{\sqrt{4 n}}\right)\right)
+$$
+
+is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>42</b> <span class="qbody">Consider the function $u: \mathbb{R}^{3} \rightarrow \mathbb{R}$ given by
+
+$$
+u\left(x_{1}, x_{2}, x_{3}\right)=x_{1} x_{2}^{4} x_{3}^{2}-x_{1}^{3} x_{3}^{4}-26 x_{1}^{2} x_{2}^{2} x_{3}^{3} .
+$$
+
+Let $c \in \mathbb{R}$ and $k \in \mathbb{N}$ be such that
+
+$$
+x_{1} \frac{\partial u}{\partial x_{2}}+2 x_{2} \frac{\partial u}{\partial x_{3}}
+$$
+
+evaluated at the point $\left(t, t^{2}, t^{3}\right)$, equals $c t^{k}$ for every $t \in \mathbb{R}$. Then the value of $k$ is equal to \rule{3cm}{1pt}</span></li><li><b>43</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation
+
+$$
+\frac{d y}{d x}+3 x^{2} y=x^{2}, \quad \text { for } x \in \mathbb{R},
+$$
+
+satisfying the initial condition $y(0)=4$.
+
+Then $\lim _{x \rightarrow \infty} y(x)$ is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>44</b> <span class="qbody">The sum of the series
+
+$$
+\sum_{n=1}^{\infty} \frac{1}{(4 n-3)(4 n+1)}
+$$
+
+is equal to  \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>45</b> <span class="qbody">The number of distinct subgroups of $\mathbb{Z}_{999}$ is \rule{3cm}{1pt}</span></li><li><b>46</b> <span class="qbody">The number of elements of order 12 in the symmetric group $S_{7}$ is equal to \rule{3cm}{1pt}</span></li><li><b>47</b> <span class="qbody">Let $y(x)$ be the solution of the differential equation
+
+$$
+x y^{2} y^{\prime}+y^{3}=\frac{\sin x}{x} \quad \text { for } x&gt;0
+$$
+
+satisfying $y\left(\frac{\pi}{2}\right)=0$
+
+Then the value of $y\left(\frac{5 \pi}{2}\right)$ is equal to  \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>48</b> <span class="qbody">Consider the region
+
+$$
+G=\left\{(x, y, z) \in \mathbb{R}^{3}: 0&lt;z&lt;x^{2}-y^{2}, x^{2}+y^{2}&lt;1\right\} .
+$$
+
+Then the volume of $G$ is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>49</b> <span class="qbody">Given that $y(x)$ is a solution of the differential equation
+
+$$
+x^{2} y^{\prime \prime}+x y^{\prime}-4 y=x^{2}
+$$
+
+on the interval $(0, \infty)$ such that $\lim _{x \rightarrow 0^{+}} y(x)$ exists and $y(1)=1$. The value of $y^{\prime}(1)$ is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>50</b> <span class="qbody">Consider the family $\mathcal{F}_{1}$ of curves lying in the region
+
+$$
+\left\{(x, y) \in \mathbb{R}^{2}: y&gt;0 \text { and } 0&lt;x&lt;\pi\right\}
+$$
+
+and given by
+
+$$
+y=\frac{c(1-\cos x)}{\sin x}, \quad \text { where } c \text { is a positive real number. }
+$$
+
+Let $\mathcal{F}_{2}$ be the family of orthogonal trajectories to $\mathcal{F}_{1}$. Consider the curve $\mathcal{C}$ belonging to the family $\mathcal{F}_{2}$ passing through the point $\left(\frac{\pi}{3}, 1\right)$. If $a$ is a real number such that $\left(\frac{\pi}{4}, a\right)$ lies on $\mathcal{C}$, then the value of $a^{4}$ is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>51</b> <span class="qbody">For $t \in \mathbb{R}$, let $[t]$ denote the greatest integer less than or equal to $t$.
+
+Let $D=\left\{(x, y) \in \mathbb{R}^{2}: x^{2}+y^{2}&lt;4\right\}$. Let $f: D \rightarrow \mathbb{R}$ and $g: D \rightarrow \mathbb{R}$ be defined by $f(0,0)=g(0,0)=0$ and
+
+$$
+f(x, y)=\left[x^{2}+y^{2}\right] \frac{x^{2} y^{2}}{x^{4}+y^{4}}, \quad g(x, y)=\left[y^{2}\right] \frac{x y}{x^{2}+y^{2}}
+$$
+
+for $(x, y) \neq(0,0)$. Let $E$ be the set of points of $D$ at which both $f$ and $g$ are discontinuous. The number of elements in the set $E$ is \rule{3cm}{1pt}.</span></li><li><b>52</b> <span class="qbody">If $G$ is the region in $\mathbb{R}^2$ given by
+$$
+G=\left\{(x, y) \in \mathbb{R}^2: x^2+y^2&lt;1, \frac{x}{\sqrt{3}}&lt;y&lt;\sqrt{3} x, x&gt;0, y&gt;0\right\}
+$$
+then the value of
+$$
+\frac{200}{\pi} \iint_G x^2 d x d y
+$$
+is equal to  \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>53</b> <span class="qbody">Let $A=\left(\begin{array}{rr}1 &amp; 1 \\ 0 &amp; 1 \\ -1 &amp; 1\end{array}\right)$ and let $A^{\top}$ denote the transpose of $A$. Let $u=\left(\begin{array}{l}u_{1} \\ u_{2}\end{array}\right)$ and $v=\left(\begin{array}{l}v_{1} \\ v_{2} \\ v_{3}\end{array}\right)$ be column vectors with entries in $\mathbb{R}$ such that $u_{1}^{2}+u_{2}^{2}=1$ and $v_{1}^{2}+v_{2}^{2}+v_{3}^{2}=1$. Suppose
+
+$$
+A u=\sqrt{2} v \quad \text { and } \quad A^{\top} v=\sqrt{2} u
+$$
+
+Then $\left|u_{1}+2 \sqrt{2} v_{1}\right|$ is equal to  \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>54</b> <span class="qbody">Let $f:[0, \pi] \rightarrow \mathbb{R}$ be the function defined by
+
+$$
+f(x)= \begin{cases}(x-\pi) e^{\sin x} &amp; \text { if } 0 \leq x \leq \frac{\pi}{2} \\ x e^{\sin x}+\frac{4}{\pi} &amp; \text { if } \frac{\pi}{2}&lt;x \leq \pi\end{cases}
+$$
+
+Then the value of
+
+$$
+\int_{0}^{\pi} f(x) d x
+$$
+
+is equal to  \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>55</b> <span class="qbody">Let $r$ be the radius of convergence of the power series
+
+$$
+\frac{1}{3}+\frac{x}{5}+\frac{x^{2}}{3^{2}}+\frac{x^{3}}{5^{2}}+\frac{x^{4}}{3^{3}}+\frac{x^{5}}{5^{3}}+\frac{x^{6}}{3^{4}}+\frac{x^{7}}{5^{4}}+\cdots
+$$
+
+Then the value of $r^{2}$ is equal to \rule{3cm}{1pt} . (Rounded off to two decimal places)</span></li><li><b>56</b> <span class="qbody">Define $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ by
+
+$$
+f(x, y)=x^{2}+2 y^{2}-x \quad \text { for }(x, y) \in \mathbb{R}^{2} .
+$$
+
+Let $D=\left\{(x, y) \in \mathbb{R}^{2}: x^{2}+y^{2} \leq 1\right\}$ and $E=\left\{(x, y) \in \mathbb{R}^{2}: \frac{x^{2}}{4}+\frac{y^{2}}{9} \leq 1\right\}$.
+
+Consider the sets
+
+$$
+\begin{aligned}
+&amp;D_{\max }=\{(a, b) \in D: f \text { has absolute maximum on } D \text { at }(a, b)\}, \\
+&amp;D_{\min }=\{(a, b) \in D: f \text { has absolute minimum on } D \text { at }(a, b)\}, \\
+&amp;E_{\max }=\{(c, d) \in E: f \text { has absolute maximum on } E \text { at }(c, d)\}, \\
+&amp;E_{\min }=\{(c, d) \in E: f \text { has absolute minimum on } E \text { at }(c, d)\} .
+\end{aligned}
+$$
+
+Then the total number of elements in the set
+
+$$
+D_{\max } \cup D_{\min } \cup E_{\max } \cup E_{\min }
+$$
+
+is equal to  \rule{3cm}{1pt}</span></li><li><b>57</b> <span class="qbody">Consider the $4 \times 4$ matrix $M=\left(\begin{array}{llll}11 &amp; 10 &amp; 10 &amp; 10 \\ 10 &amp; 11 &amp; 10 &amp; 10 \\ 10 &amp; 10 &amp; 11 &amp; 10 \\ 10 &amp; 10 &amp; 10 &amp; 11\end{array}\right)$. Then the value of the determinant of $M$ is equal to \rule{3cm}{1pt}</span></li><li><b>58</b> <span class="qbody">Let $\sigma$ be the permutation in the symmetric group $S_{5}$ given by
+
+$$
+\sigma(1)=2, \quad \sigma(2)=3, \quad \sigma(3)=1, \quad \sigma(4)=5, \quad \sigma(5)=4
+$$
+
+Define
+
+$$
+N(\sigma)=\left\{\tau \in S_{5}: \sigma \circ \tau=\tau \circ \sigma\right\} .
+$$
+
+Then the number of elements in $N(\sigma)$ is equal to  \rule{3cm}{1pt}</span></li><li><b>59</b> <span class="qbody">Let $f:(-1,1) \rightarrow \mathbb{R}$ and $g:(-1,1) \rightarrow \mathbb{R}$ be thrice continuously differentiable functions such that $f(x) \neq g(x)$ for every nonzero $x \in(-1,1)$. Suppose
+
+$$
+f(0)=\ln 2, \quad f^{\prime}(0)=\pi, \quad f^{\prime \prime}(0)=\pi^{2}, \quad \text { and } \quad f^{\prime \prime \prime}(0)=\pi^{9}
+$$
+
+and
+
+$$
+g(0)=\ln 2, \quad g^{\prime}(0)=\pi, \quad g^{\prime \prime}(0)=\pi^{2}, \quad \text { and } \quad g^{\prime \prime \prime}(0)=\pi^{3} .
+$$
+
+Then the value of the limit
+
+$$
+\lim _{x \rightarrow 0} \frac{e^{f(x)}-e^{g(x)}}{f(x)-g(x)}
+$$
+
+is equal to  \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li><li><b>60</b> <span class="qbody">If $f:[0, \infty) \rightarrow \mathbb{R}$ and $g:[0, \infty) \rightarrow[0, \infty)$ are continuous functions such that
+
+$$
+\int_{0}^{x^{3}+x^{2}} f(t) d t=x^{2} \text { and } \int_{0}^{g(x)} t^{2} d t=9(x+1)^{3} \text { for all } x \in[0, \infty)
+$$
+
+then the value of
+
+$$
+f(2)+g(2)+16 f(12)
+$$
+
+is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@
   const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
   const PROG = { BSc: "B.Sc. Mathematics", MSc: "M.Sc. Mathematics" };
   const PSHORT = { BSc: "B.Sc.", MSc: "M.Sc." };
+  const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET" };
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -71,6 +72,7 @@
     flag: I('<path d="M5 21V4h11l-2 4 2 4H5"/>'),
     link: I('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'),
     arrow: I('<path d="M5 12h14m-5-5 5 5-5 5"/>'),
+    folder: I('<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
     scan: I('<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M8 9h8M8 13h8M8 17h5"/>'),
   };
 
@@ -94,11 +96,13 @@
       const rows = body.split(/\\\\(?:\[[^\]]*\])?/).map((r) => r.replace(/\\hline|\\cline\{[^}]*\}/g, "").trim()).filter((r) => r);
       return hold('<div class="tblwrap"><table>' + rows.map((r) => "<tr>" + r.split(/(?<!\\)&/).map((c) => "<td>" + texToHtml(c.trim()) + "</td>").join("") + "</tr>").join("") + "</table></div>");
     });
+    s = s.replace(/\\includegraphics(?:\[[^\]]*\])?\{(assets\/competitive\/[a-f0-9]{16}\.png)\}/g,
+      (m, path) => hold(`<img class="question-figure" src="${BASE + path}" alt="Figure supplied with the question" loading="lazy">`));
     let out = "", last = 0, m;
     SEG.lastIndex = 0;
     while ((m = SEG.exec(s))) {
       out += textPart(s.slice(last, m.index));
-      let seg = m[0];
+      let seg = m[0].replace(/\\rule\{[^{}]+\}\{[^{}]+\}/g, "\\underline{\\qquad}");
       if (m[1]) seg = "\\[" + seg + "\\]";
       out += esc(seg);
       last = SEG.lastIndex;
@@ -115,11 +119,16 @@
       [/\\[hv]space\*?\{[^}]*\}/g, " "],
       [/\\(?:quad|qquad|enspace|,|;|:)/g, " "],
       [/\\hfill/g, " "],
+      [/\\rule\{[^{}]+\}\{[^{}]+\}/g, "______"],
       [/\\printedmarks\{([^{}]*)\}/g, '<span class="pm">[$1]</span>'],
       [/\\unreadable\{([^{}]*)\}/g, '<span class="unr" title="Not legible in the scan">$1</span>'],
       [/\\gapmark\{[^{}]*\}/g, '<span class="unr" title="Gap in the source">…</span>'],
       [/\\missingglyph\b/g, '<span class="unr" title="Symbol missing in the source">□</span>'],
-      [/\\begin\{(?:enumerate|romanparts)\}(?:\[[^\]]*\])?/g, '<ol class="sub">'],
+      [/\\begin\{(?:enumerate|romanparts)\}(?:\[([^\]]*)\])?/g, (m, label = "") => {
+        const type = label.includes("\\alph") ? "a" : label.includes("\\Alph") ? "A" :
+          label.includes("\\Roman") ? "I" : label.includes("\\arabic") ? "1" : "i";
+        return `<ol class="sub" style="list-style-type:${({ a: "lower-alpha", A: "upper-alpha", I: "upper-roman", 1: "decimal", i: "lower-roman" })[type]}">`;
+      }],
       [/\\begin\{itemize\}(?:\[[^\]]*\])?/g, '<ol class="sub" style="list-style:disc">'],
       [/\\end\{(?:enumerate|romanparts|itemize)\}/g, "</ol>"],
       [/\\item\s*\[([^\]]*)\]/g, '<li style="list-style:none"><b>$1</b> '],
@@ -159,15 +168,16 @@
   /* ---------- data ---------- */
   async function load() {
     const get = (u) => fetch(BASE + u).then((r) => { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); });
-    const [P, Q, S, C] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json")]);
-    D.papers = P.papers; D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
+    const [P, Q, S, C, E] = await Promise.all([get("data/papers.json"), get("data/questions.json"), get("data/scans.json"), get("data/content.json"), get("data/competitive.json").catch(() => ({ papers: [], questions: [] }))]);
+    D.papers = P.papers.concat(E.papers);
+    Q.push(...E.questions.map(([i, ...q]) => [i + P.papers.length, ...q])); D.topics = P.topics; D.broad = P.broad; D.scans = S; D.C = C;
     D.papers.forEach((p, i) => D.byKey.set(p.key, i));
     D.byPaper = D.papers.map(() => []);
     D.Q = Q.map((a, i) => {
       const p = D.papers[a[0]];
-      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12] };
+      const q = { i, p: a[0], sec: a[1], qno: a[2], part: a[3], marks: a[4], mraw: a[5], tex: a[6], t: a[7], tb: a[8], weak: a[9], id: a[10], rep: a[11] || [], stem: !!a[12], notes: a[13] || [], answer: a[14] };
       q.broads = new Set(q.t.map((k) => D.broad.indexOf(D.topics[k][0])).concat(q.tb));
-      q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "")).toLowerCase();
+      q.hay = (plainOf(q.tex) + " " + (p.code || "") + " " + (p.title || "") + " " + (EXAM[p.prog] || "") + " " + p.year).toLowerCase();
       D.byPaper[a[0]].push(q);
       D.byId.set(q.id, q);
       return q;
@@ -182,7 +192,7 @@
   const hue = (b) => `hsl(${Math.round((b * 360) / 16 + 140) % 360} 42% 45%)`;
   const pname = (p) => p.code || (p.kind[0] === "i" ? "Internal test" : "Paper " + p.key.split("-").pop());
   const paperLabel = (p) => pname(p) + (p.title ? " · " + p.title : "");
-  const semLabel = (p) => PSHORT[p.prog] + " Sem " + ROMAN[p.sem];
+  const semLabel = (p) => EXAM[p.prog] || PSHORT[p.prog] + " Sem " + ROMAN[p.sem];
   const scanUrl = (id) => "https://drive.google.com/file/d/" + id + "/view";
   const scansFor = (p) => {
     const list = (D.scanIdx.get(p.prog + "|" + p.sem + "|" + p.year + "|" + (p.kind[0] === "i" ? "i" : "s")) || []).filter((s) => !s.other);
@@ -191,7 +201,7 @@
   };
   const qLabel = (q) => q.qno + (q.part ? "(" + q.part + ")" : "");
   const lenOf = (q) => (q.marks == null ? "" : q.marks <= SHORT_MAX ? "short" : "long");
-  const fmtMarks = (q) => (q.mraw && /[+×x]/.test(q.mraw) ? q.mraw.replace(/x/g, "×") : q.marks != null ? (Number.isInteger(q.marks) ? q.marks : q.marks.toFixed(1)) : "");
+  const fmtMarks = (q) => (q.mraw && /[+×x]/.test(q.mraw) ? q.mraw.replace(/x/g, "×") : q.marks != null ? (Number.isInteger(q.marks) ? q.marks : String(q.marks)) : "");
   const era = (code) => !code ? "" : /^BM|^BME|^BMO/.test(code) ? "BMC syllabus" : /^(MJ|MN|MD|SEC-)/.test(code) ? "NEP syllabus" : /^(CC|DSE|GE|SEC|AECC)/.test(code) ? "CBCS syllabus" : "";
   function toast(msg) { $$(".toast").forEach((t) => t.remove()); const t = document.createElement("div"); t.className = "toast"; t.setAttribute("role", "status"); t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 1900); }
   async function copy(text, label) {
@@ -256,13 +266,16 @@
     if (q.rep.length > 1) tags.push(`<span class="tag rep" title="Same wording in ${q.rep.join(", ")}">↻ Asked ${q.rep.length}× · ${q.rep.slice(-3).join(", ")}${q.rep.length > 3 ? "…" : ""}</span>`);
     const src = opts.noSource ? `<span class="qsrc"></span>` : `<a class="qsrc" href="${L("paper-" + p.key)}">${esc(semLabel(p))} · ${p.year}${p.kind[0] === "i" ? " · Internal" : ""} · <span class="code">${esc(pname(p))}</span></a>`;
     return `<article class="q${on ? " in" : ""}" data-id="${esc(q.id)}">
-      <header class="qh"><span class="qn">${esc(opts.num != null ? opts.num : "Q" + qLabel(q))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
+      <header class="qh"><span class="qn">${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</span>${src}${q.marks != null ? `<span class="qmk">${esc(fmtMarks(q))} mark${q.marks === 1 ? "" : "s"}</span>` : ""}</header>
       <div class="qbody">${texToHtml(q.tex)}</div>
+      ${q.answer ? `<details class="q-answer"><summary>Official answer</summary>
+        <p>${esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
+        ${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : ""}
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
           <button type="button" class="qbtn" data-act="copy" title="Copy LaTeX" aria-label="Copy LaTeX">${IC.copy}<span class="sr">Copy LaTeX</span></button>
-          <details class="qmore"><summary class="qbtn" aria-label="More actions" title="More">${IC.dots}</summary><div class="qmenu" role="menu">
-            <div class="qmh"><b>${esc(opts.num != null ? opts.num : "Q" + qLabel(q))}</b><button type="button" class="qmclose" data-close-menu aria-label="Close">${IC.x}</button></div>
+          <details class="qmore"><summary class="qbtn" aria-label="More actions" title="More">${IC.dots}</summary><div class="qmenu" popover="manual" role="group" aria-label="Question actions">
+            <div class="qmh"><b>${esc(opts.num ?? (q.qno ? "Q" + qLabel(q) : "Practice question"))}</b><button type="button" class="qmclose" data-close-menu aria-label="Close">${IC.x}</button></div>
             <button type="button" data-act="copytext">${IC.copy} Copy as plain text</button>
             <a href="${L("paper-" + p.key)}">${IC.file} Open the full paper</a>
             <a href="${GH}4-submit-solution.yml&qid=${encodeURIComponent(q.id)}" target="_blank" rel="noopener">${IC.pen} Submit a solution</a>
@@ -289,6 +302,14 @@
     $$("details.qmore[open]").forEach((d) => { if (!d.contains(e.target)) d.open = false; });
     const t = e.target.closest("[data-ft],[data-fb]");
     if (t) { F = defaultFilters(); if (t.dataset.ft) { F.topic = t.dataset.ft; F.broad = String(D.broad.indexOf(D.topics[+t.dataset.ft][0])); } else F.broad = t.dataset.fb; }
+    const exam = e.target.closest("[data-exam-search]");
+    if (exam && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault();
+      F = { ...defaultFilters(), kind: exam.dataset.examSearch };
+      if (HASH) go("search");
+      else { history.pushState({}, "", L("search") + searchQuery()); route(); }
+      return;
+    }
     const a = e.target.closest("a[href]");
     if (a && !HASH && !a.target && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
       const href = a.getAttribute("href");
@@ -297,11 +318,20 @@
   });
 
   /* ---------- the ⋯ menu: kept inside the window; a bottom sheet on phones ---------- */
-  function closeMenus() { $$("details.qmore[open]").forEach((d) => { d.open = false; }); }
+  function closeMenus() {
+    $$("details.qmore[open]").forEach((d) => {
+      const m = d.querySelector(".qmenu");
+      if (m.hidePopover) m.hidePopover();
+      d.open = false;
+    });
+    const scrim = $(".menuscrim");
+    if (scrim) scrim.hidden = true;
+  }
   function placeMenu(d) {
     const m = d.querySelector(".qmenu"), s = d.querySelector("summary");
-    const phone = window.matchMedia("(max-width:640px)").matches;
+    const phone = window.matchMedia("(max-width:767px)").matches;
     let scrim = $(".menuscrim");
+    if (m.showPopover && !m.matches(":popover-open")) m.showPopover();
     if (phone) {
       m.classList.add("sheet"); m.style.cssText = "";
       if (!scrim) { scrim = document.createElement("div"); scrim.className = "menuscrim"; document.body.appendChild(scrim); }
@@ -311,7 +341,7 @@
     m.classList.remove("sheet"); if (scrim) scrim.hidden = true;
     m.style.cssText = "position:fixed;visibility:hidden;left:0;top:0";
     const r = s.getBoundingClientRect(), mw = m.offsetWidth, mh = m.offsetHeight, W = document.documentElement.clientWidth, H = window.innerHeight;
-    let left = Math.min(Math.max(8, r.right - mw), W - mw - 8);
+    const left = Math.max(8, Math.min(r.right - mw, W - mw - 8));
     let top = r.bottom + 6;
     if (top + mh > H - 8) top = Math.max(8, r.top - 6 - mh);
     m.style.cssText = `position:fixed;left:${left}px;top:${top}px`;
@@ -320,22 +350,27 @@
     const d = e.target;
     if (!(d instanceof HTMLDetailsElement) || !d.classList.contains("qmore")) return;
     if (d.open) { $$("details.qmore[open]").forEach((o) => { if (o !== d) o.open = false; }); placeMenu(d); const f = d.querySelector(".qmenu a, .qmenu button:not(.qmclose)"); f && f.focus({ preventScroll: true }); }
-    else { const sc = $(".menuscrim"); if (sc && !$("details.qmore[open]")) sc.hidden = true; }
+    else {
+      const m = d.querySelector(".qmenu");
+      if (m.hidePopover) m.hidePopover();
+      const sc = $(".menuscrim");
+      if (sc && !$("details.qmore[open]")) sc.hidden = true;
+    }
   }, true);
-  window.addEventListener("scroll", () => { if (!window.matchMedia("(max-width:640px)").matches) closeMenus(); }, { passive: true });
-  window.addEventListener("resize", closeMenus);
+  window.addEventListener("scroll", () => { if (!window.matchMedia("(max-width:767px)").matches) closeMenus(); }, { passive: true });
+  window.addEventListener("resize", () => { const open = $("details.qmore[open]"); if (open) placeMenu(open); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("details.qmore[open]")) { const d = $("details.qmore[open]"); closeMenus(); d.querySelector("summary").focus(); } });
 
   function toLatex(qs, p, head) {
     const h = head || (p ? paperHead(p) : store.get("pvhead", defaultHead()));
-    const lines = ["\\documentclass[11pt,a4paper]{article}", "\\usepackage{amsmath,amssymb,enumitem}", "\\usepackage[margin=2cm]{geometry}", "\\newcommand{\\printedmarks}[1]{}", "\\newcommand{\\unreadable}[1]{#1}", "\\newcommand{\\gapmark}[1]{\\ldots}", "\\newcommand{\\missingglyph}{\\square}", "\\newenvironment{romanparts}{\\begin{enumerate}[label=(\\roman*)]}{\\end{enumerate}}", "\\pagestyle{empty}", "\\begin{document}",
+    const lines = ["\\documentclass[11pt,a4paper]{article}", "\\usepackage{amsmath,amssymb,enumitem,graphicx}", "\\usepackage[margin=2cm]{geometry}", "\\newcommand{\\printedmarks}[1]{}", "\\newcommand{\\unreadable}[1]{#1}", "\\newcommand{\\gapmark}[1]{\\ldots}", "\\newcommand{\\missingglyph}{\\square}", "\\newenvironment{romanparts}{\\begin{enumerate}[label=(\\roman*)]}{\\end{enumerate}}", "\\pagestyle{empty}", "\\begin{document}",
       "\\begin{center}", h.inst ? "{\\large\\textbf{" + h.inst + "}}\\\\[2pt]" : "", h.exam ? "\\textbf{" + h.exam + "}\\\\[2pt]" : "", h.paper ? "\\textit{" + h.paper + "}" : "", "\\end{center}",
       "\\noindent\\textbf{" + (h.time || "") + "}\\hfill\\textbf{" + (h.full ? "Full Marks: " + h.full : "") + "}\\\\[-4pt]", "\\rule{\\textwidth}{0.6pt}", h.instr ? "\\begin{center}\\textit{" + h.instr + "}\\end{center}" : "",
       "\\begin{enumerate}[leftmargin=*,label=\\textbf{\\arabic*.}]"];
     let sec = null;
     qs.forEach((q) => {
       if (p && q.sec !== sec) { sec = q.sec; if (sec) lines.push("\\item[] \\begin{center}\\textbf{" + plainOf(sec) + "}\\end{center}"); }
-      const tag = p ? "[\\textbf{" + qLabel(q) + "}]" : "";
+      const tag = p && q.qno ? "[\\textbf{" + qLabel(q) + "}]" : "";
       const src = p ? "" : " % " + semLabel(D.papers[q.p]) + " " + D.papers[q.p].year + " " + pname(D.papers[q.p]) + " Q" + qLabel(q);
       lines.push("\\item" + tag + " " + q.tex.trim().replace(/\\hfill\s*\\printedmarks\{[^}]*\}/g, "") + (q.marks != null ? " \\hfill [" + fmtMarks(q) + "]" : "") + src);
     });
@@ -343,7 +378,9 @@
     return lines.filter((l) => l !== "").join("\n");
   }
   function defaultHead() { return { inst: "Department of Mathematics", exam: "Practice Paper", paper: "", time: "Time: 2 Hours", full: "", instr: "Answer all questions. Figures in the margin indicate full marks." }; }
-  function paperHead(p) { return { inst: "Visva-Bharati", exam: (p.prog === "BSc" ? "B.Sc." : "M.Sc.") + " Mathematics " + (p.kind[0] === "i" ? "Internal Assessment" : "Examination") + " " + p.year + ", Semester " + ROMAN[p.sem], paper: (p.code || "") + (p.title ? " — " + p.title : ""), time: "", full: p.full || "", instr: p.rule ? plainOf(p.rule) : "Figures in the margin indicate full marks." }; }
+  function paperHead(p) {
+    if (EXAM[p.prog]) return { inst: EXAM[p.prog], exam: p.title, paper: "", time: "", full: p.full || "", instr: "" };
+    return { inst: "Visva-Bharati", exam: (p.prog === "BSc" ? "B.Sc." : "M.Sc.") + " Mathematics " + (p.kind[0] === "i" ? "Internal Assessment" : "Examination") + " " + p.year + ", Semester " + ROMAN[p.sem], paper: (p.code || "") + (p.title ? " — " + p.title : ""), time: "", full: p.full || "", instr: p.rule ? plainOf(p.rule) : "Figures in the margin indicate full marks." }; }
   function overleaf(tex) {
     const f = document.createElement("form"); f.method = "post"; f.action = "https://www.overleaf.com/docs"; f.target = "_blank";
     [["encoded_snip", encodeURIComponent(tex)], ["snip_name", "vbmath-paper.tex"]].forEach(([n, v]) => { const i = document.createElement("input"); i.type = "hidden"; i.name = n; i.value = v; f.appendChild(i); });
@@ -367,7 +404,7 @@
       if (F.sem && p.sem !== +F.sem) continue;
       if (p.year < from || p.year > to) continue;
       if (F.code && (p.code || "").replace(/\(.*/, "") !== F.code.replace(/\(.*/, "") && p.code !== F.code) continue;
-      if (F.kind && p.kind[0] !== F.kind) continue;
+      if (F.kind && (EXAM[F.kind] ? p.prog !== F.kind : p.kind[0] !== F.kind)) continue;
       if (topic >= 0 && !q.t.includes(topic)) continue;
       if (broad >= 0 && !q.broads.has(broad)) continue;
       if (F.len && lenOf(q) !== F.len) continue;
@@ -405,13 +442,13 @@
             <span><button class="btn btn-ghost btn-sm ftoggle" type="button" id="ftoggle">Show</button> <button class="btn btn-ghost btn-sm" type="button" id="freset">Reset</button></span></div>
           <div class="fbody">
           <div><span class="flabel">Programme</span><div class="seg" data-f="prog">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."]].map(([v, l]) => `<button type="button" class="chip${F.prog === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem">${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
+          <div><label class="flabel" for="f-sem">Semester</label><select id="f-sem"${EXAM[F.kind] ? " disabled" : ""}>${opt("", "Any semester", F.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].filter((s) => F.prog !== "MSc" || s <= 4).map((s) => opt(s, "Semester " + ROMAN[s], F.sem)).join("")}</select></div>
           <div><span class="flabel">Year</span><div class="two"><select id="f-from" aria-label="From year">${opt("", "From", F.from)}${yrs.map((y) => opt(y, y, F.from)).join("")}</select><select id="f-to" aria-label="To year">${opt("", "To", F.to)}${yrs.map((y) => opt(y, y, F.to)).join("")}</select></div></div>
           <div><label class="flabel" for="f-code">Paper code</label><input id="f-code" type="text" list="codes" placeholder="e.g. CC-5, MMC-21" value="${esc(F.code)}" autocomplete="off"><datalist id="codes">${D.codes.map((c) => `<option value="${esc(c)}">`).join("")}</datalist></div>
           <div><label class="flabel" for="f-broad">Topic</label><select id="f-broad">${opt("", "Any area", F.broad)}${D.broad.map((b, i) => opt(i, b, F.broad)).join("")}</select>
             <select id="f-topic" style="margin-top:8px" aria-label="Specific topic">${opt("", "Any specific topic", F.topic)}${specific.map(([i, t]) => opt(i, t[1], F.topic)).join("")}</select></div>
           <div><span class="flabel">Length</span><div class="seg" data-f="len">${[["", "Any"], ["short", "Short ≤" + SHORT_MAX], ["long", "Long ≥" + (SHORT_MAX + 1)]].map(([v, l]) => `<button type="button" class="chip${F.len === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
+          <div><span class="flabel">Exam</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"], ["JAM", "JAM"], ["NET", "NET"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
           <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> Only questions asked in more than one year</label></div>
           </div>
         </aside>
@@ -423,15 +460,29 @@
         </section>
       </div></div>`;
   }
+  function searchQuery() {
+    const params = new URLSearchParams();
+    if (F.q) params.set("q", F.q);
+    if (EXAM[F.kind]) params.set("exam", F.kind);
+    return params.size ? "?" + params : "";
+  }
   function bindSearch() {
     shown = PAGE;
-    const rerun = (reset = true) => { if (reset) shown = PAGE; store.set("filters", F); if (!HASH) history.replaceState({}, "", "/search/" + (F.q ? "?q=" + encodeURIComponent(F.q) : "")); renderResults(); };
+    const rerun = (reset = true) => { if (reset) shown = PAGE; store.set("filters", F); if (!HASH) history.replaceState({}, "", "/search/" + searchQuery()); renderResults(); };
     $("#sform").addEventListener("submit", (e) => { e.preventDefault(); F.q = $("#sq").value.trim(); rerun(); });
     let deb; $("#sq").addEventListener("input", (e) => { clearTimeout(deb); deb = setTimeout(() => { F.q = e.target.value.trim(); rerun(); }, 220); });
     $$(".seg[data-f]").forEach((g) => g.addEventListener("click", (e) => {
       const b = e.target.closest("button[data-v]"); if (!b) return;
       F[g.dataset.f] = b.dataset.v; $$("button", g).forEach((x) => x.classList.toggle("on", x === b));
-      if (g.dataset.f === "prog") { route(true); return; }
+      if (g.dataset.f === "prog") {
+        if (F.prog && EXAM[F.kind]) F.kind = "";
+        if (F.prog === "MSc" && +F.sem > 4) F.sem = "";
+        route(true); return;
+      }
+      if (g.dataset.f === "kind" && EXAM[F.kind]) {
+        F.prog = F.sem = F.code = "";
+        route(true); return;
+      }
       rerun();
     }));
     const sel = { "f-sem": "sem", "f-from": "from", "f-to": "to", "f-sort": "sort", "f-topic": "topic" };
@@ -526,7 +577,7 @@
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
           </div>
           <article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
-            <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(PSHORT[qp.prog])} Semester ${ROMAN[qp.sem]}, ${qp.year}</a></div>
+            <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(semLabel(qp))}, ${qp.year}</a></div>
             <div class="qh"><span class="qn">Q${esc(qLabel(qod))}</span><span class="qsrc">${qp.title ? esc(qp.title) : ""}</span>${qod.marks != null ? `<span class="qmk">${esc(fmtMarks(qod))} marks</span>` : ""}</div>
             <div class="qbody">${texToHtml(qod.tex)}</div>
             <div class="qodf"><a class="btn btn-ghost btn-sm" href="${L("paper-" + qp.key)}">Open the paper</a><button type="button" class="qbtn collect${coll.includes(qod.id) ? " on" : ""}" data-act="collect"><span class="lbl-off">${IC.plus}</span><span class="lbl-on">${IC.check}</span><span class="lbl-off">Collect</span><span class="lbl-on">Collected</span></button></div>
@@ -613,7 +664,9 @@
   /* ---------- one paper ---------- */
   function viewPaper(key) {
     const pi = D.byKey.get(key); if (pi == null) return notFound();
-    const p = D.papers[pi], qs = D.byPaper[pi], scans = scansFor(p);
+    const p = D.papers[pi], qs = D.byPaper[pi];
+    if (EXAM[p.prog]) return viewCompetitivePaper(p, qs);
+    const scans = scansFor(p);
     setMeta(`${pname(p)}${p.title ? " " + p.title : ""} ${p.year} · ${PSHORT[p.prog]} Semester ${ROMAN[p.sem]} · VBMath`, `Visva-Bharati ${PSHORT[p.prog]} Mathematics Semester ${ROMAN[p.sem]} ${p.year} ${p.kind[0] === "i" ? "internal" : "end-semester"} question paper ${p.code || ""}${p.title ? " (" + p.title + ")" : ""}: all ${qs.filter((q) => !q.stem).length} questions typed in LaTeX, with the original scan.`, L("paper-" + key));
     let html = "", sec = null;
     for (const q of qs) {
@@ -639,10 +692,32 @@
       ${p.rule ? `<p class="rubric">${esc(plainOf(p.rule))}</p>` : ""}
       <div id="paperqs">${html}</div>
       <section class="section" style="margin-top:44px"><div class="shead"><h2 style="font-size:22px;margin:0">Original scans</h2><span class="muted">Opens in Google Drive</span></div>
-        ${scans.length ? `<div class="list">${scans.map((s) => `<a class="row" href="${scanUrl(s.id)}" target="_blank" rel="noopener"><span class="t">${esc(s.label)}</span><span class="muted">${IC.ext}</span></a>`).join("")}</div>` : `<div class="empty">No scan is linked for this exam yet.</div>`}
+        ${scans.length ? `<div class="list">${scans.map((s) => `<a class="row" href="${scanUrl(s.id)}" target="_blank" rel="noopener"><span class="t">${esc(s.label)}${s.pages ? ` <span class="muted">· ${s.pages} ${s.pages === 1 ? "page" : "pages"}</span>` : ""}</span><span class="muted">${IC.ext}</span></a>`).join("")}</div>` : `<div class="empty">No scan is linked for this exam yet.</div>`}
       </section>
       ${other.length ? `<section class="section" style="margin-top:36px"><div class="shead"><h2 style="font-size:22px;margin:0">${esc(p.code)} in other years</h2></div><div class="row">${other.map((x) => `<a class="chip" href="${L("paper-" + x.key)}">${x.year}${x.kind[0] === "i" ? " · internal" : ""}</a>`).join("")}</div></section>` : ""}
       ${siblings.length ? `<section class="section" style="margin-top:28px"><div class="shead"><h2 style="font-size:22px;margin:0">Same semester, same year</h2></div><div class="row">${siblings.map((x) => `<a class="chip" href="${L("paper-" + x.key)}">${esc(paperLabel(x))}</a>`).join("")}</div></section>` : ""}
+    </div>`;
+  }
+  function viewCompetitivePaper(p, qs) {
+    const name = EXAM[p.prog];
+    setMeta(`${name} · ${p.title} · VBMath`, `${qs.length} typed questions from ${name}, ${p.title}.`, L("paper-" + p.key));
+    let section = "";
+    const cards = qs.map((q, index) => {
+      const heading = q.sec === section ? "" : `<h2 class="secthead">${esc(q.sec)}</h2>`;
+      section = q.sec;
+      return heading + qCard(q, { noSource: true, num: q.qno ? "Q" + q.qno : "Item " + (index + 1) });
+    }).join("");
+    return `<div class="wrap" style="max-width:920px">
+      <div class="crumbs"><a href="${L("home")}">Home</a> / <a href="${L("exams")}">Competitive exams</a> / ${esc(name)}</div>
+      <header class="exam-head"><div class="inst">${esc(name)}</div><h1>${esc(p.title)}</h1><div class="fm"><span>${qs.length} typed questions</span></div></header>
+      <div class="toolbar">
+        <a class="btn btn-primary btn-sm" href="${L("preview-" + p.key)}">${IC.file} Preview as PDF</a>
+        <button class="btn btn-ghost btn-sm" type="button" id="addall">${IC.plus} Collect all</button>
+        <button class="btn btn-ghost btn-sm" type="button" id="copypaper">${IC.copy} Copy LaTeX</button>
+        ${p.source ? ext(p.source, "Original paper", "btn btn-ghost btn-sm") : ""}
+        ${p.answer_key ? ext(p.answer_key, "Final answer key", "btn btn-ghost btn-sm") : ""}
+      </div>
+      <div id="paperqs">${cards}</div>
     </div>`;
   }
   function bindPaper(key) {
@@ -660,14 +735,15 @@
     const qs = p ? D.byPaper[pi] : coll.map((id) => D.byId.get(id)).filter(Boolean);
     const h = p ? Object.assign(paperHead(p), store.get("pvhead-p", {})) : store.get("pvhead", defaultHead());
     if (!qs.length) return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Preview</div><h1>Paper preview</h1><div class="empty"><p>Your collection is empty. Collect questions from any paper or search result, then preview them here as an A4 paper.</p><a class="btn btn-primary" href="${L("search")}">Find questions</a></div></div>`;
-    const total = qs.filter((q) => !q.stem).reduce((s, q) => s + (q.marks || 0), 0);
+    const total = (p?.prog === "NET" ? [] : qs.filter((q) => !q.stem)).reduce((s, q) => s + (q.marks || 0), 0);
     let sec = null, n = 0;
+    const figures = [...new Set(qs.flatMap((q) => q.tex.match(/assets\/competitive\/[a-f0-9]{16}\.png/g) || []))];
     const items = qs.map((q) => {
       let pre = "";
       if (p && q.sec !== sec) { sec = q.sec; if (sec) pre = `<li class="sec">${esc(plainOf(sec))}</li>`; }
       if (q.stem) return pre + `<li><span class="qno">${esc(q.qno)}.</span><div class="qbody"><i>${texToHtml(q.tex)}</i></div><span></span></li>`;
       n++;
-      return pre + `<li><span class="qno">${p ? esc(qLabel(q)) : n + "."}</span><div class="qbody">${texToHtml(q.tex)}</div><span class="mk">${q.marks != null ? esc(fmtMarks(q)) : ""}</span></li>`;
+      return pre + `<li><span class="qno">${p && q.qno ? esc(qLabel(q)) : n + "."}</span><div class="qbody">${texToHtml(q.tex)}</div><span class="mk">${q.marks != null ? esc(fmtMarks(q)) : ""}</span></li>`;
     }).join("");
     const fld = (k, l) => `<div><span class="flabel">${l}</span><input type="text" data-h="${k}" value="${esc(h[k] || "")}"></div>`;
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${p ? `<a href="${L("paper-" + p.key)}">${esc(pname(p))} ${p.year}</a> / ` : ""}Preview</div>
@@ -680,6 +756,8 @@
           <hr style="border:0;border-top:1px solid var(--rule);margin:4px 0">
           ${fld("inst", "Institution")}${fld("exam", "Examination")}${fld("paper", "Paper")}<div class="two">${fld("time", "Time")}${fld("full", "Full marks")}</div>${fld("instr", "Instructions")}
           ${p ? "" : `<button class="btn btn-ghost btn-sm" type="button" id="pvedit">${IC.stack} Edit the collection</button>`}
+          ${figures.length ? `<details><summary>Figure files for LaTeX export</summary><p class="muted">Save these files under assets/competitive in the LaTeX project.</p>
+            ${figures.map((path, i) => `<a class="chip" href="${BASE + path}" download>Figure ${i + 1}</a>`).join(" ")}</details>` : ""}
           <p class="muted" style="font-size:12.5px;margin:0">“Print” uses your browser's Save as PDF. Overleaf compiles the same LaTeX into a typeset PDF.</p>
         </aside>
         <div class="pv-stage"><article class="a4" id="sheet">
@@ -712,16 +790,16 @@
     const f = Object.assign({ prog: "", sem: "", year: "", q: "", math: true, old: false }, store.get("scanF", {}));
     const years = Array.from(new Set(D.scans.map((s) => s.year).filter(Boolean))).sort((a, b) => b - a);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Scans</div>
-      <h1>Scanned papers</h1><p class="lede" style="margin-bottom:20px">All ${D.scans.length} original PDFs in the VBMath Drive, from 2004 onwards, each with its own link. Some are not typed yet; those still open here.</p>
-      <div class="card" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));align-items:end;margin-bottom:18px">
+      <div class="resource-intro resource-intro-split"><div><h1>Scanned papers</h1><p class="lede">Find original exam papers by programme, semester, year or paper code.</p></div><div class="resource-stat">${IC.scan}<div><strong>${D.scans.length.toLocaleString()}</strong><small>Original PDFs</small></div></div></div>
+      <div class="scan-filters" aria-label="Scan filters">
         <div><label class="flabel" for="s-prog">Programme</label><select id="s-prog">${opt("", "All", f.prog)}${opt("BSc", "B.Sc.", f.prog)}${opt("MSc", "M.Sc.", f.prog)}</select></div>
         <div><label class="flabel" for="s-sem">Semester</label><select id="s-sem">${opt("", "All", f.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].map((s) => opt(s, "Sem " + ROMAN[s], f.sem)).join("")}</select></div>
         <div><label class="flabel" for="s-year">Year</label><select id="s-year">${opt("", "All", f.year)}${years.map((y) => opt(y, y, f.year)).join("")}</select></div>
-        <div style="grid-column:span 2;min-width:0"><label class="flabel" for="s-q">Name contains</label><input type="search" id="s-q" value="${esc(f.q)}" placeholder="e.g. MMC-21, topology"></div>
-        <label style="display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink-2)"><input type="checkbox" id="s-math" ${f.math ? "checked" : ""}> Mathematics only</label>
+        <div class="scan-query"><label class="flabel" for="s-q">Paper name or code</label><input type="search" id="s-q" value="${esc(f.q)}" placeholder="e.g. MMC-21, topology"></div>
+        <div class="scan-filter-actions"><label><input type="checkbox" id="s-math" ${f.math ? "checked" : ""}> Mathematics only</label><button class="btn btn-ghost btn-sm" type="button" id="s-reset">Reset filters</button></div>
       </div>
-      <div id="scanlist"></div>
-      <section class="section"><div class="section-head"><h2 style="font-size:20px">Drive folders</h2><span class="muted">The full folders, as on the old site</span></div>
+      <p id="scan-count" class="scan-count" role="status"></p><div id="scanlist"></div>
+      <section class="section"><div class="shead"><h2>Drive folders</h2></div>
         <div class="grid g2">${["BSc", "MSc"].map((pg) => `<div class="card"><h3>${PROG[pg]}</h3><div class="tabs" style="margin:8px 0 0">${D.C.folders[pg].map(([l, u]) => `<a class="chip" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join("")}</div></div>`).join("")}
         <div class="card"><h3>Older B.Sc. folders</h3><p style="margin-bottom:8px">Before the 2025 reorganisation.</p><div class="tabs" style="margin:0">${D.C.folders.BSc_old1.concat(D.C.folders.BSc_old2).map(([l, u], i) => `<a class="chip" href="${esc(u)}" target="_blank" rel="noopener">${i < 6 ? "" : "2017+ "}${esc(l)} ↗</a>`).join("")}</div></div></div>
       </section></div>`;
@@ -731,18 +809,32 @@
     const draw = () => {
       const f = read(); store.set("scanF", f);
       const ql = f.q.toLowerCase();
-      const list = D.scans.filter((s) => (!f.prog || s.prog === f.prog) && (!f.sem || s.sem === +f.sem) && (!f.year || s.year === +f.year) && (!f.math || !s.other) && (!ql || (s.label + " " + (s.code || "")).toLowerCase().includes(ql)));
+      const list = D.scans.filter((s) => (!f.prog || s.prog === f.prog) && (!f.sem || s.sem === +f.sem) && (!f.year || s.year === +f.year) && (!f.math || !s.other) && (!ql || (s.label + " " + (s.code || "") + " " + (s.file || "")).toLowerCase().includes(ql)));
       const groups = new Map();
       list.forEach((s) => { const k = s.prog + "|" + s.sem + "|" + (s.year || 0); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(s); });
       const keys = Array.from(groups.keys()).sort((a, b) => { const [pa, sa, ya] = a.split("|"), [pb, sb, yb] = b.split("|"); return pa.localeCompare(pb) || sa - sb || yb - ya; });
-      $("#scanlist").innerHTML = list.length ? `<p class="muted" style="font-size:13.5px">${list.length} PDF${list.length > 1 ? "s" : ""}</p>` + keys.map((k) => {
-        const [pg, s, y] = k.split("|"); const g = groups.get(k);
-        const typed = D.papers.filter((p) => p.prog === pg && p.sem === +s && p.year === +y);
-        return `<div style="margin-bottom:18px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between;margin-bottom:8px"><h3 style="margin:0">${pg === "BSc" ? "B.Sc." : "M.Sc."} Semester ${ROMAN[s]} · ${+y || "Year unknown"}</h3>${typed.length ? `<span class="tabs" style="margin:0">${typed.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(p.code || "Paper")} typed</a>`).join("")}</span>` : '<span class="muted" style="font-size:13px">Not typed yet</span>'}</div>
-          <div class="list">${g.map((x) => `<a class="row" href="${scanUrl(x.id)}" target="_blank" rel="noopener"><span class="t">${esc(x.label)}${x.kind === "i" ? ' <span class="tag rep">Internal</span>' : ""}${x.other ? ' <span class="tag b">Other subject</span>' : ""}${x.old ? ' <span class="tag b">Older</span>' : ""}</span><span class="muted">↗</span></a>`).join("")}</div></div>`;
-      }).join("") : `<div class="empty">No scans match.</div>`;
+      $("#scan-count").textContent = list.length.toLocaleString() + (list.length === 1 ? " PDF" : " PDFs");
+      $("#scanlist").innerHTML = list.length ? keys.map((k) => {
+        const [pg, sem, year] = k.split("|");
+        const group = groups.get(k);
+        const typed = D.papers.filter((p) => p.prog === pg && p.sem === +sem && p.year === +year);
+        const heading = (PSHORT[pg] || pg) + (ROMAN[sem] ? " Semester " + ROMAN[sem] : "") + " · " + (+year || "Year unknown");
+        return `<section class="scan-group"><header class="scan-group-head">
+          <span class="resource-icon">${IC.folder}</span><div><h2>${esc(heading)}</h2>
+          <span class="muted">${group.length} ${group.length === 1 ? "scan" : "scans"}</span></div></header>
+          <div class="scan-rows">${group.map((x) => `<a class="resource-row" href="${scanUrl(x.id)}" target="_blank" rel="noopener">
+            <span class="resource-row-icon">${IC.file}</span><span class="resource-row-text"><span class="scan-name"><strong>${esc(x.label)}</strong>${x.file || x.pages ? `<small class="scan-meta">${x.pages ? x.pages + (x.pages === 1 ? " page" : " pages") : ""}${x.file && x.pages ? " · " : ""}${x.file ? "file: " + esc(x.file) : ""}</small>` : ""}</span>
+            ${x.kind === "i" ? '<span class="tag rep">Internal</span>' : ""}${x.other ? '<span class="tag">Other subject</span>' : ""}${x.old ? '<span class="tag">Older</span>' : ""}</span><span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div>
+          ${typed.length ? `<details class="resource-disclosure"><summary>Typed papers <span class="muted">(${typed.length})</span></summary>
+          <div class="resource-links">${typed.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(pname(p))}${p.kind[0] === "i" ? " · Internal" : ""}</a>`).join("")}</div></details>` : ""}</section>`;
+      }).join("") : `<div class="empty">No scans match these filters.</div>`;
     };
     ["s-prog", "s-sem", "s-year", "s-math"].forEach((id) => $("#" + id).addEventListener("change", draw));
+    $("#s-reset").addEventListener("click", () => {
+      ["s-prog", "s-sem", "s-year", "s-q"].forEach((id) => { $("#" + id).value = ""; });
+      $("#s-math").checked = true;
+      draw();
+    });
     let deb; $("#s-q").addEventListener("input", () => { clearTimeout(deb); deb = setTimeout(draw, 200); });
     draw();
   }
@@ -752,7 +844,7 @@
     const yrs = D.years;
     const byYear = new Map(yrs.map((y) => [y, 0]));
     const cell = new Map();
-    D.Q.forEach((q) => { if (q.stem) return; const y = D.papers[q.p].year; byYear.set(y, byYear.get(y) + 1); q.broads.forEach((b) => cell.set(b + "|" + y, (cell.get(b + "|" + y) || 0) + 1)); });
+    D.Q.forEach((q) => { if (q.stem || EXAM[D.papers[q.p].prog]) return; const y = D.papers[q.p].year; byYear.set(y, byYear.get(y) + 1); q.broads.forEach((b) => cell.set(b + "|" + y, (cell.get(b + "|" + y) || 0) + 1)); });
     const tc = D.topics.map(() => 0); D.Q.forEach((q) => !q.stem && q.t.forEach((k) => tc[k]++));
     const bc = D.broad.map((b, i) => D.Q.filter((q) => !q.stem && q.broads.has(i)).length);
     const order = D.broad.map((b, i) => i).sort((a, b) => bc[b] - bc[a]);
@@ -780,20 +872,72 @@
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
   function viewExams() {
-    return page("Competitive exams", "Competitive & admission exams", "Previous papers for IIT JAM, CSIR-UGC NET, GATE, NBHM, TIFR and the Visva-Bharati M.Sc. admission test.",
-      `<div class="grid g2">${D.C.exams.map((e) => `<div class="card"><h3>${esc(e.name)}</h3><p style="margin-bottom:12px">${esc(e.note)}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">${e.links.map(([l, u], i) => ext(u, l === "Paper" ? "Paper " + (e.links.slice(0, i + 1).filter((x) => x[0] === "Paper").length) : l, "chip")).join("")}</div>
-        ${e.syllabus ? `<p style="margin-top:12px">${ext(e.syllabus, "Syllabus ↗")}</p>` : ""}</div>`).join("")}</div>`);
+    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET" };
+    const cards = D.C.exams.map((exam) => {
+      const code = routes[exam.name];
+      const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
+      const search = papers.length ? `<a class="note-open" href="${L("search")}${HASH ? "" : "?exam=" + code}" data-exam-search="${code}">Search questions ${IC.arrow}</a>` : "";
+      const links = exam.links.map(([label, url]) => ext(url, label, "chip")).join("");
+      return `<article class="resource-card${code ? " resource-featured" : ""}">
+        <div class="resource-card-head"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
+          <div><h2>${esc(exam.name)}</h2><p>${esc(exam.note)}</p></div></div>
+        ${search}
+        ${papers.length ? `<details class="resource-disclosure"><summary>Searchable papers <span class="muted">(${papers.length})</span></summary>
+          <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "JAM" ? p.year : p.title)}</a>`).join("")}</div></details>` : ""}
+        ${code ? `<details class="resource-disclosure"${papers.length ? "" : " open"}><summary>Original papers and resources</summary><div class="resource-links">${links}</div></details>` : `<div class="resource-links">${links}</div>`}
+        ${exam.syllabus ? `<div>${ext(exam.syllabus, "Syllabus", "chip")}</div>` : ""}
+      </article>`;
+    });
+    return page("Competitive exams", "Competitive & admission exams",
+      "Find previous papers and syllabi for mathematics entrance tests and fellowships.",
+      `<div class="resource-grid exam-grid">${cards.join("")}</div>`);
   }
   function viewNotes() {
-    return page("Notes", "Notes", "Class notes from the department, written and shared by former students. These notes are for reference only; they cannot replace the classes taken by your teachers.",
-      `<div class="grid g2">${D.C.notes.items.map(([t, by, u]) => `<a class="card" href="${esc(u)}" target="_blank" rel="noopener"><h3>${esc(t)} <span class="muted">↗</span></h3><p>${esc(by)}</p></a>`).join("")}</div>
-      <section class="section"><div class="section-head"><h2>Class-note folders</h2></div><div class="grid g2">${Object.entries(D.C.notes.folders).map(([k, us]) => `<div class="card"><h3>${esc(k)}</h3><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">${us.map((u, i) => ext(u, "Folder " + (i + 1), "chip")).join("")}</div></div>`).join("")}</div>
-      <p style="margin-top:18px">${ext(D.C.forms.notes, "Upload your notes")}</p></section>`);
+    const symbols = {
+      "Numerical Analysis": I('<path d="M3 4v16h17M6 16l5-6 4 2 5-7"/><circle cx="11" cy="10" r="1"/><circle cx="15" cy="12" r="1"/>'),
+      "Continuum Mechanics": I('<path d="m3 8 15-4 3 13-15 4zM4.5 14.5l15-4M10.5 6l3 13"/>'),
+      "Mathematical Ecology": I('<path d="M20 4c-7 0-14 3-14 10a5 5 0 0 0 5 5c7 0 9-8 9-15ZM4 21l11-11"/>'),
+      "Mathematical Biology": I('<path d="M6 3c0 9 12 9 12 18M18 3c0 9-12 9-12 18M7 6h10M7 18h10M10 9h4M10 15h4"/>'),
+      "Dynamical Systems": I('<path d="M21 11c0-5-4-8-9-8S3 7 3 12s4 9 9 9 8-3 8-7-3-6-7-6-5 2-5 5 2 4 4 4 3-1 3-3M18 11h3v-3"/>'),
+      "Complex Analysis": I('<path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="7"/><path d="m12 12 5-5"/>'),
+      "Abstract Algebra": I('<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9zM4 7.5l8 4.5 8-4.5M12 12v9"/>'),
+      "NET/GATE Notes": IC.stack,
+    };
+    const folder = I('<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>');
+    const notes = D.C.notes.items.map(([title, credit, url]) => `<article class="note-card">
+      <span class="note-symbol">${symbols[title] || IC.file}</span>
+      <h2>${esc(title)}</h2><p>${esc(credit)}</p>
+      <a class="note-open" href="${esc(url)}" target="_blank" rel="noopener" aria-label="Open notes for ${esc(title)} (new tab)">Open notes ${IC.ext}</a>
+    </article>`).join("");
+    const folders = Object.entries(D.C.notes.folders).map(([label, urls]) => `<div class="card">
+      <h3>${esc(label)}</h3>
+      <div class="note-folders">${urls.map((url, i) => {
+        const name = "Semester " + (ROMAN[i + 1] || (i + 1));
+        return `<a class="chip note-folder" href="${esc(url)}" target="_blank" rel="noopener"
+          aria-label="${esc(label)}, ${name} (new tab)">${folder} ${name} ${IC.ext}</a>`;
+      }).join("")}</div>
+    </div>`).join("");
+    return page("Notes", "Notes", "Lecture notes shared by Visva-Bharati mathematics students and alumni.",
+      `<div class="note-grid">${notes}</div>
+      <section class="section"><div class="shead"><h2>Class-note folders</h2>${ext(D.C.forms.notes, "Upload your notes", "btn btn-ghost btn-sm")}</div>
+      <div class="grid g2">${folders}</div></section>`);
   }
   function viewSyllabus() {
-    return page("Syllabus", "Syllabus", "Official syllabi, newest first. Paper codes in the archive follow these eras: BMC (2011–12), CBCS (2017–18 and 2020–21), NEP (2025–26).",
-      `<div class="list">${D.C.syllabus.map(([t, d, u]) => `<a class="row" href="${esc(u)}" target="_blank" rel="noopener"><span class="t"><b>${esc(t)}</b>${d ? `<br><span class="muted" style="font-size:13.5px">${esc(d)}</span>` : ""}</span><span class="muted">↗</span></a>`).join("")}</div>`);
+    const groups = new Map([["B.Sc. Mathematics", []], ["M.Sc. Mathematics", []], ["Competitive & admission exams", []]]);
+    for (const item of D.C.syllabus) {
+      const title = item[0];
+      const group = title.startsWith("B.Sc. —") ? "B.Sc. Mathematics" :
+        title.startsWith("M.Sc. —") ? "M.Sc. Mathematics" : "Competitive & admission exams";
+      groups.get(group).push(item);
+    }
+    return page("Syllabus", "Syllabus", "Find the syllabus for your programme or exam.",
+      `<div class="resource-grid syllabus-grid">${Array.from(groups, ([group, items]) => `
+        <section class="resource-card syllabus-group"><div class="resource-card-head">
+          <span class="resource-icon">${IC.file}</span><h2>${esc(group)}</h2></div>
+          <div class="syllabus-rows">${items.map(([title, desc, url]) => `
+            <a class="resource-row" href="${esc(url)}" target="_blank" rel="noopener">
+              <span class="resource-row-text"><strong>${esc(title.replace(/^[BM]\.Sc\. — /, ""))}</strong>${desc ? `<small>${esc(desc)}</small>` : ""}</span>
+              <span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div></section>`).join("")}</div>`);
   }
   function viewBooks() {
     return page("Books", "Books", "Standard texts recommended by students and teachers, by subject. Please buy the book or borrow it from the library.",
@@ -801,9 +945,39 @@
       <p style="margin-top:18px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
   }
   function viewLearn() {
-    return page("Videos & websites", "Videos & websites", "Courses, references and job portals collected for mathematics students.",
-      `<div class="grid g2">${D.C.video.map(([n, d, ls]) => `<div class="card"><h3>${esc(n)}</h3><p style="margin-bottom:10px">${esc(d)}</p><div style="display:flex;flex-wrap:wrap;gap:6px">${ls.map(([l, u]) => ext(u, l, "chip")).join("")}</div></div>`).join("")}</div>
-      ${D.C.websites.map(([g, ls]) => `<section class="section" style="margin-top:34px"><div class="section-head"><h2 style="font-size:20px">${esc(g)}</h2></div><div style="display:flex;flex-wrap:wrap;gap:8px">${ls.map(([l, u]) => ext(u, l, "chip")).join("")}</div></section>`).join("")}`);
+    const Ln = D.C.learn, subj = Object.fromEntries(Ln.subjects);
+    const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
+    const plat = (p) => p === "YouTube" ? "yt" : p.startsWith("MIT") ? "mit" : "web";
+    const course = ([t, by, p, what, sj, papers, u]) => `<li class="lc" data-subj="${sj}">
+        <span class="lc-plat lc-${plat(p)}" aria-hidden="true">${p === "YouTube" ? "YT" : p.startsWith("MIT") ? "MIT" : "WEB"}</span>
+        <div class="lc-main"><a class="lc-title" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>
+          <p class="lc-by">${esc(by)}, ${esc(p)}</p><p class="lc-what">${esc(what)}</p></div>
+        <div class="lc-side"><span class="lc-subj">${esc(subj[sj])}</span>${papers ? `<span class="lc-papers">For ${papers.split(/,\s*/).map((c) => `<button type="button" class="pcode" data-code="${esc(c)}" title="Questions from ${esc(c)}">${esc(c)}</button>`).join("")}</span>` : ""}</div></li>`;
+    return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Videos & websites</nav>
+      <div class="pagehead"><h1>Videos & websites</h1><p class="lede">Free courses that match the department’s papers, channels worth following, and the sites students keep coming back to.</p></div>
+      <section class="learn-block" aria-labelledby="lc-h">
+        <div class="lb-head"><div><h2 id="lc-h">Courses by subject</h2><p class="muted">Each course lists the Visva-Bharati papers it helps with. Tap a code to see that paper’s questions.</p></div></div>
+        <div class="lseg" role="group" aria-label="Filter by subject"><button type="button" class="on" data-s="">All</button>${Ln.subjects.map(([k, l]) => `<button type="button" data-s="${k}">${esc(l)}</button>`).join("")}</div>
+        <ul class="lcourses">${Ln.courses.map(course).join("")}</ul>
+      </section>
+      <section class="learn-block" aria-labelledby="ch-h">
+        <div class="lb-head"><div><h2 id="ch-h">Channels worth following</h2><p class="muted">Whole lecture series and regular uploads, beyond a single course.</p></div></div>
+        <div class="lchannels">${Ln.channels.map(([n, d, ls]) => `<div class="lch"><h3>${esc(n)}</h3><p>${esc(d)}</p><div class="lch-links">${ls.map(([l, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${IC.ext}</a>`).join("")}</div></div>`).join("")}</div>
+      </section>
+      <section class="learn-block" aria-labelledby="ws-h">
+        <div class="lb-head"><div><h2 id="ws-h">Websites</h2><p class="muted">Grouped by what you need them for.</p></div></div>
+        <div class="lsites">${Ln.sites.map(([g, d, ls]) => `<div class="lsg"><div class="lsg-head"><h3>${esc(g)}</h3><p>${esc(d)}</p></div>
+          <ul class="lsg-list">${ls.map(([n, u, w]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span class="ls-n">${esc(n)}</span>${w ? `<span class="ls-w">${esc(w)}</span>` : ""}<span class="ls-h">${esc(host(u))}</span></a></li>`).join("")}</ul></div>`).join("")}</div>
+      </section>
+      <p class="gnote" style="margin-top:28px">Know a course or site that belongs here? Write to <span class="mono" style="user-select:all">${esc(D.C.email)}</span>.</p></div>`;
+  }
+  function bindLearn() {
+    const btns = $$(".lseg button");
+    btns.forEach((b) => b.addEventListener("click", () => {
+      btns.forEach((x) => x.classList.toggle("on", x === b));
+      $$(".lc").forEach((li) => { li.hidden = !!b.dataset.s && li.dataset.subj !== b.dataset.s; });
+    }));
+    $$(".pcode").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.code = b.dataset.code; F.sort = "new"; go("search"); }));
   }
   function viewPeople() {
     return page("People", "People", "Faculty of the Department of Mathematics, Visva-Bharati, with the courses they teach and their research interests (as listed on the earlier site).",
@@ -873,12 +1047,18 @@
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
     preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, null, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
-    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, null, "Videos and websites · VBMath"], people: [viewPeople, null, "People · VBMath"],
+    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
   let lastRoute = null;
   function route(keepScroll) {
+    closeMenus();
     const r = current();
+    if (!HASH && r === "search" && !keepScroll) {
+      const params = new URLSearchParams(location.search);
+      const exam = params.get("exam"), q = params.get("q");
+      if (EXAM[exam] || q !== null) F = { ...defaultFilters(), kind: EXAM[exam] ? exam : "", q: q || "" };
+    }
     let name = r, arg = null;
     const m = r.match(/^(paper|semester|preview)-(.+)$/);
     if (m) { name = m[1]; arg = m[2]; }
@@ -927,10 +1107,10 @@
   async function start() {
     initChrome();
     F = Object.assign(defaultFilters(), store.get("filters", {}));
-    if (!HASH) { const q = new URLSearchParams(location.search).get("q"); if (q != null && current() === "search") { F = defaultFilters(); F.q = q; } }
+
     try { await load(); }
     catch (e) { $("#app").innerHTML = `<div class="wrap"><div class="empty">The question data could not be loaded (${esc(e.message)}). Please reload the page.</div></div>`; return; }
-    route(true);
+    route();
   }
   start();
 })();

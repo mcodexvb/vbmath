@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2025 · VBMath</title>
+<meta name="description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2025.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2025/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2025 · VBMath">
+<meta property="og:description" content="60 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2025.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2025/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2025</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">The sum of the infinite series
+    \[
+    \sum_{n=1}^{\infty} (-1)^{n+1} \frac{\pi^{2n+1}}{2^{2n+1} (2n)!}
+    \]
+    is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item $-\pi$
+        \item $\frac{\pi}{4}$
+        \item $\frac{\pi}{2}$
+        \item $-\frac{\pi}{4}$
+    \end{enumerate}</span></li><li><b>2</b> <span class="qbody">For which one of the following choices of $N(x, y)$, is the equation
+    \[
+    (e^x \sin y - 2y \sin x) \, dx + N(x, y) \, dy = 0
+    \]
+    an exact differential equation?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $N(x, y) = e^x \sin y + 2 \cos x$
+        \item $N(x, y) = e^x \cos y + 2 \cos x$
+        \item $N(x, y) = e^x \cos y + 2 \sin x$
+        \item $N(x, y) = e^x \sin y + 2 \sin x$
+    \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f, g: \mathbb{R} \to \mathbb{R}$ be two functions defined by
+    \[
+    f(x) = \begin{cases} 
+    x |x| \left| \sin \frac{1}{x} \right| &amp; \text{if } x \neq 0 \\
+    0 &amp; \text{if } x = 0
+    \end{cases}
+    \]
+    and
+    \[
+    g(x) = \begin{cases} 
+    x^2 \sin \frac{1}{x} + x \cos \frac{1}{x} &amp; \text{if } x \neq 0 \\
+    0 &amp; \text{if } x = 0
+    \end{cases}
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $f$ is differentiable at $x=0$, and $g$ is NOT differentiable at $x=0$
+        \item $f$ is NOT differentiable at $x=0$, and $g$ is differentiable at $x=0$
+        \item $f$ is differentiable at $x=0$, and $g$ is differentiable at $x=0$
+        \item $f$ is NOT differentiable at $x=0$, and $g$ is NOT differentiable at $x=0$
+    \end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $f, g: \mathbb{R} \to \mathbb{R}$ be two functions defined by
+    \[
+    f(x) = \begin{cases} 
+    |x|^{1/8} \left| \sin \frac{1}{x} \right| \cos x &amp; \text{if } x \neq 0 \\
+    0 &amp; \text{if } x = 0
+    \end{cases}
+    \]
+    and
+    \[
+    g(x) = \begin{cases} 
+    e^x \cos \frac{1}{x} &amp; \text{if } x \neq 0 \\
+    1 &amp; \text{if } x = 0
+    \end{cases}
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $f$ is continuous at $x=0$, and $g$ is NOT continuous at $x=0$
+        \item $f$ is NOT continuous at $x=0$, and $g$ is continuous at $x=0$
+        \item $f$ is continuous at $x=0$, and $g$ is continuous at $x=0$
+        \item $f$ is NOT continuous at $x=0$, and $g$ is NOT continuous at $x=0$
+    \end{enumerate}</span></li><li><b>5</b> <span class="qbody">Which one of the following is the general solution of the differential equation
+    \[
+    \frac{d^2 y}{dx^2} - \theta \frac{dy}{dx} + 16 y = 2 e^{4x} ?
+    \]
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\alpha_1 e^{4x} + \alpha_2 x e^{4x} + x^2 e^{4x}$, where $\alpha_1, \alpha_2 \in \mathbb{R}$
+        \item $\alpha_1 e^{4x} + \alpha_2 x e^{4x} + 2 x^2 e^{4x}$, where $\alpha_1, \alpha_2 \in \mathbb{R}$
+        \item $\alpha_1 e^{-4x} + \alpha_2 e^{4x} + 2 x^2 e^{4x}$, where $\alpha_1, \alpha_2 \in \mathbb{R}$
+        \item $\alpha_1 x e^{-4x} + \alpha_2 x^2 e^{-4x} + x^2 e^{4x}$, where $\alpha_1, \alpha_2 \in \mathbb{R}$
+    \end{enumerate}</span></li><li><b>6</b> <span class="qbody">Define $T: \mathbb{R}^3 \to \mathbb{R}^3$ by
+    \[
+    T(x, y, z) = (x + z, 2x + 3y + 5z, 2y + 2z), \text{ for all } (x, y, z) \in \mathbb{R}^3.
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $T$ is one-one and $T$ is NOT onto
+        \item $T$ is NOT one-one and $T$ is onto
+        \item $T$ is one-one and $T$ is onto
+        \item $T$ is NOT one-one and $T$ is NOT onto
+    \end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $M = \begin{pmatrix} 2 &amp; 0 &amp; -1 \\ 4 &amp; 1 &amp; -4 \\ 2 &amp; 0 &amp; x \end{pmatrix}$ for some real number $x$. If 0 is an eigenvalue of $M$, then $\left(M^4 + M\right) \begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$ is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\begin{pmatrix} 1 \\ 0 \\ 1 \end{pmatrix}$
+        \item $\begin{pmatrix} 2 \\ 0 \\ 2 \end{pmatrix}$
+        \item $\begin{pmatrix} 5 \\ 0 \\ 5 \end{pmatrix}$
+        \item $\begin{pmatrix} 17 \\ 0 \\ 17 \end{pmatrix}$
+    \end{enumerate}</span></li><li><b>8</b> <span class="qbody">Let $T: P_2(\mathbb{R}) \to P_2(\mathbb{R})$ be the linear transformation defined by $T(p(x)) = p(x+1)$, for all $p(x) \in P_2(\mathbb{R})$. If $M$ is the matrix representation of $T$ with respect to the ordered basis $\{1, x, x^2\}$ of $P_2(\mathbb{R})$, then which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item The determinant of $M$ is 2
+        \item The rank of $M$ is 2
+        \item 1 is the only eigenvalue of $M$
+        \item The nullity of $M$ is 2
+    \end{enumerate}</span></li><li><b>9</b> <span class="qbody">Let $G$ be a finite abelian group of order 10. Let $x_0$ be an element of order 2 in $G$. If $X = \{ x \in G : x^3 = x_0 \}$, then which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $X$ has exactly one element
+        \item $X$ has exactly two elements
+        \item $X$ has exactly three elements
+        \item $X$ is an empty set
+    \end{enumerate}</span></li><li><b>10</b> <span class="qbody">The value of
+    \[
+    \int_0^1 \left( \int_{\sqrt{y}}^1 3 e^{x^3} \, dx \right) dy
+    \]
+    is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item $e - 1$
+        \item $\frac{e - 1}{2}$
+        \item $\sqrt{e} - 1$
+        \item $\frac{\sqrt{e} - 1}{2}$
+    \end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $\mathcal{C}$ denote the family of curves described by $y x^2 = \lambda$, for $\lambda \in (0, \infty)$ and lying in the first quadrant of the $xy$ plane. Let $\mathcal{O}$ denote the family of orthogonal trajectories of $\mathcal{C}$. Which one of the following curves is a member of $\mathcal{O}$, and passes through the point $(2,1)$?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $y = \frac{x^2}{4}, x &gt; 0, y &gt; 0$
+        \item $x^2 - 2y^2 = 2, x &gt; 0, y &gt; 0$
+        \item $x - y = 1, x &gt; 0, y &gt; 0$
+        \item $2x - y^2 = 3, x &gt; 0, y &gt; 0$
+    \end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $\varphi: (0, \infty) \to \mathbb{R}$ be the solution of the differential equation
+    \[
+    x \frac{dy}{dx} = (\ln y - \ln x) y,
+    \]
+    satisfying $\varphi(1) = e^2$. Then, the value of $\varphi(2)$ is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item $e^2$
+        \item $2 e^3$
+        \item $3 e^2$
+        \item $6 e^3$
+    \end{enumerate}</span></li><li><b>13</b> <span class="qbody">Let $X = \{ x \in S_4 : x^3 = id \}$ and $Y = \{ x \in S_4 : x^2 \neq id \}$. If $m$ and $n$ denote the number of elements in $X$ and $Y$, respectively, then which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $m$ is even and $n$ is even
+        \item $m$ is odd and $n$ is even
+        \item $m$ is even and $n$ is odd
+        \item $m$ is odd and $n$ is odd
+    \end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $\varphi: \mathbb{R} \to \mathbb{R}$ be the solution of the differential equation
+    \[
+    \frac{dy}{dx} = (y - 1)(y - 3),
+    \]
+    satisfying $\varphi(0) = 2$. Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\lim_{x \to \infty} \varphi(x) = 0$
+        \item $\lim_{x \to \ln \sqrt{2}} \varphi(x) = 1$
+        \item $\lim_{x \to -\infty} \varphi(x) = 3$
+        \item $\lim_{x \to \ln \frac{\sqrt{2}}{\sqrt{2}}} \varphi(x) = 6$
+    \end{enumerate}</span></li><li><b>15</b> <span class="qbody">Let $M = \begin{pmatrix} 6 &amp; 2 &amp; -6 &amp; 8 \\ 5 &amp; 3 &amp; -9 &amp; 8 \\ 3 &amp; 1 &amp; -2 &amp; 4 \end{pmatrix}$. Consider the system $S$ of linear equations given by
+    \[
+    \begin{aligned}
+    6 x_1 + 2 x_2 - 6 x_3 + 8 x_4 &amp;= 8 \\
+    5 x_1 + 3 x_2 - 9 x_3 + 8 x_4 &amp;= 16 \\
+    3 x_1 + x_2 - 2 x_3 + 4 x_4 &amp;= 32
+    \end{aligned}
+    \]
+    where $x_1, x_2, x_3, x_4$ are unknowns. Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item The rank of $M$ is 3, and the system $S$ has a solution
+        \item The rank of $M$ is 3, and the system $S$ does NOT have a solution
+        \item The rank of $M$ is 2, and the system $S$ has a solution
+        \item The rank of $M$ is 2, and the system $S$ does NOT have a solution
+    \end{enumerate}</span></li><li><b>16</b> <span class="qbody">Let $M = \begin{pmatrix} -2 &amp; 0 &amp; 0 \\ 3 &amp; 2 &amp; 3 \\ 4 &amp; -1 &amp; x \end{pmatrix}$ for some real number $x$. Suppose that $-2$ and $3$ are eigenvalues of $M$. If $M^3 \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix} = \begin{pmatrix} 0 \\ 125 \\ 125 \end{pmatrix}$, then which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $x = 5$, and the matrix $M^2 + M$ is invertible
+        \item $x \neq 5$, and the matrix $M^2 + M$ is invertible
+        \item $x = 5$, and the matrix $M^2 + M$ is NOT invertible
+        \item $x \neq 5$, and the matrix $M^2 + M$ is NOT invertible
+    \end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $f(x) = 10 x^2 + e^x - \sin(2x) - \cos x$, $x \in \mathbb{R}$. The number of points at which the function $f$ has a local minimum is
+    \begin{enumerate}[label=(\alph*)] 
+        \item 0
+        \item 1
+        \item 2
+        \item greater than or equal to 3
+    \end{enumerate}</span></li><li><b>18</b> <span class="qbody">For $n \in \mathbb{N}$, define $x_n$ and $y_n$ by
+    \[
+    x_n = (-1)^n \cos \frac{1}{n} \text{ and } y_n = \sum_{k=1}^n \frac{1}{n + k}.
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\sum_{n=1}^{\infty} x_n$ converges, and $\sum_{n=1}^{\infty} y_n$ does NOT converge
+        \item $\sum_{n=1}^{\infty} x_n$ does NOT converge, and $\sum_{n=1}^{\infty} y_n$ converges
+        \item $\sum_{n=1}^{\infty} x_n$ converges, and $\sum_{n=1}^{\infty} y_n$ converges
+        \item $\sum_{n=1}^{\infty} x_n$ does NOT converge, and $\sum_{n=1}^{\infty} y_n$ does NOT converge
+    \end{enumerate}</span></li><li><b>19</b> <span class="qbody">Let $x_1 = \frac{5}{2}$. For $n \in \mathbb{N}$, define
+    \[
+    x_{n+1} = \frac{1}{5} \left( x_n^2 + 6 \right).
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $(x_n)$ is an increasing sequence, and $(x_n)$ is NOT a bounded sequence
+        \item $(x_n)$ is NOT an increasing sequence, and $(x_n)$ is NOT a bounded sequence
+        \item $(x_n)$ is NOT a decreasing sequence, and $(x_n)$ is a bounded sequence
+        \item $(x_n)$ is a decreasing sequence, and $(x_n)$ is a bounded sequence
+    \end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $x_1 = 2$ and $x_{n+1} = 2 + \frac{1}{2 x_n}$ for all $n \in \mathbb{N}$. Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $x_{n+1} \geq \frac{4}{x_n}$ for all $n \in \mathbb{N}$, and $(x_n)$ is a Cauchy sequence
+        \item $x_{n+1} &lt; \frac{4}{x_n}$ for some $n \in \mathbb{N}$, and $(x_n)$ is a Cauchy sequence
+        \item $x_{n+1} \geq \frac{4}{x_n}$ for all $n \in \mathbb{N}$, and $(x_n)$ is NOT a Cauchy sequence
+        \item $x_{n+1} &lt; \frac{4}{x_n}$ for some $n \in \mathbb{N}$, and $(x_n)$ is NOT a Cauchy sequence
+    \end{enumerate}</span></li><li><b>21</b> <span class="qbody">For $n \in \mathbb{N}$, define $x_n$ and $y_n$ by
+    \[
+    x_n = (-1)^n \frac{3^n}{n^3} \text{ and } y_n = \left( 4^n + (-1)^n 3^n \right)^{1/n}.
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $(x_n)$ has a convergent subsequence, and NO subsequence of $(y_n)$ is convergent
+        \item NO subsequence of $(x_n)$ is convergent, and $(y_n)$ has a convergent subsequence
+        \item $(x_n)$ has a convergent subsequence, and $(y_n)$ has a convergent subsequence
+        \item NO subsequence of $(x_n)$ is convergent, and NO subsequence of $(y_n)$ is convergent
+    \end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $M = (m_{ij})$ be a $3 \times 3$ real, invertible matrix and $\sigma \in S_3$ be the permutation defined by $\sigma(1) = 2$, $\sigma(2) = 3$ and $\sigma(3) = 1$. The matrix $M_\sigma = (n_{ij})$ is defined by $n_{ij} = m_{i \sigma(j)}$ for all $i, j \in \{1, 2, 3\}$. Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\det(M) = \det(M_\sigma)$, and nullity of the matrix $M - M_\sigma$ is 0
+        \item $\det(M) = -\det(M_\sigma)$, and nullity of the matrix $M - M_\sigma$ is 1
+        \item $\det(M) = \det(M_\sigma)$, and nullity of the matrix $M - M_\sigma$ is 1
+        \item $\det(M) = -\det(M_\sigma)$, and nullity of the matrix $M - M_\sigma$ is 0
+    \end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $\mathbb{R} / \mathbb{Z}$ denote the quotient group, where $\mathbb{Z}$ is considered as a subgroup of the additive group of real numbers $\mathbb{R}$. Let $m$ denote the number of injective (one-one) group homomorphisms from $\mathbb{Z}_3$ to $\mathbb{R} / \mathbb{Z}$ and $n$ denote the number of group homomorphisms from $\mathbb{R} / \mathbb{Z}$ to $\mathbb{Z}_3$. Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $m = 2$ and $n = 1$
+        \item $m = 3$ and $n = 3$
+        \item $m = 2$ and $n = 3$
+        \item $m = 1$ and $n = 1$
+    \end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $f_1, f_2, f_3$ be nonzero linear transformations from $\mathbb{R}^4$ to $\mathbb{R}$ and
+    \[
+    \ker(f_1) \subseteq \ker(f_2) \cap \ker(f_3).
+    \]
+    Let $T: \mathbb{R}^4 \to \mathbb{R}^3$ be the linear transformation defined by
+    \[
+    T(v) = (f_1(v), f_2(v), f_3(v)), \quad \text{for all } v \in \mathbb{R}^4.
+    \]
+    Then, the nullity of $T$ is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $x_1 = 1$. For $n \in \mathbb{N}$, define
+    \[
+    x_{n+1} = \left( \frac{1}{2} + \frac{\sin^2 n}{n} \right) x_n.
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\sum_{n=1}^{\infty} x_n$ converges
+        \item $\sum_{n=1}^{\infty} x_n$ does NOT converge
+        \item $\sum_{n=1}^{\infty} x_n^2$ does NOT converge
+        \item $\sum_{n=1}^{\infty} x_n x_{n+1}$ does NOT converge
+    \end{enumerate}</span></li><li><b>26</b> <span class="qbody">Let $x_1 &gt; 0$. For $n \in \mathbb{N}$, define $x_{n+1} = x_n + 4$. If
+    \[
+    \lim_{n \to \infty} \left( \frac{1}{x_2 x_3} + \frac{1}{x_3 x_4} + \cdots + \frac{1}{x_{n+1} x_{n+2}} \right) = \frac{1}{24},
+    \]
+    then the value of $x_1$ is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item 1
+        \item 2
+        \item 3
+        \item 8
+    \end{enumerate}</span></li><li><b>27</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be defined by
+    \[
+    f(x, y) = e^y (x^2 + y^2) \text{ for all } (x, y) \in \mathbb{R}^2.
+    \]
+    Then, which one of the following is TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item The number of points at which $f$ has a local minimum is 2
+        \item The number of points at which $f$ has a local maximum is 2
+        \item The number of points at which $f$ has a local minimum is 1
+        \item The number of points at which $f$ has a local maximum is 1
+    \end{enumerate}</span></li><li><b>28</b> <span class="qbody">Let $\Omega$ be the bounded region in $\mathbb{R}^3$ lying in the first octant ($x \geq 0$, $y \geq 0$, $z \geq 0$), and bounded by the surfaces $z = x^2 + y^2$, $z = 4$, $x = 0$ and $y = 0$. Then, the volume of $\Omega$ is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\pi$
+        \item $2 \pi$
+        \item $3 \pi$
+        \item $4 \pi$
+    \end{enumerate}</span></li><li><b>29</b> <span class="qbody">Let $\varphi: [0, \infty) \to \mathbb{R}$ be the continuous function satisfying
+    \[
+    \varphi(x) = \left( \int_0^x \varphi(t) \, dt \right) + \sin x, \text{ for all } x \in [0, \infty).
+    \]
+    Then, the value of $\lim_{x \to \pi/2} (2 \varphi(x) - e^x)$ is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item 1
+        \item 2
+        \item 3
+        \item 4
+    \end{enumerate}</span></li><li><b>30</b> <span class="qbody">The number of elements in the set
+    \[
+    \{ x \in \mathbb{R} : 8 x^2 + x^4 + x^8 = \cos x \}
+    \]
+    is equal to
+    \begin{enumerate}[label=(\alph*)] 
+        \item 0
+        \item 1
+        \item 2
+        \item greater than or equal to 3
+    \end{enumerate}</span></li><li><b>31</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be defined by
+    \[
+    f(x, y) = \begin{cases} 
+    \frac{x y^2 + y^5}{x^2 + y^4} &amp; \text{if } (x, y) \neq (0,0) \\
+    0 &amp; \text{if } (x, y) = (0,0)
+    \end{cases}
+    \]
+    Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item The iterated limits $\lim_{x \to 0} \left( \lim_{y \to 0} f(x, y) \right)$ and $\lim_{y \to 0} \left( \lim_{x \to 0} f(x, y) \right)$ exist
+        \item Exactly one of the partial derivatives $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ exists at $(0,0)$
+        \item Both the partial derivatives $\frac{\partial f}{\partial x}$ and $\frac{\partial f}{\partial y}$ exist at $(0,0)$
+        \item $f$ is NOT differentiable at $(0,0)$
+    \end{enumerate}</span></li><li><b>32</b> <span class="qbody">If $M, N, \mu, w: \mathbb{R}^2 \to \mathbb{R}$ are differentiable functions with continuous partial derivatives, satisfying
+    \[
+    \mu(x, y) M(x, y) \, dx + \mu(x, y) N(x, y) \, dy = dw,
+    \]
+    then which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\mu w$ is an integrating factor for $M(x, y) \, dx + N(x, y) \, dy = 0$
+        \item $\mu w^2$ is an integrating factor for $M(x, y) \, dx + N(x, y) \, dy = 0$
+        \item $w(x, y) = w(0,0) + \int_0^x (\mu M)(s, 0) \, ds + \int_0^y (\mu N)(x, t) \, dt$, for all $(x, y) \in \mathbb{R}^2$
+        \item $w(x, y) = w(0,0) + \int_0^x (\mu M)(s, y) \, ds + \int_0^x (\mu N)(0, t) \, dt$, for all $(x, y) \in \mathbb{R}^2$
+    \end{enumerate}</span></li><li><b>33</b> <span class="qbody">Let $\varphi: (-1, \infty) \to (0, \infty)$ be the solution of the differential equation
+    \[
+    \frac{dy}{dx} - 2 y e^x = 2 e^x \sqrt{y},
+    \]
+    satisfying $\varphi(0) = 1$. Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\varphi$ is an unbounded function
+        \item $\lim_{x \to \ln 2} \varphi(x) = (2 e - 1)^2$
+        \item $\lim_{x \to \ln 2} \varphi(x) = \sqrt{2 e - 1}$
+        \item $\varphi$ is a strictly increasing function on the interval $(0, \infty)$
+    \end{enumerate}</span></li><li><b>34</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be defined by
+    \[
+    f(x, y) = \begin{cases} 
+    \frac{(x^2 + \sin x) y^2}{x^2 + y^2} &amp; \text{if } (x, y) \neq (0,0) \\
+    0 &amp; \text{if } (x, y) = (0,0)
+    \end{cases}
+    \]
+    Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\lim_{(x, y) \to (0,0)} f(x, y)$ exists and $\lim_{(x, y) \to (0,0)} f(x, y) = 1$
+        \item $\lim_{(x, y) \to (0,0)} f(x, y)$ exists and $\lim_{(x, y) \to (0,0)} f(x, y) = 0$
+        \item $f$ is differentiable at $(0,0)$
+        \item $f$ is NOT differentiable at $(0,0)$
+    \end{enumerate}</span></li><li><b>35</b> <span class="qbody">Let
+    \[
+    u_1 = (1, 0, 0, -1), \quad u_2 = (0, 2, 0, -1), \quad u_3 = (0, 0, 1, -1), \quad \text{and} \quad u_4 = (0, 0, 0, 1)
+    \]
+    be elements in the real vector space $\mathbb{R}^4$. Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $\{ u_1, u_2, u_3, u_4 \}$ is a linearly independent set in $\mathbb{R}^4$
+        \item $\{ u_1 - u_2, u_2 - u_3, u_3 - u_4, u_4 - u_1 \}$ is NOT a linearly independent set in $\mathbb{R}^4$
+        \item $\{ u_1, -u_2, u_3, -u_4 \}$ is NOT a linearly independent set in $\mathbb{R}^4$
+        \item $\{ u_1 + u_2, u_2 + u_3, u_3 + u_4, u_4 + u_1 \}$ is a linearly independent set in $\mathbb{R}^4$
+    \end{enumerate}</span></li><li><b>36</b> <span class="qbody">For $n \in \mathbb{N}$, let
+    \[
+    x_n = \sum_{k=1}^n \frac{k}{n^2 + k}.
+    \]
+    Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item The sequence $(x_n)$ converges
+        \item The series $\sum_{n=1}^{\infty} x_n$ converges
+        \item The series $\sum_{n=1}^{\infty} x_n$ does NOT converge
+        \item The series $\sum_{n=1}^{\infty} x_n^n$ converges
+    \end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a twice differentiable function such that
+    \[
+    f(0) = 0, \quad f&#x27;(0) = 2, \quad \text{and} \quad f(1) = -3.
+    \]
+    Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $|f&#x27;(x)| \leq 2$ for all $x \in [0,1]$
+        \item $|f&#x27;(x_1)| &gt; 2$ for some $x_1 \in [0,1]$
+        \item $|f&#x27;&#x27;(x)| &lt; 10$ for all $x \in [0,1]$
+        \item $|f&#x27;&#x27;(x_2)| \geq 10$ for some $x_2 \in [0,1]$
+    \end{enumerate}</span></li><li><b>38</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a twice differentiable function such that
+    \[
+    f(0) = 4, \quad f(1) = -2, \quad f(2) = 8, \quad \text{and} \quad f(3) = 2.
+    \]
+    Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $|f&#x27;(x)| &lt; 5$ for all $x \in [0,1]$
+        \item $|f&#x27;(x_1)| \geq 5$ for some $x_1 \in [0,1]$
+        \item $f&#x27;(x_2) = 0$ for some $x_2 \in [0,3]$
+        \item $f&#x27;&#x27;(x_3) = 0$ for some $x_3 \in [0,3]$
+    \end{enumerate}</span></li><li><b>39</b> <span class="qbody">For $n \in \mathbb{N}$, consider the set $U(n) = \{ \bar{x} \in \mathbb{Z}_n : \gcd(x, n) = 1 \}$ as a group under multiplication modulo $n$. Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $U(8)$ is a cyclic group
+        \item $U(5)$ is a cyclic group
+        \item $U(12)$ is a cyclic group
+        \item $U(9)$ is a cyclic group
+    \end{enumerate}</span></li><li><b>40</b> <span class="qbody">Consider the following subspaces of the real vector space $\mathbb{R}^3$:
+    \[
+    \begin{aligned}
+    V_1 &amp;= \operatorname{span} \{ (1, 2, 3), (1, 1, 0) \}, \\
+    V_2 &amp;= \operatorname{span} \{ (1, -1, 0) \}, \\
+    V_3 &amp;= \operatorname{span} \{ (1, 1, 1) \}, \\
+    V_4 &amp;= \operatorname{span} \{ (1, 3, 6) \}, \\
+    V_5 &amp;= \operatorname{span} \{ (1, 0, -3) \}.
+    \end{aligned}
+    \]
+    Then, which of the following is/are TRUE?
+    \begin{enumerate}[label=(\alph*)] 
+        \item $V_1 \cup V_2$ is a subspace of $\mathbb{R}^3$
+        \item $V_1 \cup V_3$ is a subspace of $\mathbb{R}^3$
+        \item $V_1 \cup V_4$ is a subspace of $\mathbb{R}^3$
+        \item $V_1 \cup V_5$ is a subspace of $\mathbb{R}^3$
+    \end{enumerate}</span></li><li><b>41</b> <span class="qbody">The radius of convergence of the power series
+    \[
+    \sum_{n=1}^{\infty} \frac{\left(x + \frac{1}{4}\right)^n}{(-2)^n n^2}
+    \]
+    about $x = -\frac{1}{4}$, is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>42</b> <span class="qbody">The value of
+    \[
+    \lim_{n \to \infty} 8 n \left( e^{\left( \frac{1}{2n} \right)} - 1 \right) \left( \sin \frac{1}{2n} + \left| \cos \frac{1}{2n} \right| \right)
+    \]
+    is equal to  \rule{2cm}{0.4pt} (rounded off to two decimal places).</span></li><li><b>43</b> <span class="qbody">Let $\alpha$ be the real number such that
+    \[
+    \lim_{x \to 0} \frac{(1 - \cos x) (2^{2+x} - 4)}{x^3} = \alpha \ln 2.
+    \]
+    Then, the value of $\alpha$ is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>44</b> <span class="qbody">Let $\varphi: \mathbb{R} \to \mathbb{R}$ be the solution of the differential equation
+    \[
+    4 \frac{d^2 y}{dx^2} + 16 \frac{dy}{dx} + 25 y = 0
+    \]
+    satisfying $\varphi(0) = 1$ and $\varphi&#x27;(0) = -\frac{1}{2}$. Then, the value of $\lim_{x \to \pi/6} e^{2x} \varphi(x)$ is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>45</b> <span class="qbody">Let $S$ be the surface area of the portion of the plane $z = x + y + 3$, which lies inside the cylinder $x^2 + y^2 = 1$. Then, the value of $\left( \frac{S}{\pi} \right)^2$ is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>46</b> <span class="qbody">Consider the following subspaces of $\mathbb{R}^4$:
+    \[
+    \begin{aligned}
+    V_1 &amp;= \{ (x, y, z, w) \in \mathbb{R}^4 : x + y + 2 w = 0 \}, \\
+    V_2 &amp;= \{ (x, y, z, w) \in \mathbb{R}^4 : 2 y + z + w = 0 \}, \\
+    V_3 &amp;= \{ (x, y, z, w) \in \mathbb{R}^4 : x + 3 y + z + 3 w = 0 \}.
+    \end{aligned}
+    \]
+    Then, the dimension of the subspace $V_1 \cap V_2 \cap V_3$ is equal to \rule{2cm}{0.4pt}</span></li><li><b>47</b> <span class="qbody">Consider the real vector space $\mathbb{R}^3$. Let $T: \mathbb{R}^3 \to \mathbb{R}$ be a linear transformation such that
+    \[
+    T(1, 1, 1) = 0, \quad T(1, -1, 1) = 0, \quad \text{and} \quad T(0, 0, 1) = 16.
+    \]
+    Then, the value of $T\left( \frac{1}{2}, \frac{2}{3}, \frac{3}{4} \right)$ is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>48</b> <span class="qbody">Let $T$ denote the triangle in the $xy$ plane bounded by the $x$ axis and the lines $y = x$ and $x = 1$. The value of the double integral (over $T$)
+    \[
+    \iint_T (5 - y) \, dx \, dy
+    \]
+    is equal to  \rule{2cm}{0.4pt} (rounded off to two decimal places).</span></li><li><b>49</b> <span class="qbody">Let $T, S: P_4(\mathbb{R}) \to P_4(\mathbb{R})$ be the linear transformations defined by
+    \[
+    T(p(x)) = x p&#x27;(x) \text{ and } S(p(x)) = (x + 1) p&#x27;(x)
+    \]
+    for all $p(x) \in P_4(\mathbb{R})$. Then, the nullity of the composition $S \circ T$ is  \rule{2cm}{0.4pt}</span></li><li><b>50</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be defined by
+    \[
+    f(x, y) = \begin{cases} 
+    \frac{(x^2 - y^2) x y}{x^2 + y^2} &amp; \text{if } (x, y) \neq (0,0) \\
+    0 &amp; \text{if } (x, y) = (0,0)
+    \end{cases}
+    \]
+    Then, the value of $\frac{\partial f}{\partial y}(1, 0) - \frac{\partial f}{\partial x}(0, 2)$ is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>51</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a continuous function satisfying
+    \[
+    \int_0^{\pi/4} \left( \sin(x) f(x) + \cos(x) \int_0^x f(t) \, dt \right) dx = \sqrt{2}.
+    \]
+    Then, the value of $\int_0^{\pi/4} f(x) \, dx$ is equal to \rule{2cm}{0.4pt}  (rounded off to two decimal places).</span></li><li><b>52</b> <span class="qbody">Let $\sigma \in S_4$ be the permutation defined by $\sigma(1) = 2$, $\sigma(2) = 3$, $\sigma(3) = 1$, and $\sigma(4) = 4$. The number of elements in the set
+    \[
+    \{ \tau \in S_4 : \tau \sigma \tau^{-1} = \sigma \}
+    \]
+    is equal to \rule{2cm}{0.4pt}</span></li><li><b>53</b> <span class="qbody">Let $f(x) = 2 x - \sin x$, for all $x \in \mathbb{R}$. Let $k \in \mathbb{N}$ be such that
+    \[
+    \lim_{x \to 0} \left( \frac{1}{x} \sum_{i=1}^k i^2 f\left( \frac{x}{i} \right) \right) = 45.
+    \]
+    Then, the value of $k$ is equal to</span></li><li><b>54</b> <span class="qbody">The value of the infinite series
+    \[
+    \sum_{n=1}^{\infty} n \left( \frac{3}{4} \right)^{2(n-1)}
+    \]
+    is equal to \rule{2cm}{0.4pt} (rounded off to two decimal places).</span></li><li><b>55</b> <span class="qbody">Let $\varphi: (0, \infty) \to \mathbb{R}$ be the solution of the differential equation
+    \[
+    x^2 \frac{d^2 y}{dx^2} - x \frac{dy}{dx} + y = 6 x \ln x
+    \]
+    satisfying $\varphi(1) = -3$ and $\varphi(e) = 0$. Then, the value of $|\varphi&#x27;(1)|$ is equal to \rule{2cm}{0.4pt} (rounded off to two decimal places).</span></li><li><b>56</b> <span class="qbody">Let $\varphi: \mathbb{R} \to \mathbb{R}$ be the solution of the differential equation
+    \[
+    \frac{dy}{dx} + 2 x y = 2 + 4 x^2
+    \]
+    satisfying $\varphi(0) = 0$. Then, the value of $\varphi(2)$ is equal to \rule{2cm}{0.4pt} (rounded off to two decimal places).</span></li><li><b>57</b> <span class="qbody">Let $\Omega$ be the solid bounded by the planes $z = 0$, $y = 0$, $x = \frac{1}{2}$, $2 y = x$, and $2 x + y + z = 4$. If $V$ is the volume of $\Omega$, then the value of $64 V$ is equal to \rule{2cm}{0.4pt} (rounded off to two decimal places).</span></li><li><b>58</b> <span class="qbody">Let the subspace $H$ of $P_3(\mathbb{R})$ be defined as
+    \[
+    H = \{ p(x) \in P_3(\mathbb{R}) : x p&#x27;(x) = 3 p(x) \}.
+    \]
+    Then, the dimension of $H$ is equal to \rule{2cm}{0.4pt}</span></li><li><b>59</b> <span class="qbody">Let $G$ be an abelian group of order 35. Let $m$ denote the number of elements of order 5 in $G$, and let $n$ denote the number of elements of order 7 in $G$. Then, the value of $m + n$ is equal to</span></li><li><b>60</b> <span class="qbody">The number of surjective (onto) group homomorphisms from $S_4$ to $\mathbb{Z}_6$ is equal to \rule{2cm}{0.4pt}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>
