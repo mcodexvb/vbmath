@@ -849,3 +849,22 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 #gate-matches p{margin-bottom:8px}
 .gate-page-links{max-height:240px;overflow:auto;padding:3px}
 .archive-year>span{font:600 11px/1.2 var(--f-ui);white-space:nowrap}
+.people-toolbar,.people-list,.people-directory{max-width:960px}
+.people-toolbar{display:flex;align-items:end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.people-toolbar>div{flex:1 1 18rem;max-width:28rem}
+.people-toolbar label{display:block;font-weight:650;margin-bottom:5px}
+.people-toolbar input{width:100%}
+.people-meta{color:var(--ink-3);font-size:.92rem}
+#alumni-count{margin:.9rem 0 .5rem}
+.people-list{list-style:none;margin:0;padding:0}
+.people-record{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:baseline;gap:.25rem 1.25rem;padding:.85rem 0;border-block-start:1px solid var(--rule);overflow-wrap:anywhere}
+.people-record[hidden]{display:none}
+.people-record h2{font:650 1.06rem/1.3 var(--f-ui);margin:0}
+.people-directory>h2{margin:1.7rem 0 .65rem}
+.people-directory>.people-list,.people-cohort{background:linear-gradient(115deg,var(--card),var(--paper-2));border:1px solid var(--rule);border-radius:var(--r);padding-inline:1rem}
+.people-directory>.people-list>:first-child{border-block-start:0}
+.people-cohort{margin-block:.5rem}
+.people-cohort summary{cursor:pointer;padding:.65rem 0;color:var(--green-ink)}
+.people-cohort summary .people-meta{margin-inline-start:.65rem}
+.people-directory>p{margin-top:1rem}
+@media(max-width:640px){.people-record{grid-template-columns:minmax(0,1fr);gap:.2rem}}

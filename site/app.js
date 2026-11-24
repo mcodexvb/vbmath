@@ -16,7 +16,8 @@
     TIFR: ["TIFR Mathematics", "Stage I and Stage II syllabi and admission information.", "https://mathweb.tifr.res.in/admissions.html"],
   };
   const PROGRAMME_ROUTES = {BSc:"papers-bsc", MSc:"papers-msc"};
-  const PEOPLE_LABELS = {teachers:"Teachers", alumni:"Alumni", scholars:"Scholars"};
+  const PEOPLE_LABELS = {teachers:"Teachers", alumni:"Alumni", scholars:"Scholars", "student-achievements":"Student achievements"};
+  const PEOPLE_DATA = {"people-alumni":"alumni", "people-student-achievements":"student-achievements"};
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -1335,15 +1336,49 @@
     }));
     $$(".pcode").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.code = b.dataset.code; F.sort = "new"; go("search"); }));
   }
+  function viewAlumni() {
+    const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
+    const rows = D.alumni.map(([name, years, degree]) => `<li class="people-record" data-alumnus>
+      <h2>${esc(name)}</h2><p class="people-meta">${[years, degree].filter(Boolean).map(esc).join(" · ")}</p></li>`).join("");
+    return `<div class="people-toolbar"><div><label for="alumni-find">Filter alumni</label><input id="alumni-find" type="search" placeholder="Name, years or degree"></div>
+      ${ext(alumniForm, "Register as an alumnus", "btn btn-ghost")}</div>
+      <p class="people-meta" id="alumni-count" role="status">${D.alumni.length} alumni</p>
+      <ul class="people-list">${rows}</ul>`;
+  }
+  function bindAlumni() {
+    const rows = $$("[data-alumnus]").map((row) => [row, row.textContent.toLowerCase()]);
+    const search = $("#alumni-find");
+    search.addEventListener("input", () => {
+      const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let count = 0;
+      for (const [row, text] of rows) {
+        row.hidden = !terms.every((term) => text.includes(term));
+        count += Number(!row.hidden);
+      }
+      $("#alumni-count").textContent = count === 1 ? "1 alumnus" : count + " alumni";
+    });
+  }
+  function viewStudentAchievements() {
+    const {source, highlights, cohorts} = D["student-achievements"];
+    return `<div class="people-directory"><h2>Fellowships and recognition</h2>
+      <ul class="people-list">${highlights.map(([name, achievement]) => `<li class="people-record"><strong>${esc(name)}</strong><p>${esc(achievement)}</p></li>`).join("")}</ul>
+      <h2>NET, GATE and further study</h2>
+      ${cohorts.map(({years, students}, index) => `<details class="people-cohort"${index === 0 ? " open" : ""}>
+        <summary><strong>M.Sc. ${esc(years)}</strong><span class="people-meta">${students.length} records</span></summary>
+        <ul class="people-list">${students.map(([name, exams, study]) => `<li class="people-record"><strong>${esc(name)}</strong><p>${[exams, study].filter(Boolean).map(esc).join(" · ")}</p></li>`).join("")}</ul></details>`).join("")}
+      <p>${ext(source, "Source · Visva-Bharati Department of Mathematics")}</p></div>`;
+  }
   function viewPeople(section) {
+    if (section === "alumni") return page("People", "Alumni", "Visva-Bharati mathematics alumni directory.", viewAlumni());
+    if (section === "student-achievements") return page("People", "Student achievements", "Qualifications, further study and honours reported by the Department of Mathematics.", viewStudentAchievements());
     const teachers = `<section id="teachers" aria-label="Teachers" tabindex="-1"><div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b>Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b>Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
       <section class="section"><div class="section-head"><h2>Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section></section>`;
     const scholars = `<div class="card" id="scholars" tabindex="-1"><p>See the directory of current and graduated research scholars and their supervisors.</p><p style="margin-top:12px">${ext(D.C.scholars_link, "Open the scholar directory", "btn btn-ghost")}</p></div>`;
     const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
     const alumni = `<div class="card" id="alumni" tabindex="-1"><p>Visva-Bharati mathematics alumni can add their details through the VBMath alumni form.</p><p style="margin-top:12px">${ext(alumniForm, "Open alumni registration", "btn btn-ghost")}</p></div>`;
-    if (section) return page("People", PEOPLE_LABELS[section], "", {teachers, scholars, alumni}[section]);
+    if (section) return page("People", PEOPLE_LABELS[section], "", {teachers, scholars}[section]);
     return page("People", "People", "", `<div class="resource-grid">${Object.entries(PEOPLE_LABELS).map(([key, label]) => `<a class="card" href="${L("people-" + key)}"><h2>${label}</h2></a>`).join("")}</div>
-      <div class="section">${teachers}</div><div class="section">${scholars}</div><div class="section">${alumni}</div>`);
+      <div class="section">${teachers}</div><div class="section">${scholars}</div>`);
   }
   function viewTools() {
     const coding = D.C.tools.filter(([label]) => label.startsWith("Math++"));
@@ -1422,7 +1457,7 @@
     }, {}),
     lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
     websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
-    ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), null, label + " · VBMath"]])),
+    ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), key === "alumni" ? bindAlumni : null, label + " · VBMath"]])),
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, bindNotes, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
     books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
@@ -1433,8 +1468,14 @@
   }
   async function route(keepScroll) {
     const r = current(), version = ++routeVersion;
-    if (!catalogueReady || (needsQuestions(r) && !questionsReady)) {
-      try { await (needsQuestions(r) ? load() : loadCatalogue()); }
+    const dataset = Object.hasOwn(PEOPLE_DATA, r) ? PEOPLE_DATA[r] : null;
+    if (!catalogueReady || (needsQuestions(r) && !questionsReady) || (dataset && !D[dataset])) {
+      try {
+        await Promise.all([
+          needsQuestions(r) ? load() : loadCatalogue(),
+          dataset && !D[dataset] ? loadJSON(dataset).then((data) => { D[dataset] = data; }) : null,
+        ]);
+      }
       catch (error) {
         if (version === routeVersion) $("#app").innerHTML = `<div class="wrap"><div class="empty">The archive could not be loaded (${esc(error.message)}). Please reload the page.</div></div>`;
         return;
