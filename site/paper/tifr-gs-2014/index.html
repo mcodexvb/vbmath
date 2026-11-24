@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2014 · Mathematics · VBMath</title>
+<meta name="description" content="30 questions from the VBMath transcription of TIFR Graduate School · GS 2014 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2014/">
+<meta property="og:title" content="TIFR Graduate School · GS 2014 · Mathematics · VBMath">
+<meta property="og:description" content="30 questions from the VBMath transcription of TIFR Graduate School · GS 2014 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2014/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2014 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Let $A, B, C$ be three subsets of $\mathbb{R}$. The negation of the following statement:
+  \begin{quote}
+    For every $\epsilon &gt; 1$, there exists $a \in A$ and $b \in B$ such that for all $c \in C$, $|a - c| &lt; \epsilon$ and $|b - c| &gt; \epsilon$
+  \end{quote}
+  is
+  \begin{enumerate}[label=\Alph*.]
+    \item there exists $\epsilon \le 1$, such that for all $a \in A$ and $b \in B$ there exists $c \in C$ such that $|a - c| \ge \epsilon$ or $|b - c| \le \epsilon$.
+    \item there exists $\epsilon \le 1$, such that for all $a \in A$ and $b \in B$ there exists $c \in C$ such that $|a - c| \ge \epsilon$ and $|b - c| \le \epsilon$.
+    \item there exists $\epsilon &gt; 1$, such that for all $a \in A$ and $b \in B$ there exists $c \in C$ such that $|a - c| \ge \epsilon$ and $|b - c| \le \epsilon$.
+    \item there exists $\epsilon &gt; 1$, such that for all $a \in A$ and $b \in B$ there exists $c \in C$ such that $|a - c| \ge \epsilon$ or $|b - c| \le \epsilon$.
+  \end{enumerate}</span></li><li><b>2</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a continuous bounded function, then:
+  \begin{enumerate}[label=\Alph*.]
+    \item $f$ has to be uniformly continuous.
+    \item there exists an $x \in \mathbb{R}$ such that $f(x) = x$.
+    \item $f$ cannot be increasing.
+    \item $\lim_{x \to \infty} f(x)$ exists.
+  \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a differentiable function such that $\lim_{x \to +\infty} f&#x27;(x) = 1$; then
+  \begin{enumerate}[label=\Alph*.]
+    \item $f$ is bounded.
+    \item $f$ is increasing.
+    \item $f$ is unbounded.
+    \item $f&#x27;$ is bounded.
+  \end{enumerate}</span></li><li><b>4</b> <span class="qbody">Let $f$ be the real valued function on $[0, \infty)$ defined by
+  \[
+    f(x) = \begin{cases} x^{2/3} \log x, &amp; \text{for } x &gt; 0, \\ 0, &amp; \text{if } x = 0. \end{cases}
+  \]
+  Then
+  \begin{enumerate}[label=\Alph*.]
+    \item $f$ is discontinuous at $x = 0$.
+    \item $f$ is continuous on $[0, \infty)$, but not uniformly continuous on $[0, \infty)$.
+    \item $f$ is uniformly continuous on $[0, \infty)$.
+    \item $f$ is not uniformly continuous on $[0, \infty)$, but uniformly continuous on $(0, \infty)$.
+  \end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $a_n = (n + 1)^{100} e^{-\sqrt{n}}$ for $n \ge 1$. Then the sequence $(a_n)_n$ is
+  \begin{enumerate}[label=\Alph*.]
+    \item unbounded.
+    \item bounded but does not converge.
+    \item bounded and converges to $1$.
+    \item bounded and converges to $0$.
+  \end{enumerate}</span></li><li><b>6</b> <span class="qbody">Let $f: [0, 1] \to \mathbb{R}$ be a continuous function. Which of the following statements is always true?
+  \begin{enumerate}[label=\Alph*.]
+    \item $\int_0^1 f^2(x)\,dx = \left(\int_0^1 f(x)\,dx\right)^2$.
+    \item $\int_0^1 f^2(x)\,dx \le \left(\int_0^1 |f(x)|\,dx\right)^2$.
+    \item $\int_0^1 f^2(x)\,dx \ge \left(\int_0^1 |f(x)|\,dx\right)^2$.
+    \item $\int_0^1 f^2(x)\,dx \le \left(\int_0^1 f(x)\,dx\right)^2$.
+  \end{enumerate}</span></li><li><b>7</b> <span class="qbody">Let $f_n(x)$, for $n \ge 1$, be a sequence of continuous nonnegative functions on $[0, 1]$ such that $\lim_{n \to \infty} \int_0^1 f_n(x)\,dx = 0$. Which of the following statements is always correct?
+  \begin{enumerate}[label=\Alph*.]
+    \item $f_n \to 0$ uniformly on $[0, 1]$.
+    \item $f_n$ may not converge uniformly but converges to $0$ point-wise.
+    \item $f_n$ will converge point-wise and the limit may be non-zero.
+    \item $f_n$ is not guaranteed to have a point-wise limit.
+  \end{enumerate}</span></li><li><b>8</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a continuous function such that $|f(x) - f(y)| \ge \frac{1}{2}|x - y|$ for all $x, y \in \mathbb{R}$. Then
+  \begin{enumerate}[label=\Alph*.]
+    \item $f$ is both one-to-one and onto.
+    \item $f$ is one-to-one but may not be onto.
+    \item $f$ is onto but may not be one-to-one.
+    \item $f$ is neither one-to-one nor onto.
+  \end{enumerate}</span></li><li><b>9</b> <span class="qbody">Let $A(\theta) = \begin{pmatrix} \cos\theta &amp; \sin\theta \\ -\sin\theta &amp; \cos\theta \end{pmatrix}$, where $\theta \in (0, 2\pi)$. Mark the correct statement below.
+  \begin{enumerate}[label=\Alph*.]
+    \item $A(\theta)$ has eigenvectors in $\mathbb{R}^2$ for all $\theta \in (0, 2\pi)$.
+    \item $A(\theta)$ does not have an eigenvector in $\mathbb{R}^2$ for any $\theta \in (0, 2\pi)$.
+    \item $A(\theta)$ has eigenvectors in $\mathbb{R}^2$ for exactly one value of $\theta \in (0, 2\pi)$.
+    \item $A(\theta)$ has eigenvectors in $\mathbb{R}^2$ for exactly $2$ values of $\theta \in (0, 2\pi)$.
+  \end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $\mathcal{C} \subset \mathbb{Z} \times \mathbb{Z}$ be the set of integer pairs $(a, b)$ for which the three complex roots $r_1, r_2$ and $r_3$ of the polynomial $p(x) = x^3 - 2x^2 + ax - b$ satisfy $r_1^3 + r_2^3 + r_3^3 = 0$. Then the cardinality of $\mathcal{C}$ is
+  \begin{enumerate}[label=\Alph*.]
+    \item $|\mathcal{C}| = \infty$
+    \item $|\mathcal{C}| = 0$
+    \item $|\mathcal{C}| = 1$
+    \item $1 &lt; |\mathcal{C}| &lt; \infty$
+  \end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $A$ be an $n \times n$ matrix with real entries such that $A^k = 0$ ($0$-matrix) for some $k \in \mathbb{N}$. Then
+  \begin{enumerate}[label=\Alph*.]
+    \item $A$ has to be the $0$ matrix.
+    \item $\operatorname{trace}(A)$ could be non-zero.
+    \item $A$ is diagonalizable.
+    \item $0$ is the only eigenvalue of $A$.
+  \end{enumerate}</span></li><li><b>12</b> <span class="qbody">There exists a map $f: \mathbb{Z} \to \mathbb{Q}$ such that $f$
+  \begin{enumerate}[label=\Alph*.]
+    \item is bijective and increasing.
+    \item is onto and decreasing.
+    \item is bijective and satisfies $f(n) \ge 0$ if $n \le 0$.
+    \item has uncountable image.
+  \end{enumerate}</span></li><li><b>13</b> <span class="qbody">Let $S$ be the set of all tuples $(x, y)$ with $x, y$ non-negative real numbers satisfying $x + y = 2n$ for a fixed $n \in \mathbb{N}$. Then the supremum value of $x^2 y^2 (x^2 + y^2)$ on the set $S$ is
+  \begin{enumerate}[label=\Alph*.]
+    \item $3n^6$
+    \item $2n^6$
+    \item $4n^6$
+    \item $n^6$.
+  \end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $G$ be a group and let $H$ and $K$ be two subgroups of $G$. If both $H$ and $K$ have $12$ elements, which of the following numbers cannot be the cardinality of the set $HK = \{hk : h \in H, \, k \in K\}$?
+  \begin{enumerate}[label=\Alph*.]
+    \item $72$
+    \item $60$
+    \item $48$
+    \item $36$.
+  \end{enumerate}</span></li><li><b>15</b> <span class="qbody">How many proper subgroups does the group $\mathbb{Z} \oplus \mathbb{Z}$ have?
+  \begin{enumerate}[label=\Alph*.]
+    \item $1$
+    \item $2$
+    \item $3$
+    \item infinitely many.
+  \end{enumerate}</span></li><li><b>16</b> <span class="qbody">$X$ is a metric space. $Y$ is a closed subset of $X$ such that the distance between any two points in $Y$ is at most $1$. Then
+  \begin{enumerate}[label=\Alph*.]
+    \item $Y$ is compact.
+    \item any continuous function from $Y \to \mathbb{R}$ is bounded.
+    \item $Y$ is not an open subset of $X$.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>17</b> <span class="qbody">Let $f: \mathbb{R} \to \mathbb{R}$ be a continuous function and let $S$ be a non-empty proper subset of $\mathbb{R}$. Which one of the following statements is always true? (Here $\overline{A}$ denotes the closure of $A$ and $A^\circ$ denotes the interior of $A$.)
+  \begin{enumerate}[label=\Alph*.]
+    \item $f(S)^\circ \subseteq f(S^\circ)$
+    \item $f(\overline{S}) \subseteq \overline{f(S)}$
+    \item $f(\overline{S}) \supseteq \overline{f(S)}$
+    \item $f(S)^\circ \supseteq f(S^\circ)$.
+  \end{enumerate}</span></li><li><b>18</b> <span class="qbody">What is the last digit of $97^{2013}$?
+  \begin{enumerate}[label=\Alph*.]
+    \item $1$
+    \item $3$
+    \item $7$
+    \item $9$.
+  \end{enumerate}</span></li><li><b>19</b> <span class="qbody">For $n \in \mathbb{N}$ we define $s_n = 1^3 + 2^3 + 3^3 + \dots + n^3$. Which of the following holds for all $n \in \mathbb{N}$?
+  \begin{enumerate}[label=\Alph*.]
+    \item $s_n$ is an odd integer.
+    \item $s_n = n^2(n + 1)^2 / 4$.
+    \item $s_n = n(n + 1)(2n + 1) / 6$.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $C$ denote the cube $[-1, 1]^3 \subset \mathbb{R}^3$. How many rotations are there in $\mathbb{R}^3$ {[obscured in source]}?
+  \begin{enumerate}[label=\Alph*.]
+    \item $6$
+    \item {[obscured in source]}
+    \item {[obscured in source]}
+    \item $24$.
+  \end{enumerate}</span></li><li><b>21</b> <span class="qbody">Let $f: [0, 1] \to [0, \infty)$ be continuous. Suppose $\int_0^x f(t)\,dt \ge f(x)$ for all $x \in [0, 1]$. Then
+  \begin{enumerate}[label=\Alph*.]
+    \item no such function exists.
+    \item there are infinitely many such functions.
+    \item there is only one such function.
+    \item there are exactly two such functions.
+  \end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $f: \mathbb{R}^2 \to \mathbb{R}$ be a continuous map such that $f(x) = 0$ for only finitely many values of $x$. Which of the following is true?
+  \begin{enumerate}[label=\Alph*.]
+    \item either $f(x) \le 0$ for all $x$, or $f(x) \ge 0$ for all $x$.
+    \item the map $f$ is onto.
+    \item the map $f$ is one-to-one.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $S_n$ be the symmetric group of $n$ letters. There exists an onto group homomorphism
+  \begin{enumerate}[label=\Alph*.]
+    \item from $S_5$ to $S_4$
+    \item from $S_4$ to $S_2$
+    \item from $S_5$ to $\mathbb{Z}/5$
+    \item from $S_4$ to $\mathbb{Z}/4$.
+  \end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $H_1, H_2$ be two distinct subgroups of a finite group $G$, each of order $2$. Let $H$ be the smallest subgroup containing $H_1$ and $H_2$. Then the order of $H$ is
+  \begin{enumerate}[label=\Alph*.]
+    \item always $2$
+    \item always $4$
+    \item always $8$
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>25</b> <span class="qbody">Which of the following groups are isomorphic?
+  \begin{enumerate}[label=\Alph*.]
+    \item $\mathbb{R}$ and $\mathbb{C}$
+    \item $\mathbb{R}^*$ and $\mathbb{C}^*$
+    \item $S_3 \times \mathbb{Z}/4$ and $S_4$
+    \item $\mathbb{Z}/2 \times \mathbb{Z}/2$ and $\mathbb{Z}/4$.
+  \end{enumerate}</span></li><li><b>26</b> <span class="qbody">The number of irreducible polynomials of the form $x^2 + ax + b$ with $a, b$ in the field $\mathbb{F}_7$ of $7$ elements is:
+  \begin{enumerate}[label=\Alph*.]
+    \item $7$
+    \item $21$
+    \item $35$
+    \item $49$.
+  \end{enumerate}</span></li><li><b>27</b> <span class="qbody">$X$ is a topological space of infinite cardinality which is homeomorphic to $X \times X$. Then
+  \begin{enumerate}[label=\Alph*.]
+    \item $X$ is not connected.
+    \item $X$ is not compact.
+    \item $X$ is not homeomorphic to a subset of $\mathbb{R}$.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>28</b> <span class="qbody">Let $X$ be a non-empty topological space such that every function $f: X \to \mathbb{R}$ is continuous. Then
+  \begin{enumerate}[label=\Alph*.]
+    \item $X$ has the discrete topology.
+    \item $X$ has the indiscrete topology.
+    \item $X$ is compact.
+    \item $X$ is not connected.
+  \end{enumerate}</span></li><li><b>29</b> <span class="qbody">Let $f: X \to Y$ be a continuous map between metric spaces. Then $f(X)$ is a complete subset of $Y$ if
+  \begin{enumerate}[label=\Alph*.]
+    \item the space $X$ is compact.
+    \item the space $Y$ is compact.
+    \item the space $X$ is complete.
+    \item the space $Y$ is complete.
+  \end{enumerate}</span></li><li><b>30</b> <span class="qbody">How many maps $\phi: \mathbb{N} \cup \{0\} \to \mathbb{N} \cup \{0\}$ are there with the property that $\phi(ab) = \phi(a) + \phi(b)$ for all $a, b \in \mathbb{N} \cup \{0\}$?
+  \begin{enumerate}[label=\Alph*.]
+    \item none
+    \item {[obscured in source]}
+    \item {[obscured in source]}
+    \item {[obscured in source]}
+  \end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

@@ -116,6 +116,7 @@ def competitive_dataset(name):
                 CP.append(dict(key=key,prog=row['programme'],sem=0,year=row['year'],
                     kind='c',code=row['programme'],title=row['paper_title'],
                     full=row.get('full_marks'),source=row.get('source_scan'),answer_key=row.get('answer_key_url'),n=0))
+                if row.get('selection'): CP[-1]['selection']=True
             i=CPI[key]
             CP[i]['n']+=1
             tags=[TI[t['broad'],t['specific']] for t in row['topics'] if (t['broad'],t['specific']) in TI]
