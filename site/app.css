@@ -493,3 +493,58 @@ details.more summary{cursor:pointer;font-weight:600}
 }
 @media (max-width:1040px){.note-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.note-grid{grid-template-columns:1fr}}
+
+/* ---------- resource pages ---------- */
+.resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.resource-card,.scan-group{min-width:0;border:1px solid var(--rule);border-radius:14px;background:var(--card)}
+.resource-card{padding:clamp(16px,2.2vw,26px);display:grid;gap:14px;justify-items:start}
+.resource-card-head,.scan-group-head{display:flex;align-items:center;gap:14px}
+.resource-card-head h2,.scan-group-head h2{margin:0;font-size:clamp(17px,1.7vw,22px);line-height:1.25}
+.resource-card-head p{margin:6px 0 0;color:var(--ink-2);font-size:15px}
+.resource-icon,.resource-row-icon,.resource-arrow{display:grid;place-items:center;flex:none;color:var(--green-ink);border-radius:10px}
+.resource-icon{width:44px;height:44px;background:var(--green-soft)}
+.resource-card:nth-child(even) .resource-icon{background:var(--amber-soft);color:var(--amber-ink)}
+.resource-icon .ico{width:23px;height:23px}
+.resource-featured{background:var(--green-tint)}
+.resource-featured:nth-child(2){background:var(--paper-2)}
+.resource-disclosure{width:100%;border-top:1px solid var(--rule);padding:10px 0 0}
+.resource-disclosure summary{cursor:pointer;font:600 15px/1.45 var(--f-ui);color:var(--green-ink);padding-block:6px}
+.resource-disclosure[open] .resource-links{margin-top:8px}
+.resource-links{display:flex;flex-wrap:wrap;gap:8px}
+.resource-links .chip{min-height:40px;white-space:normal;line-height:1.25}
+.syllabus-grid{grid-template-columns:1fr 1fr}
+.syllabus-group:first-child{grid-row:span 2}
+.syllabus-rows,.scan-rows{width:100%}
+.resource-row{display:flex;align-items:center;gap:12px;min-width:0;padding:12px 8px;border-top:1px solid var(--rule);color:var(--ink);text-decoration:none}
+.resource-row:hover,.resource-row:focus-visible{background:var(--green-tint);color:var(--green-ink)}
+.resource-row-text{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;flex:1;min-width:0}
+.resource-row-text strong{font-weight:600;overflow-wrap:anywhere}
+.resource-row-text small{flex:0 0 100%;color:var(--ink-2);font-size:14px}
+.resource-row-icon,.resource-arrow{width:32px;height:32px;background:var(--paper-2)}
+.resource-row .ico{width:16px;height:16px}
+.resource-intro-split{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.resource-intro h1,.resource-intro .lede{margin-bottom:0}
+.resource-stat{display:flex;align-items:center;gap:12px;flex:none;background:var(--green-soft);color:var(--green-ink);border-radius:12px;padding:12px 16px}
+.resource-stat strong,.resource-stat small{display:block;line-height:1.25}
+.resource-stat strong{font-size:24px}
+.scan-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,2fr);gap:14px;
+  align-items:end;border:1px solid var(--rule);border-radius:14px;background:var(--paper-2);padding:clamp(14px,2vw,22px)}
+.scan-filter-actions{grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.scan-filter-actions label{display:flex;align-items:center;gap:8px;font-size:14px}
+.scan-filter-actions input{accent-color:var(--green)}
+.scan-count{color:var(--ink-2);margin:16px 0}
+.scan-group{margin-bottom:14px;overflow:clip}
+.scan-group-head{padding:12px 16px;background:var(--paper-2)}
+.scan-group .resource-row,.scan-group .resource-disclosure{padding-inline:16px}
+.scan-group .resource-disclosure{padding-bottom:12px}
+@media(prefers-reduced-motion:no-preference){
+  .resource-row,.resource-arrow{transition:background-color .18s,color .18s,transform .18s}
+  .resource-row:hover .resource-arrow,.resource-row:focus-visible .resource-arrow{transform:translate(2px,-2px)}
+}
+@media(max-width:700px){
+  .resource-grid{grid-template-columns:1fr}
+  .syllabus-group:first-child{grid-row:auto}
+  .scan-filters{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .resource-intro-split{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:390px){.scan-query{grid-column:1/-1}}

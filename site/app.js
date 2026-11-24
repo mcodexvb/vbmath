@@ -72,6 +72,7 @@
     flag: I('<path d="M5 21V4h11l-2 4 2 4H5"/>'),
     link: I('<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'),
     arrow: I('<path d="M5 12h14m-5-5 5 5-5 5"/>'),
+    folder: I('<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
     scan: I('<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M8 9h8M8 13h8M8 17h5"/>'),
   };
 
@@ -789,16 +790,16 @@
     const f = Object.assign({ prog: "", sem: "", year: "", q: "", math: true, old: false }, store.get("scanF", {}));
     const years = Array.from(new Set(D.scans.map((s) => s.year).filter(Boolean))).sort((a, b) => b - a);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Scans</div>
-      <h1>Scanned papers</h1><p class="lede" style="margin-bottom:20px">All ${D.scans.length} original PDFs in the VBMath Drive, from 2004 onwards, each with its own link. Some are not typed yet; those still open here.</p>
-      <div class="card" style="display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));align-items:end;margin-bottom:18px">
+      <div class="resource-intro resource-intro-split"><div><h1>Scanned papers</h1><p class="lede">Find original exam papers by programme, semester, year or paper code.</p></div><div class="resource-stat">${IC.scan}<div><strong>${D.scans.length.toLocaleString()}</strong><small>Original PDFs</small></div></div></div>
+      <div class="scan-filters" aria-label="Scan filters">
         <div><label class="flabel" for="s-prog">Programme</label><select id="s-prog">${opt("", "All", f.prog)}${opt("BSc", "B.Sc.", f.prog)}${opt("MSc", "M.Sc.", f.prog)}</select></div>
         <div><label class="flabel" for="s-sem">Semester</label><select id="s-sem">${opt("", "All", f.sem)}${[1, 2, 3, 4, 5, 6, 7, 8].map((s) => opt(s, "Sem " + ROMAN[s], f.sem)).join("")}</select></div>
         <div><label class="flabel" for="s-year">Year</label><select id="s-year">${opt("", "All", f.year)}${years.map((y) => opt(y, y, f.year)).join("")}</select></div>
-        <div style="grid-column:span 2;min-width:0"><label class="flabel" for="s-q">Name contains</label><input type="search" id="s-q" value="${esc(f.q)}" placeholder="e.g. MMC-21, topology"></div>
-        <label style="display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink-2)"><input type="checkbox" id="s-math" ${f.math ? "checked" : ""}> Mathematics only</label>
+        <div class="scan-query"><label class="flabel" for="s-q">Paper name or code</label><input type="search" id="s-q" value="${esc(f.q)}" placeholder="e.g. MMC-21, topology"></div>
+        <div class="scan-filter-actions"><label><input type="checkbox" id="s-math" ${f.math ? "checked" : ""}> Mathematics only</label><button class="btn btn-ghost btn-sm" type="button" id="s-reset">Reset filters</button></div>
       </div>
-      <div id="scanlist"></div>
-      <section class="section"><div class="section-head"><h2 style="font-size:20px">Drive folders</h2><span class="muted">The full folders, as on the old site</span></div>
+      <p id="scan-count" class="scan-count" role="status"></p><div id="scanlist"></div>
+      <section class="section"><div class="shead"><h2>Drive folders</h2></div>
         <div class="grid g2">${["BSc", "MSc"].map((pg) => `<div class="card"><h3>${PROG[pg]}</h3><div class="tabs" style="margin:8px 0 0">${D.C.folders[pg].map(([l, u]) => `<a class="chip" href="${esc(u)}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join("")}</div></div>`).join("")}
         <div class="card"><h3>Older B.Sc. folders</h3><p style="margin-bottom:8px">Before the 2025 reorganisation.</p><div class="tabs" style="margin:0">${D.C.folders.BSc_old1.concat(D.C.folders.BSc_old2).map(([l, u], i) => `<a class="chip" href="${esc(u)}" target="_blank" rel="noopener">${i < 6 ? "" : "2017+ "}${esc(l)} ↗</a>`).join("")}</div></div></div>
       </section></div>`;
@@ -812,14 +813,28 @@
       const groups = new Map();
       list.forEach((s) => { const k = s.prog + "|" + s.sem + "|" + (s.year || 0); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(s); });
       const keys = Array.from(groups.keys()).sort((a, b) => { const [pa, sa, ya] = a.split("|"), [pb, sb, yb] = b.split("|"); return pa.localeCompare(pb) || sa - sb || yb - ya; });
-      $("#scanlist").innerHTML = list.length ? `<p class="muted" style="font-size:13.5px">${list.length} PDF${list.length > 1 ? "s" : ""}</p>` + keys.map((k) => {
-        const [pg, s, y] = k.split("|"); const g = groups.get(k);
-        const typed = D.papers.filter((p) => p.prog === pg && p.sem === +s && p.year === +y);
-        return `<div style="margin-bottom:18px"><div style="display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between;margin-bottom:8px"><h3 style="margin:0">${pg === "BSc" ? "B.Sc." : "M.Sc."} Semester ${ROMAN[s]} · ${+y || "Year unknown"}</h3>${typed.length ? `<span class="tabs" style="margin:0">${typed.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(p.code || "Paper")} typed</a>`).join("")}</span>` : '<span class="muted" style="font-size:13px">Not typed yet</span>'}</div>
-          <div class="list">${g.map((x) => `<a class="row" href="${scanUrl(x.id)}" target="_blank" rel="noopener"><span class="t">${esc(x.label)}${x.kind === "i" ? ' <span class="tag rep">Internal</span>' : ""}${x.other ? ' <span class="tag b">Other subject</span>' : ""}${x.old ? ' <span class="tag b">Older</span>' : ""}</span><span class="muted">↗</span></a>`).join("")}</div></div>`;
-      }).join("") : `<div class="empty">No scans match.</div>`;
+      $("#scan-count").textContent = list.length.toLocaleString() + (list.length === 1 ? " PDF" : " PDFs");
+      $("#scanlist").innerHTML = list.length ? keys.map((k) => {
+        const [pg, sem, year] = k.split("|");
+        const group = groups.get(k);
+        const typed = D.papers.filter((p) => p.prog === pg && p.sem === +sem && p.year === +year);
+        const heading = (PSHORT[pg] || pg) + (ROMAN[sem] ? " Semester " + ROMAN[sem] : "") + " · " + (+year || "Year unknown");
+        return `<section class="scan-group"><header class="scan-group-head">
+          <span class="resource-icon">${IC.folder}</span><div><h2>${esc(heading)}</h2>
+          <span class="muted">${group.length} ${group.length === 1 ? "scan" : "scans"}</span></div></header>
+          <div class="scan-rows">${group.map((x) => `<a class="resource-row" href="${scanUrl(x.id)}" target="_blank" rel="noopener">
+            <span class="resource-row-icon">${IC.file}</span><span class="resource-row-text"><strong>${esc(x.label)}</strong>
+            ${x.kind === "i" ? '<span class="tag rep">Internal</span>' : ""}${x.other ? '<span class="tag">Other subject</span>' : ""}${x.old ? '<span class="tag">Older</span>' : ""}</span><span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div>
+          ${typed.length ? `<details class="resource-disclosure"><summary>Typed papers <span class="muted">(${typed.length})</span></summary>
+          <div class="resource-links">${typed.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(pname(p))}${p.kind[0] === "i" ? " · Internal" : ""}</a>`).join("")}</div></details>` : ""}</section>`;
+      }).join("") : `<div class="empty">No scans match these filters.</div>`;
     };
     ["s-prog", "s-sem", "s-year", "s-math"].forEach((id) => $("#" + id).addEventListener("change", draw));
+    $("#s-reset").addEventListener("click", () => {
+      ["s-prog", "s-sem", "s-year", "s-q"].forEach((id) => { $("#" + id).value = ""; });
+      $("#s-math").checked = true;
+      draw();
+    });
     let deb; $("#s-q").addEventListener("input", () => { clearTimeout(deb); deb = setTimeout(draw, 200); });
     draw();
   }
@@ -857,17 +872,25 @@
   const ext = (u, l, cls) => `<a ${cls ? `class="${cls}" ` : ""}href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${cls === "chip" ? " ↗" : ""}</a>`;
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div><h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}${body}</div>`;
   function viewExams() {
-    const typed = Object.entries(EXAM).map(([code, name]) => {
-      const papers = D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key));
-      if (!papers.length) return "";
-      return `<section class="section"><div class="shead"><h2>${esc(name)} question bank</h2>
-        <a class="lnk" href="${L("search")}${HASH ? "" : "?exam=" + code}" data-exam-search="${code}">Search these questions</a></div>
-        <div class="list">${papers.map((p) => `<a class="row" href="${L("paper-" + p.key)}"><span class="t">${esc(p.title)}</span><span class="muted">${p.n} questions</span></a>`).join("")}</div></section>`;
-    }).join("");
-    return page("Competitive exams", "Competitive & admission exams", "Previous papers for IIT JAM, CSIR-UGC NET, GATE, NBHM, TIFR and the Visva-Bharati M.Sc. admission test.",
-      `${typed}<div class="grid g2">${D.C.exams.map((e) => `<div class="card"><h3>${esc(e.name)}</h3><p style="margin-bottom:12px">${esc(e.note)}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">${e.links.map(([l, u], i) => ext(u, l === "Paper" ? "Paper " + (e.links.slice(0, i + 1).filter((x) => x[0] === "Paper").length) : l, "chip")).join("")}</div>
-        ${e.syllabus ? `<p style="margin-top:12px">${ext(e.syllabus, "Syllabus ↗")}</p>` : ""}</div>`).join("")}</div>`);
+    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET" };
+    const cards = D.C.exams.map((exam) => {
+      const code = routes[exam.name];
+      const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
+      const search = papers.length ? `<a class="note-open" href="${L("search")}${HASH ? "" : "?exam=" + code}" data-exam-search="${code}">Search questions ${IC.arrow}</a>` : "";
+      const links = exam.links.map(([label, url]) => ext(url, label, "chip")).join("");
+      return `<article class="resource-card${code ? " resource-featured" : ""}">
+        <div class="resource-card-head"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
+          <div><h2>${esc(exam.name)}</h2><p>${esc(exam.note)}</p></div></div>
+        ${search}
+        ${papers.length ? `<details class="resource-disclosure"><summary>Searchable papers <span class="muted">(${papers.length})</span></summary>
+          <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "JAM" ? p.year : p.title)}</a>`).join("")}</div></details>` : ""}
+        ${code ? `<details class="resource-disclosure"${papers.length ? "" : " open"}><summary>Original papers and resources</summary><div class="resource-links">${links}</div></details>` : `<div class="resource-links">${links}</div>`}
+        ${exam.syllabus ? `<div>${ext(exam.syllabus, "Syllabus", "chip")}</div>` : ""}
+      </article>`;
+    });
+    return page("Competitive exams", "Competitive & admission exams",
+      "Find previous papers and syllabi for mathematics entrance tests and fellowships.",
+      `<div class="resource-grid exam-grid">${cards.join("")}</div>`);
   }
   function viewNotes() {
     const symbols = {
@@ -900,8 +923,21 @@
       <div class="grid g2">${folders}</div></section>`);
   }
   function viewSyllabus() {
-    return page("Syllabus", "Syllabus", "Official syllabi, newest first. Paper codes in the archive follow these eras: BMC (2011–12), CBCS (2017–18 and 2020–21), NEP (2025–26).",
-      `<div class="list">${D.C.syllabus.map(([t, d, u]) => `<a class="row" href="${esc(u)}" target="_blank" rel="noopener"><span class="t"><b>${esc(t)}</b>${d ? `<br><span class="muted" style="font-size:13.5px">${esc(d)}</span>` : ""}</span><span class="muted">↗</span></a>`).join("")}</div>`);
+    const groups = new Map([["B.Sc. Mathematics", []], ["M.Sc. Mathematics", []], ["Competitive & admission exams", []]]);
+    for (const item of D.C.syllabus) {
+      const title = item[0];
+      const group = title.startsWith("B.Sc. —") ? "B.Sc. Mathematics" :
+        title.startsWith("M.Sc. —") ? "M.Sc. Mathematics" : "Competitive & admission exams";
+      groups.get(group).push(item);
+    }
+    return page("Syllabus", "Syllabus", "Find the syllabus for your programme or exam.",
+      `<div class="resource-grid syllabus-grid">${Array.from(groups, ([group, items]) => `
+        <section class="resource-card syllabus-group"><div class="resource-card-head">
+          <span class="resource-icon">${IC.file}</span><h2>${esc(group)}</h2></div>
+          <div class="syllabus-rows">${items.map(([title, desc, url]) => `
+            <a class="resource-row" href="${esc(url)}" target="_blank" rel="noopener">
+              <span class="resource-row-text"><strong>${esc(title.replace(/^[BM]\.Sc\. — /, ""))}</strong>${desc ? `<small>${esc(desc)}</small>` : ""}</span>
+              <span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div></section>`).join("")}</div>`);
   }
   function viewBooks() {
     return page("Books", "Books", "Standard texts recommended by students and teachers, by subject. Please buy the book or borrow it from the library.",
