@@ -483,10 +483,11 @@ details.more summary{cursor:pointer;font-weight:600}
     justify-content: flex-end;
     align-items: stretch;
     padding: 0;
+    z-index: 90;
   }
   .replace-modal-scrim.is-sidebar .replace-modal {
     pointer-events: auto;
-    width: 490px;
+    width: 480px;
     height: 100vh;
     max-height: 100vh;
     border-radius: 0;
@@ -495,14 +496,24 @@ details.more summary{cursor:pointer;font-weight:600}
     animation: slideleft .18s ease-out;
   }
   .replace-modal-scrim.is-sidebar .replace-results {
-    max-height: 62vh;
+    max-height: calc(100vh - 220px);
+  }
+
+  /* Shift canvas and topbar when replacement sidebar is open so no question or menu is covered */
+  .maker-studio.has-rep-sidebar .studio-canvas {
+    padding-right: 490px;
+    transition: padding-right .2s ease;
+  }
+  .maker-studio.has-rep-sidebar .studio-topbar {
+    padding-right: 490px;
+    transition: padding-right .2s ease;
   }
 }
 
 /* Right-Click Context Menu */
 .studio-context-menu {
   position: fixed;
-  z-index: 120;
+  z-index: 300;
   background: var(--card);
   border: 1px solid var(--rule);
   border-radius: 10px;
@@ -548,7 +559,7 @@ details.more summary{cursor:pointer;font-weight:600}
 .maker-studio{display:flex;flex-direction:column;min-height:100vh;background:var(--paper-2);margin:-16px -20px 0 -20px}
 @media (max-width:700px){.maker-studio{margin:-12px -12px 0 -12px}}
 
-.studio-topbar{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--rule);padding:10px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:var(--shadow-s);flex-wrap:wrap}
+.studio-topbar{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--rule);padding:10px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:var(--shadow-s);flex-wrap:wrap}
 .studio-bar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .studio-crumb{color:var(--ink-2);text-decoration:none;font:600 13px var(--f-ui);display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:6px;background:var(--paper-2);border:1px solid var(--rule);transition:all .15s}
 .studio-crumb:hover{color:var(--ink);border-color:var(--accent)}
@@ -558,27 +569,27 @@ details.more summary{cursor:pointer;font-weight:600}
 .studio-stats b{color:var(--accent);font-weight:700}
 .studio-bar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-.studio-menu{position:absolute;right:0;top:100%;margin-top:6px;background:var(--card);border:1px solid var(--rule);border-radius:10px;box-shadow:var(--shadow-m);padding:6px;display:flex;flex-direction:column;gap:2px;z-index:50;min-width:185px}
+.studio-menu{position:absolute;right:0;top:100%;margin-top:6px;background:var(--card);border:1px solid var(--rule);border-radius:10px;box-shadow:var(--shadow-m);padding:6px;display:flex;flex-direction:column;gap:2px;z-index:100;min-width:185px}
 .studio-menu button{background:none;border:none;border-radius:6px;padding:8px 12px;font:500 13px var(--f-ui);color:var(--ink);cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box}
 .studio-menu button:hover{background:var(--paper-2);color:var(--accent)}
 .studio-menu button.danger:hover{color:#d32f2f;background:#ffebee}
 
-.studio-canvas{flex:1;padding:20px 16px 80px;display:flex;flex-direction:column;align-items:center}
+.studio-canvas{flex:1;padding:24px 16px 80px;display:flex;flex-direction:column;align-items:center}
 .studio-hint-bar{width:min(810px,100%);margin-bottom:14px;background:rgba(30,120,60,.06);border:1px solid rgba(30,120,60,.18);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--ink-2);display:flex;align-items:center;justify-content:space-between;gap:8px;box-sizing:border-box}
 
 /* Interactive A4 Sheet Elements */
-.a4.studio-sheet{position:relative}
+.a4.studio-sheet{position:relative;padding-top:40px}
 .a4 .studio-ah{cursor:pointer;border-radius:8px;padding:4px 6px;transition:background .15s}
 .a4 .studio-ah:hover{background:rgba(0,0,0,.02);outline:1px dashed var(--accent)}
 
-.a4 .pv-q.pv-interactive{position:relative;border-radius:8px;padding:8px 10px;margin:-8px -10px 12px -10px;transition:background .15s,box-shadow .15s,outline .15s}
+.a4 .pv-q.pv-interactive{position:relative;border-radius:8px;padding:10px 12px 10px 12px;margin:18px -10px 22px -10px;scroll-margin-top:80px;transition:background .15s,box-shadow .15s,outline .15s}
 .a4 .pv-q.pv-interactive:hover{outline:1px dashed var(--rule);background:rgba(0,0,0,.015)}
 .a4 .pv-q.pv-interactive.is-selected{outline:2px solid var(--accent);background:rgba(30,120,60,.03);box-shadow:0 4px 18px rgba(0,0,0,.08)}
 .a4 .pv-q.pv-interactive.is-dragging{opacity:.35;outline:2px dashed var(--accent)}
 .a4 .pv-q.pv-interactive.drag-over{outline:2px solid var(--accent);background:rgba(30,120,60,.08);box-shadow:0 0 0 4px rgba(30,120,60,.15)}
 
 /* Floating action toolbar for selected question */
-.pv-q-floating-bar{display:none;position:absolute;top:-22px;right:10px;z-index:30;background:var(--card);border:1px solid var(--rule);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:3px 6px;gap:3px;align-items:center;animation:fadein .12s ease-out}
+.pv-q-floating-bar{display:none;position:absolute;top:-36px;right:0;z-index:35;background:var(--card);border:1.5px solid var(--accent);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:3px 6px;gap:3px;align-items:center;animation:fadein .12s ease-out}
 .a4 .pv-q.pv-interactive.is-selected .pv-q-floating-bar{display:flex}
 .pv-q-floating-bar .pv-act-btn{background:none;border:1px solid transparent;border-radius:5px;padding:3px 7px;font:600 12px var(--f-ui);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:all .12s}
 .pv-q-floating-bar .pv-act-btn:hover{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
@@ -586,9 +597,9 @@ details.more summary{cursor:pointer;font-weight:600}
 .pv-q-floating-bar .pv-act-btn.pv-drag-handle:active{cursor:grabbing}
 .pv-q-floating-bar .pv-act-btn.pv-danger:hover{color:#d32f2f;background:#ffebee;border-color:#ffcdd2}
 
-/* Subpart inline actions */
+/* Subpart inline actions: positioned horizontally on that subpart's line without overlapping question toolbar */
 .a4 .pv-part{position:relative}
-.pv-part-actions{display:none;position:absolute;right:0;top:-22px;background:var(--card);border:1px solid var(--rule);border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.12);padding:2px 5px;gap:4px;align-items:center;z-index:25}
+.pv-part-actions{display:none;position:absolute;right:48px;top:50%;transform:translateY(-50%);background:var(--card);border:1px solid var(--rule);border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.15);padding:2px 6px;gap:4px;align-items:center;z-index:25}
 .a4 .pv-q.is-selected .pv-part:hover .pv-part-actions,
 .a4 .pv-q.is-selected .pv-part:focus-within .pv-part-actions{display:flex}
 .pv-part-actions .pv-act-btn-mini{background:none;border:none;border-radius:4px;padding:2px 6px;font:600 11.5px var(--f-ui);color:var(--ink-2);cursor:pointer}

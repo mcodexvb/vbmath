@@ -1378,6 +1378,11 @@
     scrim.id = "replace-modal-scrim";
     scrim.className = "replace-modal-scrim" + (window.innerWidth >= 1024 ? " is-sidebar" : "");
 
+    const studioEl = $(".maker-studio");
+    if (scrim.classList.contains("is-sidebar") && studioEl) {
+      studioEl.classList.add("has-rep-sidebar");
+    }
+
     scrim.innerHTML = `
       <div class="replace-modal" role="dialog" aria-modal="true" aria-labelledby="rep-title">
         <div class="replace-modal-head">
@@ -1426,6 +1431,7 @@
 
     const close = () => {
       scrim.remove();
+      if (studioEl) studioEl.classList.remove("has-rep-sidebar");
       document.removeEventListener("keydown", onKeyDown);
     };
 
@@ -1437,7 +1443,12 @@
     $("#rep-close").onclick = close;
     const modeToggle = $("#rep-mode-toggle");
     if (modeToggle) {
-      modeToggle.onclick = () => scrim.classList.toggle("is-sidebar");
+      modeToggle.onclick = () => {
+        scrim.classList.toggle("is-sidebar");
+        if (studioEl) {
+          studioEl.classList.toggle("has-rep-sidebar", scrim.classList.contains("is-sidebar"));
+        }
+      };
     }
     scrim.addEventListener("click", (e) => {
       if (e.target === scrim) close();
@@ -2105,11 +2116,12 @@
         const qEl = e.target.closest(".pv-q");
         if (!qEl) return;
         e.preventDefault();
+        e.stopPropagation();
         closeContextMenu();
 
         const qIdx = +qEl.dataset.qidx;
         selectedQIdx = qIdx;
-        refreshStudio(qIdx, null);
+        $$(".pv-q").forEach((c, idx) => c.classList.toggle("is-selected", idx === qIdx));
 
         const menu = document.createElement("div");
         menu.className = "studio-context-menu";
@@ -2139,17 +2151,27 @@
         menu.addEventListener("click", (evt) => {
           const btn = evt.target.closest("button");
           if (!btn) return;
+          evt.stopPropagation();
+          closeContextMenu();
+
           if (btn.id === "cm-undo") {
-            closeContextMenu();
             doUndo();
             return;
           }
           if (btn.id === "cm-redo") {
-            closeContextMenu();
             doRedo();
             return;
           }
-          closeContextMenu();
+
+          const act = btn.dataset.act;
+          if (act) {
+            const targetBtn = canvasEl.querySelector(`.pv-q[data-qidx="${qIdx}"] [data-act="${act}"]`);
+            if (targetBtn) {
+              targetBtn.click();
+            } else if (act === "q-edit") {
+              refreshStudio(qIdx, qIdx + "_0");
+            }
+          }
         });
       });
 
