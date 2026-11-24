@@ -474,14 +474,87 @@ details.more summary{cursor:pointer;font-weight:600}
 .replace-card-math mjx-container{color:var(--ink)}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
 
+/* Full-Page Question Paper Studio */
+.maker-studio{display:flex;flex-direction:column;min-height:100vh;background:var(--paper-2);margin:-16px -20px 0 -20px}
+@media (max-width:700px){.maker-studio{margin:-12px -12px 0 -12px}}
+
+.studio-topbar{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--rule);padding:10px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:var(--shadow-s);flex-wrap:wrap}
+.studio-bar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.studio-crumb{color:var(--ink-2);text-decoration:none;font:600 13px var(--f-ui);display:inline-flex;align-items:center;gap:4px;padding:4px 9px;border-radius:6px;background:var(--paper-2);border:1px solid var(--rule);transition:all .15s}
+.studio-crumb:hover{color:var(--ink);border-color:var(--accent)}
+.studio-title-block{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.studio-title{font:700 15px var(--f-display);margin:0;color:var(--ink)}
+.studio-stats{display:inline-flex;align-items:center;gap:6px;background:var(--paper-2);border:1px solid var(--rule);border-radius:20px;padding:3px 12px;font-size:12px;color:var(--ink-2)}
+.studio-stats b{color:var(--accent);font-weight:700}
+.studio-bar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+.studio-menu{position:absolute;right:0;top:100%;margin-top:6px;background:var(--card);border:1px solid var(--rule);border-radius:10px;box-shadow:var(--shadow-m);padding:6px;display:flex;flex-direction:column;gap:2px;z-index:50;min-width:185px}
+.studio-menu button{background:none;border:none;border-radius:6px;padding:8px 12px;font:500 13px var(--f-ui);color:var(--ink);cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;width:100%;box-sizing:border-box}
+.studio-menu button:hover{background:var(--paper-2);color:var(--accent)}
+.studio-menu button.danger:hover{color:#d32f2f;background:#ffebee}
+
+.studio-canvas{flex:1;padding:20px 16px 80px;display:flex;flex-direction:column;align-items:center}
+.studio-hint-bar{width:min(810px,100%);margin-bottom:14px;background:rgba(30,120,60,.06);border:1px solid rgba(30,120,60,.18);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--ink-2);display:flex;align-items:center;justify-content:space-between;gap:8px;box-sizing:border-box}
+
+/* Interactive A4 Sheet Elements */
+.a4.studio-sheet{position:relative}
+.a4 .studio-ah{cursor:pointer;border-radius:8px;padding:4px 6px;transition:background .15s}
+.a4 .studio-ah:hover{background:rgba(0,0,0,.02);outline:1px dashed var(--accent)}
+
+.a4 .pv-q.pv-interactive{position:relative;border-radius:8px;padding:8px 10px;margin:-8px -10px 12px -10px;transition:background .15s,box-shadow .15s,outline .15s}
+.a4 .pv-q.pv-interactive:hover{outline:1px dashed var(--rule);background:rgba(0,0,0,.015)}
+.a4 .pv-q.pv-interactive.is-selected{outline:2px solid var(--accent);background:rgba(30,120,60,.03);box-shadow:0 4px 18px rgba(0,0,0,.08)}
+.a4 .pv-q.pv-interactive.is-dragging{opacity:.35;outline:2px dashed var(--accent)}
+.a4 .pv-q.pv-interactive.drag-over{outline:2px solid var(--accent);background:rgba(30,120,60,.08);box-shadow:0 0 0 4px rgba(30,120,60,.15)}
+
+/* Floating action toolbar for selected question */
+.pv-q-floating-bar{display:none;position:absolute;top:-22px;right:10px;z-index:30;background:var(--card);border:1px solid var(--rule);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.18);padding:3px 6px;gap:3px;align-items:center;animation:fadein .12s ease-out}
+.a4 .pv-q.pv-interactive.is-selected .pv-q-floating-bar{display:flex}
+.pv-q-floating-bar .pv-act-btn{background:none;border:1px solid transparent;border-radius:5px;padding:3px 7px;font:600 12px var(--f-ui);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:all .12s}
+.pv-q-floating-bar .pv-act-btn:hover{background:var(--paper-2);color:var(--ink);border-color:var(--rule)}
+.pv-q-floating-bar .pv-act-btn.pv-drag-handle{cursor:grab;color:var(--accent)}
+.pv-q-floating-bar .pv-act-btn.pv-drag-handle:active{cursor:grabbing}
+.pv-q-floating-bar .pv-act-btn.pv-danger:hover{color:#d32f2f;background:#ffebee;border-color:#ffcdd2}
+
+/* Subpart inline actions */
+.a4 .pv-part{position:relative}
+.pv-part-actions{display:none;position:absolute;right:0;top:-22px;background:var(--card);border:1px solid var(--rule);border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.12);padding:2px 5px;gap:4px;align-items:center;z-index:25}
+.a4 .pv-q.is-selected .pv-part:hover .pv-part-actions,
+.a4 .pv-q.is-selected .pv-part:focus-within .pv-part-actions{display:flex}
+.pv-part-actions .pv-act-btn-mini{background:none;border:none;border-radius:4px;padding:2px 6px;font:600 11.5px var(--f-ui);color:var(--ink-2);cursor:pointer}
+.pv-part-actions .pv-act-btn-mini:hover{background:var(--paper-2);color:var(--ink)}
+.pv-part-actions .pv-act-btn-mini.pv-danger:hover{color:#d32f2f;background:#ffebee}
+
+/* Inline LaTeX editor */
+.pv-inline-editor{display:grid;gap:6px;width:100%;margin:4px 0}
+.pv-inline-editor textarea{width:100%;font:13.5px/1.45 var(--f-mono,monospace);padding:8px 10px;border:1.5px solid var(--accent);border-radius:6px;background:var(--card);color:var(--ink);box-sizing:border-box;resize:vertical;min-height:64px}
+.pv-inline-editor-acts{display:flex;justify-content:flex-end;gap:6px}
+
+/* Editable Marks Pill */
+.pv-part-mk-editable{cursor:pointer;border-radius:4px;padding:1px 5px;transition:background .15s}
+.pv-part-mk-editable:hover{background:rgba(30,120,60,.12);outline:1px dashed var(--accent)}
+
+/* Exam Rules Modal */
+.exam-modal-scrim{position:fixed;inset:0;background:rgba(15,20,18,.55);z-index:99;display:flex;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px);animation:fadein .15s ease-out}
+.exam-modal{background:var(--card);border:1px solid var(--rule);border-radius:16px;width:min(660px,100%);max-height:90vh;display:flex;flex-direction:column;box-shadow:var(--shadow-l);overflow:hidden}
+.exam-modal-head{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.exam-modal-head h3{font:700 16.5px var(--f-display);margin:0}
+.exam-modal-body{padding:16px 20px;overflow-y:auto;display:grid;gap:14px}
+.exam-modal-body .flabel{font-size:12px;font-weight:600;color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;display:block}
+.exam-modal-body input[type="text"],.exam-modal-body input[type="number"],.exam-modal-body select,.exam-modal-body textarea{width:100%;font:14px/1.4 var(--f-text);padding:8px 10px;border:1px solid var(--rule);border-radius:8px;background:var(--card);color:var(--ink);box-sizing:border-box}
+.exam-modal-body input:focus,.exam-modal-body select:focus,.exam-modal-body textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 2px var(--accent-light,rgba(30,120,60,.15))}
+.exam-modal-foot{padding:12px 20px;border-top:1px solid var(--rule);background:var(--paper-2);display:flex;justify-content:flex-end;gap:8px}
+
 @media print{
   @page{size:A4;margin:15mm 15mm 18mm 15mm}
   body{background:#fff}
-  body>*:not(main),.pv-side,.crumbs,.pagehead,.fab,.toast,.drawer,.scrim,#pv-view-toggle{display:none!important}
+  body>*:not(main),.pv-side,.crumbs,.pagehead,.fab,.toast,.drawer,.scrim,#pv-view-toggle,.studio-topbar,.studio-hint-bar,.pv-q-floating-bar,.pv-part-actions,.exam-modal-scrim,.studio-menu{display:none!important}
   main{padding:0} .wrap{max-width:none;padding:0}
   .pv-layout{display:block} .pv-stage{border:0;padding:0;background:#fff}
+  .maker-studio{background:#fff;margin:0;padding:0}
+  .studio-canvas{padding:0}
   .a4{box-shadow:none;padding:0;width:auto;min-height:0}
-  .a4 .pv-q{break-inside:avoid;page-break-inside:avoid}
+  .a4 .pv-q{break-inside:avoid;page-break-inside:avoid;outline:none!important;background:none!important;box-shadow:none!important;margin:0 0 16px!important;padding:0!important}
 }
 
 /* phones: the collection button becomes a compact round button and leaves room for content */

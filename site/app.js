@@ -1114,18 +1114,20 @@
   }
 
   /* ---------- preview (A4) & Question Paper Studio ---------- */
-  function renderSheetFromDoc(doc, isPastPaper) {
+  function renderSheetFromDoc(doc, isPastPaper, selectedQIdx, editingPartId) {
     const h = doc.header || defaultMakerHead();
     const stats = calcDocStats(doc);
-    const partStyle = h.partStyle || "num_alpha";
-    const marksStyle = h.marksStyle || "both";
+    const partStyle = h.partStyle || "paren_alpha";
+    const marksStyle = h.marksStyle || "parts_only";
+    const isStudio = !isPastPaper;
 
     let secHtml = "";
     let overallQno = 0;
+    const totalQs = (doc.sections && doc.sections[0] && doc.sections[0].questions) ? doc.sections[0].questions.length : 0;
 
     (doc.sections || []).forEach((sec) => {
       let qListHtml = "";
-      (sec.questions || []).forEach((q) => {
+      (sec.questions || []).forEach((q, qIdx) => {
         if (q.orAlternative) {
           qListHtml += `<li class="pv-or-div"><span>OR</span></li>`;
         } else {
@@ -1135,14 +1137,47 @@
         const parts = q.parts || [];
         if (!parts.length) return;
 
+        const isSelected = isStudio && (selectedQIdx === qIdx);
+
+        let floatingBarHtml = "";
+        if (isStudio) {
+          floatingBarHtml = `
+            <div class="pv-q-floating-bar" role="toolbar" aria-label="Question actions">
+              <span class="pv-act-btn pv-drag-handle" title="Drag to reorder" draggable="true">⠿ Drag</span>
+              <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search a replacement question">🔍 Replace</button>
+              <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX">✏️ Edit</button>
+              <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add subpart (+Part)">➕ + Part</button>
+              <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (+OR)">🔀 + OR</button>
+              <button type="button" class="pv-act-btn" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>↑</button>
+              <button type="button" class="pv-act-btn" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>↓</button>
+              <button type="button" class="pv-act-btn pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">🗑️</button>
+            </div>`;
+        }
+
         if (parts.length === 1 && !parts[0].label) {
           const pt = parts[0];
           const mkStr = pt.marks != null && pt.marks !== "" ? `[${pt.marks}]` : "";
+          const isEditing = isStudio && (editingPartId === qIdx + "_0");
+
+          let bodyHtml = "";
+          if (isEditing) {
+            bodyHtml = `
+              <div class="pv-inline-editor">
+                <textarea class="pv-inline-ta" data-qidx="${qIdx}" data-pidx="0" placeholder="Question LaTeX...">${esc(pt.tex)}</textarea>
+                <div class="pv-inline-editor-acts">
+                  <button type="button" class="btn btn-primary btn-sm" data-act="p-save-edit" data-qidx="${qIdx}" data-pidx="0">✓ Done</button>
+                </div>
+              </div>`;
+          } else {
+            bodyHtml = `<div class="pv-qbody" data-act="p-edit-text" data-qidx="${qIdx}" data-pidx="0" title="${isStudio ? 'Click to edit LaTeX' : ''}">${texToHtml(pt.tex)}</div>`;
+          }
+
           qListHtml += `
-            <li class="pv-q pv-q-single" data-qid="${esc(q.id || "")}">
+            <li class="pv-q pv-q-single ${isStudio ? 'pv-interactive' : ''} ${isSelected ? 'is-selected' : ''}" data-qid="${esc(q.id || "")}" data-qidx="${qIdx}" ${isStudio ? 'draggable="true"' : ''}>
+              ${floatingBarHtml}
               <span class="pv-qno">${esc(currentQnum)}.</span>
-              <div class="pv-qbody">${texToHtml(pt.tex)}</div>
-              <span class="pv-qmk">${esc(mkStr)}</span>
+              ${bodyHtml}
+              <span class="pv-qmk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="0" title="${isStudio ? 'Click to edit marks' : ''}">${esc(mkStr)}</span>
             </li>`;
         } else {
           // Composite question with subparts (e.g. 1 a), 1 b) or 1. (a), (b))
@@ -1161,29 +1196,57 @@
           const isDirect = partStyle === "num_alpha";
           parts.forEach((pt, pIdx) => {
             const pMk = (marksStyle === "both" || marksStyle === "parts_only") && pt.marks != null && pt.marks !== "" ? `[${pt.marks}]` : "";
+            const isEditing = isStudio && (editingPartId === qIdx + "_" + pIdx);
+
+            let bodyHtml = "";
+            if (isEditing) {
+              bodyHtml = `
+                <div class="pv-inline-editor">
+                  <textarea class="pv-inline-ta" data-qidx="${qIdx}" data-pidx="${pIdx}" placeholder="Question LaTeX...">${esc(pt.tex)}</textarea>
+                  <div class="pv-inline-editor-acts">
+                    <button type="button" class="btn btn-primary btn-sm" data-act="p-save-edit" data-qidx="${qIdx}" data-pidx="${pIdx}">✓ Done</button>
+                  </div>
+                </div>`;
+            } else {
+              bodyHtml = `<div class="pv-qbody" data-act="p-edit-text" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit LaTeX' : ''}">${texToHtml(pt.tex)}</div>`;
+            }
+
+            let subpartActionsHtml = "";
+            if (isStudio) {
+              subpartActionsHtml = `
+                <div class="pv-part-actions">
+                  <button type="button" class="pv-act-btn-mini" data-act="p-replace" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Replace this part">🔍 Replace</button>
+                  ${parts.length > 1 ? `<button type="button" class="pv-act-btn-mini" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Split into separate question">Split</button>` : ""}
+                  ${parts.length > 1 ? `<button type="button" class="pv-act-btn-mini pv-danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Delete subpart">✕</button>` : ""}
+                </div>`;
+            }
+
             if (isDirect) {
               const pLbl = `${currentQnum} ${String.fromCharCode(97 + pIdx)})`;
               partsHtml += `
-                <li class="pv-part" data-pid="${esc(pt.id || "")}">
+                <li class="pv-part" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}">
+                  ${subpartActionsHtml}
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
-                  <div class="pv-qbody">${texToHtml(pt.tex)}</div>
-                  <span class="pv-part-mk">${esc(pMk)}</span>
+                  ${bodyHtml}
+                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
                 </li>`;
             } else {
               const pLbl = formatPartLabel(partStyle, currentQnum, pIdx);
               const qPrefix = pIdx === 0 ? `${currentQnum}.` : "";
               partsHtml += `
-                <li class="pv-part" data-pid="${esc(pt.id || "")}">
+                <li class="pv-part" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}">
+                  ${subpartActionsHtml}
                   <span class="pv-qno">${esc(qPrefix)}</span>
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
-                  <div class="pv-qbody">${texToHtml(pt.tex)}</div>
-                  <span class="pv-part-mk">${esc(pMk)}</span>
+                  ${bodyHtml}
+                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
                 </li>`;
             }
           });
 
           qListHtml += `
-            <li class="pv-q pv-q-comp" data-qid="${esc(q.id || "")}">
+            <li class="pv-q pv-q-comp ${isStudio ? 'pv-interactive' : ''} ${isSelected ? 'is-selected' : ''}" data-qid="${esc(q.id || "")}" data-qidx="${qIdx}" ${isStudio ? 'draggable="true"' : ''}>
+              ${floatingBarHtml}
               <ol class="pv-parts ${isDirect ? "pv-parts-direct" : ""}">
                 ${partsHtml}
               </ol>
@@ -1198,8 +1261,8 @@
     });
 
     return `
-      <article class="a4" id="sheet">
-        <div class="ah">
+      <article class="a4 ${isStudio ? 'studio-sheet' : ''}" id="sheet">
+        <div class="ah ${isStudio ? 'studio-ah' : ''}" data-act="${isStudio ? 'open-exam-rules' : ''}" title="${isStudio ? 'Click to edit Exam Details & Rules' : ''}">
           <div class="i" data-v="inst">${esc(h.inst || "")}</div>
           ${h.dept ? `<div class="dept" data-v="dept">${esc(h.dept)}</div>` : ""}
           <div class="e" data-v="exam">${esc(h.exam || "")}</div>
@@ -1240,359 +1303,173 @@
         </div></div>`;
     }
 
-    // Question Maker Studio
+    // Question Maker Studio (Full Page View)
     const doc = getMakerDoc();
     const stats = calcDocStats(doc);
     const h = doc.header;
 
-    return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Question Maker</div>
-      <div class="pagehead"><h1>Question Paper Studio</h1><p class="lede">Build professional exam papers with grouped questions (e.g. 3+2 marks), choice rules ("Answer X out of Y"), sub-part styles, and live A4 preview.</p></div>
-      <div class="pv-layout">
-        <aside class="pv-side" id="maker-controls" aria-label="Question paper settings and questions">
-          <div class="maker-stats-bar">
-            <div class="stat-item"><span class="stat-num" id="st-qcount">${stats.totalQuestions}</span><span class="stat-lbl">${stats.choiceX} to answer</span></div>
-            <div class="stat-item"><span class="stat-num" id="st-fullmk">${h.full || stats.fullMarks}</span><span class="stat-lbl">Full Marks</span></div>
-            <div class="stat-item"><span class="stat-num" id="st-papermk">${stats.totalPaperMarks}</span><span class="stat-lbl">Paper Total</span></div>
-          </div>
-
-          <div class="pv-tabs" role="tablist">
-            <button class="pv-tab-btn active" type="button" data-tab="rules">⚙️ Exam &amp; Rules</button>
-            <button class="pv-tab-btn" type="button" data-tab="questions">📝 Questions &amp; Parts (${stats.totalQuestions})</button>
-            <button class="pv-tab-btn" type="button" data-tab="export">🚀 Export</button>
-          </div>
-
-          <!-- Tab 1: Exam & Rules -->
-          <div class="pv-panel" id="panel-rules">
-            <div><span class="flabel">Institution</span><input type="text" id="m-inst" value="${esc(h.inst || "")}"></div>
-            <div><span class="flabel">Department</span><input type="text" id="m-dept" value="${esc(h.dept || "")}" placeholder="Department of Mathematics"></div>
-            <div><span class="flabel">Examination</span><input type="text" id="m-exam" value="${esc(h.exam || "")}"></div>
-            <div><span class="flabel">Paper / Subject</span><input type="text" id="m-paper" value="${esc(h.paper || "")}"></div>
-            <div class="two">
-              <div><span class="flabel">Time Allowed</span><input type="text" id="m-time" value="${esc(h.time || "")}"></div>
-              <div><span class="flabel">Full Marks</span><input type="text" id="m-full" value="${esc(h.full || "")}"></div>
-            </div>
-
-            <div class="rule-box">
-              <span class="flabel" style="margin:0">Choice Rule &amp; Total Marks</span>
-              <div>
-                <select id="m-rule-type">
-                  <option value="choice" ${h.ruleType === "choice" ? "selected" : ""}>Answer any X out of Y questions</option>
-                  <option value="compulsory_plus" ${h.ruleType === "compulsory_plus" ? "selected" : ""}>Question 1 compulsory + any X from rest</option>
-                  <option value="all" ${h.ruleType === "all" ? "selected" : ""}>Answer all questions</option>
-                  <option value="custom" ${h.ruleType === "custom" ? "selected" : ""}>Custom rubric text</option>
-                </select>
-              </div>
-
-              <div class="rule-choice-row" id="choice-row" ${h.ruleType === "all" || h.ruleType === "custom" ? 'style="display:none"' : ""}>
-                <span>Answer</span>
-                <input type="number" id="m-choice-x" min="1" max="${Math.max(1, stats.choiceY)}" value="${h.choiceX}">
-                <span>out of <b>${stats.choiceY}</b> questions</span>
-              </div>
-
-              <div class="auto-full-row">
-                <label style="cursor:pointer;display:inline-flex;align-items:center;gap:6px">
-                  <input type="checkbox" id="m-auto-full" ${h.autoFull ? "checked" : ""}> Auto-calculate Full Marks
-                </label>
-                <span class="muted" style="font-size:12px" id="calc-hint">${stats.choiceX} × avg marks = ${h.full}</span>
+    return `
+      <div class="maker-studio">
+        <header class="studio-topbar">
+          <div class="studio-bar-left">
+            <a href="${L("home")}" class="studio-crumb">← Home</a>
+            <div class="studio-title-block">
+              <h1 class="studio-title">${esc(h.paper || "Question Paper Studio")}</h1>
+              <div class="studio-stats" id="studio-stats">
+                <span><b id="st-qcount">${stats.totalQuestions}</b> Questions</span>
+                <span>·</span>
+                <span><b id="st-choice">${stats.choiceX}</b> to answer</span>
+                <span>·</span>
+                <span>Full Marks: <b id="st-fullmk">${h.full || stats.fullMarks}</b></span>
+                <span>·</span>
+                <span>Paper Total: <b id="st-papermk">${stats.totalPaperMarks}</b></span>
               </div>
             </div>
-
-            <div class="two">
-              <div>
-                <span class="flabel">Subpart Style</span>
-                <select id="m-part-style">
-                  <option value="num_alpha" ${h.partStyle === "num_alpha" ? "selected" : ""}>1 a), 1 b) (Direct)</option>
-                  <option value="paren_alpha" ${h.partStyle === "paren_alpha" ? "selected" : ""}>1. (a), (b) (Parentheses)</option>
-                  <option value="alpha_paren" ${h.partStyle === "alpha_paren" ? "selected" : ""}>1. a), b) (Letter)</option>
-                  <option value="roman_paren" ${h.partStyle === "roman_paren" ? "selected" : ""}>1. (i), (ii) (Roman)</option>
-                </select>
-              </div>
-              <div>
-                <span class="flabel">Marks Display</span>
-                <select id="m-marks-style">
-                  <option value="both" ${h.marksStyle === "both" ? "selected" : ""}>Parts &amp; Total ([3],[2] &amp; [3+2=5])</option>
-                  <option value="breakdown" ${h.marksStyle === "breakdown" ? "selected" : ""}>Breakdown only ([3 + 2])</option>
-                  <option value="parts_only" ${h.marksStyle === "parts_only" ? "selected" : ""}>Part marks only ([3], [2])</option>
-                  <option value="total_only" ${h.marksStyle === "total_only" ? "selected" : ""}>Total only ([5])</option>
-                </select>
+          </div>
+          <div class="studio-bar-right">
+            <button class="btn btn-primary btn-sm" type="button" id="m-add-q">➕ Add Question</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="m-open-rules">⚙️ Exam &amp; Rules</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="m-sample">📄 Sample Paper</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="pvprint">${IC.print} Print / PDF</button>
+            <div class="dropdown-wrap" style="position:relative;display:inline-block">
+              <button class="btn btn-ghost btn-sm" type="button" id="m-export-btn">🚀 Export ▾</button>
+              <div class="studio-menu" id="m-export-menu" style="display:none">
+                <button type="button" id="pvol">${IC.ext} Compile in Overleaf</button>
+                <button type="button" id="pvtex">${IC.dl} Download .tex</button>
+                <button type="button" id="pvcopy">${IC.copy} Copy LaTeX</button>
+                <button type="button" id="pvtxt">${IC.copy} Copy Plain Text</button>
+                <hr style="border:0;border-top:1px solid var(--rule);margin:4px 0">
+                <button type="button" id="m-clear" class="danger" style="color:#d32f2f">${IC.trash} Clear Paper</button>
               </div>
             </div>
-
-            <div>
-              <span class="flabel">Instructions / Rubric</span>
-              <textarea id="m-instr" rows="3">${esc(h.instr || "")}</textarea>
-            </div>
           </div>
+        </header>
 
-          <!-- Tab 2: Questions & Parts -->
-          <div class="pv-panel" id="panel-questions" hidden>
-            <div class="mq-toolbar">
-              <button class="btn btn-primary btn-sm" type="button" id="mq-add-q">${IC.plus} Add Question</button>
-              <button class="btn btn-ghost btn-sm" type="button" id="mq-toggle-all-view" title="Toggle between rendered math preview and LaTeX code">${(h.latexViewMode || "preview") === "code" ? `${IC.search} Rendered Math` : `${IC.pen} LaTeX Code`}</button>
-              <button class="btn btn-ghost btn-sm" type="button" id="mq-auto-group" title="Auto-group questions with the same question number">${IC.stack} Auto-Group</button>
-              <button class="btn btn-ghost btn-sm" type="button" id="mq-sample" title="Load sample university exam paper">${IC.file} Sample Paper</button>
-              <button class="btn btn-ghost btn-sm" type="button" id="mq-clear">${IC.trash} Clear</button>
-            </div>
-            <div class="mq-list" id="mq-list">${renderMakerQuestionsList(doc)}</div>
+        <main class="studio-canvas">
+          <div class="studio-hint-bar">
+            <span>💡 <b>Full-Page View:</b> Click any question to select it and reveal options (Replace, Edit LaTeX, Add Part, Drag, Delete).</span>
+            <span class="muted" style="font-size:12px">Click outside to deselect.</span>
           </div>
-
-          <!-- Tab 3: Export -->
-          <div class="pv-panel" id="panel-export" hidden>
-            <button class="btn btn-primary btn-block" type="button" id="pvprint">${IC.print} Print / Save as PDF</button>
-            <button class="btn btn-ghost btn-block" type="button" id="pvol">${IC.ext} Compile in Overleaf</button>
-            <div class="two">
-              <button class="btn btn-ghost btn-sm" type="button" id="pvtex">${IC.dl} Download .tex</button>
-              <button class="btn btn-ghost btn-sm" type="button" id="pvcopy">${IC.copy} Copy LaTeX</button>
-            </div>
-            <button class="btn btn-ghost btn-block btn-sm" type="button" id="pvtxt">${IC.copy} Copy Plain Text</button>
-            <hr style="border:0;border-top:1px solid var(--rule);margin:4px 0">
-            <p class="muted" style="font-size:12.5px;margin:0">“Print” uses your browser's PDF engine formatted specifically for standard A4 paper. “Compile in Overleaf” opens the full LaTeX code with formatted question environments.</p>
+          <div class="pv-stage" id="studio-stage" style="background:transparent;border:0;padding:0;width:100%;display:flex;justify-content:center">
+            ${renderSheetFromDoc(doc, false, null, null)}
           </div>
-        </aside>
-
-        <div class="pv-stage">${renderSheetFromDoc(doc, false)}</div>
-      </div></div>`;
+        </main>
+      </div>`;
   }
 
-  function renderMakerQuestionsList(doc) {
-    let html = "";
-    let overallQno = 0;
-    const sec = (doc.sections || [])[0];
-    if (!sec || !sec.questions || !sec.questions.length) {
-      return `<div class="empty" style="padding:20px 10px"><p>No questions in this paper yet.</p><p style="margin-top:8px"><button class="btn btn-primary btn-sm" type="button" id="mq-empty-sample">${IC.file} Load 8-Question University Template</button></p></div>`;
-    }
-
-    const globalMode = doc.header.latexViewMode || "preview";
-
-    sec.questions.forEach((q, qIdx) => {
-      if (q.orAlternative) {
-        html += `<div class="mq-or-sep"><span>OR ALTERNATIVE</span></div>`;
-      } else {
-        overallQno++;
-      }
-      const qnum = q.qno || String(overallQno);
-      const parts = q.parts || [];
-      const mkPill = q._breakdown ? (parts.length > 1 ? `${q._breakdown} = ${q._totalMarks} marks` : `${q._totalMarks} marks`) : `${q._totalMarks || 0} marks`;
-
-      let partsHtml = "";
-      parts.forEach((pt, pIdx) => {
-        const pLbl = formatPartLabel("paren_alpha", qnum, pIdx);
-        const isCode = pt._viewMode ? pt._viewMode === "code" : (globalMode === "code");
-        partsHtml += `
-          <div class="mq-part" data-qidx="${qIdx}" data-pidx="${pIdx}">
-            <div class="mq-part-head">
-              <span class="mq-part-lbl">${esc(pLbl)}</span>
-              <div class="mq-part-mk-box">
-                <span>Marks:</span>
-                <input type="text" data-act="p-marks" value="${esc(pt.marks != null ? String(pt.marks) : "")}">
-              </div>
-              <div style="display:flex;align-items:center;gap:4px">
-                <button class="mq-iconbtn" type="button" data-act="p-replace" title="Search a replacement question for this part">🔍 Replace</button>
-                <button class="mq-iconbtn" type="button" data-act="p-toggle-view" title="Toggle rendered math or LaTeX code">${isCode ? "👁️ Preview" : "✏️ Code"}</button>
-                ${parts.length > 1 ? `<button class="mq-iconbtn" type="button" data-act="p-split" title="Split to separate question">Split</button>` : ""}
-                ${qIdx > 0 && pIdx === 0 ? `<button class="mq-iconbtn" type="button" data-act="p-merge-up" title="Merge into previous question">Merge Up</button>` : ""}
-                <button class="mq-iconbtn danger" type="button" data-act="p-del" title="Delete this part">${IC.trash}</button>
-              </div>
-            </div>
-            <div class="mq-part-body">
-              <div class="mq-part-preview" data-act="p-click-edit" title="Click to edit LaTeX" ${isCode ? 'style="display:none"' : ""}>
-                ${texToHtml(pt.tex || "<i>(Empty question — click to type)</i>")}
-              </div>
-              <textarea class="mq-tex" data-act="p-tex" rows="2" placeholder="Question text in LaTeX..." ${!isCode ? 'style="display:none"' : ""}>${esc(pt.tex || "")}</textarea>
-            </div>
-          </div>`;
-      });
-
-      html += `
-        <div class="mq-card" data-qidx="${qIdx}" draggable="true">
-          <div class="mq-bar">
-            <div class="mq-title-wrap">
-              <span class="mq-drag-handle" title="Drag to reorder">⠿</span>
-              <span class="mq-qno">Q${esc(qnum)}</span>
-              <span class="mq-mk-pill">${esc(mkPill)}</span>
-            </div>
-            <div class="mq-actions">
-              <button class="mq-iconbtn" type="button" data-act="q-replace" title="Search a replacement question">🔍 Replace</button>
-              <button class="mq-iconbtn" type="button" data-act="q-up" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>${IC.up}</button>
-              <button class="mq-iconbtn" type="button" data-act="q-down" title="Move Down" ${qIdx === sec.questions.length - 1 ? "disabled" : ""}>${IC.down}</button>
-              <button class="mq-iconbtn" type="button" data-act="q-add-part" title="Add Part (e.g. 3+2 marks)">+ Part</button>
-              <button class="mq-iconbtn" type="button" data-act="q-add-or" title="Add OR alternative question">+ OR</button>
-              <button class="mq-iconbtn danger" type="button" data-act="q-del" title="Delete Question">${IC.trash}</button>
-            </div>
-          </div>
-          <div class="mq-parts">${partsHtml}</div>
-        </div>`;
-    });
-
-    return html;
-  }
-
-  function openReplaceModal({ targetType, qIdx, pIdx, doc, onReplace }) {
-    const existing = $("#replace-modal-scrim");
+  function openExamRulesModal(doc, onSave) {
+    const existing = $("#exam-rules-scrim");
     if (existing) existing.remove();
 
-    const sec = (doc.sections || [])[0];
-    if (!sec) return;
-    const q = sec.questions[qIdx];
-    if (!q) return;
-    const pt = targetType === "part" ? (q.parts && q.parts[pIdx]) : null;
-
-    const initialMarks = targetType === "part" ? (pt ? parseFloat(pt.marks) || 0 : 0) : (q._totalMarks || 10);
-    const targetTitle = targetType === "part"
-      ? `Part (${pt?.label || "a"}) of Question ${q.qno || qIdx + 1}`
-      : `Question ${q.qno || qIdx + 1}`;
+    const stats = calcDocStats(doc);
+    const h = doc.header;
 
     const scrim = document.createElement("div");
-    scrim.id = "replace-modal-scrim";
-    scrim.className = "replace-modal-scrim";
+    scrim.id = "exam-rules-scrim";
+    scrim.className = "exam-modal-scrim";
 
     scrim.innerHTML = `
-      <div class="replace-modal" role="dialog" aria-modal="true" aria-labelledby="rep-title">
-        <div class="replace-modal-head">
-          <h3 id="rep-title">🔍 Search Replacement ${targetType === "part" ? "Subpart" : "Question"}</h3>
-          <button class="mq-iconbtn" type="button" id="rep-close" title="Close">✕</button>
+      <div class="exam-modal" role="dialog" aria-modal="true" aria-labelledby="erm-title">
+        <div class="exam-modal-head">
+          <h3 id="erm-title">⚙️ Examination Details &amp; Choice Rules</h3>
+          <button class="mq-iconbtn" type="button" id="erm-close">✕</button>
         </div>
-        <div class="replace-modal-body">
-          <div style="font-size:13px;color:var(--ink-2);background:var(--paper-2);padding:8px 12px;border-radius:8px;border:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center">
-            <span>Target: <b>${esc(targetTitle)}</b></span>
-            <span>Target Marks: <span class="mq-mk-pill">${initialMarks ? initialMarks + " marks" : "Any"}</span></span>
+        <div class="exam-modal-body">
+          <div><span class="flabel">Institution</span><input type="text" id="em-inst" value="${esc(h.inst || "")}"></div>
+          <div><span class="flabel">Department</span><input type="text" id="em-dept" value="${esc(h.dept || "")}" placeholder="Department of Mathematics"></div>
+          <div><span class="flabel">Examination</span><input type="text" id="em-exam" value="${esc(h.exam || "")}"></div>
+          <div><span class="flabel">Paper / Subject</span><input type="text" id="em-paper" value="${esc(h.paper || "")}"></div>
+          <div class="two">
+            <div><span class="flabel">Time Allowed</span><input type="text" id="em-time" value="${esc(h.time || "")}"></div>
+            <div><span class="flabel">Full Marks</span><input type="text" id="em-full" value="${esc(h.full || "")}"></div>
           </div>
-
-          <div class="replace-filter-bar">
-            <input type="search" id="rep-query" placeholder="Type topic, theorem, or keyword (e.g. Cauchy, Riemann, continuous)..." autofocus>
-            <select id="rep-marks">
-              <option value="all">Any marks</option>
-              ${initialMarks ? `<option value="${initialMarks}" selected>Target marks (${initialMarks})</option>` : ""}
-              <option value="2">2 marks</option>
-              <option value="3">3 marks</option>
-              <option value="4">4 marks</option>
-              <option value="5">5 marks</option>
-              <option value="6">6 marks</option>
-              <option value="8">8 marks</option>
-              <option value="10">10 marks</option>
-            </select>
-            <select id="rep-sem">
-              <option value="">All Semesters</option>
-              <option value="1">Semester I</option>
-              <option value="2">Semester II</option>
-              <option value="3">Semester III</option>
-              <option value="4">Semester IV</option>
-              <option value="5">Semester V</option>
-              <option value="6">Semester VI</option>
-            </select>
+          <div class="rule-box">
+            <span class="flabel" style="margin:0">Choice Rule &amp; Total Marks</span>
+            <div>
+              <select id="em-rule-type">
+                <option value="choice" ${h.ruleType === "choice" ? "selected" : ""}>Answer any X out of Y questions</option>
+                <option value="compulsory_plus" ${h.ruleType === "compulsory_plus" ? "selected" : ""}>Question 1 compulsory + any X from rest</option>
+                <option value="all" ${h.ruleType === "all" ? "selected" : ""}>Answer all questions</option>
+                <option value="custom" ${h.ruleType === "custom" ? "selected" : ""}>Custom rubric text</option>
+              </select>
+            </div>
+            <div class="rule-choice-row" id="em-choice-row" ${h.ruleType === "all" || h.ruleType === "custom" ? 'style="display:none"' : ""}>
+              <span>Answer</span>
+              <input type="number" id="em-choice-x" min="1" max="${Math.max(1, stats.choiceY)}" value="${h.choiceX}">
+              <span>out of <b>${stats.choiceY}</b> questions</span>
+            </div>
+            <div class="auto-full-row">
+              <label style="cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+                <input type="checkbox" id="em-auto-full" ${h.autoFull ? "checked" : ""}> Auto-calculate Full Marks
+              </label>
+            </div>
           </div>
-
-          <div id="rep-count" style="font-size:12.5px;color:var(--ink-3);margin-top:-4px"></div>
-          <div class="replace-results" id="rep-results"></div>
+          <div class="two">
+            <div>
+              <span class="flabel">Subpart Style</span>
+              <select id="em-part-style">
+                <option value="paren_alpha" ${h.partStyle === "paren_alpha" ? "selected" : ""}>1. (a), (b) (Parentheses - Standard)</option>
+                <option value="num_alpha" ${h.partStyle === "num_alpha" ? "selected" : ""}>1 a), 1 b) (Direct)</option>
+                <option value="alpha_paren" ${h.partStyle === "alpha_paren" ? "selected" : ""}>1. a), b) (Letter)</option>
+                <option value="roman_paren" ${h.partStyle === "roman_paren" ? "selected" : ""}>1. (i), (ii) (Roman)</option>
+              </select>
+            </div>
+            <div>
+              <span class="flabel">Marks Display</span>
+              <select id="em-marks-style">
+                <option value="parts_only" ${h.marksStyle === "parts_only" ? "selected" : ""}>Part marks only ([5], [5]) (Standard)</option>
+                <option value="both" ${h.marksStyle === "both" ? "selected" : ""}>Parts &amp; Total ([5],[5] &amp; [10])</option>
+                <option value="breakdown" ${h.marksStyle === "breakdown" ? "selected" : ""}>Breakdown only ([5+5])</option>
+                <option value="total_only" ${h.marksStyle === "total_only" ? "selected" : ""}>Total only ([10])</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <span class="flabel">Instructions / Rubric</span>
+            <textarea id="em-instr" rows="3">${esc(h.instr || "")}</textarea>
+          </div>
+        </div>
+        <div class="exam-modal-foot">
+          <button class="btn btn-ghost" type="button" id="erm-cancel">Cancel</button>
+          <button class="btn btn-primary" type="button" id="erm-save">Save &amp; Apply</button>
         </div>
       </div>`;
 
     document.body.appendChild(scrim);
 
-    const close = () => {
-      scrim.remove();
-      document.removeEventListener("keydown", onKeyDown);
-    };
-
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") close();
-    };
+    const close = () => { scrim.remove(); document.removeEventListener("keydown", onKeyDown); };
+    const onKeyDown = (e) => { if (e.key === "Escape") close(); };
     document.addEventListener("keydown", onKeyDown);
 
-    $("#rep-close").onclick = close;
-    scrim.addEventListener("click", (e) => {
-      if (e.target === scrim) close();
-    });
+    $("#erm-close").onclick = close;
+    $("#erm-cancel").onclick = close;
+    scrim.addEventListener("click", (e) => { if (e.target === scrim) close(); });
 
-    const qInput = $("#rep-query");
-    const mSelect = $("#rep-marks");
-    const sSelect = $("#rep-sem");
-    const resContainer = $("#rep-results");
-    const countEl = $("#rep-count");
+    const ruleSel = $("#em-rule-type");
+    if (ruleSel) {
+      ruleSel.addEventListener("change", () => {
+        const choiceRow = $("#em-choice-row");
+        if (choiceRow) choiceRow.style.display = (ruleSel.value === "all" || ruleSel.value === "custom") ? "none" : "flex";
+      });
+    }
 
-    const doSearch = () => {
-      const qVal = qInput.value.trim().toLowerCase();
-      const mVal = mSelect.value;
-      const sVal = sSelect.value;
-
-      const qTokens = qVal ? qVal.split(/\s+/).filter(Boolean) : [];
-
-      let matches = [];
-      for (const item of D.Q) {
-        if (item.stem) continue;
-        const p = D.papers[item.p];
-        if (!p) continue;
-
-        if (sVal && String(p.sem) !== sVal) continue;
-        if (mVal !== "all") {
-          const targetM = parseFloat(mVal);
-          if (item.marks !== targetM) continue;
-        }
-
-        if (qTokens.length > 0) {
-          const hay = item.hay || "";
-          let allMatch = true;
-          for (const tok of qTokens) {
-            if (!hay.includes(tok)) {
-              allMatch = false;
-              break;
-            }
-          }
-          if (!allMatch) continue;
-        }
-
-        matches.push(item);
-        if (matches.length >= 35) break;
-      }
-
-      countEl.textContent = `Found ${matches.length} matching question${matches.length === 1 ? "" : "s"}${matches.length >= 35 ? " (showing top 35)" : ""}:`;
-
-      if (!matches.length) {
-        resContainer.innerHTML = `<div class="empty" style="padding:24px 10px"><p>No matching questions found. Try removing filters or searching a simpler keyword.</p></div>`;
-        return;
-      }
-
-      resContainer.innerHTML = matches.map((item) => {
-        const p = D.papers[item.p];
-        const paperTitle = p ? `${pname(p)} ${p.year} (Sem ${ROMAN[p.sem]})` : "";
-        const qTag = `Q${item.qno}${item.part ? ` (${item.part})` : ""}`;
-        const mkTag = item.marks != null ? `${item.marks} marks` : "";
-        return `
-          <div class="replace-card" data-idx="${item.i}">
-            <div class="replace-card-head">
-              <div>
-                <strong>${esc(paperTitle)}</strong>
-                <span class="muted" style="margin-left:6px">${esc(qTag)}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px">
-                ${mkTag ? `<span class="mq-mk-pill">${esc(mkTag)}</span>` : ""}
-                <button class="btn btn-primary btn-sm" type="button" data-act="apply-rep" data-idx="${item.i}">✓ Replace with this</button>
-              </div>
-            </div>
-            <div class="replace-card-math">${texToHtml(item.tex)}</div>
-          </div>`;
-      }).join("");
-
-      typeset(resContainer);
-    };
-
-    qInput.addEventListener("input", doSearch);
-    mSelect.addEventListener("change", doSearch);
-    sSelect.addEventListener("change", doSearch);
-
-    resContainer.addEventListener("click", (e) => {
-      const applyBtn = e.target.closest('[data-act="apply-rep"]');
-      if (!applyBtn) return;
-      const idx = +applyBtn.dataset.idx;
-      const chosen = D.Q[idx];
-      if (!chosen) return;
-
-      onReplace(chosen);
+    $("#erm-save").onclick = () => {
+      h.inst = $("#em-inst").value;
+      h.dept = $("#em-dept").value;
+      h.exam = $("#em-exam").value;
+      h.paper = $("#em-paper").value;
+      h.time = $("#em-time").value;
+      h.full = $("#em-full").value;
+      h.ruleType = $("#em-rule-type").value;
+      h.choiceX = parseInt($("#em-choice-x").value, 10) || 1;
+      h.autoFull = $("#em-auto-full").checked;
+      h.partStyle = $("#em-part-style").value;
+      h.marksStyle = $("#em-marks-style").value;
+      h.instr = $("#em-instr").value;
+      calcDocStats(doc);
+      onSave();
       close();
-    });
-
-    doSearch();
-    qInput.focus();
+    };
   }
 
   function bindPreview(arg) {
@@ -1622,402 +1499,99 @@
       return;
     }
 
-    // Question Maker Studio Binding
+    // Question Maker Studio Binding (Full-Page Canvas)
     let doc = getMakerDoc();
-    typeset($("#sheet"));
-    const initialList = $("#mq-list");
-    if (initialList) typeset(initialList);
+    let selectedQIdx = null;
+    let editingPartId = null;
 
-    const refreshSheet = () => {
+    const refreshStudio = (newSelectedQIdx, newEditingPartId) => {
+      if (newSelectedQIdx !== undefined) selectedQIdx = newSelectedQIdx;
+      if (newEditingPartId !== undefined) editingPartId = newEditingPartId;
+
       const stats = calcDocStats(doc);
-      const stage = $(".pv-stage");
-      if (stage) stage.innerHTML = renderSheetFromDoc(doc, false);
-      typeset($("#sheet"));
-
-      $("#st-qcount").textContent = stats.totalQuestions;
-      $("#st-fullmk").textContent = doc.header.full || stats.fullMarks;
-      $("#st-papermk").textContent = stats.totalPaperMarks;
-      const hint = $("#calc-hint");
-      if (hint) hint.textContent = `${stats.choiceX} × avg marks = ${doc.header.full}`;
-      const qTab = $('[data-tab="questions"]');
-      if (qTab) qTab.textContent = `📝 Questions & Parts (${stats.totalQuestions})`;
-    };
-
-    const rebindMakerQuestions = () => {
-      const list = $("#mq-list");
-      if (list) {
-        list.innerHTML = renderMakerQuestionsList(doc);
-        typeset(list);
+      const stage = $("#studio-stage");
+      if (stage) {
+        stage.innerHTML = renderSheetFromDoc(doc, false, selectedQIdx, editingPartId);
+        typeset(stage);
       }
-      refreshSheet();
+
+      const qCountEl = $("#st-qcount"); if (qCountEl) qCountEl.textContent = stats.totalQuestions;
+      const choiceEl = $("#st-choice"); if (choiceEl) choiceEl.textContent = stats.choiceX;
+      const fullEl = $("#st-fullmk"); if (fullEl) fullEl.textContent = doc.header.full || stats.fullMarks;
+      const paperMkEl = $("#st-papermk"); if (paperMkEl) paperMkEl.textContent = stats.totalPaperMarks;
+
+      if (editingPartId) {
+        const ta = stage && stage.querySelector(".pv-inline-ta");
+        if (ta) {
+          ta.focus();
+          ta.setSelectionRange(ta.value.length, ta.value.length);
+        }
+      }
     };
 
-    // Tab switching
-    $$(".pv-tab-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        $$(".pv-tab-btn").forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const tab = btn.dataset.tab;
-        $$(".pv-panel").forEach((p) => { p.hidden = p.id !== "panel-" + tab; });
-      });
-    });
+    typeset($("#sheet"));
 
-    // Header inputs binding
-    const bindInput = (id, key) => {
-      const el = $(id);
-      if (el) el.addEventListener("input", () => { doc.header[key] = el.value; refreshSheet(); saveMakerDoc(doc); });
-    };
-    bindInput("#m-inst", "inst");
-    bindInput("#m-dept", "dept");
-    bindInput("#m-exam", "exam");
-    bindInput("#m-paper", "paper");
-    bindInput("#m-time", "time");
-    bindInput("#m-full", "full");
-    bindInput("#m-instr", "instr");
-
-    // Choice rule controls
-    const ruleSel = $("#m-rule-type");
-    if (ruleSel) {
-      ruleSel.addEventListener("change", () => {
-        doc.header.ruleType = ruleSel.value;
-        const choiceRow = $("#choice-row");
-        if (choiceRow) choiceRow.style.display = (ruleSel.value === "all" || ruleSel.value === "custom") ? "none" : "flex";
-        calcDocStats(doc);
-        const instrEl = $("#m-instr");
-        if (instrEl && doc.header.ruleType !== "custom") instrEl.value = doc.header.instr;
-        const fullEl = $("#m-full");
-        if (fullEl) fullEl.value = doc.header.full;
-        refreshSheet();
-        saveMakerDoc(doc);
-      });
-    }
-
-    const choiceXEl = $("#m-choice-x");
-    if (choiceXEl) {
-      choiceXEl.addEventListener("input", () => {
-        doc.header.choiceX = parseInt(choiceXEl.value, 10) || 1;
-        calcDocStats(doc);
-        const instrEl = $("#m-instr");
-        if (instrEl && doc.header.ruleType !== "custom") instrEl.value = doc.header.instr;
-        const fullEl = $("#m-full");
-        if (fullEl && doc.header.autoFull) fullEl.value = doc.header.full;
-        refreshSheet();
-        saveMakerDoc(doc);
-      });
-    }
-
-    const autoFullEl = $("#m-auto-full");
-    if (autoFullEl) {
-      autoFullEl.addEventListener("change", () => {
-        doc.header.autoFull = autoFullEl.checked;
-        calcDocStats(doc);
-        const fullEl = $("#m-full");
-        if (fullEl) fullEl.value = doc.header.full;
-        refreshSheet();
-        saveMakerDoc(doc);
-      });
-    }
-
-    const partStyleEl = $("#m-part-style");
-    if (partStyleEl) {
-      partStyleEl.addEventListener("change", () => {
-        doc.header.partStyle = partStyleEl.value;
-        refreshSheet();
-        saveMakerDoc(doc);
-      });
-    }
-
-    const marksStyleEl = $("#m-marks-style");
-    if (marksStyleEl) {
-      marksStyleEl.addEventListener("change", () => {
-        doc.header.marksStyle = marksStyleEl.value;
-        refreshSheet();
-        saveMakerDoc(doc);
-      });
-    }
-
-    // Questions list events delegation
-    const qListEl = $("#maker-controls");
-    if (qListEl) {
-      qListEl.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-act], #mq-add-q, #mq-toggle-all-view, #mq-auto-group, #mq-sample, #mq-clear, #mq-empty-sample");
-        if (!btn) return;
-
+    // Studio Topbar Actions
+    const addQBtn = $("#m-add-q");
+    if (addQBtn) {
+      addQBtn.onclick = () => {
         const sec = (doc.sections || [])[0];
         if (!sec) return;
-
-        if (btn.id === "mq-toggle-all-view") {
-          const currentMode = doc.header.latexViewMode || "preview";
-          doc.header.latexViewMode = currentMode === "code" ? "preview" : "code";
-          sec.questions.forEach((q) => { (q.parts || []).forEach((pt) => { delete pt._viewMode; }); });
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          const tglBtn = $("#mq-toggle-all-view");
-          if (tglBtn) tglBtn.innerHTML = doc.header.latexViewMode === "code" ? `${IC.search} Rendered Math` : `${IC.pen} LaTeX Code`;
-          toast(doc.header.latexViewMode === "code" ? "Switched to LaTeX Code editor" : "Switched to Rendered Math preview");
-          return;
-        }
-
-        if (btn.id === "mq-add-q") {
-          sec.questions.push({
-            id: "mq_" + Date.now(),
-            qno: "",
-            orAlternative: false,
-            parts: [{ id: "pt_" + Date.now(), label: "", marks: 5, tex: "State and prove the theorem." }]
-          });
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Question added");
-          return;
-        }
-
-        if (btn.id === "mq-auto-group") {
-          autoGroupQuestions(doc);
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Grouped questions by original question number");
-          return;
-        }
-
-        if (btn.id === "mq-sample" || btn.id === "mq-empty-sample") {
-          doc = sampleMakerPaper();
-          saveMakerDoc(doc);
-          // sync inputs
-          const h = doc.header;
-          const instEl = $("#m-inst"); if (instEl) instEl.value = h.inst;
-          const examEl = $("#m-exam"); if (examEl) examEl.value = h.exam;
-          const paperEl = $("#m-paper"); if (paperEl) paperEl.value = h.paper;
-          const timeEl = $("#m-time"); if (timeEl) timeEl.value = h.time;
-          const fullEl = $("#m-full"); if (fullEl) fullEl.value = h.full;
-          const instrEl = $("#m-instr"); if (instrEl) instrEl.value = h.instr;
-          rebindMakerQuestions();
-          toast("Sample 8-question exam paper loaded (50 marks)");
-          return;
-        }
-
-        if (btn.id === "mq-clear") {
-          sec.questions = [];
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Paper cleared");
-          return;
-        }
-
-        const qCard = btn.closest(".mq-card");
-        const qIdx = qCard ? +qCard.dataset.qidx : -1;
-        const q = qIdx >= 0 ? sec.questions[qIdx] : null;
-
-        const pCard = btn.closest(".mq-part");
-        const pIdx = pCard ? +pCard.dataset.pidx : -1;
-
-        const act = btn.dataset.act;
-
-        if (act === "q-up" && qIdx > 0) {
-          [sec.questions[qIdx], sec.questions[qIdx - 1]] = [sec.questions[qIdx - 1], sec.questions[qIdx]];
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-        } else if (act === "q-down" && qIdx < sec.questions.length - 1) {
-          [sec.questions[qIdx], sec.questions[qIdx + 1]] = [sec.questions[qIdx + 1], sec.questions[qIdx]];
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-        } else if (act === "q-add-part" && q) {
-          const nextLetter = String.fromCharCode(97 + q.parts.length);
-          q.parts.push({ id: "pt_" + Date.now(), label: nextLetter, marks: 2, tex: "Evaluate the integral." });
-          if (!q.parts[0].label) q.parts[0].label = "a";
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Subpart added (composite question)");
-        } else if (act === "q-add-or" && q) {
-          sec.questions.splice(qIdx + 1, 0, {
-            id: "mq_" + Date.now(),
-            qno: q.qno,
-            orAlternative: true,
-            parts: [{ id: "pt_" + Date.now(), label: "a", marks: 3, tex: "Alternative formulation of the problem." }, { id: "pt_" + (Date.now() + 1), label: "b", marks: 2, tex: "Show that the series converges." }]
-          });
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("OR alternative question added");
-        } else if (act === "q-del" && qIdx >= 0) {
-          sec.questions.splice(qIdx, 1);
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Question removed");
-        } else if (act === "p-split" && q && pIdx > 0) {
-          const removed = q.parts.splice(pIdx, 1)[0];
-          removed.label = "";
-          sec.questions.splice(qIdx + 1, 0, {
-            id: "mq_" + Date.now(),
-            qno: "",
-            orAlternative: false,
-            parts: [removed]
-          });
-          if (q.parts.length === 1) q.parts[0].label = "";
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Subpart split into standalone question");
-        } else if (act === "p-merge-up" && qIdx > 0 && q) {
-          const prevQ = sec.questions[qIdx - 1];
-          if (!prevQ.parts[0].label) prevQ.parts[0].label = "a";
-          q.parts.forEach((pt) => {
-            pt.label = String.fromCharCode(97 + prevQ.parts.length);
-            prevQ.parts.push(pt);
-          });
-          sec.questions.splice(qIdx, 1);
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Merged into previous question as next subpart");
-        } else if (act === "p-toggle-view" && q && pIdx >= 0) {
-          const pt = q.parts[pIdx];
-          if (pt) {
-            const currentMode = pt._viewMode || doc.header.latexViewMode || "preview";
-            pt._viewMode = currentMode === "code" ? "preview" : "code";
-            rebindMakerQuestions();
-          }
-        } else if (act === "p-click-edit" && q && pIdx >= 0) {
-          const pt = q.parts[pIdx];
-          if (pt) {
-            pt._viewMode = "code";
-            rebindMakerQuestions();
-            const pCard = btn.closest(".mq-part");
-            const ta = pCard && pCard.querySelector("textarea");
-            if (ta) ta.focus();
-          }
-        } else if (act === "p-del" && q && pIdx >= 0) {
-          q.parts.splice(pIdx, 1);
-          if (!q.parts.length) sec.questions.splice(qIdx, 1);
-          else if (q.parts.length === 1) q.parts[0].label = "";
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast("Part removed");
-        } else if (act === "q-replace" && qIdx >= 0) {
-          openReplaceModal({
-            targetType: "question",
-            qIdx,
-            doc,
-            onReplace: (chosen) => {
-              const siblings = D.byPaper[chosen.p]?.filter((sq) => sq.qno === chosen.qno) || [];
-              if (siblings.length > 1) {
-                q.parts = siblings.map((sq) => ({
-                  id: "pt_" + sq.id,
-                  label: sq.part || "",
-                  marks: sq.marks != null ? sq.marks : 5,
-                  tex: sq.tex
-                }));
-              } else {
-                q.parts = [{
-                  id: "pt_" + chosen.id,
-                  label: chosen.part || "",
-                  marks: chosen.marks != null ? chosen.marks : 5,
-                  tex: chosen.tex
-                }];
-              }
-              saveMakerDoc(doc);
-              rebindMakerQuestions();
-              toast(`Question replaced with ${D.papers[chosen.p]?.title || "question"}`);
-            }
-          });
-        } else if (act === "p-replace" && q && pIdx >= 0) {
-          const pt = q.parts[pIdx];
-          openReplaceModal({
-            targetType: "part",
-            qIdx,
-            pIdx,
-            doc,
-            onReplace: (chosen) => {
-              pt.tex = chosen.tex;
-              if (chosen.marks != null) pt.marks = chosen.marks;
-              saveMakerDoc(doc);
-              rebindMakerQuestions();
-              toast(`Subpart replaced with ${D.papers[chosen.p]?.title || "question"}`);
-            }
-          });
-        }
-      });
-
-      // HTML5 Drag & Drop question reordering
-      let draggedQIdx = null;
-
-      qListEl.addEventListener("dragstart", (e) => {
-        const card = e.target.closest(".mq-card");
-        if (!card) return;
-        draggedQIdx = +card.dataset.qidx;
-        card.classList.add("is-dragging");
-        if (e.dataTransfer) {
-          e.dataTransfer.effectAllowed = "move";
-          e.dataTransfer.setData("text/plain", String(draggedQIdx));
-        }
-      });
-
-      qListEl.addEventListener("dragover", (e) => {
-        const overCard = e.target.closest(".mq-card");
-        if (!overCard || draggedQIdx == null) return;
-        e.preventDefault();
-        if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
-        $$(".mq-card").forEach((c) => c.classList.remove("drag-over"));
-        if (+overCard.dataset.qidx !== draggedQIdx) {
-          overCard.classList.add("drag-over");
-        }
-      });
-
-      qListEl.addEventListener("dragleave", (e) => {
-        const overCard = e.target.closest(".mq-card");
-        if (overCard && !overCard.contains(e.relatedTarget)) {
-          overCard.classList.remove("drag-over");
-        }
-      });
-
-      qListEl.addEventListener("drop", (e) => {
-        const overCard = e.target.closest(".mq-card");
-        if (!overCard || draggedQIdx == null) return;
-        e.preventDefault();
-        const targetQIdx = +overCard.dataset.qidx;
-        const sec = (doc.sections || [])[0];
-        if (sec && targetQIdx !== draggedQIdx && targetQIdx >= 0 && targetQIdx < sec.questions.length) {
-          const [moved] = sec.questions.splice(draggedQIdx, 1);
-          sec.questions.splice(targetQIdx, 0, moved);
-          saveMakerDoc(doc);
-          rebindMakerQuestions();
-          toast(`Question moved to position ${targetQIdx + 1}`);
-        }
-        draggedQIdx = null;
-      });
-
-      qListEl.addEventListener("dragend", () => {
-        $$(".mq-card").forEach((c) => {
-          c.classList.remove("is-dragging");
-          c.classList.remove("drag-over");
+        sec.questions.push({
+          id: "mq_" + Date.now(),
+          qno: "",
+          orAlternative: false,
+          parts: [{ id: "pt_" + Date.now(), label: "", marks: 5, tex: "State and prove the theorem." }]
         });
-        draggedQIdx = null;
-      });
+        saveMakerDoc(doc);
+        refreshStudio(sec.questions.length - 1, null);
+        toast("Question added at the end");
+        const newEl = document.querySelector(`[data-qidx="${sec.questions.length - 1}"]`);
+        if (newEl) newEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      };
+    }
 
-      // Part marks and tex input changes
-      qListEl.addEventListener("input", (e) => {
-        const target = e.target;
-        const act = target.dataset.act;
-        if (!act) return;
+    const rulesBtn = $("#m-open-rules");
+    if (rulesBtn) {
+      rulesBtn.onclick = () => openExamRulesModal(doc, () => { saveMakerDoc(doc); refreshStudio(); toast("Exam & Rules updated"); });
+    }
 
-        const pCard = target.closest(".mq-part");
-        if (!pCard) return;
-        const qIdx = +pCard.dataset.qidx;
-        const pIdx = +pCard.dataset.pidx;
-        const sec = (doc.sections || [])[0];
-        const q = sec && sec.questions[qIdx];
-        const pt = q && q.parts[pIdx];
-        if (!pt) return;
+    const sampleBtn = $("#m-sample");
+    if (sampleBtn) {
+      sampleBtn.onclick = () => {
+        doc = sampleMakerPaper();
+        saveMakerDoc(doc);
+        refreshStudio(null, null);
+        toast("Loaded standard 8-question university exam paper");
+      };
+    }
 
-        if (act === "p-marks") {
-          pt.marks = target.value;
-          refreshSheet();
-          saveMakerDoc(doc);
-        } else if (act === "p-tex") {
-          pt.tex = target.value;
-          refreshSheet();
-          saveMakerDoc(doc);
-        }
+    const exportBtn = $("#m-export-btn");
+    const exportMenu = $("#m-export-menu");
+    if (exportBtn && exportMenu) {
+      exportBtn.onclick = (e) => {
+        e.stopPropagation();
+        exportMenu.style.display = exportMenu.style.display === "none" ? "flex" : "none";
+      };
+      document.addEventListener("click", () => {
+        if (exportMenu) exportMenu.style.display = "none";
       });
     }
 
-    // Export button actions
+    const clearBtn = $("#m-clear");
+    if (clearBtn) {
+      clearBtn.onclick = () => {
+        if (confirm("Are you sure you want to clear all questions in this paper?")) {
+          const sec = (doc.sections || [])[0];
+          if (sec) sec.questions = [];
+          saveMakerDoc(doc);
+          refreshStudio(null, null);
+          toast("Paper cleared");
+        }
+      };
+    }
+
+    // Export buttons
     $("#pvprint").onclick = () => { try { window.print(); } catch (e) {} };
     $("#pvol").onclick = () => overleaf(toLatex(doc));
     $("#pvtex").onclick = () => download("vbmath-exam-paper.tex", toLatex(doc));
@@ -2042,6 +1616,274 @@
         });
         copy(lines.join("\n"), "Text copied");
       };
+    }
+
+    // Canvas & Sheet Click Delegation
+    const canvasEl = $(".studio-canvas");
+    if (canvasEl) {
+      canvasEl.addEventListener("click", (e) => {
+        const sec = (doc.sections || [])[0];
+        if (!sec) return;
+
+        // Check if clicked the Exam & Rules header
+        const ah = e.target.closest('[data-act="open-exam-rules"]');
+        if (ah) {
+          openExamRulesModal(doc, () => { saveMakerDoc(doc); refreshStudio(); toast("Exam & Rules updated"); });
+          return;
+        }
+
+        const actBtn = e.target.closest("[data-act]");
+        const act = actBtn ? actBtn.dataset.act : null;
+
+        if (act) {
+          e.stopPropagation();
+          const qIdx = actBtn.dataset.qidx != null ? +actBtn.dataset.qidx : (+actBtn.closest(".pv-q")?.dataset.qidx || -1);
+          const pIdx = actBtn.dataset.pidx != null ? +actBtn.dataset.pidx : 0;
+          const q = qIdx >= 0 ? sec.questions[qIdx] : null;
+          const pt = q && q.parts ? q.parts[pIdx] : null;
+
+          if (act === "q-replace" && qIdx >= 0) {
+            openReplaceModal({
+              targetType: "question",
+              qIdx,
+              doc,
+              onReplace: (chosen) => {
+                const siblings = D.byPaper[chosen.p]?.filter((sq) => sq.qno === chosen.qno) || [];
+                if (siblings.length > 1) {
+                  q.parts = siblings.map((sq) => ({
+                    id: "pt_" + sq.id,
+                    label: sq.part || "",
+                    marks: sq.marks != null ? sq.marks : 5,
+                    tex: sq.tex
+                  }));
+                } else {
+                  q.parts = [{
+                    id: "pt_" + chosen.id,
+                    label: chosen.part || "",
+                    marks: chosen.marks != null ? chosen.marks : 5,
+                    tex: chosen.tex
+                  }];
+                }
+                saveMakerDoc(doc);
+                refreshStudio(qIdx, null);
+                toast(`Question replaced with ${D.papers[chosen.p]?.title || "question"}`);
+              }
+            });
+            return;
+          }
+
+          if (act === "p-replace" && q && pt) {
+            openReplaceModal({
+              targetType: "part",
+              qIdx,
+              pIdx,
+              doc,
+              onReplace: (chosen) => {
+                pt.tex = chosen.tex;
+                if (chosen.marks != null) pt.marks = chosen.marks;
+                saveMakerDoc(doc);
+                refreshStudio(qIdx, null);
+                toast(`Subpart replaced with ${D.papers[chosen.p]?.title || "question"}`);
+              }
+            });
+            return;
+          }
+
+          if (act === "q-edit" && qIdx >= 0) {
+            refreshStudio(qIdx, qIdx + "_0");
+            return;
+          }
+
+          if (act === "p-edit-text" && qIdx >= 0) {
+            refreshStudio(qIdx, qIdx + "_" + pIdx);
+            return;
+          }
+
+          if (act === "p-save-edit" && q && pt) {
+            const ta = canvasEl.querySelector(`.pv-inline-ta[data-qidx="${qIdx}"][data-pidx="${pIdx}"]`);
+            if (ta) pt.tex = ta.value;
+            saveMakerDoc(doc);
+            refreshStudio(qIdx, null);
+            toast("Question text updated");
+            return;
+          }
+
+          if (act === "p-edit-marks" && q && pt) {
+            const curM = pt.marks != null ? String(pt.marks) : "";
+            const newM = prompt("Enter marks for this question part:", curM);
+            if (newM !== null) {
+              pt.marks = newM.trim();
+              saveMakerDoc(doc);
+              refreshStudio(qIdx, null);
+            }
+            return;
+          }
+
+          if (act === "q-add-part" && q) {
+            const nextLetter = String.fromCharCode(97 + q.parts.length);
+            q.parts.push({ id: "pt_" + Date.now(), label: nextLetter, marks: 2, tex: "Evaluate the integral." });
+            if (!q.parts[0].label) q.parts[0].label = "a";
+            saveMakerDoc(doc);
+            refreshStudio(qIdx, null);
+            toast("Subpart added");
+            return;
+          }
+
+          if (act === "q-add-or" && q) {
+            sec.questions.splice(qIdx + 1, 0, {
+              id: "mq_" + Date.now(),
+              qno: q.qno,
+              orAlternative: true,
+              parts: [
+                { id: "pt_" + Date.now(), label: "a", marks: 3, tex: "Alternative formulation of the problem." },
+                { id: "pt_" + (Date.now() + 1), label: "b", marks: 2, tex: "Show that the series converges." }
+              ]
+            });
+            saveMakerDoc(doc);
+            refreshStudio(qIdx + 1, null);
+            toast("OR alternative question added");
+            return;
+          }
+
+          if (act === "q-up" && qIdx > 0) {
+            [sec.questions[qIdx], sec.questions[qIdx - 1]] = [sec.questions[qIdx - 1], sec.questions[qIdx]];
+            saveMakerDoc(doc);
+            refreshStudio(qIdx - 1, null);
+            return;
+          }
+
+          if (act === "q-down" && qIdx < sec.questions.length - 1) {
+            [sec.questions[qIdx], sec.questions[qIdx + 1]] = [sec.questions[qIdx + 1], sec.questions[qIdx]];
+            saveMakerDoc(doc);
+            refreshStudio(qIdx + 1, null);
+            return;
+          }
+
+          if (act === "q-del" && qIdx >= 0) {
+            sec.questions.splice(qIdx, 1);
+            saveMakerDoc(doc);
+            refreshStudio(Math.max(0, qIdx - 1), null);
+            toast("Question removed");
+            return;
+          }
+
+          if (act === "p-split" && q && pIdx > 0) {
+            const removed = q.parts.splice(pIdx, 1)[0];
+            removed.label = "";
+            sec.questions.splice(qIdx + 1, 0, {
+              id: "mq_" + Date.now(),
+              qno: "",
+              orAlternative: false,
+              parts: [removed]
+            });
+            if (q.parts.length === 1) q.parts[0].label = "";
+            saveMakerDoc(doc);
+            refreshStudio(qIdx + 1, null);
+            toast("Subpart split into standalone question");
+            return;
+          }
+
+          if (act === "p-del-part" && q && pIdx >= 0) {
+            q.parts.splice(pIdx, 1);
+            if (!q.parts.length) sec.questions.splice(qIdx, 1);
+            else if (q.parts.length === 1) q.parts[0].label = "";
+            saveMakerDoc(doc);
+            refreshStudio(qIdx, null);
+            toast("Subpart removed");
+            return;
+          }
+        }
+
+        // Selection handling: clicking on a question selects it, clicking outside deselects
+        const qEl = e.target.closest(".pv-q");
+        if (qEl) {
+          const qIdx = +qEl.dataset.qidx;
+          if (selectedQIdx !== qIdx || editingPartId) {
+            refreshStudio(qIdx, null);
+          }
+        } else {
+          // Clicked outside on the canvas
+          if (selectedQIdx != null || editingPartId != null) {
+            refreshStudio(null, null);
+          }
+        }
+      });
+
+      // Keydown in inline editor: Ctrl+Enter saves
+      canvasEl.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+          const ta = e.target.closest(".pv-inline-ta");
+          if (ta) {
+            const qIdx = +ta.dataset.qidx;
+            const pIdx = +ta.dataset.pidx;
+            const sec = (doc.sections || [])[0];
+            const q = sec && sec.questions[qIdx];
+            const pt = q && q.parts ? q.parts[pIdx] : null;
+            if (pt) {
+              pt.tex = ta.value;
+              saveMakerDoc(doc);
+              refreshStudio(qIdx, null);
+              toast("Question text updated");
+            }
+          }
+        }
+      });
+
+      // Drag and Drop questions on the sheet
+      let draggedQIdx = null;
+
+      canvasEl.addEventListener("dragstart", (e) => {
+        const card = e.target.closest(".pv-q");
+        if (!card) return;
+        draggedQIdx = +card.dataset.qidx;
+        card.classList.add("is-dragging");
+        if (e.dataTransfer) {
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", String(draggedQIdx));
+        }
+      });
+
+      canvasEl.addEventListener("dragover", (e) => {
+        const overCard = e.target.closest(".pv-q");
+        if (!overCard || draggedQIdx == null) return;
+        e.preventDefault();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+        $$(".pv-q").forEach((c) => c.classList.remove("drag-over"));
+        if (+overCard.dataset.qidx !== draggedQIdx) {
+          overCard.classList.add("drag-over");
+        }
+      });
+
+      canvasEl.addEventListener("dragleave", (e) => {
+        const overCard = e.target.closest(".pv-q");
+        if (overCard && !overCard.contains(e.relatedTarget)) {
+          overCard.classList.remove("drag-over");
+        }
+      });
+
+      canvasEl.addEventListener("drop", (e) => {
+        const overCard = e.target.closest(".pv-q");
+        if (!overCard || draggedQIdx == null) return;
+        e.preventDefault();
+        const targetQIdx = +overCard.dataset.qidx;
+        const sec = (doc.sections || [])[0];
+        if (sec && targetQIdx !== draggedQIdx && targetQIdx >= 0 && targetQIdx < sec.questions.length) {
+          const [moved] = sec.questions.splice(draggedQIdx, 1);
+          sec.questions.splice(targetQIdx, 0, moved);
+          saveMakerDoc(doc);
+          refreshStudio(targetQIdx, null);
+          toast(`Question moved to position ${targetQIdx + 1}`);
+        }
+        draggedQIdx = null;
+      });
+
+      canvasEl.addEventListener("dragend", () => {
+        $$(".pv-q").forEach((c) => {
+          c.classList.remove("is-dragging");
+          c.classList.remove("drag-over");
+        });
+        draggedQIdx = null;
+      });
     }
   }
 
