@@ -1,34 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" fill="none" aria-hidden="true">
-  <defs>
-    <linearGradient id="fade">
-      <stop stop-color="#fff" stop-opacity="0"/>
-      <stop offset=".31" stop-color="#fff" stop-opacity=".78"/>
-      <stop offset="1" stop-color="#fff"/>
-    </linearGradient>
-    <mask id="edge" maskUnits="userSpaceOnUse" x="0" y="0" width="760" height="300">
-      <path fill="url(#fade)" d="M0 0h760v300H0z"/>
-    </mask>
-    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-      <path d="M24 0H0v24" stroke="#fff" stroke-opacity=".18"/>
-    </pattern>
-  </defs>
-  <g mask="url(#edge)">
-    <path fill="url(#grid)" d="M0 0h760v300H0z"/>
-    <g stroke="#fff" stroke-width="1" opacity=".5">
-      <path d="M50 150h710M508 0v300" stroke-dasharray="6 6"/>
-      <path d="M224 270 561 17l163 253zM314 270 581 52m-18 218 86-110"/>
-      <circle cx="508" cy="150" r="131"/>
-    </g>
-    <g stroke="#fff" stroke-width="1.65">
-      <circle cx="432" cy="150" r="116"/>
-      <circle cx="548" cy="150" r="116"/>
-      <path d="m432 150 58-100.459 58 100.459-58 100.459Z"/>
-      <path d="M684 222v40m-20-20h40"/>
-    </g>
-    <g fill="#fff">
-      <circle cx="432" cy="150" r="3.5"/><circle cx="548" cy="150" r="3.5"/>
-      <circle cx="490" cy="49.541" r="3.5"/><circle cx="490" cy="250.459" r="3.5"/>
-      <circle cx="684" cy="242" r="3"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438 200" fill="none" aria-hidden="true">
+  <g stroke="#fff" stroke-width="1" opacity=".38" stroke-dasharray="4 4">
+    <path d="M26 100h386M219 8v184"/>
+    <path d="M119 24h200v152H119z" opacity=".5"/>
+  </g>
+  <g stroke="#fff" stroke-width="1.35" opacity=".68">
+    <circle cx="180" cy="100" r="78"/>
+    <circle cx="258" cy="100" r="78"/>
+  </g>
+  <path stroke="#fff" stroke-width="2.1" stroke-linejoin="round" d="m180 100 39-67.55L258 100l-39 67.55zM180 100h78"/>
+  <g fill="#fff">
+    <circle cx="180" cy="100" r="3.4"/><circle cx="258" cy="100" r="3.4"/>
+    <circle cx="219" cy="32.45" r="3.4"/><circle cx="219" cy="167.55" r="3.4"/>
+    <g font-family="Georgia, serif" font-size="13" font-style="italic" text-anchor="middle">
+      <text x="168" y="95">A</text><text x="270" y="95">B</text>
+      <text x="232" y="30">C</text><text x="232" y="179">D</text>
     </g>
   </g>
 </svg>
