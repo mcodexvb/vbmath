@@ -1184,8 +1184,9 @@
       if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") go("search"); setTimeout(() => $("#sq") && $("#sq").focus(), 30); }
     });
     const themeToggle = $("#theme");
+    const preferredDark = window.matchMedia("(prefers-color-scheme: dark)");
     const root = document.documentElement;
-    const isDark = () => root.dataset.theme !== "light";
+    const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : preferredDark.matches;
     const syncThemeToggle = () => {
       const dark = isDark();
       const label = dark ? "Switch to light theme" : "Switch to dark theme";
@@ -1196,6 +1197,7 @@
     const savedTheme = store.get("theme", "");
     if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
     syncThemeToggle();
+    preferredDark.addEventListener("change", syncThemeToggle);
     themeToggle.addEventListener("click", () => {
       root.dataset.theme = isDark() ? "light" : "dark";
       store.set("theme", root.dataset.theme);
