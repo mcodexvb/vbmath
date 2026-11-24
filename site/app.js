@@ -8,6 +8,13 @@
   const PROG = { BSc: "B.Sc. Mathematics", MSc: "M.Sc. Mathematics" };
   const PSHORT = { BSc: "B.Sc.", MSc: "M.Sc." };
   const EXAM = { JAM: "IIT JAM", NET: "CSIR-UGC NET", GATE: "GATE", TIFR: "TIFR Graduate School", NBHM: "NBHM" };
+  const EXAM_CODE = {"IIT JAM":"JAM", "CSIR-UGC NET":"NET", "GATE Mathematics":"GATE", NBHM:"NBHM", TIFR:"TIFR"};
+  const EXAM_GUIDANCE = {
+    JAM: ["IIT JAM Mathematics (2026)", "Official Mathematics (MA) syllabus.", "https://jam2026.iitb.ac.in/files/syllabus_MA.pdf"],
+    GATE: ["GATE Mathematics", "Select Mathematics (MA) on the official syllabus page.", "https://gate2027.iitm.ac.in/exam_papers_and_syllabus"],
+    NBHM: ["NBHM written test", "NBHM has no prescribed syllabus. See the official written-test guidance.", "https://www.imsc.res.in/~nbhm/ST_current/faq.html"],
+    TIFR: ["TIFR Mathematics", "Stage I and Stage II syllabi and admission information.", "https://mathweb.tifr.res.in/admissions.html"],
+  };
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -32,9 +39,11 @@
     const m = r.match(/^(paper|semester|preview)-(.+)$/);
     return m ? `/${m[1]}/${m[2]}/` : `/${r}/`;
   }
+  const routeParams = () => new URLSearchParams(HASH ? (location.hash.split("?")[1] || "") : location.search);
+  const sectionLink = (route, id) => L(route) + "?section=" + encodeURIComponent(id);
   function current() {
     let s;
-    if (HASH) s = (location.hash || "#home").slice(1);
+    if (HASH) s = (location.hash || "#home").slice(1).split("?")[0];
     else {
       const p = location.pathname.replace(/\/+$/, "").replace(/^\/+/, "");
       if (!p) s = "home";
@@ -654,7 +663,7 @@
     return `<section class="hero-band"><div class="wrap">
         <div class="hero">
           <div>
-            <h1>Visva-Bharati mathematics question papers</h1>
+            <h1>Visva-Bharati Mathematics Question Papers</h1>
             <p class="lede">B.Sc. and M.Sc. examination questions from ${yrs[0]} to ${yrs[yrs.length - 1]}, written in LaTeX, sorted by semester and topic, and linked to the original scans.</p>
             <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
@@ -695,7 +704,8 @@
 
   /* ---------- papers (programme overview) ---------- */
   function viewPapers() {
-    const tab = store.get("papersTab", "BSc");
+    const requested = routeParams().get("programme");
+    const tab = Object.hasOwn(PROG, requested) ? requested : store.get("papersTab", "BSc");
     const sems = Array.from({ length: NSEM[tab] }, (_, i) => i + 1);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Papers</div>
       ${editorialHeading("Question papers", "Browse typed exam papers, internal tests and original scans by programme and semester.")}
@@ -707,7 +717,14 @@
       }).join("")}</div>
       <p class="muted" style="margin-top:18px;font-size:14px">Syllabus eras: BMC codes until 2016–17, CBCS (CC, DSE, SEC, GE) from 2017–18, NEP (MJMA, MNMA, SEC) from 2025–26. Older papers are in <a href="${L("scans")}">Scans</a>.</p></div>`;
   }
-  function bindPapers() { $$("[data-tab]").forEach((b) => b.addEventListener("click", () => { store.set("papersTab", b.dataset.tab); route(true); })); }
+  function bindPapers() {
+    $$("[data-tab]").forEach((b) => b.addEventListener("click", () => {
+      store.set("papersTab", b.dataset.tab);
+      history.replaceState({}, "", L("papers") + "?programme=" + b.dataset.tab);
+      route(true);
+      $(`[data-tab="${b.dataset.tab}"]`).focus({preventScroll: true});
+    }));
+  }
 
   /* ---------- one semester ---------- */
   function viewSemester(arg) {
@@ -975,20 +992,23 @@
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div>
     ${illustratedPages.has(crumb) ? editorialHeading(title, lede) : `<h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}`}${body}</div>`;
   function viewExams() {
-    const routes = { "IIT JAM": "JAM", "CSIR-UGC NET": "NET", NBHM: "NBHM", TIFR: "TIFR" };
+    const row = (label, href, external = false, attrs = "") => `<a class="exam-row" href="${esc(href)}"${external ? ' target="_blank" rel="noopener"' : ""}${attrs}><span>${esc(label)}</span>${external ? IC.ext : IC.arrow}</a>`;
     const cards = D.C.exams.map((exam) => {
-      const code = routes[exam.name];
+      const code = EXAM_CODE[exam.name];
       const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
-      const search = papers.length ? `<a class="note-open" href="${L("search")}${HASH ? "" : "?exam=" + code}" data-exam-search="${code}">Search questions ${IC.arrow}</a>` : "";
-      const links = exam.links.map(([label, url]) => ext(url, label, "chip")).join("");
-      return `<article class="resource-card${code ? " resource-featured" : ""}">
-        <div class="resource-card-head"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
+      const search = papers.length ? row("Search questions", L("search") + (HASH ? "" : "?exam=" + code), false, ` data-exam-search="${code}"`) : "";
+      const links = (code === "GATE" ? row("Official past papers and answer keys", "https://gate2026.iitg.ac.in/download.html", true) : "") + exam.links.map(([label, url]) => row(label, url, true)).join("");
+      const syllabus = EXAM_GUIDANCE[code]?.[2] || exam.syllabus;
+      return `<article class="topic-card exam-card" id="exam-${code || "vb-admission"}" tabindex="-1">
+        <div class="exam-card-title"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
           <div><h2>${esc(exam.name)}</h2><p>${esc(exam.note)}</p></div></div>
-        ${search}
-        ${papers.length ? `<details class="resource-disclosure"><summary>Searchable papers <span class="muted">(${papers.length})</span></summary>
-          <div class="resource-links">${papers.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(code === "JAM" ? p.year : p.title)}</a>`).join("")}</div></details>` : ""}
-        ${code ? `<details class="resource-disclosure"${papers.length ? "" : " open"}><summary>Original papers and resources</summary><div class="resource-links">${links}</div></details>` : `<div class="resource-links">${links}</div>`}
-        ${exam.syllabus ? `<div>${ext(exam.syllabus, "Syllabus", "chip")}</div>` : ""}
+        <div class="exam-rows">
+          ${search}
+          ${papers.length ? `<details class="exam-disclosure"><summary><span>Searchable papers</span><span class="topic-total" aria-label="${papers.length} papers">${papers.length}</span>${IC.down}</summary>
+            <div>${papers.map((p) => row(code === "JAM" ? p.year : p.title, L("paper-" + p.key))).join("")}</div></details>` : ""}
+          ${code && papers.length ? `<details class="exam-disclosure"><summary><span>Original papers and resources</span>${IC.down}</summary><div>${links}</div></details>` : links}
+          ${syllabus ? row(code === "NBHM" ? "Written test guidance" : "Syllabus", syllabus, true) : ""}
+        </div>
       </article>`;
     });
     return page("Competitive exams", "Competitive & admission exams",
@@ -1027,7 +1047,9 @@
   }
   function viewSyllabus() {
     const groups = new Map([["B.Sc. Mathematics", []], ["M.Sc. Mathematics", []], ["Competitive & admission exams", []]]);
-    for (const item of D.C.syllabus) {
+    const syllabus = D.C.syllabus.map((item) => item[0] === "IIT JAM Mathematics" ? EXAM_GUIDANCE.JAM : item);
+    syllabus.push(EXAM_GUIDANCE.GATE, EXAM_GUIDANCE.NBHM, EXAM_GUIDANCE.TIFR);
+    for (const item of syllabus) {
       const title = item[0];
       const group = title.startsWith("B.Sc. —") ? "B.Sc. Mathematics" :
         title.startsWith("M.Sc. —") ? "M.Sc. Mathematics" : "Competitive & admission exams";
@@ -1058,7 +1080,7 @@
         <div class="lc-side"><span class="lc-subj">${esc(subj[sj])}</span>${papers ? `<span class="lc-papers">For ${papers.split(/,\s*/).map((c) => `<button type="button" class="pcode" data-code="${esc(c)}" title="Questions from ${esc(c)}">${esc(c)}</button>`).join("")}</span>` : ""}</div></li>`;
     return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Videos & websites</nav>
       <div class="pagehead"><h1>Videos & websites</h1><p class="lede">Free courses that match the department’s papers, channels worth following, and the sites students keep coming back to.</p></div>
-      <section class="learn-block" aria-labelledby="lc-h">
+      <section class="learn-block" id="lectures-notes" aria-labelledby="lc-h" tabindex="-1">
         <div class="lb-head"><div><h2 id="lc-h">Courses by subject</h2><p class="muted">Each course lists the Visva-Bharati papers it helps with. Tap a code to see that paper’s questions.</p></div></div>
         <div class="lseg" role="group" aria-label="Filter by subject"><button type="button" class="on" data-s="">All</button>${Ln.subjects.map(([k, l]) => `<button type="button" data-s="${k}">${esc(l)}</button>`).join("")}</div>
         <ul class="lcourses">${Ln.courses.map(course).join("")}</ul>
@@ -1067,7 +1089,7 @@
         <div class="lb-head"><div><h2 id="ch-h">Channels worth following</h2><p class="muted">Whole lecture series and regular uploads, beyond a single course.</p></div></div>
         <div class="lchannels">${Ln.channels.map(([n, d, ls]) => `<div class="lch"><h3>${esc(n)}</h3><p>${esc(d)}</p><div class="lch-links">${ls.map(([l, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${IC.ext}</a>`).join("")}</div></div>`).join("")}</div>
       </section>
-      <section class="learn-block" aria-labelledby="ws-h">
+      <section class="learn-block" id="useful-websites" aria-labelledby="ws-h" tabindex="-1">
         <div class="lb-head"><div><h2 id="ws-h">Websites</h2><p class="muted">Grouped by what you need them for.</p></div></div>
         <div class="lsites">${Ln.sites.map(([g, d, ls]) => `<div class="lsg"><div class="lsg-head"><h3>${esc(g)}</h3><p>${esc(d)}</p></div>
           <ul class="lsg-list">${ls.map(([n, u, w]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span class="ls-n">${esc(n)}</span>${w ? `<span class="ls-w">${esc(w)}</span>` : ""}<span class="ls-h">${esc(host(u))}</span></a></li>`).join("")}</ul></div>`).join("")}</div>
@@ -1084,9 +1106,19 @@
   }
   function viewPeople() {
     return page("People", "People", "Faculty of the Department of Mathematics, Visva-Bharati, with the courses they teach and their research interests (as listed on the earlier site).",
-      `<div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b style="color:var(--ink)">Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b style="color:var(--ink)">Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
-      <section class="section"><div class="section-head"><h2 style="font-size:20px">Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section>
-      <section class="section"><div class="section-head"><h2 style="font-size:20px">Research scholars and alumni</h2></div><p class="prose">The list of current and graduated research scholars, with their supervisors, is kept on the ${ext(D.C.scholars_link, "earlier site")}. Alumni can add their details through the alumni form there.</p></section>`);
+      `<section id="teachers" aria-label="Teachers" tabindex="-1"><div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b style="color:var(--ink)">Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b style="color:var(--ink)">Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
+      <section class="section"><div class="section-head"><h2>Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section></section>
+      <section class="section" id="scholars" tabindex="-1"><div class="section-head"><h2>Research scholars</h2></div><p class="prose">See the ${ext(D.C.scholars_link, "directory of current and graduated research scholars and their supervisors")}.</p></section>
+      <section class="section" id="alumni" tabindex="-1"><div class="section-head"><h2>Alumni</h2></div><p class="prose">Visva-Bharati mathematics alumni can add their details using the alumni form on the ${ext(D.C.scholars_link, "earlier VBMath site")}.</p></section>`);
+  }
+  function viewTools() {
+    const coding = D.C.tools.filter(([label]) => label.startsWith("Math++"));
+    const numerical = D.C.tools.filter(([label]) => !label.startsWith("Math++"));
+    return page("Tools", "Mathematics tools", "",
+      `<div class="resource-grid">${[["Coding", coding], ["Numerical methods", numerical], ["LaTeX", D.C.latex]].map(([title, links]) => `
+        <section class="topic-card exam-card"><div class="exam-card-title"><span class="resource-icon">${IC.file}</span><h2>${title}</h2></div>
+          <div class="exam-rows">${links.map(([label, url]) => `<a class="exam-row" href="${esc(url)}" target="_blank" rel="noopener"><span>${esc(label)}</span>${IC.ext}</a>`).join("")}</div>
+        </section>`).join("")}</div>`);
   }
   function viewGuides() {
     const C = D.C;
@@ -1150,7 +1182,7 @@
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
     preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, null, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
-    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], people: [viewPeople, null, "People · VBMath"],
+    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
   let lastRoute = null;
@@ -1173,23 +1205,89 @@
     else if (!ROUTES[name] && name !== "basket" && name !== "collection") { app.innerHTML = `<div class="wrap" style="max-width:720px;padding-block:40px"><div class="eyebrow">Error 404</div><h1>This page isn’t here</h1><p class="lede">The link may be old or mistyped. Search the archive or open a semester instead.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn btn-primary" href="${L("search")}">Search questions</a><a class="btn btn-ghost" href="${L("papers")}">Papers by semester</a></p></div>`; setMeta("Page not found · VBMath"); }
     else { if (!ROUTES[name]) name = "home"; const [v, b, t] = ROUTES[name]; app.innerHTML = v(); b && b(); setMeta(t, name === "home" ? "Previous-year B.Sc. and M.Sc. Mathematics question papers of Visva-Bharati, typed in LaTeX, searchable by topic, year and paper code, with the original scans." : null); }
     const navName = name === "paper" || name === "semester" ? "papers" : name;
-    $$(".nav a[data-r]").forEach((a) => { if (a.dataset.r === navName) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    const navPath = HASH ? location.hash : location.pathname + location.search;
+    const navLinks = $$(".nav a");
+    const exact = navLinks.find((a) => a.dataset.r === navName && a.hasAttribute("data-specific") && a.getAttribute("href") === navPath);
+    navLinks.forEach((a) => {
+      const active = exact ? a === exact : a.dataset.r === navName && !a.hasAttribute("data-specific");
+      if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+    $$(".nav .dd").forEach((group) => {
+      const active = group.querySelector('[aria-current="page"]') || group.dataset.routes.split(" ").includes(navName);
+      group.querySelector(".navbtn").classList.toggle("nav-current", !!active);
+    });
     if (!keepScroll && lastRoute !== r) window.scrollTo(0, 0);
+    const section = routeParams().get("section");
+    const target = section && document.getElementById(section);
+    if (target && app.contains(target)) {
+      target.focus({preventScroll: true});
+      target.scrollIntoView({block: "start"});
+    }
     lastRoute = r;
     if (window.matchMedia("(max-width:1040px)").matches) { $("#nav").hidden = true; $("#menu").setAttribute("aria-expanded", "false"); }
     updateCount();
   }
 
   /* ---------- chrome ---------- */
+  function renderNavigation(nav) {
+    const link = (route, label, href = L(route)) => `<a href="${esc(href)}" data-r="${route}"${href === L(route) ? "" : " data-specific"}>${label}</a>`;
+    const group = (id, label, links, routes) => `<div class="dd" data-routes="${routes}">
+      <button class="navbtn" type="button" aria-expanded="false" aria-controls="nav-${id}">${label} <span aria-hidden="true">▾</span></button>
+      <div class="dd-menu" id="nav-${id}" hidden>${links.join("")}</div></div>`;
+    nav.innerHTML = [
+      link("home", "Home"),
+      group("pyq", "PYQ", [
+        ...["BSc", "MSc"].map((p) => link("papers", p, L("papers") + "?programme=" + p)),
+        ...["NET", "GATE", "JAM", "TIFR", "NBHM"].map((e) => link("exams", e, sectionLink("exams", "exam-" + e))),
+        link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"),
+      ], "papers exams search topics scans"),
+      group("resources", "Resources", [
+        link("notes", "VB Notes"),
+        link("learn", "Lectures &amp; Notes", sectionLink("learn", "lectures-notes")),
+        link("learn", "Useful Websites", sectionLink("learn", "useful-websites")),
+        link("books", "Books"),
+      ], "notes learn books"),
+      link("syllabus", "Syllabus"),
+      group("people", "People", [
+        ...["Teachers", "Alumni", "Scholars"].map((label) => link("people", label, sectionLink("people", label.toLowerCase()))),
+      ], "people"),
+      link("tools", "Tools"), link("guides", "Guides"), link("about", "About"),
+    ].join("");
+  }
   function initChrome() {
     $$("a[data-r]").forEach((a) => a.setAttribute("href", L(a.dataset.r)));
     const nav = $("#nav");
+    renderNavigation(nav);
     if (window.matchMedia("(max-width:1040px)").matches) nav.hidden = true;
-    $("#menu").addEventListener("click", () => { nav.hidden = !nav.hidden; $("#menu").setAttribute("aria-expanded", String(!nav.hidden)); });
-    const dd = $("#more-dd"), btn = $("#more-btn");
-    btn.addEventListener("click", (e) => { e.stopPropagation(); dd.hidden = !dd.hidden; btn.setAttribute("aria-expanded", String(!dd.hidden)); });
-    document.addEventListener("click", (e) => { if (!e.target.closest(".dd")) { dd.hidden = true; btn.setAttribute("aria-expanded", "false"); } });
-    $$("#more-dd a").forEach((a) => a.addEventListener("click", () => { dd.hidden = true; }));
+    const menu = $("#menu"), toggles = $$(".navbtn", nav);
+    const closeGroups = () => toggles.forEach((toggle) => {
+      toggle.setAttribute("aria-expanded", "false");
+      document.getElementById(toggle.getAttribute("aria-controls")).hidden = true;
+    });
+    menu.addEventListener("click", () => {
+      nav.hidden = !nav.hidden;
+      menu.setAttribute("aria-expanded", String(!nav.hidden));
+      if (nav.hidden) closeGroups();
+    });
+    toggles.forEach((toggle) => toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      closeGroups();
+      if (!open) {
+        toggle.setAttribute("aria-expanded", "true");
+        document.getElementById(toggle.getAttribute("aria-controls")).hidden = false;
+      }
+    }));
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".dd") || e.target.closest(".dd-menu a")) closeGroups();
+    });
+    nav.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      const open = toggles.find((toggle) => toggle.getAttribute("aria-expanded") === "true");
+      if (open) { closeGroups(); open.focus(); }
+      else if (window.matchMedia("(max-width:1040px)").matches) {
+        nav.hidden = true; menu.setAttribute("aria-expanded", "false"); menu.focus();
+      }
+    });
     $("#collbtn").addEventListener("click", openDrawer);
     $("#fab").addEventListener("click", openDrawer);
     $("#scrim").addEventListener("click", closeDrawer);
