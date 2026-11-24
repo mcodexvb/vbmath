@@ -473,6 +473,76 @@ details.more summary{cursor:pointer;font-weight:600}
 .replace-card-math{font:400 15px/1.5 "STIX Two Text",Georgia,serif;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:8px 10px}
 .replace-card-math mjx-container{color:var(--ink)}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes slideleft{from{transform:translateX(100%)}to{transform:translateX(0)}}
+
+/* Responsive replacement window: Sidebar on desktop >= 1024px, Modal on mobile */
+@media (min-width: 1024px) {
+  .replace-modal-scrim.is-sidebar {
+    background: transparent;
+    pointer-events: none;
+    justify-content: flex-end;
+    align-items: stretch;
+    padding: 0;
+  }
+  .replace-modal-scrim.is-sidebar .replace-modal {
+    pointer-events: auto;
+    width: 490px;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    border-left: 2px solid var(--accent);
+    box-shadow: -8px 0 36px rgba(0,0,0,.25);
+    animation: slideleft .18s ease-out;
+  }
+  .replace-modal-scrim.is-sidebar .replace-results {
+    max-height: 62vh;
+  }
+}
+
+/* Right-Click Context Menu */
+.studio-context-menu {
+  position: fixed;
+  z-index: 120;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: var(--shadow-l);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 210px;
+  animation: fadein .1s ease-out;
+}
+.studio-context-menu button {
+  background: none;
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font: 500 13px var(--f-ui);
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all .12s;
+}
+.studio-context-menu button:hover {
+  background: var(--paper-2);
+  color: var(--accent);
+}
+.studio-context-menu button.danger:hover {
+  color: #d32f2f;
+  background: #ffebee;
+}
+.studio-context-menu hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 4px 0;
+}
 
 /* Full-Page Question Paper Studio */
 .maker-studio{display:flex;flex-direction:column;min-height:100vh;background:var(--paper-2);margin:-16px -20px 0 -20px}
@@ -527,8 +597,18 @@ details.more summary{cursor:pointer;font-weight:600}
 
 /* Inline LaTeX editor */
 .pv-inline-editor{display:grid;gap:6px;width:100%;margin:4px 0}
-.pv-inline-editor textarea{width:100%;font:13.5px/1.45 var(--f-mono,monospace);padding:8px 10px;border:1.5px solid var(--accent);border-radius:6px;background:var(--card);color:var(--ink);box-sizing:border-box;resize:vertical;min-height:64px}
+.a4 .pv-inline-editor textarea{width:100%;font:400 15px/1.5 var(--f-mono,monospace)!important;padding:10px 12px!important;border:2px solid var(--accent)!important;border-radius:6px!important;background:#ffffff!important;color:#111111!important;box-shadow:0 4px 14px rgba(0,0,0,.1)!important;box-sizing:border-box;resize:vertical;min-height:68px}
 .pv-inline-editor-acts{display:flex;justify-content:flex-end;gap:6px}
+
+/* Mobile responsive studio */
+@media (max-width: 768px) {
+  .studio-topbar{padding:8px 12px;gap:8px}
+  .studio-bar-left,.studio-bar-right{width:100%;justify-content:space-between}
+  .studio-stats{font-size:11px;padding:2px 8px}
+  .studio-canvas{padding:12px 6px 80px}
+  .a4{padding:18px 12px;font-size:14.5px}
+  .pv-q-floating-bar{top:auto;bottom:-28px;right:4px;flex-wrap:wrap}
+}
 
 /* Editable Marks Pill */
 .pv-part-mk-editable{cursor:pointer;border-radius:4px;padding:1px 5px;transition:background .15s}

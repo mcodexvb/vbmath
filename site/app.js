@@ -1133,7 +1133,7 @@
         } else {
           overallQno++;
         }
-        const currentQnum = q.qno || String(overallQno);
+        const currentQnum = isStudio ? String(overallQno) : (q.qno || String(overallQno));
         const parts = q.parts || [];
         if (!parts.length) return;
 
@@ -1327,6 +1327,8 @@
             </div>
           </div>
           <div class="studio-bar-right">
+            <button class="btn btn-ghost btn-sm" type="button" id="m-undo" title="Undo (Ctrl+Z)" disabled style="opacity:0.45">↶ Undo</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="m-redo" title="Redo (Ctrl+Y)" disabled style="opacity:0.45">↷ Redo</button>
             <button class="btn btn-primary btn-sm" type="button" id="m-add-q">➕ Add Question</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-open-rules">⚙️ Exam &amp; Rules</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-sample">📄 Sample Paper</button>
@@ -1355,6 +1357,181 @@
           </div>
         </main>
       </div>`;
+  }
+
+  function openReplaceModal({ targetType, qIdx, pIdx, doc, onReplace }) {
+    const existing = $("#replace-modal-scrim");
+    if (existing) existing.remove();
+
+    const sec = (doc.sections || [])[0];
+    if (!sec) return;
+    const q = sec.questions[qIdx];
+    if (!q) return;
+    const pt = targetType === "part" ? (q.parts && q.parts[pIdx]) : null;
+
+    const initialMarks = targetType === "part" ? (pt ? parseFloat(pt.marks) || 0 : 0) : (q._totalMarks || 10);
+    const targetTitle = targetType === "part"
+      ? `Part (${pt?.label || "a"}) of Question ${q.qno || qIdx + 1}`
+      : `Question ${q.qno || qIdx + 1}`;
+
+    const scrim = document.createElement("div");
+    scrim.id = "replace-modal-scrim";
+    scrim.className = "replace-modal-scrim" + (window.innerWidth >= 1024 ? " is-sidebar" : "");
+
+    scrim.innerHTML = `
+      <div class="replace-modal" role="dialog" aria-modal="true" aria-labelledby="rep-title">
+        <div class="replace-modal-head">
+          <h3 id="rep-title">🔍 Search Replacement ${targetType === "part" ? "Subpart" : "Question"}</h3>
+          <div style="display:flex;align-items:center;gap:6px">
+            <button class="mq-iconbtn" type="button" id="rep-mode-toggle" title="Toggle Sidebar / Center Window">🗗</button>
+            <button class="mq-iconbtn" type="button" id="rep-close" title="Close">✕</button>
+          </div>
+        </div>
+        <div class="replace-modal-body">
+          <div style="font-size:13px;color:var(--ink-2);background:var(--paper-2);padding:8px 12px;border-radius:8px;border:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center">
+            <span>Target: <b>${esc(targetTitle)}</b></span>
+            <span>Target Marks: <span class="mq-mk-pill">${initialMarks ? initialMarks + " marks" : "Any"}</span></span>
+          </div>
+
+          <div class="replace-filter-bar">
+            <input type="search" id="rep-query" placeholder="Type topic, theorem, or keyword (e.g. Cauchy, Riemann, continuous)..." autofocus>
+            <select id="rep-marks">
+              <option value="all">Any marks</option>
+              ${initialMarks ? `<option value="${initialMarks}" selected>Target marks (${initialMarks})</option>` : ""}
+              <option value="2">2 marks</option>
+              <option value="3">3 marks</option>
+              <option value="4">4 marks</option>
+              <option value="5">5 marks</option>
+              <option value="6">6 marks</option>
+              <option value="8">8 marks</option>
+              <option value="10">10 marks</option>
+            </select>
+            <select id="rep-sem">
+              <option value="">All Semesters</option>
+              <option value="1">Semester I</option>
+              <option value="2">Semester II</option>
+              <option value="3">Semester III</option>
+              <option value="4">Semester IV</option>
+              <option value="5">Semester V</option>
+              <option value="6">Semester VI</option>
+            </select>
+          </div>
+
+          <div id="rep-count" style="font-size:12.5px;color:var(--ink-3);margin-top:-4px"></div>
+          <div class="replace-results" id="rep-results"></div>
+        </div>
+      </div>`;
+
+    document.body.appendChild(scrim);
+
+    const close = () => {
+      scrim.remove();
+      document.removeEventListener("keydown", onKeyDown);
+    };
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") close();
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    $("#rep-close").onclick = close;
+    const modeToggle = $("#rep-mode-toggle");
+    if (modeToggle) {
+      modeToggle.onclick = () => scrim.classList.toggle("is-sidebar");
+    }
+    scrim.addEventListener("click", (e) => {
+      if (e.target === scrim) close();
+    });
+
+    const qInput = $("#rep-query");
+    const mSelect = $("#rep-marks");
+    const sSelect = $("#rep-sem");
+    const resContainer = $("#rep-results");
+    const countEl = $("#rep-count");
+
+    const doSearch = () => {
+      const qVal = qInput.value.trim().toLowerCase();
+      const mVal = mSelect.value;
+      const sVal = sSelect.value;
+
+      const qTokens = qVal ? qVal.split(/\s+/).filter(Boolean) : [];
+
+      let matches = [];
+      for (const item of D.Q) {
+        if (item.stem) continue;
+        const p = D.papers[item.p];
+        if (!p) continue;
+
+        if (sVal && String(p.sem) !== sVal) continue;
+        if (mVal !== "all") {
+          const targetM = parseFloat(mVal);
+          if (item.marks !== targetM) continue;
+        }
+
+        if (qTokens.length > 0) {
+          const hay = item.hay || "";
+          let allMatch = true;
+          for (const tok of qTokens) {
+            if (!hay.includes(tok)) {
+              allMatch = false;
+              break;
+            }
+          }
+          if (!allMatch) continue;
+        }
+
+        matches.push(item);
+        if (matches.length >= 35) break;
+      }
+
+      countEl.textContent = `Found ${matches.length} matching question${matches.length === 1 ? "" : "s"}${matches.length >= 35 ? " (showing top 35)" : ""}:`;
+
+      if (!matches.length) {
+        resContainer.innerHTML = `<div class="empty" style="padding:24px 10px"><p>No matching questions found. Try removing filters or searching a simpler keyword.</p></div>`;
+        return;
+      }
+
+      resContainer.innerHTML = matches.map((item) => {
+        const p = D.papers[item.p];
+        const paperTitle = p ? `${pname(p)} ${p.year} (Sem ${ROMAN[p.sem]})` : "";
+        const qTag = `Q${item.qno}${item.part ? ` (${item.part})` : ""}`;
+        const mkTag = item.marks != null ? `${item.marks} marks` : "";
+        return `
+          <div class="replace-card" data-idx="${item.i}">
+            <div class="replace-card-head">
+              <div>
+                <strong>${esc(paperTitle)}</strong>
+                <span class="muted" style="margin-left:6px">${esc(qTag)}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                ${mkTag ? `<span class="mq-mk-pill">${esc(mkTag)}</span>` : ""}
+                <button class="btn btn-primary btn-sm" type="button" data-act="apply-rep" data-idx="${item.i}">✓ Replace with this</button>
+              </div>
+            </div>
+            <div class="replace-card-math">${texToHtml(item.tex)}</div>
+          </div>`;
+      }).join("");
+
+      typeset(resContainer);
+    };
+
+    qInput.addEventListener("input", doSearch);
+    mSelect.addEventListener("change", doSearch);
+    sSelect.addEventListener("change", doSearch);
+
+    resContainer.addEventListener("click", (e) => {
+      const applyBtn = e.target.closest('[data-act="apply-rep"]');
+      if (!applyBtn) return;
+      const idx = +applyBtn.dataset.idx;
+      const chosen = D.Q[idx];
+      if (!chosen) return;
+
+      onReplace(chosen);
+      close();
+    });
+
+    doSearch();
+    qInput.focus();
   }
 
   function openExamRulesModal(doc, onSave) {
@@ -1504,6 +1681,71 @@
     let selectedQIdx = null;
     let editingPartId = null;
 
+    // Undo / Redo history
+    let undoStack = [];
+    let redoStack = [];
+
+    const pushUndo = () => {
+      undoStack.push(JSON.stringify(doc));
+      if (undoStack.length > 40) undoStack.shift();
+      redoStack = [];
+      updateUndoRedoBtns();
+    };
+
+    const doUndo = () => {
+      if (!undoStack.length) return;
+      redoStack.push(JSON.stringify(doc));
+      doc = JSON.parse(undoStack.pop());
+      saveMakerDoc(doc);
+      refreshStudio(null, null);
+      updateUndoRedoBtns();
+      toast("Undone ↶");
+    };
+
+    const doRedo = () => {
+      if (!redoStack.length) return;
+      undoStack.push(JSON.stringify(doc));
+      doc = JSON.parse(redoStack.pop());
+      saveMakerDoc(doc);
+      refreshStudio(null, null);
+      updateUndoRedoBtns();
+      toast("Redone ↷");
+    };
+
+    const updateUndoRedoBtns = () => {
+      const uBtn = $("#m-undo");
+      const rBtn = $("#m-redo");
+      if (uBtn) {
+        uBtn.disabled = undoStack.length === 0;
+        uBtn.style.opacity = undoStack.length === 0 ? "0.45" : "1";
+      }
+      if (rBtn) {
+        rBtn.disabled = redoStack.length === 0;
+        rBtn.style.opacity = redoStack.length === 0 ? "0.45" : "1";
+      }
+    };
+
+    const uBtn = $("#m-undo");
+    if (uBtn) uBtn.onclick = doUndo;
+    const rBtn = $("#m-redo");
+    if (rBtn) rBtn.onclick = doRedo;
+
+    document.addEventListener("keydown", (e) => {
+      if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
+        if (e.shiftKey) {
+          e.preventDefault();
+          doRedo();
+        } else {
+          e.preventDefault();
+          doUndo();
+        }
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") {
+        e.preventDefault();
+        doRedo();
+      }
+    });
+
     const refreshStudio = (newSelectedQIdx, newEditingPartId) => {
       if (newSelectedQIdx !== undefined) selectedQIdx = newSelectedQIdx;
       if (newEditingPartId !== undefined) editingPartId = newEditingPartId;
@@ -1537,6 +1779,7 @@
       addQBtn.onclick = () => {
         const sec = (doc.sections || [])[0];
         if (!sec) return;
+        pushUndo();
         sec.questions.push({
           id: "mq_" + Date.now(),
           qno: "",
@@ -1553,12 +1796,13 @@
 
     const rulesBtn = $("#m-open-rules");
     if (rulesBtn) {
-      rulesBtn.onclick = () => openExamRulesModal(doc, () => { saveMakerDoc(doc); refreshStudio(); toast("Exam & Rules updated"); });
+      rulesBtn.onclick = () => openExamRulesModal(doc, () => { pushUndo(); saveMakerDoc(doc); refreshStudio(); toast("Exam & Rules updated"); });
     }
 
     const sampleBtn = $("#m-sample");
     if (sampleBtn) {
       sampleBtn.onclick = () => {
+        pushUndo();
         doc = sampleMakerPaper();
         saveMakerDoc(doc);
         refreshStudio(null, null);
@@ -1582,6 +1826,7 @@
     if (clearBtn) {
       clearBtn.onclick = () => {
         if (confirm("Are you sure you want to clear all questions in this paper?")) {
+          pushUndo();
           const sec = (doc.sections || [])[0];
           if (sec) sec.questions = [];
           saveMakerDoc(doc);
@@ -1648,6 +1893,7 @@
               qIdx,
               doc,
               onReplace: (chosen) => {
+                pushUndo();
                 const siblings = D.byPaper[chosen.p]?.filter((sq) => sq.qno === chosen.qno) || [];
                 if (siblings.length > 1) {
                   q.parts = siblings.map((sq) => ({
@@ -1679,6 +1925,7 @@
               pIdx,
               doc,
               onReplace: (chosen) => {
+                pushUndo();
                 pt.tex = chosen.tex;
                 if (chosen.marks != null) pt.marks = chosen.marks;
                 saveMakerDoc(doc);
@@ -1701,7 +1948,10 @@
 
           if (act === "p-save-edit" && q && pt) {
             const ta = canvasEl.querySelector(`.pv-inline-ta[data-qidx="${qIdx}"][data-pidx="${pIdx}"]`);
-            if (ta) pt.tex = ta.value;
+            if (ta) {
+              pushUndo();
+              pt.tex = ta.value;
+            }
             saveMakerDoc(doc);
             refreshStudio(qIdx, null);
             toast("Question text updated");
@@ -1712,6 +1962,7 @@
             const curM = pt.marks != null ? String(pt.marks) : "";
             const newM = prompt("Enter marks for this question part:", curM);
             if (newM !== null) {
+              pushUndo();
               pt.marks = newM.trim();
               saveMakerDoc(doc);
               refreshStudio(qIdx, null);
@@ -1720,6 +1971,7 @@
           }
 
           if (act === "q-add-part" && q) {
+            pushUndo();
             const nextLetter = String.fromCharCode(97 + q.parts.length);
             q.parts.push({ id: "pt_" + Date.now(), label: nextLetter, marks: 2, tex: "Evaluate the integral." });
             if (!q.parts[0].label) q.parts[0].label = "a";
@@ -1730,6 +1982,7 @@
           }
 
           if (act === "q-add-or" && q) {
+            pushUndo();
             sec.questions.splice(qIdx + 1, 0, {
               id: "mq_" + Date.now(),
               qno: q.qno,
@@ -1746,6 +1999,7 @@
           }
 
           if (act === "q-up" && qIdx > 0) {
+            pushUndo();
             [sec.questions[qIdx], sec.questions[qIdx - 1]] = [sec.questions[qIdx - 1], sec.questions[qIdx]];
             saveMakerDoc(doc);
             refreshStudio(qIdx - 1, null);
@@ -1753,6 +2007,7 @@
           }
 
           if (act === "q-down" && qIdx < sec.questions.length - 1) {
+            pushUndo();
             [sec.questions[qIdx], sec.questions[qIdx + 1]] = [sec.questions[qIdx + 1], sec.questions[qIdx]];
             saveMakerDoc(doc);
             refreshStudio(qIdx + 1, null);
@@ -1760,6 +2015,7 @@
           }
 
           if (act === "q-del" && qIdx >= 0) {
+            pushUndo();
             sec.questions.splice(qIdx, 1);
             saveMakerDoc(doc);
             refreshStudio(Math.max(0, qIdx - 1), null);
@@ -1768,6 +2024,7 @@
           }
 
           if (act === "p-split" && q && pIdx > 0) {
+            pushUndo();
             const removed = q.parts.splice(pIdx, 1)[0];
             removed.label = "";
             sec.questions.splice(qIdx + 1, 0, {
@@ -1784,6 +2041,7 @@
           }
 
           if (act === "p-del-part" && q && pIdx >= 0) {
+            pushUndo();
             q.parts.splice(pIdx, 1);
             if (!q.parts.length) sec.questions.splice(qIdx, 1);
             else if (q.parts.length === 1) q.parts[0].label = "";
@@ -1820,6 +2078,7 @@
             const q = sec && sec.questions[qIdx];
             const pt = q && q.parts ? q.parts[pIdx] : null;
             if (pt) {
+              pushUndo();
               pt.tex = ta.value;
               saveMakerDoc(doc);
               refreshStudio(qIdx, null);
@@ -1827,6 +2086,71 @@
             }
           }
         }
+      });
+
+      // Right-Click Context Menu
+      let contextMenuEl = null;
+      const closeContextMenu = () => {
+        if (contextMenuEl) {
+          contextMenuEl.remove();
+          contextMenuEl = null;
+        }
+      };
+      document.addEventListener("click", closeContextMenu);
+      document.addEventListener("contextmenu", (e) => {
+        if (!e.target.closest(".studio-canvas")) closeContextMenu();
+      });
+
+      canvasEl.addEventListener("contextmenu", (e) => {
+        const qEl = e.target.closest(".pv-q");
+        if (!qEl) return;
+        e.preventDefault();
+        closeContextMenu();
+
+        const qIdx = +qEl.dataset.qidx;
+        selectedQIdx = qIdx;
+        refreshStudio(qIdx, null);
+
+        const menu = document.createElement("div");
+        menu.className = "studio-context-menu";
+        const x = Math.min(e.clientX, window.innerWidth - 220);
+        const y = Math.min(e.clientY, window.innerHeight - 300);
+        menu.style.left = x + "px";
+        menu.style.top = y + "px";
+
+        menu.innerHTML = `
+          <button type="button" data-act="q-replace" data-qidx="${qIdx}">🔍 Replace Question...</button>
+          <button type="button" data-act="q-edit" data-qidx="${qIdx}">✏️ Edit LaTeX</button>
+          <button type="button" data-act="q-add-part" data-qidx="${qIdx}">➕ Add Subpart</button>
+          <button type="button" data-act="q-add-or" data-qidx="${qIdx}">🔀 Add Alternative (OR)</button>
+          <hr>
+          <button type="button" data-act="q-up" data-qidx="${qIdx}">⬆️ Move Up</button>
+          <button type="button" data-act="q-down" data-qidx="${qIdx}">⬇️ Move Down</button>
+          <hr>
+          <button type="button" id="cm-undo" ${undoStack.length ? "" : "disabled"}>↶ Undo (Ctrl+Z)</button>
+          <button type="button" id="cm-redo" ${redoStack.length ? "" : "disabled"}>↷ Redo (Ctrl+Y)</button>
+          <hr>
+          <button type="button" class="danger" data-act="q-del" data-qidx="${qIdx}">🗑️ Delete Question</button>
+        `;
+
+        document.body.appendChild(menu);
+        contextMenuEl = menu;
+
+        menu.addEventListener("click", (evt) => {
+          const btn = evt.target.closest("button");
+          if (!btn) return;
+          if (btn.id === "cm-undo") {
+            closeContextMenu();
+            doUndo();
+            return;
+          }
+          if (btn.id === "cm-redo") {
+            closeContextMenu();
+            doRedo();
+            return;
+          }
+          closeContextMenu();
+        });
       });
 
       // Drag and Drop questions on the sheet
@@ -1868,6 +2192,7 @@
         const targetQIdx = +overCard.dataset.qidx;
         const sec = (doc.sections || [])[0];
         if (sec && targetQIdx !== draggedQIdx && targetQIdx >= 0 && targetQIdx < sec.questions.length) {
+          pushUndo();
           const [moved] = sec.questions.splice(draggedQIdx, 1);
           sec.questions.splice(targetQIdx, 0, moved);
           saveMakerDoc(doc);
