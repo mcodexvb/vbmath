@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2010 · Mathematics · VBMath</title>
+<meta name="description" content="30 questions from the VBMath transcription of TIFR Graduate School · GS 2010 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2010/">
+<meta property="og:title" content="TIFR Graduate School · GS 2010 · Mathematics · VBMath">
+<meta property="og:description" content="30 questions from the VBMath transcription of TIFR Graduate School · GS 2010 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2010/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2010 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">A cyclic group of order $60$ has
+  \begin{enumerate}[label=(\alph*)]
+    \item $12$ generators.
+    \item $15$ generators.
+    \item $16$ generators.
+    \item $20$ generators.
+  \end{enumerate}</span></li><li><b>2</b> <span class="qbody">Which of the following is false?
+  \begin{enumerate}[label=(\alph*)]
+    \item Any abelian group of order $27$ is cyclic.
+    \item Any abelian group of order $14$ is cyclic.
+    \item Any abelian group of order $21$ is cyclic.
+    \item Any abelian group of order $30$ is cyclic.
+  \end{enumerate}</span></li><li><b>3</b> <span class="qbody">The last digit of $2^{80}$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $2$
+    \item $4$
+    \item $6$
+    \item $8$
+  \end{enumerate}</span></li><li><b>4</b> <span class="qbody">The sum of the series $\displaystyle \frac{1}{1 \cdot 2} + \frac{1}{2 \cdot 3} + \frac{1}{3 \cdot 4} + \dots + \frac{1}{100 \cdot 101}$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $\frac{99}{101}$
+    \item $\frac{98}{101}$
+    \item $\frac{99}{100}$
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>5</b> <span class="qbody">Let $f$ be a one to one function from the closed interval $[0, 1]$ to the set of real numbers $\mathbb{R}$, then
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ must be onto.
+    \item range of $f$ must contain a rational number.
+    \item range of $f$ must contain an irrational number.
+    \item range of $f$ must contain both rational and irrational numbers.
+  \end{enumerate}</span></li><li><b>6</b> <span class="qbody">The maximum value of $f(x) = x^n(1 - x)^n$ for a natural number $n \ge 1$ and $0 \le x \le 1$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $\frac{1}{2^n}$
+    \item $\frac{1}{3^n}$
+    \item $\frac{1}{5^n}$
+    \item $\frac{1}{4^n}$
+  \end{enumerate}</span></li><li><b>7</b> <span class="qbody">The sequence $\sqrt{7}, \sqrt{7 + \sqrt{7}}, \sqrt{7 + \sqrt{7 + \sqrt{7}}}, \dots$ converges to
+  \begin{enumerate}[label=(\alph*)]
+    \item $\frac{1 + \sqrt{33}}{2}$
+    \item $\frac{1 + \sqrt{32}}{2}$
+    \item $\frac{1 + \sqrt{30}}{2}$
+    \item $\frac{1 + \sqrt{29}}{2}$
+  \end{enumerate}</span></li><li><b>8</b> <span class="qbody">Let $f(x) = |x|^{3/2}$, $x \in \mathbb{R}$. Then
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is uniformly continuous.
+    \item $f$ is continuous, but not differentiable at $x = 0$.
+    \item $f$ is differentiable and $f&#x27;$ is continuous.
+    \item $f$ is differentiable, but $f&#x27;$ is discontinuous at $x = 0$.
+  \end{enumerate}</span></li><li><b>9</b> <span class="qbody">The total number of subsets of a set of $6$ elements is
+  \begin{enumerate}[label=(\alph*)]
+    \item $720$
+    \item $6^6$
+    \item $21$
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $M_n(\mathbb{R})$ be the set of $n \times n$-matrices with real entries. Which of the following statements is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item Any matrix $A \in M_4(\mathbb{R})$ has a real eigenvalue.
+    \item Any matrix $A \in M_5(\mathbb{R})$ has a real eigenvalue.
+    \item Any matrix $A \in M_2(\mathbb{R})$ has a real eigenvalue.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>11</b> <span class="qbody">The series $\displaystyle \sum_{n=1}^\infty \frac{(-1)^{n+1}}{\sqrt{n}}$
+  \begin{enumerate}[label=(\alph*)]
+    \item converges but not absolutely.
+    \item converges absolutely.
+    \item diverges.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>12</b> <span class="qbody">The sum of the roots of the equation $x^5 + 3x^2 + 7 = 0$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $-3$
+    \item $\frac{3}{7}$
+    \item $\frac{-1}{7}$
+    \item $0$
+  \end{enumerate}</span></li><li><b>13</b> <span class="qbody">$\displaystyle \lim_{x \to 0} x \sin\left(\frac{1}{x}\right)$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$
+    \item $0$
+    \item $\frac{1}{2}$
+    \item does not exist.
+  \end{enumerate}</span></li><li><b>14</b> <span class="qbody">The solution of the ordinary differential equation $\displaystyle \frac{dy}{dx} = y$, $y(0) = 0$
+  \begin{enumerate}[label=(\alph*)]
+    \item {[obscured in source]}
+    \item {[obscured in source]}
+    \item {[obscured in source]}
+    \item is zero.
+  \end{enumerate}</span></li><li><b>15</b> <span class="qbody">Let $G$ be the set of all $2 \times 2$ symmetric, invertible matrices with real entries. Then with matrix multiplication, $G$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item an infinite group.
+    \item a finite group.
+    \item not a group.
+    \item an abelian group.
+  \end{enumerate}</span></li><li><b>16</b> <span class="qbody">Let $u_n = \sin\left(\frac{\pi}{n}\right)$ and consider the series $\sum u_n$. Which of the following statements is false?
+  \begin{enumerate}[label=(\alph*)]
+    \item $\sum u_n$ is convergent.
+    \item $u_n \to 0$ as $n \to \infty$.
+    \item $\sum u_n$ is divergent.
+    \item $\sum u_n$ is absolutely convergent.
+  \end{enumerate}</span></li><li><b>17</b> <span class="qbody">If $V$ is a vector space over the field $\mathbb{Z}/5\mathbb{Z}$ and $\dim_{\mathbb{Z}/5\mathbb{Z}}(V) = 3$, then $V$ has
+  \begin{enumerate}[label=(\alph*)]
+    \item $125$ elements.
+    \item $15$ elements.
+    \item $243$ elements.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>18</b> <span class="qbody">If $f, g: \mathbb{R} \to \mathbb{R}$ are uniformly continuous functions, then their composition $g \circ f$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item uniformly continuous.
+    \item continuous but not uniformly continuous.
+    \item continuous and bounded.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>19</b> <span class="qbody">Which of the following statements is false?
+  \begin{enumerate}[label=(\alph*)]
+    \item There exists a natural number which when divided by $3$ leaves remainder $1$ and which when divided by $4$ leaves remainder $0$.
+    \item There exists a natural number which when divided by $6$ leaves remainder $2$ and when divided by $9$ leaves remainder $1$.
+    \item There exists a natural number which when divided by $7$ leaves remainder $1$ and when divided by $11$ leaves remainder $3$.
+    \item There exists a natural number which when divided by $12$ leaves remainder $7$ and when divided by $8$ leaves remainder $3$.
+  \end{enumerate}</span></li><li><b>20</b> <span class="qbody">If $f_n(x)$ are continuous functions from $[0, 1]$ to $[0, 1]$, and $f_n(x) \to f(x)$ as $n \to \infty$, then which of the following statements is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item $f_n(x)$ converges to $f(x)$ uniformly on $[0, 1]$.
+    \item $f_n(x)$ converges to $f(x)$ uniformly on $(0, 1)$.
+    \item $f(x)$ is continuous on $[0, 1]$.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>21</b> <span class="qbody">Let $A, B$ be subsets of $\mathbb{R}$. Define $A + B$ to be the set of all sums $x + y$ with $x \in A$ and $y \in B$. Which of the following statements is false?
+  \begin{enumerate}[label=(\alph*)]
+    \item If $A$ and $B$ are bounded, then $A + B$ is bounded.
+    \item If $A$ and $B$ are open, then $A + B$ is open.
+    \item If $A$ and $B$ are closed, then $A + B$ is closed.
+    \item If $A$ and $B$ are connected, then $A + B$ is connected.
+  \end{enumerate}</span></li><li><b>22</b> <span class="qbody">Number of solutions of the ordinary differential equation $\displaystyle \frac{d^2 y}{dx^2} - y = 0$; $y(0) = 0$, $y(\pi) = 1$
+  \begin{enumerate}[label=(\alph*)]
+    \item is $0$.
+    \item is $1$.
+    \item is $2$.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>23</b> <span class="qbody">The function $f(x)$ defined by
+  \[
+    f(x) = \begin{cases} 0 &amp; \text{if } x \text{ is rational,} \\ x &amp; \text{if } x \text{ is irrational} \end{cases}
+  \]
+  \begin{enumerate}[label=(\alph*)]
+    \item is not continuous at any point.
+    \item is continuous at every point.
+    \item is continuous at every rational number.
+    \item is continuous at $x = 0$.
+  \end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $G = \{z \in \mathbb{C} \mid z^n = 1 \text{ for some positive integer } n\}$. Then under multiplication of complex numbers,
+  \begin{enumerate}[label=(\alph*)]
+    \item $G$ is a group of finite order.
+    \item $G$ is a group of infinite order, but every element of $G$ has finite order.
+    \item $G$ is a cyclic group.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>25</b> <span class="qbody">Let $x$ and $y$ in $\mathbb{R}^n$ be non-zero column vectors. Form the matrix $A = x y^t$ where $y^t$ is the transpose of $y$. Then the rank of $A$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $2$
+    \item $0$
+    \item at least $n/2$.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>26</b> <span class="qbody">Which of the following is true?
+  \begin{enumerate}[label=(\alph*)]
+    \item The matrix $\begin{pmatrix} 1 &amp; 0 \\ 1 &amp; 2 \end{pmatrix}$ is not diagonalisable.
+    \item The matrix $\begin{pmatrix} 1 &amp; 5 \\ 0 &amp; 2 \end{pmatrix}$ is diagonalisable.
+    \item The matrix $\begin{pmatrix} 1 &amp; 1 \\ 0 &amp; 1 \end{pmatrix}$ is diagonalisable.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>27</b> <span class="qbody">If $n$ and $m$ are positive integers and $n^9 = 19m + r$, then the possible values for $r$ modulo $19$ are
+  \begin{enumerate}[label=(\alph*)]
+    \item only $0$.
+    \item only $0, \pm 1$.
+    \item only $\pm 1$.
+    \item None of the above.
+  \end{enumerate}</span></li><li><b>28</b> <span class="qbody">Define $\{x_n\}$ as $x_1 = 0.1$, $x_2 = 0.101$, $x_3 = 0.101001, \dots$. Then the sequence $\{x_n\}$
+  \begin{enumerate}[label=(\alph*)]
+    \item converges to a rational number.
+    \item converges to an irrational number.
+    \item does not converge.
+    \item oscillates.
+  \end{enumerate}</span></li><li><b>29</b> <span class="qbody">The equations
+  \begin{align*}
+    x_1 + 2x_2 + 3x_3 &amp;= 1 \\
+    x_1 + 4x_2 + 9x_3 &amp;= 1 \\
+    x_1 + 8x_2 + 27x_3 &amp;= 1
+  \end{align*}
+  have
+  \begin{enumerate}[label=(\alph*)]
+    \item only one solution.
+    \item two solutions.
+    \item infinitely many solutions.
+    \item no solution.
+  \end{enumerate}</span></li><li><b>30</b> <span class="qbody">Which of the following statements is false?
+  \begin{enumerate}[label=(\alph*)]
+    \item The polynomial $x^2 + x + 1$ is irreducible in $\mathbb{Z}/2\mathbb{Z}[x]$.
+    \item The polynomial $x^2 - 2$ is irreducible in $\mathbb{Q}[x]$.
+    \item The polynomial $x^2 + 1$ is reducible in $\mathbb{Z}/5\mathbb{Z}[x]$.
+    \item The polynomial $x^2 + 1$ is reducible in $\mathbb{Z}/7\mathbb{Z}[x]$.
+  \end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

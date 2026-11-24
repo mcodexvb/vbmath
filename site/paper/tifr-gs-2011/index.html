@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>TIFR Graduate School · GS 2011 · Mathematics · VBMath</title>
+<meta name="description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2011 · Mathematics.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/tifr-gs-2011/">
+<meta property="og:title" content="TIFR Graduate School · GS 2011 · Mathematics · VBMath">
+<meta property="og:description" content="40 questions from the VBMath transcription of TIFR Graduate School · GS 2011 · Mathematics.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/tifr-gs-2011/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>TIFR Graduate School · GS 2011 · Mathematics</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">Consider the sequence $\{x_n\}$ defined by $x_n = \frac{[nx]}{n}$ for $x \in \mathbb{R}$ where $[\,]$ denotes the integer part. Then $\{x_n\}$
+  \begin{enumerate}[label=(\alph*)]
+    \item converges to $x$.
+    \item converges but not to $x$.
+    \item does not converge.
+    \item oscillates.
+  \end{enumerate}</span></li><li><b>2</b> <span class="qbody">$\displaystyle \lim_{x \to 0} x \sin(1/x^2)$ equals
+  \begin{enumerate}[label=(\alph*)]
+    \item $1$.
+    \item $0$.
+    \item $\infty$.
+    \item oscillates.
+  \end{enumerate}</span></li><li><b>3</b> <span class="qbody">Let $A$ be a $5 \times 5$ matrix with real entries, then $A$ has
+  \begin{enumerate}[label=(\alph*)]
+    \item an eigenvalue which is purely imaginary.
+    \item at least one real eigenvalue.
+    \item at least two eigenvalues which are not real.
+    \item at least $2$ distinct real eigenvalues.
+  \end{enumerate}</span></li><li><b>4</b> <span class="qbody">The groups $\mathbb{Z}_9$ and $\mathbb{Z}_3 \times \mathbb{Z}_3$ are
+  \begin{enumerate}[label=(\alph*)]
+    \item isomorphic
+    \item abelian
+    \item non abelian
+    \item cyclic
+  \end{enumerate}</span></li><li><b>5</b> <span class="qbody">The differential equation $\displaystyle \frac{dy}{dx} = y^{1/3}$, $y(0) = 0$ has
+  \begin{enumerate}[label=(\alph*)]
+    \item a unique solution.
+    \item no nontrivial solution.
+    \item finite number of solutions.
+    \item infinite number of solutions.
+  \end{enumerate}</span></li><li><b>6</b> <span class="qbody">The function $f_n(x) = n \sin(x/n)$
+  \begin{enumerate}[label=(\alph*)]
+    \item does not converge for any $x$ as $n \to \infty$.
+    \item converges to the constant function $1$ as $n \to \infty$.
+    \item converges to the function $x$ as $n \to \infty$.
+    \item does not converge for all $x$ as $n \to \infty$.
+  \end{enumerate}</span></li><li><b>7</b> <span class="qbody">The equation $x^{22} \equiv 2 \pmod{23}$ has
+  \begin{enumerate}[label=(\alph*)]
+    \item no solutions.
+    \item $23$ solutions.
+    \item exactly one solution.
+    \item $22$ solutions.
+  \end{enumerate}</span></li><li><b>8</b> <span class="qbody">The sum of the squares of the roots of the cubic equation $x^3 - 4x^2 + 6x + 1 = 0$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $0$.
+    \item $4$.
+    \item $16$.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>9</b> <span class="qbody">The function $f(x)$ defined by
+  \[
+    f(x) = \begin{cases} ax + b, &amp; x \ge 1, \\ x^2 + 3x + 3, &amp; x \le 1 \end{cases}
+  \]
+  is {[obscured in source]}
+  \begin{enumerate}[label=(\alph*)]
+    \item for a unique value of $a$ and infinitely many values of $b$.
+    \item for a unique value of $b$ and infinitely many values of $a$.
+    \item for infinitely many values of $a$ and $b$.
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>10</b> <span class="qbody">Let $m \le n$ be natural numbers. The number of injective maps from a set of cardinality $m$ to a set of cardinality $n$ is
+  \begin{enumerate}[label=(\alph*)]
+    \item $m!$
+    \item $n!$
+    \item $(n - m)!$
+    \item none of the above.
+  \end{enumerate}</span></li><li><b>11</b> <span class="qbody">\emph{(True/False)} For any real number $c$, the polynomial $x^3 + x + c$ has exactly one real root.</span></li><li><b>12</b> <span class="qbody">\emph{(True/False)} $e^{\sqrt{2}} &gt; 3$.</span></li><li><b>13</b> <span class="qbody">\emph{(True/False)} $A$ is a $3 \times 4$-matrix of rank $3$. Then the system of equations $Ax = b$ has exactly one solution.</span></li><li><b>14</b> <span class="qbody">\emph{(True/False)} $\log x$ is uniformly continuous on $(\text{[obscured]}, \infty)$.</span></li><li><b>15</b> <span class="qbody">\emph{(True/False)} If $A, B$ are closed subsets of $[0, \infty)$, then $A + B = \{x + y \mid x \in A, \, y \in B\}$ is closed in $[0, \infty)$.</span></li><li><b>16</b> <span class="qbody">\emph{(True/False)} The polynomial $x^4 + 7x^3 - 13x^2 + 11x$ has exactly one real root.</span></li><li><b>17</b> <span class="qbody">\emph{(True/False)} The value of the infinite product $\displaystyle \prod_{n=2}^\infty \left(1 - \frac{1}{n^2}\right)$ is $1$.</span></li><li><b>18</b> <span class="qbody">\emph{(True/False)} Consider the map $T$ from the vector space of polynomials of degree at most $5$ over the reals to $\mathbb{R} \times \mathbb{R}$, given by sending a polynomial $P$ to the pair $(P(3), P&#x27;(3))$ where $P&#x27;$ is the derivative of $P$. Then the dimension of the kernel is $3$.</span></li><li><b>19</b> <span class="qbody">\emph{(True/False)} The derivative of the function $\displaystyle \int_0^{\sqrt{x}} e^{-t^2}\,dt$ at $x = 1$ is $e^{-1}$.</span></li><li><b>20</b> <span class="qbody">\emph{(True/False)} The equation $63x + 70y + 15z = 2010$ has an integral solution.</span></li><li><b>21</b> <span class="qbody">\emph{(True/False)} Any continuous function from the open unit interval $(0, 1)$ to itself has a fixed point.</span></li><li><b>22</b> <span class="qbody">\emph{(True/False)} There exists a group with a proper subgroup isomorphic to itself.</span></li><li><b>23</b> <span class="qbody">\emph{(True/False)} The space of solutions of infinitely differentiable functions satisfying the equation $y&#x27;&#x27; + y = 0$ is infinite dimensional.</span></li><li><b>24</b> <span class="qbody">\emph{(True/False)} The series $\displaystyle \sum_{n=1}^\infty \frac{\sqrt{n+1} - \sqrt{n}}{n}$ diverges.</span></li><li><b>25</b> <span class="qbody">\emph{(True/False)} The function
+  \[
+    f(x) = \begin{cases} 0 &amp; \text{if } x \text{ is rational,} \\ x &amp; \text{if } x \text{ is irrational} \end{cases}
+  \]
+  is not continuous anywhere on the real line.</span></li><li><b>26</b> <span class="qbody">Let $A$ be a $2 \times 2$-matrix with complex entries. The number of $2 \times 2$-matrices $A$ with complex entries satisfying the equation $A^3 = A$ is infinite.</span></li><li><b>27</b> <span class="qbody">In the ring $\mathbb{Z}/8\mathbb{Z}$ the equation $x^2 = 1$ has exactly $2$ solutions.</span></li><li><b>28</b> <span class="qbody">There are $n$ homomorphisms from the group $\mathbb{Z}/n\mathbb{Z}$ to the additive group of rationals.</span></li><li><b>29</b> <span class="qbody">A bounded continuous function on $\mathbb{R}$ is uniformly continuous.</span></li><li><b>30</b> <span class="qbody">The symmetric group $S_5$ consisting of permutations on $5$ symbols has an element of order $6$.</span></li><li><b>31</b> <span class="qbody">Suppose $f_n(x)$ is a sequence of {[obscured in source]} on the closed interval $[0, 1]$ converging to $0$ pointwise. {[obscured in source]} converges to $0$.</span></li><li><b>32</b> <span class="qbody">{[obscured in source]} from $S_3$ to $\mathbb{Z}/3\mathbb{Z}$.</span></li><li><b>33</b> <span class="qbody">If $A$ and $B$ are $3 \times 3$ matrices and $A$ is invertible, then there exists an integer $n$ such that $A + nB$ is invertible.</span></li><li><b>34</b> <span class="qbody">Let $P$ be a degree $3$ polynomial with complex coefficients such that the constant term is $2010$. Then $P$ has a root $\alpha$ with $|\alpha| &gt; 10$.</span></li><li><b>35</b> <span class="qbody">Suppose a box contains three cards, one with both sides white, one with both sides black, and one with one side white and the other side black. If you pick a card at random, and the side facing you is white, then the probability that the other side is white is $1/2$.</span></li><li><b>36</b> <span class="qbody">There exists a set $A \subset \{1, 2, \dots, 100\}$ with $65$ elements, such that $65$ cannot be expressed as a sum of two elements in $A$.</span></li><li><b>37</b> <span class="qbody">Let $S$ be a finite subset of $\mathbb{R}^3$ such that any three elements in $S$ span a two dimensional subspace. Then $S$ spans a two dimensional space.</span></li><li><b>38</b> <span class="qbody">Any non-singular $k \times k$-matrix with real entries can be made singular by changing exactly one entry.</span></li><li><b>39</b> <span class="qbody">Let $f$ be a continuous integrable function of $\mathbb{R}$ such that either $f(x) &gt; 0$ or $f(x) + f(x + 1) &gt; 0$ for all $x \in \mathbb{R}$. Then $\int_{-\infty}^\infty f(x)\,dx &gt; 0$.</span></li><li><b>40</b> <span class="qbody">A gardener throws $18$ seeds onto an {[obscured in source]} two seeds are within a distance of $25$ centimetres.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>
