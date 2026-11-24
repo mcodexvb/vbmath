@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2005 · VBMath</title>
+<meta name="description" content="32 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2005.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2005/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2005 · VBMath">
+<meta property="og:description" content="32 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2005.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2005/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2005</h1></header><ol class="prerender"><li><b></b> <span class="qbody">Let $\left\{a_{n}\right\},\left\{b_{n}\right\}$ and $\left\{c_{n}\right\}$ be sequences of real numbers such that $b_{n}=a_{2 n}$ and $c_{n}=a_{2 n+1}$. Then $\left\{a_{n}\right\}$ is convergent
+ \begin{enumerate}[label=(\alph*)]
+     \item implies $\left\{b_{n}\right\}$ is convergent but $\left\{c_{n}\right\}$ need not be convergent
+
+     \item implies $\left\{c_{n}\right\}$ is convergent but $\left\{b_{n}\right\}$ neet not be convergent
+
+     \item implies both $\left\{b_{n}\right\}$ and $\left\{c_{n}\right\}$ are convergent
+
+     \item if both $\left\{b_{n}\right\}$ and $\left\{c_{n}\right\}$ are convergent
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">An integrating factor of $x \frac{d y}{d x}+(3 x+1) y=x e^{-2 x}$ is
+ \begin{enumerate}[label=(\alph*)]
+     \item  $x e^{3 x}$
+ \item  $3 x e^{x}$
+ \item  $x e^{x}$
+ \item  $x^{3} e^{x}$ 
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">The general solution of $x^{2} \frac{d^{2} y}{d x^{2}}-5 x \frac{d y}{d x}+9 y=0$ is
+\begin{enumerate}[label=(\alph*)]
+     \item  $\left(c_{1}+c_{2} x\right) e^{3 x}$
+     \item  $\left(c_{1}+c_{2} \ln x\right) x^{3}$
+     \item  $\left(c_{1}+c_{2} x\right) x^{3}$
+     \item $\left(c_{1}+c_{2} \ln x\right) e^{x^{3}}$
+ \end{enumerate}
+(Here $c_{1}$ and $c_{2}$ are arbitrary constants.)</span></li><li><b></b> <span class="qbody">Let $\vec{r}=x \hat{i}+y \hat{j}+z \hat{k}$. If $\phi(x, y, z)$ is a solution of the Laplace equation then the vector field $(\vec{\nabla} \phi+\vec{r})$ is
+\begin{enumerate}[label=(\alph*)]
+    \item  neither solenoidal nor irrotational
+    \item solenoidal but not irrotational
+    \item both solenoidal and irrotational
+    \item irrotational but not solenoidal
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\vec{F}=x \hat{i}+2 y \hat{j}+3 z \hat{\mathrm{k}}, S$ be the surface of the sphere $x^{2}+y^{2}+z^{2}=1$ and $\hat{\mathrm{n}}$ be the inward unit normal vector to $S$. Then $\iint_{S} \vec{F} \cdot \hat{n} d S$ is equal to
+\begin{enumerate}[label=(\alph*)] 
+    \item $4 \pi$
+    \item $-4 \pi$
+    \item $8 \pi$
+    \item $-8 \pi$ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $A$ be a $3 \times 3$ matrix with eigenvalues $1,-1$ and 3 . Then
+\begin{enumerate}[label=(\alph*)]
+    \item $A^{2}+A$ is non-singular
+    \item $A^{2}-A$ is non-singular
+    \item $A^{2}+3 A$ is non-singular
+    \item $A^{2}-3 A$ is non-singular
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \boldsymbol{R}^{3} \longrightarrow \boldsymbol{R}^{3}$ be a linear transformation and $I$ be the identity transformation of $\boldsymbol{R}^{3}$. If there is a scalar $c$ and a non-zero vector $x \in \boldsymbol{R}^{3}$ such that $T(x)=c x$, then $\operatorname{rank}(T-c I)$
+\begin{enumerate}[label=(\alph*)] 
+    \item cannot be 0
+    \item cannot be 1
+    \item cannot be 2
+    \item cannot be 3
+\end{enumerate}</span></li><li><b></b> <span class="qbody">In the group $\{1,2, \ldots, 16\}$ under the operation of multiplication modulo 17, the order of the element 3 is
+\begin{enumerate}[label=(\alph*)] 
+    \item 4
+    \item 8
+    \item 12
+    \item 16
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">A ring $R$ has maximal ideals
+\begin{enumerate}[label=(\alph*)] 
+    \item if $R$ is infinite
+    \item if $R$ is finite
+    \item if $R$ is finite with at least 2 elements
+    \item only if $R$ is finite 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The integral 
+$\int_{0}^{1}\left[\int_{0}^{1-z}\left(\int_{0}^{2} d x\right) d y\right] d z$ is equal to
+\begin{enumerate}[label=(\alph*)]
+    \item $\quad \int_{0}^{1}\left[\int_{0}^{1-y}\left(\int_{0}^{2} d x\right) d z\right] d y$
+    \item $\quad \int_{0}^{1}\left[\int_{0}^{1-y}\left(\int_{0}^{1} d x\right) d z\right] d y$
+    \item $\int_{0}^{2}\left[\int_{0}^{2}\left(\int_{0}^{1-z} d x\right) d z\right] d y$
+    \item $\int_{0}^{2}\left[\int_{0}^{2}\left(\int_{0}^{1-y} d x\right) d z\right] d y$
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f: \boldsymbol{R} \longrightarrow \boldsymbol{R}$ be continuous and $g, h: \boldsymbol{R}^{2} \longrightarrow \boldsymbol{R}$ be differentiable. Let $F(u, v)=\int_{v}^{u} f(t) d t$, where $u=g(x, y)$ and $v=h(x, y)$. Then $\frac{\partial F}{\partial x}+\frac{\partial F}{\partial y}=$
+\begin{enumerate}[label=(\alph*)] 
+    \item $f(g(x, y))\left[\frac{\partial g}{\partial x}+\frac{\partial g}{\partial y}\right]-f(h(x, y))\left[\frac{\partial h}{\partial x}+\frac{\partial h}{\partial y}\right]$
+    \item $f(h(x, y))\left[\frac{\partial g}{\partial x}+\frac{\partial g}{\partial y}\right]-f(g(x, y))\left[\frac{\partial h}{\partial x}-\frac{\partial h}{\partial y}\right]$
+    \item $f(h(x, y))\left[\frac{\partial g}{\partial x}+\frac{\partial g}{\partial y}\right]+f(g(x, y))\left[\frac{\partial h}{\partial x}-\frac{\partial h}{\partial y}\right]$
+    \item $f(g(x, y))\left[\frac{\partial g}{\partial x}-\frac{\partial g}{\partial y}\right]+f(g(x, y))\left[\frac{\partial h}{\partial x}-\frac{\partial h}{\partial y}\right]$ 
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $y=f(x)$ be a smooth curve such that $0&lt;f(x)&lt;K$ for all $x \in[a, b]$. Let
+
+$L=$ length of the curve between $x=a$ and $x=b$
+
+$A=$ area bounded by the curve, $x$-axis, and the lines $x=a$ and $x=b$
+
+$S=$ area of the surface generated by revolving the curve about $x$-axis between $x=a$ and $x=b$
+
+Then
+\begin{enumerate}[label=(\alph*)] 
+    \item $2 \pi K L&lt;S&lt;2 \pi A$
+    \item $S \leq 2 \pi A&lt;2 \pi K L$
+    \item $2 \pi A \leq S&lt;2 \pi K L$
+    \item $2 \pi A&lt;2 \pi K L&lt;S$
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f: \boldsymbol{R} \longrightarrow \boldsymbol{R}$ be defined by $f(t)=t^{2}$ and let $U$ be any non-empty open subset of $\boldsymbol{R}$. Then
+\begin{enumerate}[label=(\alph*)]
+    \item $f(U)$ is open
+    \item $f^{-1}(U)$ is open
+    \item $f(U)$ is closed
+    \item $f^{-1}(U)$ is closed 
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f:(-1,1) \longrightarrow \boldsymbol{R}$ be such that $f^{(n)}(x)$ exists and $\left|f^{(n)}(x)\right| \leq 1$ for every $n \geq 1$ and for every $x \in(-1,1)$. Then $f$ has a convergent power series expansion in a neighbourhood of
+\begin{enumerate}[label=(\alph*)] 
+    \item every $x \in(-1,1)$
+    \item every $x \in\left(\frac{-1}{2}, 0\right)$ only
+    \item no $x \in(-1,1)$
+    \item every $x \in\left(0, \frac{1}{2}\right)$ only
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $a&gt;1$ and $f, g, h:[-a, a] \longrightarrow \boldsymbol{R}$ be twice differentiable functions such that for some $c$ with $0&lt;c&lt;1&lt;a$,
+
+$$
+\begin{aligned}
+&amp;f(x)=0 \text { only for } x=-a, 0, a \\
+&amp;f^{\prime}(x)=0=g(x) \text { only } x=-1,0,1 \\
+&amp;g^{\prime}(x)=0=h(x) \text { only for } x=-c, c .
+\end{aligned}
+$$
+
+The possible relations between $f, g, h$ are
+\begin{enumerate}[label=(\alph*)] \item $f=g^{\prime}$ and $h=f^{\prime}$
+    \item $f^{\prime}=g$ and $g^{\prime}=h$
+    \item $f=-g^{\prime}$ and $h^{\prime}=g$
+    \item $f=-g^{\prime}$ and $h^{\prime}=f$ 
+\end{enumerate}
+ 
+
+
+
+ 
+\begin{center}
+
+\end{center}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+     \item Solve the initial value problem
+    $$
+     \frac{d^{2} y}{d x^{2}}-y=x\left(\sin x+e^{x}\right), \quad y(0)=y^{\prime}(0)=1
+    $$
+    
+    \item Solve the differential equation
+
+    $$
+        \left(2 y \sin x+3 y^{4} \sin x \cos x\right) d x-\left(4 y^{3} \cos ^{2} x+\cos x\right) d y=0
+    $$
+
+ \end{enumerate}</span></li><li><b></b> <span class="qbody">Let $G$ be a finite abelian group of order $n$ with identity $e$. If for all $a \in G, a^{3}=e$, then, by induction on $n$, show that $n=3^{k}$ for some non-negative integer $k$.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+   \item Let $f:[a, b] \longrightarrow \boldsymbol{R}$ be a differentiable function. Show that there exist points $c_{1}, c_{2} \in(a, b)$ such that
+
+    $$
+        2 f\left(c_{1}\right) f^{\prime}\left(c_{1}\right)=f^{\prime}\left(c_{2}\right)[]
+    $$
+
+    \item Let
+    $$
+        f(x, y)= \begin{cases}\left(x^{2}+y^{2}\right)\left[\ln \left(x^{2}+y^{2}\right)+1\right] &amp; \text { for }(x, y) \neq(0,0) \\ \alpha &amp; \text { for }(x, y)=(0,0)\end{cases}
+    $$
+
+    Find a suitable value for $\alpha$ such that $f$ is continuous. For this value of $\alpha$, is $f$ differentiable at $(0,0)$ ? Justify your claim. 
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Let $S$ be the surface $x^{2}+y^{2}+z^{2}=1, z \geq 0$. Use Stokes&#x27; theorem to evaluate
+
+        $$
+            \int_{C}[(2 x-y) d x-y d y-z d z]
+        $$
+
+    where $C$ is the circle $x^{2}+y^{2}=1, z=0$, oriented anticlockwise.
+
+    \item  Show that the vector field $\vec{F}=\left(2 x y-y^{4}+3\right) \hat{\mathrm{i}}+\left(x^{2}-4 x y^{3}\right) \hat{\mathrm{j}}$ is conservative. Find its potential and also the work done in moving a particle from $(1,0)$ to (2,1) along some curve. 
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \boldsymbol{R}^{3} \longrightarrow \boldsymbol{R}^{3}$ be defined by $T(x, y, z)=(y+z, z, 0)$. Show that $T$ is a linear transformation. If $v \in \boldsymbol{R}^{3}$ is such that $T^{2}(v) \neq 0$, then show that $B=\left\{v, T(v), T^{2}(v)\right\}$ forms a basis of $\boldsymbol{R}^{3}$. Compute the matrix of $T$ with respect to $B$. Also find a $v \in \boldsymbol{R}^{3}$ such that $T^{2}(v) \neq 0$</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item For each $n \in N$, define $f_{n}:[-1,1] \longrightarrow \boldsymbol{R}$ by
+
+    $$
+        f_{n}(x)= \begin{cases}4 n^{2} x &amp; \text { for } x \in\left[0, \frac{1}{2 n}\right) \\ -4 n^{2}\left(x-\frac{1}{n}\right) &amp; \text { for } x \in\left[\frac{1}{2 n}, \frac{1}{n}\right) \\ 0 &amp; \text { for } x \in\left[\frac{1}{n}, 1\right]\end{cases}
+    $$
+
+    Compute $\int_{0}^{1} f_{n}(x) d x$ for each $n$. Analyse pointwise and uniform convergence of the sequence of functions $\left\{f_{n}\right\}$.
+    
+
+    \item Let $f: \boldsymbol{R} \longrightarrow \boldsymbol{R}$ be a continuous function with $|f(x)-f(y)| \geq|x-y|$ for every $x, y \in \boldsymbol{R}$. Is $f$ one-one? Show that there cannot exist three points $a, b, c \in \boldsymbol{R}$ with $a&lt;b&lt;c$ such that $f(a)&lt;f(c)&lt;f(b)$ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Find the volume of the cylinder with base as the disk of unit radius in the $x y$-plane centred at $(1,1,0)$ and the top being the surface $z=\left[(x-1)^{2}+(y-1)^{2}\right]^{3 / 2}$. 
+ 
+
+
+ 
+\begin{center}
+
+\end{center}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Bag A contains 3 white and 4 red balls, and bag B contains 6 white and 3 red balls. A biased coin, twice as likely to come up heads as tails, is tossed once. If it shows head, a ball is drawn from bag A, otherwise, from bag B. Given that a white ball was drawn, what is the probability that the coin came up tail?
+
+    \item Let the random variables $X$ and $Y$ have the joint probability density function $f(x, y)$ given by
+
+        $$
+            f(x, y)= \begin{cases}y^{2} e^{-y(x+1)} &amp; x \geq 0, y \geq 0 \\ 0 &amp; \text { otherwise }\end{cases}
+        $$
+
+    Are the random variables $X$ and $Y$ independent? Justify your answer. 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Let $X_{1}, X_{2}, \ldots, X_{n}$ be independently identically distributed random variables (rv&#x27;s) with common probability density function (pdf) $f_{X}(x, \theta)=\frac{1}{\theta} e^{-x / \theta} ; x&gt;0, \theta&gt;0$. Obtain the moment generating function (mgf) of $\bar{X}=\frac{1}{n} \sum_{i=1}^{n} X_{i}$. Also find the mgf of the rv $Y=2 n \bar{X} / \theta$
+
+    \item Let $X_{1}, X_{2}, \ldots, X_{9}$ be an independent random sample from $N(2,4)$ and $Y_{1}, Y_{2}, Y_{3}, Y_{4}$ be an independent random sample from $N(1,1)$. Find $P(\bar{X}&gt;\bar{Y})$, where $\bar{X}$ and $\bar{Y}$ are sample means.
+
+[   Given $P(Z&gt;1.2)=0.1151$, where $Z \sim N(0,1)]$ 
+\end{enumerate}
+ 
+
+\begin{center}
+
+\end{center}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Let $X_{1}, X_{2}, \ldots, X_{n}$ be a random sample from a distribution having pdf
+
+    $$
+        f\left(x ; x_{0}, \alpha\right)= \begin{cases}\frac{\alpha x_{0}^{\alpha}}{x^{\alpha+1}} &amp; \text { for } x&gt;x_{0} \\ 0 &amp; \text { otherwise }\end{cases}
+    $$
+
+    where $x_{0}&gt;0, \alpha&gt;0$. Find the maximum likelihood estimator of $\alpha$ if $x_{0}$ is known.
+
+    \item Let $X_{1}, X_{2}, \ldots, X_{5}$ be a random sample from the standard normal population. Determine the constant $c$ such that the random variable
+
+    $$
+        Y=\frac{c\left(X_{1}+X_{2}\right)}{\sqrt{X_{3}^{2}+X_{4}^{2}+X_{5}^{2}}}
+    $$
+
+    will have a $t$-distribution. 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item A random sample of size $n=1$ is drawn from pdf $f_{X}(x, \theta)=\frac{1}{\theta} e^{-x / \theta} ; x&gt;0, \theta&gt;0$. It is decided to test $H_{0}: \theta=5$ against $H_{1}: \theta=7$ based on the criterion: reject $H_{0}$ if the observed value is greater than $10$. Obtain the probabilities of type I and type II errors.
+
+    \item Let $X_{1}, X_{2}, \ldots, X_{n}$ be a random sample from a normal population $N\left(\mu, \sigma^{2}\right)$. Find the best test for testing $H_{0}: \mu=0, \sigma^{2}=1$ against $H_{1}: \mu=1, \sigma^{2}=4$. 
+\end{enumerate}
+ 
+
+
+ 
+\begin{center}
+
+\end{center}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Let $f, g: \boldsymbol{R} \longrightarrow \boldsymbol{R}$ be such that for $x, y \in \boldsymbol{R}$,
+
+    $$
+        \phi(x+i y)=e^{x}[f(y)+i g(y)]
+    $$
+
+    is an analytic function. Find a differential equation of order 2 satisfied by $f$.
+
+    \item Compute $\int_{|z+1|=2}(2 z+1) e^{(\sqrt{2}+1 / z)} d z$.  
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item  Let $f(z)$ be analytic in the whole complex plane such that for all $r&gt;0$,
+
+    $$
+        \int_{0}^{2 \pi}\left|f\left(r e^{i \theta}\right)\right| d \theta \leq \sqrt{r}
+    $$
+
+    Find $\frac{f^{(n)}(0)}{n !}$ for all $n \geq 0$
+
+    \item Find all values of $\alpha \in C$ such that $f(z)=(z+\bar{z})^{2}+2 \alpha|z|^{2}+\alpha(\bar{z})^{2}$ is analytic at some point $z$ having non-zero real part. 
+\end{enumerate}
+ 
+
+ 
+\begin{center}
+
+\end{center}</span></li><li><b></b> <span class="qbody">A hemispherical bowl of radius $12 \mathrm{~cm}$ is fixed such that its rim is horizontal. A light rod of length $20 \mathrm{~cm}$ with weights $w$ and $W$ attached to its two ends is placed inside the bowl. In equilibrium, the weight $w$ is just touching the rim of the bowl. Find the ratio $w: W$.</span></li><li><b></b> <span class="qbody">A uniform ladder of length $2 a$ and mass $m$ lies in a vertical plane with one end against a smooth wall, the other end being supported on a horizontal floor. The ladder is released from rest when inclined at an angle $\alpha$ to the horizontal. Find the inclination of the ladder to the horizontal when it ceases to touch the wall.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+    \item Estimate the error in evaluating the integral $\int_{0}^{8}\left(1+x^{2}\right) e^{-x} d x$ by Simpson&#x27;s $\frac{1}{3}$ rd rule with spacing $h=0.25$.
+
+    \item Using Newton-Raphson method, compute the point of intersection of the curves $y=x^{3}$ and $y=8 x+4$ near the point $x=3$, correct up to 2 decimal places. [Round-off the first iteration up to 2 decimal places for further computation]
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The polynomial $p_{3}(x)=x^{3}+x^{2}-2$ interpolates the function $f(x)$ at the points $x=-1,0,1$ and 2 . If the data $f(3)=-14$ is added, find the new interpolating polynomial by using Newton&#x27;s forward difference formula. Also find $f(2.5)$ by using Newton&#x27;s backward difference formula with pivot value 3. Justify whether the value obtained will be the same if pivot value 2 is taken.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

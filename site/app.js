@@ -710,6 +710,7 @@
     return `<div class="wrap" style="max-width:920px">
       <div class="crumbs"><a href="${L("home")}">Home</a> / <a href="${L("exams")}">Competitive exams</a> / ${esc(name)}</div>
       <header class="exam-head"><div class="inst">${esc(name)}</div><h1>${esc(p.title)}</h1><div class="fm"><span>${qs.length} typed questions</span></div></header>
+      ${p.selection ? `<p class="gnote">These are the questions typed so far, not the whole paper. The original paper has every question.</p>` : ""}
       <div class="toolbar">
         <a class="btn btn-primary btn-sm" href="${L("preview-" + p.key)}">${IC.file} Preview as PDF</a>
         <button class="btn btn-ghost btn-sm" type="button" id="addall">${IC.plus} Collect all</button>

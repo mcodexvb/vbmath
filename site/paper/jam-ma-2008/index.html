@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2008 · VBMath</title>
+<meta name="description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2008.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2008/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2008 · VBMath">
+<meta property="og:description" content="29 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2008.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2008/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2008</h1></header><ol class="prerender"><li><b></b> <span class="qbody">The least positive integer $n$, such that $\left(\begin{array}{cc}\cos \frac{\pi}{4} &amp; \sin \frac{\pi}{4} \\ -\sin \frac{\pi}{4} &amp; \cos \frac{\pi}{4}\end{array}\right)^{n}$ is the identity matrix of order 2, is
+\begin{enumerate}[label=(\alph*)]
+\item 4  
+\item 8 
+\item 12 
+\item 16
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S=\left\{T: \mathbb{R}^{3} \rightarrow \mathbb{R}^{3} \mid T\right.$ is a linear transformation with $T(1,0,1)=(1,2,3)$, $T(1,2,3)=(1,0,1)\}$. Then $S$ is 
+\begin{enumerate}[label=(\alph*)]
+\item a singleton set 
+\item a countably infinite set 
+\item a finite set containing more than one element 
+\item an uncountable set
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $s_{n}=\int_{0}^{1} \frac{n x^{n-1}}{(1+x)} d x$ for $n \geq 1$. Then as $n \rightarrow \infty$, the sequence $\left\{s_{n}\right\}$ tends to 
+
+\begin{enumerate}[label=(\alph*)]
+\item 0 
+\item $1 / 2$ 
+\item 1 
+\item $+\infty$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The work done by the force $\vec{F}=4 y \hat{i}-3 x y \hat{j}+z^{2} \hat{k}$ in moving a particle over the circular path $x^{2}+y^{2}=1, z=0$ from $(1,0,0)$ to $(0,1,0)$ is 
+\begin{enumerate}[label=(\alph*)]
+\item $\pi+1$ 
+\item $\pi-1$ 
+\item $-\pi+1$ 
+\item $-\pi-1$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set of all boundary points of $\mathbb{Q}$ in $\mathbb{R}$ is 
+\begin{enumerate}[label=(\alph*)]
+\item $\mathbb{R}$ 
+\item $\mathbb{R} \backslash \mathbb{Q}$ 
+\item $\mathbb{Q}$ 
+\item $\varnothing$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $V=\left\{(x, y, z) \in \mathbb{R}^{3}: \frac{1}{4} \leq x^{2}+y^{2}+z^{2} \leq 1\right\}$ and $\vec{F}=\frac{x \hat{i}+y \hat{j}+z \hat{k}}{\left(x^{2}+y^{2}+z^{2}\right)^{2}}$ for $(x, y, z) \in V$. Let $\hat{n}$ denote the outward unit normal vector to the boundary of $V$ and $S$ denote the part $\left\{(x, y, z) \in \mathbb{R}^{3}: x^{2}+y^{2}+z^{2}=\frac{1}{4}\right\}$ of the boundary of $V$. Then $\iint_{S} \vec{F} \cdot \hat{n} d S$ is equal to 
+\begin{enumerate}[label=(\alph*)]
+\item $-8 \pi$ 
+\item $-4 \pi$ 
+\item $4 \pi$ 
+\item $8 \pi$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set $U=\left\{x \in \mathbb{R} \mid \sin x=\frac{1}{2}\right\}$ is 
+\begin{enumerate}[label=(\alph*)]
+\item open 
+\item both open and closed 
+\item closed 
+\item neither open nor closed
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f(x)=\int_{0}^{x}\left(x^{2}-t^{2}\right) g(t) d t$, where $g$ is a real valued continuous function on $\mathbb{R}$. Then $f^{\prime}(x)$ is equal to 
+\begin{enumerate}[label=(\alph*)]
+\item 0 
+\item $x^{3} g(x)$ 
+\item $\int_{0}^{x} g(t) d t$ 
+\item $2 x \int_{0}^{x} g(t) d t$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $y_{1}(x)$ and $y_{2}(x)$ be linearly independent solutions of the differential equation $y^{\prime \prime}+P(x) y^{\prime}+Q(x) y=0$, where $P(x)$ and $Q(x)$ are continuous functions on an interval $I$. Then $y_{3}(x)=a y_{1}(x)+b y_{2}(x)$ and $y_{4}(x)=c y_{1}(x)+d y_{2}(x)$ are linearly independent solutions of the given differential equation if 
+ \begin{enumerate}[label=(\alph*)]
+\item $a d=b c$ 
+\item $a c=b d$ 
+\item $a d \neq b c$ 
+\item $a c \neq b d$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set $R=\{f \mid f$ is a function from $\mathbb{Z}$ to $\mathbb{R}\}$ under the binary operations $+$ and . defined as $(f+g)(n)=f(n)+g(n)$ and $(f \cdot g)(n)=f(n) g(n)$ for all $n \in \mathbb{Z}$ forms a ring. Let $S_{1}=\{f \in R \mid f(-n)=f(n)$ for all $n \in \mathbb{Z}\}$ and $S_{2}=\{f \in R \mid f(0)=0\}$. Then 
+\begin{enumerate}[label=(\alph*)]
+\item $S_{1}$ and $S_{2}$ are both ideals in $R$ 
+\item $S_{2}$ is an ideal in $R$ while $S_{1}$ is not 
+\item $S_{1}$ is an ideal in $R$ while $S_{2}$ is not 
+\item neither $S_{1}$ nor $S_{2}$ is an ideal in $R$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ be a linear transformation such that $T(1,2,3)=(1,2,3), T(1,5,0)=(2,10,0)$ and $T(-1,2,-1)=(-3,6,-3)$. The dimension of the vector space spanned by all the eigenvectors of $T$ is 
+\begin{enumerate}[label=(\alph*)]
+\item 0 
+\item 1 
+\item 2 
+\item 3
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\left\{a_{n}\right\}$ and $\left\{b_{n}\right\}$ be sequences of real numbers defined as $a_{1}=1$ and for $n \geq 1$, $a_{n+1}=a_{n}+(-1)^{n} 2^{-n}, \quad b_{n}=\frac{2 a_{n+1}-a_{n}}{a_{n}}$. Then 
+\begin{enumerate}[label=(\alph*)]
+\item $\left\{a_{n}\right\}$ converges to zero and $\left\{b_{n}\right\}$ is a Cauchy sequence 
+\item $\left\{a_{n}\right\}$ converges to a non-zero number and $\left\{b_{n}\right\}$ is a Cauchy sequence 
+\item $\left\{a_{n}\right\}$ converges to zero and $\left\{b_{n}\right\}$ is not a convergent sequence 
+\item $\left\{a_{n}\right\}$ converges to a non-zero number and $\left\{b_{n}\right\}$ is not a convergent sequence
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f:(-1,1) \rightarrow \mathbb{R}$ be defined as $f(x)=\frac{x^{2}}{1-\cos x}$ for $x \neq 0$ and $f(0)=2$. If $f(x)=\sum_{n=0}^{\infty} a_{n} x^{n}$ is the Taylor expansion of $f$ for all $x$ in $(-1,1)$, then $\sum_{n=0}^{x} a_{2 n+1}$ is 
+\begin{enumerate}[label=(\alph*)]
+\item 0 
+\item $1 / 2$ 
+\item 1 
+\item 2
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $y_{1}(x)$ and $y_{2}(x)$ be twice differentiable functions on an interval $I$ satisfying the differential equations $\frac{d y_{1}}{d x}-y_{1}-y_{2}=e^{x}$ and $2 \frac{d y_{1}}{d x}+\frac{d y_{2}}{d x}-6 y_{1}=0$. Then $y_{1}(x)$ is 
+\begin{enumerate}[label=(\alph*)]
+\item $C_{1} e^{-2 x}+C_{2} e^{3 x}-\frac{1}{4} e^{x}$ 
+\item $C_{1} e^{2 x}+C_{2} e^{-3 x}+\frac{1}{4} e^{x}$ 
+\item $C_{1} e^{2 x}+C_{2} e^{-3 x}-\frac{1}{4} e^{x}$ 
+\item $C_{1} e^{-2 x}+C_{2} e^{3 x}+\frac{1}{4} e^{x}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $G$ be a finite group and $H$ be a normal subgroup of $G$ of order 2. Then the order of the center of $G$ is 
+\begin{enumerate}[label=(\alph*)]
+\item 0 
+\item 1 
+\item an even integer $\geq 2$ 
+\item an odd integer $\geq 3$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item Let $f$ and $g$ be continuous functions on $\mathbb{R}$ such that $f(x)=\int_{0}^{x} g(t) d t$ and
+$$
+g(x)=\int_{x}^{0} f(t) d t+1 \text {. Prove that }(f(x))^{2}+(g(x))^{2}=1 \text { for all } x \in \mathbb{R}
+$$
+\item  Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a function such that $f^{\prime}$ is continuous on $\mathbb{R}$. Show that the series
+$$
+\sum_{n=1}^{x}\left(f\left(\frac{x}{2 n}\right)-f\left(\frac{x}{2 n+1}\right)\right) \text { converges uniformly on }[0,1] \text {. }
+$$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item   Find the maxima, minima and saddle points, if any, for the function $f(x, y)=\left(y-x^{2}\right)\left(y-2 x^{2}\right)$ on $\mathbb{R}^{2}$
+
+\item  Let $P(x)=a_{0}+a_{1} x^{2}+a_{2} x^{4}+\cdots+a_{n} x^{2 n}$, where $n \geq 1$ and $a_{k}&gt;0$ for $k=0$, $1, \cdots, n$. Show that $P(x)-x P^{\prime}(x)=0$ has exactly two real roots.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item   Given that $y_{1}(x)=x$ is a solution of $\left(1+x^{2}\right) y^{\prime \prime}-2 x y^{\prime}+2 y=0, x&gt;0$, find a second linearly independent solution.
+
+\item Solve $x^{2} y^{\prime \prime}+x y^{\prime}-y=4 x \log x, x&gt;0$.
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item   Let $\phi$ be a differentiable function on $[0,1]$ satisfying $\phi^{\prime}(x) \leq 1+3 \phi(x)$ for all $x \in[0,1]$ with $\phi(0)=0$. Show that $3 \phi(x) \leq e^{3 x}-1$.
+
+\item  If $y_{1}(x)=x(1-2 x), y_{2}(x)=2 x(1-x)$ and $y_{3}(x)=x\left(e^{x}-2 x\right)$ are three solutions of a non-homogeneous linear differential equation $y^{\prime \prime}+P(x) y^{\prime}+Q(x) y=R(x)$, where $P(x), Q(x)$ and $R(x)$ are continuous functions on $[a, b]$ with $a&gt;0$, then find its general solution.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item  
+$$
+\text { Evaluate } \int_{1}^{4} \int_{0}^{1} \int_{2 y}^{2} \frac{\cos x^{2}}{\sqrt{z}} d x d y d z
+$$
+\item  Find the surface area of the portion of the cone $z^{2}=x^{2}+y^{2}$ that is inside the cylinder $z^{2}=2 y$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item   Use Green&#x27;s theorem to evaluate the integral $\oint_{C} x^{2} d x+\left(x+y^{2}\right) d y$, where $C$ is the closed curve given by $y=0, y=x$ and $y^{2}=2-x$ in the first quadrant, oriented counter clockwise.
+
+\item  Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a continuous function. Use change of variables to prove that
+$$
+\iint_{D} f(x-y) d x d y=\int_{-1}^{1} f(u) d u \text {, where } D=\left\{(x, y) \in \mathbb{R}^{2}:|x|+|y| \leq 1\right\} \text {. }
+$$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Using Gauss&#x27;s divergence theorem, evaluate the integral $\iint_{S} \vec{F} \cdot \hat{n} d S$, where $\vec{F}=4 x z \hat{i}-y^{2} \hat{j}+4 y z \hat{k}, \quad S$ is the surface of the solid bounded by the sphere $x^{2}+y^{2}+z^{2}=10$ and the paraboloid $x^{2}+y^{2}=z-2$, and $\hat{n}$ is the outward unit normal vector to $S$.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+ \item A square matrix $M$ of order $n$ with complex entries is called skew Hermitian if $M+\bar{M}^{T}=0$, where 0 is the zero matrix of order $n$.
+
+Determine whether $V=\{M \mid M$ is a $2 \times 2$ skew Hermitian matrix $\}$ is a vector space over (i) the field $\mathbb{R}$ and (ii) the field $\mathbb{C}$ with the usual operations of addition and scalar multiplication for matrices?
+
+\item  Let $V=\{P(x) \mid P(x)$ is a polynomial of degree $\leq n$ with real coefficients $\}$ and $T: V \rightarrow \mathbb{R}^{m}$ be defined as $T(P(x))=(P(1), P(2), \cdots, P(m))$. Then show that $T$ is linear and determine the Nullity of $T$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $G$ be the set of all $3 \times 3$ real matrices $M$ such that $M M^{T}=M^{T} M=I_{3}$ and let $H=\{M \in G \mid \operatorname{det} M=1\}$, where $I_{3}$ is the identity matrix of order 3 . Then show that
+\begin{enumerate}[label=(\alph*)]
+\item  $G$ is a group under matrix multiplication,
+
+\item  $H$ is a normal subgroup of $G$,
+
+\item  $\phi: G \rightarrow\{-1,1\}$ given by $\phi(M)=\operatorname{det} M$ is onto,
+
+\item $G / H$ is abelian.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item Suppose that $(R,+, \cdot)$ is a ring having the property $a \cdot b=c \cdot a \Rightarrow b=c$, when $a \neq 0$. Then prove that $(R,+, \cdot)$ is a commutative ring.
+
+\item  Let $R$ be a commutative ring with identity. For $a_{1}, a_{2}, \cdots, a_{n} \in R$, the ideal generated by $\left\{a_{1}, a_{2}, \cdots, a_{n}\right\}$ is given by
+$$
+\left\langle a_{1}, a_{2}, \cdots, a_{n}\right\rangle=\left\{r_{1} a_{1}+r_{2} a_{2}+\cdots+r_{n} a_{n} \mid r_{i} \in R, 1 \leq i \leq n\right\} .
+$$
+Let $\mathbb{Z}[x]$ be the set of all polynomials with integer coefficients. Consider the ideal $I=\{f \in \mathbb{Z}[x] \mid f(0)$ is an even integer $\}$. Prove that $I=\langle 2, x\rangle$ and that it is a maximal ideal.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">For a given positive integer $n&gt;1$, show that there exist subspaces $X_{1}, X_{2}, \cdots, X_{n}$ of $\mathbb{R}^{m}$ for some integer $m&gt;n$ and a linear transformation $T: \mathbb{R}^{m} \rightarrow \mathbb{R}^{m}$ such that
+
+\begin{itemize}
+  \item $\operatorname{dim} X_{k}=k, k=1,2, \cdots, n$,
+
+  \item for $i \neq j, X_{i} \cap X_{j}=\{0\}$, where $\overrightarrow{0}$ is the zero vector of $\mathbb{R}^{m}$,
+
+  \item $T\left(X_{k}\right)=X_{k-1}, k=1,2, \cdots, n$, where $X_{0}=\{\overrightarrow{0}\}$.
+
+\end{itemize}
+Also, find the rank of $T$.</span></li><li><b></b> <span class="qbody">Let $f:(0, \infty) \rightarrow(0, \infty)$ be a continuously differentiable function and let $z=\frac{x y}{f\left(x^{2}+y^{2}\right)}$ be defined for $x y \neq 0$.
+
+\begin{enumerate}
+\item Prove that $\frac{\partial z}{\partial x}+\frac{\partial z}{\partial y}=\frac{(x+y)}{\left[f\left(x^{2}+y^{2}\right)\right]^{2}}\left\{f\left(x^{2}+y^{2}\right)-2 x y f^{\prime}\left(x^{2}+y^{2}\right)\right\}$.
+
+\item  Further, if $f$ is homogeneous of degree $\frac{1}{2}$, then verify that $x \frac{\partial z}{\partial x}+y \frac{\partial z}{\partial y}=z$.
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Determine the interval of convergence of the power series $\sum_{n=1}^{x} n(2 n-1) x^{2 n}$ and show that its sum is $\frac{x^{2}\left(1+3 x^{2}\right)}{\left(1-x^{2}\right)^{3}}$ at any point $x$ in its interval of convergence.</span></li><li><b></b> <span class="qbody">\begin{enumerate}
+\item Let $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ be defined as $f(x, y)=x^{2} \cos (y / x)$ for $x \neq 0$ and $f(x, y)=0$ for $x=0$. Compute $\frac{\partial f}{\partial x}$ at all points in $\mathbb{R}^{2}$ and show that it is continuous at the origin.
+
+\item  Let $f:(0,1) \rightarrow(0, \infty)$ be a uniformly continuous function. If $\left\{x_{n}\right\}$ is a Cauchy sequence in $(0,1)$, then prove that $\left\{f\left(x_{n}\right)\right\}$ is a Cauchy sequence in $(0, \infty)$. Hence deduce that for any two Cauchy sequences $\left\{x_{n}\right\}$ and $\left\{y_{n}\right\}$ in $(0,1)$, $\left\{\left|f\left(x_{n}\right)-f\left(y_{n}\right)\right|\right\}$ is a Cauchy sequence in $(0, \infty)$.
+\end{enumerate}</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>

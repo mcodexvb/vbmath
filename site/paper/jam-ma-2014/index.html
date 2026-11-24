@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2014 · VBMath</title>
+<meta name="description" content="43 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2014.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2014/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2014 · VBMath">
+<meta property="og:description" content="43 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2014.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2014/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2014</h1></header><ol class="prerender"><li><b></b> <span class="qbody">Let $f(x)=\left|x^{2}-25\right|$ for all $x \in \mathbb{R}$. The total number of points of $\mathbb{R}$ at which $f$ attains a local extremum (minimum or maximum) is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item 1 
+\item 2 
+\item 3 
+\item 4
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The coefficient of $(x-1)^{2}$ in the Taylor series expansion of $f(x)=x e^{x}(x \in \mathbb{R})$ about the point $x=1$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\frac{e}{2}$ 
+\item $2 e$ 
+\item $\frac{3 e}{2}$ 
+\item $3 e$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f(x, y)=\sum_{k=1}^{10}\left(x^{2}-y^{2}\right)^{k}$ for all $(x, y) \in \mathbb{R}^{2}$. Then for all $(x, y) \in \mathbb{R}^{2}$, 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $x \frac{\partial f}{\partial x}(x, y)-y \frac{\partial f}{\partial y}(x, y)=0$ 
+\item $x \frac{\partial f}{\partial x}(x, y)+y \frac{\partial f}{\partial y}(x, y)=0$ 
+\item $y \frac{\partial f}{\partial x}(x, y)-x \frac{\partial f}{\partial y}(x, y)=0$ 
+\item $y \frac{\partial f}{\partial x}(x, y)+x \frac{\partial f}{\partial y}(x, y)=0$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">For $a, b, c \in \mathbb{R}$, if the differential equation
+$$
+\left(a x^{2}+b x y+y^{2}\right) d x+\left(2 x^{2}+c x y+y^{2}\right) d y=0
+$$
+is exact, then 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $b=2, c=2 a$ 
+\item $b=4, c=2$ 
+\item $b=2, c=4$ 
+\item $b=2, a=2 c$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">If $f(x, y, z)=x^{2} y+y^{2} z+z^{2} x$ for all $(x, y, z) \in \mathbb{R}^{3}$ and $\nabla=\frac{\partial}{\partial x} \mathbf{i}+\frac{\partial}{\partial y} \mathbf{j}+\frac{\partial}{\partial z} \mathbf{k}$, then the value of $\nabla \cdot(\nabla \times \nabla f)+\nabla \cdot(\nabla f)$ at $(1,1,1)$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item 0 
+\item 3 
+\item 6 
+\item 9
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The radius of convergence of the power series $\sum_{n=0}^{\infty} 2^{2 n} x^{n^{2}}$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\frac{1}{4}$ 
+\item 1 
+\item 2 
+\item 4
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $G$ be a group of order 17. The total number of non-isomorphic subgroups of $G$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item 1 
+\item 2 
+\item 3 
+\item 17
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Which one of the following is a subspace of the vector space $\mathbb{R}^{3}$ ? 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $\left\{(x, y, z) \in \mathbb{R}^{3}: x+2 y=0,2 x+3 z=0\right\}$ 
+\item $\left\{(x, y, z) \in \mathbb{R}^{3}: 2 x+3 y+4 z-3=0, z=0\right\}$ 
+\item $\left\{(x, y, z) \in \mathbb{R}^{3}: x \geq 0, y \geq 0\right\}$ 
+\item $\left\{(x, y, z) \in \mathbb{R}^{3}: x-1=0, y=0\right\}$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $T: \mathbb{R}^{3} \rightarrow \mathbb{R}^{3}$ be the linear transformation defined by $T(x, y, z)=(x+y, y+z, z+x)$ for all $(x, y, z) \in \mathbb{R}^{3}$. Then 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $\operatorname{rank}(T)=0, \operatorname{nullity}(T)=3$ 
+\item $\operatorname{rank}(T)=2, \operatorname{nullity}(T)=1$ 
+\item $\operatorname{rank}(T)=1$, $\operatorname{nullity}(T)=2$ 
+\item $\operatorname{rank}(T)=3, \operatorname{nullity}(T)=0$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a continuous function satisfying $x+\int_{0}^{x} f(t) d t=e^{x}-1$ for all $x \in \mathbb{R}$. Then the set $\{x \in \mathbb{R}: 1 \leq f(x) \leq 2\}$ is the interval 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $[\log 2, \log 3]$ 
+\item $[2 \log 2,3 \log 3]$ 
+\item $\left[e-1, e^{2}-1\right]$ 
+\item $\left[0, e^{2}\right]$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The system of linear equations
+$$
+\begin{aligned}
+x-y+2 z &amp;=b_{1} \\
+x+2 y-z &amp;=b_{2} \\
+2 y-2 z &amp;=b_{3}
+\end{aligned}
+$$
+is inconsistent when $\left(b_{1}, b_{2}, b_{3}\right)$ equals 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $(2,2,0)$ 
+\item $(0,3,2)$ 
+\item $\quad(2,2,1)$ 
+\item $(2,-1,-2)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $A=\left[\begin{array}{ccc}a &amp; -1 &amp; 4 \\ 0 &amp; b &amp; 7 \\ 0 &amp; 0 &amp; 3\end{array}\right]$ be a matrix with real entries. If the sum and the product of all the eigenvalues of $A$ are 10 and 30 respectively, then $a^{2}+b^{2}$ equals 
+
+
+\begin{enumerate}[label=(\alph*)]
+ \item 29 
+\item 40 
+\item 58 
+\item 65
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Consider the subspace $W=\left\{\left(x_{1}, x_{2}, \ldots, x_{10}\right) \in \mathbb{R}^{10}: x_{n}=x_{n-1}+x_{n-2}\right.$ for $\left.3 \leq n \leq 10\right\}$ of the vector space $\mathbb{R}^{10}$. The dimension of $W$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item 2 
+\item 3 
+\item 9 
+\item 10
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $y_{1}(x)$ and $y_{2}(x)$ be two linearly independent solutions of the differential equation
+$$
+x^{2} y^{\prime \prime}(x)-2 x y^{\prime}(x)-4 y(x)=0 \text { for } x \in[1,10] \text {. }
+$$
+Consider the Wronskian $W(x)=y_{1}(x) y_{2}^{\prime}(x)-y_{2}(x) y_{1}^{\prime}(x)$. If $W(1)=1$, then $W(3)-W(2)$ equals 
+
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item 1 
+\item 2 
+\item 3 
+\item 5
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The equation of the curve passing through the point $\left(\frac{\pi}{2}, 1\right)$ and having slope $\frac{\sin (x)}{x^{2}}-\frac{2 y}{x}$ at each point $(x, y)$ with $x \neq 0$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+ \item $-x^{2} y+\cos (x)=\frac{-\pi^{2}}{4}$ 
+\item $\quad x^{2} y+\cos (x)=\frac{\pi^{2}}{4}$ 
+\item $x^{2} y-\sin (x)=\frac{\pi^{2}}{4}-1$ 
+\item $x^{2} y+\sin (x)=\frac{\pi^{2}}{4}+1$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of $\alpha \in \mathbb{R}$ for which the curves $x^{2}+\alpha y^{2}=1$ and $y=x^{2}$ intersect orthogonally is 
+
+
+\begin{enumerate}[label=(\alph*)]
+ \item $-2$ 
+\item $\frac{-1}{2}$ 
+\item $\frac{1}{2}$ 
+\item 2
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $x_{n}=2^{2 n}\left(1-\cos \left(\frac{1}{2^{n}}\right)\right)$ for all $n \in \mathbb{N}$. Then the sequence $\left\{x_{n}\right\}$ 
+
+\begin{enumerate}[label=(\alph*)]
+ \item does NOT converge 
+\item converges to 0 
+\item converges to $\frac{1}{2}$ 
+\item converges to $\frac{1}{4}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\left\{x_{n}\right\}$ be a sequence of real numbers such that $\lim _{n \rightarrow \infty}\left(x_{n+1}-x_{n}\right)=c$, where $c$ is a positive real number. Then the sequence $\left\{\frac{x_{n}}{n}\right\}$ 
+
+\begin{enumerate}[label=(\alph*)]
+ \item is NOT bounded 
+\item is bounded but NOT convergent 
+\item converges to $c$ 
+\item converges to 0
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\sum_{n=1}^{\infty} a_{n}$ and $\sum_{n=1}^{\infty} b_{n}$ be two series, where $a_{n}=\frac{(-1)^{n} n}{2^{n}}, b_{n}=\frac{(-1)^{n}}{\log (n+1)}$ for all $n \in \mathbb{N}$. Then
+ 
+
+\begin{enumerate}[label=(\alph*)]
+ \item both $\sum_{n=1}^{\infty} a_{n}$ and $\sum_{n=1}^{\infty} b_{n}$ are absolutely convergent 
+\item $\sum_{n=1}^{\infty} a_{n}$ is absolutely convergent but $\sum_{n=1}^{\infty} b_{n}$ is conditionally convergent 
+\item $\sum_{n=1}^{\infty} a_{n}$ is conditionally convergent but $\sum_{n=1}^{\infty} b_{n}$ is absolutely convergent 
+\item both $\sum_{n=1}^{\infty} a_{n}$ and $\sum_{n=1}^{\infty} b_{n}$ are conditionally convergent
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set $\left\{\frac{x^{2}}{1+x^{2}}: x \in \mathbb{R}\right\}$ is
+
+\begin{enumerate}[label=(\alph*)]
+ \item connected but NOT compact in $\mathbb{R}$ 
+\item compact and connected in $\mathbb{R}$ 
+\item compact but NOT connected in $\mathbb{R}$ 
+\item neither compact nor connected in $\mathbb{R}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The set of all limit points of the set $\left\{\frac{2}{x+1}: x \in(-1,1)\right\}$ in $\mathbb{R}$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $[1, \infty)$ 
+\item $(1, \infty)$ 
+\item $[-1,1]$ 
+\item $[-1, \infty)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S=[0,1] \cup[2,3)$ and let $f: S \rightarrow \mathbb{R}$ be defined by $f(x)=\left\{\begin{array}{lll}2 x &amp; \text { if } &amp; x \in[0,1] \text {, } \\ 8-2 x &amp; \text { if } &amp; x \in[2,3) .\end{array}\right.$ If $T=\{f(x): x \in S\}$, then the inverse function $f^{-1}: T \rightarrow S$ 
+
+\begin{enumerate}[label=(\alph*)]
+ \item does NOT exist 
+\item exists and is continuous 
+\item exists and is NOT continuous 
+\item exists and is monotonic
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f(x)=x^{3}+x$ and $g(x)=x^{3}-x$ for all $x \in \mathbb{R}$. If $f^{-1}$ denotes the inverse function of $f$, then the derivative of the composite function $g \circ f^{-1}$ at the point 2 is 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $\frac{2}{13}$ 
+\item $\frac{1}{2}$ 
+\item $\frac{11}{13}$ 
+\item $\frac{11}{4}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">For all $(x, y) \in \mathbb{R}^{2}$, let $f(x, y)= \begin{cases}x &amp; \text { if } y=0, \\ x-y^{3} \sin (1 / y) &amp; \text { if } y \neq 0 .\end{cases}$
+
+Then at the point $(0,0)$, 
+
+
+\begin{enumerate}[label=(\alph*)]
+ \item $f$ is NOT continuous 
+\item $f$ is continuous but NOT differentiable 
+\item $\frac{\partial f}{\partial x}$ exists but $\frac{\partial f}{\partial y}$ does NOT exist 
+\item $f$ is differentiable
+\end{enumerate}</span></li><li><b></b> <span class="qbody">For all $(x, y) \in \mathbb{R}^{2}$, let $f(x, y)= \begin{cases}\frac{x}{|x|} \sqrt{x^{2}+y^{2}} &amp; \text { if } x \neq 0, \\ 0 &amp; \text { if } x=0 .\end{cases}$
+
+Then $\frac{\partial f}{\partial x}(0,0)+\frac{\partial f}{\partial y}(0,0)$ equals 
+
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $-1$ 
+\item 0 
+\item 1 
+\item 2
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a function with continuous derivative such that $f(\sqrt{2})=2$ and $f(x)=\lim _{t \rightarrow 0} \frac{1}{2 t} \int_{x-t}^{x+t} s f^{\prime}(s) d s$ for all $x \in \mathbb{R}$. Then $f(3)$ equals 
+ 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\sqrt{3}$ 
+\item $\quad 3 \sqrt{2}$ 
+\item $3 \sqrt{3}$ 
+\item 9
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of $\int_{x=0}^{1} \int_{y=0}^{x^{2}} \int_{z=0}^{y}(y+2 z) d z d y d x$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $\frac{1}{53}$ 
+\item $\frac{2}{21}$ 
+\item $\frac{1}{6}$ 
+\item $\frac{5}{3}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">If $C$ is a smooth curve in $\mathbb{R}^{3}$ from $(-1,0,1)$ to $(1,1,-1)$, then the value of $\int_{C}\left(2 x y+z^{2}\right) d x+\left(x^{2}+z\right) d y+(y+2 x z) d z$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item 0 
+\item 1 
+\item 2 
+\item 3
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $C$ be the boundary of the region $R=\left\{(x, y) \in \mathbb{R}^{2}:-1 \leq y \leq 1,0 \leq x \leq 1-y^{2}\right\}$ oriented in the counterclockwise direction. Then the value of $\oint_{C} y d x+2 x d y$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\frac{-4}{3}$ 
+\item $\frac{-2}{3}$ 
+\item $\frac{2}{3}$ 
+\item $\frac{4}{3}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $G$ be a cyclic group of order 24 . The total number of group isomorphisms of $G$ onto itself is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item 7 
+\item 8 
+\item 17 
+\item 24
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S_{n}$ be the group of all permutations on the set $\{1,2, \ldots, n\}$ under the composition of mappings. For $n&gt;2$, if $H$ is the smallest subgroup of $S_{n}$ containing the transposition $(1,2)$ and the cycle $(1,2, \ldots, n)$, then 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $H=S_{n}$ 
+\item $H$ is abelian 
+\item the index of $H$ in $S_{n}$ is 2 
+\item $\mathrm{H}$ is cyclic
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S$ be the oriented surface $x^{2}+y^{2}+z^{2}=1$ with the unit normal $\mathbf{n}$ pointing outward. For the vector field $\mathbf{F}(x, y, z)=x \mathbf{i}+y \mathbf{j}+z \mathbf{k}$, the value of $\iint_{S} \mathbf{F} \cdot \mathbf{n} d S$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\frac{\pi}{3}$ 
+\item $2 \pi$ 
+\item $\frac{4 \pi}{3}$ 
+\item $4 \pi$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $f:(0, \infty) \rightarrow \mathbb{R}$ be a differentiable function such that $f^{\prime}\left(x^{2}\right)=1-x^{3}$ for all $x&gt;0$ and $f(1)=0$. Then $f(4)$ equals 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\frac{-47}{5}$ 
+\item $\frac{-47}{10}$ 
+\item $\frac{-16}{5}$ 
+\item $\frac{-8}{5}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Which one of the following conditions on a group $G$ implies that $G$ is abelian? 
+
+\begin{enumerate}[label=(\alph*)]
+ \item The order of $G$ is $p^{3}$ for some prime $p$ 
+\item Every proper subgroup of $G$ is cyclic 
+\item Every subgroup of $G$ is normal in $G$ 
+\item The function $f: G \rightarrow G$, defined by $f(x)=x^{-1}$ for all $x \in G$, is a homomorphism
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $S=\left\{x \in \mathbb{R}: x^{6}-x^{5} \leq 100\right\}$ and $T=\left\{x^{2}-2 x: x \in(0, \infty)\right\}$. The set $S \cap T$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item closed and bounded in $\mathbb{R}$ 
+\item closed but NOT bounded in $\mathbb{R}$ 
+\item bounded but NOT closed in $\mathbb{R}$ 
+\item neither closed nor bounded in $\mathbb{R}$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Find all the critical points of the function $f: \mathbb{R}^{2} \rightarrow \mathbb{R}$ defined by $f(x, y)=x^{3}+x y+y^{3}$ for all $(x, y) \in \mathbb{R}^{2}$. Also, examine whether the function $f$ attains a local maximum or a local minimum at each of these critical points.</span></li><li><b></b> <span class="qbody">Given that there is a common solution to the following equations:
+$$
+\begin{aligned}
+&amp;\mathbf{P}: y^{\prime}+2 y=e^{x} y^{2}, \quad y(0)=1,  
+&amp;\mathbf{Q}: y^{\prime \prime}-2 y^{\prime}+\alpha y=0
+\end{aligned}
+$$
+find the value of $\alpha$ and hence find the general solution of $\mathbf{Q}$.</span></li><li><b></b> <span class="qbody">Let $f: \mathbb{R} \rightarrow \mathbb{R}$ be a twice differentiable function such that $f\left(\frac{1}{2^{n}}\right)=0$ for all $n \in \mathbb{N}$. Show that $f^{\prime}(0)=0=f^{\prime \prime}(0)$.</span></li><li><b></b> <span class="qbody">Let $A$ be an $n \times n$ matrix with real entries such that $A^{2}=A$. If I denotes the $n \times n$ identity matrix, then show that $\operatorname{rank}(A-I)=\operatorname{nullity}(A)$.</span></li><li><b></b> <span class="qbody">Evaluate $\iint_{S} \frac{x y}{\sqrt{1+2 x^{2}}} d S$, where the surface $S=\left\{\left(x, y, x^{2}+y\right) \in \mathbb{R}^{3}: 0 \leq x \leq y, x+y \leq 1\right\}$.</span></li><li><b></b> <span class="qbody">Let $f:(0,1) \rightarrow \mathbb{R}$ be a differentiable function such that $\left|f^{\prime}(x)\right| \leq 5$ for all $x \in(0,1)$. Show that the sequence $\left\{f\left(\frac{1}{n+1}\right)\right\}$ converges in $\mathbb{R}$.</span></li><li><b></b> <span class="qbody">Let $H$ be a subgroup of the group $(\mathbb{R},+)$ such that $H \cap[-1,1]$ is a finite set containing a nonzero element. Show that $H$ is cyclic.</span></li><li><b></b> <span class="qbody">If $K$ is a nonempty closed subset of $\mathbb{R}$, then show that the set $\{x+y: x \in K, y \in[1,2]\}$ is closed in $\mathbb{R}$.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>
