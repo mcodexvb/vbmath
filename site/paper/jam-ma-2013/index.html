@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>IIT JAM · Mathematics (MA), 2013 · VBMath</title>
+<meta name="description" content="30 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2013.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/jam-ma-2013/">
+<meta property="og:title" content="IIT JAM · Mathematics (MA), 2013 · VBMath">
+<meta property="og:description" content="30 questions from the VBMath transcription of IIT JAM · Mathematics (MA), 2013.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/jam-ma-2013/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="/app.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>IIT JAM · Mathematics (MA), 2013</h1></header><ol class="prerender"><li><b></b> <span class="qbody">Let $A=\left(\begin{array}{rrr}1 &amp; 1 &amp; 1 \\  3 &amp; -1 &amp; 1 \\  1 &amp; 5 &amp; 3\end{array}\right)$ and $V$ be the vector space of all $X \in \mathbb{R}^{3}$ such that $A X=0$. Then $\operatorname{dim}(V)$ 
+is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item $ 0$ 
+\item 1 
+\item 2 
+\item 3
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of $n$ for which the divergence of the function $\vec{F}=\frac{\vec{r}}{|\vec{r}|^{n}}, \bar{r}=x \hat{i}+y \hat{j}+z \hat{k},|\vec{r}| \neq 0$, vanishes is 
+
+\begin{enumerate}[label=(\alph*)] 
+\item 1 
+\item $-1$ 
+\item 3 
+\item $-3$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $A$ and $B$ be subsets of $\mathbb{R}$. Which of the following is NOT necessarily true? 
+
+
+\begin{enumerate}[label=(\alph*)]
+\item $(A \cap B)^{o} \subseteq A^{o} \cap B^{o}$ 
+\item $\quad A^{o} \cup B^{o} \subseteq(A \cup B)^{o}$ 
+\item $\bar{A} \cup \bar{B} \subseteq \overline{A \cup B}$ 
+\item $\bar{A} \cap \bar{B} \subseteq \overline{A \cap B}$
+
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $[x]$ denote the greatest integer function of $x$. The value of $\alpha$ for which the function $f(x)= \begin{cases}\frac{\sin \left[-x^{2}\right]}{\left[-x^{2}\right]}, &amp; x \neq 0 \\ \alpha, &amp; x=0\end{cases}$
+
+is continuous at $x=0$ is 
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item 0 
+\item $\sin (-1)$ 
+\item $\sin 1$ 
+\item 1
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let the function $f(x)$ be defined by $f(x)= \begin{cases}e^{x}, &amp; x \text { is rational } \\ e^{1-x}, &amp; x \text { is irrational }\end{cases}$ for $x$ in $(0,1)$. Then 
+
+
+\begin{enumerate}[label=(\alph*)]
+    
+\item $f$ is continuous at every point in $(0,1)$ 
+\item $f$ is discontinuous at every point in $(0,1)$ 
+\item $f$ is discontinuous only at one point in $(0,1)$ 
+\item $f$ is continuous only at one point in $(0,1)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The value of the integral
+$$
+\iint_{D} \sqrt{x^{2}+y^{2}} d x d y, \quad D=\left\{(x, y) \in \mathbb{R}^{2}: \quad x \leq x^{2}+y^{2} \leq 2 x\right\}
+$$
+is 
+
+
+\begin{enumerate}[label=(\alph*)]
+   
+\item 0 
+\item $\frac{7}{9}$ 
+\item $\frac{14}{9}$ 
+\item $\frac{28}{9}$ 
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let
+$$
+x_{n}=\left(1-\frac{1}{3}\right)^{2}\left(1-\frac{1}{6}\right)^{2}\left(1-\frac{1}{10}\right)^{2} \ldots\left(1-\frac{1}{\frac{n(n+1)}{2}}\right)^{2}, \quad n \geq 2 .
+$$
+Then $\lim _{n \rightarrow \infty} x_{n}$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ 
+\item $\frac{1}{3}$ 
+\item $\frac{1}{9}$ 
+\item $\frac{1}{81}$ 
+\item 0
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $p$ be a prime number. Let $G$ be the group of all $2 \times 2$ matrices over $\mathbb{Z}_{p}$ with determinant 1 under matrix multiplication. Then the order of $G$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\quad(p-1) p(p+1)$ 
+\item $\quad p^{2}(p-1)$ 
+\item $p^{3}$ 
+\item $p^{2}(p-1)+p$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $V$ be the vector space of all $2 \times 2$ matrices over $\mathbb{R}$. Consider the subspaces
+$$
+W_{1}=\left\{\left(\begin{array}{cc}
+a &amp; -a  \\
+c &amp; d
+\end{array}\right): a, c, d \in \mathbb{R}\right\} \text { and } W_{2}=\left\{\left(\begin{array}{rr}
+a &amp; b  \\
+-a &amp; d
+\end{array}\right): a, b, d \in \mathbb{R}\right\} \text {. }
+$$
+If $m=\operatorname{dim}\left(W_{1} \cap W_{2}\right)$ and $n=\operatorname{dim}\left(W_{1}+W_{2}\right)$, then the pair $(m, n)$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $(2,3)$ 
+\item $(2,4)$ 
+\item $(3,4)$ 
+\item $(1,3)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">Let $\wp_{n}$ be the real vector space of all polynomials of degree at most $n$. Let $D: \wp_{n} \rightarrow \wp_{n-1}$ and $T: \wp_{n} \rightarrow \wp_{n+1}$ be the linear transformations defined by
+
+$D\left(a_{0}+a_{1} x+a_{2} x^{2}+\ldots+a_{n} x^{n}\right)=a_{1}+2 a_{2} x+\ldots+n a_{n} x^{n-1}$,
+
+$T\left(a_{0}+a_{1} x+a_{2} x^{2}+\ldots+a_{n} x^{n}\right)=a_{0} x+a_{1} x^{2}+a_{2} x^{3}+\ldots+a_{n} x^{n+1}$,
+
+respectively. If $A$ is the matrix representation of the transformation $D T-T D: \wp_{n} \rightarrow \wp_{n}$ with respect to the standard basis of $\wp_{n}$, then the trace of $A$ is 
+
+\begin{enumerate}[label=(\alph*)]
+ \item $-n$ 
+\item $n$ 
+\item $n+1$ 
+\item $-(n+1)$
+\end{enumerate}</span></li><li><b></b> <span class="qbody">The equation of the curve satisfying $\sin y \frac{d y}{d x}=\cos y(1-x \cos y)$ and passing through the origin is</span></li><li><b></b> <span class="qbody">Let $f$ be a continuously differentiable function such that $\int_{0}^{2 x^{2}} f(t) d t=e^{\cos x^{2}}$ for all $x \in(0, \infty)$. The value of $f^{\prime}(\pi)$ is</span></li><li><b></b> <span class="qbody">Let $u=\frac{y^{2}-x^{2}}{x^{2} y^{2}}, v=\frac{z^{2}-y^{2}}{y^{2} z^{2}}$ for $x \neq 0, y \neq 0, z \neq 0$. Let $w=f(u, v)$, where $f$ is a real valued function defined on $\mathbb{R}^{2}$ having continuous first order partial derivatives. The value of $x^{3} \frac{\partial w}{\partial x}+y^{3} \frac{\partial w}{\partial y}+z^{3} \frac{\partial w}{\partial z}$ at the point $(1,2,3)$ is</span></li><li><b></b> <span class="qbody">The set of points at which the function $f(x, y)=x^{4}+y^{4}-x^{2}-y^{2}+1,(x, y) \in \mathbb{R}^{2}$ attains local maximum is</span></li><li><b></b> <span class="qbody">Let $C$ be the boundary of the region in the first quadrant bounded by $y=1-x^{2}, x=0$ and $y=0$, oriented counter-clockwise. The value of $\oint_{C}\left(x y^{2} d x-x^{2} y d y\right)$ is</span></li><li><b></b> <span class="qbody">Let $f(x)=\left\{\begin{array}{cc}0, &amp; -1  \leq x \leq 0  \\ x^{4}, &amp; 0&lt;x \leq 1\end{array}\right.$. If $f(x)=\sum_{k=0}^{n} \frac{f^{(k)}(0)}{k !} x^{k}+\frac{f^{(n+1)}(\xi)}{(n+1) !} x^{n+1}$ is the Taylor&#x27;s formula for $f$ about $x=0$ with maximum possible value of $n$, then the value of $\xi$ for $0&lt;x \leq 1$ is</span></li><li><b></b> <span class="qbody">Let $\vec{F}=2 z \hat{i}+4 x \hat{j}+5 y \hat{k}$, and let $C$ be the curve of intersection of the plane $z=x+4$ and the cylinder $x^{2}+y^{2}=4$, oriented counter-clockwise. The value of $\oint_{C} \vec{F} \cdot d \vec{r}$ is</span></li><li><b></b> <span class="qbody">Let $f$ and $g$ be the functions from $\mathbb{R} \backslash\{0,1\}$ to $\mathbb{R}$ defined by $f(x)=\frac{1}{x}$ and $g(x)=\frac{x-1}{x}$ for $x \in \mathbb{R} \backslash\{0,1\}$. The smallest group of functions from $\mathbb{R} \backslash\{0,1\}$ to $\mathbb{R}$ containing $f$ and $g$ under composition of functions is isomorphic to</span></li><li><b></b> <span class="qbody">The orthogonal trajectory of the family of curves $\frac{x^{2}}{2}+y^{2}=c$, which passes through $(1,1)$ is</span></li><li><b></b> <span class="qbody">The function to which the power series $\sum_{n=1}^{\infty}(-1)^{n+1} n x^{2 n-2}$ converges is</span></li><li><b></b> <span class="qbody">Let $0&lt;a \leq 1, s_{1}=\frac{a}{2}$ and for $n \in \mathbb{N}$, let $s_{n+1}=\frac{1}{2}\left(s_{n}^{2}+a\right)$. Show that the sequence $\left\{s_{n}\right\}$ is convergent, and find its limit.</span></li><li><b></b> <span class="qbody">Evaluate
+
+by changing the order of integration.
+$$
+\int_{1 / 4}^{1} \int_{\sqrt{x-x^{2}}}^{\sqrt{x}} \frac{x^{2}-y^{2}}{x^{2}} d y d x
+$$</span></li><li><b></b> <span class="qbody">Find the general solution of the differential equation
+$$
+x^{2} \frac{d^{3} y}{d x^{3}}+x \frac{d^{2} y}{d x^{2}}-6 \frac{d y}{d x}+6 \frac{y}{x}=\frac{x \ln x+1}{x^{2}}, x&gt;0 .
+$$</span></li><li><b></b> <span class="qbody">Let $S_{1}$ be the hemisphere $x^{2}+y^{2}+z^{2}=1, z&gt;0$ and $S_{2}$ be the closed disc $x^{2}+y^{2} \leq 1$ in the $x y$ plane. Using Gauss&#x27; divergence theorem, evaluate $\iint_{S} \vec{F} \cdot d \bar{S}$, where $\vec{F}=z^{2} x \hat{i}+\left(\frac{y^{3}}{3}+\tan z\right) \hat{j}+\left(x^{2} z+y^{2}\right) \hat{k}$ and $S=S_{1} \cup S_{2}$.
+
+Also evaluate $\iint_{S_{1}} \vec{F} \cdot d \vec{S}$.</span></li><li><b></b> <span class="qbody">Let
+$$
+f(x, y)= \begin{cases}\frac{2\left(x^{3}+y^{3}\right)}{x^{2}+2 y}, &amp; (x, y) \neq(0,0) \\ 0, &amp; (x, y)=(0,0) .\end{cases}
+$$
+Show that the first order partial derivatives of $f$ with respect to $x$ and $y$ exist at $(0,0)$. Also show that $f$ is not continuous at $(0,0)$.</span></li><li><b></b> <span class="qbody">Let $A$ be an $n \times n$ diagonal matrix with characteristic polynomial $(x-a)^{p}(x-b)^{q}$, where $a$ and $b$ are distinct real numbers. Let $V$ be the real vector space of all $n \times n$ matrices $B$ such that $A B=B A$. Determine the dimension of $V$.</span></li><li><b></b> <span class="qbody">Let $A$ be an $n \times n$ real symmetric matrix with $n$ distinct eigenvalues. Prove that there exists an orthogonal matrix $P$ such that $A P=P D$, where $D$ is a real diagonal matrix.</span></li><li><b></b> <span class="qbody">Let $K$ be a compact subset of $\mathbb{R}$ with nonempty interior. Prove that $K$ is of the form $[a, b]$ or of the form $[a, b] \backslash \bigcup I_{n}$, where $\left\{I_{n}\right\}$ is a countable disjoint family of open intervals with end points in $K$.</span></li><li><b></b> <span class="qbody">Let $f:[a, b] \rightarrow \mathbb{R}$ be a continuous function such that $f$ is differentiable in $(a, c)$ and $(c, b)$, $a&lt;c&lt;b$. If $\lim _{x \rightarrow c} f^{\prime}(x)$ exists, then prove that $f$ is differentiable at $c$ and $f^{\prime}(c)=\lim _{x \rightarrow c} f^{\prime}(x)$.</span></li><li><b></b> <span class="qbody">Let $G$ be a finite group, and let $\varphi$ be an automorphism of $G$ such that $\varphi(x)=x$ if and only if $x=e$, where $e$ is the identity element in $G$. Prove that every $g \in G$ can be represented as $g=x^{-1} \varphi(x)$ for some $x \in G$. Moreover, if $\varphi(\varphi(x))=x$ for every $x \in G$, then show that $G$ is abelian.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js"></script>
+</body>
+</html>
