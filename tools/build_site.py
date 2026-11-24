@@ -62,6 +62,7 @@ for r in R:
               1 if RUB.match(r['text']) else 0])
 # ---- scans
 NONMATH=re.compile(r'tagore|statist|\bstat\b|stat minor|physic|mnphy|phy\b|chem|english|bengali|bangla|environment|\bevs\b|\bgec|aecc|hindi|sanskrit|history|philosophy|economics|geography|computer sc|sec theory|botany|zoology',re.I)
+SN=json.load(open(os.path.join(ROOT,'tools/scan_names.json'),encoding='utf-8')) if os.path.exists(os.path.join(ROOT,'tools/scan_names.json')) else {}
 S=[]
 for l in open(os.path.join(ROOT,'tools/scans_raw.tsv'),encoding='utf-8'):
     i,path,title=l.rstrip('\n').split('\t')
@@ -82,7 +83,15 @@ for l in open(os.path.join(ROOT,'tools/scans_raw.tsv'),encoding='utf-8'):
     lab=lab[:1].upper()+lab[1:]
     cm=CODE.search(lab); code=(cm.group(1).upper()+'-'+str(int(cm.group(2)))) if cm else None
     sub=[x for x in parts[4:] if x not in('Semester','Internal')]
-    S.append(dict(id=i,prog=pg,sem=sem,year=yr,kind=kind,old=older,label=lab,code=code,other=bool(NONMATH.search(lab)),group=sub[0] if sub else None))
+    fname=re.sub(r'\s+by\s+[A-Z][a-z]+(\s[A-Z][a-z]+)*$|\s*-\s*[A-Z][a-z]+\s[A-Z][a-z]+$','',lab); nm=SN.get(i)
+    if nm:
+        lab=nm['name']
+        if len(nm['codes'])==1: code=nm['codes'][0]
+        elif len(nm['codes'])>1: code=None
+    d=dict(id=i,prog=pg,sem=sem,year=yr,kind=kind,old=older,label=lab,code=code,other=bool(NONMATH.search(lab+' '+fname)) and not (nm and nm['codes'] and not NONMATH.search(lab)),group=sub[0] if sub else None)
+    if fname!=lab: d['file']=fname
+    if nm and nm.get('pages'): d['pages']=nm['pages']
+    S.append(d)
 S.sort(key=lambda s:(s['prog'],s['sem'] or 0,-(s['year'] or 0),s['kind'],s['label'].lower()))
 OUT=os.path.join(ROOT,'site/data')
 json.dump(dict(papers=P,topics=[list(t) for t in TL],broad=BROAD),open(f'{OUT}/papers.json','w',encoding='utf-8'),ensure_ascii=False,separators=(',',':'))

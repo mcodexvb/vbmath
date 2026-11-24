@@ -692,7 +692,7 @@
       ${p.rule ? `<p class="rubric">${esc(plainOf(p.rule))}</p>` : ""}
       <div id="paperqs">${html}</div>
       <section class="section" style="margin-top:44px"><div class="shead"><h2 style="font-size:22px;margin:0">Original scans</h2><span class="muted">Opens in Google Drive</span></div>
-        ${scans.length ? `<div class="list">${scans.map((s) => `<a class="row" href="${scanUrl(s.id)}" target="_blank" rel="noopener"><span class="t">${esc(s.label)}</span><span class="muted">${IC.ext}</span></a>`).join("")}</div>` : `<div class="empty">No scan is linked for this exam yet.</div>`}
+        ${scans.length ? `<div class="list">${scans.map((s) => `<a class="row" href="${scanUrl(s.id)}" target="_blank" rel="noopener"><span class="t">${esc(s.label)}${s.pages ? ` <span class="muted">· ${s.pages} ${s.pages === 1 ? "page" : "pages"}</span>` : ""}</span><span class="muted">${IC.ext}</span></a>`).join("")}</div>` : `<div class="empty">No scan is linked for this exam yet.</div>`}
       </section>
       ${other.length ? `<section class="section" style="margin-top:36px"><div class="shead"><h2 style="font-size:22px;margin:0">${esc(p.code)} in other years</h2></div><div class="row">${other.map((x) => `<a class="chip" href="${L("paper-" + x.key)}">${x.year}${x.kind[0] === "i" ? " · internal" : ""}</a>`).join("")}</div></section>` : ""}
       ${siblings.length ? `<section class="section" style="margin-top:28px"><div class="shead"><h2 style="font-size:22px;margin:0">Same semester, same year</h2></div><div class="row">${siblings.map((x) => `<a class="chip" href="${L("paper-" + x.key)}">${esc(paperLabel(x))}</a>`).join("")}</div></section>` : ""}
@@ -809,7 +809,7 @@
     const draw = () => {
       const f = read(); store.set("scanF", f);
       const ql = f.q.toLowerCase();
-      const list = D.scans.filter((s) => (!f.prog || s.prog === f.prog) && (!f.sem || s.sem === +f.sem) && (!f.year || s.year === +f.year) && (!f.math || !s.other) && (!ql || (s.label + " " + (s.code || "")).toLowerCase().includes(ql)));
+      const list = D.scans.filter((s) => (!f.prog || s.prog === f.prog) && (!f.sem || s.sem === +f.sem) && (!f.year || s.year === +f.year) && (!f.math || !s.other) && (!ql || (s.label + " " + (s.code || "") + " " + (s.file || "")).toLowerCase().includes(ql)));
       const groups = new Map();
       list.forEach((s) => { const k = s.prog + "|" + s.sem + "|" + (s.year || 0); if (!groups.has(k)) groups.set(k, []); groups.get(k).push(s); });
       const keys = Array.from(groups.keys()).sort((a, b) => { const [pa, sa, ya] = a.split("|"), [pb, sb, yb] = b.split("|"); return pa.localeCompare(pb) || sa - sb || yb - ya; });
@@ -823,7 +823,7 @@
           <span class="resource-icon">${IC.folder}</span><div><h2>${esc(heading)}</h2>
           <span class="muted">${group.length} ${group.length === 1 ? "scan" : "scans"}</span></div></header>
           <div class="scan-rows">${group.map((x) => `<a class="resource-row" href="${scanUrl(x.id)}" target="_blank" rel="noopener">
-            <span class="resource-row-icon">${IC.file}</span><span class="resource-row-text"><strong>${esc(x.label)}</strong>
+            <span class="resource-row-icon">${IC.file}</span><span class="resource-row-text"><span class="scan-name"><strong>${esc(x.label)}</strong>${x.file || x.pages ? `<small class="scan-meta">${x.pages ? x.pages + (x.pages === 1 ? " page" : " pages") : ""}${x.file && x.pages ? " · " : ""}${x.file ? "file: " + esc(x.file) : ""}</small>` : ""}</span>
             ${x.kind === "i" ? '<span class="tag rep">Internal</span>' : ""}${x.other ? '<span class="tag">Other subject</span>' : ""}${x.old ? '<span class="tag">Older</span>' : ""}</span><span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div>
           ${typed.length ? `<details class="resource-disclosure"><summary>Typed papers <span class="muted">(${typed.length})</span></summary>
           <div class="resource-links">${typed.map((p) => `<a class="chip" href="${L("paper-" + p.key)}">${esc(pname(p))}${p.kind[0] === "i" ? " · Internal" : ""}</a>`).join("")}</div></details>` : ""}</section>`;
@@ -945,9 +945,39 @@
       <p style="margin-top:18px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
   }
   function viewLearn() {
-    return page("Videos & websites", "Videos & websites", "Courses, references and job portals collected for mathematics students.",
-      `<div class="grid g2">${D.C.video.map(([n, d, ls]) => `<div class="card"><h3>${esc(n)}</h3><p style="margin-bottom:10px">${esc(d)}</p><div style="display:flex;flex-wrap:wrap;gap:6px">${ls.map(([l, u]) => ext(u, l, "chip")).join("")}</div></div>`).join("")}</div>
-      ${D.C.websites.map(([g, ls]) => `<section class="section" style="margin-top:34px"><div class="section-head"><h2 style="font-size:20px">${esc(g)}</h2></div><div style="display:flex;flex-wrap:wrap;gap:8px">${ls.map(([l, u]) => ext(u, l, "chip")).join("")}</div></section>`).join("")}`);
+    const Ln = D.C.learn, subj = Object.fromEntries(Ln.subjects);
+    const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
+    const plat = (p) => p === "YouTube" ? "yt" : p.startsWith("MIT") ? "mit" : "web";
+    const course = ([t, by, p, what, sj, papers, u]) => `<li class="lc" data-subj="${sj}">
+        <span class="lc-plat lc-${plat(p)}" aria-hidden="true">${p === "YouTube" ? "YT" : p.startsWith("MIT") ? "MIT" : "WEB"}</span>
+        <div class="lc-main"><a class="lc-title" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>
+          <p class="lc-by">${esc(by)}, ${esc(p)}</p><p class="lc-what">${esc(what)}</p></div>
+        <div class="lc-side"><span class="lc-subj">${esc(subj[sj])}</span>${papers ? `<span class="lc-papers">For ${papers.split(/,\s*/).map((c) => `<button type="button" class="pcode" data-code="${esc(c)}" title="Questions from ${esc(c)}">${esc(c)}</button>`).join("")}</span>` : ""}</div></li>`;
+    return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Videos & websites</nav>
+      <div class="pagehead"><h1>Videos & websites</h1><p class="lede">Free courses that match the department’s papers, channels worth following, and the sites students keep coming back to.</p></div>
+      <section class="learn-block" aria-labelledby="lc-h">
+        <div class="lb-head"><div><h2 id="lc-h">Courses by subject</h2><p class="muted">Each course lists the Visva-Bharati papers it helps with. Tap a code to see that paper’s questions.</p></div></div>
+        <div class="lseg" role="group" aria-label="Filter by subject"><button type="button" class="on" data-s="">All</button>${Ln.subjects.map(([k, l]) => `<button type="button" data-s="${k}">${esc(l)}</button>`).join("")}</div>
+        <ul class="lcourses">${Ln.courses.map(course).join("")}</ul>
+      </section>
+      <section class="learn-block" aria-labelledby="ch-h">
+        <div class="lb-head"><div><h2 id="ch-h">Channels worth following</h2><p class="muted">Whole lecture series and regular uploads, beyond a single course.</p></div></div>
+        <div class="lchannels">${Ln.channels.map(([n, d, ls]) => `<div class="lch"><h3>${esc(n)}</h3><p>${esc(d)}</p><div class="lch-links">${ls.map(([l, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${IC.ext}</a>`).join("")}</div></div>`).join("")}</div>
+      </section>
+      <section class="learn-block" aria-labelledby="ws-h">
+        <div class="lb-head"><div><h2 id="ws-h">Websites</h2><p class="muted">Grouped by what you need them for.</p></div></div>
+        <div class="lsites">${Ln.sites.map(([g, d, ls]) => `<div class="lsg"><div class="lsg-head"><h3>${esc(g)}</h3><p>${esc(d)}</p></div>
+          <ul class="lsg-list">${ls.map(([n, u, w]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span class="ls-n">${esc(n)}</span>${w ? `<span class="ls-w">${esc(w)}</span>` : ""}<span class="ls-h">${esc(host(u))}</span></a></li>`).join("")}</ul></div>`).join("")}</div>
+      </section>
+      <p class="gnote" style="margin-top:28px">Know a course or site that belongs here? Write to <span class="mono" style="user-select:all">${esc(D.C.email)}</span>.</p></div>`;
+  }
+  function bindLearn() {
+    const btns = $$(".lseg button");
+    btns.forEach((b) => b.addEventListener("click", () => {
+      btns.forEach((x) => x.classList.toggle("on", x === b));
+      $$(".lc").forEach((li) => { li.hidden = !!b.dataset.s && li.dataset.subj !== b.dataset.s; });
+    }));
+    $$(".pcode").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.code = b.dataset.code; F.sort = "new"; go("search"); }));
   }
   function viewPeople() {
     return page("People", "People", "Faculty of the Department of Mathematics, Visva-Bharati, with the courses they teach and their research interests (as listed on the earlier site).",
@@ -1017,7 +1047,7 @@
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
     preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, null, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
-    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, null, "Videos and websites · VBMath"], people: [viewPeople, null, "People · VBMath"],
+    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
   let lastRoute = null;
