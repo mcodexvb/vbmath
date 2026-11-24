@@ -375,8 +375,8 @@
       choiceX: 5,
       choiceY: 8,
       instr: "Candidates are required to give their answers in their own words as far as practicable. Answer any 5 out of 8 questions. Figures in the right margin indicate full marks.",
-      partStyle: "num_alpha", // "num_alpha" (1 a), 1 b)), "paren_alpha" (1. (a), (b)), "alpha_paren" (1. a), b)), "roman_paren" (1. (i), (ii))
-      marksStyle: "both" // "both" ([3], [2] & [3+2=5]), "breakdown" ([3+2]), "parts_only" ([3], [2]), "total_only" ([5])
+      partStyle: "paren_alpha", // "paren_alpha" (1. (a), (b)), "num_alpha" (1 a), 1 b)), "alpha_paren" (1. a), b)), "roman_paren" (1. (i), (ii))
+      marksStyle: "parts_only" // "parts_only" ([5], [5]), "both" ([5], [5] & [10]), "breakdown" ([5+5]), "total_only" ([10])
     };
   }
 
@@ -394,8 +394,8 @@
         choiceX: 5,
         choiceY: 8,
         instr: "Candidates are required to give their answers in their own words as far as practicable. Answer any 5 out of 8 questions. Figures in the right margin indicate full marks.",
-        partStyle: "num_alpha",
-        marksStyle: "both"
+        partStyle: "paren_alpha",
+        marksStyle: "parts_only"
       },
       sections: [
         {
@@ -408,8 +408,8 @@
               qno: "1",
               orAlternative: false,
               parts: [
-                { id: "sp_1_a", label: "a", marks: 3, tex: "If $\\lim_{x\\to a}f(x)=\\ell \\ne 0$, prove that in a deleted neighbourhood of $a$, $f(x)$ keeps the same sign as that of $\\ell$." },
-                { id: "sp_1_b", label: "b", marks: 2, tex: "Using $(\\varepsilon-\\delta)$ definition, evaluate $\\lim_{x\\to 0} \\frac{\\sin x}{x}$." }
+                { id: "sp_1_a", label: "a", marks: 5, tex: "If $\\lim_{x\\to a}f(x)=\\ell \\ne 0$, prove that in a deleted neighbourhood of $a$, $f(x)$ keeps the same sign as that of $\\ell$." },
+                { id: "sp_1_b", label: "b", marks: 5, tex: "Using $(\\varepsilon-\\delta)$ definition, evaluate $\\lim_{x\\to 0} \\frac{\\sin x}{x}$." }
               ]
             },
             {
@@ -1145,6 +1145,7 @@
               <span class="pv-qmk">${esc(mkStr)}</span>
             </li>`;
         } else {
+          // Composite question with subparts (e.g. 1 a), 1 b) or 1. (a), (b))
           const totalMk = q._totalMarks;
           const breakdown = q._breakdown;
           let totalMkDisplay = "";
@@ -1157,26 +1158,36 @@
           }
 
           let partsHtml = "";
+          const isDirect = partStyle === "num_alpha";
           parts.forEach((pt, pIdx) => {
-            const pLbl = formatPartLabel(partStyle, currentQnum, pIdx);
             const pMk = (marksStyle === "both" || marksStyle === "parts_only") && pt.marks != null && pt.marks !== "" ? `[${pt.marks}]` : "";
-            partsHtml += `
-              <li class="pv-part" data-pid="${esc(pt.id || "")}">
-                <span class="pv-part-lbl">${esc(pLbl)}</span>
-                <div class="pv-qbody">${texToHtml(pt.tex)}</div>
-                <span class="pv-part-mk">${esc(pMk)}</span>
-              </li>`;
+            if (isDirect) {
+              const pLbl = `${currentQnum} ${String.fromCharCode(97 + pIdx)})`;
+              partsHtml += `
+                <li class="pv-part" data-pid="${esc(pt.id || "")}">
+                  <span class="pv-part-lbl">${esc(pLbl)}</span>
+                  <div class="pv-qbody">${texToHtml(pt.tex)}</div>
+                  <span class="pv-part-mk">${esc(pMk)}</span>
+                </li>`;
+            } else {
+              const pLbl = formatPartLabel(partStyle, currentQnum, pIdx);
+              const qPrefix = pIdx === 0 ? `${currentQnum}.` : "";
+              partsHtml += `
+                <li class="pv-part" data-pid="${esc(pt.id || "")}">
+                  <span class="pv-qno">${esc(qPrefix)}</span>
+                  <span class="pv-part-lbl">${esc(pLbl)}</span>
+                  <div class="pv-qbody">${texToHtml(pt.tex)}</div>
+                  <span class="pv-part-mk">${esc(pMk)}</span>
+                </li>`;
+            }
           });
 
           qListHtml += `
             <li class="pv-q pv-q-comp" data-qid="${esc(q.id || "")}">
-              <div class="pv-q-top">
-                <span class="pv-qno">${esc(currentQnum)}.</span>
-                ${totalMkDisplay ? `<span class="pv-q-total">${esc(totalMkDisplay)}</span>` : ""}
-              </div>
-              <ol class="pv-parts">
+              <ol class="pv-parts ${isDirect ? "pv-parts-direct" : ""}">
                 ${partsHtml}
               </ol>
+              ${totalMkDisplay ? `<div class="pv-q-total-row"><span class="pv-q-total">${esc(totalMkDisplay)}</span></div>` : ""}
             </li>`;
         }
       });
@@ -1376,6 +1387,7 @@
                 <input type="text" data-act="p-marks" value="${esc(pt.marks != null ? String(pt.marks) : "")}">
               </div>
               <div style="display:flex;align-items:center;gap:4px">
+                <button class="mq-iconbtn" type="button" data-act="p-replace" title="Search a replacement question for this part">🔍 Replace</button>
                 <button class="mq-iconbtn" type="button" data-act="p-toggle-view" title="Toggle rendered math or LaTeX code">${isCode ? "👁️ Preview" : "✏️ Code"}</button>
                 ${parts.length > 1 ? `<button class="mq-iconbtn" type="button" data-act="p-split" title="Split to separate question">Split</button>` : ""}
                 ${qIdx > 0 && pIdx === 0 ? `<button class="mq-iconbtn" type="button" data-act="p-merge-up" title="Merge into previous question">Merge Up</button>` : ""}
@@ -1392,13 +1404,15 @@
       });
 
       html += `
-        <div class="mq-card" data-qidx="${qIdx}">
+        <div class="mq-card" data-qidx="${qIdx}" draggable="true">
           <div class="mq-bar">
             <div class="mq-title-wrap">
+              <span class="mq-drag-handle" title="Drag to reorder">⠿</span>
               <span class="mq-qno">Q${esc(qnum)}</span>
               <span class="mq-mk-pill">${esc(mkPill)}</span>
             </div>
             <div class="mq-actions">
+              <button class="mq-iconbtn" type="button" data-act="q-replace" title="Search a replacement question">🔍 Replace</button>
               <button class="mq-iconbtn" type="button" data-act="q-up" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>${IC.up}</button>
               <button class="mq-iconbtn" type="button" data-act="q-down" title="Move Down" ${qIdx === sec.questions.length - 1 ? "disabled" : ""}>${IC.down}</button>
               <button class="mq-iconbtn" type="button" data-act="q-add-part" title="Add Part (e.g. 3+2 marks)">+ Part</button>
@@ -1411,6 +1425,174 @@
     });
 
     return html;
+  }
+
+  function openReplaceModal({ targetType, qIdx, pIdx, doc, onReplace }) {
+    const existing = $("#replace-modal-scrim");
+    if (existing) existing.remove();
+
+    const sec = (doc.sections || [])[0];
+    if (!sec) return;
+    const q = sec.questions[qIdx];
+    if (!q) return;
+    const pt = targetType === "part" ? (q.parts && q.parts[pIdx]) : null;
+
+    const initialMarks = targetType === "part" ? (pt ? parseFloat(pt.marks) || 0 : 0) : (q._totalMarks || 10);
+    const targetTitle = targetType === "part"
+      ? `Part (${pt?.label || "a"}) of Question ${q.qno || qIdx + 1}`
+      : `Question ${q.qno || qIdx + 1}`;
+
+    const scrim = document.createElement("div");
+    scrim.id = "replace-modal-scrim";
+    scrim.className = "replace-modal-scrim";
+
+    scrim.innerHTML = `
+      <div class="replace-modal" role="dialog" aria-modal="true" aria-labelledby="rep-title">
+        <div class="replace-modal-head">
+          <h3 id="rep-title">🔍 Search Replacement ${targetType === "part" ? "Subpart" : "Question"}</h3>
+          <button class="mq-iconbtn" type="button" id="rep-close" title="Close">✕</button>
+        </div>
+        <div class="replace-modal-body">
+          <div style="font-size:13px;color:var(--ink-2);background:var(--paper-2);padding:8px 12px;border-radius:8px;border:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center">
+            <span>Target: <b>${esc(targetTitle)}</b></span>
+            <span>Target Marks: <span class="mq-mk-pill">${initialMarks ? initialMarks + " marks" : "Any"}</span></span>
+          </div>
+
+          <div class="replace-filter-bar">
+            <input type="search" id="rep-query" placeholder="Type topic, theorem, or keyword (e.g. Cauchy, Riemann, continuous)..." autofocus>
+            <select id="rep-marks">
+              <option value="all">Any marks</option>
+              ${initialMarks ? `<option value="${initialMarks}" selected>Target marks (${initialMarks})</option>` : ""}
+              <option value="2">2 marks</option>
+              <option value="3">3 marks</option>
+              <option value="4">4 marks</option>
+              <option value="5">5 marks</option>
+              <option value="6">6 marks</option>
+              <option value="8">8 marks</option>
+              <option value="10">10 marks</option>
+            </select>
+            <select id="rep-sem">
+              <option value="">All Semesters</option>
+              <option value="1">Semester I</option>
+              <option value="2">Semester II</option>
+              <option value="3">Semester III</option>
+              <option value="4">Semester IV</option>
+              <option value="5">Semester V</option>
+              <option value="6">Semester VI</option>
+            </select>
+          </div>
+
+          <div id="rep-count" style="font-size:12.5px;color:var(--ink-3);margin-top:-4px"></div>
+          <div class="replace-results" id="rep-results"></div>
+        </div>
+      </div>`;
+
+    document.body.appendChild(scrim);
+
+    const close = () => {
+      scrim.remove();
+      document.removeEventListener("keydown", onKeyDown);
+    };
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") close();
+    };
+    document.addEventListener("keydown", onKeyDown);
+
+    $("#rep-close").onclick = close;
+    scrim.addEventListener("click", (e) => {
+      if (e.target === scrim) close();
+    });
+
+    const qInput = $("#rep-query");
+    const mSelect = $("#rep-marks");
+    const sSelect = $("#rep-sem");
+    const resContainer = $("#rep-results");
+    const countEl = $("#rep-count");
+
+    const doSearch = () => {
+      const qVal = qInput.value.trim().toLowerCase();
+      const mVal = mSelect.value;
+      const sVal = sSelect.value;
+
+      const qTokens = qVal ? qVal.split(/\s+/).filter(Boolean) : [];
+
+      let matches = [];
+      for (const item of D.Q) {
+        if (item.stem) continue;
+        const p = D.papers[item.p];
+        if (!p) continue;
+
+        if (sVal && String(p.sem) !== sVal) continue;
+        if (mVal !== "all") {
+          const targetM = parseFloat(mVal);
+          if (item.marks !== targetM) continue;
+        }
+
+        if (qTokens.length > 0) {
+          const hay = item.hay || "";
+          let allMatch = true;
+          for (const tok of qTokens) {
+            if (!hay.includes(tok)) {
+              allMatch = false;
+              break;
+            }
+          }
+          if (!allMatch) continue;
+        }
+
+        matches.push(item);
+        if (matches.length >= 35) break;
+      }
+
+      countEl.textContent = `Found ${matches.length} matching question${matches.length === 1 ? "" : "s"}${matches.length >= 35 ? " (showing top 35)" : ""}:`;
+
+      if (!matches.length) {
+        resContainer.innerHTML = `<div class="empty" style="padding:24px 10px"><p>No matching questions found. Try removing filters or searching a simpler keyword.</p></div>`;
+        return;
+      }
+
+      resContainer.innerHTML = matches.map((item) => {
+        const p = D.papers[item.p];
+        const paperTitle = p ? `${pname(p)} ${p.year} (Sem ${ROMAN[p.sem]})` : "";
+        const qTag = `Q${item.qno}${item.part ? ` (${item.part})` : ""}`;
+        const mkTag = item.marks != null ? `${item.marks} marks` : "";
+        return `
+          <div class="replace-card" data-idx="${item.i}">
+            <div class="replace-card-head">
+              <div>
+                <strong>${esc(paperTitle)}</strong>
+                <span class="muted" style="margin-left:6px">${esc(qTag)}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                ${mkTag ? `<span class="mq-mk-pill">${esc(mkTag)}</span>` : ""}
+                <button class="btn btn-primary btn-sm" type="button" data-act="apply-rep" data-idx="${item.i}">✓ Replace with this</button>
+              </div>
+            </div>
+            <div class="replace-card-math">${texToHtml(item.tex)}</div>
+          </div>`;
+      }).join("");
+
+      typeset(resContainer);
+    };
+
+    qInput.addEventListener("input", doSearch);
+    mSelect.addEventListener("change", doSearch);
+    sSelect.addEventListener("change", doSearch);
+
+    resContainer.addEventListener("click", (e) => {
+      const applyBtn = e.target.closest('[data-act="apply-rep"]');
+      if (!applyBtn) return;
+      const idx = +applyBtn.dataset.idx;
+      const chosen = D.Q[idx];
+      if (!chosen) return;
+
+      onReplace(chosen);
+      close();
+    });
+
+    doSearch();
+    qInput.focus();
   }
 
   function bindPreview(arg) {
@@ -1707,7 +1889,105 @@
           saveMakerDoc(doc);
           rebindMakerQuestions();
           toast("Part removed");
+        } else if (act === "q-replace" && qIdx >= 0) {
+          openReplaceModal({
+            targetType: "question",
+            qIdx,
+            doc,
+            onReplace: (chosen) => {
+              const siblings = D.byPaper[chosen.p]?.filter((sq) => sq.qno === chosen.qno) || [];
+              if (siblings.length > 1) {
+                q.parts = siblings.map((sq) => ({
+                  id: "pt_" + sq.id,
+                  label: sq.part || "",
+                  marks: sq.marks != null ? sq.marks : 5,
+                  tex: sq.tex
+                }));
+              } else {
+                q.parts = [{
+                  id: "pt_" + chosen.id,
+                  label: chosen.part || "",
+                  marks: chosen.marks != null ? chosen.marks : 5,
+                  tex: chosen.tex
+                }];
+              }
+              saveMakerDoc(doc);
+              rebindMakerQuestions();
+              toast(`Question replaced with ${D.papers[chosen.p]?.title || "question"}`);
+            }
+          });
+        } else if (act === "p-replace" && q && pIdx >= 0) {
+          const pt = q.parts[pIdx];
+          openReplaceModal({
+            targetType: "part",
+            qIdx,
+            pIdx,
+            doc,
+            onReplace: (chosen) => {
+              pt.tex = chosen.tex;
+              if (chosen.marks != null) pt.marks = chosen.marks;
+              saveMakerDoc(doc);
+              rebindMakerQuestions();
+              toast(`Subpart replaced with ${D.papers[chosen.p]?.title || "question"}`);
+            }
+          });
         }
+      });
+
+      // HTML5 Drag & Drop question reordering
+      let draggedQIdx = null;
+
+      qListEl.addEventListener("dragstart", (e) => {
+        const card = e.target.closest(".mq-card");
+        if (!card) return;
+        draggedQIdx = +card.dataset.qidx;
+        card.classList.add("is-dragging");
+        if (e.dataTransfer) {
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", String(draggedQIdx));
+        }
+      });
+
+      qListEl.addEventListener("dragover", (e) => {
+        const overCard = e.target.closest(".mq-card");
+        if (!overCard || draggedQIdx == null) return;
+        e.preventDefault();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+        $$(".mq-card").forEach((c) => c.classList.remove("drag-over"));
+        if (+overCard.dataset.qidx !== draggedQIdx) {
+          overCard.classList.add("drag-over");
+        }
+      });
+
+      qListEl.addEventListener("dragleave", (e) => {
+        const overCard = e.target.closest(".mq-card");
+        if (overCard && !overCard.contains(e.relatedTarget)) {
+          overCard.classList.remove("drag-over");
+        }
+      });
+
+      qListEl.addEventListener("drop", (e) => {
+        const overCard = e.target.closest(".mq-card");
+        if (!overCard || draggedQIdx == null) return;
+        e.preventDefault();
+        const targetQIdx = +overCard.dataset.qidx;
+        const sec = (doc.sections || [])[0];
+        if (sec && targetQIdx !== draggedQIdx && targetQIdx >= 0 && targetQIdx < sec.questions.length) {
+          const [moved] = sec.questions.splice(draggedQIdx, 1);
+          sec.questions.splice(targetQIdx, 0, moved);
+          saveMakerDoc(doc);
+          rebindMakerQuestions();
+          toast(`Question moved to position ${targetQIdx + 1}`);
+        }
+        draggedQIdx = null;
+      });
+
+      qListEl.addEventListener("dragend", () => {
+        $$(".mq-card").forEach((c) => {
+          c.classList.remove("is-dragging");
+          c.classList.remove("drag-over");
+        });
+        draggedQIdx = null;
       });
 
       // Part marks and tex input changes
