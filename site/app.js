@@ -1317,6 +1317,7 @@
           <div class="pv-panel" id="panel-questions" hidden>
             <div class="mq-toolbar">
               <button class="btn btn-primary btn-sm" type="button" id="mq-add-q">${IC.plus} Add Question</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="mq-toggle-all-view" title="Toggle between rendered math preview and LaTeX code">${(h.latexViewMode || "preview") === "code" ? `${IC.search} Rendered Math` : `${IC.pen} LaTeX Code`}</button>
               <button class="btn btn-ghost btn-sm" type="button" id="mq-auto-group" title="Auto-group questions with the same question number">${IC.stack} Auto-Group</button>
               <button class="btn btn-ghost btn-sm" type="button" id="mq-sample" title="Load sample university exam paper">${IC.file} Sample Paper</button>
               <button class="btn btn-ghost btn-sm" type="button" id="mq-clear">${IC.trash} Clear</button>
@@ -1350,6 +1351,8 @@
       return `<div class="empty" style="padding:20px 10px"><p>No questions in this paper yet.</p><p style="margin-top:8px"><button class="btn btn-primary btn-sm" type="button" id="mq-empty-sample">${IC.file} Load 8-Question University Template</button></p></div>`;
     }
 
+    const globalMode = doc.header.latexViewMode || "preview";
+
     sec.questions.forEach((q, qIdx) => {
       if (q.orAlternative) {
         html += `<div class="mq-or-sep"><span>OR ALTERNATIVE</span></div>`;
@@ -1363,6 +1366,7 @@
       let partsHtml = "";
       parts.forEach((pt, pIdx) => {
         const pLbl = formatPartLabel("paren_alpha", qnum, pIdx);
+        const isCode = pt._viewMode ? pt._viewMode === "code" : (globalMode === "code");
         partsHtml += `
           <div class="mq-part" data-qidx="${qIdx}" data-pidx="${pIdx}">
             <div class="mq-part-head">
@@ -1371,13 +1375,19 @@
                 <span>Marks:</span>
                 <input type="text" data-act="p-marks" value="${esc(pt.marks != null ? String(pt.marks) : "")}">
               </div>
-              <div style="display:flex;gap:4px">
+              <div style="display:flex;align-items:center;gap:4px">
+                <button class="mq-iconbtn" type="button" data-act="p-toggle-view" title="Toggle rendered math or LaTeX code">${isCode ? "👁️ Preview" : "✏️ Code"}</button>
                 ${parts.length > 1 ? `<button class="mq-iconbtn" type="button" data-act="p-split" title="Split to separate question">Split</button>` : ""}
                 ${qIdx > 0 && pIdx === 0 ? `<button class="mq-iconbtn" type="button" data-act="p-merge-up" title="Merge into previous question">Merge Up</button>` : ""}
                 <button class="mq-iconbtn danger" type="button" data-act="p-del" title="Delete this part">${IC.trash}</button>
               </div>
             </div>
-            <textarea class="mq-tex" data-act="p-tex" rows="2" placeholder="Question text in LaTeX...">${esc(pt.tex || "")}</textarea>
+            <div class="mq-part-body">
+              <div class="mq-part-preview" data-act="p-click-edit" title="Click to edit LaTeX" ${isCode ? 'style="display:none"' : ""}>
+                ${texToHtml(pt.tex || "<i>(Empty question — click to type)</i>")}
+              </div>
+              <textarea class="mq-tex" data-act="p-tex" rows="2" placeholder="Question text in LaTeX..." ${!isCode ? 'style="display:none"' : ""}>${esc(pt.tex || "")}</textarea>
+            </div>
           </div>`;
       });
 
@@ -1433,6 +1443,8 @@
     // Question Maker Studio Binding
     let doc = getMakerDoc();
     typeset($("#sheet"));
+    const initialList = $("#mq-list");
+    if (initialList) typeset(initialList);
 
     const refreshSheet = () => {
       const stats = calcDocStats(doc);
@@ -1451,7 +1463,10 @@
 
     const rebindMakerQuestions = () => {
       const list = $("#mq-list");
-      if (list) list.innerHTML = renderMakerQuestionsList(doc);
+      if (list) {
+        list.innerHTML = renderMakerQuestionsList(doc);
+        typeset(list);
+      }
       refreshSheet();
     };
 
@@ -1543,11 +1558,23 @@
     const qListEl = $("#maker-controls");
     if (qListEl) {
       qListEl.addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-act], #mq-add-q, #mq-auto-group, #mq-sample, #mq-clear, #mq-empty-sample");
+        const btn = e.target.closest("[data-act], #mq-add-q, #mq-toggle-all-view, #mq-auto-group, #mq-sample, #mq-clear, #mq-empty-sample");
         if (!btn) return;
 
         const sec = (doc.sections || [])[0];
         if (!sec) return;
+
+        if (btn.id === "mq-toggle-all-view") {
+          const currentMode = doc.header.latexViewMode || "preview";
+          doc.header.latexViewMode = currentMode === "code" ? "preview" : "code";
+          sec.questions.forEach((q) => { (q.parts || []).forEach((pt) => { delete pt._viewMode; }); });
+          saveMakerDoc(doc);
+          rebindMakerQuestions();
+          const tglBtn = $("#mq-toggle-all-view");
+          if (tglBtn) tglBtn.innerHTML = doc.header.latexViewMode === "code" ? `${IC.search} Rendered Math` : `${IC.pen} LaTeX Code`;
+          toast(doc.header.latexViewMode === "code" ? "Switched to LaTeX Code editor" : "Switched to Rendered Math preview");
+          return;
+        }
 
         if (btn.id === "mq-add-q") {
           sec.questions.push({
@@ -1657,6 +1684,22 @@
           saveMakerDoc(doc);
           rebindMakerQuestions();
           toast("Merged into previous question as next subpart");
+        } else if (act === "p-toggle-view" && q && pIdx >= 0) {
+          const pt = q.parts[pIdx];
+          if (pt) {
+            const currentMode = pt._viewMode || doc.header.latexViewMode || "preview";
+            pt._viewMode = currentMode === "code" ? "preview" : "code";
+            rebindMakerQuestions();
+          }
+        } else if (act === "p-click-edit" && q && pIdx >= 0) {
+          const pt = q.parts[pIdx];
+          if (pt) {
+            pt._viewMode = "code";
+            rebindMakerQuestions();
+            const pCard = btn.closest(".mq-part");
+            const ta = pCard && pCard.querySelector("textarea");
+            if (ta) ta.focus();
+          }
         } else if (act === "p-del" && q && pIdx >= 0) {
           q.parts.splice(pIdx, 1);
           if (!q.parts.length) sec.questions.splice(qIdx, 1);

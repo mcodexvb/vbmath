@@ -410,6 +410,10 @@ details.more summary{cursor:pointer;font-weight:600}
 .mq-part-lbl{font:700 13px var(--f-display);color:var(--accent)}
 .mq-part-mk-box{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--ink-2)}
 .mq-part-mk-box input{width:46px!important;padding:2px 4px!important;text-align:center;font-weight:700}
+.mq-part-body{position:relative}
+.mq-part-preview{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:9px 12px;font:400 15px/1.55 "STIX Two Text",Georgia,serif;color:var(--ink);cursor:pointer;min-height:38px;box-sizing:border-box;transition:border-color .15s,box-shadow .15s}
+.mq-part-preview:hover{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.mq-part-preview mjx-container{color:var(--ink)}
 .mq-tex{font:13px/1.45 var(--f-mono,monospace);min-height:54px;resize:vertical}
 .mq-or-sep{text-align:center;font:700 12px var(--f-display);color:var(--ink-2);position:relative;margin:4px 0}
 .mq-or-sep::before,.mq-or-sep::after{content:"";position:absolute;top:50%;width:38%;height:1px;background:var(--rule)}
