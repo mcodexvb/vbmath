@@ -15,6 +15,8 @@
     NBHM: ["NBHM written test", "NBHM has no prescribed syllabus. See the official written-test guidance.", "https://www.imsc.res.in/~nbhm/ST_current/faq.html"],
     TIFR: ["TIFR Mathematics", "Stage I and Stage II syllabi and admission information.", "https://mathweb.tifr.res.in/admissions.html"],
   };
+  const PROGRAMME_ROUTES = {BSc:"papers-bsc", MSc:"papers-msc"};
+  const PEOPLE_LABELS = {teachers:"Teachers", alumni:"Alumni", scholars:"Scholars"};
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
   const PAGE = 20;
@@ -36,11 +38,10 @@
   function L(r) {
     if (HASH) return "#" + r;
     if (r === "home") return "/";
-    const m = r.match(/^(paper|semester|preview)-(.+)$/);
+    const m = r.match(/^(paper|semester|preview|papers|exams|people)-(.+)$/);
     return m ? `/${m[1]}/${m[2]}/` : `/${r}/`;
   }
   const routeParams = () => new URLSearchParams(HASH ? (location.hash.split("?")[1] || "") : location.search);
-  const sectionLink = (route, id) => L(route) + "?section=" + encodeURIComponent(id);
   function current() {
     let s;
     if (HASH) s = (location.hash || "#home").slice(1).split("?")[0];
@@ -703,13 +704,13 @@
   }
 
   /* ---------- papers (programme overview) ---------- */
-  function viewPapers() {
+  function viewPapers(programme) {
     const requested = routeParams().get("programme");
-    const tab = Object.hasOwn(PROG, requested) ? requested : store.get("papersTab", "BSc");
+    const tab = programme || (Object.hasOwn(PROG, requested) ? requested : store.get("papersTab", "BSc"));
     const sems = Array.from({ length: NSEM[tab] }, (_, i) => i + 1);
     return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Papers</div>
-      ${editorialHeading("Question papers", "Browse typed exam papers, internal tests and original scans by programme and semester.")}
-      <div class="progtabs" role="tablist">${["BSc", "MSc"].map((t) => `<button type="button" role="tab" aria-selected="${t === tab}" class="${t === tab ? "on" : ""}" data-tab="${t}">${PROG[t]}</button>`).join("")}</div>
+      ${editorialHeading(programme ? PROG[tab] + " Question Papers" : "Question papers", "Browse typed exam papers, internal tests and original scans by semester.")}
+      ${programme ? "" : `<div class="progtabs" role="group" aria-label="Mathematics programmes">${Object.entries(PROGRAMME_ROUTES).map(([code, route]) => `<a class="chip${code === tab ? " on" : ""}" href="${L(route)}">${PROG[code]}</a>`).join("")}</div>`}
       <div class="semgrid">${sems.map((s) => {
         const ps = semPapers(tab, s), ys = ps.map((p) => p.year), sc = D.scans.filter((x) => x.prog === tab && x.sem === s && !x.other).length;
         const codes = semCodes(tab, s).filter((c) => c.kind === "s").slice(0, 4).map((c) => c.name).join(" · ");
@@ -717,15 +718,6 @@
       }).join("")}</div>
       <p class="muted" style="margin-top:18px;font-size:14px">Syllabus eras: BMC codes until 2016–17, CBCS (CC, DSE, SEC, GE) from 2017–18, NEP (MJMA, MNMA, SEC) from 2025–26. Older papers are in <a href="${L("scans")}">Scans</a>.</p></div>`;
   }
-  function bindPapers() {
-    $$("[data-tab]").forEach((b) => b.addEventListener("click", () => {
-      store.set("papersTab", b.dataset.tab);
-      history.replaceState({}, "", L("papers") + "?programme=" + b.dataset.tab);
-      route(true);
-      $(`[data-tab="${b.dataset.tab}"]`).focus({preventScroll: true});
-    }));
-  }
-
   /* ---------- one semester ---------- */
   function viewSemester(arg) {
     const m = (arg || "").match(/^(bsc|msc)-(\d)$/); if (!m) return notFound();
@@ -991,9 +983,10 @@
   const illustratedPages = new Set(["Notes", "Competitive exams", "Syllabus"]);
   const page = (crumb, title, lede, body) => `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / ${esc(crumb)}</div>
     ${illustratedPages.has(crumb) ? editorialHeading(title, lede) : `<h1>${esc(title)}</h1>${lede ? `<p class="lede" style="margin-bottom:26px">${lede}</p>` : ""}`}${body}</div>`;
-  function viewExams() {
+  function viewExams(selected) {
     const row = (label, href, external = false, attrs = "") => `<a class="exam-row" href="${esc(href)}"${external ? ' target="_blank" rel="noopener"' : ""}${attrs}><span>${esc(label)}</span>${external ? IC.ext : IC.arrow}</a>`;
-    const cards = D.C.exams.map((exam) => {
+    const exams = selected ? D.C.exams.filter((exam) => EXAM_CODE[exam.name] === selected) : D.C.exams;
+    const cards = exams.map((exam) => {
       const code = EXAM_CODE[exam.name];
       const papers = code ? D.papers.filter((p) => p.prog === code).sort((a, b) => b.year - a.year || b.key.localeCompare(a.key)) : [];
       const search = papers.length ? row("Search questions", L("search") + (HASH ? "" : "?exam=" + code), false, ` data-exam-search="${code}"`) : "";
@@ -1001,16 +994,18 @@
       const syllabus = EXAM_GUIDANCE[code]?.[2] || exam.syllabus;
       return `<article class="topic-card exam-card" id="exam-${code || "vb-admission"}" tabindex="-1">
         <div class="exam-card-title"><span class="resource-icon">${code ? IC.stack : IC.file}</span>
-          <div><h2>${esc(exam.name)}</h2><p>${esc(exam.note)}</p></div></div>
+          <div>${selected ? "" : `<h2>${code ? `<a class="exam-title-link" href="${L("exams-" + code.toLowerCase())}">${esc(exam.name)}</a>` : esc(exam.name)}</h2>`}<p>${esc(exam.note)}</p></div></div>
         <div class="exam-rows">
           ${search}
-          ${papers.length ? `<details class="exam-disclosure"><summary><span>Searchable papers</span><span class="topic-total" aria-label="${papers.length} papers">${papers.length}</span>${IC.down}</summary>
+          ${papers.length ? `<details class="exam-disclosure"${selected ? " open" : ""}><summary><span>Searchable papers</span><span class="topic-total" aria-label="${papers.length} papers">${papers.length}</span>${IC.down}</summary>
             <div>${papers.map((p) => row(code === "JAM" ? p.year : p.title, L("paper-" + p.key))).join("")}</div></details>` : ""}
           ${code && papers.length ? `<details class="exam-disclosure"><summary><span>Original papers and resources</span>${IC.down}</summary><div>${links}</div></details>` : links}
           ${syllabus ? row(code === "NBHM" ? "Written test guidance" : "Syllabus", syllabus, true) : ""}
         </div>
       </article>`;
     });
+    if (selected) return page("Competitive exams", exams[0].name + " Question Papers", "",
+      `<div class="exam-detail">${cards.join("")}<p><a href="${L("exams")}">All competitive exams</a></p></div>`);
     return page("Competitive exams", "Competitive & admission exams",
       "Find previous papers and syllabi for mathematics entrance tests and fellowships.",
       `<div class="resource-grid exam-grid">${cards.join("")}</div>`);
@@ -1065,11 +1060,18 @@
               <span class="resource-arrow">${IC.ext}</span></a>`).join("")}</div></section>`).join("")}</div>`);
   }
   function viewBooks() {
-    return page("Books", "Books", "Standard texts recommended by students and teachers, by subject. Please buy the book or borrow it from the library.",
-      `<div class="grid g2">${Object.entries(D.C.books).map(([s, bs]) => `<div class="card"><h3>${esc(s)}</h3><ul style="margin:8px 0 0;padding-left:1.1em;color:var(--ink-2);font:15px/1.55 var(--f-text)">${bs.map((b) => { const [t, a] = b.split(" — "); return `<li><i>${esc(t)}</i>${a ? " — " + esc(a) : ""}</li>`; }).join("")}</ul></div>`).join("")}</div>
-      <p style="margin-top:18px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
+    const shelves = Object.entries(D.C.books).map(([subject, books]) => `<section class="topic-card exam-card">
+      <div class="exam-card-title"><h2>${esc(subject)}</h2></div>
+      <ul class="book-list">${books.map((book) => {
+        const [title, author] = book.split(" — ");
+        const amazon = "https://www.amazon.in/s?" + new URLSearchParams({k: [title, author].filter(Boolean).join(" "), i: "stripbooks"});
+        return `<li><div><strong>${esc(title)}</strong>${author ? `<small>${esc(author)}</small>` : ""}</div>
+          <a class="chip" href="${esc(amazon)}" target="_blank" rel="noopener" aria-label="Find ${esc(title)} on Amazon India">Amazon ${IC.ext}</a></li>`;
+      }).join("")}</ul></section>`).join("");
+    return page("Books", "Books", "Mathematics books recommended by students and teachers.",
+      `<div class="resource-grid">${shelves}</div><p style="margin-top:18px">${ext(D.C.forms.books, "Suggest a book")}</p>`);
   }
-  function viewLearn() {
+  function viewLearn(section) {
     const Ln = D.C.learn, subj = Object.fromEntries(Ln.subjects);
     const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
     const plat = (p) => p === "YouTube" ? "yt" : p.startsWith("MIT") ? "mit" : "web";
@@ -1078,9 +1080,7 @@
         <div class="lc-main"><a class="lc-title" href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>
           <p class="lc-by">${esc(by)}, ${esc(p)}</p><p class="lc-what">${esc(what)}</p></div>
         <div class="lc-side"><span class="lc-subj">${esc(subj[sj])}</span>${papers ? `<span class="lc-papers">For ${papers.split(/,\s*/).map((c) => `<button type="button" class="pcode" data-code="${esc(c)}" title="Questions from ${esc(c)}">${esc(c)}</button>`).join("")}</span>` : ""}</div></li>`;
-    return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Videos & websites</nav>
-      <div class="pagehead"><h1>Videos & websites</h1><p class="lede">Free courses that match the department’s papers, channels worth following, and the sites students keep coming back to.</p></div>
-      <section class="learn-block" id="lectures-notes" aria-labelledby="lc-h" tabindex="-1">
+    const lectures = `<section class="learn-block" id="lectures-notes" aria-labelledby="lc-h" tabindex="-1">
         <div class="lb-head"><div><h2 id="lc-h">Courses by subject</h2><p class="muted">Each course lists the Visva-Bharati papers it helps with. Tap a code to see that paper’s questions.</p></div></div>
         <div class="lseg" role="group" aria-label="Filter by subject"><button type="button" class="on" data-s="">All</button>${Ln.subjects.map(([k, l]) => `<button type="button" data-s="${k}">${esc(l)}</button>`).join("")}</div>
         <ul class="lcourses">${Ln.courses.map(course).join("")}</ul>
@@ -1089,12 +1089,16 @@
         <div class="lb-head"><div><h2 id="ch-h">Channels worth following</h2><p class="muted">Whole lecture series and regular uploads, beyond a single course.</p></div></div>
         <div class="lchannels">${Ln.channels.map(([n, d, ls]) => `<div class="lch"><h3>${esc(n)}</h3><p>${esc(d)}</p><div class="lch-links">${ls.map(([l, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(l)}${IC.ext}</a>`).join("")}</div></div>`).join("")}</div>
       </section>
-      <section class="learn-block" id="useful-websites" aria-labelledby="ws-h" tabindex="-1">
+      `;
+    const websites = `<section class="learn-block" id="useful-websites" aria-labelledby="ws-h" tabindex="-1">
         <div class="lb-head"><div><h2 id="ws-h">Websites</h2><p class="muted">Grouped by what you need them for.</p></div></div>
         <div class="lsites">${Ln.sites.map(([g, d, ls]) => `<div class="lsg"><div class="lsg-head"><h3>${esc(g)}</h3><p>${esc(d)}</p></div>
           <ul class="lsg-list">${ls.map(([n, u, w]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span class="ls-n">${esc(n)}</span>${w ? `<span class="ls-w">${esc(w)}</span>` : ""}<span class="ls-h">${esc(host(u))}</span></a></li>`).join("")}</ul></div>`).join("")}</div>
       </section>
-      <p class="gnote" style="margin-top:28px">Know a course or site that belongs here? Write to <span class="mono" style="user-select:all">${esc(D.C.email)}</span>.</p></div>`;
+      `;
+    const title = section === "lectures" ? "Lectures & Notes" : section === "websites" ? "Useful Websites" : "Lectures, notes & websites";
+    return page("Resources", title, "", `${section === "websites" ? "" : lectures}${section === "lectures" ? "" : websites}
+      <p class="gnote" style="margin-top:28px">Suggest a resource at <span class="mono">${esc(D.C.email)}</span>.</p>`);
   }
   function bindLearn() {
     const btns = $$(".lseg button");
@@ -1104,12 +1108,15 @@
     }));
     $$(".pcode").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.code = b.dataset.code; F.sort = "new"; go("search"); }));
   }
-  function viewPeople() {
-    return page("People", "People", "Faculty of the Department of Mathematics, Visva-Bharati, with the courses they teach and their research interests (as listed on the earlier site).",
-      `<section id="teachers" aria-label="Teachers" tabindex="-1"><div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b style="color:var(--ink)">Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b style="color:var(--ink)">Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
-      <section class="section"><div class="section-head"><h2>Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section></section>
-      <section class="section" id="scholars" tabindex="-1"><div class="section-head"><h2>Research scholars</h2></div><p class="prose">See the ${ext(D.C.scholars_link, "directory of current and graduated research scholars and their supervisors")}.</p></section>
-      <section class="section" id="alumni" tabindex="-1"><div class="section-head"><h2>Alumni</h2></div><p class="prose">Visva-Bharati mathematics alumni can add their details using the alumni form on the ${ext(D.C.scholars_link, "earlier VBMath site")}.</p></section>`);
+  function viewPeople(section) {
+    const teachers = `<section id="teachers" aria-label="Teachers" tabindex="-1"><div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b>Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b>Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
+      <section class="section"><div class="section-head"><h2>Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section></section>`;
+    const scholars = `<div class="card" id="scholars" tabindex="-1"><p>See the directory of current and graduated research scholars and their supervisors.</p><p style="margin-top:12px">${ext(D.C.scholars_link, "Open the scholar directory", "btn btn-ghost")}</p></div>`;
+    const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
+    const alumni = `<div class="card" id="alumni" tabindex="-1"><p>Visva-Bharati mathematics alumni can add their details through the VBMath alumni form.</p><p style="margin-top:12px">${ext(alumniForm, "Open alumni registration", "btn btn-ghost")}</p></div>`;
+    if (section) return page("People", PEOPLE_LABELS[section], "", {teachers, scholars, alumni}[section]);
+    return page("People", "People", "", `<div class="resource-grid">${Object.entries(PEOPLE_LABELS).map(([key, label]) => `<a class="card" href="${L("people-" + key)}"><h2>${label}</h2></a>`).join("")}</div>
+      <div class="section">${teachers}</div><div class="section">${scholars}</div><div class="section">${alumni}</div>`);
   }
   function viewTools() {
     const coding = D.C.tools.filter(([label]) => label.startsWith("Math++"));
@@ -1178,9 +1185,17 @@
   /* ---------- router ---------- */
   const ROUTES = {
     home: [viewHome, bindHome, "VBMath — Visva-Bharati Mathematics question papers, typed and searchable"],
-    search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, bindPapers, "Question papers by semester · VBMath"],
+    search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, null, "Question papers by semester · VBMath"],
+    ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), null, PROG[code] + " question papers · VBMath"]])),
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
     preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
+    ...Object.entries(EXAM_CODE).reduce((routes, [name, code]) => {
+      routes["exams-" + code.toLowerCase()] = [() => viewExams(code), null, name + " question papers · VBMath"];
+      return routes;
+    }, {}),
+    lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
+    websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
+    ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), null, label + " · VBMath"]])),
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, null, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
     books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
@@ -1205,11 +1220,9 @@
     else if (!ROUTES[name] && name !== "basket" && name !== "collection") { app.innerHTML = `<div class="wrap" style="max-width:720px;padding-block:40px"><div class="eyebrow">Error 404</div><h1>This page isn’t here</h1><p class="lede">The link may be old or mistyped. Search the archive or open a semester instead.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn btn-primary" href="${L("search")}">Search questions</a><a class="btn btn-ghost" href="${L("papers")}">Papers by semester</a></p></div>`; setMeta("Page not found · VBMath"); }
     else { if (!ROUTES[name]) name = "home"; const [v, b, t] = ROUTES[name]; app.innerHTML = v(); b && b(); setMeta(t, name === "home" ? "Previous-year B.Sc. and M.Sc. Mathematics question papers of Visva-Bharati, typed in LaTeX, searchable by topic, year and paper code, with the original scans." : null); }
     const navName = name === "paper" || name === "semester" ? "papers" : name;
-    const navPath = HASH ? location.hash : location.pathname + location.search;
     const navLinks = $$(".nav a");
-    const exact = navLinks.find((a) => a.dataset.r === navName && a.hasAttribute("data-specific") && a.getAttribute("href") === navPath);
     navLinks.forEach((a) => {
-      const active = exact ? a === exact : a.dataset.r === navName && !a.hasAttribute("data-specific");
+      const active = a.dataset.r === navName;
       if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
     });
     $$(".nav .dd").forEach((group) => {
@@ -1230,26 +1243,26 @@
 
   /* ---------- chrome ---------- */
   function renderNavigation(nav) {
-    const link = (route, label, href = L(route)) => `<a href="${esc(href)}" data-r="${route}"${href === L(route) ? "" : " data-specific"}>${label}</a>`;
+    const link = (route, label) => `<a href="${L(route)}" data-r="${route}">${label}</a>`;
     const group = (id, label, links, routes) => `<div class="dd" data-routes="${routes}">
       <button class="navbtn" type="button" aria-expanded="false" aria-controls="nav-${id}">${label} <span aria-hidden="true">▾</span></button>
       <div class="dd-menu" id="nav-${id}" hidden>${links.join("")}</div></div>`;
     nav.innerHTML = [
       link("home", "Home"),
       group("pyq", "PYQ", [
-        ...["BSc", "MSc"].map((p) => link("papers", p, L("papers") + "?programme=" + p)),
-        ...["NET", "GATE", "JAM", "TIFR", "NBHM"].map((e) => link("exams", e, sectionLink("exams", "exam-" + e))),
+        ...Object.entries(PROGRAMME_ROUTES).map(([label, path]) => link(path, label)),
+        ...["NET", "GATE", "JAM", "TIFR", "NBHM"].map((e) => link("exams-" + e.toLowerCase(), e)),
         link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"),
       ], "papers exams search topics scans"),
       group("resources", "Resources", [
         link("notes", "VB Notes"),
-        link("learn", "Lectures &amp; Notes", sectionLink("learn", "lectures-notes")),
-        link("learn", "Useful Websites", sectionLink("learn", "useful-websites")),
+        link("lectures", "Lectures &amp; Notes"),
+        link("websites", "Useful Websites"),
         link("books", "Books"),
       ], "notes learn books"),
       link("syllabus", "Syllabus"),
       group("people", "People", [
-        ...["Teachers", "Alumni", "Scholars"].map((label) => link("people", label, sectionLink("people", label.toLowerCase()))),
+        ...Object.entries(PEOPLE_LABELS).map(([key, label]) => link("people-" + key, label)),
       ], "people"),
       link("tools", "Tools"), link("guides", "Guides"), link("about", "About"),
     ].join("");
