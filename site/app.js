@@ -1138,6 +1138,8 @@
         if (!parts.length) return;
 
         const isSelected = isStudio && (selectedQIdx === qIdx);
+        const hasParts = parts.length > 1;
+        const splitTitle = hasParts ? "Split subpart into a new question" : "Split question into subparts (a) and (b)";
 
         let floatingBarHtml = "";
         if (isStudio) {
@@ -1151,6 +1153,9 @@
                 <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search a replacement question">🔍 Replace</button>
                 <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX">✏️ Edit</button>
                 <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add subpart (+Part)">➕ Part</button>
+                <button type="button" class="pv-act-btn" data-act="q-split" data-qidx="${qIdx}" title="${esc(splitTitle)}">✂️ Split</button>
+                <button type="button" class="pv-act-btn" data-act="q-join-prev" data-qidx="${qIdx}" title="Add to previous question (merge as subpart)" ${qIdx === 0 ? "disabled" : ""}>⤴ Add to Prev</button>
+                <button type="button" class="pv-act-btn" data-act="q-join-next" data-qidx="${qIdx}" title="Add to next question (merge as subpart)" ${qIdx === totalQs - 1 ? "disabled" : ""}>⤵ Add to Next</button>
                 <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (+OR)">🔀 OR</button>
                 <button type="button" class="pv-act-btn" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>↑</button>
                 <button type="button" class="pv-act-btn" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>↓</button>
@@ -1216,6 +1221,12 @@
               bodyHtml = `<div class="pv-qbody" data-act="p-edit-text" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit LaTeX' : ''}">${texToHtml(pt.tex)}</div>`;
             }
 
+            const partToolsHtml = (isStudio && !isEditing && parts.length > 1) ? `
+              <span class="pv-part-tools" title="Subpart actions">
+                <button type="button" class="pv-part-tool-btn" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Split this subpart into a new question">✂️ Split</button>
+                <button type="button" class="pv-part-tool-btn danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Delete subpart">✕</button>
+              </span>` : "";
+
             if (isDirect) {
               const pLbl = `${currentQnum} ${String.fromCharCode(97 + pIdx)})`;
               partsHtml += `
@@ -1223,6 +1234,7 @@
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
                   <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
+                  ${partToolsHtml}
                 </li>`;
             } else {
               const pLbl = formatPartLabel(partStyle, currentQnum, pIdx);
@@ -1233,6 +1245,7 @@
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
                   <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
+                  ${partToolsHtml}
                 </li>`;
             }
           });
@@ -2014,6 +2027,80 @@
             return;
           }
 
+          if (act === "q-split" && q) {
+            pushUndo();
+            if (q.parts && q.parts.length > 1) {
+              const [removed] = q.parts.splice(q.parts.length - 1, 1);
+              removed.label = "";
+              if (q.parts.length === 1) {
+                q.parts[0].label = "";
+              } else {
+                q.parts.forEach((p, idx) => { p.label = String.fromCharCode(97 + idx); });
+              }
+              sec.questions.splice(qIdx + 1, 0, {
+                id: "mq_" + Date.now(),
+                qno: "",
+                orAlternative: false,
+                parts: [removed]
+              });
+              saveMakerDoc(doc);
+              refreshStudio(qIdx + 1, null);
+              toast("Subpart split into a new question");
+            } else if (q.parts && q.parts.length === 1) {
+              const curM = parseFloat(q.parts[0].marks) || 10;
+              const m1 = Math.ceil(curM / 2);
+              const m2 = Math.floor(curM / 2);
+              q.parts[0].label = "a";
+              q.parts[0].marks = m1;
+              q.parts.push({
+                id: "pt_" + Date.now(),
+                label: "b",
+                marks: m2,
+                tex: "Show that the result holds in the general setting."
+              });
+              saveMakerDoc(doc);
+              refreshStudio(qIdx, null);
+              toast("Question split into subparts (a) and (b)");
+            }
+            return;
+          }
+
+          if (act === "q-join-prev" && qIdx > 0 && q) {
+            const prevQ = sec.questions[qIdx - 1];
+            if (prevQ && prevQ.parts) {
+              pushUndo();
+              if (prevQ.parts.length === 1 && !prevQ.parts[0].label) {
+                prevQ.parts[0].label = "a";
+              }
+              q.parts.forEach((pt) => {
+                pt.label = String.fromCharCode(97 + prevQ.parts.length);
+                prevQ.parts.push(pt);
+              });
+              sec.questions.splice(qIdx, 1);
+              saveMakerDoc(doc);
+              refreshStudio(qIdx - 1, null);
+              toast(`Merged into Question ${qIdx}`);
+            }
+            return;
+          }
+
+          if (act === "q-join-next" && qIdx < sec.questions.length - 1 && q) {
+            const nextQ = sec.questions[qIdx + 1];
+            if (nextQ && nextQ.parts) {
+              pushUndo();
+              const combined = [...q.parts, ...nextQ.parts];
+              combined.forEach((pt, i) => {
+                pt.label = String.fromCharCode(97 + i);
+              });
+              nextQ.parts = combined;
+              sec.questions.splice(qIdx, 1);
+              saveMakerDoc(doc);
+              refreshStudio(qIdx, null);
+              toast(`Merged into Question ${qIdx + 1}`);
+            }
+            return;
+          }
+
           if (act === "q-up" && qIdx > 0) {
             pushUndo();
             [sec.questions[qIdx], sec.questions[qIdx - 1]] = [sec.questions[qIdx - 1], sec.questions[qIdx]];
@@ -2039,20 +2126,70 @@
             return;
           }
 
-          if (act === "p-split" && q && pIdx > 0) {
+          if (act === "p-split" && q && q.parts && q.parts.length > 1) {
             pushUndo();
-            const removed = q.parts.splice(pIdx, 1)[0];
+            const splitIdx = (pIdx >= 0 && pIdx < q.parts.length) ? pIdx : (q.parts.length - 1);
+            const [removed] = q.parts.splice(splitIdx, 1);
             removed.label = "";
-            sec.questions.splice(qIdx + 1, 0, {
+            if (q.parts.length === 1) {
+              q.parts[0].label = "";
+            } else {
+              q.parts.forEach((p, idx) => { p.label = String.fromCharCode(97 + idx); });
+            }
+            const insertIdx = (splitIdx === 0) ? qIdx : (qIdx + 1);
+            sec.questions.splice(insertIdx, 0, {
               id: "mq_" + Date.now(),
               qno: "",
               orAlternative: false,
               parts: [removed]
             });
-            if (q.parts.length === 1) q.parts[0].label = "";
             saveMakerDoc(doc);
-            refreshStudio(qIdx + 1, null);
-            toast("Subpart split into standalone question");
+            refreshStudio(insertIdx, null);
+            toast("Subpart split into a new question");
+            return;
+          }
+
+          if (act === "p-move-prev" && q && pIdx >= 0 && qIdx > 0) {
+            const prevQ = sec.questions[qIdx - 1];
+            if (prevQ && prevQ.parts) {
+              pushUndo();
+              const [moved] = q.parts.splice(pIdx, 1);
+              if (prevQ.parts.length === 1 && !prevQ.parts[0].label) prevQ.parts[0].label = "a";
+              moved.label = String.fromCharCode(97 + prevQ.parts.length);
+              prevQ.parts.push(moved);
+              if (!q.parts.length) {
+                sec.questions.splice(qIdx, 1);
+              } else if (q.parts.length === 1) {
+                q.parts[0].label = "";
+              } else {
+                q.parts.forEach((p, idx) => { p.label = String.fromCharCode(97 + idx); });
+              }
+              saveMakerDoc(doc);
+              refreshStudio(qIdx - 1, null);
+              toast(`Subpart moved to Question ${qIdx}`);
+            }
+            return;
+          }
+
+          if (act === "p-move-next" && q && pIdx >= 0 && qIdx < sec.questions.length - 1) {
+            const nextQ = sec.questions[qIdx + 1];
+            if (nextQ && nextQ.parts) {
+              pushUndo();
+              const [moved] = q.parts.splice(pIdx, 1);
+              if (nextQ.parts.length === 1 && !nextQ.parts[0].label) nextQ.parts[0].label = "a";
+              nextQ.parts.unshift(moved);
+              nextQ.parts.forEach((p, idx) => { p.label = String.fromCharCode(97 + idx); });
+              if (!q.parts.length) {
+                sec.questions.splice(qIdx, 1);
+              } else if (q.parts.length === 1) {
+                q.parts[0].label = "";
+              } else {
+                q.parts.forEach((p, idx) => { p.label = String.fromCharCode(97 + idx); });
+              }
+              saveMakerDoc(doc);
+              refreshStudio(qIdx, null);
+              toast(`Subpart moved to Question ${qIdx + 1}`);
+            }
             return;
           }
 
@@ -2137,6 +2274,7 @@
 
         const sec = (doc.sections || [])[0];
         const q = sec && sec.questions[qIdx];
+        const totalQs = sec?.questions?.length || 0;
         const pEl = e.target.closest(".pv-part");
         const pIdx = pEl && pEl.dataset.pidx != null ? +pEl.dataset.pidx : -1;
         const hasParts = q && q.parts && q.parts.length > 1;
@@ -2148,6 +2286,8 @@
             <hr>
             <div style="font-size:11px;font-weight:700;color:var(--ink-3);padding:4px 12px;text-transform:uppercase">Subpart (${esc(ptLabel)})</div>
             <button type="button" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}">✂️ Split Part (${esc(ptLabel)}) into New Question</button>
+            ${qIdx > 0 ? `<button type="button" data-act="p-move-prev" data-qidx="${qIdx}" data-pidx="${pIdx}">⤴ Move Part (${esc(ptLabel)}) to Question ${qIdx}</button>` : ""}
+            ${qIdx < totalQs - 1 ? `<button type="button" data-act="p-move-next" data-qidx="${qIdx}" data-pidx="${pIdx}">⤵ Move Part (${esc(ptLabel)}) to Question ${qIdx + 2}</button>` : ""}
             <button type="button" class="danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}">🗑️ Delete Subpart (${esc(ptLabel)})</button>
           `;
         }
@@ -2163,11 +2303,15 @@
           <button type="button" data-act="q-replace" data-qidx="${qIdx}">🔍 Replace Question...</button>
           <button type="button" data-act="q-edit" data-qidx="${qIdx}">✏️ Edit LaTeX</button>
           <button type="button" data-act="q-add-part" data-qidx="${qIdx}">➕ Add Subpart</button>
+          <button type="button" data-act="q-split" data-qidx="${qIdx}">✂️ ${hasParts ? "Split Subpart into New Question" : "Split into Subparts (a) & (b)"}</button>
+          <hr>
+          <button type="button" data-act="q-join-prev" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>⤴ Add to Previous Question (Merge)</button>
+          <button type="button" data-act="q-join-next" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>⤵ Add to Next Question (Merge)</button>
           <button type="button" data-act="q-add-or" data-qidx="${qIdx}">🔀 Add Alternative (OR)</button>
           ${partSectionHtml}
           <hr>
-          <button type="button" data-act="q-up" data-qidx="${qIdx}">⬆️ Move Up</button>
-          <button type="button" data-act="q-down" data-qidx="${qIdx}">⬇️ Move Down</button>
+          <button type="button" data-act="q-up" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>⬆️ Move Up</button>
+          <button type="button" data-act="q-down" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>⬇️ Move Down</button>
           <hr>
           <button type="button" id="cm-undo" ${undoStack.length ? "" : "disabled"}>↶ Undo (Ctrl+Z)</button>
           <button type="button" id="cm-redo" ${redoStack.length ? "" : "disabled"}>↷ Redo (Ctrl+Y)</button>
@@ -2195,44 +2339,14 @@
 
           const act = btn.dataset.act;
           if (act) {
-            if (act === "p-split") {
-              const spIdx = +btn.dataset.pidx;
-              if (q && spIdx > 0) {
-                pushUndo();
-                const removed = q.parts.splice(spIdx, 1)[0];
-                removed.label = "";
-                sec.questions.splice(qIdx + 1, 0, {
-                  id: "mq_" + Date.now(),
-                  qno: "",
-                  orAlternative: false,
-                  parts: [removed]
-                });
-                if (q.parts.length === 1) q.parts[0].label = "";
-                saveMakerDoc(doc);
-                refreshStudio(qIdx + 1, null);
-                toast("Subpart split into standalone question");
-              }
-              return;
-            }
-            if (act === "p-del-part") {
-              const dpIdx = +btn.dataset.pidx;
-              if (q && dpIdx >= 0) {
-                pushUndo();
-                q.parts.splice(dpIdx, 1);
-                if (!q.parts.length) sec.questions.splice(qIdx, 1);
-                else if (q.parts.length === 1) q.parts[0].label = "";
-                saveMakerDoc(doc);
-                refreshStudio(qIdx, null);
-                toast("Subpart removed");
-              }
-              return;
-            }
-            const targetBtn = canvasEl.querySelector(`.pv-q[data-qidx="${qIdx}"] [data-act="${act}"]`);
-            if (targetBtn) {
-              targetBtn.click();
-            } else if (act === "q-edit") {
-              refreshStudio(qIdx, qIdx + "_0");
-            }
+            const fakeBtn = document.createElement("button");
+            fakeBtn.dataset.act = act;
+            fakeBtn.dataset.qidx = btn.dataset.qidx || qIdx;
+            if (btn.dataset.pidx != null) fakeBtn.dataset.pidx = btn.dataset.pidx;
+            fakeBtn.style.display = "none";
+            canvasEl.appendChild(fakeBtn);
+            fakeBtn.click();
+            fakeBtn.remove();
           }
         });
       });

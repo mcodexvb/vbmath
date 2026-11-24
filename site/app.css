@@ -462,8 +462,13 @@ details.more summary{cursor:pointer;font-weight:600}
 /* Composite question with subparts: 1. and (a) on the SAME first line */
 .a4 .pv-q-comp{display:grid;gap:6px}
 .a4 .pv-parts{list-style:none;padding-left:0;margin:0;display:grid;gap:8px}
-.a4 .pv-part{display:grid;grid-template-columns:30px 38px minmax(0,1fr) auto;gap:4px 6px;align-items:baseline}
-.a4 .pv-parts-direct .pv-part{grid-template-columns:52px minmax(0,1fr) auto}
+.a4 .pv-part{display:grid;grid-template-columns:30px 38px minmax(0,1fr) auto auto;gap:4px 6px;align-items:baseline}
+.a4 .pv-parts-direct .pv-part{grid-template-columns:52px minmax(0,1fr) auto auto}
+.pv-part-tools{display:none;align-items:center;gap:3px;margin-left:4px}
+.a4 .pv-q.is-selected .pv-part:hover .pv-part-tools{display:inline-flex}
+.pv-part-tool-btn{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:1px 6px;font:600 11.5px var(--f-ui);color:var(--ink-2);cursor:pointer;line-height:1.4;transition:all .12s}
+.pv-part-tool-btn:hover{background:var(--card);color:var(--accent);border-color:var(--accent)}
+.pv-part-tool-btn.danger:hover{color:#d32f2f;border-color:#d32f2f;background:#ffebee}
 .a4 .pv-part-lbl{font-weight:700;font-size:15.5px}
 .a4 .pv-q-total-row{display:flex;justify-content:flex-end;margin-top:2px}
 .a4 .pv-q-total{font-weight:700;font-size:14px;color:#222;text-align:right}
@@ -614,6 +619,7 @@ details.more summary{cursor:pointer;font-weight:600}
 .pv-q-floating-bar .pv-act-btn.pv-drag-handle:active{cursor:grabbing}
 .pv-q-floating-bar .pv-act-btn.pv-danger{color:#ff9090!important;background:rgba(255,70,70,.12);border-color:rgba(255,70,70,.25)}
 .pv-q-floating-bar .pv-act-btn.pv-danger:hover{color:#ffffff!important;background:#d32f2f;border-color:#d32f2f}
+.pv-q-floating-bar .pv-act-btn:disabled{opacity:0.35!important;cursor:not-allowed!important;pointer-events:none}
 
 /* Inline LaTeX editor */
 .pv-inline-editor{display:grid;gap:6px;width:100%;margin:4px 0}
