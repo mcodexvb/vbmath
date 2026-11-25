@@ -10,7 +10,7 @@ const clamp = value => Math.max(0, Math.min(1, value));
 const exhibits = [...laboratory, ...simulations, ...galleryFigures.map((figure, index) => ({...figure, index}))
   .filter(figure => !simulations.some(simulation => simulation.id === figure.id))];
 
-export function mountGallery(root, {copy, loadCodes, initial}) {
+export function mountGallery(root, {copy, loadCodes, initial, setFigure}) {
   const list = root.querySelector(".gallery-list");
   const plot = root.querySelector(".gallery-plot");
   const title = root.querySelector("#gallery-figure-title");
@@ -156,7 +156,7 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
         svg.append(marker);
       }
     }
-    history.replaceState(null, "", "?figure="+encodeURIComponent(exhibit.id));
+    setFigure(exhibit.id);
     source.textContent = "";
     codeStatus.textContent = "";
     if (details.open) showCode(index);
@@ -192,4 +192,8 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   details.addEventListener("toggle", () => { if (details.open) showCode(current); });
   copyButton.addEventListener("click", () => showCode(current,true));
   select(Math.max(0,exhibits.findIndex(figure => figure.id === initial)));
+  return () => {
+    cancelAnimationFrame(raf);
+    observer.disconnect();
+  };
 }
