@@ -107,7 +107,7 @@ function oscillator(ctx,back) {
   const starts=[[.25,0],[3.2,0],[-3,2],[0,-3.2]];
   const series=starts.map(seed=>{
     let state=seed;
-    return range(2350,()=>{const before=state;state=rk(state,.012,oscillatorVelocity);return before;});
+    return range(10002,()=>{const before=state;state=rk(state,.012,oscillatorVelocity);return before;});
   });
   series.forEach(path=>stroke(back,path.map(p),BLUE,1,.17));
   stroke(back,series[0].slice(-560).map(p),GOLD,1.2,.25);
@@ -128,7 +128,7 @@ function pendulum(ctx,back) {
   const bob=([a,b])=>[Math.sin(a)+Math.sin(b),-Math.cos(a)-Math.cos(b)];
   const series=[0,.001].map(delta=>{
     let state=[2.18,1.63+delta,0,0];
-    return range(2500,()=>{const before=state;state=rk(state,.01,pendulumVelocity);return before;});
+    return range(12002,()=>{const before=state;state=rk(state,.01,pendulumVelocity);return before;});
   });
   const pivot=p([0,0]);
   for (const r of [1,2]) {
@@ -158,7 +158,7 @@ function lorenz(ctx,back) {
   const project=([x,y,z])=>[x+.22*y,z];
   const series=[0,1e-9].map(delta=>{
     let state=[-8+delta,8,25];
-    return range(4100,()=>{const previous=state;state=rk(state,.007,lorenzVelocity);return previous;});
+    return range(17145,()=>{const previous=state;state=rk(state,.007,lorenzVelocity);return previous;});
   });
   const lines=series.map(run=>run.map(project));
   stroke(back,lines[0].slice(0,3900).map(p),FAINT,.85,.14);
@@ -190,7 +190,7 @@ function logistic(ctx,back) {
     const pos=P([r,0]);back.fillStyle="#aacbc9";back.font="15px system-ui";back.fillText(r.toFixed(1),pos[0]-11,455);
   }
   return time=>{
-    const r=2.8+1.2*time/21;
+    const r=2.8+1.2*time/120;
     let x=.413, spots=[];
     for(let i=0;i<1000;i++)x=r*x*(1-x);
     for(let i=0;i<64;i++){x=r*x*(1-x);spots.push(Math.round(x*500)/500);}
@@ -202,11 +202,11 @@ function logistic(ctx,back) {
 }
 
 export const simulations = [
-  {id:"cylinder-flow",title:"Flow around a cylinder",caption:"Follow tracer particles through an incompressible, inviscid flow. The colour field shows the local speed.",equation:"ϕ = U∞(r + a²/r) cos θ   ·   u = ∇ϕ",kind:"Potential flow",seconds:18,build:fluid},
-  {id:"double-pendulum",title:"Double pendulum",caption:"Two identical pendulums are released 0.001 radians apart. Watch how their paths separate.",equation:"Two coupled pendulums   ·   m₁ = m₂, ℓ₁ = ℓ₂, g = 9.81",kind:"Sensitivity to initial conditions",seconds:23,build:pendulum},
-  {id:"van-der-pol",title:"Van der Pol oscillator",caption:"Trajectories started inside and outside the limit cycle converge to the same periodic motion.",equation:"ẋ = y   ·   ẏ = μ(1 − x²)y − x",kind:"Dissipative dynamics",seconds:24,build:oscillator},
-  {id:"lorenz-attractor",title:"Lorenz attractor",caption:"Two trajectories start a billionth of a unit apart. Their separation is measured in the original three-dimensional coordinates.",equation:"ẋ = σ(y − x)   ·   ẏ = x(ρ − z) − y   ·   ż = xy − βz",kind:"Deterministic chaos",seconds:26,build:lorenz},
-  {id:"logistic-map",title:"Logistic bifurcation",caption:"Sweep the growth rate and watch the long-run values split into branches and spread through chaotic bands.",equation:"xₙ₊₁ = rxₙ(1 − xₙ)   ·   2.8 ≤ r ≤ 4",kind:"Period doubling",seconds:21,build:logistic},
+  {id:"cylinder-flow",title:"Flow around a cylinder",caption:"Follow tracer particles through an incompressible, inviscid flow. The colour field shows the local speed.",equation:"ϕ = U∞(r + a²/r) cos θ   ·   u = ∇ϕ",kind:"Potential flow",seconds:120,build:fluid},
+  {id:"double-pendulum",title:"Double pendulum",caption:"Two identical pendulums are released 0.001 radians apart. Watch how their paths separate.",equation:"Two coupled pendulums   ·   m₁ = m₂, ℓ₁ = ℓ₂, g = 9.81",kind:"Sensitivity to initial conditions",seconds:120,build:pendulum},
+  {id:"van-der-pol",title:"Van der Pol oscillator",caption:"Trajectories started inside and outside the limit cycle converge to the same periodic motion.",equation:"ẋ = y   ·   ẏ = μ(1 − x²)y − x",kind:"Dissipative dynamics",seconds:120,build:oscillator},
+  {id:"lorenz-attractor",title:"Lorenz attractor",caption:"Two trajectories start a billionth of a unit apart. Their separation is measured in the original three-dimensional coordinates.",equation:"ẋ = σ(y − x)   ·   ẏ = x(ρ − z) − y   ·   ż = xy − βz",kind:"Deterministic chaos",seconds:120,build:lorenz},
+  {id:"logistic-map",title:"Logistic bifurcation",caption:"Sweep the growth rate and watch the long-run values split into branches and spread through chaotic bands.",equation:"xₙ₊₁ = rxₙ(1 − xₙ)   ·   2.8 ≤ r ≤ 4",kind:"Period doubling",seconds:120,build:logistic},
 ];
 
 export function mountSimulation(plot, exhibit) {

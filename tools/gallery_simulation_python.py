@@ -112,7 +112,7 @@ def double(ax):
         return np.array([u,v,(-2*g*np.sin(a)+g*np.sin(b)*c-s*(v*v+u*u*c))/den,
                          (2*s*(u*u+g*np.cos(a))+v*v*s*c)/den])
 
-    states = np.array([integrate(rhs,[2.18,1.63+d,0,0],.01,2499) for d in (0,.001)])
+    states = np.array([integrate(rhs,[2.18,1.63+d,0,0],.01,12001) for d in (0,.001)])
     angles = states[:,:,:2]
     first = np.stack((np.sin(angles[:,:,0]),-np.cos(angles[:,:,0])),axis=-1)
     ends = first + np.stack((np.sin(angles[:,:,1]),-np.cos(angles[:,:,1])),axis=-1)
@@ -139,7 +139,7 @@ def oscillator(ax):
         x,y = p
         return np.array([y,(1-x*x)*y-x])
 
-    runs = [integrate(rhs,seed,.012,2349) for seed in ([.25,0],[3.2,0],[-3,2],[0,-3.2])]
+    runs = [integrate(rhs,seed,.012,10001) for seed in ([.25,0],[3.2,0],[-3,2],[0,-3.2])]
     colors = ("#ffdc9d","#8edeee","#a2e4c8","#a2e4c8")
     tails, heads = [], []
     for run,c in zip(runs,colors):
@@ -164,7 +164,7 @@ def lorenz_pair(ax):
         x,y,z=p
         return np.array([10*(y-x),x*(28-z)-y,x*y-8*z/3])
 
-    states=[integrate(rhs,[-8+d,8,25],.007,4099) for d in (0,1e-9)]
+    states=[integrate(rhs,[-8+d,8,25],.007,17144) for d in (0,1e-9)]
     runs=[np.column_stack((s[:,0]+.22*s[:,1],s[:,2])) for s in states]
     ax.plot(*runs[0].T,color="#aacbc9",lw=.65,alpha=.2)
     colors=("#ffdc9d","#8edeee")
@@ -196,7 +196,7 @@ def bifurcation(ax):
     ax.set(xlim=(2.8,4),ylim=(0,1),xlabel="Growth rate r",ylabel="Long-run x")
 
     def update(time):
-        rate=2.8+1.2*time/21
+        rate=2.8+1.2*time/120
         x=.413
         for _ in range(1000):
             x=rate*x*(1-x)
@@ -214,11 +214,11 @@ def bifurcation(ax):
 
 def standalone_simulations():
     models=[
-        ("cylinder-flow","Flow around a cylinder",18,cylinder),
-        ("double-pendulum","Double pendulum",23,double),
-        ("van-der-pol","Van der Pol oscillator",24,oscillator),
-        ("lorenz-attractor","Lorenz attractor",26,lorenz_pair),
-        ("logistic-map","Logistic bifurcation",21,bifurcation),
+        ("cylinder-flow","Flow around a cylinder",120,cylinder),
+        ("double-pendulum","Double pendulum",120,double),
+        ("van-der-pol","Van der Pol oscillator",120,oscillator),
+        ("lorenz-attractor","Lorenz attractor",120,lorenz_pair),
+        ("logistic-map","Logistic bifurcation",120,bifurcation),
     ]
     prefix="# Install: python -m pip install numpy matplotlib\nimport numpy as np\n\n\n"
     return {

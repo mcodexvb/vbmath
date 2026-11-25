@@ -31,19 +31,14 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   const parameterPanel = root.querySelector('.gallery-parameters');
   const stage = root.querySelector('.gallery-stage');
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;}, {rootMargin:'100px'});observer.observe(stage);
-  const thumbs = [
-    '<path d="M70 150 Q40 50 110 40 Q180 40 160 100 L172 115 L157 122 Q168 160 130 157 L124 180 M80 180 L88 140 Q64 115 80 93 M112 85 L146 88 M130 90 L126 118 L143 120 M123 134 L149 133"/><circle cx="94" cy="103" r="60"/><circle cx="141" cy="118" r="20"/>',
-    '<path d="M5 75 C60 5 145 25 140 90 S55 160 69 105 S144 58 166 90 S200 195 235 120 M5 90 C60 20 126 35 124 90 S70 145 83 106 S138 75 151 95 S198 180 235 134 M5 105 C50 40 115 35 108 94 S85 130 99 107 S130 94 136 102 S200 160 235 148"/>',
-    '<path d="M10 110 C30 10 85 10 117 105 S202 205 226 108 S170 12 120 104 S30 202 10 110 M27 111 C43 43 75 40 117 105 S190 177 207 110 S170 40 120 104 S49 173 27 111"/>'
-  ];
 
   const buttons = exhibits.map((exhibit, index) => {
     const button = document.createElement("button");
     button.type = "button";
     const thumb = document.createElement('span'); thumb.className='gallery-thumbnail';
-    if(index < 3) {const img=document.createElement('img');img.src='/assets/gallery/'+exhibit.id+'.webp';img.alt='';img.loading='lazy';img.width=480;img.height=270;thumb.append(img);}
+    if(exhibit.build) {const img=document.createElement('img');img.src='/assets/gallery/'+exhibit.id+'.webp';img.alt='';img.loading='lazy';img.width=480;img.height=270;thumb.append(img);}
     else if(!exhibit.build) thumb.innerHTML=renderFigure(exhibit.index).graphic;
-    else thumb.innerHTML='<svg viewBox="0 0 240 210" aria-hidden="true">'+thumbs[exhibit.id==='cylinder-flow'?1:2]+'</svg>';
+
     const label=document.createElement('strong');label.textContent=exhibit.title;
     const kind=document.createElement('small');kind.textContent=exhibit.kind||'Mathematical construction';
     button.append(thumb,kind,label);
