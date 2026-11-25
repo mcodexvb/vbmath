@@ -1,4 +1,5 @@
-/preview/* /preview/index.html 200
+/preview/:paper/ /preview/?paper=:paper 302
+/preview/:paper /preview/?paper=:paper 302
 /maker/* /preview/index.html 200
 /papers/* /papers/index.html 200
 /exams/jam/ /exams/index.html 200

@@ -62,6 +62,7 @@
   function L(r) {
     if (HASH) return "#" + r;
     if (r === "home") return "/";
+    if (r.startsWith("preview-")) return "/preview/?paper=" + encodeURIComponent(r.slice(8));
     const m = r.match(/^(paper|semester|preview|maker|papers|exams|people)-(.+)$/);
     return m ? `/${m[1]}/${m[2]}/` : `/${r}/`;
   }
@@ -71,7 +72,9 @@
     if (HASH) s = (location.hash || "#home").slice(1).split("?")[0];
     else {
       const p = location.pathname.replace(/\/+$/, "").replace(/^\/+/, "");
-      if (!p) s = "home";
+      const paper = p === "preview" && routeParams().get("paper");
+      if (paper && /^[a-z0-9-]+$/.test(paper)) s = "preview-" + paper;
+      else if (!p) s = "home";
       else { const parts = p.split("/"); s = parts.length > 1 ? parts[0] + "-" + parts.slice(1).join("-") : parts[0]; }
     }
     return s || "home";
