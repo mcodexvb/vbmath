@@ -220,22 +220,26 @@
   window.__vbmMathReady = () => { $$('[data-pending-math="1"]').forEach((el) => { el.removeAttribute("data-pending-math"); typeset(el); }); };
 
   /* ---------- data ---------- */
-  function loadJSON(name) {
-    return fetch(BASE + "data/" + name + ".json").then((response) => {
+  function loadJSON(name, options) {
+    return fetch(BASE + "data/" + name + ".json", options).then((response) => {
       if (!response.ok) throw Error(name + " " + response.status);
       return response.json();
     });
   }
   let catalogueReady = false, questionsReady = false;
-  let catalogueRequest, questionRequest;
+  let catalogueRequest, questionRequest, academicPaperCount;
+  function setPapers(papers) {
+    D.papers = papers;
+    D.byKey = new Map(papers.map((paper, i) => [paper.key, i]));
+    D.years = Array.from(new Set(papers.map((p) => p.year))).sort();
+    D.codes = Array.from(new Set(papers.map((p) => p.code).filter(Boolean))).sort();
+  }
   function loadCatalogue() {
-    catalogueRequest ??= Promise.all(["papers", "scans", "content", "competitive-catalog"].map(loadJSON))
+    catalogueRequest ??= Promise.all(["papers", "scans", "content", "competitive-catalog"].map((name) => loadJSON(name)))
       .then(([papers, scans, content, competitive]) => {
-        D.papers = papers.papers.concat(competitive);
+        academicPaperCount = papers.papers.length;
+        setPapers(papers.papers.concat(competitive));
         D.topics = papers.topics; D.broad = papers.broad; D.scans = scans; D.C = content;
-        D.papers.forEach((paper, i) => D.byKey.set(paper.key, i));
-        D.years = Array.from(new Set(D.papers.map((p) => p.year))).sort();
-        D.codes = Array.from(new Set(D.papers.map((p) => p.code).filter(Boolean))).sort();
         D.scans.forEach((scan) => {
           const key = [scan.prog, scan.sem, scan.year, scan.kind].join("|");
           if (!D.scanIdx.has(key)) D.scanIdx.set(key, []);
@@ -246,11 +250,32 @@
     return catalogueRequest;
   }
   function load() {
-    questionRequest ??= Promise.all([loadCatalogue(), ...["questions", "competitive", "scholarship"].map(loadJSON)])
-      .then(([, rows, ...datasets]) => {
-        for (const dataset of datasets) {
-          rows.push(...dataset.questions.map(([index, ...q]) => [D.byKey.get(dataset.papers[index].key), ...q]));
+    const names = ["competitive", "scholarship"];
+    questionRequest ??= Promise.all([loadCatalogue(), loadJSON("questions"), ...names.map((name) => loadJSON(name))])
+      .then(async ([, academicQuestions, ...datasets]) => {
+        // A tab can keep an older catalogue in memory while fetching the current bank.
+        const academicPapers = D.papers.slice(0, academicPaperCount);
+        const fromCatalogue = D.papers.slice(academicPaperCount);
+        if (fromCatalogue.length) {
+          const counts = new Map(datasets.flatMap(({ papers }) => papers.map(({key, n}) => [key, n])));
+          if (fromCatalogue.some(({key, n}) => counts.get(key) !== n)) {
+            datasets = await Promise.all(names.map((name) => loadJSON(name, { cache: "reload" })));
+          }
         }
+
+        if (academicQuestions.some(([index]) => !academicPapers[index])) {
+          throw Error("The academic papers and questions are out of sync");
+        }
+        const papers = [...academicPapers], rows = [...academicQuestions];
+        for (const dataset of datasets) {
+          const offset = papers.length;
+          papers.push(...dataset.papers);
+          for (const [index, ...question] of dataset.questions) {
+            if (!dataset.papers[index]) throw Error("A competitive question points to an unknown paper");
+            rows.push([offset + index, ...question]);
+          }
+        }
+        setPapers(papers);
         indexQuestions(rows);
         questionsReady = true;
       }).catch((error) => { questionRequest = null; throw error; });
