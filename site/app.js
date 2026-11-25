@@ -361,11 +361,17 @@
       <div class="dlist">${qs.map((q, k) => { const p = D.papers[q.p]; return `<div class="ditem" data-id="${esc(q.id)}"><span class="n">${k + 1}.</span><div style="min-width:0"><div class="tx">${esc(plainOf(q.tex))}</div><div class="src">${esc(semLabel(p))} · ${p.year} · ${esc(pname(p))} · Q${esc(qLabel(q))}${q.marks != null ? " · " + esc(fmtMarks(q)) + " marks" : ""}</div></div>
         <div class="ctl"><button type="button" data-mv="${k}" data-d="-1" aria-label="Move up">${IC.up}</button><button type="button" data-mv="${k}" data-d="1" aria-label="Move down">${IC.down}</button><button type="button" data-rm="${esc(q.id)}" aria-label="Remove">${IC.x}</button></div></div>`; }).join("")}</div>
       <div class="dfoot">
-        <a class="btn btn-primary btn-block" href="${L("preview")}" data-close>${IC.file} Open Question Paper Studio</a>
+        <a class="btn btn-primary btn-block" href="${L("preview")}" data-close data-start-collection>${IC.file} Make paper from collection</a>
         <div class="r3"><button class="btn btn-ghost btn-sm" type="button" id="dcopy">${IC.copy} LaTeX</button><button class="btn btn-ghost btn-sm" type="button" id="dtxt">${IC.copy} Text</button><button class="btn btn-ghost btn-sm" type="button" id="dclear">${IC.trash} Clear</button></div>
       </div>` : `<div class="dempty"><p style="font:17px/1.6 var(--f-text);color:var(--ink-2)">Tap <b>Collect</b> on any question to add it here, like a cart.</p><p>Build an exam paper or practice sheet with composite questions (3+2 marks), choice rules (5 of 8), and custom marks.</p><p style="margin-top:12px;display:flex;gap:8px;justify-content:center"><a class="btn btn-primary btn-sm" href="${L("preview")}" data-close>Open Question Maker</a><a class="btn btn-ghost btn-sm" href="${L("search")}" data-close>Find questions</a></p></div>`}`;
     $("#dclose").onclick = closeDrawer;
-    $$("[data-close]", $("#drawer")).forEach((a) => a.addEventListener("click", closeDrawer));
+        $$("[data-close]", $("#drawer")).forEach((a) => a.addEventListener("click", closeDrawer));
+    $("[data-start-collection]", $("#drawer"))?.addEventListener("click", (event) => {
+      if (!event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+        saveMakerDoc(initDocFromColl());
+        toast("Paper started from your collection");
+      }
+    });
     $$("[data-mv]", $("#drawer")).forEach((b) => b.onclick = () => { const k = +b.dataset.mv, j = k + +b.dataset.d; if (j < 0 || j >= coll.length) return; [coll[k], coll[j]] = [coll[j], coll[k]]; store.set("basket", coll); renderDrawer(); });
     $$("[data-rm]", $("#drawer")).forEach((b) => b.onclick = () => { toggleColl(b.dataset.rm); renderDrawer(); });
     if ($("#dcopy")) {
@@ -501,106 +507,85 @@
     };
   }
 
-  function sampleMakerPaper() {
-    return {
-      header: {
-        inst: "VISVA-BHARATI",
-        dept: "Department of Mathematics",
-        exam: "B.Sc. (Honours) Examination, 2026",
-        paper: "Mathematics · Paper CC-1: Real Analysis & Calculus",
-        time: "Time: 2 Hours",
-        full: "50",
-        autoFull: true,
-        ruleType: "choice",
-        choiceX: 5,
-        choiceY: 8,
-        instr: "Candidates are required to give their answers in their own words as far as practicable. Answer any 5 out of 8 questions. Figures in the right margin indicate full marks.",
-        partStyle: "paren_alpha",
-        marksStyle: "parts_only"
-      },
-      sections: [
-        {
-          id: "sec_1",
-          title: "",
-          rule: "",
-          questions: [
-            {
-              id: "sq_1",
-              qno: "1",
-              orAlternative: false,
-              parts: [
-                { id: "sp_1_a", label: "a", marks: 5, tex: "If $\\lim_{x\\to a}f(x)=\\ell \\ne 0$, prove that in a deleted neighbourhood of $a$, $f(x)$ keeps the same sign as that of $\\ell$." },
-                { id: "sp_1_b", label: "b", marks: 5, tex: "Using $(\\varepsilon-\\delta)$ definition, evaluate $\\lim_{x\\to 0} \\frac{\\sin x}{x}$." }
-              ]
-            },
-            {
-              id: "sq_2",
-              qno: "2",
-              orAlternative: false,
-              parts: [
-                { id: "sp_2_a", label: "a", marks: 6, tex: "Prove that every monotone decreasing sequence which is bounded below is convergent and converges to its greatest lower bound." },
-                { id: "sp_2_b", label: "b", marks: 4, tex: "Test the convergence of the sequence whose $n$-th term is $x_n = \\frac{1}{\\sqrt{n^2+1}} + \\frac{1}{\\sqrt{n^2+2}} + \\cdots + \\frac{1}{\\sqrt{n^2+n}}$." }
-              ]
-            },
-            {
-              id: "sq_3",
-              qno: "3",
-              orAlternative: false,
-              parts: [
-                { id: "sp_3_a", label: "a", marks: 6, tex: "Prove that a sequence in $\\mathbb{R}$ is convergent if and only if it is a Cauchy sequence." },
-                { id: "sp_3_b", label: "b", marks: 4, tex: "Examine if the sequence $x_n = 1 - \\frac{1}{2} + \\frac{1}{3} - \\cdots + \\frac{(-1)^{n+1}}{n}$ is a Cauchy sequence." }
-              ]
-            },
-            {
-              id: "sq_4",
-              qno: "4",
-              orAlternative: false,
-              parts: [
-                { id: "sp_4_a", label: "a", marks: 5, tex: "State and prove Rolle's theorem on a closed interval $[a,b]$." },
-                { id: "sp_4_b", label: "b", marks: 3, tex: "Using Mean Value Theorem, show that $\\frac{x}{1+x} < \\ln(1+x) < x$ for all $x > 0$." },
-                { id: "sp_4_c", label: "c", marks: 2, tex: "Show that $2x^3 + 2x^2 - 10x + 6 > 0$ for all $x > 1$." }
-              ]
-            },
-            {
-              id: "sq_5",
-              qno: "5",
-              orAlternative: false,
-              parts: [
-                { id: "sp_5_a", label: "a", marks: 5, tex: "Define a derived set. Prove that the derived set of any bounded set in $\\mathbb{R}$ is bounded." },
-                { id: "sp_5_b", label: "b", marks: 5, tex: "Let $S$ be a bounded non-empty subset of $\\mathbb{R}$ and $T = \\{x-y : x,y \\in S\\}$. Prove that $\\sup T = \\sup S - \\inf S$ and $\\inf T = \\inf S - \\sup S$." }
-              ]
-            },
-            {
-              id: "sq_6",
-              qno: "6",
-              orAlternative: false,
-              parts: [
-                { id: "sp_6_a", label: "a", marks: 5, tex: "If $n$ is an even positive integer, establish the reduction formula for $\\int_0^{\\pi/2}\\sin^n x\\,dx$ and deduce its value." },
-                { id: "sp_6_b", label: "b", marks: 5, tex: "Evaluate $\\int_0^1 x^4(1-x)^3\\,dx$ using Beta and Gamma functions." }
-              ]
-            },
-            {
-              id: "sq_7",
-              qno: "7",
-              orAlternative: false,
-              parts: [
-                { id: "sp_7_a", label: "a", marks: 6, tex: "State necessary and sufficient condition for a bounded function $f:[a,b]\\to\\mathbb{R}$ to be Riemann integrable." },
-                { id: "sp_7_b", label: "b", marks: 4, tex: "Show that $f(x) = [x]$ is Riemann integrable on $[0,3]$ and compute $\\int_0^3 [x]\\,dx$." }
-              ]
-            },
-            {
-              id: "sq_8",
-              qno: "8",
-              orAlternative: false,
-              parts: [
-                { id: "sp_8_a", label: "a", marks: 5, tex: "State and prove Weierstrass M-test for uniform convergence of a series of functions." },
-                { id: "sp_8_b", label: "b", marks: 5, tex: "Test the uniform convergence of $\\sum_{n=1}^\\infty \\frac{x}{n(1+nx^2)}$ on $[0,1]$." }
-              ]
-            }
-          ]
+  function chooseSampleQuestions(pool, marks) {
+    const target = Math.round(marks * 100);
+    const reachable = new Map([[0, null]]);
+    const shuffled = [...pool];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    for (const question of shuffled) {
+      const points = Math.round(question.marks * 100);
+      if (points <= 0 || points > target) continue;
+      for (const subtotal of [...reachable.keys()]) {
+        const total = subtotal + points;
+        if (total <= target && !reachable.has(total)) reachable.set(total, {subtotal, question});
+      }
+      if (reachable.has(target)) {
+        const selected = [];
+        for (let total = target; total > 0;) {
+          const item = reachable.get(total);
+          selected.push(item.question);
+          total = item.subtotal;
         }
-      ]
+        return selected.reverse();
+      }
+    }
+    return [];
+  }
+
+  function openSamplePaper(onGenerate) {
+    const programmes = Object.entries({...PROG, ...EXAM});
+    const dialog = document.createElement("dialog");
+    dialog.className = "vbm-dialog";
+    dialog.setAttribute("aria-labelledby", "sample-title");
+    dialog.innerHTML = `<form class="vbm-dialog-form">
+      <h2 id="sample-title">Generate a sample paper</h2>
+      <label>Exam or programme <select name="exam" required>${programmes.map(([code, name]) => `<option value="${code}">${esc(name)}</option>`).join("")}</select></label>
+      <label>Source paper <select name="paper"></select></label>
+      <label>Total marks <input name="marks" type="number" min="0.01" max="500" step="0.01" value="50" required></label>
+      <p class="muted">Uses questions with known marks from the selected archive.</p>
+      <p class="sample-error" role="status"></p>
+      <div class="vbm-dialog-actions"><button type="button" class="btn btn-ghost" data-cancel>Cancel</button><button type="submit" class="btn btn-primary">Generate paper</button></div>
+    </form>`;
+    document.body.append(dialog);
+    const form = dialog.querySelector("form");
+    const {exam, paper, marks} = form.elements;
+    const feedback = $(".sample-error", dialog);
+    const populate = () => {
+      paper.replaceChildren(new Option("Any paper in this exam or programme", ""));
+      const candidates = D.papers.filter((p, i) => p.prog === exam.value && D.byPaper[i].some((q) => !q.stem && q.marks > 0));
+      candidates.sort((a, b) => b.year - a.year || paperLabel(a).localeCompare(paperLabel(b)));
+      candidates.forEach((p) => paper.add(new Option(`${p.year} · ${p.sem ? `Semester ${p.sem} · ` : ""}${paperLabel(p)}`, p.key)));
     };
+    exam.onchange = populate;
+    form.oninput = () => { feedback.textContent = ""; };
+    $("[data-cancel]", dialog).onclick = () => dialog.close();
+    dialog.addEventListener("close", () => dialog.remove(), {once:true});
+    form.onsubmit = (event) => {
+      event.preventDefault();
+      const selectedPaper = paper.value ? D.papers[D.byKey.get(paper.value)] : null;
+      const pool = D.Q.filter((q) => !q.stem && q.marks > 0 &&
+        (selectedPaper ? D.papers[q.p] === selectedPaper : D.papers[q.p].prog === exam.value));
+      const questions = chooseSampleQuestions(pool, marks.valueAsNumber);
+      if (!questions.length) {
+        feedback.textContent = "This selection cannot make that exact mark total. Change the total or choose another paper.";
+        return;
+      }
+      const label = EXAM[exam.value] || PROG[exam.value];
+      const sourceHead = selectedPaper ? paperHead(selectedPaper) : null;
+      const head = {...defaultMakerHead(), ...sourceHead,
+        ...(EXAM[exam.value] ? {inst: label, dept:""} : {}),
+        exam: sourceHead?.exam || label,
+        paper: selectedPaper ? `Sample paper · ${pname(selectedPaper)}` : "Sample question paper",
+        time: "", full: marks.value, autoFull: true, ruleType: "all" };
+      onGenerate(makeStudioDoc(questions, head, "sample"));
+      dialog.close();
+    };
+    populate();
+    dialog.showModal();
+    return dialog;
   }
 
   function formatPartLabel(style, qno, pIdx) {
@@ -686,35 +671,8 @@
   }
 
   function getMakerDoc() {
-    let doc = store.get("maker_doc", null);
-    if (!doc || !doc.sections || !doc.sections.length) {
-      doc = initDocFromColl();
-      store.set("maker_doc", doc);
-    } else {
-      // Sync any new collected items from coll that aren't yet in doc
-      const existingIds = new Set();
-      doc.sections.forEach((sec) => {
-        (sec.questions || []).forEach((q) => {
-          (q.parts || []).forEach((pt) => { if (pt.id) existingIds.add(pt.id); });
-        });
-      });
-      const missing = coll.filter((id) => !existingIds.has(id));
-      if (missing.length > 0) {
-        const sec = doc.sections[0] || (doc.sections[0] = { id: "sec_1", title: "", rule: "", questions: [] });
-        missing.forEach((id) => {
-          const q = D.byId.get(id);
-          if (!q) return;
-          sec.questions.push({
-            id: "mq_" + id,
-            qno: "",
-            orAlternative: false,
-            parts: [{ id: q.id, label: q.part || "", marks: q.marks != null ? q.marks : 5, tex: q.tex, sourcePaper: q.p }]
-          });
-        });
-        autoGroupQuestions(doc);
-        store.set("maker_doc", doc);
-      }
-    }
+    const doc = store.get("maker_doc", null);
+    if (!doc?.sections?.length) return initDocFromColl();
     calcDocStats(doc);
     return doc;
   }
@@ -722,36 +680,31 @@
   function saveMakerDoc(doc) {
     calcDocStats(doc);
     store.set("maker_doc", doc);
-    // sync coll with doc
-    const ids = [];
-    (doc.sections || []).forEach((sec) => {
-      (sec.questions || []).forEach((q) => {
-        (q.parts || []).forEach((pt) => { if (pt.id && D.byId.has(pt.id)) ids.push(pt.id); });
-      });
-    });
-    coll = ids;
-    saveColl();
   }
 
   function initDocFromColl() {
-    const qs = coll.map((id) => D.byId.get(id)).filter(Boolean);
-    const doc = {
-      header: defaultMakerHead(),
-      sections: [{ id: "sec_1", title: "", rule: "", questions: [] }]
-    };
-    if (!qs.length) return doc;
+    return makeStudioDoc(coll.map((id) => D.byId.get(id)).filter(Boolean),
+      {...defaultMakerHead(), exam: "Mathematics practice", paper: "Collected questions", time:"", ruleType:"all"},
+      "collection");
+  }
 
-    const sec = doc.sections[0];
-    qs.forEach((q) => {
-      sec.questions.push({
+  function makeStudioDoc(questions, header, source) {
+    const doc = {
+      source,
+      header,
+      sections: [{ id: "sec_1", title: "", rule: "", questions: questions.map((q) => ({
         id: "mq_" + q.id,
         qno: q.qno || "",
         orAlternative: false,
-        parts: [{ id: q.id, label: q.part || "", marks: q.marks != null ? q.marks : 5, tex: q.tex, sourcePaper: q.p }]
-      });
-    });
+        parts: [{ id: q.id, label: q.part || "", marks: q.marks ?? "", tex: q.tex, sourcePaper: q.p }]
+      })) }]
+    };
     autoGroupQuestions(doc);
     return doc;
+  }
+
+  function makerSourceLabel(doc) {
+    return {collection: "Collection", sample: "Sample paper", archive: "Archive paper"}[doc.source] || "Saved draft";
   }
 
   function autoGroupQuestions(doc) {
@@ -762,7 +715,7 @@
         const prev = grouped[grouped.length - 1];
         const p0 = q.parts && q.parts[0];
         const prevP0 = prev && prev.parts && prev.parts[0];
-        if (prev && p0 && prevP0 && p0.sourcePaper != null && p0.sourcePaper === prevP0.sourcePaper && q.qno && q.qno === prev.qno && !q.orAlternative && !prev.orAlternative) {
+        if (prev && p0?.label && prevP0?.label && p0.sourcePaper != null && p0.sourcePaper === prevP0.sourcePaper && q.qno && q.qno === prev.qno && !q.orAlternative && !prev.orAlternative) {
           prev.parts.push(...q.parts);
         } else {
           grouped.push(q);
@@ -1523,7 +1476,7 @@
   }
 
   /* ---------- preview (A4) & Question Paper Studio ---------- */
-  function renderSheetFromDoc(doc, isPastPaper, selectedQIdx, editingPartId) {
+  function renderSheetFromDoc(doc, isPastPaper, selectedQIdx, editingPartId, renumber = false) {
     const h = doc.header || defaultMakerHead();
     const stats = calcDocStats(doc);
     const partStyle = h.partStyle || "paren_alpha";
@@ -1542,7 +1495,7 @@
         } else {
           overallQno++;
         }
-        const currentQnum = isStudio ? String(overallQno) : (q.qno || String(overallQno));
+        const currentQnum = isStudio || renumber ? String(overallQno) : (q.qno || String(overallQno));
         const parts = q.parts || [];
         if (!parts.length) return;
 
@@ -1708,11 +1661,14 @@
       const qs = D.byPaper[pi];
       const doc = qsToDoc(qs, p);
       calcDocStats(doc);
+      const paperDescription = EXAM[p.prog] ? `${EXAM[p.prog]} · ${p.title}` :
+        `${pname(p)} ${p.year} · ${PROG[p.prog]} · Semester ${ROMAN[p.sem]}`;
       return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / <a href="${L("paper-" + p.key)}">${esc(pname(p))} ${p.year}</a> / Preview</div>
-        <div class="pagehead"><h1>Paper preview</h1><p class="lede">${esc(pname(p))} ${p.year} (${esc(PROG[p.prog])} Sem ${ROMAN[p.sem]}) — University format with grouped questions.</p></div>
+        <div class="pagehead"><h1>Paper preview</h1><p class="lede">${esc(paperDescription)}</p></div>
         <div class="pv-layout">
           <aside class="pv-side" aria-label="Paper actions">
-            <button class="btn btn-primary btn-block" type="button" id="pvprint">${IC.print} Print / Save as PDF</button>
+            <button class="btn btn-primary btn-block" type="button" id="pvpdf">${IC.dl} Download A4 PDF</button>
+            <button class="btn btn-ghost btn-block" type="button" id="pvprint">${IC.print} Print</button>
             <button class="btn btn-ghost btn-block" type="button" id="pv-customize">${IC.pen} Customize in Question Maker</button>
             <button class="btn btn-ghost btn-block" type="button" id="pvol">${IC.ext} Compile in Overleaf</button>
             <div class="two"><button class="btn btn-ghost btn-sm" type="button" id="pvtex">${IC.dl} .tex</button><button class="btn btn-ghost btn-sm" type="button" id="pvcopy">${IC.copy} LaTeX</button></div>
@@ -1736,6 +1692,7 @@
             <div class="studio-title-block">
               <h1 class="studio-title">${esc(h.paper || "Question Paper Studio")}</h1>
               <div class="studio-stats" id="studio-stats">
+                <span id="st-source">${makerSourceLabel(doc)}</span>
                 <span><b id="st-qcount">${stats.totalQuestions}</b> Questions</span>
                 <span>·</span>
                 <span><b id="st-choice">${stats.choiceX}</b> to answer</span>
@@ -1747,16 +1704,18 @@
             </div>
           </div>
           <div class="studio-bar-right">
-            <button class="btn btn-ghost btn-sm" type="button" id="m-theme-toggle" title="Switch light or dark theme">🌓 Theme</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="m-theme-toggle" title="Choose a website theme">🌓 Theme</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-undo" title="Undo (Ctrl+Z)" disabled style="opacity:0.45">↶ Undo</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-redo" title="Redo (Ctrl+Y)" disabled style="opacity:0.45">↷ Redo</button>
             <button class="btn btn-primary btn-sm" type="button" id="m-add-q">➕ Add Question</button>
             <button class="btn btn-ghost btn-sm" type="button" id="m-open-rules">⚙️ Exam &amp; Rules</button>
-            <button class="btn btn-ghost btn-sm" type="button" id="m-sample">📄 Sample Paper</button>
-            <button class="btn btn-ghost btn-sm" type="button" id="pvprint">${IC.print} Print / PDF</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="m-collection">Use collection</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="m-sample">Generate sample</button>
+            <button class="btn btn-primary btn-sm" type="button" id="pvpdf">${IC.dl} Download A4 PDF</button>
             <div class="dropdown-wrap" style="position:relative;display:inline-block">
               <button class="btn btn-ghost btn-sm" type="button" id="m-export-btn">🚀 Export ▾</button>
               <div class="studio-menu" id="m-export-menu" style="display:none">
+                <button type="button" id="pvprint">${IC.print} Print</button>
                 <button type="button" id="pvol">${IC.ext} Compile in Overleaf</button>
                 <button type="button" id="pvtex">${IC.dl} Download .tex</button>
                 <button type="button" id="pvcopy">${IC.copy} Copy LaTeX</button>
@@ -2074,6 +2033,46 @@
     };
   }
 
+  function bindPdf(getDoc, filename, renumber = false) {
+    const button = $("#pvpdf");
+    button.onclick = async () => {
+      if (!calcDocStats(getDoc()).totalQuestions) { toast("Add questions before downloading a PDF"); return; }
+      const markup = renderSheetFromDoc(getDoc(), true, null, null, renumber);
+      const label = button.innerHTML;
+      button.disabled = true;
+      button.textContent = "Preparing PDF?";
+      try {
+        const {downloadPaperPdf} = await import("./paper-pdf.mjs");
+        let containsRawLatex = false;
+        await downloadPaperPdf(markup, filename, async (sheet) => {
+          const original = new Map($$(".pv-qbody", sheet).map((body) => [body, body.innerHTML]));
+          typeset(sheet);
+          if (!window.MathJax?.typesetPromise) {
+            const script = $(`script[src="${MATH_SCRIPT}"]`);
+            if (!script) throw Error("Math rendering is unavailable.");
+            await new Promise((resolve, reject) => {
+              script.addEventListener("load", resolve, {once:true});
+              script.addEventListener("error", reject, {once:true});
+            });
+            await MathJax.startup.promise;
+          }
+          await mjQueue;
+          for (const [body, html] of original) {
+            if (!body.querySelector("mjx-merror,[data-mjx-error]")) continue;
+            body.innerHTML = html;
+            containsRawLatex = true;
+          }
+        });
+        if (containsRawLatex) toast("PDF downloaded. Unrendered formulas are shown as LaTeX.");
+      } catch (error) {
+        toast(error.message || "Unable to create the PDF. Try again.");
+      } finally {
+        button.disabled = false;
+        button.innerHTML = label;
+      }
+    };
+  }
+
   let studioEvents;
   function bindPreview(arg) {
     const pi = arg ? D.byKey.get(arg) : null;
@@ -2085,6 +2084,7 @@
       const doc = qsToDoc(qs, p);
       typeset($("#sheet"));
 
+      bindPdf(() => doc, p.key + ".pdf");
       $("#pvprint").onclick = () => { try { window.print(); } catch (e) {} };
       $("#pvol").onclick = () => overleaf(toLatex(doc));
       $("#pvtex").onclick = () => download((p ? p.key : "vbmath-paper") + ".tex", toLatex(doc));
@@ -2093,6 +2093,7 @@
       const custBtn = $("#pv-customize");
       if (custBtn) {
         custBtn.onclick = () => {
+          doc.source = "archive";
           saveMakerDoc(doc);
           if (HASH) go("preview");
           else { history.pushState({}, "", L("preview")); route(); }
@@ -2192,6 +2193,8 @@
         typeset(stage);
       }
 
+      $("#st-source").textContent = makerSourceLabel(doc);
+      $(".studio-title").textContent = doc.header.paper || "Question Paper Studio";
       const qCountEl = $("#st-qcount"); if (qCountEl) qCountEl.textContent = stats.totalQuestions;
       const choiceEl = $("#st-choice"); if (choiceEl) choiceEl.textContent = stats.choiceX;
       const fullEl = $("#st-fullmk"); if (fullEl) fullEl.textContent = doc.header.full || stats.fullMarks;
@@ -2234,16 +2237,21 @@
       rulesBtn.onclick = () => openExamRulesModal(doc, () => { pushUndo(); saveMakerDoc(doc); refreshStudio(); toast("Exam & Rules updated"); });
     }
 
-    const sampleBtn = $("#m-sample");
-    if (sampleBtn) {
-      sampleBtn.onclick = () => {
-        pushUndo();
-        doc = sampleMakerPaper();
-        saveMakerDoc(doc);
-        refreshStudio(null, null);
-        toast("Loaded standard 8-question university exam paper");
-      };
-    }
+    const startPaper = (nextDoc, message) => {
+      pushUndo();
+      doc = nextDoc;
+      saveMakerDoc(doc);
+      refreshStudio(null, null);
+      toast(message);
+    };
+    $("#m-collection").onclick = () => {
+      if (!coll.length) { toast("Your collection is empty. Collect questions from the archive first."); return; }
+      startPaper(initDocFromColl(), "Paper started from your collection");
+    };
+    $("#m-sample").onclick = () => {
+      const dialog = openSamplePaper((sample) => startPaper(sample, "Sample paper generated"));
+      signal.addEventListener("abort", () => { if (dialog.open) dialog.close(); }, {once:true});
+    };
 
     const exportBtn = $("#m-export-btn");
     const exportMenu = $("#m-export-menu");
@@ -2272,6 +2280,7 @@
     }
 
     // Export buttons
+    bindPdf(() => doc, "vbmath-exam-paper.pdf", true);
     $("#pvprint").onclick = () => { try { window.print(); } catch (e) {} };
     $("#pvol").onclick = () => overleaf(toLatex(doc));
     $("#pvtex").onclick = () => download("vbmath-exam-paper.tex", toLatex(doc));
@@ -3503,25 +3512,47 @@
       if (e.key === "/" && !/input|textarea|select/i.test(document.activeElement.tagName)) { e.preventDefault(); if (current() !== "search") Promise.resolve(go("search")).then(() => { setTimeout(() => $("#sq")?.focus(), 30); }); else $("#sq")?.focus(); }
     });
     const themeToggle = $("#theme");
-    const preferredDark = window.matchMedia("(prefers-color-scheme: dark)");
     const root = document.documentElement;
-    const isDark = () => root.dataset.theme ? root.dataset.theme === "dark" : preferredDark.matches;
-    const syncThemeToggle = () => {
-      const dark = isDark();
-      const label = dark ? "Switch to light theme" : "Switch to dark theme";
-      themeToggle.innerHTML = dark ? IC.sun : IC.moon;
-      themeToggle.setAttribute("aria-label", label);
-      themeToggle.title = label;
+    const themes = {system:"System", light:"Light", dark:"Dark", lab:"VBMath Lab"};
+    const applyTheme = (theme) => {
+      if (theme === "system") delete root.dataset.theme;
+      else root.dataset.theme = theme;
+      if (theme === "lab" && !$("#lab-theme-styles")) {
+        const stylesheet = document.createElement("link");
+        stylesheet.id = "lab-theme-styles";
+        stylesheet.rel = "stylesheet";
+        stylesheet.href = BASE + "lab-theme.css";
+        document.head.append(stylesheet);
+        const backdrop = document.createElement("div");
+        backdrop.className = "lab-ambient";
+        backdrop.setAttribute("aria-hidden", "true");
+        backdrop.innerHTML = "<i></i><i></i><i></i>";
+        document.body.prepend(backdrop);
+      }
+      themeToggle.innerHTML = theme === "lab" ? IC.grid : theme === "dark" ? IC.moon : IC.sun;
+      themeToggle.setAttribute("aria-label", "Website theme");
+      themeToggle.title = "Theme: " + themes[theme];
     };
-    const savedTheme = store.get("theme", "");
-    if (savedTheme === "light" || savedTheme === "dark") root.dataset.theme = savedTheme;
-    syncThemeToggle();
-    preferredDark.addEventListener("change", syncThemeToggle);
-    themeToggle.addEventListener("click", () => {
-      root.dataset.theme = isDark() ? "light" : "dark";
-      store.set("theme", root.dataset.theme);
-      syncThemeToggle();
-    });
+    const savedTheme = store.get("theme", "system");
+    applyTheme(Object.hasOwn(themes, savedTheme) ? savedTheme : "system");
+    themeToggle.onclick = () => {
+      const dialog = document.createElement("dialog");
+      dialog.className = "vbm-dialog theme-dialog";
+      dialog.setAttribute("aria-label", "Website theme");
+      dialog.innerHTML = `<form method="dialog" class="vbm-dialog-form"><h2>Website theme</h2>
+        <div class="theme-options">${Object.entries(themes).map(([key, label]) =>
+          `<button class="btn btn-ghost" value="${key}" aria-pressed="${(root.dataset.theme || "system") === key}">${label}</button>`).join("")}</div>
+        <button class="btn btn-ghost" value="">Close</button></form>`;
+      document.body.append(dialog);
+      dialog.addEventListener("close", () => {
+        if (Object.hasOwn(themes, dialog.returnValue)) {
+          store.set("theme", dialog.returnValue);
+          applyTheme(dialog.returnValue);
+        }
+        dialog.remove();
+      }, {once:true});
+      dialog.showModal();
+    };
     if (HASH) window.addEventListener("hashchange", () => route());
     else window.addEventListener("popstate", () => route());
   }

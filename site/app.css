@@ -132,7 +132,7 @@ body:has(#app > .maker-studio){
   --shadow-l:0 20px 50px -18px rgba(0,0,0,.75);
 }
 @media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) body:has(#app > .maker-studio){
+  :root:not([data-theme]) body:has(#app > .maker-studio){
     --paper:#0F1412; --paper-2:#131A16; --card:#161D19; --card-2:#1B231F;
     --ink:#E8EDEA; --ink-2:#B3BFB8; --ink-3:#86948C;
     --rule:#26302B; --rule-2:#35413B;
@@ -1263,3 +1263,24 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 .yt-links a{font:600 13.5px/1 var(--f-ui);color:var(--green-ink);text-decoration:none;padding:6px 10px;border:1px solid var(--rule-2);border-radius:6px;background:var(--card)}
 .yt-links a:hover{border-color:var(--green-2);background:var(--green-tint)}
 @media (max-width:520px){.yt-row{grid-template-columns:1fr}}
+.vbm-dialog{width:min(540px,calc(100% - 28px));max-height:calc(100dvh - 28px);padding:0;background:var(--card);color:var(--ink);border:1px solid var(--rule-2);border-radius:16px;box-shadow:var(--shadow-l)}
+.vbm-dialog::backdrop{background:rgba(3,13,17,.64)}
+.vbm-dialog-form{display:grid;gap:14px;padding:clamp(16px,4vw,26px)}
+.vbm-dialog-form h2,.vbm-dialog-form p{margin:0}
+.vbm-dialog-form label{display:grid;gap:5px;font-weight:600}
+.vbm-dialog-form :is(select,input){width:100%;min-width:0}
+.vbm-dialog-actions,.theme-options{display:flex;flex-wrap:wrap;gap:8px}
+.vbm-dialog-actions{justify-content:flex-end}
+.theme-options .btn[aria-pressed=true]{border-color:var(--green);background:var(--green-soft)}
+.sample-error:empty{display:none}
+.sample-error{color:var(--amber-ink)}
+#st-source{color:var(--green-ink);font-weight:700}
+@media screen{.a4{aspect-ratio:210/297;min-height:0}}
+.pdf-export{position:absolute;left:-10000px;top:0;width:210mm;pointer-events:none;color:#111}
+.pdf-export .pdf-page{position:relative;display:block;width:210mm;height:297mm;max-width:none;min-height:0;aspect-ratio:auto;margin:0;padding:15mm;box-shadow:none;border:0;background:#fff;color:#111}
+.pdf-export .pdf-page>.paper-content{display:block}
+.pdf-export .pdf-question{display:flow-root}
+.pdf-export .pdf-question>.pv-or-div{list-style:none}
+.pdf-export .pdf-page mjx-container img{max-width:100%}
+.pdf-export .pdf-page .meta{display:flex;color:#111}
+.pdf-export .pdf-page :is(.pv-q,.pv-part,.sec-head){overflow-wrap:anywhere}
