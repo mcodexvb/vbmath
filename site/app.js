@@ -1573,14 +1573,16 @@
   }
 
   function viewGallery() {
-    return page("Resources", "Math Gallery", "Explore mathematical figures in motion and reproduce them in Python.",
+    return page("Resources", "Math Gallery", "Explore fluid flow, chaos, and mathematical constructions. Reproduce each exhibit in Python.",
       `<div class="gallery-layout" id="gallery">
         <aside aria-label="Gallery figures"><div class="gallery-list"></div></aside>
         <div class="gallery-main">
           <figure class="gallery-stage" aria-labelledby="gallery-figure-title">
-            <div class="daily-figure-label">Interactive figure</div>
+            <div class="daily-figure-label gallery-category">Interactive figure</div>
             <h2 id="gallery-figure-title">Loading figures…</h2>
             <div class="gallery-plot daily-figure-plot"></div>
+            <p class="gallery-equation"></p>
+            <p class="gallery-telemetry"></p>
             <figcaption class="gallery-caption"></figcaption>
             <div class="gallery-controls">
               <button type="button" class="btn btn-primary" data-gallery-play>Play</button>

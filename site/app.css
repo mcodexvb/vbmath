@@ -950,3 +950,12 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
   .gallery-list{grid-auto-flow:column;grid-auto-columns:max-content;overflow-x:auto}
   .gallery-list button{white-space:nowrap}
 }
+
+.gallery-stage .gallery-plot-simulation{min-height:0;display:block;overflow:hidden;background:radial-gradient(ellipse at 50% 43%,#192d32 0%,#0d1b20 78%);border-color:#46635f}
+.gallery-plot-simulation canvas{display:block;width:100%;height:auto;aspect-ratio:2}
+.gallery-equation,.gallery-telemetry{margin:10px 0 0;font-variant-numeric:tabular-nums}
+.gallery-equation{font:400 clamp(.95rem,1.7vw,1.25rem)/1.35 var(--f-editorial);color:#d4e4dd}
+.gallery-telemetry{min-height:2.6em;color:#ffdc9d;font:500 .86rem/1.3 var(--f-mono)}
+.gallery-equation:empty,.gallery-telemetry:empty{display:none}
+.gallery-list .gallery-simulation-option{font-weight:700;color:var(--green-ink)}
+.gallery-list .gallery-simulation-option::before{content:"";display:inline-block;width:6px;height:6px;margin:0 7px 2px 0;border-radius:50%;background:var(--logo-gold)}

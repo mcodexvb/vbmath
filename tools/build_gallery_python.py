@@ -259,12 +259,16 @@ EXHIBITS = [
 
 
 if __name__ == "__main__":
+    from gallery_simulation_python import standalone_simulations
+
     root = Path(__file__).resolve().parents[1]
     prefix = "# Install dependencies: python -m pip install numpy matplotlib\nimport numpy as np\n\n\n"
     runner = inspect.getsource(animate).rstrip()
     output = root / "site" / "data" / "gallery-python.json"
-    output.write_text(json.dumps({
+    scripts = {
         key: prefix + inspect.getsource(fn).rstrip() + "\n\n\n" + runner
         + f"\n\n\nif __name__ == '__main__':\n    animate({title!r}, {fn.__name__}(), equal={equal}, demo={fn.__name__!r})\n"
         for key,title,fn,equal in EXHIBITS
-    },ensure_ascii=False,separators=(",",":")) + "\n",encoding="utf-8")
+    }
+    scripts.update(standalone_simulations())
+    output.write_text(json.dumps(scripts,ensure_ascii=False,separators=(",",":")) + "\n",encoding="utf-8")

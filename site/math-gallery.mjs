@@ -1,15 +1,21 @@
 import {galleryFigures, renderFigure} from "./math-figures.mjs";
+import {mountSimulation, simulations} from "./gallery-simulations.mjs";
 
 const DURATION = 3300;
 const SCALE = 2.05;
 const SVG_NS = "http://www.w3.org/2000/svg";
 const clamp = value => Math.max(0, Math.min(1, value));
+const exhibits = [...simulations, ...galleryFigures.map((figure, index) => ({...figure, index}))
+  .filter(figure => !simulations.some(simulation => simulation.id === figure.id))];
 
 export function mountGallery(root, {copy, loadCodes, initial}) {
   const list = root.querySelector(".gallery-list");
   const plot = root.querySelector(".gallery-plot");
   const title = root.querySelector("#gallery-figure-title");
   const caption = root.querySelector(".gallery-caption");
+  const equation = root.querySelector(".gallery-equation");
+  const telemetry = root.querySelector(".gallery-telemetry");
+  const category = root.querySelector(".gallery-category");
   const play = root.querySelector("[data-gallery-play]");
   const replay = root.querySelector("[data-gallery-replay]");
   const timeline = root.querySelector("#gallery-timeline");
@@ -19,17 +25,20 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   const copyButton = root.querySelector("[data-gallery-copy]");
   const codeStatus = root.querySelector(".gallery-code-status");
   let current = 0, clock = 0, active = false, raf = 0, previous, tracks = [], marker;
+  let duration = DURATION, drawSimulation;
 
-  const buttons = galleryFigures.map(({title: label}, index) => {
+  const buttons = exhibits.map(({title: label, build}, index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.textContent = label;
+    if (build) button.className = "gallery-simulation-option";
     button.addEventListener("click", () => select(index));
     list.append(button);
     return button;
   });
 
   function paint(time) {
+    if (drawSimulation) telemetry.textContent = drawSimulation(time / 1000);
     const markerTrack = tracks.find(({node, delay, duration}) =>
       node.classList.contains("trajectory") && time >= delay && time < delay + duration);
     tracks.forEach(({node, delay, duration, draw, opacity}) => {
@@ -48,7 +57,7 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
     }
     timeline.value = String(Math.round(time));
     timeline.setAttribute("aria-valuetext", (time / 1000).toFixed(1) + " seconds");
-    elapsed.textContent = (time / 1000).toFixed(1) + " / 3.3 s";
+    elapsed.textContent = (time / 1000).toFixed(1) + " / " + duration / 1000 + " s";
   }
 
   function playing(on) {
@@ -61,47 +70,61 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
 
   function step(now) {
     if (!root.isConnected) return;
-    if (previous !== undefined && !document.hidden) clock = Math.min(DURATION, clock + Math.min(50, now - previous));
+    if (previous !== undefined && !document.hidden) clock = Math.min(duration, clock + Math.min(50, now - previous));
     previous = now;
     paint(clock);
-    if (clock >= DURATION) playing(false);
+    if (clock >= duration) playing(false);
     else raf = requestAnimationFrame(step);
   }
 
   function select(index) {
     playing(false);
     current = index;
-    const figure = renderFigure(index);
+    const exhibit = exhibits[index];
+    const figure = exhibit.build ? exhibit : renderFigure(exhibit.index);
     title.textContent = figure.title;
     caption.textContent = figure.caption;
-    plot.innerHTML = figure.graphic;
+    equation.textContent = exhibit.equation || "";
+    category.textContent = exhibit.kind || "Mathematical figure";
+    telemetry.textContent = "";
+    plot.classList.toggle("gallery-plot-simulation", Boolean(exhibit.build));
+    duration = exhibit.build ? exhibit.seconds * 1000 : DURATION;
+    timeline.max = String(duration);
+    drawSimulation = null;
+    tracks = [];
+    marker = null;
     buttons.forEach((button, i) => button.setAttribute("aria-pressed", String(i === current)));
-    const svg = plot.querySelector("svg");
-    tracks = [...svg.querySelectorAll(".draw,.reveal")].map(node => {
+    if (exhibit.build) {
+      drawSimulation = mountSimulation(plot, exhibit);
+    } else {
+      plot.innerHTML = figure.graphic;
+      const svg = plot.querySelector("svg");
+      tracks = [...svg.querySelectorAll(".draw,.reveal")].map(node => {
       const draw = node.classList.contains("draw");
       const opacity = Number.parseFloat(getComputedStyle(node).opacity);
       const delay = (parseFloat(node.style.getPropertyValue("--step")) || 0) * SCALE;
       const duration = (node.classList.contains("trajectory") ? 105 : draw ? 620 : 230) * SCALE;
       if (draw) node.style.strokeDasharray = "1 1";
       return {node, delay, duration, draw, opacity};
-    });
-    marker = null;
-    if (svg.querySelector(".trajectory")) {
-      marker = document.createElementNS(SVG_NS, "circle");
-      marker.setAttribute("class", "point gallery-trace-head");
-      marker.setAttribute("r", "3.2");
-      svg.append(marker);
+      });
+      if (svg.querySelector(".trajectory")) {
+        marker = document.createElementNS(SVG_NS, "circle");
+        marker.setAttribute("class", "point gallery-trace-head");
+        marker.setAttribute("r", "3.2");
+        svg.append(marker);
+      }
     }
     source.textContent = "";
+    codeStatus.textContent = "";
     if (details.open) showCode(index);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    clock = reduced ? DURATION : 0;
+    clock = reduced ? (exhibit.build ? duration * .62 : duration) : 0;
     paint(clock);
     if (!reduced) playing(true);
   }
 
   async function showCode(index, shouldCopy = false) {
-    const id = galleryFigures[index].id;
+    const id = exhibits[index].id;
     codeStatus.textContent = "Loading Python…";
     try {
       const codes = await loadCodes();
@@ -117,7 +140,7 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   }
 
   play.addEventListener("click", () => {
-    if (!active && clock >= DURATION) clock = 0;
+    if (!active && clock >= duration) clock = 0;
     playing(!active);
     paint(clock);
   });
@@ -125,5 +148,5 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   timeline.addEventListener("input", () => { playing(false); clock = Number(timeline.value); paint(clock); });
   details.addEventListener("toggle", () => { if (details.open) showCode(current); });
   copyButton.addEventListener("click", () => showCode(current,true));
-  select(Math.max(0,galleryFigures.findIndex(figure => figure.id === initial)));
+  select(Math.max(0,exhibits.findIndex(figure => figure.id === initial)));
 }
