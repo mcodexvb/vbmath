@@ -250,6 +250,16 @@ const figures = [
   ["Gibbs phenomenon", "Adding Fourier terms sharpens a square wave, while overshoot remains near the jump.", gibbs],
 ];
 
+const slug = title => title.normalize("NFD").replace(/[\u0300-\u036f’]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+export const galleryFigures = figures.map(([title, caption]) => ({id:slug(title), title, caption}));
+
+export function renderFigure(index) {
+  const {title, caption} = galleryFigures[index];
+  const draw = figures[index][2];
+  const graphic = tag("svg", {viewBox:"0 0 "+VIEW_WIDTH+" "+VIEW_HEIGHT,"aria-hidden":"true",focusable:"false"},draw());
+  return {title, caption, graphic};
+}
+
 const dayFormatter = new Intl.DateTimeFormat("en-GB", {timeZone:"Asia/Kolkata", year:"numeric", month:"numeric", day:"numeric"});
 const cycleStart = Date.UTC(2026,10,25);
 const dayMs = 86400000;
@@ -258,16 +268,14 @@ export function figureForDate(date = new Date()) {
   const parts = Object.fromEntries(dayFormatter.formatToParts(date).map(({type,value})=>[type,Number(value)]));
   const day = (Date.UTC(parts.year, parts.month-1, parts.day)-cycleStart)/dayMs;
   const index = ((day % figures.length)+figures.length)%figures.length;
-  const [title, caption, draw] = figures[index];
-  const graphic = tag("svg", {viewBox:"0 0 "+VIEW_WIDTH+" "+VIEW_HEIGHT,"aria-hidden":"true",focusable:"false"},draw());
-  return {title, caption, graphic};
+  return renderFigure(index);
 }
 
-export function mountDailyFigure(panel) {
+export function mountDailyFigure(panel, galleryLink = "/gallery/") {
   const {title, caption, graphic} = figureForDate();
   panel.innerHTML = '<div class="daily-figure-heading"><div><span class="daily-figure-label">Math figure of the day</span><h2 id="daily-figure-title">'+title+'</h2></div>'
     +'<button type="button" class="btn btn-ghost btn-sm daily-figure-replay">Replay</button></div>'
-    +'<div class="daily-figure-plot">'+graphic+'</div><figcaption>'+caption+'</figcaption>';
+    +'<div class="daily-figure-plot">'+graphic+'</div><figcaption>'+caption+' <a href="'+galleryLink+'">Open Math Gallery</a></figcaption>';
   panel.setAttribute("aria-labelledby","daily-figure-title");
   panel.removeAttribute("aria-busy");
   const plot = panel.querySelector(".daily-figure-plot");

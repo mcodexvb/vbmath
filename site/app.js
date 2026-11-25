@@ -804,7 +804,7 @@
       [figure, async () => {
         try {
           const {mountDailyFigure} = await import("./math-figures.mjs");
-          if (figure.isConnected) mountDailyFigure(figure);
+          if (figure.isConnected) mountDailyFigure(figure, L("gallery"));
         } catch {
           if (figure.isConnected) figure.hidden = true;
         }
@@ -1572,6 +1572,65 @@
       <section class="section"><div class="section-head"><h2>People behind it</h2></div><div class="grid g2">${Object.entries(C.credits).map(([k, v]) => `<div class="card"><h3>${esc(k)}</h3><p>${v.map(esc).join(", ")}</p></div>`).join("")}</div></section>`);
   }
 
+  function viewGallery() {
+    return page("Resources", "Math Gallery", "Explore mathematical figures in motion and reproduce them in Python.",
+      `<div class="gallery-layout" id="gallery">
+        <aside aria-label="Gallery figures"><div class="gallery-list"></div></aside>
+        <div class="gallery-main">
+          <figure class="gallery-stage" aria-labelledby="gallery-figure-title">
+            <div class="daily-figure-label">Interactive figure</div>
+            <h2 id="gallery-figure-title">Loading figures…</h2>
+            <div class="gallery-plot daily-figure-plot"></div>
+            <figcaption class="gallery-caption"></figcaption>
+            <div class="gallery-controls">
+              <button type="button" class="btn btn-primary" data-gallery-play>Play</button>
+              <button type="button" class="btn btn-ghost" data-gallery-replay>Replay</button>
+              <label class="sr" for="gallery-timeline">Animation timeline</label>
+              <input type="range" id="gallery-timeline" min="0" max="3300" value="0">
+              <span class="gallery-elapsed" aria-hidden="true"></span>
+            </div>
+          </figure>
+          <section class="gallery-python" aria-label="Python example">
+            <div class="gallery-python-head"><h2>Reproduce in Python</h2>
+              <button type="button" class="btn btn-ghost" data-gallery-copy>${IC.copy} Copy code</button></div>
+            <p>Install <code>numpy</code> and <code>matplotlib</code>, then run the script. Add <code>--gif figure.gif</code> to save the animation.</p>
+            <p class="gallery-code-status" role="status"></p>
+            <details class="gallery-code-details"><summary>View Python code</summary><pre><code class="gallery-code"></code></pre></details>
+          </section>
+        </div>
+      </div>`);
+  }
+  let galleryCodeRequest;
+  async function bindGallery() {
+    const root = $("#gallery");
+    try {
+      const {mountGallery} = await import("./math-gallery.mjs");
+      if (!root.isConnected) return;
+      mountGallery(root, {
+        initial: routeParams().get("figure"),
+        copy: code => copy(code, "Python code copied"),
+        loadCodes() {
+          galleryCodeRequest ??= loadJSON("gallery-python").catch(error => { galleryCodeRequest = null; throw error; });
+          return galleryCodeRequest;
+        },
+      });
+    } catch {
+      if (root.isConnected) root.innerHTML = '<p class="empty" role="status">Could not load the Math Gallery. Please reload to try again.</p>';
+    }
+  }
+  function viewMainulResources() {
+    const resources = [
+      ["Phase Plane Explorer", "Explore trajectories, nullclines, equilibria and time series of planar systems.", "https://mainul.pages.dev/tools/phase-plane/"],
+      ["Numerical mathematics tools", "Open Mainul’s collection of browser-based numerical methods.", "https://mainul.pages.dev/tools/numerical/"],
+      ["Research", "Read about mathematical ecology, nonlinear dynamics and bifurcation studies.", "https://mainul.pages.dev/research"],
+      ["Publications", "Browse Mainul’s papers and publication records.", "https://mainul.pages.dev/publications.html"],
+    ];
+    return page("Resources", "Mainul’s resources", "Mathematics tools and research from Dr. Mainul Hossain.",
+      `<div class="people-directory"><ul class="people-list">${resources.map(([label, detail, url]) =>
+        `<li class="people-record">${ext(url,label)}<p>${esc(detail)}</p></li>`).join("")}</ul>
+      <p>${ext("https://mainul.pages.dev/", "Mainul Hossain’s website")}</p></div>`);
+  }
+
   /* ---------- router ---------- */
   const ROUTES = {
     home: [viewHome, bindHome, "VBMath — Visva-Bharati Mathematics question papers, typed and searchable"],
@@ -1584,6 +1643,8 @@
       return routes;
     }, {}),
     lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
+    gallery: [viewGallery, bindGallery, "Math Gallery · VBMath"],
+    "mainul-resources": [viewMainulResources, null, "Mainul’s resources · VBMath"],
     websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
     ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), key === "alumni" ? bindAlumni : null, label + " · VBMath"]])),
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, bindNotes, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
@@ -1598,10 +1659,11 @@
     const r = current(), version = ++routeVersion;
     const dataset = Object.hasOwn(PEOPLE_DATA, r) ? PEOPLE_DATA[r] : null;
     const home = /^(?:home|basket|collection)$/.test(r);
+    const standalone = home || r === "gallery" || r === "mainul-resources";
     const needsBank = needsQuestions(r);
     homeObserver?.disconnect();
     homeObserver = null;
-    if (!home && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
+    if (!standalone && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
       if (needsBank && !questionsReady && lastRoute !== null) {
         $("#app").innerHTML = `<div class="loading" role="status">Loading the question bank…</div>`;
       }
@@ -1673,7 +1735,9 @@
         link("lectures", "Lectures &amp; Notes"),
         link("websites", "Useful Websites"),
         link("books", "Books"),
-      ], "notes learn books"),
+        link("gallery", "Math Gallery"),
+        link("mainul-resources", "Mainul’s resources"),
+      ], "notes learn books gallery mainul-resources"),
       link("syllabus", "Syllabus"),
       group("people", "People", [
         ...Object.entries(PEOPLE_LABELS).map(([key, label]) => link("people-" + key, label)),
