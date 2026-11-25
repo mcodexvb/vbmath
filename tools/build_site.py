@@ -1,5 +1,7 @@
 """Build site/data/*.json from data/questions.jsonl and the Drive scan index."""
 import json,re,os,sys,collections,datetime
+from pathlib import Path
+from build_home_data import write_home_data
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 R=[json.loads(l) for l in open(os.path.join(ROOT,'data/questions.jsonl'),encoding='utf-8')]
 TOP=json.load(open(os.path.join(ROOT,'data/topics.json'),encoding='utf-8'))
@@ -126,6 +128,7 @@ def competitive_dataset(name):
     return CP,CQ
 
 competitive=[competitive_dataset('competitive'), competitive_dataset('scholarship')]
+write_home_data(Path(OUT) / 'home.json', [(P,Q), *competitive], S)
 with open(f'{OUT}/competitive-catalog.json','w',encoding='utf-8') as f:
     json.dump([paper for papers,_ in competitive for paper in papers],f,ensure_ascii=False,separators=(',',':'))
     f.write('\n')

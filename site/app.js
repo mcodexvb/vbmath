@@ -192,10 +192,20 @@
   }
 
   /* ---------- MathJax ---------- */
+  const MATH_SCRIPT = "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js";
   let mjQueue = Promise.resolve();
   function typeset(el) {
     if (!el) return;
-    if (!window.MathJax || !MathJax.typesetPromise) { el.dataset.pendingMath = "1"; return; }
+    if (!window.MathJax?.typesetPromise) {
+      el.dataset.pendingMath = "1";
+      if (!$(`script[src="${MATH_SCRIPT}"]`)) {
+        const script = document.createElement("script");
+        script.src = MATH_SCRIPT;
+        script.addEventListener("error", () => script.remove(), {once:true});
+        document.head.appendChild(script);
+      }
+      return;
+    }
     mjQueue = mjQueue.then(() => MathJax.typesetPromise([el])).catch(() => {});
   }
   window.__vbmMathReady = () => { $$('[data-pending-math="1"]').forEach((el) => { el.removeAttribute("data-pending-math"); typeset(el); }); };
@@ -292,7 +302,11 @@
     if (k >= 0) coll.splice(k, 1); else coll.push(id);
     saveColl();
     const on = coll.includes(id);
-    $$(`.q[data-id="${CSS.escape(id)}"]`).forEach((card) => { card.classList.toggle("in", on); const b = $(".collect", card); if (b) b.classList.toggle("on", on); });
+    $$(`:is(.q,.qod)[data-id="${CSS.escape(id)}"]`).forEach((card) => {
+      card.classList.toggle("in", on);
+      const button = $(".collect", card);
+      if (button) { button.classList.toggle("on", on); button.setAttribute("aria-pressed", String(on)); }
+    });
     toast(on ? `Added · ${coll.length} in your collection` : "Removed from your collection");
   }
   async function openDrawer() {
@@ -360,8 +374,10 @@
   document.addEventListener("click", (e) => {
     const b = e.target.closest("[data-act]");
     if (b) {
-      const card = b.closest("[data-id]"); const q = card && D.byId.get(card.dataset.id); if (!q) return;
+      const card = b.closest("[data-id]"), q = card && D.byId.get(card.dataset.id);
       const act = b.dataset.act;
+      if (act === "collect" && card?.id === "qod") { toggleColl(card.dataset.id); return; }
+      if (!q) return;
       if (act === "copy") copy(q.tex, "LaTeX copied");
       if (act === "copytext") copy(plainOf(q.tex), "Text copied");
       if (act === "copyid") copy(q.id, "Question id copied");
@@ -697,10 +713,12 @@
     return (h >>> 0) % n;
   }
   const WAVE_UNUSED = `<svg class="wave" viewBox="0 0 170 50" aria-hidden="true"><path d="M4 34 C38 44 58 8 92 6 C116 4 128 16 166 8 C140 26 122 18 98 22 C64 28 50 50 4 34 Z" fill="#E8A62C"/></svg>`;
-  function viewHome() {
-    const nq = D.Q.filter((q) => !q.stem).length, yrs = D.years;
-    const pool = D.Q.filter((q) => !q.stem && q.marks >= 3 && q.tex.length > 60 && q.tex.length < 520 && !/tabular|verbatim/.test(q.tex));
-    const qod = pool[dayIndex(pool.length)], qp = D.papers[qod.p];
+  let homeRequest, homeObserver;
+  function loadHomeData() {
+    homeRequest ??= loadJSON("home").catch((error) => { homeRequest = null; throw error; });
+    return homeRequest;
+  }
+  function viewHomeArchive() {
     const S = seasonSems();
     const card = (pg, s, i) => {
       const ps = semPapers(pg, s), id = `sp${i}`;
@@ -714,46 +732,96 @@
     };
     const seasonList = S.B.map((s) => ["BSc", s]).concat(S.M.map((s) => ["MSc", s]));
     const tile = (pg, s) => { const n = semPapers(pg, s).length; return `<a class="${n ? "" : "none"}" href="${L("semester-" + pg.toLowerCase() + "-" + s)}" aria-label="${PSHORT[pg]} Semester ${ROMAN[s]}"><b>${ROMAN[s]}</b><small>${n ? n + " papers" : "None yet"}</small></a>`; };
-    return `<section class="hero-band"><div class="wrap">
-        <div class="hero">
-          <div>
-            <h1>Visva-Bharati Mathematics Question Papers</h1>
-            <p class="lede">B.Sc. and M.Sc. examination questions from ${yrs[0]} to ${yrs[yrs.length - 1]}, written in LaTeX, sorted by semester and topic, and linked to the original scans.</p>
-            <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
-            <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
-          </div>
-          <div class="hero-feature"><div class="hero-illustration" aria-hidden="true"></div><article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
-            <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(semLabel(qp))}, ${qp.year}</a></div>
-            <div class="qh"><span class="qn">Q${esc(qLabel(qod))}</span><span class="qsrc">${qp.title ? esc(qp.title) : ""}</span>${qod.marks != null ? `<span class="qmk">${esc(fmtMarks(qod))} marks</span>` : ""}</div>
-            <div class="qbody">${texToHtml(qod.tex)}</div>
-            <div class="qodf"><a class="btn btn-ghost btn-sm" href="${L("paper-" + qp.key)}">Open the paper</a><button type="button" class="qbtn collect${coll.includes(qod.id) ? " on" : ""}" data-act="collect"><span class="lbl-off">${IC.plus}</span><span class="lbl-on">${IC.check}</span><span class="lbl-off">Collect</span><span class="lbl-on">Collected</span></button></div>
-          </article></div>
-        </div>
-        <div class="statbar"><div><b>${nq.toLocaleString()}</b><span>questions</span></div><div><b>${D.papers.length}</b><span>typed papers</span></div><div><b>${D.scans.length}</b><span>original scans</span></div><div><b>${yrs[0]}–${yrs[yrs.length - 1]}</b><span>examination years</span></div></div>
-      </div></section>
-    <div class="wrap">
-      <section class="section"><div class="shead"><div><h2>Coming up: ${S.label}</h2><p>Pick a paper and a year, or open the semester to see every paper.</p></div><a class="more" href="${L("papers")}">All semesters</a></div>
+    return `<section class="section"><div class="shead"><div><h2>Coming up: ${S.label}</h2><p>Pick a paper and a year, or open the semester to see every paper.</p></div><a class="more" href="${L("papers")}">All semesters</a></div>
         <div class="season">${seasonList.map(([pg, s], i) => card(pg, s, i)).join("")}</div></section>
 
       <section class="section"><div class="shead"><h2>Every semester</h2></div>
         <div class="allsem">
           <div class="r"><span>B.Sc.</span><nav aria-label="B.Sc. semesters">${[1, 2, 3, 4, 5, 6, 7, 8].map((s) => tile("BSc", s)).join("")}</nav></div>
           <div class="r"><span>M.Sc.</span><nav class="m" aria-label="M.Sc. semesters">${[1, 2, 3, 4].map((s) => tile("MSc", s)).join("")}</nav></div>
-        </div></section>
-
+        </div></section>`;
+  }
+  function viewHome() {
+    return `<section class="hero-band"><div class="wrap">
+        <div class="hero">
+          <div>
+            <h1>Visva-Bharati Mathematics Question Papers</h1>
+            <p class="lede">B.Sc. and M.Sc. examination questions, written in LaTeX, sorted by semester and topic, and linked to the original scans.</p>
+            <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
+            <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
+          </div>
+          <div class="hero-feature"><div class="hero-illustration" aria-hidden="true"></div>
+            <article class="qod" id="home-daily">
+              <div class="qodh"><b>Question of the day</b></div>
+              <p class="muted">Loading today’s question…</p>
+            </article>
+          </div>
+        </div>
+        <div class="statbar" id="home-stats"></div>
+      </div></section>
+    <div class="wrap">
+      <div id="home-semesters"><section class="section"><div class="shead"><h2>Question papers by semester</h2><a class="more" href="${L("papers")}">All semesters</a></div></section></div>
       <section class="section"><div class="features">
-        <a class="feature" href="${L("topics")}"><span class="fi">${IC.grid || IC.search}</span><h3>Topics and trends</h3><p>${D.broad.length} areas and ${D.topics.length} topics, with how often each was examined year by year.</p><span class="go">Explore topics</span></a>
+        <a class="feature" href="${L("topics")}"><span class="fi">${IC.grid || IC.search}</span><h3>Topics and trends</h3><p>See how often each topic was examined year by year.</p><span class="go">Explore topics</span></a>
         <a class="feature" href="${L("preview")}" data-open-coll><span class="fi">${IC.file || IC.plus}</span><h3>Build a paper</h3><p>Collect questions from any year, reorder them, preview an A4 paper, then print it or take the LaTeX.</p><span class="go">Open your collection</span></a>
         <a class="feature" href="${L("contribute")}"><span class="fi">${IC.plus}</span><h3>Contribute</h3><p>Send scans, type a missing question, fix a topic or share a solution. A reviewer checks every change.</p><span class="go">Ways to help</span></a>
       </div></section>
     </div>`;
   }
+  function viewDailyQuestion(qp, qod) {
+    return `<article class="qod" id="qod" data-id="${esc(qod.id)}" aria-label="Question of the day">
+            <div class="qodh"><b>Question of the day</b><a href="${L("paper-" + qp.key)}">${esc(pname(qp))}, ${esc(semLabel(qp))}, ${qp.year}</a></div>
+            <div class="qh"><span class="qn">Q${esc(qLabel(qod))}</span><span class="qsrc">${qp.title ? esc(qp.title) : ""}</span>${qod.marks != null ? `<span class="qmk">${esc(fmtMarks(qod))} marks</span>` : ""}</div>
+            <div class="qbody">${texToHtml(qod.tex)}</div>
+            <div class="qodf"><a class="btn btn-ghost btn-sm" href="${L("paper-" + qp.key)}">Open the paper</a><button type="button" class="qbtn collect${coll.includes(qod.id) ? " on" : ""}" aria-pressed="${coll.includes(qod.id)}" data-act="collect"><span class="lbl-off">${IC.plus}</span><span class="lbl-on">${IC.check}</span><span class="lbl-off">Collect</span><span class="lbl-on">Collected</span></button></div>
+          </article>`;
+  }
   function bindHome() {
     $("#homeform").addEventListener("submit", (e) => { e.preventDefault(); F = defaultFilters(); F.q = $("#homeq").value.trim(); go("search"); });
     $$("[data-hint]").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.q = b.dataset.hint; go("search"); }));
     $$("[data-open-coll]").forEach((a) => a.addEventListener("click", (e) => { if (!coll.length) { e.preventDefault(); e.stopPropagation(); openDrawer(); } }, true));
-    const S = seasonSems(); S.B.map((s) => ["BSc", s]).concat(S.M.map((s) => ["MSc", s])).forEach(([pg, s], i) => { if ($(`#sp${i}-go`)) bindPicker(pg, s, `sp${i}`, `#sp${i}-go`); });
-    typeset($("#qod"));
+    const stats = $("#home-stats"), daily = $("#home-daily"), semesters = $("#home-semesters");
+    const dataRequest = loadHomeData();
+    dataRequest.then(({questions, papers, scans, years}) => {
+      if (!stats.isConnected) return;
+      const counts = [[questions.toLocaleString(), "questions"], [papers.toLocaleString(), "typed papers"], [scans.toLocaleString(), "original scans"], [years.join("–"), "examination years"]];
+      stats.innerHTML = counts.map(([value, label]) => `<div><b>${esc(value)}</b><span>${label}</span></div>`).join("");
+    }).catch(() => {});
+    const sections = new Map([
+      [daily, async () => {
+        try {
+          const {dailyQuestions} = await dataRequest;
+          if (!daily.isConnected) return;
+          const [paper, question] = dailyQuestions[dayIndex(dailyQuestions.length)];
+          daily.outerHTML = viewDailyQuestion(paper, question);
+          typeset($("#qod"));
+        } catch {
+          if (daily.isConnected) $(".muted", daily).innerHTML = `Today’s question is unavailable. <a href="${L("search")}">Browse questions</a>`;
+        }
+      }],
+      [semesters, async () => {
+        try { await loadCatalogue(); }
+        catch { return; } // The archive link remains available if the picker data fails.
+        if (!semesters.isConnected) return;
+        semesters.innerHTML = viewHomeArchive();
+        const S = seasonSems();
+        S.B.map((s) => ["BSc", s]).concat(S.M.map((s) => ["MSc", s])).forEach(([pg, s], i) => {
+          if ($(`#sp${i}-go`)) bindPicker(pg, s, `sp${i}`, `#sp${i}-go`);
+        });
+      }],
+    ]);
+    if (!("IntersectionObserver" in window)) {
+      sections.forEach((show) => show());
+      return;
+    }
+    homeObserver = new IntersectionObserver((entries, observer) => {
+      for (const {isIntersecting, target} of entries) {
+        if (!isIntersecting) continue;
+        observer.unobserve(target);
+        if (target.isConnected) sections.get(target)();
+      }
+    });
+    sections.forEach((_, target) => homeObserver.observe(target));
   }
 
   /* ---------- paper archives ---------- */
@@ -1503,15 +1571,22 @@
   };
   let lastRoute = null, routeVersion = 0;
   function needsQuestions(route) {
-    return /^(?:home|search|topics|basket|collection|paper-.+|preview(?:-.+)?)$/.test(route);
+    return /^(?:search|topics|paper-.+|preview(?:-.+)?)$/.test(route);
   }
   async function route(keepScroll) {
     const r = current(), version = ++routeVersion;
     const dataset = Object.hasOwn(PEOPLE_DATA, r) ? PEOPLE_DATA[r] : null;
-    if (!catalogueReady || (needsQuestions(r) && !questionsReady) || (dataset && !D[dataset])) {
+    const home = /^(?:home|basket|collection)$/.test(r);
+    const needsBank = needsQuestions(r);
+    homeObserver?.disconnect();
+    homeObserver = null;
+    if (!home && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
+      if (needsBank && !questionsReady && lastRoute !== null) {
+        $("#app").innerHTML = `<div class="loading" role="status">Loading the question bank…</div>`;
+      }
       try {
         await Promise.all([
-          needsQuestions(r) ? load() : loadCatalogue(),
+          needsBank ? load() : loadCatalogue(),
           dataset && !D[dataset] ? loadJSON(dataset).then((data) => { D[dataset] = data; }) : null,
         ]);
       }
