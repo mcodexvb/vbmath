@@ -760,7 +760,10 @@
             <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
           </div>
-          <div class="hero-feature"><div class="hero-illustration" aria-hidden="true"></div>
+          <div class="hero-feature"><figure class="daily-figure" id="home-figure" aria-busy="true">
+              <figcaption class="daily-figure-label">Math figure of the day</figcaption>
+              <div class="daily-figure-plot"></div>
+            </figure>
             <article class="qod" id="home-daily">
               <div class="qodh"><b>Question of the day</b></div>
               <p class="muted">Loading today’s question…</p>
@@ -790,7 +793,7 @@
     $("#homeform").addEventListener("submit", (e) => { e.preventDefault(); F = defaultFilters(); F.q = $("#homeq").value.trim(); go("search"); });
     $$("[data-hint]").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.q = b.dataset.hint; go("search"); }));
     $$("[data-open-coll]").forEach((a) => a.addEventListener("click", (e) => { if (!coll.length) { e.preventDefault(); e.stopPropagation(); openDrawer(); } }, true));
-    const stats = $("#home-stats"), daily = $("#home-daily"), semesters = $("#home-semesters");
+    const stats = $("#home-stats"), daily = $("#home-daily"), semesters = $("#home-semesters"), figure = $("#home-figure");
     const dataRequest = loadHomeData();
     dataRequest.then(({questions, papers, scans, years}) => {
       if (!stats.isConnected) return;
@@ -798,6 +801,14 @@
       stats.innerHTML = counts.map(([value, label]) => `<div><b>${esc(value)}</b><span>${label}</span></div>`).join("");
     }).catch(() => {});
     const sections = new Map([
+      [figure, async () => {
+        try {
+          const {mountDailyFigure} = await import("./math-figures.mjs");
+          if (figure.isConnected) mountDailyFigure(figure);
+        } catch {
+          if (figure.isConnected) figure.hidden = true;
+        }
+      }],
       [daily, async () => {
         try {
           const {dailyQuestions} = await dataRequest;
