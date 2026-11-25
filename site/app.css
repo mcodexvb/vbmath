@@ -679,6 +679,14 @@ details.more summary{cursor:pointer;font-weight:600}
 .crumbs{font-size:13.5px;margin-bottom:14px}
 #app h1,.hero h1{font-family:var(--f-editorial);font-weight:600;letter-spacing:-.037em}
 #app :is(.shead,.section-head) h2{font-family:var(--f-editorial);font-weight:600;letter-spacing:-.023em}
+.season-heading{align-items:end;gap:14px 20px;padding:clamp(16px,3vw,30px);
+  border:1px solid var(--rule);border-inline-start:4px solid var(--logo-gold);border-radius:14px;background:var(--archive-wash)}
+.season-heading h2{font-size:clamp(30px,4.2vw,48px);line-height:1.05;color:var(--ink)}
+.season-heading-kicker{display:block;margin-bottom:8px;color:var(--amber-ink);
+  font:700 .82rem/1.2 var(--f-ui);letter-spacing:.1em;text-transform:uppercase}
+.season-heading .season-heading-numbers{margin-top:8px;color:var(--green-ink);font-weight:700}
+.season-heading .btn{min-height:44px}
+.season-heading .ico{width:16px;height:16px}
 .editorial-heading{position:relative;display:flex;align-items:center;justify-content:space-between;gap:20px;
   isolation:isolate;overflow:hidden;min-height:142px;margin:0 0 24px;padding:clamp(19px,3.3vw,38px);
   background:var(--archive-wash);border:1px solid var(--rule);border-radius:18px}

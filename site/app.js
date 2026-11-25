@@ -705,7 +705,7 @@
   /* ---------- home ---------- */
   function seasonSems() {
     const m = new Date().getMonth() + 1;
-    return m >= 8 || m <= 1 ? { label: "odd semesters (I, III, V, VII)", B: [1, 3, 5, 7], M: [1, 3] } : { label: "even semesters (II, IV, VI, VIII)", B: [2, 4, 6, 8], M: [2, 4] };
+    return m >= 8 || m <= 1 ? { label: "Odd semesters", B: [1, 3, 5, 7], M: [1, 3] } : { label: "Even semesters", B: [2, 4, 6, 8], M: [2, 4] };
   }
   function dayIndex(n) {
     const d = new Date(), s = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
@@ -717,6 +717,16 @@
   function loadHomeData() {
     homeRequest ??= loadJSON("home").catch((error) => { homeRequest = null; throw error; });
     return homeRequest;
+  }
+  function viewSeasonHeading({label, B}) {
+    return `<header class="shead season-heading">
+      <div>
+        <h2><span class="season-heading-kicker">Coming up</span>${label}</h2>
+        <p class="season-heading-numbers">Semesters ${B.map((semester) => ROMAN[semester]).join(" · ")}</p>
+        <p>Pick a paper and a year, or open the semester to see every paper.</p>
+      </div>
+      <a class="btn btn-ghost" href="${L("papers")}">All semesters ${IC.arrow}</a>
+    </header>`;
   }
   function viewHomeArchive() {
     const S = seasonSems();
@@ -732,7 +742,7 @@
     };
     const seasonList = S.B.map((s) => ["BSc", s]).concat(S.M.map((s) => ["MSc", s]));
     const tile = (pg, s) => { const n = semPapers(pg, s).length; return `<a class="${n ? "" : "none"}" href="${L("semester-" + pg.toLowerCase() + "-" + s)}" aria-label="${PSHORT[pg]} Semester ${ROMAN[s]}"><b>${ROMAN[s]}</b><small>${n ? n + " papers" : "None yet"}</small></a>`; };
-    return `<section class="section"><div class="shead"><div><h2>Coming up: ${S.label}</h2><p>Pick a paper and a year, or open the semester to see every paper.</p></div><a class="more" href="${L("papers")}">All semesters</a></div>
+    return `<section class="section">${viewSeasonHeading(S)}
         <div class="season">${seasonList.map(([pg, s], i) => card(pg, s, i)).join("")}</div></section>
 
       <section class="section"><div class="shead"><h2>Every semester</h2></div>
@@ -760,7 +770,7 @@
         <div class="statbar" id="home-stats"></div>
       </div></section>
     <div class="wrap">
-      <div id="home-semesters"><section class="section"><div class="shead"><h2>Question papers by semester</h2><a class="more" href="${L("papers")}">All semesters</a></div></section></div>
+      <div id="home-semesters"><section class="section">${viewSeasonHeading(seasonSems())}</section></div>
       <section class="section"><div class="features">
         <a class="feature" href="${L("topics")}"><span class="fi">${IC.grid || IC.search}</span><h3>Topics and trends</h3><p>See how often each topic was examined year by year.</p><span class="go">Explore topics</span></a>
         <a class="feature" href="${L("preview")}" data-open-coll><span class="fi">${IC.file || IC.plus}</span><h3>Build a paper</h3><p>Collect questions from any year, reorder them, preview an A4 paper, then print it or take the LaTeX.</p><span class="go">Open your collection</span></a>
