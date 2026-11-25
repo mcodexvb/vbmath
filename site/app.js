@@ -74,6 +74,15 @@
     arrow: I('<path d="M5 12h14m-5-5 5 5-5 5"/>'),
     folder: I('<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>'),
     scan: I('<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><path d="M8 9h8M8 13h8M8 17h5"/>'),
+    grip: I('<circle cx="9" cy="6" r="1.3" fill="currentColor"/><circle cx="9" cy="12" r="1.3" fill="currentColor"/><circle cx="9" cy="18" r="1.3" fill="currentColor"/><circle cx="15" cy="6" r="1.3" fill="currentColor"/><circle cx="15" cy="12" r="1.3" fill="currentColor"/><circle cx="15" cy="18" r="1.3" fill="currentColor"/>'),
+    scissors: I('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>'),
+    mergeUp: I('<path d="m9 8 3-3 3 3"/><path d="M12 5v9a4 4 0 0 1-4 4H5"/>'),
+    mergeDown: I('<path d="m9 16 3 3 3-3"/><path d="M12 19V10a4 4 0 0 1 4-4h3"/>'),
+    branch: I('<path d="M16 3h5v5M4 20l17-17M21 16v5h-5M15 15l6 6M4 4l5 5"/>'),
+    chevronUp: I('<path d="m18 15-6-6-6 6"/>'),
+    chevronDown: I('<path d="m6 9 6 6 6-6"/>'),
+    undo: I('<path d="M3 7v6h6M3 13a9 9 0 0 1 15.4-4.6L21 11"/>'),
+    redo: I('<path d="M21 7v6h-6M21 13a9 9 0 0 0-15.4-4.6L3 11"/>'),
   };
 
   /* ---------- LaTeX → HTML (text mode), maths left for MathJax ---------- */
@@ -1146,20 +1155,23 @@
           floatingBarHtml = `
             <div class="pv-q-floating-bar" role="toolbar" aria-label="Question actions">
               <div class="pv-q-bar-left">
-                <span class="pv-q-badge">Question ${esc(currentQnum)}</span>
-                <span class="pv-act-btn pv-drag-handle" title="Drag to reorder" draggable="true">⠿ Drag</span>
+                <span class="pv-q-badge" title="Question ${esc(currentQnum)}">Q${esc(currentQnum)}</span>
+                <span class="pv-act-btn pv-drag-handle" title="Drag to reorder" draggable="true">${IC.grip}<span>Drag</span></span>
               </div>
               <div class="pv-q-bar-right">
-                <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search a replacement question">🔍 Replace</button>
-                <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX">✏️ Edit</button>
-                <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add subpart (+Part)">➕ Part</button>
-                <button type="button" class="pv-act-btn" data-act="q-split" data-qidx="${qIdx}" title="${esc(splitTitle)}">✂️ Split</button>
-                <button type="button" class="pv-act-btn" data-act="q-join-prev" data-qidx="${qIdx}" title="Add to previous question (merge as subpart)" ${qIdx === 0 ? "disabled" : ""}>⤴ Add to Prev</button>
-                <button type="button" class="pv-act-btn" data-act="q-join-next" data-qidx="${qIdx}" title="Add to next question (merge as subpart)" ${qIdx === totalQs - 1 ? "disabled" : ""}>⤵ Add to Next</button>
-                <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (+OR)">🔀 OR</button>
-                <button type="button" class="pv-act-btn" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>↑</button>
-                <button type="button" class="pv-act-btn" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>↓</button>
-                <button type="button" class="pv-act-btn pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">🗑️</button>
+                <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search and replace question">${IC.search}<span>Replace</span></button>
+                <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX text">${IC.pen}<span>Edit</span></button>
+                <span class="pv-bar-sep" aria-hidden="true"></span>
+                <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add a subpart">${IC.plus}<span>Part</span></button>
+                <button type="button" class="pv-act-btn" data-act="q-split" data-qidx="${qIdx}" title="${esc(splitTitle)}">${IC.scissors}<span>Split</span></button>
+                <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (OR)">${IC.branch}<span>OR</span></button>
+                <span class="pv-bar-sep" aria-hidden="true"></span>
+                <button type="button" class="pv-act-btn" data-act="q-join-prev" data-qidx="${qIdx}" title="Add to previous question (merge as subpart)" ${qIdx === 0 ? "disabled" : ""}>${IC.mergeUp}<span>To Prev</span></button>
+                <button type="button" class="pv-act-btn" data-act="q-join-next" data-qidx="${qIdx}" title="Add to next question (merge as subpart)" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.mergeDown}<span>To Next</span></button>
+                <span class="pv-bar-sep" aria-hidden="true"></span>
+                <button type="button" class="pv-act-btn pv-act-icon" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>${IC.chevronUp}</button>
+                <button type="button" class="pv-act-btn pv-act-icon" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.chevronDown}</button>
+                <button type="button" class="pv-act-btn pv-act-icon pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">${IC.trash}</button>
               </div>
             </div>`;
         }
@@ -1223,8 +1235,8 @@
 
             const partToolsHtml = (isStudio && !isEditing && parts.length > 1) ? `
               <span class="pv-part-tools" title="Subpart actions">
-                <button type="button" class="pv-part-tool-btn" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Split this subpart into a new question">✂️ Split</button>
-                <button type="button" class="pv-part-tool-btn danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Delete subpart">✕</button>
+                <button type="button" class="pv-part-tool-btn" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Split this subpart into a new question">${IC.scissors}<span>Split</span></button>
+                <button type="button" class="pv-part-tool-btn danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Delete subpart">${IC.trash}</button>
               </span>` : "";
 
             if (isDirect) {
@@ -1356,8 +1368,11 @@
 
         <main class="studio-canvas">
           <div class="studio-hint-bar">
-            <span>💡 <b>Full-Page View:</b> Click any question to select it and reveal options (Replace, Edit LaTeX, Add Part, Drag, Delete).</span>
-            <span class="muted" style="font-size:12px">Click outside to deselect.</span>
+            <span style="display:inline-flex;align-items:center;gap:6px">
+              ${IC.check}
+              <span><b>Interactive Sheet:</b> Click any question to open its context bar (edit LaTeX, split, replace, or reorder).</span>
+            </span>
+            <span class="muted" style="font-size:11.5px">Click canvas to deselect</span>
           </div>
           <div class="pv-stage" id="studio-stage" style="background:transparent;border:0;padding:0;width:100%;display:flex;justify-content:center">
             ${renderSheetFromDoc(doc, false, null, null)}
@@ -2284,11 +2299,11 @@
           const ptLabel = q.parts[pIdx]?.label || String.fromCharCode(97 + pIdx);
           partSectionHtml = `
             <hr>
-            <div style="font-size:11px;font-weight:700;color:var(--ink-3);padding:4px 12px;text-transform:uppercase">Subpart (${esc(ptLabel)})</div>
-            <button type="button" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}">✂️ Split Part (${esc(ptLabel)}) into New Question</button>
-            ${qIdx > 0 ? `<button type="button" data-act="p-move-prev" data-qidx="${qIdx}" data-pidx="${pIdx}">⤴ Move Part (${esc(ptLabel)}) to Question ${qIdx}</button>` : ""}
-            ${qIdx < totalQs - 1 ? `<button type="button" data-act="p-move-next" data-qidx="${qIdx}" data-pidx="${pIdx}">⤵ Move Part (${esc(ptLabel)}) to Question ${qIdx + 2}</button>` : ""}
-            <button type="button" class="danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}">🗑️ Delete Subpart (${esc(ptLabel)})</button>
+            <div class="studio-cm-label">Subpart (${esc(ptLabel)})</div>
+            <button type="button" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.scissors}<span>Split Part (${esc(ptLabel)}) into New Question</span></button>
+            ${qIdx > 0 ? `<button type="button" data-act="p-move-prev" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeUp}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx}</span></button>` : ""}
+            ${qIdx < totalQs - 1 ? `<button type="button" data-act="p-move-next" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeDown}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx + 2}</span></button>` : ""}
+            <button type="button" class="danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.trash}<span>Delete Subpart (${esc(ptLabel)})</span></button>
           `;
         }
 
@@ -2300,23 +2315,23 @@
         menu.style.top = y + "px";
 
         menu.innerHTML = `
-          <button type="button" data-act="q-replace" data-qidx="${qIdx}">🔍 Replace Question...</button>
-          <button type="button" data-act="q-edit" data-qidx="${qIdx}">✏️ Edit LaTeX</button>
-          <button type="button" data-act="q-add-part" data-qidx="${qIdx}">➕ Add Subpart</button>
-          <button type="button" data-act="q-split" data-qidx="${qIdx}">✂️ ${hasParts ? "Split Subpart into New Question" : "Split into Subparts (a) & (b)"}</button>
+          <button type="button" data-act="q-replace" data-qidx="${qIdx}">${IC.search}<span>Replace Question...</span></button>
+          <button type="button" data-act="q-edit" data-qidx="${qIdx}">${IC.pen}<span>Edit LaTeX</span></button>
+          <button type="button" data-act="q-add-part" data-qidx="${qIdx}">${IC.plus}<span>Add Subpart</span></button>
+          <button type="button" data-act="q-split" data-qidx="${qIdx}">${IC.scissors}<span>${hasParts ? "Split Subpart into New Question" : "Split into Subparts (a) & (b)"}</span></button>
           <hr>
-          <button type="button" data-act="q-join-prev" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>⤴ Add to Previous Question (Merge)</button>
-          <button type="button" data-act="q-join-next" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>⤵ Add to Next Question (Merge)</button>
-          <button type="button" data-act="q-add-or" data-qidx="${qIdx}">🔀 Add Alternative (OR)</button>
+          <button type="button" data-act="q-join-prev" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>${IC.mergeUp}<span>Add to Previous Question (Merge)</span></button>
+          <button type="button" data-act="q-join-next" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.mergeDown}<span>Add to Next Question (Merge)</span></button>
+          <button type="button" data-act="q-add-or" data-qidx="${qIdx}">${IC.branch}<span>Add Alternative (OR)</span></button>
           ${partSectionHtml}
           <hr>
-          <button type="button" data-act="q-up" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>⬆️ Move Up</button>
-          <button type="button" data-act="q-down" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>⬇️ Move Down</button>
+          <button type="button" data-act="q-up" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>${IC.chevronUp}<span>Move Up</span></button>
+          <button type="button" data-act="q-down" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.chevronDown}<span>Move Down</span></button>
           <hr>
-          <button type="button" id="cm-undo" ${undoStack.length ? "" : "disabled"}>↶ Undo (Ctrl+Z)</button>
-          <button type="button" id="cm-redo" ${redoStack.length ? "" : "disabled"}>↷ Redo (Ctrl+Y)</button>
+          <button type="button" id="cm-undo" ${undoStack.length ? "" : "disabled"}>${IC.undo}<span>Undo</span><kbd>Ctrl+Z</kbd></button>
+          <button type="button" id="cm-redo" ${redoStack.length ? "" : "disabled"}>${IC.redo}<span>Redo</span><kbd>Ctrl+Y</kbd></button>
           <hr>
-          <button type="button" class="danger" data-act="q-del" data-qidx="${qIdx}">🗑️ Delete Question</button>
+          <button type="button" class="danger" data-act="q-del" data-qidx="${qIdx}">${IC.trash}<span>Delete Question</span><kbd>Del</kbd></button>
         `;
 
         document.body.appendChild(menu);

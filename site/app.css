@@ -466,9 +466,12 @@ details.more summary{cursor:pointer;font-weight:600}
 .a4 .pv-parts-direct .pv-part{grid-template-columns:52px minmax(0,1fr) auto auto}
 .pv-part-tools{display:none;align-items:center;gap:3px;margin-left:4px}
 .a4 .pv-q.is-selected .pv-part:hover .pv-part-tools{display:inline-flex}
-.pv-part-tool-btn{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:1px 6px;font:600 11.5px var(--f-ui);color:var(--ink-2);cursor:pointer;line-height:1.4;transition:all .12s}
+.pv-part-tool-btn{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;padding:2px 6px;height:22px;font:600 11px var(--f-ui);color:var(--ink-2);cursor:pointer;display:inline-flex;align-items:center;gap:3px;box-sizing:border-box;transition:all .12s}
+.pv-part-tool-btn .ico{width:11px;height:11px;stroke-width:2;color:var(--ink-3);flex-shrink:0}
 .pv-part-tool-btn:hover{background:var(--card);color:var(--accent);border-color:var(--accent)}
+.pv-part-tool-btn:hover .ico{color:var(--accent)}
 .pv-part-tool-btn.danger:hover{color:#d32f2f;border-color:#d32f2f;background:#ffebee}
+.pv-part-tool-btn.danger:hover .ico{color:#d32f2f}
 .a4 .pv-part-lbl{font-weight:700;font-size:15.5px}
 .a4 .pv-q-total-row{display:flex;justify-content:flex-end;margin-top:2px}
 .a4 .pv-q-total{font-weight:700;font-size:14px;color:#222;text-align:right}
@@ -535,20 +538,21 @@ details.more summary{cursor:pointer;font-weight:600}
   background: var(--card);
   border: 1px solid var(--rule);
   border-radius: 10px;
-  box-shadow: var(--shadow-l);
-  padding: 6px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.08);
+  padding: 5px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 210px;
+  gap: 1px;
+  z-index: 1000;
+  min-width: 220px;
   animation: fadein .1s ease-out;
 }
 .studio-context-menu button {
   background: none;
   border: none;
   border-radius: 6px;
-  padding: 7px 12px;
-  font: 500 13px var(--f-ui);
+  padding: 5px 9px;
+  font: 500 12.5px var(--f-ui);
   color: var(--ink);
   cursor: pointer;
   text-align: left;
@@ -557,20 +561,55 @@ details.more summary{cursor:pointer;font-weight:600}
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
-  transition: all .12s;
+  transition: all .1s;
+}
+.studio-context-menu button .ico {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+  color: var(--ink-2);
+  flex-shrink: 0;
 }
 .studio-context-menu button:hover {
   background: var(--paper-2);
+  color: var(--accent);
+}
+.studio-context-menu button:hover .ico {
   color: var(--accent);
 }
 .studio-context-menu button.danger:hover {
   color: #d32f2f;
   background: #ffebee;
 }
+.studio-context-menu button.danger:hover .ico {
+  color: #d32f2f;
+}
+.studio-context-menu button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.studio-context-menu button kbd {
+  margin-left: auto;
+  font: 400 10.5px var(--f-mono, monospace);
+  color: var(--ink-3);
+  background: var(--paper-2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--rule);
+}
 .studio-context-menu hr {
   border: 0;
   border-top: 1px solid var(--rule);
-  margin: 4px 0;
+  margin: 3px 0;
+}
+.studio-cm-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ink-3);
+  padding: 3px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 /* Full-Page Question Paper Studio */
@@ -593,7 +632,8 @@ details.more summary{cursor:pointer;font-weight:600}
 .studio-menu button.danger:hover{color:#d32f2f;background:#ffebee}
 
 .studio-canvas{flex:1;padding:24px 16px 80px;display:flex;flex-direction:column;align-items:center}
-.studio-hint-bar{width:min(810px,100%);margin-bottom:14px;background:rgba(30,120,60,.06);border:1px solid rgba(30,120,60,.18);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--ink-2);display:flex;align-items:center;justify-content:space-between;gap:8px;box-sizing:border-box}
+.studio-hint-bar{width:min(810px,100%);margin-bottom:10px;background:rgba(30,120,60,.06);border:1px solid rgba(30,120,60,.16);border-radius:8px;padding:6px 12px;font-size:12.5px;color:var(--ink-2);display:flex;align-items:center;justify-content:space-between;gap:8px;box-sizing:border-box}
+.studio-hint-bar .ico{width:14px;height:14px;stroke-width:2;color:var(--accent);flex-shrink:0}
 
 /* Interactive A4 Sheet Elements */
 .a4.studio-sheet{position:relative;padding-top:40px}
@@ -607,19 +647,26 @@ details.more summary{cursor:pointer;font-weight:600}
 .a4 .pv-q.pv-interactive.drag-over{outline:2px solid var(--accent);background:rgba(30,120,60,.08);box-shadow:0 0 0 4px rgba(30,120,60,.15)}
 
 /* Question action toolbar: rendered IN-FLOW at top of selected card so it NEVER overlaps any text */
-.pv-q-floating-bar{display:none;grid-column:1 / -1;align-items:center;justify-content:space-between;gap:6px;padding:6px 10px;margin:-4px -6px 12px -6px;border-radius:6px;background:#18231c;color:#ffffff;box-shadow:0 2px 10px rgba(0,0,0,.2);animation:fadein .12s ease-out;box-sizing:border-box;width:calc(100% + 12px)}
+.pv-q-floating-bar{display:none;grid-column:1 / -1;align-items:center;justify-content:space-between;gap:4px;padding:4px 8px;margin:-2px -6px 10px -6px;border-radius:8px;background:#141a16;border:1px solid rgba(255,255,255,.1);color:#ffffff;box-shadow:0 4px 18px rgba(0,0,0,.22);animation:fadein .12s ease-out;box-sizing:border-box;width:calc(100% + 12px)}
 .a4 .pv-q.pv-interactive.is-selected .pv-q-floating-bar{display:flex}
-.pv-q-bar-left{display:flex;align-items:center;gap:8px}
-.pv-q-bar-right{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
-.pv-q-badge{font:700 12px var(--f-ui);color:#7fcb9e;text-transform:uppercase;letter-spacing:0.5px}
+.pv-q-bar-left{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.pv-q-bar-right{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.pv-q-badge{display:inline-flex;align-items:center;padding:2px 6px;border-radius:4px;background:rgba(127,203,158,.16);border:1px solid rgba(127,203,158,.3);font:700 11.5px var(--f-mono,monospace);color:#7fcb9e;letter-spacing:.5px}
+.pv-bar-sep{display:inline-block;width:1px;height:14px;background:rgba(255,255,255,.14);margin:0 2px;flex-shrink:0}
 
-.pv-q-floating-bar .pv-act-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:3px 8px;font:600 12px var(--f-ui);color:#ffffff!important;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;transition:all .12s}
-.pv-q-floating-bar .pv-act-btn:hover{background:rgba(255,255,255,.2);color:#ffffff!important;border-color:rgba(255,255,255,.3)}
-.pv-q-floating-bar .pv-act-btn.pv-drag-handle{cursor:grab;color:#7fcb9e!important;background:rgba(127,203,158,.18);border:1px solid rgba(127,203,158,.35);font-weight:700}
+.pv-q-floating-bar .pv-act-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:5px;padding:2px 7px;height:25px;font:500 11.5px var(--f-ui);color:#e6ede8!important;cursor:pointer;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;box-sizing:border-box;transition:all .12s ease-out}
+.pv-q-floating-bar .pv-act-btn .ico{width:13px;height:13px;stroke-width:2;color:#a7c4b3;flex-shrink:0}
+.pv-q-floating-bar .pv-act-btn:hover{background:rgba(255,255,255,.16);color:#ffffff!important;border-color:rgba(255,255,255,.28)}
+.pv-q-floating-bar .pv-act-btn:hover .ico{color:#ffffff}
+.pv-q-floating-bar .pv-act-btn.pv-drag-handle{cursor:grab;color:#7fcb9e!important;background:rgba(127,203,158,.12);border-color:rgba(127,203,158,.26);font-weight:600}
+.pv-q-floating-bar .pv-act-btn.pv-drag-handle .ico{color:#7fcb9e}
 .pv-q-floating-bar .pv-act-btn.pv-drag-handle:active{cursor:grabbing}
-.pv-q-floating-bar .pv-act-btn.pv-danger{color:#ff9090!important;background:rgba(255,70,70,.12);border-color:rgba(255,70,70,.25)}
+.pv-q-floating-bar .pv-act-btn.pv-act-icon{padding:2px 5px;min-width:25px;justify-content:center}
+.pv-q-floating-bar .pv-act-btn.pv-danger{color:#ff9d9d!important;background:rgba(255,70,70,.1);border-color:rgba(255,70,70,.22)}
+.pv-q-floating-bar .pv-act-btn.pv-danger .ico{color:#ff9d9d}
 .pv-q-floating-bar .pv-act-btn.pv-danger:hover{color:#ffffff!important;background:#d32f2f;border-color:#d32f2f}
-.pv-q-floating-bar .pv-act-btn:disabled{opacity:0.35!important;cursor:not-allowed!important;pointer-events:none}
+.pv-q-floating-bar .pv-act-btn.pv-danger:hover .ico{color:#ffffff}
+.pv-q-floating-bar .pv-act-btn:disabled{opacity:.3!important;cursor:not-allowed!important;pointer-events:none}
 
 /* Inline LaTeX editor */
 .pv-inline-editor{display:grid;gap:6px;width:100%;margin:4px 0}
