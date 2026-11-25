@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en" data-router="path">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--HEAD-->
+<title>GATE Mathematics · Mathematics (MA), 2023 · VBMath</title>
+<meta name="description" content="65 questions from the VBMath transcription of GATE Mathematics · Mathematics (MA), 2023.">
+<link rel="canonical" href="https://vbmath.pages.dev/paper/gate-ma-2023/">
+<meta property="og:title" content="GATE Mathematics · Mathematics (MA), 2023 · VBMath">
+<meta property="og:description" content="65 questions from the VBMath transcription of GATE Mathematics · Mathematics (MA), 2023.">
+<meta property="og:url" content="https://vbmath.pages.dev/paper/gate-ma-2023/">
+<!--/HEAD-->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VBMath">
+<meta property="og:image" content="https://vbmath.pages.dev/assets/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0F1412" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.1">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]], processEscapes: true,
+    macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
+  svg: { fontCache: "global" },
+  options: { ignoreHtmlClass: "nomath" },
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+};
+</script>
+</head>
+<body>
+<a class="sr" href="#app">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" data-r="home" aria-label="VBMath home"><img class="logo logo-l" src="/assets/logo-stacked.svg" alt="VBMath" width="76" height="50"><img class="logo logo-d" src="/assets/logo-stacked-dark.svg" alt="VBMath" width="76" height="50"></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="/search/" data-r="search">Search</a>
+      <a href="/papers/" data-r="papers">Papers</a>
+      <a href="/topics/" data-r="topics">Topics</a>
+      <a href="/scans/" data-r="scans">Scans</a>
+      <a href="/exams/" data-r="exams">Competitive exams</a>
+      <div class="dd"><button class="navbtn" id="more-btn" type="button" aria-expanded="false" aria-controls="more-dd">Resources ▾</button>
+        <div class="dd-menu" id="more-dd" hidden>
+          <a href="/preview/" data-r="preview">Question Maker</a>
+          <a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a>
+          <a href="/learn/" data-r="learn">Videos &amp; websites</a><a href="/people/" data-r="people">People</a><a href="/guides/" data-r="guides">Guides: scholarships, admission, LaTeX, thesis</a>
+        </div></div>
+      <a href="/contribute/" data-r="contribute">Contribute</a>
+      <a href="/about/" data-r="about">About</a>
+    </nav>
+    <div class="tools">
+      <button class="iconbtn" id="collbtn" type="button" aria-label="Your collection" title="Your collection"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg><span class="badge coll-n" hidden>0</span></button>
+      <button class="iconbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Theme"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></button>
+      <button class="iconbtn menu-toggle" id="menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/exams/">Competitive exams</a></nav><header class="exam-head"><h1>GATE Mathematics · Mathematics (MA), 2023</h1></header><ol class="prerender"><li><b>1</b> <span class="qbody">The village was nestled in a green spot, \underline{\hspace{2cm}} the ocean and the hills.
+\begin{enumerate}[label=(\Alph*)]
+\item through
+\item in
+\item at
+\item between
+\end{enumerate}</span></li><li><b>2</b> <span class="qbody">Disagree : Protest : : Agree : \underline{\hspace{2cm}} (By word meaning)
+\begin{enumerate}[label=(\Alph*)]
+\item Refuse
+\item Pretext
+\item Recommend
+\item Refute
+\end{enumerate}</span></li><li><b>3</b> <span class="qbody">A `frabjous&#x27; number is defined as a 3 digit number with all digits odd, and no two adjacent digits being the same. For example, $137$ is a frabjous number, while $133$ is not. How many such frabjous numbers exist?
+\begin{enumerate}[label=(\Alph*)]
+\item $125$
+\item $720$
+\item $60$
+\item $80$
+\end{enumerate}</span></li><li><b>4</b> <span class="qbody">Which one among the following statements must be TRUE about the mean and the median of the scores of all candidates appearing for GATE 2023?
+\begin{enumerate}[label=(\Alph*)]
+\item The median is at least as large as the mean.
+\item The mean is at least as large as the median.
+\item At most half the candidates have a score that is larger than the median.
+\item At most half the candidates have a score that is larger than the mean.
+\end{enumerate}</span></li><li><b>5</b> <span class="qbody">In the given diagram, ovals are marked at different heights ($h$) of a hill. Which one of the following options P, Q, R, and S depicts the top view of the hill?\\[4pt]
+\emph{[Diagram note: Side profile of an asymmetric hill peaking at distance $\approx 0.22\text{ km}$ (height $\approx 0.78\text{ km}$), with a steep slope on the left ($0\text{ km}$ side) and a gentler, longer slope on the right (extending past $0.8\text{ km}$), with horizontal oval cross-sections at several altitudes. In the four top-view contour diagrams with $0\text{ km}$ on the left and distance increasing rightward: P has closely spaced contours on the right (peak shifted right); Q has closely spaced contours on the left near $0\text{ km}$ and wider spacing toward the right (peak shifted left); R has concentric symmetric contours; S has non-nested/offset contours shifted right.]}
+\begin{enumerate}[label=(\Alph*)]
+\item P
+\item Q
+\item R
+\item S
+\end{enumerate}</span></li><li><b>6</b> <span class="qbody">Residency is a famous housing complex with many well-established individuals among its residents. A recent survey conducted among the residents of the complex revealed that all of those residents who are well established in their respective fields happen to be academicians. The survey also revealed that most of these academicians are authors of some best-selling books.\\
+Based only on the information provided above, which one of the following statements can be logically inferred with certainty?
+\begin{enumerate}[label=(\Alph*)]
+\item Some residents of the complex who are well established in their fields are also authors of some best-selling books.
+\item All academicians residing in the complex are well established in their fields.
+\item Some authors of best-selling books are residents of the complex who are well established in their fields.
+\item Some academicians residing in the complex are well established in their fields.
+\end{enumerate}</span></li><li><b>7</b> <span class="qbody">Ankita has to climb $5$ stairs starting at the ground, while respecting the following rules:
+\begin{enumerate}
+
+  \item At any stage, Ankita can move either one or two stairs up.
+  \item At any stage, Ankita cannot move to a lower step.
+\end{enumerate}
+Let $F(N)$ denote the number of possible ways in which Ankita can reach the $N$th stair. For example, $F(1) = 1$, $F(2) = 2$, $F(3) = 3$. The value of $F(5)$ is \underline{\hspace{2cm}}.
+\begin{enumerate}[label=(\Alph*)]
+\item $8$
+\item $7$
+\item $6$
+\item $5$
+\end{enumerate}</span></li><li><b>8</b> <span class="qbody">The information contained in DNA is used to synthesize proteins that are necessary for the functioning of life. DNA is composed of four nucleotides: Adenine (A), Thymine (T), Cytosine (C), and Guanine (G). The information contained in DNA can then be thought of as a sequence of these four nucleotides: A, T, C, and G. DNA has coding and non-coding regions. Coding regions---where the sequence of these nucleotides are read in groups of three to produce individual amino acids---constitute only about $2\%$ of human DNA. For example, the triplet of nucleotides CCG codes for the amino acid glycine, while the triplet GGA codes for the amino acid proline. Multiple amino acids are then assembled to form a protein.\\
+Based only on the information provided above, which of the following statements can be logically inferred with certainty?
+\begin{itemize}
+
+  \item[(i)] The majority of human DNA has no role in the synthesis of proteins.
+  \item[(ii)] The function of about $98\%$ of human DNA is not understood.
+\end{itemize}
+\begin{enumerate}[label=(\Alph*)]
+\item only (i)
+\item only (ii)
+\item both (i) and (ii)
+\item neither (i) nor (ii)
+\end{enumerate}</span></li><li><b>9</b> <span class="qbody">Which one of the given figures P, Q, R and S represents the graph of the following function?
+\[
+  f(x) = \bigl|\,|x + 2| - |x - 1|\,\bigr|
+\]
+\emph{[Diagram note: Four piecewise-linear graphs are shown: P is constant at $3$ for $x \le -2$, decreases linearly to $0$ at $x = -0.5$, increases linearly to $3$ at $x = 1$, and stays constant at $3$ for $x \ge 1$; Q is $-3$ for $x \le -2$, rises linearly through $(-0.5, 0)$ to $3$ at $x = 1$, and stays at $3$; R rises linearly to the left of $x = -0.5$ (reaching $9$ at $x = -5$), hits $0$ at $x = -0.5$, rises to $3$ at $x = 1$, and stays at $3$; S descends linearly to $3$ at $x = -2$ and stays constant at $3$ for $x \ge -2$.]}
+\begin{enumerate}[label=(\Alph*)]
+\item P
+\item Q
+\item R
+\item S
+\end{enumerate}</span></li><li><b>10</b> <span class="qbody">An opaque cylinder is suspended in the path of a parallel beam of light, such that its shadow is cast on a screen oriented perpendicular to the direction of the light beam. The cylinder can be reoriented in any direction within the light beam. Under these conditions, which one of the shadows P, Q, R, and S is NOT possible?\\[4pt]
+\emph{[Diagram note: Four grey shadow shapes are shown: P is a solid circle; Q is a stadium/capsule shape (rectangle with two semicircular ends); R is a rectangle; S is a non-rectangular parallelogram with sharp acute and obtuse corners.]}
+\begin{enumerate}[label=(\Alph*)]
+\item P
+\item Q
+\item R
+\item S
+\end{enumerate}</span></li><li><b>11</b> <span class="qbody">Let $f, g : \mathbb{R}^2 \to \mathbb{R}$ be defined by
+\[
+  f(x, y) = x^2 - \frac{3}{2} x y^2 \quad \text{and} \quad g(x, y) = 4x^4 - 5x^2 y + y^2
+\]
+for all $(x, y) \in \mathbb{R}^2$. Consider the following statements:\\
+$P$: $f$ has a saddle point at $(0, 0)$.\\
+$Q$: $g$ has a saddle point at $(0, 0)$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item both $P$ and $Q$ are TRUE
+\item $P$ is FALSE but $Q$ is TRUE
+\item $P$ is TRUE but $Q$ is FALSE
+\item both $P$ and $Q$ are FALSE
+\end{enumerate}</span></li><li><b>12</b> <span class="qbody">Let $\mathbb{R}^3$ be a topological space with the usual topology and $\mathbb{Q}$ denote the set of rational numbers. Define the subspaces $X, Y, Z$ and $W$ of $\mathbb{R}^3$ as follows:
+\begin{align*}
+  X &amp;= \{(x, y, z) \in \mathbb{R}^3 : |x| + |y| + |z| \in \mathbb{Q}\}, \\
+  Y &amp;= \{(x, y, z) \in \mathbb{R}^3 : xyz = 1\}, \\
+  Z &amp;= \{(x, y, z) \in \mathbb{R}^3 : x^2 + y^2 + z^2 = 1\}, \\
+  W &amp;= \{(x, y, z) \in \mathbb{R}^3 : xyz = 0\}.
+\end{align*}
+Which of the following statements is correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $X$ is homeomorphic to $Y$
+\item $Z$ is homeomorphic to $W$
+\item $Y$ is homeomorphic to $W$
+\item $X$ is NOT homeomorphic to $W$
+\end{enumerate}</span></li><li><b>13</b> <span class="qbody">Let $P(x) = 1 + e^{2\pi i x} + 2 e^{3\pi i x}$, $x \in \mathbb{R}$, $i = \sqrt{-1}$. Then
+\[
+  \lim_{N \to \infty} \frac{1}{N} \sum_{k=0}^{N-1} P(k\sqrt{2})
+\]
+is equal to
+\begin{enumerate}[label=(\Alph*)]
+\item $0$
+\item $1$
+\item $3$
+\item $4$
+\end{enumerate}</span></li><li><b>14</b> <span class="qbody">Let $T : \mathbb{R}^3 \to \mathbb{R}^3$ be a linear transformation satisfying
+\[
+  T(1, 0, 0) = (0, 1, 1), \quad T(1, 1, 0) = (1, 0, 1) \quad \text{and} \quad T(1, 1, 1) = (1, 1, 2).
+\]
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $T$ is one-one but $T$ is NOT onto
+\item $T$ is one-one and onto
+\item $T$ is NEITHER one-one NOR onto
+\item $T$ is NOT one-one but $T$ is onto
+\end{enumerate}</span></li><li><b>15</b> <span class="qbody">Let $\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}$ and $f : \mathbb{D} \to \mathbb{C}$ be defined by
+\[
+  f(z) = z - 25z^3 + \frac{z^5}{5!} - \frac{z^7}{7!} + \frac{z^9}{9!} - \frac{z^{11}}{11!}.
+\]
+Consider the following statements:\\
+$P$: $f$ has three zeros (counting multiplicity) in $\mathbb{D}$.\\
+$Q$: $f$ has one zero in $\mathbb{U} = \{z \in \mathbb{C} : \frac{1}{2} &lt; |z| &lt; 1\}$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE but $Q$ is FALSE
+\item $P$ is FALSE but $Q$ is TRUE
+\item both $P$ and $Q$ are TRUE
+\item both $P$ and $Q$ are FALSE
+\end{enumerate}</span></li><li><b>16</b> <span class="qbody">Let $\mathcal{N} \subseteq \mathbb{R}$ be a non-measurable set with respect to the Lebesgue measure on $\mathbb{R}$. Consider the following statements:\\
+$P$: If $M = \{x \in \mathcal{N} : x \text{ is irrational}\}$, then $M$ is Lebesgue measurable.\\
+$Q$: The boundary of $\mathcal{N}$ has positive Lebesgue outer measure.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item both $P$ and $Q$ are TRUE
+\item $P$ is FALSE and $Q$ is TRUE
+\item $P$ is TRUE and $Q$ is FALSE
+\item both $P$ and $Q$ are FALSE
+\end{enumerate}</span></li><li><b>17</b> <span class="qbody">For $k \in \mathbb{N}$, let $E_k$ be a measurable subset of $[0, 1]$ with Lebesgue measure $\frac{1}{k^2}$. Define
+\[
+  E = \bigcap_{n=1}^{\infty} \bigcup_{k=n}^{\infty} E_k \quad \text{and} \quad F = \bigcup_{n=1}^{\infty} \bigcap_{k=n}^{\infty} E_k.
+\]
+Consider the following statements:\\
+$P$: Lebesgue measure of $E$ is equal to zero.\\
+$Q$: Lebesgue measure of $F$ is equal to zero.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item both $P$ and $Q$ are TRUE
+\item both $P$ and $Q$ are FALSE
+\item $P$ is TRUE but $Q$ is FALSE
+\item $Q$ is TRUE but $P$ is FALSE
+\end{enumerate}</span></li><li><b>18</b> <span class="qbody">Consider $\mathbb{R}^2$ with the usual Euclidean metric. Let
+\begin{align*}
+  X &amp;= \left\{\left(x, x \sin\frac{1}{x}\right) \in \mathbb{R}^2 : x \in (0, 1]\right\} \cup \{(0, y) \in \mathbb{R}^2 : -\infty &lt; y &lt; \infty\} \quad \text{and} \\
+  Y &amp;= \left\{\left(x, \sin\frac{1}{x}\right) \in \mathbb{R}^2 : x \in (0, 1]\right\} \cup \{(0, y) \in \mathbb{R}^2 : -\infty &lt; y &lt; \infty\}.
+\end{align*}
+Consider the following statements:\\
+$P$: $X$ is a connected subset of $\mathbb{R}^2$.\\
+$Q$: $Y$ is a connected subset of $\mathbb{R}^2$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item both $P$ and $Q$ are TRUE
+\item $P$ is FALSE and $Q$ is TRUE
+\item $P$ is TRUE and $Q$ is FALSE
+\item both $P$ and $Q$ are FALSE
+\end{enumerate}</span></li><li><b>19</b> <span class="qbody">Let $M = \begin{bmatrix} 4 &amp; -3 \\ 1 &amp; 0 \end{bmatrix}$. Consider the following statements:\\
+$P$: $M^8 + M^{12}$ is diagonalizable.\\
+$Q$: $M^7 + M^9$ is diagonalizable.\\
+Which of the following statements is correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE and $Q$ is FALSE
+\item $P$ is FALSE and $Q$ is TRUE
+\item Both $P$ and $Q$ are FALSE
+\item Both $P$ and $Q$ are TRUE
+\end{enumerate}</span></li><li><b>20</b> <span class="qbody">Let $C[0, 1] = \{f : [0, 1] \to \mathbb{R} : f \text{ is continuous}\}$. Consider the metric space $(C[0, 1], d_\infty)$, where
+\[
+  d_\infty(f, g) = \sup\{|f(x) - g(x)| : x \in [0, 1]\} \quad \text{for } f, g \in C[0, 1].
+\]
+Let $f_0(x) = 0$ for all $x \in [0, 1]$ and
+\[
+  X = \left\{f \in (C[0, 1], d_\infty) : d_\infty(f_0, f) \ge \frac{1}{2}\right\}.
+\]
+Let $f_1, f_2 \in C[0, 1]$ be defined by $f_1(x) = x$ and $f_2(x) = 1 - x$ for all $x \in [0, 1]$. Consider the following statements:\\
+$P$: $f_1$ is in the interior of $X$.\\
+$Q$: $f_2$ is in the interior of $X$.\\
+Which of the following statements is correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE and $Q$ is FALSE
+\item $P$ is FALSE and $Q$ is TRUE
+\item Both $P$ and $Q$ are FALSE
+\item Both $P$ and $Q$ are TRUE
+\end{enumerate}</span></li><li><b>21</b> <span class="qbody">Consider the metrics $\rho_1$ and $\rho_2$ on $\mathbb{R}$, defined by
+\[
+  \rho_1(x, y) = |x - y| \quad \text{and} \quad \rho_2(x, y) = \begin{cases} 0, &amp; \text{if } x = y, \\ 1, &amp; \text{if } x \ne y. \end{cases}
+\]
+Let $X = \{n \in \mathbb{N} : n \ge 3\}$ and $Y = \left\{n + \frac{1}{n} : n \in \mathbb{N}\right\}$. Define $f : X \cup Y \to \mathbb{R}$ by
+\[
+  f(x) = \begin{cases} 2, &amp; \text{if } x \in X, \\ 3, &amp; \text{if } x \in Y. \end{cases}
+\]
+Consider the following statements:\\
+$P$: The function $f : (X \cup Y, \rho_1) \to (\mathbb{R}, \rho_1)$ is uniformly continuous.\\
+$Q$: The function $f : (X \cup Y, \rho_2) \to (\mathbb{R}, \rho_1)$ is uniformly continuous.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE and $Q$ is FALSE
+\item $P$ is FALSE and $Q$ is TRUE
+\item both $P$ and $Q$ are FALSE
+\item both $P$ and $Q$ are TRUE
+\end{enumerate}</span></li><li><b>22</b> <span class="qbody">Let $T : \mathbb{R}^4 \to \mathbb{R}^4$ be a linear transformation and the null space of $T$ be the subspace of $\mathbb{R}^4$ given by
+\[
+  \{(x_1, x_2, x_3, x_4) \in \mathbb{R}^4 : 4x_1 + 3x_2 + 2x_3 + x_4 = 0\}.
+\]
+If $\operatorname{Rank}(T - 3I) = 3$, where $I$ is the identity map on $\mathbb{R}^4$, then the minimal polynomial of $T$ is
+\begin{enumerate}[label=(\Alph*)]
+\item $x(x - 3)$
+\item $x(x - 3)^3$
+\item $x^3(x - 3)$
+\item $x^2(x - 3)^2$
+\end{enumerate}</span></li><li><b>23</b> <span class="qbody">Let $C[0, 1]$ denote the set of all real valued continuous functions defined on $[0, 1]$ and $\|f\|_\infty = \sup\{|f(x)| : x \in [0, 1]\}$ for all $f \in C[0, 1]$. Let
+\[
+  X = \{f \in C[0, 1] : f(0) = f(1) = 0\}.
+\]
+Define $F : (C[0, 1], \|\cdot\|_\infty) \to \mathbb{R}$ by $F(f) = \int_0^1 f(t)\,dt$ for all $f \in C[0, 1]$. Denote $S_X = \{f \in X : \|f\|_\infty = 1\}$. Then the set $\{f \in X : F(f) = \|F\|\} \cap S_X$ has
+\begin{enumerate}[label=(\Alph*)]
+\item NO element
+\item exactly one element
+\item exactly two elements
+\item an infinite number of elements
+\end{enumerate}</span></li><li><b>24</b> <span class="qbody">Let $X$ and $Y$ be two topological spaces. A continuous map $f : X \to Y$ is said to be proper if $f^{-1}(K)$ is compact in $X$ for every compact subset $K$ of $Y$, where $f^{-1}(K)$ is defined by $f^{-1}(K) = \{x \in X : f(x) \in K\}$. Consider $\mathbb{R}$ with the usual topology. If $\mathbb{R} \setminus \{0\}$ has the subspace topology induced from $\mathbb{R}$ and $\mathbb{R} \times \mathbb{R}$ has the product topology, then which of the following maps is proper?
+\begin{enumerate}[label=(\Alph*)]
+\item $f : \mathbb{R} \setminus \{0\} \to \mathbb{R}$ defined by $f(x) = x$
+\item $f : \mathbb{R} \times \mathbb{R} \to \mathbb{R} \times \mathbb{R}$ defined by $f(x, y) = (x + y, y)$
+\item $f : \mathbb{R} \times \mathbb{R} \to \mathbb{R}$ defined by $f(x, y) = x$
+\item $f : \mathbb{R} \times \mathbb{R} \to \mathbb{R}$ defined by $f(x, y) = x^2 - y^2$
+\end{enumerate}</span></li><li><b>25</b> <span class="qbody">Consider the following Linear Programming Problem P:
+\begin{align*}
+  \text{Minimize} \quad &amp; 3x_1 + 4x_2 \\
+  \text{subject to} \quad &amp; x_1 - x_2 \le 1, \\
+  &amp; x_1 + x_2 \ge 3, \\
+  &amp; x_1 \ge 0, \quad x_2 \ge 0.
+\end{align*}
+The optimal value of the problem P is \underline{\hspace{2cm}}.</span></li><li><b>26</b> <span class="qbody">Let $u(x, t)$ be the solution of
+\begin{align*}
+  \frac{\partial^2 u}{\partial x^2} - \frac{1}{c^2} \frac{\partial^2 u}{\partial t^2} &amp;= 0, \quad x \in (-\infty, \infty), \quad t &gt; 0, \\
+  u(x, 0) &amp;= \sin x, \quad x \in (-\infty, \infty), \\
+  \frac{\partial u}{\partial t}(x, 0) &amp;= \cos x, \quad x \in (-\infty, \infty),
+\end{align*}
+for some positive real number $c$. Let the domain of dependence of the solution $u$ at the point $P(3, 2)$ be the line segment on the $x$-axis with end points $Q$ and $R$. If the area of the triangle $PQR$ is $8$ square units, then the value of $c^2$ is \underline{\hspace{2cm}}.</span></li><li><b>27</b> <span class="qbody">Let
+\[
+  \frac{z}{1 - z - z^2} = \sum_{n=0}^{\infty} a_n z^n, \quad a_n \in \mathbb{R}
+\]
+for all $z$ in some neighbourhood of $0$ in $\mathbb{C}$. Then the value of $a_6 + a_5$ is equal to \underline{\hspace{2cm}}.</span></li><li><b>28</b> <span class="qbody">Let $p(x) = x^3 - 2x + 2$. If $q(x)$ is the interpolating polynomial of degree less than or equal to $4$ for the data
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+$x$ &amp; $-2$ &amp; $-1$ &amp; $0$ &amp; $1$ &amp; $3$ \\
+\hline
+$q(x)$ &amp; $p(-2)$ &amp; $p(-1)$ &amp; $2.5$ &amp; $p(1)$ &amp; $p(3)$ \\
+\hline
+\end{tabular}
+\end{center}
+then the value of $\dfrac{d^4 q}{dx^4}$ at $x = 0$ is \underline{\hspace{2cm}}.</span></li><li><b>29</b> <span class="qbody">For a fixed $c \in \mathbb{R}$, let $\alpha = \int_0^2 (9x^2 - 5cx^4)\,dx$. If the value of $\int_0^2 (9x^2 - 5cx^4)\,dx$ obtained by using the Trapezoidal rule is equal to $\alpha$, then the value of $c$ is \underline{\hspace{2cm}} (rounded off to 2 decimal places).</span></li><li><b>30</b> <span class="qbody">If for some $\alpha \in \mathbb{R}$,
+\[
+  \int_1^4 \int_{-x}^{x} \frac{1}{x^2 + y^2}\,dy\,dx = \int_{-\pi/4}^{\pi/4} \int_{\sec\theta}^{\alpha\sec\theta} \frac{1}{r}\,dr\,d\theta,
+\]
+then the value of $\alpha$ equals \underline{\hspace{2cm}}.</span></li><li><b>31</b> <span class="qbody">Let $S$ be the portion of the plane $z = 2x + 2y - 100$ which lies inside the cylinder $x^2 + y^2 = 1$. If the surface area of $S$ is $\alpha\pi$, then the value of $\alpha$ is equal to \underline{\hspace{2cm}}.</span></li><li><b>32</b> <span class="qbody">Let
+\[
+  L^2[-1, 1] = \left\{f : [-1, 1] \to \mathbb{R} : f \text{ is Lebesgue measurable and } \int_{-1}^{1} |f(x)|^2\,dx &lt; \infty\right\}
+\]
+and the norm $\|f\|_2 = \left(\int_{-1}^{1} |f(x)|^2\,dx\right)^{1/2}$ for $f \in L^2[-1, 1]$. Let $F : (L^2[-1, 1], \|\cdot\|_2) \to \mathbb{R}$ be defined by
+\[
+  F(f) = \int_{-1}^{1} f(x) x^2\,dx \quad \text{for all } f \in L^2[-1, 1].
+\]
+If $\|F\|$ denotes the norm of the linear functional $F$, then $5\|F\|^2$ is equal to \underline{\hspace{2cm}}.</span></li><li><b>33</b> <span class="qbody">Let $y(t)$ be the solution of the initial value problem
+\[
+  y&#x27;&#x27; + 4y = \begin{cases} t, &amp; 0 \le t \le 2, \\ 2, &amp; 2 &lt; t &lt; \infty, \end{cases} \quad \text{and} \quad y(0) = y&#x27;(0) = 0.
+\]
+If $\alpha = y\!\left(\frac{\pi}{2}\right)$, then the value of $\frac{4}{\pi}\alpha$ is \underline{\hspace{2cm}} (rounded off to 2 decimal places).</span></li><li><b>34</b> <span class="qbody">Consider $\mathbb{R}^4$ with the inner product $\langle x, y \rangle = \sum_{i=1}^4 x_i y_i$, for $x = (x_1, x_2, x_3, x_4)$ and $y = (y_1, y_2, y_3, y_4)$. Let $M = \{(x_1, x_2, x_3, x_4) \in \mathbb{R}^4 : x_1 = x_3\}$ and $M^\perp$ denote the orthogonal complement of $M$. The dimension of $M^\perp$ is equal to \underline{\hspace{2cm}}.</span></li><li><b>35</b> <span class="qbody">Let
+\[
+  M = \begin{bmatrix} 3 &amp; -1 &amp; -2 \\ 0 &amp; 2 &amp; 4 \\ 0 &amp; 0 &amp; 1 \end{bmatrix} \quad \text{and} \quad I = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}.
+\]
+If $6M^{-1} = M^2 - 6M + \alpha I$ for some $\alpha \in \mathbb{R}$, then the value of $\alpha$ is equal to \underline{\hspace{2cm}}.</span></li><li><b>36</b> <span class="qbody">Let $GL_2(\mathbb{C})$ denote the group of $2 \times 2$ invertible complex matrices with usual matrix multiplication. For $S, T \in GL_2(\mathbb{C})$, $\langle S, T \rangle$ denotes the subgroup generated by $S$ and $T$. Let $S = \begin{bmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{bmatrix} \in GL_2(\mathbb{C})$ and $G_1, G_2, G_3$ be three subgroups of $GL_2(\mathbb{C})$ given by
+\begin{align*}
+  G_1 &amp;= \langle S, T_1 \rangle, \quad \text{where } T_1 = \begin{bmatrix} i &amp; 0 \\ 0 &amp; i \end{bmatrix}, \\
+  G_2 &amp;= \langle S, T_2 \rangle, \quad \text{where } T_2 = \begin{bmatrix} i &amp; 0 \\ 0 &amp; -i \end{bmatrix}, \\
+  G_3 &amp;= \langle S, T_3 \rangle, \quad \text{where } T_3 = \begin{bmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{bmatrix}.
+\end{align*}
+Let $Z(G_i)$ denote the center of $G_i$ for $i = 1, 2, 3$. Which of the following statements is correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $G_1$ is isomorphic to $G_3$
+\item $Z(G_1)$ is isomorphic to $Z(G_2)$
+\item $Z(G_3) = \left\{\begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}\right\}$
+\item $Z(G_2)$ is isomorphic to $Z(G_3)$
+\end{enumerate}</span></li><li><b>37</b> <span class="qbody">Let $\ell^2 = \{(x_1, x_2, x_3, \ldots) : x_n \in \mathbb{R} \text{ for all } n \in \mathbb{N} \text{ and } \sum_{n=1}^{\infty} x_n^2 &lt; \infty\}$. For a sequence $(x_1, x_2, x_3, \ldots) \in \ell^2$, define $\|(x_1, x_2, x_3, \ldots)\|_2 = \left(\sum_{n=1}^{\infty} x_n^2\right)^{1/2}$. Let $S : (\ell^2, \|\cdot\|_2) \to (\ell^2, \|\cdot\|_2)$ and $T : (\ell^2, \|\cdot\|_2) \to (\ell^2, \|\cdot\|_2)$ be defined by
+\begin{align*}
+  S(x_1, x_2, x_3, \ldots) &amp;= (y_1, y_2, y_3, \ldots), \quad \text{where } y_n = \begin{cases} 0, &amp; n = 1, \\ x_{n-1}, &amp; n \ge 2, \end{cases} \\
+  T(x_1, x_2, x_3, \ldots) &amp;= (y_1, y_2, y_3, \ldots), \quad \text{where } y_n = \begin{cases} 0, &amp; n \text{ is odd}, \\ x_n, &amp; n \text{ is even}. \end{cases}
+\end{align*}
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $S$ is a compact linear map and $T$ is NOT a compact linear map
+\item $S$ is NOT a compact linear map and $T$ is a compact linear map
+\item both $S$ and $T$ are compact linear maps
+\item NEITHER $S$ NOR $T$ is a compact linear map
+\end{enumerate}</span></li><li><b>38</b> <span class="qbody">Let $c_{00} = \{(x_1, x_2, x_3, \ldots) : x_i \in \mathbb{R}, \, i \in \mathbb{N}, \, x_i \ne 0 \text{ only for finitely many indices } i\}$. For $(x_1, x_2, x_3, \ldots) \in c_{00}$, let $\|(x_1, x_2, x_3, \ldots)\|_\infty = \sup\{|x_i| : i \in \mathbb{N}\}$. Define $F, G : (c_{00}, \|\cdot\|_\infty) \to (c_{00}, \|\cdot\|_\infty)$ by
+\begin{align*}
+  F((x_1, x_2, \ldots, x_n, \ldots)) &amp;= \left((1 + 1)x_1, \left(2 + \frac{1}{2}\right)x_2, \ldots, \left(n + \frac{1}{n}\right)x_n, \ldots\right), \\
+  G((x_1, x_2, \ldots, x_n, \ldots)) &amp;= \left(\frac{x_1}{1 + 1}, \frac{x_2}{2 + \frac{1}{2}}, \ldots, \frac{x_n}{n + \frac{1}{n}}, \ldots\right),
+\end{align*}
+for all $(x_1, x_2, \ldots, x_n, \ldots) \in c_{00}$. Then
+\begin{enumerate}[label=(\Alph*)]
+\item $F$ is continuous but $G$ is NOT continuous
+\item $F$ is NOT continuous but $G$ is continuous
+\item both $F$ and $G$ are continuous
+\item NEITHER $F$ NOR $G$ is continuous
+\end{enumerate}</span></li><li><b>39</b> <span class="qbody">Consider the Cauchy problem
+\[
+  x \frac{\partial u}{\partial x} + y \frac{\partial u}{\partial y} = u; \quad u = f(t) \text{ on the initial curve } \Gamma = (t, t), \; t &gt; 0.
+\]
+Consider the following statements:\\
+$P$: If $f(t) = 2t + 1$, then there exists a unique solution to the Cauchy problem in a neighbourhood of $\Gamma$.\\
+$Q$: If $f(t) = 2t - 1$, then there exist infinitely many solutions to the Cauchy problem in a neighbourhood of $\Gamma$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item both $P$ and $Q$ are TRUE
+\item $P$ is FALSE and $Q$ is TRUE
+\item $P$ is TRUE and $Q$ is FALSE
+\item both $P$ and $Q$ are FALSE
+\end{enumerate}</span></li><li><b>40</b> <span class="qbody">Consider the linear system $Mx = b$, where $M = \begin{bmatrix} 2 &amp; -1 \\ -4 &amp; 3 \end{bmatrix}$ and $b = \begin{bmatrix} -2 \\ 5 \end{bmatrix}$. Suppose $M = LU$, where $L$ and $U$ are lower triangular and upper triangular square matrices, respectively. Consider the following statements:\\
+$P$: If each element of the main diagonal of $L$ is $1$, then $\operatorname{trace}(U) = 3$.\\
+$Q$: For any choice of the initial vector $x^{(0)}$, the Jacobi iterates $x^{(k)}$, $k = 1, 2, 3, \ldots$, converge to the unique solution of the linear system $Mx = b$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item both $P$ and $Q$ are TRUE
+\item $P$ is FALSE and $Q$ is TRUE
+\item $P$ is TRUE and $Q$ is FALSE
+\item both $P$ and $Q$ are FALSE
+\end{enumerate}</span></li><li><b>41</b> <span class="qbody">Let $\phi$ and $\psi$ be two linearly independent solutions of the ordinary differential equation
+\[
+  y&#x27;&#x27; + (2 - \cos x)y = 0, \quad x \in \mathbb{R}.
+\]
+Let $\alpha, \beta \in \mathbb{R}$ be such that $\alpha &lt; \beta$, $\phi(\alpha) = \phi(\beta) = 0$ and $\phi(x) \ne 0$ for all $x \in (\alpha, \beta)$. Consider the following statements:\\
+$P$: $\phi&#x27;(\alpha)\phi&#x27;(\beta) &gt; 0$.\\
+$Q$: $\phi(x)\psi(x) \ne 0$ for all $x \in (\alpha, \beta)$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE and $Q$ is FALSE
+\item $P$ is FALSE and $Q$ is TRUE
+\item both $P$ and $Q$ are FALSE
+\item both $P$ and $Q$ are TRUE
+\end{enumerate}</span></li><li><b>42</b> <span class="qbody">Let $\mathbb{D} = \{z \in \mathbb{C} : |z| &lt; 1\}$ and $f : \mathbb{D} \to \mathbb{C}$ be an analytic function given by the power series $f(z) = \sum_{n=0}^{\infty} a_n z^n$, where $a_0 = a_1 = 1$ and $a_n = \frac{1}{2^{2n}}$ for $n \ge 2$. Consider the following statements:\\
+$P$: If $z_0 \in \mathbb{D}$, then $f$ is one-one in some neighbourhood of $z_0$.\\
+$Q$: If $E = \{z \in \mathbb{C} : |z| \le \frac{1}{2}\}$, then $f(E)$ is a closed subset of $\mathbb{C}$.\\
+Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE
+\item $Q$ is TRUE
+\item $Q$ is FALSE
+\item $P$ is FALSE
+\end{enumerate}</span></li><li><b>43</b> <span class="qbody">Let $\Omega$ be an open connected subset of $\mathbb{C}$ containing $U = \{z \in \mathbb{C} : |z| \le \frac{1}{2}\}$. Let
+\[
+  \mathcal{J} = \left\{f : \Omega \to \mathbb{C} : f \text{ is analytic and } \sup_{z, w \in U} |f(z) - f(w)| = 1\right\}.
+\]
+Consider the following statements:\\
+$P$: There exists $f \in \mathcal{J}$ such that $|f&#x27;(0)| \ge 2$.\\
+$Q$: $|f^{(3)}(0)| \le 48$ for all $f \in \mathcal{J}$, where $f^{(3)}$ denotes the third derivative of $f$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE
+\item $Q$ is FALSE
+\item $P$ is FALSE
+\item $Q$ is TRUE
+\end{enumerate}</span></li><li><b>44</b> <span class="qbody">Let $(\mathbb{R}, \tau)$ be a topological space, where the topology $\tau$ is defined as
+\[
+  \tau = \{U \subseteq \mathbb{R} : U = \emptyset \text{ or } 1 \in U\}.
+\]
+Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $(\mathbb{R}, \tau)$ is first countable
+\item $(\mathbb{R}, \tau)$ is Hausdorff
+\item $(\mathbb{R}, \tau)$ is separable
+\item The closure of $(1, 5)$ is $[1, 5]$
+\end{enumerate}</span></li><li><b>45</b> <span class="qbody">Let $\mathcal{R} = \{p(x) \in \mathbb{Q}[x] : p(0) \in \mathbb{Z}\}$, where $\mathbb{Q}$ denotes the set of rational numbers and $\mathbb{Z}$ denotes the set of integers. For $a \in \mathcal{R}$, let $\langle a \rangle$ denote the ideal generated by $a$ in $\mathcal{R}$. Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item If $p(x)$ is an irreducible element in $\mathcal{R}$, then $\langle p(x) \rangle$ is a prime ideal in $\mathcal{R}$
+\item $\mathcal{R}$ is a unique factorization domain
+\item $\langle x \rangle$ is a prime ideal in $\mathcal{R}$
+\item $\mathcal{R}$ is NOT a principal ideal domain
+\end{enumerate}</span></li><li><b>46</b> <span class="qbody">Consider the rings
+\[
+  \mathcal{S}_1 = \mathbb{Z}[x]/\langle 2, x^3 \rangle \quad \text{and} \quad \mathcal{S}_2 = \mathbb{Z}_2[x]/\langle x^2 \rangle,
+\]
+where $\langle 2, x^3 \rangle$ denotes the ideal generated by $\{2, x^3\}$ in $\mathbb{Z}[x]$ and $\langle x^2 \rangle$ denotes the ideal generated by $x^2$ in $\mathbb{Z}_2[x]$. Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item Every prime ideal of $\mathcal{S}_1$ is a maximal ideal
+\item $\mathcal{S}_2$ has exactly one maximal ideal
+\item Every element of $\mathcal{S}_1$ is either nilpotent or a unit
+\item There exists an element in $\mathcal{S}_2$ which is NEITHER nilpotent NOR a unit
+\end{enumerate}</span></li><li><b>47</b> <span class="qbody">Consider the sequence of Lebesgue measurable functions $f_n : \mathbb{R} \to \mathbb{R}$ given by
+\[
+  f_n(x) = \begin{cases} n^2(x - n), &amp; \text{if } x \in \left[n, n + \frac{1}{n^2}\right], \\ 0, &amp; \text{otherwise.} \end{cases}
+\]
+For a measurable subset $E$ of $\mathbb{R}$, denote $m(E)$ to be the Lebesgue measure of $E$. Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $\sup_{x \in \mathbb{R}} |f_n(x)| \to 0$ as $n \to \infty$
+\item $\int_{\mathbb{R}} |f_n(x)|\,dx \to 0$ as $n \to \infty$
+\item $m\!\left(\left\{x \in \mathbb{R} : |f_n(x)| &gt; \frac{1}{2}\right\}\right) \to 0$ as $n \to \infty$
+\item $m(\{x \in \mathbb{R} : |f_n(x)| &gt; 0\}) \to 0$ as $n \to \infty$
+\end{enumerate}</span></li><li><b>48</b> <span class="qbody">Define the characteristic function $\chi_E$ of a subset $E$ in $\mathbb{R}$ by
+\[
+  \chi_E(x) = \begin{cases} 1, &amp; \text{if } x \in E, \\ 0, &amp; \text{if } x \notin E. \end{cases}
+\]
+For $1 \le p &lt; 2$, let $L^p[0, 1] = \left\{f : [0, 1] \to \mathbb{R} : f \text{ is Lebesgue measurable and } \int_0^1 |f(x)|^p\,dx &lt; \infty\right\}$. Let $f : [0, 1] \to \mathbb{R}$ be defined by
+\[
+  f(x) = \sum_{n=1}^{\infty} \frac{2^n}{n^3} \chi_{\left[\frac{1}{2^{n+1}}, \frac{1}{2^n}\right]}(x).
+\]
+Consider the following two statements:\\
+$P$: $f \in L^p[0, 1]$ for every $p \in (1, 2)$.\\
+$Q$: $f \in L^1[0, 1]$.\\
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE
+\item $Q$ is TRUE
+\item $Q$ is FALSE
+\item $P$ is FALSE
+\end{enumerate}</span></li><li><b>49</b> <span class="qbody">Let $x(t), y(t)$, $t \in \mathbb{R}$, be two functions satisfying the following system of differential equations:
+\[
+  x&#x27;(t) = y(t), \quad y&#x27;(t) = x(t),
+\]
+and $x(0) = \alpha$, $y(0) = \beta$, where $\alpha, \beta$ are real numbers. Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item If $\alpha = 1, \beta = -1$, then $|x(t)| + |y(t)| \to 0$ as $t \to \infty$
+\item If $\alpha = 1, \beta = 1$, then $|x(t)| + |y(t)| \to 0$ as $t \to \infty$
+\item If $\alpha = 1.01, \beta = -1$, then $|x(t)| + |y(t)| \to 0$ as $t \to \infty$
+\item If $\alpha = 1, \beta = 1.01$, then $|x(t)| + |y(t)| \to 0$ as $t \to \infty$
+\end{enumerate}</span></li><li><b>50</b> <span class="qbody">For $h &gt; 0$, and $\alpha, \beta, \gamma \in \mathbb{R}$, let
+\[
+  D_h f(a) = \frac{\alpha f(a - h) + \beta f(a) + \gamma f(a + 2h)}{6h}
+\]
+be a three-point formula to approximate $f&#x27;(a)$ for any differentiable function $f : \mathbb{R} \to \mathbb{R}$ and $a \in \mathbb{R}$. If $D_h f(a) = f&#x27;(a)$ for every polynomial $f$ of degree less than or equal to $2$ and for all $a \in \mathbb{R}$, then
+\begin{enumerate}[label=(\Alph*)]
+\item $\alpha + 2\gamma = -2$
+\item $\alpha + 2\beta - 2\gamma = 0$
+\item $\alpha + 2\gamma = 2$
+\item $\alpha + 2\beta - 2\gamma = 1$
+\end{enumerate}</span></li><li><b>51</b> <span class="qbody">Let $f$ be a twice continuously differentiable function on $[a, b]$ such that $f&#x27;(x) &lt; 0$ and $f&#x27;&#x27;(x) &lt; 0$ for all $x \in (a, b)$. Let $f(\zeta) = 0$ for some $\zeta \in (a, b)$. The Newton-Raphson method to compute $\zeta$ is given by
+\[
+  x_{k+1} = x_k - \frac{f(x_k)}{f&#x27;(x_k)}, \quad k = 0, 1, 2, \ldots
+\]
+for an initial guess $x_0$. If $x_k \in (\zeta, b)$ for some $k \ge 0$, then which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $x_{k+1} &gt; \zeta$
+\item $x_{k+1} &lt; \zeta$
+\item $x_{k+1} &lt; x_k$
+\item For every $\eta \in (\zeta, x_k)$, $\dfrac{f&#x27;(\eta)}{f&#x27;(x_k)} &gt; 1$
+\end{enumerate}</span></li><li><b>52</b> <span class="qbody">Let $f : \mathbb{R}^2 \to \mathbb{R}$ be defined by
+\[
+  f(x, y) = \begin{cases} \dfrac{2x^2 y}{x^2 + y^2}, &amp; (x, y) \ne (0, 0), \\ 0, &amp; (x, y) = (0, 0). \end{cases}
+\]
+Then
+\begin{enumerate}[label=(\Alph*)]
+\item the directional derivative of $f$ at $(0, 0)$ in the direction of $\left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}\right)$ is $\frac{1}{\sqrt{2}}$
+\item the directional derivative of $f$ at $(0, 0)$ in the direction of $(0, 1)$ is $1$
+\item the directional derivative of $f$ at $(0, 0)$ in the direction of $(1, 0)$ is $0$
+\item $f$ is NOT differentiable at $(0, 0)$
+\end{enumerate}</span></li><li><b>53</b> <span class="qbody">Let $C[0, 1] = \{f : [0, 1] \to \mathbb{R} : f \text{ is continuous}\}$ and $d_\infty(f, g) = \sup\{|f(x) - g(x)| : x \in [0, 1]\}$ for $f, g \in C[0, 1]$. For each $n \in \mathbb{N}$, define $f_n : [0, 1] \to \mathbb{R}$ by $f_n(x) = x^n$ for all $x \in [0, 1]$. Let $P = \{f_n : n \in \mathbb{N}\}$. Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is totally bounded in $(C[0, 1], d_\infty)$
+\item $P$ is bounded in $(C[0, 1], d_\infty)$
+\item $P$ is closed in $(C[0, 1], d_\infty)$
+\item $P$ is open in $(C[0, 1], d_\infty)$
+\end{enumerate}</span></li><li><b>54</b> <span class="qbody">Let $G$ be an abelian group and $\Phi : G \to (\mathbb{Z}, +)$ be a surjective group homomorphism. Let $1 = \Phi(a)$ for some $a \in G$. Consider the following statements:\\
+$P$: For every $g \in G$, there exists an $n \in \mathbb{Z}$ such that $g a^n \in \ker(\Phi)$.\\
+$Q$: Let $e$ be the identity of $G$ and $\langle a \rangle$ be the subgroup generated by $a$. Then $G = \ker(\Phi)\langle a \rangle$ and $\ker(\Phi) \cap \langle a \rangle = \{e\}$.\\
+Which of the following statements is/are correct?
+\begin{enumerate}[label=(\Alph*)]
+\item $P$ is TRUE
+\item $P$ is FALSE
+\item $Q$ is TRUE
+\item $Q$ is FALSE
+\end{enumerate}</span></li><li><b>55</b> <span class="qbody">Let $C$ be the curve of intersection of the cylinder $x^2 + y^2 = 4$ and the plane $z - 2 = 0$. Suppose $C$ is oriented in the counterclockwise direction around the $z$-axis, when viewed from above. If
+\[
+  \left|\int_C (\sin x + e^x)\,dx + 4x\,dy + e^z \cos^2 z\,dz\right| = \alpha\pi,
+\]
+then the value of $\alpha$ equals \underline{\hspace{2cm}}.</span></li><li><b>56</b> <span class="qbody">Let $\ell^2 = \{(x_1, x_2, x_3, \ldots) : x_n \in \mathbb{R} \text{ for all } n \in \mathbb{N} \text{ and } \sum_{n=1}^{\infty} x_n^2 &lt; \infty\}$. For a sequence $(x_1, x_2, x_3, \ldots) \in \ell^2$, define $\|(x_1, x_2, x_3, \ldots)\|_2 = \left(\sum_{n=1}^{\infty} x_n^2\right)^{1/2}$. Consider the subspace $M = \{(x_1, x_2, x_3, \ldots) \in \ell^2 : \sum_{n=1}^{\infty} \frac{x_n}{4^n} = 0\}$. Let $M^\perp$ denote the orthogonal complement of $M$ in the Hilbert space $(\ell^2, \|\cdot\|_2)$. Consider $\left(1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \ldots\right) \in \ell^2$. If the orthogonal projection of $\left(1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \ldots\right)$ onto $M^\perp$ is given by
+\[
+  \alpha \left(\sum_{n=1}^{\infty} \frac{1}{n 4^n}\right)\left(\frac{1}{4}, \frac{1}{4^2}, \frac{1}{4^3}, \ldots\right)
+\]
+for some $\alpha \in \mathbb{R}$, then $\alpha$ equals \underline{\hspace{2cm}}.</span></li><li><b>57</b> <span class="qbody">Consider the transportation problem between five sources and four destinations as given in the cost table below. The supply and demand at each of the source and destination are also provided:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+&amp; \multicolumn{4}{c}{\textbf{DESTINATIONS}} &amp; \\
+\cmidrule(lr){2-5}
+\textbf{SOURCES} &amp; P &amp; Q &amp; R &amp; S &amp; \textbf{Supply} \\
+\hline
+1 &amp; $13$ &amp; $8$ &amp; $12$ &amp; $9$ &amp; $20$ \\
+2 &amp; $10$ &amp; $7$ &amp; $5$ &amp; $20$ &amp; $10$ \\
+3 &amp; $3$ &amp; $19$ &amp; $5$ &amp; $12$ &amp; $50$ \\
+4 &amp; $4$ &amp; $9$ &amp; $7$ &amp; $15$ &amp; $30$ \\
+5 &amp; $14$ &amp; $0$ &amp; $1$ &amp; $7$ &amp; $40$ \\
+\hline
+\textbf{Demand} &amp; $60$ &amp; $10$ &amp; $20$ &amp; $60$ &amp; \\
+\hline
+\end{tabular}
+\end{center}
+Let $C_N$ and $C_L$ be the total cost of the initial basic feasible solution obtained from the North-West corner method and the Least-Cost method, respectively. Then $C_N - C_L$ equals \underline{\hspace{2cm}}.</span></li><li><b>58</b> <span class="qbody">Let $\sigma \in S_8$, where $S_8$ is the permutation group on $8$ elements. Suppose $\sigma$ is the product of $\sigma_1$ and $\sigma_2$, where $\sigma_1$ is a $4$-cycle and $\sigma_2$ is a $3$-cycle in $S_8$. If $\sigma_1$ and $\sigma_2$ are disjoint cycles, then the number of elements in $S_8$ which are conjugate to $\sigma$ is \underline{\hspace{2cm}}.</span></li><li><b>59</b> <span class="qbody">Let $A$ be a $3 \times 3$ real matrix with $\det(A + iI) = 0$, where $i = \sqrt{-1}$ and $I$ is the $3 \times 3$ identity matrix. If $\det(A) = 3$, then the trace of $A^2$ is \underline{\hspace{2cm}}.</span></li><li><b>60</b> <span class="qbody">Let $A = [a_{ij}]$ be a $3 \times 3$ real matrix such that
+\[
+  A\begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix} = 2\begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix}, \quad
+  A\begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} = 2\begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} \quad \text{and} \quad
+  A\begin{bmatrix} -1 \\ 1 \\ 0 \end{bmatrix} = 4\begin{bmatrix} -1 \\ 1 \\ 0 \end{bmatrix}.
+\]
+If $m$ is the degree of the minimal polynomial of $A$, then $a_{11} + a_{21} + a_{31} + m$ equals \underline{\hspace{2cm}}.</span></li><li><b>61</b> <span class="qbody">Let $\Omega$ be the disk $x^2 + y^2 &lt; 4$ in $\mathbb{R}^2$ with boundary $\partial\Omega$. If $u(x, y)$ is the solution of the Dirichlet problem
+\begin{align*}
+  \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} &amp;= 0, \quad (x, y) \in \Omega, \\
+  u(x, y) &amp;= 1 + 2x^2, \quad (x, y) \in \partial\Omega,
+\end{align*}
+then the value of $u(0, 1)$ is \underline{\hspace{2cm}}.</span></li><li><b>62</b> <span class="qbody">For every $k \in \mathbb{N} \cup \{0\}$, let $y_k(x)$ be a polynomial of degree $k$ with $y_k(1) = 5$. Further, let $y_k(x)$ satisfy the Legendre equation
+\[
+  (1 - x^2)y&#x27;&#x27; - 2xy&#x27; + k(k + 1)y = 0.
+\]
+If
+\[
+  \frac{1}{2} \int_{-1}^{1} \sum_{k=1}^{n} \bigl(y_k(x) - y_{k-1}(x)\bigr)^2\,dx - \int_{-1}^{1} \sum_{k=1}^{n} \bigl(y_k(x)\bigr)^2\,dx = 24,
+\]
+for some positive integer $n$, then the value of $n$ is \underline{\hspace{2cm}}.</span></li><li><b>63</b> <span class="qbody">Consider the ordinary differential equation (ODE)
+\[
+  4(\ln x)y&#x27;&#x27; + 3y&#x27; + y = 0, \quad x &gt; 1.
+\]
+If $r_1$ and $r_2$ are the roots of the indicial equation of the above ODE at the regular singular point $x = 1$, then $|r_1 - r_2|$ is equal to \underline{\hspace{2cm}} (rounded off to 2 decimal places).</span></li><li><b>64</b> <span class="qbody">Let $u(x, t)$ be the solution of the non-homogeneous wave equation
+\begin{align*}
+  \frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 u}{\partial t^2} &amp;= \sin x \sin(2t), \quad 0 &lt; x &lt; \pi, \quad t &gt; 0, \\
+  u(x, 0) &amp;= 0, \quad \text{and} \quad \frac{\partial u}{\partial t}(x, 0) = 0, \quad \text{for } 0 \le x \le \pi, \\
+  u(0, t) &amp;= 0, \quad u(\pi, t) = 0, \quad \text{for } t \ge 0.
+\end{align*}
+Then the value of $u\!\left(\frac{\pi}{2}, \frac{3\pi}{2}\right)$ is \underline{\hspace{2cm}} (rounded off to 2 decimal places).</span></li><li><b>65</b> <span class="qbody">Consider the Linear Programming Problem P:
+\begin{align*}
+  \text{Maximize} \quad &amp; 3x_1 + 2x_2 + 5x_3 \\
+  \text{subject to} \quad &amp; x_1 + 2x_2 + x_3 \le 44, \\
+  &amp; x_1 + 2x_3 \le 48, \\
+  &amp; x_1 + 4x_2 \le 52, \\
+  &amp; x_1 \ge 0, \quad x_2 \ge 0, \quad x_3 \ge 0.
+\end{align*}
+The optimal value of the problem P is equal to \underline{\hspace{2cm}}.</span></li></ol></div><!--/APP--></main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="/assets/logo-stacked.svg" alt="VBMath" height="76" style="height:76px;width:auto" class="logo-l"><img src="/assets/logo-stacked-dark.svg" alt="" height="76" style="height:76px;width:auto" class="logo-d"><p style="margin:12px 0 0;max-width:34ch">An unofficial, student-run archive of the Department of Mathematics, Visva-Bharati, Santiniketan.</p></div>
+      <div><h4>Archive</h4><a href="/papers/" data-r="papers">Papers by semester</a><a href="/search/" data-r="search">Search questions</a><a href="/preview/" data-r="preview">Question Maker</a><a href="/topics/" data-r="topics">Topics &amp; trends</a><a href="/scans/" data-r="scans">Original scans</a></div>
+      <div><h4>Study</h4><a href="/exams/" data-r="exams">Competitive exams</a><a href="/notes/" data-r="notes">Notes</a><a href="/syllabus/" data-r="syllabus">Syllabus</a><a href="/books/" data-r="books">Books</a></div>
+      <div><h4>Project</h4><a href="/contribute/" data-r="contribute">Contribute</a><a href="/about/" data-r="about">About</a><a href="https://github.com/mcodexvb/vbmath" target="_blank" rel="noopener">GitHub</a><a href="https://sites.google.com/view/vbmath" target="_blank" rel="noopener">Earlier site</a></div>
+    </div>
+    <div class="legal">Not affiliated with Visva-Bharati. Question papers belong to the university. Copyright concerns: <span class="mono" style="user-select:all">vbmath2013@gmail.com</span> · Press <span class="kbd">/</span> to search.</div>
+  </div>
+</footer>
+<button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="Your collection"></aside>
+<script src="/app.js?v=3.1"></script>
+</body>
+</html>

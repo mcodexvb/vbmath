@@ -1,0 +1,1534 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=20mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\newcommand{\optsfour}[4]{%
+  \begin{tabbing}
+    \hspace{0.48\linewidth}\=\kill
+    (a) #1 \> (b) #2 \\[2pt]
+    (c) #3 \> (d) #4
+  \end{tabbing}%
+}
+
+\newcommand{\optslist}[4]{%
+  \begin{itemize}
+    \setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}
+    \item[(a)] #1
+    \item[(b)] #2
+    \item[(c)] #3
+    \item[(d)] #4
+  \end{itemize}%
+}
+
+\newcommand{\ans}[1]{\textbf{Answer:} #1\par\medskip}
+
+\begin{document}
+
+% ============================================================================
+% GATE 2003 -- MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\Large\bfseries GATE 2003 -- Mathematics (MA)}\\[4pt]
+  {\small Time Allowed: 3 Hours \quad\textbar\quad Maximum Marks: 150}
+\end{center}
+
+\medskip
+\textbf{Note:} The symbols $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$, and $\mathbb{R}$ denote the sets of natural numbers, integers, rational numbers, and real numbers, respectively.
+
+\section*{Q.1 -- Q.30 Carry One Mark Each}
+
+\textbf{Q.1} Let $T$ be an arbitrary linear transformation from $\mathbb{R}^n$ to $\mathbb{R}^n$ which is not one-one. Then
+\optsfour{$\operatorname{Rank} T > 0$}{$\operatorname{Rank} T = n$}{$\operatorname{Rank} T < n$}{$\operatorname{Rank} T = n - 1$}
+\ans{(c)}
+
+\textbf{Q.2} Let $T$ be a linear transformation from $\mathbb{R}^3 \to \mathbb{R}^2$ defined by $T(x,y,z) = (x+y,\, y-z)$. Then the matrix of $T$ with respect to the ordered bases $\{(1,1,1),\, (1,-1,0),\, (0,1,0)\}$ and $\{(1,1),\, (1,0)\}$ is
+\optsfour{$\begin{bmatrix} -2 & 0 & 1 \\ 1 & 1 & -1 \end{bmatrix}$}{$\begin{bmatrix} 0 & -1 & 1 \\ 2 & 1 & 0 \end{bmatrix}$}{$\begin{bmatrix} 2 & 1 \\ 0 & -1 \\ 1 & 1 \end{bmatrix}$}{$\begin{bmatrix} 0 & 2 \\ -1 & 1 \\ 1 & 0 \end{bmatrix}$}
+\ans{(b)}
+
+\textbf{Q.3} Let the characteristic equation of a matrix $M$ be $\lambda^2 - \lambda - 1 = 0$, then
+\optslist{$M^{-1}$ does not exist}{$M^{-1}$ exists but cannot be determined from the data}{$M^{-1} = M + I$}{$M^{-1} = M - I$}
+\ans{(d)}
+
+\textbf{Q.4} Consider a function $f(z) = u + iv$ defined on $|z - i| < 1$, where $u, v$ are real-valued functions of $x, y$. Then $f(z)$ is analytic for $u$ equal to
+\optsfour{$x^2 + y^2$}{$\ln(x^2 + y^2)$}{$e^{xy}$}{$e^{x^2 - y^2}$}
+\ans{(b)}
+
+\textbf{Q.5} At $z = 0$, the function $f(z) = z^2 \bar{z}$
+\optslist{does not satisfy Cauchy--Riemann equations}{satisfies Cauchy--Riemann equations but is not differentiable}{is differentiable}{is analytic}
+\ans{(c)}
+
+\textbf{Q.6} The bilinear transformation $w$ which maps the points $0, 1, \infty$ in the $z$-plane onto the points $-i, \infty, 1$ in the $w$-plane is
+\optsfour{$\dfrac{z - 1}{z + i}$}{$\dfrac{z - i}{z + 1}$}{$\dfrac{z + i}{z - 1}$}{$\dfrac{z + 1}{z - i}$}
+\ans{(c)}
+
+\textbf{Q.7} The continuous function $f : \mathbb{R} \to \mathbb{R}$ defined by $f(x) = (x^2 + 1)^{2003}$ is
+\optsfour{onto but not one-one}{one-one but not onto}{both one-one and onto}{neither one-one nor onto}
+\ans{(d)}
+
+\textbf{Q.8} Diameter of a set $S$ in a metric space with metric $d$ is defined by $\operatorname{diam}(S) = \operatorname{l.u.b.}\{d(x,y) : x, y \in S\}$. Thus, the diameter of the cylinder $C = \{(x,y,z) \in \mathbb{R}^3 \mid x^2 + y^2 = 1,\ -1 < z < 1\}$ in $\mathbb{R}^3$ with standard metric is
+\optsfour{$2$}{$2\sqrt{2}$}{$\sqrt{2}$}{$\pi + 2$}
+\ans{(b)}
+
+\textbf{Q.9} Let $X = (0,1) \cup (2,3)$ be an open set in $\mathbb{R}$. Let $f$ be a continuous function on $X$ such that the derivative $f'(x) = 0$ for all $x$. Then the range of $f$ has
+\optsfour{uncountable number of points}{countably infinite number of points}{at most $2$ points}{at most $1$ point}
+\ans{(c)}
+
+\textbf{Q.10} The orthogonal trajectory to the family of circles $x^2 + y^2 = 2cx$ ($c$ arbitrary) is described by the differential equation
+\optsfour{$(x^2 + y^2)y' = 2xy$}{$(x^2 - y^2)y' = 2xy$}{$(y^2 - x^2)y' = xy$}{$(y^2 - x^2)y' = 2xy$}
+\ans{(b)}
+
+\textbf{Q.11} Let $y_1(x)$ and $y_2(x)$ be solutions of $y'' + x^2 y' + (\sin x)y = 0$, which satisfy the boundary conditions $y_1(0) = 0$, $y_1'(1) = 1$ and $y_2(0) = 1$, $y_2'(1) = 0$ respectively. Then
+\optslist{$y_1$ and $y_2$ do not have common zeroes}{$y_1$ and $y_2$ have common zeroes}{either $y_1$ or $y_2$ has a zero of order $2$}{both $y_1$ and $y_2$ have zeroes of order $2$}
+\ans{(a)}
+
+\textbf{Q.12} For the Sturm--Liouville problem $(1 + x^2)y'' + 2xy' + \lambda x^2 y = 0$ with $y'(1) = 0$ and $y'(10) = 0$, the eigenvalues $\lambda$ satisfy
+\optsfour{$\lambda \ge 0$}{$\lambda < 0$}{$\lambda \ne 0$}{$\lambda \le 0$}
+\ans{(a)}
+
+\textbf{Q.13} The number of groups of order $n$ (up to isomorphism) is
+\optslist{finite for all values of $n$}{finite only for finitely many values of $n$}{finite for infinitely many values of $n$}{infinite for some values of $n$}
+\ans{(a)}
+
+\textbf{Q.14} The set of all real $2 \times 2$ invertible matrices acts on $\mathbb{R}^2$ by matrix multiplication. The number of orbits for this action is
+\optsfour{$1$}{$2$}{$4$}{infinite}
+\ans{(b)}
+
+\textbf{Q.15} Let $l_2$ be the set of real sequences $\{x_n\}$ such that $\sum_{n=1}^{\infty} |x_n|^2 < \infty$. For $x \in l_2$ define $\|x\|^2 = \sum_{n=1}^{\infty} |x_n|^2$. Consider the set $S = \{x \in l_2 : \|x\| < 1\}$. Then
+\optsfour{interior of $S$ is compact}{$S$ is compact}{closure of $S$ is compact}{closure of $S$ is not compact}
+\ans{(d)}
+
+\textbf{Q.16} On $X = C[0,1]$, define $T : X \to X$ by $T(f)(x) = \displaystyle\int_0^x f(t)\,dt$ for all $f \in X$. Then
+\optsfour{$T$ is one-one and onto}{$T$ is one-one but not onto}{$T$ is not one-one but onto}{$T$ is neither one-one nor onto}
+\ans{(b)}
+
+\textbf{Q.17} Let $M$ be the length of the initial interval $[a_0, b_0]$ containing a solution of $f(x) = 0$. Let $\{x_0, x_1, x_2, \dots\}$ represent the successive points generated by the bisection method. Then the minimum number of iterations required to guarantee an approximation to the solution with an accuracy of $\epsilon$ is given by
+\optsfour{$-2 - \dfrac{\log(\epsilon/M)}{\log 2}$}{$-2 + \dfrac{\log(\epsilon/M)}{\log 2}$}{$-2 + \dfrac{\log(M\epsilon)}{\log 2}$}{$-2 - \dfrac{\log(\epsilon/M)}{(\log 2)^2}$}
+\ans{(a)}
+
+\textbf{Q.18} On evaluating $\displaystyle\int_1^2 \int_1^2 \frac{1}{x + y}\,dx\,dy$ numerically by the Trapezoidal rule, one would get the value
+\optsfour{$\dfrac{17}{48}$}{$\dfrac{11}{48}$}{$\dfrac{21}{48}$}{$\dfrac{17}{52}$}
+\ans{(a)}
+
+\textbf{Q.19} Complete integral for the partial differential equation $z = px + qy - \sin(pq)$ is
+\optsfour{$z = ax + by + \sin(ab)$}{$z = ax + by - \sin(ab)$}{$z = ax + y + \sin(b)$}{$z = x + by - \sin(a)$}
+\ans{(b)}
+
+\textbf{Q.20} Pick the region in which the following differential equation is hyperbolic:
+\[
+  y u_{xx} + 2xy u_{xy} + x u_{yy} = u_x + u_y.
+\]
+\optsfour{$xy \ne 1$}{$xy \ne 0$}{$xy > 1$}{$xy > 0$}
+\ans{(c)}
+
+\textbf{Q.21} If the total kinetic energy of a system of particles about the origin is equal to its kinetic energy about the center of mass, then the center of mass is
+\optsfour{at rest}{moving along a circle}{moving on a straight line}{moving along an ellipse}
+\ans{(a)}
+
+\textbf{Q.22} The number of generalized co-ordinates required to describe motion of a rigid body with one of its points fixed is
+\optsfour{$9$}{$6$}{$3$}{$1$}
+\ans{(c)}
+
+\textbf{Q.23} Let $Q = \{(x,y) \in \mathbb{R}^2 \mid x \ge 0,\ y \ge 0\}$ be the first quadrant in $\mathbb{R}^2$ with usual topology. Then $Q$ is closed because
+\optsfour{it is compact}{it does not contain all its limit points}{its complement is open}{it is connected}
+\ans{(c)}
+
+\textbf{Q.24} Let $X = [0,1] \times [0,2] \times \dots \times [0,10]$ and $f : X \to \mathbb{R}$ be a continuous function. Then $f(X)$ is
+\optslist{$[r_1, r_2] \cup [r_3, r_4]$ for some $r_1, r_2, r_3, r_4 \in \mathbb{R}$ such that $r_1 \le r_2 < r_3 \le r_4$}{$(-\infty, r]$ for some $r \in \mathbb{R}$}{$[r_1, r_2]$ for some $r_1, r_2 \in \mathbb{R}$ such that $r_1 \le r_2$}{$(-\infty, r_1] \cup [r_2, \infty)$ for some $r_1, r_2 \in \mathbb{R}$ such that $r_1 \le r_2$}
+\ans{(c)}
+
+\textbf{Q.25} Let $X_1$ and $X_2$ be independent binomial random variables with $E(X_i) = n_i p$ and $\operatorname{Var}(X_i) = n_i p(1-p)$, $0 < p < 1$, $i = 1, 2$. Then the distribution of the random variable $Z = n_1 + n_2 - X_1 - X_2$ is
+\optslist{binomial with mean $(n_1 + n_2)p$}{binomial with mean $(n_1 + n_2)(1 - p)$}{Poisson with mean $(n_1 + n_2)p$}{Poisson with mean $(n_1 + n_2)(1 - p)$}
+\ans{(b)}
+
+\textbf{Q.26} Let $-2, 5, 6, 9, -5, -9$ be the observed values of a random sample of size $6$ from a distribution having probability density function
+\[
+  f_\theta(x) = \begin{cases} e^{-(x - \theta)}, & \text{if } x > \theta, \\ 0, & \text{otherwise.} \end{cases}
+\]
+Then the maximum likelihood estimate of $\theta$ is
+\optsfour{$9$}{$-9$}{$-\dfrac{4}{3}$}{$\dfrac{4}{3}$}
+\ans{(b)}
+
+\textbf{Q.27} Suppose that the linear programming problem $P : \min z = c^t x$ s.t.\ $Ax \ge b$, $x \ge 0$, where $A$ is an $m \times n$ matrix, $c$ an $n \times 1$ vector, and $b$ an $m \times 1$ vector, is being solved by the Dual Simplex Algorithm. Then
+\optslist{the value of the primal objective function increases at every iteration}{the algorithm will always terminate with an optimal solution for the dual}{the algorithm will always terminate with an optimal solution to the primal}{it is not always possible to obtain a starting basis for this algorithm}
+\ans{(d)}
+
+\textbf{Q.28} Consider the transportation problem given below. The bracketed elements in the table indicate a feasible solution and the elements on the left hand corner are the costs $c_{ij}$:
+% NOTE: Verify exact cell cost entries from original printed scan on page 36.
+\begin{center}
+\begin{tabular}{cccc}
+  \toprule
+  \multicolumn{3}{c}{Costs / Allocations} & $a_i$ \\
+  \midrule
+  $2\;(1)$ & $5$ & $1$ & $1$ \\
+  $2$ & $3\;(1)$ & $4\;(1)$ & $2$ \\
+  \midrule
+  $b_j = 1$ & $1$ & $1$ & \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\optslist{this solution is a basic feasible solution}{this solution can be made basic feasible}{this is an optimal solution}{the problem does not have an optimal solution}
+\ans{(b)}
+
+\textbf{Q.29} Extremals $y = y(x)$ for the variational problem $v[y(x)] = \displaystyle\int_0^1 (y + y')^2\,dx$ satisfy the differential equation
+\optsfour{$y'' + y = 0$}{$y'' - y = 0$}{$y'' + y' = 0$}{$y' + y = 0$}
+\ans{(b)}
+
+\textbf{Q.30} Let $k(x, t) = \begin{cases} x + t, & 0 \le t \le x, \\ 0, & \text{otherwise.} \end{cases}$ Then the integral equation $y(x) = 1 + \lambda \displaystyle\int_0^x y(t) k(x, t)\,dt$ has
+\optslist{a unique solution for every value of $\lambda$}{no solution for any value of $\lambda$}{a unique solution for finitely many values of $\lambda$ only}{infinitely many solutions for finitely many values of $\lambda$}
+\ans{(a)}
+
+\section*{Q.31 -- Q.90 Carry Two Marks Each}
+
+\textbf{Q.31} Consider the matrix
+\[
+  M = \begin{pmatrix} 1 & 0 & -1 \\ 0 & 1 & 0 \\ 1 & 1 & -1 \end{pmatrix}
+\]
+and let $S_M$ be the set of $3 \times 3$ matrices $N$ such that $MN = 0$. Then the dimension of the real vector space $S_M$ is equal to
+\optsfour{$0$}{$1$}{$2$}{$3$}
+\ans{(d)}
+
+\textbf{Q.32} Choose the correct matching from (a), (b), (c) and (d) for the transformations $T_1, T_2$ and $T_3$ (mappings from $\mathbb{R}^2$ to $\mathbb{R}^3$) as defined in Group 1 with the statements given in Group 2.
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Group 1} & \textbf{Group 2} \\
+  \midrule
+  P.\ $T_1(x,y) = (x, x, 0)$ & 1.\ Linear transformation of rank $2$ \\
+  Q.\ $T_2(x,y) = (x, x+y, y)$ & 2.\ Not a linear transformation \\
+  R.\ $T_3(x,y) = (x, x+1, y)$ & 3.\ Linear transformation of rank $1$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\optsfour{P--3, Q--1, R--2}{P--1, Q--3, R--2}{P--3, Q--2, R--1}{P--1, Q--2, R--3}
+\ans{(a)}
+
+\textbf{Q.33} Let
+\[
+  M = \begin{pmatrix}
+    0 & 0 & -1 & 0 \\
+    2 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 3 \\
+    0 & -4 & 0 & 0
+  \end{pmatrix}.
+\]
+Then
+\optslist{$MM^T = I$, where $M^T$ is the transpose of $M$ and $I$ is the identity matrix}{Column vectors of $M$ form an orthogonal system of vectors}{Column vectors of $M$ form an orthonormal system of vectors}{$(MX, MY) = (X, Y)$ for all $X, Y \in \mathbb{R}^4$, where $(\cdot,\cdot)$ is the standard inner product on $\mathbb{R}^4$}
+\ans{(b)}
+
+\textbf{Q.34} Let
+\[
+  M = \begin{pmatrix}
+    1 & 1+i & 2i & 9 \\
+    1-i & 3 & 4 & 7-i \\
+    -2i & 4 & 5 & i \\
+    9 & 7+i & -i & 7
+  \end{pmatrix}.
+\]
+Then
+\optslist{$M$ has purely imaginary eigenvalues}{$M$ is not diagonalizable}{$M$ has eigenvalues which are neither real nor purely imaginary}{$M$ has only real eigenvalues}
+\ans{(d)}
+
+\textbf{Q.35} Consider the matrix
+\[
+  M = \begin{pmatrix}
+    a^2 & ab & ac \\
+    ab & b^2 & bc \\
+    ac & bc & c^2
+  \end{pmatrix},
+\]
+where $a, b$, and $c$ are non-zero real numbers. Then the matrix has
+\optsfour{three non-zero real eigenvalues}{complex eigenvalues}{two non-zero eigenvalues}{only one non-zero eigenvalue}
+\ans{(d)}
+
+\textbf{Q.36} The minimal polynomial of
+\[
+  \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    1 & 1 & 0 & 0 \\
+    0 & 0 & 2 & 0 \\
+    0 & 0 & 0 & 2
+  \end{pmatrix}
+\]
+is
+\optsfour{$(x - 1)^2(x - 2)$}{$(x - 1)(x - 2)^2$}{$(x - 1)(x - 2)$}{$(x - 1)^2(x - 2)^2$}
+\ans{(a)}
+
+\textbf{Q.37} Let $\gamma$ be the curve $r = 2 + 4\cos\theta$ ($0 \le \theta \le 2\pi$). If $I_1 = \displaystyle\int_\gamma \frac{dz}{z - 1}$ and $I_2 = \displaystyle\int_\gamma \frac{dz}{z - 3}$, then
+\optsfour{$I_1 = 2I_2$}{$I_1 = I_2$}{$2I_1 = I_2$}{$I_1 = 0,\ I_2 \ne 0$}
+\ans{(a)}
+
+\textbf{Q.38} Let $f(z)$ be defined on the domain $E : |z - 2i| < 3$ and on its boundary $\partial E$. Then which of the following statements is always true?
+\optslist{if $f(z)$ is analytic on $E$ and $f(z) \ne 0$ for any $z \in E$, then $|f|$ attains its maximum on $\partial E$}{if $f(z)$ is analytic on $E \cup \partial E$, then $|f|$ attains its minimum on $\partial E$}{if $f(z)$ is analytic on $E$ and continuous on $E \cup \partial E$, then $|f|$ attains its maximum and minimum on $\partial E$}{if $f(z)$ is analytic on $E \cup \partial E$ and $f(z) \ne 0$ for any $z \in E \cup \partial E$, then $|f|$ attains its minimum on $\partial E$}
+\ans{(d)}
+
+\textbf{Q.39} Let $f(z)$ be an analytic function with a simple pole at $z = 1$ and a double pole at $z = 2$ with residues $1$ and $-2$ respectively. Further, if $f(0) = 0$, $f(3) = -\dfrac{3}{4}$, and $f$ is bounded as $z \to \infty$, then $f(z)$ must be
+\optsfour{$z(z - 3) - \dfrac{1}{4} + \dfrac{1}{z - 1} - \dfrac{2}{z - 2} + \dfrac{1}{(z - 2)^2}$}{$-\dfrac{1}{4} + \dfrac{1}{z - 1} - \dfrac{2}{z - 2} + \dfrac{1}{(z - 2)^2}$}{$\dfrac{1}{z - 1} - \dfrac{2}{z - 2} + \dfrac{5}{(z - 2)^2}$}{$\dfrac{15}{4} + \dfrac{1}{z - 1} + \dfrac{2}{z - 2} - \dfrac{7}{(z - 2)^2}$}
+\ans{(b)}
+
+\textbf{Q.40} An example of a function with a non-isolated essential singularity at $z = 2$ is
+\optsfour{$\tan\dfrac{1}{z - 2}$}{$\sin\dfrac{1}{z - 2}$}{$e^{-(z - 2)}$}{$\tan\dfrac{z - 2}{z}$}
+\ans{(a)}
+
+\textbf{Q.41} Let $f(z) = u(x,y) + iv(x,y)$ be an entire function having Taylor's series expansion as $\displaystyle\sum_{n=0}^{\infty} a_n z^n$. If $f(x) = u(x, 0)$ and $f(iy) = i v(0, y)$, then
+\optsfour{$a_{2n} = 0$ for all $n$}{$a_0 = a_1 = a_2 = a_3 = 0,\ a_4 \ne 0$}{$a_{2n+1} = 0$ for all $n$}{$a_0 \ne 0$ but $a_2 = 0$}
+\ans{(a)}
+
+\textbf{Q.42} Let $I = \displaystyle\int_C \frac{\cot(\pi z)}{(z - i)^2}\,dz$, where $C$ is the contour $4x^2 + y^2 = 2$ (counter-clockwise). Then $I$ is equal to
+\optsfour{$0$}{$-2\pi i$}{$2\pi i\!\left(\dfrac{\pi}{\sinh^2\pi} - \dfrac{1}{\pi}\right)$}{$-\dfrac{2\pi^2 i}{\sinh^2\pi}$}
+\ans{(c)}
+
+\textbf{Q.43} Let $X = \{x \in \mathbb{Q} \mid 0 < x < 1\}$ be the metric space with standard metric from $\mathbb{R}$. The completion of $X$ is
+\optsfour{$\{x \in \mathbb{Q} \mid 0 < x < 1\}$}{$\{x \in \mathbb{R} \mid 0 < x < 1\}$}{$\{x \in \mathbb{Q} \mid 0 \le x \le 1\}$}{$\{x \in \mathbb{R} \mid 0 \le x \le 1\}$}
+\ans{(d)}
+
+\textbf{Q.44} The function $f(x,y) = (e^x\cos y,\, e^x\sin y)$ from $\mathbb{R}^2$ to $\mathbb{R}^2$ is
+\optslist{one-one on all of $\mathbb{R}^2$}{one-one on some neighbourhood of any point in $\mathbb{R}^2$}{an onto map}{such that some neighbourhood of any point surjects onto $\mathbb{R}^2$}
+\ans{(b)}
+
+\textbf{Q.45} Let $E$ and $E_i$ ($i = 1, 2, \dots$) be measurable subsets of the real line such that $E = \displaystyle\bigcup_{i=1}^{\infty} E_i$. Let $f$ be a non-negative function such that $f$ is integrable over $E$; then $\displaystyle\int_E f\,dx = \sum_{i=1}^{\infty} \int_{E_i} f\,dx$ is
+\optslist{true as $\displaystyle\sum_{i=1}^{\infty} \int_{E_i} f\,dx$ is finite}{true by dominated convergence theorem}{true by Fatou's lemma}{not true because $E_i \cap E_j$ may not be empty for some $i \ne j$}
+\ans{(d)}
+
+\textbf{Q.46} In the interval $[-1, 1]$, the series $\displaystyle\sum_{n=1}^{\infty} (-1)^{n-1} \frac{x^2 + n^2}{n^3}$ is
+\optslist{uniformly and absolutely convergent}{absolutely convergent but not uniformly convergent}{neither uniformly nor absolutely convergent}{uniformly convergent but not absolutely convergent}
+\ans{(d)}
+
+\textbf{Q.47} The maximum magnitude of the directional derivative for the surface $x^2 + xy + yz = 9$ at the point $(1, 2, 3)$ is along the direction
+\optsfour{$\hat{i} + \hat{j} + \hat{k}$}{$2\hat{i} + 2\hat{j} + \hat{k}$}{$\hat{i} + 2\hat{j} + 3\hat{k}$}{$\hat{i} - 2\hat{j} + 3\hat{k}$}
+\ans{(b)}
+
+\textbf{Q.48} Let $B = \{(x,y,z) \mid x,y,z \in \mathbb{R} \text{ and } x^2 + y^2 + z^2 \le 4\}$. Let $\mathbf{v}(x,y,z) = x\hat{i} + y\hat{j} + z\hat{k}$ be a vector-valued function defined on $B$. If $r^2 = x^2 + y^2 + z^2$, the value of the integral $\displaystyle\iiint_B \nabla \cdot (r^2 \mathbf{v}(x,y,z))\,dV$ is
+\optsfour{$16\pi$}{$32\pi$}{$64\pi$}{$128\pi$}
+\ans{(d)}
+
+\textbf{Q.49} For the Initial Value Problem (I.V.P.) $y' = f(x,y)$ with $y(0) = 0$, which of the following statements is true?
+\optslist{$f(x,y) = \sqrt{xy}$ satisfies Lipschitz's condition and so I.V.P.\ has unique solution}{$f(x,y) = \sqrt{xy}$ does not satisfy Lipschitz's condition and so I.V.P.\ has no solution}{$f(x,y) = |y|$ satisfies Lipschitz's condition and so I.V.P.\ has unique solution}{$f(x,y) = |y|$ does not satisfy Lipschitz's condition, still I.V.P.\ has unique solution}
+\ans{(c)}
+
+\textbf{Q.50} All real solutions of the differential equation $y'' + 2ay' + by = \cos x$ (where $a$ and $b$ are real constants) are periodic if
+\optsfour{$a = 1$ and $b = 0$}{$a = 0$ and $b = 1$}{$a = 1$ and $b \ne 0$}{$a = 0$ and $b \ne 1$}
+\ans{(d)}
+
+\textbf{Q.51} Let $y = \psi(x)$ be a bounded solution of the equation $(1 - x^2)y'' - 2xy' + 30y = 0$. Then
+\optsfour{$\displaystyle\int_{-1}^{1} x^3 \psi(x)\,dx \ne 0$}{$\displaystyle\int_{-1}^{1} (1 + x^3 + x^4)\psi(x)\,dx \ne 0$}{$\displaystyle\int_{-1}^{1} x^5 \psi(x)\,dx = 0$}{$\displaystyle\int_{-1}^{1} x^{2n} \psi(x)\,dx = 0$ for all $n \in \mathbb{N}$}
+\ans{(d)}
+
+\textbf{Q.52} $\displaystyle\int x^3 J_0(x)\,dx$ is equal to (up to a constant)
+\optsfour{$x J_0(x) - x^3 J_1(x)$}{$x^2 J_0(x) + J_1(x)$}{$x^3 J_1(x) - 2x^2 J_2(x)$}{$2x^2 J_1(x) + x J_2(x)$}
+\ans{(c)}
+
+\textbf{Q.53} Let $y_1(x)$ and $y_2(x)$ be two linearly independent solutions of $xy'' + y' + x^2 y = 0$ in the neighbourhood of $x = 0$. If $y_1(x)$ is a power series around $x = 0$, then
+\optslist{$y_2(x)$ is bounded around $x = 0$}{$y_2(x)$ is unbounded around $x = 0$}{$y_2(x)$ has power series solution}{$y_2(x)$ has solution of the form $\displaystyle\sum_{n=0}^{\infty} b_n x^{n+r}$, where $r \ne 0$ and $b_0 \ne 0$}
+\ans{(b)}
+
+\textbf{Q.54} Consider the following system of differential equations in $x(t), y(t)$ and $z(t)$:
+% NOTE: Middle row of the 3x3 matrix was clipped in the source PDF scan on page 40.
+\[
+  \begin{bmatrix} x' \\ y' \\ z' \end{bmatrix} =
+  \begin{bmatrix}
+    0 & 1 & 0 \\
+    \text{[\textit{clipped}]} & \text{[\textit{clipped}]} & \text{[\textit{clipped}]} \\
+    1 & 1 & 1
+  \end{bmatrix}
+  \begin{bmatrix} x \\ y \\ z \end{bmatrix}.
+\]
+Then there exists a choice of $3$ linearly independent vectors $u, v, w \in \mathbb{R}^3$ such that vectors forming a fundamental set of solutions of the above system are given by
+\optsfour{$e^{-t}u,\ e^t v,\ te^t w$}{$e^t u,\ te^t v,\ t^2 e^t w$}{$e^t u,\ te^t v,\ e^{-t}w$}{$u,\ tv,\ e^t w$}
+\ans{Verify against original matrix on page 40 (middle row clipped in scan).}
+
+\textbf{Q.55} Any subgroup of $\mathbb{Q}$ (the group of rational numbers under addition) is
+\optslist{cyclic and finitely generated, but not abelian and normal}{cyclic and abelian, but not finitely generated and normal}{abelian and normal, but not necessarily cyclic or finitely generated}{finitely generated and normal, but not cyclic and abelian}
+\ans{(c)}
+
+\textbf{Q.56} Let $\sigma$ and $\tau$ be the permutations defined by
+\[
+  \sigma = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 1 & 3 & 5 & 7 & 9 & 6 & 4 & 8 & 2 \end{pmatrix}
+  \qquad \text{and} \qquad
+  \tau = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ 7 & 8 & 3 & 4 & 9 & 6 & 5 & 2 & 1 \end{pmatrix}.
+\]
+Then
+\optslist{$\sigma$ and $\tau$ generate the group of permutations on $\{1,2,3,4,5,6,7,8,9\}$}{$\sigma$ is contained in the group generated by $\tau$}{$\tau$ is contained in the group generated by $\sigma$}{$\sigma$ and $\tau$ are in the same conjugacy class}
+\ans{(d)}
+
+\textbf{Q.57} Up to isomorphism, the number of abelian groups of order $10^5$ is
+\optsfour{$2$}{$5$}{$7$}{$49$}
+\ans{(d)}
+
+\textbf{Q.58} Set of multiples of $4$ forms an ideal in $\mathbb{Z}$, the ring of integers under usual addition and multiplication. This ideal is
+\optslist{a prime ideal but not a maximal ideal}{a maximal ideal but not a prime ideal}{both a prime ideal and a maximal ideal}{neither a prime ideal nor a maximal ideal}
+\ans{(d)}
+
+\textbf{Q.59} Let $C[0,1]$ be the set of all continuous functions defined on the interval $[0,1]$. On this set, define addition and multiplication pointwise. Then $C[0,1]$ is
+\optsfour{a group but not a ring}{a ring but not an integral domain}{a field}{an integral domain but not a field}
+\ans{(b)}
+
+\textbf{Q.60} Let $X = C^1[0,1]$ and $Y = C[0,1]$, both having the norm $\|f\| = \sup\{|f(x)| : 0 \le x \le 1\}$. Define $T : X \to Y$ by $T(f) = f'$, where $f'$ denotes the derivative of $f$. Then $T$ is
+\optsfour{linear and continuous}{not linear but continuous}{linear and not continuous}{not linear and not continuous}
+\ans{(c)}
+
+\textbf{Q.61} Let $B$ be a Banach space (not finite dimensional) and $T : B \to B$ be a continuous linear operator such that the range of $T$ is $B$ and $T(x) = 0 \Rightarrow x = 0$. Then
+\optslist{$T$ maps bounded sets to compact sets}{$T^{-1}$ maps bounded sets to compact sets}{$T^{-1}$ maps bounded sets to bounded sets}{$T$ maps compact sets to open sets}
+\ans{(c)}
+
+\textbf{Q.62} Let the sequence $\{e_n\}$ be a complete orthonormal set in a Hilbert space $H$. Then
+\optslist{for all bounded linear operators $T$ on $H$, the sequence $\{Te_n\}$ is convergent in $H$}{for the identity operator $I$ on $H$, the sequence $\{Ie_n\}$ is convergent in $H$}{for all bounded linear functionals $f$ on $H$, the sequence $\{f(e_n)\}$ is convergent in $\mathbb{R}$}{none of the above}
+\ans{(c)}
+
+\textbf{Q.63} Let $A : H \to H$ be any bounded linear operator on a complex Hilbert space $H$ such that $\|Ax\| = \|A^* x\|$ for all $x \in H$, where $A^*$ is the adjoint of $A$. If there is a non-zero $x \in H$ such that $A^*(x) = (2 + 3i)x$, then $A$ is
+\optslist{a unitary operator on $H$}{a self-adjoint operator on $H$ but not unitary}{a self-adjoint operator on $H$ but not normal}{a normal operator}
+\ans{(d)}
+
+\textbf{Q.64} If the scheme corresponding to the Newton--Raphson method for solving the system of nonlinear equations $x^2 + y^2 - 10 = 0$, $x^2 y - 3 = 0$ is
+\[
+  x^{k+1} = x^k + \{f(x,y)\}_{(x^k, y^k)} \qquad \text{and} \qquad y^{k+1} = y^k + \{g(x,y)\}_{(x^k, y^k)},
+\]
+then $f(x,y)$ and $g(x,y)$ are respectively given by
+\optslist{$-\dfrac{x^2 + y^2 - 10}{2x}$ and $-\dfrac{x^2 y - 3}{x^2}$}{$\dfrac{x^2(y^2 - x^2 + 10) - 6y}{2x(x^2 - y^2)}$ and $\dfrac{y^3 - 10y + 3}{x^2 - y^2}$}{$\dfrac{x^2(3y^2 - x^2 - 10) + 6y}{2x(x^2 - y^2)}$ and $\dfrac{y^3 - 10y + 3}{x^2 - y^2}$}{$-(x^2 + y^2 - 10)$ and $-(x^2 y - 3)$}
+\ans{(b)}
+
+\textbf{Q.65} A lower bound on the polynomial interpolation error $e_2(\bar{x})$ for $f(x) = \ln(x)$, with $x_0 = 1$, $x_1 = 2$, $x_2 = 4$, and $\bar{x} = \dfrac{5}{4}$, is given by
+% NOTE: Verify nodes x_0, x_1 in source PDF scan on page 42 (OCR read "x_0=2, x_1=Z, x_2=4").
+\optsfour{$\dfrac{1}{256}$}{$\dfrac{1}{64}$}{$\dfrac{1}{512}$}{$0$}
+\ans{(c)}
+
+\textbf{Q.66} Consider the quadrature formula
+\[
+  \int_0^h f(x)\,dx = \left\{\alpha f(0) + \beta f\!\left(\frac{3h}{4}\right) + \gamma f(h)\right\}h.
+\]
+The values of $\alpha, \beta, \gamma$ for which this is exact for polynomials of as high degree as possible are
+\optsfour{$\alpha = \dfrac{5}{18},\ \beta = \dfrac{8}{9},\ \gamma = -\dfrac{1}{6}$}{$\alpha = \dfrac{1}{2},\ \beta = -\dfrac{1}{4},\ \gamma = \dfrac{3}{4}$}{$\alpha = 0,\ \beta = 1,\ \gamma = -\dfrac{1}{4}$}{$\alpha = 1,\ \beta = 2,\ \gamma = 3$}
+\ans{(a)}
+
+\textbf{Q.67} Consider the (Cholesky's) algorithm given below for $LL^T$ decomposition of a Symmetric Positive Definite matrix $A$:
+\begin{quote}
+Compute $L_{1,1} = A_{1,1}^{1/2}$\\
+For $i = 2$ to $N$: Compute $L_{i,1} = A_{i,1}/L_{1,1}$\\
+For $j = 2$ to $N$:\\
+\quad Compute $L_{j,j} = \left(A_{j,j} - \displaystyle\sum_{m=1}^{j-1} L_{j,m}^2\right)^{1/2}$\\
+\quad [\textit{shaded box}]
+\end{quote}
+Right alternative for filling the shaded box to complete the above algorithm is
+\optslist{For $i = j + 1$ to $N$: Compute $L_{i,j} = \dfrac{1}{L_{j,j}}\left(A_{i,j} - \displaystyle\sum_{m=1}^{j-1} L_{i,m} L_{j,m}\right)$}{For $i = j$ to $N$: Compute $L_{i,j} = \dfrac{1}{L_{j,j}}\left(A_{i,j} - \displaystyle\sum_{m=1}^{j-1} L_{i,m} L_{j,m}\right)$}{For $i = j$ to $N$: Compute $L_{i,j} = \dfrac{1}{L_{j,j}}\left(A_{i,j} - \displaystyle\sum_{m=1}^{j-1} L_{i,m}^2\right)$}{For $i = j + 1$ to $N$: Compute $L_{i,j} = \dfrac{1}{L_{j,j}}\left(A_{i,j} - \displaystyle\sum_{m=1}^{j-1} L_{i,m}^2\right)$}
+\ans{(a)}
+
+\textbf{Q.68} Let $u = \psi(x,t)$ be the solution to the initial value problem $u_{tt} = u_{xx}$ for $-\infty < x < \infty$, $t > 0$, with $u(x,0) = \sin(x)$, $u_t(x,0) = \cos(x)$. Then the value of $\psi(\pi/2, \pi/6)$ is
+\optsfour{$\dfrac{\sqrt{3}}{2}$}{$\dfrac{1}{2}$}{$\dfrac{1}{\sqrt{2}}$}{$1$}
+\ans{(a)}
+
+\textbf{Q.69} Consider the boundary value problem $u_{xx} + u_{yy} = 0$ in $\Omega = \{(x,y) : x^2 + y^2 < 1\}$ with $\dfrac{\partial u}{\partial n} = x^2 + y^2$ on $\partial\Omega$ ($\dfrac{\partial u}{\partial n}$ denotes the normal derivative of $u$ on the boundary of $\Omega$). Then its solution $u(x,y)$
+\optsfour{is unique and is identically zero}{is unique up to a constant}{does not exist}{is unique and non-zero}
+\ans{(c)}
+
+\textbf{Q.70} The Cauchy problem $u_x - u_y = 2$ with the Cauchy data on $(s, -s, 2s)$ has
+\optsfour{one solution}{two solutions}{no solution}{infinite solutions}
+\ans{(d)}
+
+\textbf{Q.71} Let $u(r, \theta, z, t)$ be the solution to the heat conduction problem $u_t = \nabla^2 u$ in $\Omega \times [0, T]$, where $\Omega = \{(r,\theta,z) \mid 0 < r_1 \le r \le r_2,\ 0 \le \theta \le 2\pi,\ 0 \le z \le L\}$ with compatible initial and boundary conditions:
+\[
+  u(r,\theta,z,0) = \begin{cases} 0 & \text{in the interior of } \Omega, \\ g(\theta) & \text{on } \partial\Omega, \end{cases}
+  \qquad \text{and} \qquad u(r,\theta,z,t) = f(\theta) \text{ on } \partial\Omega \text{ for } t > 0.
+\]
+Further, if $M = \max\{u(r,\theta,z,T) \mid (r,\theta,z) \in \Omega\}$, $M_1 = \max\{u(r,\theta,z,T) \mid r = r_1,\ 0 \le \theta \le 2\pi,\ 0 < z < L\}$, and $M_2 = \max\{u(r,\theta,z,T) \mid r = r_2,\ 0 \le \theta \le 2\pi,\ 0 < z < L\}$, then
+\optsfour{$M_1 \le M \le M_2$}{$M_2 \le M \le M_1$}{$M \le \max(M_1, M_2)$}{$M \ge \max(M_1, M_2)$}
+\ans{(d)}
+
+\textbf{Q.72} A particle of unit mass is moving under gravitational field along the cycloid $x = \phi - \sin\phi$, $y = 1 + \cos\phi$. Then the Lagrangian for the motion is
+\optsfour{$\dot{\phi}^2(1 + \cos\phi) - g(1 - \cos\phi)$}{$\dot{\phi}^2(1 - \cos\phi) + g(1 + \cos\phi)$}{$\dot{\phi}^2(1 - \cos\phi) - g(1 + \cos\phi)$}{$2\dot{\phi}^2(1 - \cos\phi) - g(1 + \cos\phi)$}
+\ans{(c)}
+
+\medskip
+\textit{Data for Q.73--74 is given below. Solve the problems and choose correct answers.}
+
+Three particles of masses $1$, $2$, and $4$ move under a force field such that their position vectors at any time $t$ are respectively given by
+% NOTE: Verify first component of r_1 in source PDF scan on page 44 (OCR read "?\hat{i} + 4t^2\hat{k}", likely t^2\hat{i} or 2t\hat{i}).
+\[
+  \vec{r}_1 = t^2\hat{i} + 4t^2\hat{k}, \qquad \vec{r}_2 = 4t\hat{i} - \hat{k}, \qquad \vec{r}_3 = (\cos\pi t)\hat{i} + (\sin\pi t)\hat{j}.
+\]
+
+\textbf{Q.73} For the above motion, which of the following is true?
+\optslist{the total momentum is zero}{the total momentum has constant magnitude}{the force acting on the system is constant}{the force acting on the system has constant magnitude}
+\ans{(d)}
+
+\textbf{Q.74} The angular momentum of the system about the origin at $t = 1/2$ is given by
+\optsfour{zero vector}{$4(-4\hat{j} + \pi\hat{k})$}{$-4(-4\hat{j} + \pi\hat{k})$}{$-4(\pi\hat{j} + \hat{k})$}
+\ans{(b)}
+
+\textbf{Q.75} A cube of unit mass is suspended vertically from one of its edges. If the length of its edge is $\sqrt{2}$, then the length of the equivalent simple pendulum is
+\optsfour{$\dfrac{4}{3}$}{$\dfrac{2}{3}$}{$\dfrac{2\sqrt{2}}{3}$}{$2\sqrt{2}$}
+\ans{(a)}
+
+\textbf{Q.76} Consider the following statements concerning topological spaces:\\
+(P) Continuous image of a non-compact space is non-compact.\\
+(Q) Every metrizable space is normal.\\
+Then
+\optsfour{both P and Q are true}{P is true and Q is false}{P is false and Q is true}{both P and Q are false}
+\ans{(c)}
+
+\textbf{Q.77} In $\mathbb{R}^3$, with the usual topology, let $B$ be the unit closed ball with center at the origin, and $T$ be the closure of an inscribed tetrahedron. Let $f : T \to \mathbb{R}$ be any continuous function. Then
+\optslist{$f$ has an extension to $B \Rightarrow f$ is a constant function}{not every $f$ has an extension to $B$}{$f$ always has an extension to $B$}{if $f$ has an extension to $B$ then $f(T) \subseteq [0, 1]$}
+\ans{(c)}
+
+\textbf{Q.78} Let $PQR$ be a triangle in $\mathbb{R}^2$ with the usual topology. Define $X = \operatorname{Int}(PQR) \cup \{P, Q, R\}$. Then the number of connected components of $X$ is
+\optsfour{$1$}{$2$}{$3$}{$4$}
+\ans{(a)}
+
+\textbf{Q.79} In $\mathbb{R}^2$ with the usual topology, let $X = \{(x, |x|) : -1 \le x \le 1\}$. Let $p : X \to [-1, 1]$ be the map defined by $p(x,y) = x$ for all $(x,y) \in X$. Then $p$ is
+\optslist{a homeomorphism as $p$ is one-one, onto and continuous}{a homeomorphism as both $p$ and $p^{-1}$ are one-one, onto and continuous}{not a homeomorphism as $p$ is not continuous}{not a homeomorphism as $p^{-1}$ is not continuous}
+\ans{(b)}
+
+\textbf{Q.80} $E_1, E_2$ are independent events such that $P(E_1) = \dfrac{1}{4}$, $P(E_2 \mid E_1) = \dfrac{1}{2}$, and $P(E_1 \mid E_2) = \dfrac{1}{4}$. Define random variables $X$ and $Y$ by
+\[
+  X = \begin{cases} 1, & \text{if } E_1 \text{ occurs}, \\ 0, & \text{if } E_1 \text{ does not occur}, \end{cases}
+  \qquad
+  Y = \begin{cases} 1, & \text{if } E_2 \text{ occurs}, \\ 0, & \text{if } E_2 \text{ does not occur}. \end{cases}
+\]
+Consider the following statements:\\
+$\alpha$: $X$ is uniformly distributed on the set $\{0, 1\}$.\\
+$\beta$: $X$ and $Y$ are identically distributed.\\
+$\gamma$: $P\{X^2 + Y^2 = 1\} = 1/2$.\\
+$\delta$: $P\{XY = X^2 Y^2\} = 1$.\\
+Choose the correct combination:
+\optsfour{$(\alpha, \beta)$}{$(\alpha, \gamma)$}{$(\beta, \gamma)$}{$(\gamma, \delta)$}
+\ans{(d)}
+
+\textbf{Q.81} Let $X$ and $Y$ be the time (in hours) taken by Saurabh and Sachin to solve a problem. Suppose that each of $X$ and $Y$ are uniformly distributed over the interval $[0, 1]$. Assume that Saurabh and Sachin start to solve the problem independently. Then, the probability that the problem will be solved in less than $20$ minutes is
+\optsfour{$\dfrac{1}{3}$}{$\dfrac{5}{9}$}{$\dfrac{8}{9}$}{$\dfrac{4}{9}$}
+\ans{(b)}
+
+\textbf{Q.82} The value of the limit $\displaystyle\lim_{n\to\infty} \sum_{j=n}^{4n} \binom{4n}{j} \left(\frac{1}{4}\right)^j \left(\frac{3}{4}\right)^{4n-j}$ equals
+\optsfour{$0$}{$\dfrac{1}{4}$}{$\dfrac{1}{2}$}{$\dfrac{3}{4}$}
+\ans{(c)}
+
+\textbf{Q.83} Let $f(x)$ and $g(x)$ be two probability mass functions (p.m.f.) defined by $f(x) = \dfrac{1}{6}$, $x = 1, 2, 3, 4, 5, 6$, and
+\[
+  g(x) = \begin{cases} 1/12, & \text{if } x = 1, 2, \\ 1/2, & \text{if } x = 3, \\ 1/9, & \text{if } x = 4, 5, 6. \end{cases}
+\]
+Let $X$ be a random sample of size one from a distribution having p.m.f.\ $h(x) \in \{f(x), g(x)\}$. To test the hypothesis $H_0 : h = f$ vs.\ $H_1 : h = g$, a most powerful test of size $\alpha = 1/6$ rejects $H_0$ iff
+\optsfour{$x = 1$}{$x = 2$}{$x = 3$}{$x \in \{4, 5, 6\}$}
+\ans{(c)}
+
+\textbf{Q.84} Consider the linear programming problem $P_1 : \min z = c^t x$ s.t.\ $Ax = b$, $x \ge 0$, where $A$ is an $m \times n$ matrix, $m \le n$, $c$ and $x$ are $n \times 1$ vectors, and $b$ an $m \times 1$ vector. Let $K$ denote the set of feasible solutions for $P_1$. Then
+\optslist{the number of positive $x_j$'s in any feasible solution of $P_1$ can never exceed $m$, and if it is less than $m$, the feasible solution is a degenerate basic feasible solution}{every feasible solution of $P_1$ in which $m$ variables are positive is a basic feasible solution and ${}^nC_m$ is the total number of basic feasible solutions}{in solving $P_1$ by the simplex algorithm, a new basis and a new extreme point of the constraint set are generated after every pivot step}{$K$ is a convex set and if the value of the objective function at an extreme point $x^*$ of $K$ is better than its values at all the neighbouring extreme points, then $x^*$ is an optimal solution of $P_1$}
+\ans{(d)}
+
+\textbf{Q.85} Consider the linear programming formulation ($P_2$) of optimally assigning $n$ men to $n$ jobs with respect to some costs $\{c_{ij}\}_{i,j=1}^n$. Let $A$ denote the coefficient matrix of the constraint set. Then
+\optslist{rank of $A$ is $2n - 1$ and every basic feasible solution of $P_2$ is integer valued}{rank of $A$ is $2n - 1$ and every basic feasible solution of $P_2$ is not integer valued}{rank of $A$ is $2n$ and every basic feasible solution of $P_2$ is integer valued}{rank of $A$ is $2n$ and every basic feasible solution of $P_2$ is not integer valued}
+\ans{(a)}
+
+\textbf{Q.86} Simplex tableau for Phase I of the simplex algorithm for a linear programming problem is given below ($x_3, x_4, x_5$ are artificial variables):
+\begin{center}
+\begin{tabular}{ccccccc}
+  \toprule
+  Basis & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & RHS \\
+  \midrule
+  $Z_j - C_j$ & $0$ & $0$ & $-2$ & $-2$ & $0$ & $0$ \\
+  $x_1$ & $1$ & $0$ & $3/5$ & $1/5$ & $0$ & $2$ \\
+  $x_2$ & $0$ & $1$ & $-2/5$ & $1/5$ & $0$ & $0$ \\
+  $x_5$ & $0$ & $0$ & $-1$ & $-1$ & $1$ & $0$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+Choose the correct statement:
+\optslist{the tableau does not show the end of Phase I, since the artificial variable $x_5$ is in the basis}{the tableau does show the end of Phase I since the value of the Phase I objective function is zero}{the constraints for the original linear programming problem are not redundant}{the original linear programming problem does not have a feasible solution}
+\ans{(b)}
+
+\textbf{Q.87} Given below is the final tableau of a linear programming problem ($x_4$ and $x_5$ are slack variables):
+\begin{center}
+\begin{tabular}{ccccccc}
+  \toprule
+  Basis & $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & RHS \\
+  \midrule
+  $Z_j - C_j$ & $0$ & $0$ & $3$ & $5$ & $1$ & $8$ \\
+  $x_1$ & $1$ & $0$ & $1$ & $4$ & $-1$ & $2$ \\
+  $x_2$ & $0$ & $1$ & $2$ & $-1$ & $1$ & $3$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+If the right hand side vector $\binom{1}{3}$ of the problem gets changed to $\binom{1 + \theta}{3}$, then the current basic feasible solution is optimal for
+\optsfour{all $\theta \le 2$}{$\theta \ge -\dfrac{1}{4}$}{all $\theta \in \left[-\dfrac{1}{2}, 2\right]$}{no non-zero value of $\theta$}
+\ans{(c)}
+
+\textbf{Q.88} The functional $v[y(x)] = \displaystyle\int_0^2 \left[(y')^2 + 6xy + x^3\right]dx$, $y(0) = 0$, $y(2) = 2$, can be extremized on the curve
+\optsfour{$y = x$}{$2y = x^3$}{$y = x^3 - 6x$}{$2y = x^3 - 2x$}
+\ans{(d)}
+
+\textbf{Q.89} The integral equation $y(x) = \displaystyle\int_0^x (x - t)y(t)\,dt - x\int_0^1 (1 - t)y(t)\,dt$ is equivalent to
+\optsfour{$y'' - y = 0,\ y(0) = 0,\ y(1) = 0$}{$y'' - y = 0,\ y(0) = 0,\ y'(0) = 0$}{$y'' + y = 0,\ y(0) = 0,\ y(1) = 0$}{$y'' + y = 0,\ y(0) = 0,\ y'(0) = 0$}
+\ans{(a)}
+
+\textbf{Q.90} The integral equation $y(x) = \lambda \displaystyle\int_0^{2\pi} \sin(x + t)y(t)\,dt$ has
+\optslist{no solution for any value of $\lambda$}{unique solution for every value of $\lambda$}{infinitely many solutions for only one value of $\lambda$}{infinitely many solutions for two values of $\lambda$}
+\ans{(d)}
+
+\newpage
+
+% ============================================================================
+% GATE 2004 -- MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\Large\bfseries GATE 2004 -- Mathematics (MA)}\\[4pt]
+  {\small Duration: Three Hours \quad\textbar\quad Maximum Marks: 150}
+\end{center}
+
+\medskip
+\textbf{Note:} The symbols $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$, and $\mathbb{C}$ denote the sets of natural numbers, integers, rational numbers, real numbers, and complex numbers, respectively, throughout the paper.
+
+\section*{Q.1 -- Q.30 Carry One Mark Each}
+
+\textbf{Q.1} Let $S$ and $T$ be two subspaces of $\mathbb{R}^{24}$ such that $\dim(S) = 19$ and $\dim(T) = 17$. Then, the
+\optslist{smallest possible value of $\dim(S \cap T)$ is $2$}{largest possible value of $\dim(S \cap T)$ is $18$}{smallest possible value of $\dim(S + T)$ is $19$}{largest possible value of $\dim(S + T)$ is $22$}
+\ans{(c)}
+
+\textbf{Q.2} Let $v_1 = (1,2,0,3,0)$, $v_2 = (1,2,-1,-1,0)$, $v_3 = (0,0,1,4,0)$, $v_4 = (2,4,1,10,1)$, and $v_5 = (0,0,0,0,1)$. The dimension of the linear span of $\{v_1, v_2, v_3, v_4, v_5\}$ is
+\optsfour{$2$}{$3$}{$4$}{$5$}
+\ans{(b)}
+
+\textbf{Q.3} The set $V = \{(x,y) \in \mathbb{R}^2 : xy \ge 0\}$ is
+\optslist{a vector subspace of $\mathbb{R}^2$}{not a vector subspace of $\mathbb{R}^2$ since every element does not have an inverse in $V$}{not a vector subspace of $\mathbb{R}^2$ since it is not closed under scalar multiplication}{not a vector subspace of $\mathbb{R}^2$ since it is not closed under vector addition}
+\ans{(d)}
+
+\textbf{Q.4} Let $f : \mathbb{R}^4 \to \mathbb{R}$ be a linear functional defined by $f(x_1, x_2, x_3, x_4) = -x_2$. If $\langle \cdot, \cdot \rangle$ denotes the standard inner product on $\mathbb{R}^4$, then the unique vector $v \in \mathbb{R}^4$ such that $f(w) = \langle v, w \rangle$ for all $w \in \mathbb{R}^4$ is
+\optsfour{$(0, -1, 0, 0)$}{$(-1, 0, -1, 1)$}{$(0, 1, 0, 0)$}{$(1, 0, 1, -1)$}
+\ans{(a)}
+
+\textbf{Q.5} If $D$ is the open unit disk in $\mathbb{C}$ and $f : \mathbb{C} \to D$ is analytic with $f(10) = 1/2$, then $f(10 + i)$ is
+\optsfour{$\dfrac{1 + i}{2}$}{$\dfrac{1 - i}{2}$}{$\dfrac{1}{2}$}{$\dfrac{i}{2}$}
+\ans{(c)}
+
+\textbf{Q.6} The real part of the principal value of $4^{4-i}$ is
+\optsfour{$256\cos(\ln 4)$}{$64\cos(\ln 4)$}{$16\cos(\ln 4)$}{$4\cos(\ln 4)$}
+\ans{(a)}
+
+\textbf{Q.7} If $\sin z = \displaystyle\sum_{n=0}^{\infty} a_n (z - \pi/4)^n$, then $a_6$ equals
+\optsfour{$0$}{$\dfrac{1}{720}$}{$\dfrac{1}{720\sqrt{2}}$}{$\dfrac{-1}{720\sqrt{2}}$}
+\ans{(d)}
+
+\textbf{Q.8} The equation $x^6 - x - 1 = 0$ has
+\optsfour{no positive real roots}{exactly one positive real root}{exactly two positive real roots}{all positive real roots}
+\ans{(b)}
+
+\textbf{Q.9} Let $f, g : (0,1) \times (0,1) \to \mathbb{R}$ be two continuous functions defined by
+\[
+  f(x,y) = \frac{1}{1 + x(1 - y)} \qquad \text{and} \qquad g(x,y) = \frac{1}{1 + x(y - 1)}.
+\]
+Then, on $(0,1) \times (0,1)$,
+\optslist{$f$ and $g$ are both uniformly continuous}{$f$ is uniformly continuous but $g$ is not}{$g$ is uniformly continuous but $f$ is not}{neither $f$ nor $g$ is uniformly continuous}
+\ans{(b)}
+
+\textbf{Q.10} Let $S$ be the surface bounding the region $x^2 + y^2 \le 1$, $x \ge 0$, $y \ge 0$, $|z| \le 1$, and $\hat{n}$ be the unit outer normal to $S$. Then
+\[
+  \iint_S \left[(\sin^2 x)\hat{i} + 2y\hat{j} - z(1 + \sin 2x)\hat{k}\right] \cdot \hat{n}\,dS
+\]
+equals
+\optsfour{$1$}{$\dfrac{\pi}{2}$}{$\pi$}{$2\pi$}
+\ans{(b)}
+
+\textbf{Q.11} Let $f : [0, \infty) \to \mathbb{R}$ be defined by $f(x) = \begin{cases} \dfrac{1}{\sqrt{x}}, & x \ne 0, \\ 0, & x = 0. \end{cases}$ Consider the two improper integrals $I_1 = \displaystyle\int_0^1 f(x)\,dx$ and $I_2 = \displaystyle\int_1^\infty f(x)\,dx$. Then
+\optsfour{both $I_1$ and $I_2$ exist}{$I_1$ exists but $I_2$ does not}{$I_1$ does not exist but $I_2$ does}{neither $I_1$ nor $I_2$ exists}
+\ans{(b)}
+
+\textbf{Q.12} The orthogonal trajectories to the family of straight lines $y = k(x - 1)$, $k \in \mathbb{R}$, are given by
+\optsfour{$(x - 1)^2 + (y - 1)^2 = c^2$}{$x^2 + y^2 = c^2$}{$x^2 + (y - 1)^2 = c^2$}{$(x - 1)^2 + y^2 = c^2$}
+\ans{(d)}
+
+\textbf{Q.13} If $y = \varphi(x)$ is a particular solution of $y'' + (\sin x)y' + 2y = e^x$ and $y = \psi(x)$ is a particular solution of $y'' + (\sin x)y' + 2y = \cos 2x$, then a particular solution of $y'' + (\sin x)y' + 2y = e^x + 2\sin^2 x$ is given by
+\optsfour{$\varphi(x) - \psi(x) + \dfrac{1}{2}$}{$\psi(x) - \varphi(x) + \dfrac{1}{2}$}{$\varphi(x) - \psi(x) + 1$}{$\psi(x) - \varphi(x) + 1$}
+\ans{(a)}
+
+\textbf{Q.14} Let $P_n(x)$ be the Legendre polynomial of degree $n \ge 0$. If $1 + x^{10} = \displaystyle\sum_{n=0}^{10} c_n P_n(x)$, then $c_5$ equals
+\optsfour{$0$}{$\dfrac{2}{11}$}{$1$}{$\dfrac{11}{2}$}
+\ans{(a)}
+
+\textbf{Q.15} Let $I$ be the set of irrational real numbers and let $G = I \cup \{0\}$. Then, under the usual addition of real numbers, $G$ is
+\optslist{a group, since $\mathbb{R}$ and $\mathbb{Q}$ are groups under addition}{a group, since the additive identity is in $G$}{not a group, since addition on $G$ is not a binary operation}{not a group, since not all elements in $G$ have an inverse}
+\ans{(c)}
+
+\textbf{Q.16} In the group $(\mathbb{Z}, +)$, the subgroup generated by $2$ and $7$ is
+\optsfour{$\mathbb{Z}$}{$5\mathbb{Z}$}{$9\mathbb{Z}$}{$14\mathbb{Z}$}
+\ans{(a)}
+
+\textbf{Q.17} The cardinality of the center of $\mathbb{Z}_{12}$ is
+\optsfour{$1$}{$2$}{$3$}{$12$}
+\ans{(d)}
+
+\textbf{Q.18} Suppose $X = (1, \infty)$ and $T : X \to X$ is such that $d(Tx, Ty) < d(x, y)$ for $x \ne y$. Then
+\optslist{$T$ has at most one fixed point}{$T$ has a unique fixed point, by Banach Contraction Theorem}{$T$ has infinitely many fixed points}{for every $x \in X$, $\{T^n(x)\}$ converges to a fixed point}
+\ans{(a)}
+
+\textbf{Q.19} Consider $\mathbb{R}^2$ with $\|\cdot\|_1$ norm and $M = \{(x, 0) : x \in \mathbb{R}\}$. Define $g : M \to \mathbb{R}$ by $g(x, 0) = x$. Then a Hahn--Banach extension $f$ of $g$ is given by
+\optsfour{$f(x, y) = 2x$}{$f(x, y) = x + y$}{$f(x, y) = x - 2y$}{$f(x, y) = x + 2y$}
+\ans{(b)}
+
+\textbf{Q.20} Let $X$ be an inner product space and $S \subset X$. Then it follows that
+\optsfour{$S^\perp$ has nonempty interior}{$S^\perp = \{0\}$}{$S^\perp$ is a closed subspace}{$(S^\perp)^\perp = S$}
+\ans{(c)}
+
+\textbf{Q.21} An iterative scheme is given by $x_{n+1} = \dfrac{1}{5}\!\left(16 - \dfrac{12}{x_n}\right)$, $n \in \mathbb{N} \cup \{0\}$. Such a scheme, with suitable $x_0$, will
+\optsfour{not converge}{converge to $1.6$}{converge to $1.8$}{converge to $2$}
+\ans{(d)}
+
+\textbf{Q.22} In the $(x, t)$ plane, the characteristics of the initial value problem $u_t + u u_x = 0$, with $u(x,0) = x$, $0 \le x \le 1$, are
+\optslist{parallel straight lines}{straight lines which intersect at $(0, -1)$}{non-intersecting parabolas}{concentric circles with centre at the origin}
+\ans{(b)}
+
+\textbf{Q.23} Suppose $u(x,y)$ satisfies Laplace's equation $\nabla^2 u = 0$ in $\mathbb{R}^2$ and $u = x$ on the unit circle. Then, at the origin
+\optsfour{$u$ tends to infinity}{$u$ attains a finite minimum}{$u$ attains a finite maximum}{$u$ is equal to $0$}
+\ans{(d)}
+
+\textbf{Q.24} A circular disk of radius $a$ and mass $m$ is supported on a needle at its centre. The disk is set spinning with initial angular velocity $\omega_0$ about an axis making an angle $\pi/6$ with the normal to the disk. If $\boldsymbol{\omega}(t)$ is the angular velocity of the disk at any time $t$, then its component along the normal equals
+\optsfour{$\dfrac{\sqrt{3}\,\omega_0}{2}$}{$\omega_0$}{$\omega_0\sin t$}{$\left(\dfrac{\sqrt{3}\,\omega_0}{2}\right)\cos t$}
+\ans{(a)}
+
+\textbf{Q.25} In $\mathbb{R}^2$ with usual topology, the set $U = \{(x,y) \in \mathbb{R}^2 : x = 0, 1, -1 \text{ and } y \in \mathbb{N}\}$ is
+\optsfour{neither closed nor bounded}{closed but not bounded}{bounded but not closed}{closed and bounded}
+\ans{(b)}
+
+\textbf{Q.26} In $\mathbb{R}^3$ with usual topology, let $V = \{(x,y,z) \in \mathbb{R}^3 : x^2 + y^2 + z^2 = 1,\ y \ne 0\}$ and $W = \{(x,y,z) \in \mathbb{R}^3 : y = 0\}$. Then $V \cup W$ is
+\optsfour{connected and compact}{connected but not compact}{compact but not connected}{neither connected nor compact}
+\ans{(b)}
+
+\textbf{Q.27} Suppose $X$ is a random variable, $c$ is a constant and $\alpha_n = E(X - c)^n$ is finite for all $n \ge 1$. Then $P(X = c) = 1$ if and only if $\alpha_n = 0$ for
+\optsfour{at least one $n \ge 1$}{at least one odd $n$}{at least one even $n$}{at least two values of $n$}
+\ans{(c)}
+
+\textbf{Q.28} If the random vector $(X_1, X_2)^T$ has a bivariate normal distribution with mean vector $(\mu, \mu)^T$ and the matrix $(E(X_i X_j))_{1 \le i,j \le 2}$ equals $\begin{pmatrix} \alpha_1 & \mu^2 \\ \mu^2 & \alpha_2 \end{pmatrix}$, where $\mu \in \mathbb{R}$ and $\alpha_1, \alpha_2 > \mu^2$, then $X_1$ and $X_2$ are
+\optslist{independent for all $\alpha_1$ and $\alpha_2$}{independent if and only if $\alpha_1 = \alpha_2$}{uncorrelated, but not independent for all $\alpha_1, \alpha_2$}{uncorrelated if and only if $\alpha_1 = \alpha_2$ and in this case they are not independent}
+\ans{(a)}
+
+\textbf{Q.29} If the cost matrix for an assignment problem is given by
+\[
+  \begin{pmatrix}
+    a & b & c & d \\
+    b & c & d & a \\
+    c & d & a & b \\
+    d & a & b & c
+  \end{pmatrix},
+\]
+where $a, b, c, d > 0$, then the value of the assignment problem is
+\optsfour{$a + b + c + d$}{$\min\{a, b, c, d\}$}{$\max\{a, b, c, d\}$}{$4\min\{a, b, c, d\}$}
+\ans{(d)}
+
+\textbf{Q.30} Extremals for the variational problem $v[y(x)] = \displaystyle\int_1^2 \left(y^2 + x^2 (y')^2\right)dx$ satisfy the differential equation
+\optsfour{$x^2 y'' + 2xy' - y = 0$}{$x^2 y'' - 2xy' + y = 0$}{$2xy' - y = 0$}{$x^2 y'' - y = 0$}
+\ans{(a)}
+
+\section*{Q.31 -- Q.90 Carry Two Marks Each}
+
+\textbf{Q.31} Let $V$ be the subspace of $\mathbb{R}^3$ spanned by $u = (1,1,1)$ and $v = (1,1,-1)$. The orthonormal basis of $V$ obtained by the Gram--Schmidt process on the ordered basis $(u, v)$ of $V$ is
+\optsfour{$\left\{\left(\dfrac{1}{\sqrt{3}},\dfrac{1}{\sqrt{3}},\dfrac{1}{\sqrt{3}}\right),\, \left(\dfrac{2}{3},\dfrac{2}{3},-\dfrac{4}{3}\right)\right\}$}{$\{(1,1,0),\, (1,0,1)\}$}{$\left\{\left(\dfrac{1}{\sqrt{3}},\dfrac{1}{\sqrt{3}},\dfrac{1}{\sqrt{3}}\right),\, \left(\dfrac{1}{\sqrt{6}},\dfrac{1}{\sqrt{6}},-\dfrac{2}{\sqrt{6}}\right)\right\}$}{$\left\{\left(\dfrac{1}{\sqrt{3}},\dfrac{1}{\sqrt{3}},\dfrac{1}{\sqrt{3}}\right),\, \left(\dfrac{2}{\sqrt{6}},-\dfrac{1}{\sqrt{6}},-\dfrac{1}{\sqrt{6}}\right)\right\}$}
+\ans{(c)}
+
+\textbf{Q.32} In $\mathbb{R}^2$, $\langle (x_1, y_1), (x_2, y_2) \rangle = x_1 x_2 - \alpha(x_2 y_1 + x_1 y_2) + y_1 y_2$ is an inner product
+\optsfour{for all $\alpha \in \mathbb{R}$}{if and only if $\alpha = 0$}{if and only if $\alpha < 1$}{if and only if $|\alpha| < 1$}
+\ans{(d)}
+
+\textbf{Q.33} Let $\{v_1, v_2, v_3, v_4\}$ be a basis of $\mathbb{R}^4$ and $v = a_1 v_1 + a_2 v_2 + a_3 v_3 + a_4 v_4$, where $a_i \in \mathbb{R}$, $i = 1, 2, 3, 4$. Then $\{v_1 - v, v_2 - v, v_3 - v, v_4 - v\}$ is a basis of $\mathbb{R}^4$ if and only if
+% NOTE: Verify options (c) and (d) on page 54 (OCR showed both as a_1+a_2+a_3+a_4 != 0; one is a_1+a_2+a_3+a_4 != 1).
+\optsfour{$a_1 = a_2 = a_3 = a_4$}{$a_1 a_2 a_3 a_4 = -1$}{$a_1 + a_2 + a_3 + a_4 \ne 0$}{$a_1 + a_2 + a_3 + a_4 \ne 1$}
+\ans{(d)}
+
+\textbf{Q.34} Let $\mathbb{R}^{2 \times 2}$ be the real vector space of all $2 \times 2$ real matrices. For $Q = \begin{pmatrix} 1 & -2 \\ -2 & 4 \end{pmatrix}$, define a linear transformation $T$ on $\mathbb{R}^{2 \times 2}$ as $T(P) = QP$. Then the rank of $T$ is
+\optsfour{$1$}{$2$}{$3$}{$4$}
+\ans{(b)}
+
+\textbf{Q.35} Let $P$ be an $n \times n$ matrix with integral entries and $Q = P + \dfrac{1}{2}I$, where $I$ denotes the $n \times n$ identity matrix. Then $Q$ is
+\optsfour{idempotent, i.e., $Q^2 = Q$}{invertible}{nilpotent}{unipotent, i.e., $Q - I$ is nilpotent}
+\ans{(b)}
+
+\textbf{Q.36} Let $M$ be a square matrix of order $2$ such that rank of $M$ is $1$. Then $M$ is
+\optslist{diagonalizable and nonsingular}{diagonalizable and nilpotent}{neither diagonalizable nor nilpotent}{either diagonalizable or nilpotent, but not both}
+\ans{(d)}
+
+\textbf{Q.37} If $M$ is a $7 \times 5$ matrix of rank $3$ and $N$ is a $5 \times 7$ matrix of rank $5$, then $\operatorname{rank}(MN)$ is
+\optsfour{$5$}{$3$}{$2$}{$1$}
+\ans{(b)}
+
+\textbf{Q.38} $\displaystyle\int_0^{2\pi} \frac{d\theta}{13 - 5\sin\theta} =$
+\optsfour{$-\dfrac{\pi}{6}$}{$-\dfrac{\pi}{12}$}{$\dfrac{\pi}{12}$}{$\dfrac{\pi}{6}$}
+\ans{(d)}
+
+\textbf{Q.39} In the Laurent series expansion of $f(z) = \dfrac{1}{z - 1} - \dfrac{1}{z - 2}$ valid in the region $|z| > 2$, the coefficient of $\dfrac{1}{z^2}$ is
+\optsfour{$-1$}{$0$}{$1$}{$2$}
+\ans{(a)}
+
+\textbf{Q.40} Let $w = f(z)$ be the bilinear transformation that maps $-1, 0$, and $1$ to $-i, 1$, and $i$ respectively. Then $f(1 - i)$ equals
+\optsfour{$-1 + 2i$}{$2i$}{$-2 + i$}{$-1 + i$}
+\ans{(a)}
+
+\textbf{Q.41} For the positively oriented unit circle, $\displaystyle\oint_{|z|=1} \frac{2\operatorname{Re}(z)}{z + 2}\,dz =$
+\optsfour{$0$}{$\pi i$}{$2\pi i$}{$4\pi i$}
+\ans{(b)}
+
+\textbf{Q.42} The number of zeroes, counting multiplicities, of the polynomial $z^5 + 3z^3 + z^2 + 1$ inside the circle $|z| = 2$ is
+\optsfour{$0$}{$2$}{$3$}{$5$}
+\ans{(d)}
+
+\textbf{Q.43} Let $f = u + iv$ and $g = v + iu$ be non-zero analytic functions on $|z| < 1$. Then it follows that
+\optsfour{$f' \equiv 0$}{$f$ is conformal on $|z| < 1$}{$f \equiv kg$ for some real $k$}{$f$ is one to one}
+\ans{(a)}
+
+\textbf{Q.44} If $f(x,y) = \begin{cases} x^3/(x^2 + y^2), & (x,y) \ne (0,0), \\ 0, & (x,y) = (0,0), \end{cases}$ then at $(0,0)$
+\optslist{$f_x, f_y$ do not exist}{$f_x, f_y$ exist and are equal}{the directional derivative exists along any straight line}{$f$ is differentiable}
+\ans{(c)}
+
+\textbf{Q.45} Let $\sigma > 1$ and $g(x) = \displaystyle\sum_{n=1}^{\infty} \frac{1}{n^x}$, $\sigma \le x < \infty$. Then $g(x)$ is
+\optslist{not continuous}{continuous but not differentiable}{differentiable but not continuously differentiable}{continuously differentiable}
+\ans{(d)}
+
+\textbf{Q.46} The sequence of functions $\{f_n\}$ on $[0,1]$ with Lebesgue measure, defined by
+\[
+  f_n(x) = \begin{cases} x, & 0 \le x < 1 - 1/n, \\ \sqrt{n}, & 1 - 1/n \le x \le 1, \end{cases}
+\]
+converges
+\optsfour{almost everywhere as well as in $L^1$}{almost everywhere but not in $L^1$}{in $L^1$ but not almost everywhere}{neither almost everywhere nor in $L^1$}
+\ans{(a)}
+
+\textbf{Q.47} Consider two sequences $\{f_n\}$ and $\{g_n\}$ of functions where $f_n : [0,1] \to \mathbb{R}$ and $g_n : \mathbb{R} \to \mathbb{R}$ are defined by
+\[
+  f_n(x) = x^n \qquad \text{and} \qquad g_n(x) = \begin{cases} \cos\dfrac{(x - n)\pi}{2}, & \text{if } x \in [n-1, n+1], \\ 0, & \text{otherwise.} \end{cases}
+\]
+Then
+\optslist{neither $\{f_n\}$ nor $\{g_n\}$ is uniformly convergent}{$\{f_n\}$ is not uniformly convergent but $\{g_n\}$ is}{$\{g_n\}$ is not uniformly convergent but $\{f_n\}$ is}{both $\{f_n\}$ and $\{g_n\}$ are uniformly convergent}
+\ans{(a)}
+
+\textbf{Q.48} Let $f : [0,1] \to \mathbb{R}$ and $g : [0,1] \to \mathbb{R}$ be two functions defined by
+\[
+  f(x) = \begin{cases} \dfrac{1}{n}, & \text{if } x = \dfrac{1}{n},\ n \in \mathbb{N}, \\ 0, & \text{otherwise,} \end{cases}
+  \qquad \text{and} \qquad
+  g(x) = \begin{cases} n, & \text{if } x = \dfrac{1}{n},\ n \in \mathbb{N}, \\ 0, & \text{otherwise.} \end{cases}
+\]
+Then
+\optsfour{both $f$ and $g$ are Riemann integrable}{$f$ is Riemann integrable but $g$ is not}{$g$ is Riemann integrable but $f$ is not}{neither $f$ nor $g$ is Riemann integrable}
+\ans{(b)}
+
+\textbf{Q.49} The set of all continuous functions $f : [0,1] \to \mathbb{R}$ satisfying $\displaystyle\int_0^1 t^n f(t)\,dt = 0$, $n = 0, 1, 2, \dots$,
+\optsfour{is empty}{contains a single element}{is countably infinite}{is uncountably infinite}
+\ans{(b)}
+
+\textbf{Q.50} Let $f : \mathbb{R}^3 \to \mathbb{R}^3$ be defined by $f(x_1, x_2, x_3) = (x_2 + x_3,\, x_3 + x_1,\, x_1 + x_2)$. Then the first derivative of $f$ is
+\optsfour{not invertible anywhere}{invertible only at the origin}{invertible everywhere except at the origin}{invertible everywhere}
+\ans{(d)}
+
+\textbf{Q.51} Let $y = \varphi(x)$ and $y = \psi(x)$ be solutions of $y'' - 2xy' + (\sin x^2)y = 0$ such that $\varphi(0) = 1$, $\varphi'(0) = 1$ and $\psi(0) = 1$, $\psi'(0) = 2$. Then the value of the Wronskian $W(\varphi, \psi)$ at $x = 1$ is
+\optsfour{$0$}{$1$}{$e$}{$e^2$}
+\ans{(c)}
+
+\textbf{Q.52} The set of all eigenvalues of the Sturm--Liouville problem $y'' + \lambda y = 0$, $y'(0) = 0$, $y'\!\left(\dfrac{\pi}{2}\right) = 0$, is given by
+\optsfour{$\lambda = 2n,\ n = 1, 2, 3, \dots$}{$\lambda = 2n,\ n = 0, 1, 2, 3, \dots$}{$\lambda = 4n^2,\ n = 1, 2, 3, \dots$}{$\lambda = 4n^2,\ n = 0, 1, 2, 3, \dots$}
+\ans{(d)}
+
+\textbf{Q.53} If $Y(p)$ is the Laplace transform of $y(t)$, which is the solution of the initial value problem
+\[
+  \frac{d^2y}{dt^2} + y(t) = \begin{cases} 0, & 0 < t < 2\pi, \\ \sin t, & t > 2\pi, \end{cases}
+\]
+with $y(0) = 1$ and $y'(0) = 0$, then $Y(p)$ equals
+\optsfour{$\dfrac{p + 1}{1 + p^2}$}{$\dfrac{p}{1 + p^2} + \dfrac{e^{-2\pi p}}{(1 + p^2)^2}$}{$\dfrac{p}{1 + p^2} + \dfrac{e^{-2\pi p}}{1 + p^2}$}{$\dfrac{p(1 + p^2) + 1}{(1 + p^2)^2}$}
+\ans{(b)}
+
+\textbf{Q.54} If $y = \displaystyle\sum_{m=0}^{\infty} a_m x^m$ is a solution of $y'' + xy' + 3y = 0$, then $\dfrac{a_m}{a_{m+2}}$ equals
+\optsfour{$\dfrac{(m+1)(m+2)}{m+3}$}{$-\dfrac{(m+1)(m+2)}{m+3}$}{$-\dfrac{m(m-1)}{m+3}$}{$\dfrac{m(m-1)}{m+3}$}
+\ans{(b)}
+
+\textbf{Q.55} The indicial equation for $x(1 + x^2)y'' + (\cos x)y' + (1 - 3x + x^2)y = 0$ is
+\optsfour{$r^2 - r = 0$}{$r^2 + r = 0$}{$r^2 = 0$}{$r^2 - 1 = 0$}
+\ans{(c)}
+
+\textbf{Q.56} The general solution $\begin{pmatrix} x(t) \\ y(t) \end{pmatrix}$ of the system $\dot{x} = -x + 2y$, $\dot{y} = 4x + y$ is given by
+\optsfour{$\begin{pmatrix} c_1 e^{3t} - c_2 e^{-3t} \\ 2c_1 e^{3t} + c_2 e^{-3t} \end{pmatrix}$}{$\begin{pmatrix} c_1 e^{3t} \\ c_2 e^{-3t} \end{pmatrix}$}{$\begin{pmatrix} c_1 e^{3t} + c_2 e^{-3t} \\ 2c_1 e^{3t} + c_2 e^{-3t} \end{pmatrix}$}{$\begin{pmatrix} c_1 e^{3t} - c_2 e^{-3t} \\ -2c_1 e^{3t} + c_2 e^{-3t} \end{pmatrix}$}
+\ans{(a)}
+
+\textbf{Q.57} Let $G$ and $H$ be two groups. The groups $G \times H$ and $H \times G$ are isomorphic
+\optsfour{for any $G$ and any $H$}{only if one of them is cyclic}{only if one of them is abelian}{only if $G$ and $H$ are isomorphic}
+\ans{(a)}
+
+\textbf{Q.58} Let $H = \mathbb{Z}_2 \times \mathbb{Z}_6$ and $K = \mathbb{Z}_3 \times \mathbb{Z}_4$. Then
+% NOTE: Verify K = Z_3 x Z_4 on page 57 (OCR read "Z_2 x Z_4" while option (b) references gcd(3,4)=1 and (c) says K is cyclic).
+\optslist{$H$ is isomorphic to $K$ since both are cyclic}{$H$ is isomorphic to $K$ since $2$ divides $6$ and $\gcd(3,4) = 1$}{$H$ is not isomorphic to $K$ since $K$ is cyclic whereas $H$ is not}{$H$ is not isomorphic to $K$ since there is no homomorphism from $H$ to $K$}
+\ans{(c)}
+
+\textbf{Q.59} Suppose $G$ denotes the multiplicative group $\{-1, 1\}$ and $S = \{z \in \mathbb{C} : |z| = 1\}$. Let $G$ act on $S$ by complex multiplication. Then the cardinality of the orbit of $i$ is
+\optsfour{$1$}{$2$}{$5$}{infinite}
+\ans{(b)}
+
+\textbf{Q.60} The number of $5$-Sylow subgroups of $\mathbb{Z}_{20}$ is
+\optsfour{$1$}{$4$}{$5$}{$6$}
+\ans{(a)}
+
+\textbf{Q.61} Let $S = \left\{\begin{pmatrix} a & b \\ 0 & c \end{pmatrix} : a, b, c \in \mathbb{R}\right\}$ be the ring under matrix addition and multiplication. Then the subset $I = \left\{\begin{pmatrix} 0 & p \\ 0 & 0 \end{pmatrix} : p \in \mathbb{R}\right\}$ is
+\optslist{not an ideal of $S$}{an ideal, but not a prime ideal of $S$}{a prime ideal, but not a maximal ideal of $S$}{a maximal ideal of $S$}
+\ans{(b)}
+
+\textbf{Q.62} Consider $S = \mathbb{C}[x^5]$, complex polynomials in $x^5$, as a subset of $T = \mathbb{C}[x]$, the ring of all complex polynomials. Then
+\optslist{$S$ is neither an ideal nor a subring of $T$}{$S$ is an ideal, but not a subring of $T$}{$S$ is a subring, but not an ideal of $T$}{$S$ is both a subring and an ideal of $T$}
+\ans{(c)}
+
+\textbf{Q.63} Which of the following statements is true about $S = \mathbb{Z}[x]$?
+\optslist{$S$ is a Euclidean domain since all its ideals are principal}{$S$ is a Euclidean domain since $\mathbb{Z}$ is a Euclidean domain}{$S$ is not a Euclidean domain since $S$ is not even an integral domain}{$S$ is not a Euclidean domain since it has non-principal ideals}
+\ans{(d)}
+
+\textbf{Q.64} Let $X$ be the space of bounded real sequences with sup norm. Define a linear operator $T : X \to X$ by $T(x) = \left(\dfrac{x_1}{1}, \dfrac{x_2}{2}, \dots\right)$ for $x = (x_1, x_2, \dots) \in X$. Then
+\optslist{$T$ is bounded but not one to one}{$T$ is one to one but not bounded}{$T$ is bounded and its inverse (from range of $T$) exists but is not bounded}{$T$ is bounded and its inverse (from range of $T$) exists and is bounded}
+\ans{(c)}
+
+\textbf{Q.65} Let $X$ be the space of real sequences having finitely many non-zero terms with $\|\cdot\|_p$, $1 \le p \le \infty$. Define $f : X \to \mathbb{R}$ by $f(x) = \displaystyle\sum_{n=1}^{\infty} x_n$. Then
+% NOTE: Formula for f(x) was omitted in OCR on page 58; standard GATE 2004 Q.65 uses f(x) = \sum x_n.
+\optsfour{$f$ is continuous only for $p = 1$}{$f$ is continuous only for $p = 2$}{$f$ is continuous only for $p = \infty$}{$f$ is not continuous for any $p$, $1 \le p \le \infty$}
+\ans{(a)}
+
+\textbf{Q.66} Let $X = C^1[0,1]$ with the norm $\|x\| = \|x\|_\infty + \|x'\|_\infty$ (where $x'$ is the derivative of $x$) and $Y = C^1[0,1]$ with sup norm. If $T$ is the identity operator from $X$ into $Y$, then
+\optsfour{$T$ and $T^{-1}$ are continuous}{$T$ is continuous but $T^{-1}$ is not}{$T^{-1}$ is continuous but $T$ is not}{neither $T$ nor $T^{-1}$ is continuous}
+\ans{(b)}
+
+\textbf{Q.67} Let $X = C[-1,1]$ with the inner product defined by $\langle x, y \rangle = \displaystyle\int_{-1}^{1} x(t)y(t)\,dt$. Let $Y$ be the set of all odd functions in $X$. Then
+\optslist{$Y^\perp$ is the set of all even functions in $X$}{$Y^\perp$ is the set of odd functions in $X$}{$Y^\perp = \{0\}$}{$Y^\perp$ is the set of all constant functions in $X$}
+\ans{(a)}
+
+\textbf{Q.68} Let $X = l^2$, the space of all square-summable sequences with $\|x\| = \sqrt{\sum_{i=1}^{\infty} |x_i|^2}$, for $x = (x_i) \in X$. Define a sequence $\{T_n\}$ of linear operators on $X$ by $T_n(x) = (x_1, x_2, \dots, x_n, 0, 0, \dots)$. Then
+\optslist{$T_n$ is an unbounded operator for sufficiently large $n$}{$T_n$ is bounded but not compact for all $n$}{$T_n$ is compact for all $n$ but $\lim_{n\to\infty} T_n$ is not compact}{$T_n$ is compact for all $n$ and so is $\lim_{n\to\infty} T_n$}
+\ans{(c)}
+
+\textbf{Q.69} To find the positive square root of $a > 0$ by solving $x^2 - a = 0$ by the Newton--Raphson method, if $x_n$ denotes the $n$-th iterate with $x_0 > 0$, $x_0 \ne \sqrt{a}$, then the sequence $\{x_n, n \ge 1\}$ is
+\optsfour{strictly decreasing}{strictly increasing}{constant}{not convergent}
+\ans{(a)}
+
+\textbf{Q.70} In solving the ordinary differential equation $y' = 2x$, $y(0) = 0$ using Euler's method, the iterates $y_n$, $n \in \mathbb{N}$, satisfy
+\optsfour{$y_n = x_n^2$}{$y_n = 2x_n$}{$y_n = x_n x_{n-1}$}{$y_n = x_{n-1} + x_n$}
+\ans{(c)}
+
+\textbf{Q.71} The characteristic curves of the partial differential equation $(2x + u)u_x + (2y + u)u_y = u$, passing through $(1, 1)$ for any arbitrary initial values prescribed on a non-characteristic curve, are given by
+\optsfour{$x = y$}{$x^2 + y^2 = 2$}{$x + y = 2$}{$x^2 - xy + y^2 = 1$}
+\ans{(a)}
+
+\textbf{Q.72} The solution of Laplace's equation
+\[
+  \frac{\partial^2 u}{\partial r^2} + \frac{1}{r}\frac{\partial u}{\partial r} + \frac{1}{r^2}\frac{\partial^2 u}{\partial \theta^2} = 0
+\]
+in the unit disk with boundary condition $u(1, \theta) = 2\cos^2\theta$ is given by
+\optsfour{$1 + r^2\cos 2\theta$}{$1 + \ln r + r\cos 2\theta$}{$2r^3\cos^2\theta$}{$1 - r^2 + 2r^2\cos^2\theta$}
+\ans{(a)}
+
+\textbf{Q.73} For the heat equation $\dfrac{\partial u}{\partial t} = \dfrac{\partial^2 u}{\partial x^2}$ on $\mathbb{R} \times [0, T]$, with $u(x,0) = u_0(x)$, $u_0 \in L^2(\mathbb{R})$,
+\optslist{the solution is reversible in time}{if $u_0(x)$ has compact support, so does $u(x, t)$ for any given $t$}{if $u_0(x)$ is discontinuous at a point, so is $u(x, t)$ for any given $t$}{if $u_0(x) \ge 0$ for all $x$, then $u(x, t) \ge 0$ for all $x$ and $t > 0$}
+\ans{(d)}
+
+\textbf{Q.74} If $u(x,t)$ satisfies the wave equation $\dfrac{\partial^2 u}{\partial t^2} = c^2\dfrac{\partial^2 u}{\partial x^2}$, $x \in \mathbb{R}$, $t > 0$, with initial conditions
+\[
+  u(x, 0) = \begin{cases} \sin\!\left(\dfrac{\pi x}{c}\right), & 0 \le x \le c, \\ 0, & \text{elsewhere,} \end{cases}
+  \qquad \text{and} \qquad u_t(x, 0) = 0 \quad \text{for all } x,
+\]
+then for a given $t > 0$,
+\optslist{there are values of $x$ at which $u(x,t)$ is discontinuous}{$u(x,t)$ is continuous, but $u_x(x,t)$ is not continuous}{$u(x,t)$, $u_x(x,t)$ are continuous, but $u_{xx}(x,t)$ is not continuous}{$u(x,t)$ is smooth for all $x$}
+\ans{(b)}
+
+\textbf{Q.75} A rigid body is acted on by two forces, $\mathbf{F}_1 = a\hat{i} + b\hat{j} - 3\hat{k}$ at the point $(1, 2, -1)$ and $\mathbf{F}_2 = \hat{i} + a\hat{j} + b\hat{k}$ at the point $(-1, 0, 1)$. If the force system is equipollent to the force $\mathbf{F}$ and the couple $\mathbf{G}$, which have no components along $\hat{k}$, then $\mathbf{F}$ equals
+\optsfour{$2\hat{i} + 4\hat{j}$}{$2\hat{i} - 4\hat{j}$}{$4\hat{i} + 2\hat{j}$}{$4\hat{i} - 2\hat{j}$}
+\ans{(a)}
+
+\textbf{Q.76} A frictionless wire, fixed at $R$, rotates with constant angular velocity $\omega$ about a vertical axis $RO$ ($O$ is the origin and $R$ is above $O$), making a constant angle $\alpha$ with it. A particle $P$ of unit mass is constrained to move on the wire. If the mass of the wire is negligible, distance $OR$ is $h$ and $RP$ is $r(t)$ at any time $t$, then the Lagrangian of the motion is
+\optsfour{$\dfrac{1}{2}\dot{r}^2 - g(h - r\cos\alpha)$}{$\dfrac{1}{2}(\dot{r}^2 + \omega^2 r^2) + gr\cos\alpha$}{$\dfrac{1}{2}(\dot{r}^2 + \omega^2 r^2\sin^2\alpha) - g(h - r\cos\alpha)$}{$\dfrac{1}{2}(\dot{r}^2 + r^2\sin^2\alpha) - gh$}
+\ans{(c)}
+
+\textbf{Q.77} In $\mathbb{R}$ with the usual topology, the set $U = \{x \in \mathbb{R} : -1 \le x \le 1,\ x \ne 0\}$ is
+\optsfour{neither Hausdorff nor first countable}{Hausdorff but not first countable}{first countable but not Hausdorff}{both Hausdorff and first countable}
+\ans{(d)}
+
+\textbf{Q.78} Suppose $U = \{x \in \mathbb{Q} : 0 \le x \le 1\}$ and $V = \{x \in \mathbb{Q} : 0 < x < 2\}$. Let $n$ and $m$ be the number of connected components of $U$ and $V$ respectively. Then
+\optsfour{$m = n = 1$}{$m = n \ne 1$}{$m = 2n$, $m, n$ finite}{$m > 2n$}
+\ans{(b)}
+
+\textbf{Q.79} Let $f : [0, 1] \to \mathbb{R}$ be the continuous function defined by $f(x) = \dfrac{(x - 1)(x - 2)}{(x - 3)(x - 4)}$. Then the maximal subset of $\mathbb{R}$ on which $f$ has a continuous extension is
+\optsfour{$(-\infty, 3)$}{$(-\infty, 3) \cup (4, \infty)$}{$\mathbb{R} \setminus \{3, 4\}$}{$\mathbb{R}$}
+\ans{(d)}
+
+\textbf{Q.80} Suppose $U = (0, 1/2) \times (0, 1/2)$, $V = (-1/2, 0) \times (-1/2, 0)$, and $D$ be the open unit disk with centre at origin of $\mathbb{R}^2$. Let $f$ be a real-valued continuous function on $D$ such that $f(U) = 0$. Then it follows that
+\optsfour{$f(v) = 0$ for every $v \in V$}{$f(v) \ne 0$ for every $v \in V$}{$f(v) = 0$ for some $v \in V$}{$f$ can assume any real value on $V$}
+\ans{(d)}
+
+\textbf{Q.81} Suppose $X$ is a random variable and $f, g : \mathbb{R} \to \mathbb{R}$ are measurable functions such that $f(X)$ and $g(X)$ are independent, then
+\optslist{$X$ is degenerate}{both $f(X)$ and $g(X)$ are degenerate}{either $f(X)$ or $g(X)$ is degenerate}{$X$, $f(X)$, and $g(X)$ could all be non-degenerate}
+\ans{(d)}
+
+\textbf{Q.82} Suppose $X_1, X_2, \dots, X_n$ is a random sample from a $N(\mu, \sigma^2)$ distribution, where $\mu$ is known, but $\sigma^2$ is not. If $\bar{X} = \dfrac{1}{n}\displaystyle\sum_{i=1}^{n} X_i$ and $S = \sqrt{\dfrac{1}{n}\displaystyle\sum_{i=1}^{n} (X_i - \mu)^2}$, then the pair $(\bar{X}, S)$ is
+\optsfour{complete and sufficient}{complete but not sufficient}{sufficient but not complete}{neither sufficient nor complete}
+\ans{(c)}
+
+\textbf{Q.83} If $X$ and $Y$ are random variables with $0 < \operatorname{Var}(X), \operatorname{Var}(Y) < \infty$, consider the statements: (I) $\operatorname{Var}(E(Y \mid X)) = \operatorname{Var}(Y)$ and (II) the correlation coefficient between $X$ and $Y$ is $\pm 1$. Then
+\optslist{(I) implies (II) and (II) implies (I)}{(I) implies (II) but (II) does not imply (I)}{(II) implies (I) but (I) does not imply (II)}{neither does (I) imply (II) nor does (II) imply (I)}
+\ans{(c)}
+
+\textbf{Q.84} If the random variable $X$ has a Poisson distribution with parameter $\lambda$ and the parametric space has three elements $3, 4$, and $k$, then to test the null hypothesis $H_0 : \lambda = 3$ vs.\ the alternative hypothesis $H_1 : \lambda \ne 3$, a uniformly most powerful test at any level $\alpha \in (0, 1)$ exists for any sample size
+\optsfour{for all $k \ne 3, 4$}{if and only if $k > 4$}{if and only if $k < 3$}{if and only if $k > 3$}
+\ans{(d)}
+
+\textbf{Q.85} Suppose the random variable $X$ has a uniform distribution in the interval $[\theta - 1, \theta + 1]$, where $\theta \in \mathbb{Z}$. If a random sample of size $n$ is drawn from this distribution, then $P_\theta$-almost surely for all $\theta \in \mathbb{Z}$, a maximum likelihood estimator (MLE) for $\theta$
+\optsfour{exists and is unique}{exists but may or may not be unique}{exists but cannot be unique}{does not exist}
+\ans{(b)}
+
+\textbf{Q.86} A $\chi^2$ (chi-squared) test for independence between two attributes $X$ and $Y$ is carried out at $2.5\%$ level of significance on the following $2 \times 2$ contingency table showing frequencies:
+\begin{center}
+\begin{tabular}{ccc}
+  \toprule
+  & $X_1$ & $X_2$ \\
+  \midrule
+  $Y_1$ & $1$ & $0$ \\
+  $Y_2$ & $1$ & $d$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+If the upper $2.5\%$ point of the $\chi_1^2$ distribution is given as $5.0$, then the hypothesis of independence is to be rejected if and only if
+\optsfour{$d > 1$}{$d > 3$}{$d > 5$}{$d > 9$}
+\ans{(d)}
+
+\textbf{Q.87} Consider the Linear Programming Problem (LPP):
+\begin{align*}
+  \text{Maximize } & x_1 \\
+  \text{subject to } & 3x_1 + 4x_2 \le 10, \\
+                     & 5x_1 - x_2 \le 9, \\
+                     & 3x_1 - 2x_2 \ge -2, \\
+                     & x_1 - 3x_2 \le 3, \\
+                     & x_1, x_2 \ge 0.
+\end{align*}
+The value of the LPP is
+\optsfour{$\dfrac{9}{5}$}{$2$}{$3$}{$\dfrac{10}{3}$}
+\ans{(b)}
+
+\textbf{Q.88} Given that the eigenvalues of the integral equation $y(x) = \lambda \displaystyle\int_0^{2\pi} \cos(x + t)y(t)\,dt$ are $\dfrac{1}{\pi}$ and $-\dfrac{1}{\pi}$ with respective eigenfunctions $\cos x$ and $\sin x$. Then the integral equation $y(x) = \sin x + \cos x + \lambda \displaystyle\int_0^{2\pi} \cos(x + t)y(t)\,dt$ has
+\optsfour{unique solution for $\lambda = 1/\pi$}{unique solution for $\lambda = -1/\pi$}{unique solution for $\lambda = \pi$}{no solution for $\lambda = -\pi$}
+\ans{(c)}
+
+\textbf{Q.89} The values of $\lambda$ for which the integral equation $y(x) = \lambda \displaystyle\int_0^1 (6x - t)y(t)\,dt$ has a nontrivial solution are given by the roots of the equation
+\optsfour{$(3\lambda - 1)(2 + \lambda) - \lambda^2 = 0$}{$(3\lambda - 1)(2 + \lambda) + 2 = 0$}{$(3\lambda - 1)(2 + \lambda) - 4\lambda^2 = 0$}{$(3\lambda - 1)(2 + \lambda) + \lambda^3 = 0$}
+\ans{(c)}
+
+\textbf{Q.90} The extremals for the functional $v[y(x)] = \displaystyle\int_{x_0}^{x_1} \left(xy' + (y')^2\right)dx$ are given by the following family of curves:
+\optsfour{$y = c_1 + c_2 x + \dfrac{x^2}{4}$}{$y = 1 + c_1 x + c_2\dfrac{x^2}{4}$}{$y = c_1 + x + c_2\dfrac{x^2}{4}$}{$y = c_1 + c_2 x - \dfrac{x^2}{4}$}
+\ans{(d)}
+
+\newpage
+
+% ============================================================================
+% GATE 2005 -- MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\Large\bfseries GATE 2005 -- Mathematics (MA)}\\[4pt]
+  {\small Duration: Three Hours \quad\textbar\quad Maximum Marks: 150}
+\end{center}
+
+\medskip
+\textbf{Note:} The symbols $\mathbb{N}$, $\mathbb{Z}$, $\mathbb{R}$, and $\mathbb{C}$ denote the sets of natural numbers, integers, real numbers, and complex numbers, respectively, throughout the paper.
+
+\section*{Q.1 -- Q.30 Carry One Mark Each}
+
+\textbf{Q.1} The set of all $x \in \mathbb{R}$ for which the vectors $(1, x, 0)$, $(0, x^2, 1)$, and $(0, 1, x)$ are linearly independent in $\mathbb{R}^3$ is
+\optsfour{$\{x \in \mathbb{R} : x = 0\}$}{$\{x \in \mathbb{R} : x \ne 0\}$}{$\{x \in \mathbb{R} : x \ne 1\}$}{$\{x \in \mathbb{R} : x \ne -1\}$}
+\ans{(c)}
+
+\textbf{Q.2} Consider the vector space $\mathbb{R}^3$ and the maps $f, g : \mathbb{R}^3 \to \mathbb{R}^3$ defined by $f(x,y,z) = (x, |y|, z)$ and $g(x,y,z) = (x+1, y-1, z)$. Then
+\optsfour{both $f$ and $g$ are linear}{neither $f$ nor $g$ is linear}{$g$ is linear but not $f$}{$f$ is linear but not $g$}
+\ans{(b)}
+
+\textbf{Q.3} Let $M = \begin{pmatrix} 1 & 3 & 3 \\ 0 & 4 & 5 \\ 0 & 0 & 9 \end{pmatrix}$. Then
+\optslist{$M$ is diagonalizable but not $M^2$}{$M^2$ is diagonalizable but not $M$}{both $M$ and $M^2$ are diagonalizable}{neither $M$ nor $M^2$ is diagonalizable}
+\ans{(c)}
+
+\textbf{Q.4} Let $M$ be a skew-symmetric, orthogonal real matrix. The only possible eigenvalues are
+\optsfour{$-1, 1$}{$-i, i$}{$0$}{$1, i$}
+\ans{(b)}
+
+\textbf{Q.5} The principal value of $\log(i^{1/4})$ is
+\optsfour{$i\pi$}{$\dfrac{i\pi}{2}$}{$\dfrac{i\pi}{4}$}{$\dfrac{i\pi}{8}$}
+\ans{(d)}
+
+\textbf{Q.6} Consider the functions $f(z) = x^2 + iy^2$ and $g(z) = x^2 + y^2 + ixy$. At $z = 0$,
+\optsfour{$f$ is analytic but not $g$}{$g$ is analytic but not $f$}{both $f$ and $g$ are analytic}{neither $f$ nor $g$ is analytic}
+\ans{(d)}
+
+\textbf{Q.7} The coefficient of $\dfrac{1}{z}$ in the expansion of $\operatorname{Log}\!\left(\dfrac{z}{z - 1}\right)$ valid in $|z| > 1$ is
+\optsfour{$-1$}{$1$}{$-\dfrac{1}{2}$}{$\dfrac{1}{2}$}
+\ans{(b)}
+
+\textbf{Q.8} Under the usual topology in $\mathbb{R}^3$, if $O = \{(x,y,z) \in \mathbb{R}^3 : x^2 + y^2 < 1\}$ and $F = \{(x,y,z) \in \mathbb{R}^3 : z = 0\}$, then $O \cap F$ is
+\optsfour{both open and closed}{neither open nor closed}{open but not closed}{closed but not open}
+\ans{(b)}
+
+\textbf{Q.9} Suppose $E$ is a nonmeasurable subset of $[0, 1]$. Let $P = E^\circ \cup \left\{\dfrac{1}{n} : n \in \mathbb{N}\right\}$ and $Q = \overline{E} \cup \left\{\dfrac{1}{n} : n \in \mathbb{N}\right\}$, where $E^\circ$ is the interior of $E$ and $\overline{E}$ is the closure of $E$. Then
+\optsfour{$P$ is measurable but not $Q$}{$Q$ is measurable but not $P$}{both $P$ and $Q$ are measurable}{neither $P$ nor $Q$ is measurable}
+\ans{(c)}
+
+\textbf{Q.10} The value of $\displaystyle\int_0^\pi \int_x^\pi \int_0^2 \frac{\sin y}{y}\,dz\,dy\,dx$ is
+\optsfour{$-2$}{$2$}{$-4$}{$4$}
+\ans{(d)}
+
+\textbf{Q.11} Let $S = \left\{\dfrac{1}{n} : n \in \mathbb{N}\right\} \cup \{0\}$ and $T = \left\{n + \dfrac{1}{n} : n \in \mathbb{N}\right\}$ be the subsets of the metric space $\mathbb{R}$ with the usual metric. Then
+\optsfour{$S$ is complete but not $T$}{$T$ is complete but not $S$}{both $T$ and $S$ are complete}{neither $T$ nor $S$ is complete}
+\ans{(c)}
+
+\textbf{Q.12} In a sufficiently small neighbourhood around $x = 2$, the differential equation $\dfrac{dy}{dx} = \dfrac{y}{\sqrt{x}}$, $y(2) = 4$, has
+\optsfour{no solution}{a unique solution}{exactly two solutions}{infinitely many solutions}
+\ans{(b)}
+
+\textbf{Q.13} The set of linearly independent solutions of the differential equation $\dfrac{d^4 y}{dx^4} - \dfrac{d^2 y}{dx^2} = 0$ is
+\optsfour{$\{1, x, e^x, e^{-x}\}$}{$\{1, x, e^{-x}, x e^{-x}\}$}{$\{1, x, e^x, x e^x\}$}{$\{1, x, e^x, x e^{-x}\}$}
+\ans{(a)}
+
+\textbf{Q.14} For the differential equation $x^2(1 - x)\dfrac{d^2 y}{dx^2} + x\dfrac{dy}{dx} + y = 0$,
+\optsfour{$x = 1$ is an ordinary point}{$x = 1$ is a regular singular point}{$x = 0$ is an irregular singular point}{$x = 0$ is an ordinary point}
+\ans{(b)}
+
+\textbf{Q.15} Let $D_8$ denote the group of symmetries of a square (dihedral group). The minimal number of generators for $D_8$ is
+\optsfour{$1$}{$2$}{$4$}{$8$}
+\ans{(b)}
+
+\textbf{Q.16} Let the set $\mathbb{Z}/n\mathbb{Z}$ denote the ring of integers modulo $n$ under addition and multiplication modulo $n$. Then $\mathbb{Z}/9\mathbb{Z}$ is not a subring of $\mathbb{Z}/12\mathbb{Z}$ because
+\optsfour{$\mathbb{Z}/9\mathbb{Z}$ is not a subset of $\mathbb{Z}/12\mathbb{Z}$}{$\gcd(9, 12) = 3 \ne 1$}{$12$ is not a power of $3$}{$9$ does not divide $12$}
+\ans{(d)}
+
+\textbf{Q.17} Let $C[0,1]$ be the space of all continuous real-valued functions on $[0,1]$. The identity map $I : (C[0,1], \|\cdot\|_\infty) \to (C[0,1], \|\cdot\|_1)$ is
+\optsfour{continuous but not open}{open but not continuous}{both continuous and open}{neither continuous nor open}
+\ans{(a)}
+
+\textbf{Q.18} Consider the Hilbert space $l^2 = \left\{(x_1, x_2, \dots) : x_i \in \mathbb{C} \text{ for all } i \text{ and } \sum_{i=1}^{\infty} |x_i|^2 < \infty\right\}$ with the inner product $\langle (x_1, x_2, \dots), (y_1, y_2, \dots) \rangle = \sum_{i=1}^{\infty} x_i \bar{y}_i$. Define $T : l^2 \to l^2$ by $T((x_1, x_2, \dots)) = \left(x_1, \dfrac{x_2}{2}, \dfrac{x_3}{3}, \dots\right)$. Then $T$ is
+\optsfour{neither self-adjoint nor unitary}{both self-adjoint and unitary}{unitary but not self-adjoint}{self-adjoint but not unitary}
+\ans{(d)}
+
+\textbf{Q.19} An iterative method to find the $n$-th root ($n \in \mathbb{N}$) of a positive number $a$ is given by $x_{k+1} = \dfrac{1}{2}\!\left[x_k + \dfrac{a}{x_k^{n-1}}\right]$. A value of $n$ for which this iterative method fails to converge is
+\optsfour{$1$}{$2$}{$3$}{$8$}
+\ans{(d)}
+
+\textbf{Q.20} Suppose the function $u(x)$ interpolates $f(x)$ at $x_0, x_1, \dots, x_{n-1}$ and the function $v(x)$ interpolates $f(x)$ at $x_1, x_2, \dots, x_n$. Then a function $F(x)$ which interpolates $f(x)$ at all the points $x_0, x_1, \dots, x_n$ is given by
+\optsfour{$F(x) = \dfrac{(x_n - x)u(x) - (x - x_0)v(x)}{x_n - x_0}$}{$F(x) = \dfrac{(x_n - x)u(x) + (x - x_0)v(x)}{x_n - x_0}$}{$F(x) = \dfrac{(x_n - x)v(x) + (x - x_0)u(x)}{x_n - x_0}$}{$F(x) = \dfrac{(x_n - x)v(x) - (x - x_0)u(x)}{x_n - x_0}$}
+\ans{(b)}
+
+\textbf{Q.21} The integral surface of the partial differential equation $x\dfrac{\partial u}{\partial x} + y\dfrac{\partial u}{\partial y} = 0$ satisfying the condition $u(1, y) = y$ is given by
+\optsfour{$u(x,y) = \dfrac{y}{x}$}{$u(x,y) = \dfrac{2y}{x + 1}$}{$u(x,y) = \dfrac{y}{2 - x}$}{$u(x,y) = y + x - 1$}
+\ans{(a)}
+
+\textbf{Q.22} If $f(x)$ and $g(y)$ are arbitrary functions, then the general solution of the partial differential equation $u\dfrac{\partial^2 u}{\partial x \partial y} - \dfrac{\partial u}{\partial x}\dfrac{\partial u}{\partial y} = 0$ is given by
+\optsfour{$u(x,y) = f(x) + g(y)$}{$u(x,y) = f(x+y) + g(x-y)$}{$u(x,y) = f(x)g(y)$}{$u(x,y) = xg(y) + yf(x)$}
+\ans{(c)}
+
+\textbf{Q.23} A bead slides on a smooth rod which is rotating about one end in a vertical plane with uniform angular velocity $\omega$. If $g$ denotes the acceleration due to gravity, then the Lagrange equation of motion is
+\optsfour{$\ddot{r} = r\omega^2 - g\sin\omega t$}{$\ddot{r} = r\omega^2 - g\cos\omega t$}{$\ddot{r} = -g\sin\omega t$}{$\ddot{r} = -g\cos\omega t$}
+\ans{(a)}
+
+\textbf{Q.24} The Lagrangian $L$ of a dynamical system with two degrees of freedom is given by $L = \alpha + \beta\dot{q}_1 + \gamma\dot{q}_2$, where $\alpha, \beta$, and $\gamma$ are functions of the generalized coordinates $q_1, q_2$ only. If $p_1, p_2$ denote the generalized momenta, then the Hamiltonian $H$
+\optslist{depends on $p_1, p_2$ but not on $q_1, q_2$}{depends on $q_1, q_2$ but not on $p_1, p_2$}{depends on $p_1, q_1$ but not on $p_2, q_2$}{is independent of $p_1, p_2, q_1, q_2$}
+\ans{(b)}
+
+\textbf{Q.25} Let $A_1, A_2, \dots, A_n$ be $n$ independent events with the probability of occurrence of the event $A_i$ given by $P(A_i) = 1 - \dfrac{1}{\alpha^i}$, $\alpha > 1$, $i = 1, 2, \dots, n$. Then the probability that at least one of the events occurs is
+\optsfour{$1 - \dfrac{1}{\alpha^{n(n+1)/2}}$}{$\dfrac{1}{\alpha^{n(n+1)/2}}$}{$\dfrac{1}{\alpha^n}$}{$1 - \dfrac{1}{\alpha^n}$}
+\ans{(a)}
+
+\textbf{Q.26} The lifetimes of two brands of bulbs $X$ and $Y$ are exponentially distributed with a mean lifetime of $100$ hours. Bulb $X$ is switched on $15$ hours after bulb $Y$ has been switched on. The probability that bulb $X$ fails before $Y$ is
+\optsfour{$\dfrac{15}{100}$}{$\dfrac{1}{2}$}{$\dfrac{85}{100}$}{$0$}
+\ans{(b)}
+
+\textbf{Q.27} A random sample of size $n$ is chosen from a population with probability density function
+\[
+  f(x, \theta) = \begin{cases} \dfrac{1}{2}e^{-(x - \theta)}, & x \ge \theta, \\ \dfrac{1}{2}e^{(x - \theta)}, & x < \theta. \end{cases}
+\]
+Then the maximum likelihood estimator of $\theta$ is the
+\optsfour{mean of the sample}{standard deviation of the sample}{median of the sample}{maximum of the sample}
+\ans{(c)}
+
+\textbf{Q.28} Consider the following Linear Programming Problem (LPP):
+\begin{align*}
+  \text{Minimize } & z = 2x_1 + 3x_2 + x_3 \\
+  \text{subject to } & x_1 + 2x_2 + 2x_3 - x_4 + x_5 = 3, \\
+                     & 2x_1 + 3x_2 + 4x_3 + x_6 = 6, \\
+                     & x_i \ge 0, \quad i = 1, 2, \dots, 6.
+\end{align*}
+A nondegenerate basic feasible solution $(x_1, x_2, x_3, x_4, x_5, x_6)$ is
+\optsfour{$(1, 0, 1, 0, 0, 0)$}{$(1, 0, 0, 0, 0, 7)$}{$(0, 0, 0, 0, 3, 6)$}{$(3, 0, 0, 0, 0, 0)$}
+\ans{(c)}
+
+\textbf{Q.29} The unit cost $c_{ij}$ of producing product $i$ at plant $j$ is given by the matrix
+\[
+  \begin{pmatrix}
+    14 & 12 & 16 \\
+    21 & 9 & 17 \\
+    9 & 7 & 5
+  \end{pmatrix}.
+\]
+The total cost of optimal assignment is
+\optsfour{$20$}{$22$}{$25$}{$28$}
+\ans{(d)}
+
+\textbf{Q.30} The eigenvalues of the integral equation $y(x) = \lambda \displaystyle\int_0^{2\pi} \sin(x + t)y(t)\,dt$ are given by
+\optsfour{$\dfrac{1}{2\pi},\ -\dfrac{1}{2\pi}$}{$\dfrac{1}{\pi},\ -\dfrac{1}{\pi}$}{$\pi,\ -\pi$}{$2\pi,\ -2\pi$}
+\ans{(b)}
+
+\section*{Q.31 -- Q.80 Carry Two Marks Each}
+
+\textbf{Q.31} Let $S$ and $T$ be two linear operators on $\mathbb{R}^3$ defined by $S(x,y,z) = (x, x+y, x-y-z)$ and $T(x,y,z) = (x+2z, y-z, x+y+z)$. Then
+\optsfour{$S$ is invertible but not $T$}{$T$ is invertible but not $S$}{both $S$ and $T$ are invertible}{neither $S$ nor $T$ is invertible}
+\ans{(a)}
+
+\textbf{Q.32} Let $V, W$, and $X$ be three finite dimensional vector spaces such that $\dim V = \dim X$. Suppose $S : V \to W$ and $T : W \to X$ are two linear maps such that $T \circ S : V \to X$ is injective. Then
+\optsfour{$S$ and $T$ are surjective}{$S$ is surjective and $T$ is injective}{$S$ and $T$ are injective}{$S$ is injective and $T$ is surjective}
+\ans{(d)}
+
+\textbf{Q.33} If a square matrix of order $10$ has exactly $4$ distinct eigenvalues, then the degree of its minimal polynomial is
+\optsfour{at least $4$}{at most $4$}{at least $6$}{at most $6$}
+\ans{(a)}
+
+\textbf{Q.34} Consider the matrix
+\[
+  M = \begin{pmatrix}
+    0 & 1 & 2 & 0 \\
+    1 & 0 & 1 & 0 \\
+    2 & 1 & 0 & 2 \\
+    0 & 0 & 2 & 0
+  \end{pmatrix}.
+\]
+Then
+\optslist{$M$ has no real eigenvalues}{all real eigenvalues of $M$ are positive}{all real eigenvalues of $M$ are negative}{$M$ has both positive and negative real eigenvalues}
+\ans{(d)}
+
+\textbf{Q.35} Consider the real inner product space $P[0,1]$ of all polynomials with the inner product $\langle f, g \rangle = \displaystyle\int_0^1 f(x)g(x)\,dx$. Let $M = \operatorname{span}\{1\}$. The orthogonal projection of $x^2$ onto $M$ is
+\optsfour{$1$}{$\dfrac{1}{2}$}{$\dfrac{1}{3}$}{$\dfrac{1}{4}$}
+\ans{(c)}
+
+\textbf{Q.36} Let $\gamma$ be a simple closed curve in the complex plane. Then the set of all possible values of $\displaystyle\oint_\gamma \frac{dz}{z(1 - z^2)}$ is
+\optsfour{$\{0, \pm\pi i\}$}{$\{0, \pi i, 2\pi i\}$}{$\{0, \pm\pi i, \pm 2\pi i\}$}{$\{0\}$}
+\ans{(c)}
+
+\textbf{Q.37} The principal value of the improper integral $\displaystyle\int_{-\infty}^{\infty} \frac{\cos x}{1 + x^2}\,dx$ is
+\optsfour{$\dfrac{\pi}{e}$}{$\pi e$}{$\pi + e$}{$\pi - e$}
+\ans{(a)}
+
+\textbf{Q.38} The number of roots of the equation $z^5 - 12z^2 + 14 = 0$ that lie in the region $\left\{z \in \mathbb{C} : 2 \le |z| < \dfrac{5}{2}\right\}$ is
+\optsfour{$2$}{$3$}{$4$}{$5$}
+\ans{(b)}
+
+\textbf{Q.39} Let $f : (0, 2) \to \mathbb{R}$ be defined by
+\[
+  f(x) = \begin{cases} x^2, & \text{if } x \text{ is rational}, \\ 2x - 1, & \text{if } x \text{ is irrational}. \end{cases}
+\]
+Then
+\optslist{$f$ is differentiable exactly at one point}{$f$ is differentiable exactly at two points}{$f$ is not differentiable at any point in $(0, 2)$}{$f$ is differentiable at every point in $(0, 2)$}
+\ans{(a)}
+
+\textbf{Q.40} Let $f : \mathbb{R}^2 \to \mathbb{R}$ be defined by
+\[
+  f(x,y) = \begin{cases} x^2 + y^2, & \text{if } x \text{ and } y \text{ are rational}, \\ 0, & \text{otherwise}. \end{cases}
+\]
+Then
+\optslist{$f$ is not continuous at $(0,0)$}{$f$ is continuous at $(0,0)$ but not differentiable at $(0,0)$}{$f$ is differentiable only at $(0,0)$}{$f$ is differentiable everywhere}
+\ans{(c)}
+
+\textbf{Q.41} Let $f, g : \mathbb{R}^2 \to \mathbb{R}$ be defined by $f(x,y) = x^4 + y^2$ and $g(x,y) = x^4 + y^2 - 10x^2 y$. Then at $(0,0)$
+\optsfour{$f$ has a local minimum but not $g$}{$g$ has a local minimum but not $f$}{both $f$ and $g$ have a local minimum}{neither $f$ nor $g$ has a local minimum}
+\ans{(a)}
+
+\textbf{Q.42} Suppose $C_1$ is the boundary of $\{(x,y) \in \mathbb{R}^2 : 0 \le x \le 1,\ 0 \le y \le 1\}$ and $C_2$ is the boundary of $\{(x,y) \in \mathbb{R}^2 : -1 \le x \le 0,\ -1 \le y \le 0\}$. Let $\alpha_i = \displaystyle\int_{C_i} xy^2\,dx + (x^2 y + 2x)\,dy$, $i = 1, 2$, be evaluated in the counterclockwise direction. Then
+\optsfour{$\alpha_1 = 1,\ \alpha_2 = -1$}{$\alpha_1 = \alpha_2 = 1$}{$\alpha_1 = 2,\ \alpha_2 = -2$}{$\alpha_1 = \alpha_2 = 2$}
+\ans{(d)}
+
+\textbf{Q.43} Consider $\mathbb{R}^2$ with the usual metric and the functions $f : [0, 2\pi) \to \mathbb{R}^2$ and $g : [0, 2\pi] \to \mathbb{R}^2$ defined by $f(t) = (\cos t, \sin t)$, $0 \le t < 2\pi$, and $g(t) = (\cos t, \sin t)$, $0 \le t \le 2\pi$. Then on the respective domains
+\optsfour{$f$ is uniformly continuous but not $g$}{$g$ is uniformly continuous but not $f$}{both $f$ and $g$ are uniformly continuous}{neither $f$ nor $g$ is uniformly continuous}
+\ans{(c)}
+
+\textbf{Q.44} Let $f : \mathbb{R} \to \mathbb{R}$ be a nonzero function such that $|f(x)| \le \dfrac{1}{1 + 2x^2}$ for all $x \in \mathbb{R}$. Define real-valued functions $f_n$ on $\mathbb{R}$ for all $n \in \mathbb{N}$ by $f_n(x) = f(x + n)$. Then the series $\displaystyle\sum_{n=1}^{\infty} f_n(x)$ converges uniformly
+\optsfour{on $[0, 1]$ but not on $[-1, 0]$}{on $[-1, 0]$ but not on $[0, 1]$}{on both $[-1, 0]$ and $[0, 1]$}{neither on $[-1, 0]$ nor on $[0, 1]$}
+\ans{(c)}
+
+\textbf{Q.45} Let $E$ be a nonmeasurable subset of $(0, 1)$. Define two functions $f_1$ and $f_2$ on $(0, 1)$ as follows:
+\[
+  f_1(x) = \begin{cases} 1/x, & \text{if } x \in E, \\ 0, & \text{if } x \notin E, \end{cases}
+  \qquad \text{and} \qquad
+  f_2(x) = \begin{cases} 0, & \text{if } x \in E, \\ 1/x, & \text{if } x \notin E. \end{cases}
+\]
+Then
+\optsfour{$f_1$ is measurable but not $f_2$}{$f_2$ is measurable but not $f_1$}{both $f_1$ and $f_2$ are measurable}{neither $f_1$ nor $f_2$ is measurable}
+\ans{(d)}
+
+\textbf{Q.46} Consider the following improper integrals:
+\[
+  I_1 = \int_1^\infty \frac{dx}{(1 + x^2)^{1/2}} \qquad \text{and} \qquad I_2 = \int_1^\infty \frac{dx}{(1 + x^2)^{3/2}}.
+\]
+Then
+\optsfour{$I_1$ converges but not $I_2$}{$I_2$ converges but not $I_1$}{both $I_1$ and $I_2$ converge}{neither $I_1$ nor $I_2$ converges}
+\ans{(b)}
+
+\textbf{Q.47} A curve $\gamma$ in the $xy$-plane is such that the line joining the origin to any point $P(x,y)$ on the curve and the line parallel to the $y$-axis through $P$ are equally inclined to the tangent to the curve at $P$. Then the differential equation of the curve $\gamma$ is
+\optsfour{$x\left(\dfrac{dy}{dx}\right)^2 + 2y\left(\dfrac{dy}{dx}\right) = x$}{$x\left(\dfrac{dy}{dx}\right)^2 + 2y\left(\dfrac{dy}{dx}\right) = 0$}{$x\left(\dfrac{dx}{dy}\right)^2 + 2y\left(\dfrac{dx}{dy}\right) = 0$}{$x\left(\dfrac{dx}{dy}\right)^2 + 2y\left(\dfrac{dx}{dy}\right) = x$}
+\ans{(a)}
+
+\textbf{Q.48} Let $P_n(x)$ denote the Legendre polynomial of degree $n$. If
+\[
+  f(x) = \begin{cases} x, & -1 \le x \le 0, \\ 0, & 0 \le x \le 1, \end{cases}
+\]
+and $f(x) = a_0 P_0(x) + a_1 P_1(x) + a_2 P_2(x) + \dots$, then
+\optsfour{$a_0 = -\dfrac{1}{4},\ a_1 = -\dfrac{1}{2}$}{$a_0 = -\dfrac{1}{4},\ a_1 = \dfrac{1}{2}$}{$a_0 = \dfrac{1}{2},\ a_1 = -\dfrac{1}{4}$}{$a_0 = -\dfrac{1}{2},\ a_1 = -\dfrac{1}{4}$}
+\ans{(b)}
+
+\textbf{Q.49} If $J_n(x)$ and $Y_n(x)$ denote Bessel functions of order $n$ of the first and the second kind, then the general solution of the differential equation $x\dfrac{d^2 y}{dx^2} - \dfrac{dy}{dx} + xy = 0$ is given by
+\optsfour{$y(x) = \alpha x J_1(x) + \beta x Y_1(x)$}{$y(x) = \alpha J_1(x) + \beta Y_1(x)$}{$y(x) = \alpha J_0(x) + \beta Y_0(x)$}{$y(x) = \alpha x J_0(x) + \beta x Y_0(x)$}
+\ans{(a)}
+
+\textbf{Q.50} The general solution of the system of differential equations $y + \dfrac{dz}{dx} = 0$, $\dfrac{dy}{dx} - z = 0$ is given by
+\optsfour{$y = \alpha e^x + \beta e^{-x},\ z = \alpha e^x - \beta e^{-x}$}{$y = \alpha\cos x + \beta\sin x,\ z = \alpha\sin x - \beta\cos x$}{$y = \alpha\sin x - \beta\cos x,\ z = \alpha\cos x + \beta\sin x$}{$y = \alpha e^x - \beta e^{-x},\ z = \alpha e^x + \beta e^{-x}$}
+\ans{(c)}
+
+\textbf{Q.51} It is required to find the solution of the differential equation $2x(2 + x)\dfrac{d^2 y}{dx^2} + 2(3 + x)\dfrac{dy}{dx} - xy = 0$ around the point $x = 0$. The roots of the indicial equation are
+\optsfour{$0,\ \dfrac{1}{2}$}{$0,\ 2$}{$\dfrac{1}{2},\ -\dfrac{1}{2}$}{$0,\ -\dfrac{1}{2}$}
+\ans{(d)}
+
+\textbf{Q.52} Consider the following statements:\\
+$S$: Every nonabelian group has a nontrivial abelian subgroup.\\
+$T$: Every nontrivial abelian group has a cyclic subgroup.\\
+Then
+\optsfour{both $S$ and $T$ are false}{$S$ is true and $T$ is false}{$T$ is true and $S$ is false}{both $S$ and $T$ are true}
+\ans{(d)}
+
+\textbf{Q.53} Let $S_{10}$ denote the group of permutations on ten symbols $\{1, 2, \dots, 10\}$. The number of elements of $S_{10}$ commuting with the element $\sigma = (1\;3\;5\;7\;9)$ is
+\optsfour{$5!$}{$5 \cdot 5!$}{$5!\,5!$}{$\dfrac{10!}{5!}$}
+\ans{(b)}
+
+\textbf{Q.54} Match the following in an integral domain:
+\begin{center}
+\begin{tabular}{ll}
+  \toprule
+  U.\ The only nilpotent element(s) & a.\ $0$ \\
+  V.\ The only idempotent element(s) & b.\ $1$ \\
+  W.\ The only unit and idempotent element(s) & c.\ $0, 1$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\optsfour{U--a; V--b; W--c}{U--b; V--c; W--a}{U--c; V--a; W--b}{U--a; V--c; W--b}
+\ans{(d)}
+
+\textbf{Q.55} Let $\mathbb{Z}$ be the ring of integers under the usual addition and multiplication. Then every nontrivial ring homomorphism $f : \mathbb{Z} \to \mathbb{Z}$ is
+\optsfour{both injective and surjective}{injective but not surjective}{surjective but not injective}{neither injective nor surjective}
+\ans{(a)}
+
+\textbf{Q.56} Let $X = C[0,1]$ be the space of all real-valued continuous functions on $[0,1]$. Let $T : X \to \mathbb{R}$ be a linear functional defined by $T(f) = f(1)$. Let $X_1 = (X, \|\cdot\|_1)$ and $X_2 = (X, \|\cdot\|_\infty)$. Then $T$ is continuous
+\optsfour{on $X_1$ but not on $X_2$}{on $X_2$ but not on $X_1$}{on both $X_1$ and $X_2$}{neither on $X_1$ nor on $X_2$}
+\ans{(b)}
+
+\textbf{Q.57} Let $X = (C[0,1], \|\cdot\|_p)$, $1 \le p \le \infty$. If $S = \{f_n \in X : n \ge 1\}$, where
+\[
+  f_n(t) = \begin{cases} n(1 - nt), & \text{if } 0 \le t \le 1/n, \\ 0, & \text{if } 1/n < t \le 1, \end{cases}
+\]
+then $S$ is
+\optsfour{bounded if $p = 1$}{bounded if $p = 2$}{bounded if $p = \infty$}{unbounded for all $p$}
+\ans{(a)}
+
+\textbf{Q.58} Suppose the iterates $x_n$ generated by $x_{n+1} = x_n - \dfrac{2f(x_n)}{f'(x_n)}$, where $f'$ denotes the derivative of $f$, converge to a double zero $x = \alpha$ of $f(x)$. Then the convergence has order
+\optsfour{$1$}{$2$}{$3$}{$1.6$}
+\ans{(b)}
+
+\textbf{Q.59} Suppose the matrix
+\[
+  M = \begin{pmatrix}
+    2 & \alpha & -1 \\
+    \alpha & 2 & 1 \\
+    -1 & 1 & 4
+  \end{pmatrix}
+\]
+has a unique Cholesky decomposition of the form $M = LL^T$, where $L$ is a lower triangular matrix. The range of values of $\alpha$ is
+\optsfour{$-2 < \alpha < 2$}{$\alpha > 2$}{$-2 < \alpha < 3/2$}{$3/2 < \alpha < 2$}
+\ans{(c)}
+
+\textbf{Q.60} The Runge--Kutta method of order four is used to solve the differential equation $\dfrac{dy}{dx} = f(x)$, $y(0) = 0$, with step size $h$. The solution at $x = h$ is given by
+\optsfour{$y(h) = \dfrac{h}{6}\left[f(0) + 4f\!\left(\dfrac{h}{2}\right) + f(h)\right]$}{$y(h) = \dfrac{h}{6}\left[f(0) + 2f\!\left(\dfrac{h}{2}\right) + f(h)\right]$}{$y(h) = \dfrac{h}{6}[f(0) + f(h)]$}{$y(h) = \dfrac{h}{6}\left[2f(0) + f\!\left(\dfrac{h}{2}\right) + 2f(h)\right]$}
+\ans{(a)}
+
+\textbf{Q.61} The values of the constants $\alpha, \beta, x_1$ for which the quadrature formula $\displaystyle\int_0^1 f(x)\,dx = \alpha f(0) + \beta f(x_1)$ is exact for polynomials of degree as high as possible are
+\optsfour{$\alpha = \dfrac{2}{3},\ \beta = \dfrac{1}{4},\ x_1 = \dfrac{3}{4}$}{$\alpha = \dfrac{3}{4},\ \beta = \dfrac{1}{4},\ x_1 = \dfrac{2}{3}$}{$\alpha = \dfrac{1}{4},\ \beta = \dfrac{3}{4},\ x_1 = \dfrac{2}{3}$}{$\alpha = \dfrac{2}{3},\ \beta = \dfrac{3}{4},\ x_1 = \dfrac{1}{4}$}
+\ans{(c)}
+
+\textbf{Q.62} The partial differential equation
+\[
+  x\frac{\partial^2 u}{\partial x^2} + 2xy\frac{\partial^2 u}{\partial x \partial y} + y\frac{\partial^2 u}{\partial y^2} + x\frac{\partial u}{\partial y} + y\frac{\partial u}{\partial x} = 0
+\]
+is
+\optslist{elliptic in the region $x < 0,\ y < 0,\ xy > 1$}{elliptic in the region $x > 0,\ y > 0,\ xy > 1$}{parabolic in the region $x < 0,\ y < 0,\ xy > 1$}{hyperbolic in the region $x < 0,\ y < 0,\ xy > 1$}
+\ans{(d)}
+
+\textbf{Q.63} A function $u(x,t)$ satisfies the wave equation $\dfrac{\partial^2 u}{\partial t^2} = \dfrac{\partial^2 u}{\partial x^2}$, $0 < x < 1$, $t > 0$. If $u\!\left(\dfrac{1}{2}, 0\right) = \dfrac{1}{4}$, $u\!\left(1, \dfrac{1}{2}\right) = 1$, and $u\!\left(0, \dfrac{1}{2}\right) = \dfrac{1}{2}$, then $u\!\left(\dfrac{1}{2}, 1\right)$ is
+% NOTE: Verify value of u(1/2, 0) in source PDF scan on page 74 (OCR garbled "u0 (0)="; using parallelogram identity u(1/2,1)+u(1/2,0)=u(0,1/2)+u(1,1/2)=3/2).
+\optsfour{$\dfrac{7}{4}$}{$\dfrac{5}{4}$}{$\dfrac{4}{5}$}{$\dfrac{4}{7}$}
+\ans{(b)}
+
+\textbf{Q.64} The Fourier transform $F(\omega)$ of $f(x)$, $-\infty < x < \infty$, is defined by $F(\omega) = \dfrac{1}{2\pi}\displaystyle\int_{-\infty}^{\infty} f(x)e^{-i\omega x}\,dx$. The Fourier transform with respect to $x$ of the solution $u(x,y)$ of the boundary value problem
+\[
+  \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0, \qquad -\infty < x < \infty,\ y > 0, \qquad u(x,0) = f(x), \quad -\infty < x < \infty,
+\]
+which remains bounded for large $y$ is given by $U(\omega, y) = F(\omega)e^{-|\omega|y}$. Then the solution $u(x,y)$ is given by
+\optsfour{$u(x,y) = \dfrac{1}{\pi}\displaystyle\int_{-\infty}^{\infty} \frac{f(x - z)}{y^2 + z^2}\,dz$}{$u(x,y) = \dfrac{1}{\pi}\displaystyle\int_{-\infty}^{\infty} \frac{f(x + z)}{y^2 + z^2}\,dz$}{$u(x,y) = \dfrac{y}{\pi}\displaystyle\int_{-\infty}^{\infty} \frac{f(x - z)}{y^2 + z^2}\,dz$}{$u(x,y) = \dfrac{y}{\pi}\displaystyle\int_{-\infty}^{\infty} \frac{f(x + z)}{y^2 + z^2}\,dz$}
+\ans{(c)}
+
+\textbf{Q.65} It is required to solve the Laplace equation $\dfrac{\partial^2 u}{\partial x^2} + \dfrac{\partial^2 u}{\partial y^2} = 0$, $0 < x < a$, $0 < y < b$, satisfying the boundary conditions $u(x,0) = 0$, $u(x,b) = 0$, $u(0,y) = 0$, and $u(a,y) = f(y)$. If $c_n$ are constants, then the equation and the homogeneous boundary conditions determine the fundamental set of solutions of the form
+\optsfour{$u(x,y) = \displaystyle\sum_{n=1}^{\infty} c_n \sinh\frac{n\pi x}{b}\sin\frac{n\pi y}{b}$}{$u(x,y) = \displaystyle\sum_{n=1}^{\infty} c_n \sin\frac{n\pi x}{b}\sin\frac{n\pi y}{b}$}{$u(x,y) = \displaystyle\sum_{n=1}^{\infty} c_n \sin\frac{n\pi x}{b}\sinh\frac{n\pi y}{b}$}{$u(x,y) = \displaystyle\sum_{n=1}^{\infty} c_n \sinh\frac{n\pi x}{b}\sinh\frac{n\pi y}{b}$}
+\ans{(a)}
+
+\textbf{Q.66} Let the derivative of $f(t)$ with respect to time $t$ be denoted by $\dot{f}$. If a Cartesian frame $Oxy$ is in motion relative to a fixed Cartesian frame $OXY$ specified by
+\[
+  X = x\cos\theta + y\sin\theta, \qquad Y = -x\sin\theta + y\cos\theta,
+\]
+then the magnitude of the velocity $v$ of a moving particle with respect to the $OXY$ frame expressed in terms of the moving frame is given by
+\optslist{$v^2 = \dot{x}^2 + \dot{y}^2$}{$v^2 = \dot{x}^2 + \dot{y}^2 + (x^2 + y^2)\dot{\theta}^2 + 2\dot{\theta}(\dot{x}y - \dot{y}x)$}{$v^2 = \dot{x}^2 + \dot{y}^2 + \dot{\theta}^2$}{$v^2 = \dot{x}^2 + \dot{y}^2 + (x^2 + y^2)\dot{\theta}^2$}
+\ans{(b)}
+
+\textbf{Q.67} One end of an inextensible string of length $a$ is connected to a mass $M_1$ lying on a horizontal table. The string passes through a small hole on the table and carries at the other end another mass $M_2$. If $(r, \theta)$ denotes the polar coordinates of the mass $M_1$ with respect to the hole as the origin in the plane of the table and $g$ denotes the acceleration due to gravity, then the Lagrangian $L$ of the system is given by
+\optslist{$L = \dfrac{1}{2}(M_1 + M_2)\dot{r}^2 + \dfrac{1}{2}M_1 r^2 \dot{\theta}^2 - M_2 g(r - a)$}{$L = \dfrac{1}{2}M_1 \dot{r}^2 + \dfrac{1}{2}(M_1 + M_2)r^2 \dot{\theta}^2 - M_2 g(r - a)$}{$L = \dfrac{1}{2}M_1 \dot{r}^2 + \dfrac{1}{2}(M_1 + M_2)r^2 \dot{\theta}^2 - M_1 g(r - a)$}{$L = \dfrac{1}{2}(M_1 + M_2)\dot{r}^2 + \dfrac{1}{2}M_1 r^2 \dot{\theta}^2 - M_1 g(r - a)$}
+\ans{(a)}
+
+\textbf{Q.68} Consider $\mathbb{R}$ and $S^1$ with the usual topology, where $S^1$ is the unit circle in $\mathbb{R}^2$. Then
+\optslist{there is no continuous map from $S^1$ to $\mathbb{R}$}{any continuous map from $S^1$ to $\mathbb{R}$ is the zero map}{any continuous map from $S^1$ to $\mathbb{R}$ is a constant map}{there are nonconstant continuous maps from $S^1$ to $\mathbb{R}$}
+\ans{(d)}
+
+\textbf{Q.69} Consider $\mathbb{R}$ with the usual topology and $\mathbb{R}^\omega$, the countable product of $\mathbb{R}$ with product topology. If $D_n = [-n, n] \subseteq \mathbb{R}$ and $f : \mathbb{R}^\omega \to \mathbb{R}$ is a continuous map, then $f\!\left(\displaystyle\prod_{n \in \mathbb{N}} D_n\right)$ is of the form
+\optsfour{$[a, b]$ for some $a \le b$}{$(a, b)$ for some $a < b$}{$\mathbb{Z}$}{$\mathbb{R}$}
+\ans{(a)}
+
+\textbf{Q.70} Let $\mathbb{R}^2$ denote the plane with the usual topology and $U = \{(x,y) \in \mathbb{R}^2 : xy < 0\}$. Denote the number of connected components of $U$ and $\overline{U}$ (the closure of $U$) by $\alpha$ and $\beta$ respectively. Then
+\optsfour{$\alpha = \beta = 1$}{$\alpha = 1,\ \beta = 2$}{$\alpha = 2,\ \beta = 1$}{$\alpha = \beta = 2$}
+\ans{(c)}
+
+\textbf{Q.71} Under the usual topology on $\mathbb{R}^3$, the map $f : \mathbb{R}^3 \to \mathbb{R}^3$ defined by $f(x,y,z) = (x+1, y-1, z)$ is
+\optsfour{neither open nor closed}{open but not closed}{both open and closed}{closed but not open}
+\ans{(c)}
+
+\textbf{Q.72} Let $X_1, X_2, X_3$ be a random sample of size $3$ chosen from a population with probability distribution $P(X = 1) = p$ and $P(X = 0) = 1 - p = q$, $0 < p < 1$. The sampling distribution $f(\cdot)$ of the statistic $Y = \max(X_1, X_2, X_3)$ is
+\optsfour{$f(0) = p^3;\ f(1) = 1 - p^3$}{$f(0) = q;\ f(1) = p$}{$f(0) = q^3;\ f(1) = 1 - q^3$}{$f(0) = p^3 + q^3;\ f(1) = 1 - p^3 - q^3$}
+\ans{(c)}
+
+\textbf{Q.73} Let $\{X_n\}$ be a sequence of independent random variables with $P(X_n = n^\alpha) = P(X_n = -n^\alpha) = \dfrac{1}{2}$. The sequence $\{X_n\}$ obeys the weak law of large numbers if
+\optsfour{$\alpha < \dfrac{1}{2}$}{$\alpha = \dfrac{1}{2}$}{$\dfrac{1}{2} < \alpha \le 1$}{$\alpha > 1$}
+\ans{(a)}
+
+\textbf{Q.74} Let $X$ be a random variable with $P(X = 1) = p$ and $P(X = 0) = 1 - p = q$, $0 < p < 1$. If $\mu_n$ denotes the $n$-th moment about the mean, then $\mu_{2n+1} = 0$ if and only if
+\optsfour{$p = \dfrac{1}{4}$}{$p = \dfrac{1}{3}$}{$p = \dfrac{2}{3}$}{$p = \dfrac{1}{2}$}
+\ans{(d)}
+
+\textbf{Q.75} Consider the following primal Linear Programming Problem (LPP):
+\begin{align*}
+  \text{Maximize } & z = 3x_1 + 2x_2 \\
+  \text{subject to } & x_1 - x_2 \le 1, \\
+                     & x_1 + x_2 \ge 3, \\
+                     & x_1, x_2 \ge 0.
+\end{align*}
+The dual of this problem has
+\optsfour{infeasible optimal solution}{unbounded optimal objective value}{a unique optimal solution}{infinitely many optimal solutions}
+\ans{(a)}
+
+\textbf{Q.76} The cost matrix of a Transportation Problem is given by
+\begin{center}
+\begin{tabular}{cccc}
+  \toprule
+  6 & 4 & 1 & 5 \\
+  8 & 9 & 2 & 7 \\
+  4 & 3 & 6 & 2 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The following values of the basic variables were obtained at the first iteration:
+\[
+  x_{11} = 6,\quad x_{12} = 8,\quad x_{22} = 2,\quad x_{23} = 14,\quad x_{33} = 1,\quad x_{34} = 4.
+\]
+Then
+\optslist{the current solution is optimal}{the current solution is nonoptimal and the entering and leaving variables are $x_{31}$ and $x_{33}$ respectively}{the current solution is nonoptimal and the entering and leaving variables are $x_{21}$ and $x_{12}$ respectively}{the current solution is nonoptimal and the entering and leaving variables are $x_{14}$ and $x_{12}$ respectively}
+\ans{(b)}
+
+\textbf{Q.77} In a balanced transportation problem, if all the unit transportation costs $c_{ij}$ are decreased by a nonzero constant $\alpha$, then in the optimal solution of the revised problem
+\optslist{the values of the decision variables and the objective value remain unchanged}{the values of the decision variables change but the objective value remains unchanged}{the values of the decision variables remain unchanged but the objective value changes}{the values of the decision variables and the objective value change}
+\ans{(c)}
+
+\textbf{Q.78} Consider the following Linear Programming Problem (LPP):
+\begin{align*}
+  \text{Maximize } & z = 3x_1 + x_2 \\
+  \text{subject to } & x_1 + 2x_2 \le 5, \\
+                     & x_1 + x_2 - x_3 \le 2, \\
+                     & 7x_1 + 3x_2 - 5x_3 \le 20, \\
+                     & x_1, x_2, x_3 \ge 0.
+\end{align*}
+The nature of the optimal solution to the problem is
+\optsfour{nondegenerate alternative optima}{degenerate alternative optima}{degenerate unique optimal}{nondegenerate unique optimal}
+\ans{(b)}
+
+\textbf{Q.79} The extremum of the functional $I = \displaystyle\int_0^1 \left[\left(\frac{dy}{dx}\right)^2 + 12xy\right]dx$ satisfying the conditions $y(0) = 0$ and $y(1) = 1$ is attained on the curve
+\optsfour{$y = \sin^2\dfrac{\pi x}{2}$}{$y = \sin\dfrac{\pi x}{2}$}{$y = x^3$}{$y = \dfrac{1}{2}\left[x^3 + \sin\dfrac{\pi x}{2}\right]$}
+\ans{(c)}
+
+\textbf{Q.80} The integral equation $y(x) = x - \displaystyle\int_0^x (x - t)y(t)\,dt$ is solved by the method of successive approximations. Starting with initial approximation $y_0(x) = x$, the second approximation $y_2(x)$ is given by
+\optsfour{$y_2(x) = x + \dfrac{x^3}{3!} + \dfrac{x^5}{5!}$}{$y_2(x) = x + \dfrac{x^3}{3!}$}{$y_2(x) = x - \dfrac{x^3}{3!}$}{$y_2(x) = x - \dfrac{x^3}{3!} + \dfrac{x^5}{5!}$}
+\ans{(d)}
+
+\section*{Linked Answer Questions: Q.81a -- Q.85b Carry Two Marks Each}
+
+\textbf{Statement for Linked Answer Questions 81a and 81b:}
+Let $V$ be the vector space of real polynomials of degree at most $2$. Define a linear operator $T : V \to V$ by $T(x^i) = \displaystyle\sum_{j=0}^{i} x^j$, $i = 0, 1, 2$.
+
+\textbf{Q.81a} The matrix of $T^{-1}$ with respect to the basis $\{1, x, x^2\}$ is
+\optsfour{$\begin{pmatrix} 1 & 1 & 1 \\ 1 & 1 & 0 \\ 1 & 0 & 0 \end{pmatrix}$}{$\begin{pmatrix} 1 & -1 & 0 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \end{pmatrix}$}{$\begin{pmatrix} 1 & 1 & 1 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}$}{$\begin{pmatrix} 1 & 0 & 0 \\ -1 & 1 & 0 \\ 0 & -1 & 1 \end{pmatrix}$}
+\ans{(b)}
+
+\textbf{Q.81b} The dimension of the eigenspace of $T^{-1}$ corresponding to the eigenvalue $1$ is
+\optsfour{$4$}{$3$}{$2$}{$1$}
+\ans{(d)}
+
+\medskip
+\textbf{Statement for Linked Answer Questions 82a and 82b:}
+Let $H$ be a real Hilbert space, $p \in H$, $p \ne 0$, and $G = \{x \in H : \langle x, p \rangle = 0\}$, and $q \in H \setminus G$.
+
+\textbf{Q.82a} The orthogonal projection of $q$ onto $G$ is
+\optsfour{$q - \dfrac{\langle q, p \rangle p}{\|p\|^2}$}{$q - \dfrac{\langle q, p \rangle p}{\|p\|}$}{$q - \langle q, p \rangle p$}{$q - \langle q, p \rangle \|p\| p$}
+\ans{(a)}
+
+\textbf{Q.82b} In particular, if $H = L_2[0,1]$, $G = \left\{f \in L_2[0,1] : \displaystyle\int_0^1 x f(x)\,dx = 0\right\}$, and $q = x^2$, then the orthogonal projection of $q$ onto $G$ is
+\optsfour{$x^2 - \dfrac{3}{4}x$}{$x^2 - 3x$}{$x^2 - \dfrac{3}{5}x$}{$x^2 - \dfrac{3}{2}x$}
+\ans{(a)}
+
+\medskip
+\textbf{Statement for Linked Answer Questions 83a and 83b:}
+It is required to solve the system $SX = T$, where
+\[
+  S = \begin{pmatrix} 2 & -1 & 1 \\ 2 & 2 & 2 \\ -1 & -1 & 2 \end{pmatrix}, \qquad T = \begin{pmatrix} -1 \\ 4 \\ -5 \end{pmatrix},
+\]
+by the Gauss--Seidel iteration method.
+
+\textbf{Q.83a} Suppose $S$ is written in the form $S = M - L - U$, where $M$ is a diagonal matrix, $L$ is a strictly lower triangular matrix, and $U$ is a strictly upper triangular matrix. If the iteration process is expressed as $X_{n+1} = Q X_n + F$, then $Q$ is given by
+\optsfour{$Q = (M + L)^{-1}U$}{$Q = M^{-1}(L + U)$}{$Q = (M - L)^{-1}U$}{$Q = M^{-1}(L - U)$}
+\ans{(c)}
+
+\textbf{Q.83b} The matrix $Q$ is given by
+\optsfour{$Q = \begin{pmatrix} 0 & \frac{1}{2} & -\frac{1}{2} \\ 0 & -\frac{1}{2} & -\frac{1}{2} \\ 0 & 0 & -\frac{1}{2} \end{pmatrix}$}{$Q = \begin{pmatrix} 0 & 0 & 0 \\ \frac{1}{2} & -\frac{1}{2} & 0 \\ -\frac{1}{2} & -\frac{1}{2} & -\frac{1}{2} \end{pmatrix}$}{$Q = \begin{pmatrix} 0 & -\frac{1}{2} & \frac{1}{2} \\ 0 & \frac{1}{2} & \frac{1}{2} \\ 0 & 0 & \frac{1}{2} \end{pmatrix}$}{$Q = \begin{pmatrix} 0 & 0 & 0 \\ -\frac{1}{2} & \frac{1}{2} & 0 \\ \frac{1}{2} & \frac{1}{2} & \frac{1}{2} \end{pmatrix}$}
+\ans{(a)}
+
+\medskip
+\textbf{Statement for Linked Answer Questions 84a and 84b:}
+Consider the one-dimensional heat equation $\dfrac{\partial u}{\partial t} = \dfrac{\partial^2 u}{\partial x^2}$, $0 < x < 1$, $t > 0$, with the initial condition $u(x,0) = 2\cos^2(\pi x)$ and the boundary conditions $\dfrac{\partial u}{\partial x}(0, t) = 0 = \dfrac{\partial u}{\partial x}(1, t)$.
+
+\textbf{Q.84a} The temperature $u(x, t)$ is given by
+\optsfour{$u(x, t) = 1 - e^{-4\pi^2 t}\cos 2\pi x$}{$u(x, t) = 1 + e^{-4\pi^2 t}\cos 2\pi x$}{$u(x, t) = 1 - e^{-4\pi^2 t}\sin 2\pi x$}{$u(x, t) = 1 + e^{-4\pi^2 t}\sin 2\pi x$}
+\ans{(b)}
+
+\textbf{Q.84b} The heat flux $F$ at $\left(\dfrac{1}{4}, t\right)$ is given by
+\optsfour{$F = 2\pi e^{-4\pi^2 t}$}{$F = -2\pi e^{-4\pi^2 t}$}{$F = 4\pi e^{-2\pi^2 t}$}{$F = -4\pi e^{-2\pi^2 t}$}
+\ans{(a)}
+
+\medskip
+\textbf{Statement for Linked Answer Questions 85a and 85b:}
+Let the random variables $X$ and $Y$ be independent Poisson variates with parameters $\lambda_1$ and $\lambda_2$ respectively.
+
+\textbf{Q.85a} The conditional distribution of $X$ given $X + Y$ is
+\optsfour{Poisson}{hypergeometric}{Geometric}{binomial}
+\ans{(d)}
+
+\textbf{Q.85b} The regression equation of $X$ on $X + Y$ is given by
+\optsfour{$E(X \mid X + Y) = XY\dfrac{\lambda_1}{\lambda_1 + \lambda_2}$}{$E(X \mid X + Y) = (X + Y)\dfrac{\lambda_2}{\lambda_1 + \lambda_2}$}{$E(X \mid X + Y) = (X + Y)\dfrac{\lambda_1}{\lambda_1 + \lambda_2}$}{$E(X \mid X + Y) = XY\dfrac{\lambda_2}{\lambda_1 + \lambda_2}$}
+\ans{(c)}
+
+\end{document}

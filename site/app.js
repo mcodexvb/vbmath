@@ -1251,7 +1251,7 @@
       const pdf = source?.[2] || p.source || "";
       if (pdf) seen.add(pdf);
       return {year:p.year, sem:p.sem, label:source?.[1] || (academic ? paperLabel(p) : code === "JAM" ? "Mathematics (MA)" : p.title),
-        pdf, answer:source?.[3] || p.answer_key, typed:p.key, internal:p.kind[0] === "i", questions:p.n};
+        pdf, answer:source?.[3] || p.answer_key, reader:source?.[5], typed:p.key, internal:p.kind[0] === "i", questions:p.n};
     });
     records.push(...sources.filter((row) => !row[4] || !D.byKey.has(row[4])).map(([year, label, pdf, answer, , reader]) => ({year,label,pdf,answer,reader})));
     if (academic) {
@@ -1480,12 +1480,13 @@
     const body = $("#paperqs"), input = $("#paper-find");
     typeset(body);
     input?.addEventListener("input", () => {
-      const term = input.value.trim(), number = term.match(/^q(?:uestion)?\s*\.?\s*(\d+)(?:\s*\(?([a-z])\)?)?$/i);
+      const term = input.value.trim(), number = term.match(/^q(?:uestion)?\s*\.?\s*(\d+(?:\.\d+)*)(?:\s*\(?([a-z])\)?)?$/i);
       const query = number ? null : scoringQuery(term);
       let count = 0;
       $$(".q", body).forEach((el) => {
         const q = D.byId.get(el.dataset.id);
-        el.hidden = number ? (String(q.qno) !== number[1] || !!number[2] && q.part?.toLowerCase() !== number[2].toLowerCase())
+        el.hidden = number ? (String(q.qno).toLowerCase() !== number[1] + (number[2] || "").toLowerCase() &&
+          (String(q.qno) !== number[1] || !!number[2] && q.part?.toLowerCase() !== number[2].toLowerCase()))
           : !!query && searchScore(q, query) < 0;
         if (!el.hidden) count++;
       });

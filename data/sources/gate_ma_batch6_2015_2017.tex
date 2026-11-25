@@ -1,0 +1,1188 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=20mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\newcommand{\optsfourA}[4]{%
+  \begin{tabbing}
+    \hspace{0.48\linewidth}\=\kill
+    (A) #1 \> (B) #2 \\[2pt]
+    (C) #3 \> (D) #4
+  \end{tabbing}%
+}
+
+\newcommand{\optslistA}[4]{%
+  \begin{itemize}
+    \setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}
+    \item[(A)] #1
+    \item[(B)] #2
+    \item[(C)] #3
+    \item[(D)] #4
+  \end{itemize}%
+}
+
+\newcommand{\ans}[1]{\textbf{Answer:} #1\par\medskip}
+
+\begin{document}
+
+% ============================================================================
+% GATE 2015 -- GENERAL APTITUDE (GA) & MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\LARGE\bfseries GATE 2015}\\[4pt]
+  {\large\bfseries General Aptitude (GA) \& Mathematics (MA)}\\[2pt]
+  {\small\itshape Official Answer Key attached to every question}
+\end{center}
+\medskip
+
+\section*{General Aptitude (GA)}
+
+\subsection*{Q.1 -- Q.5 carry one mark each.}
+
+\textbf{Q.1} Choose the appropriate word/phrase, out of the four options given below, to complete the following sentence:
+
+Apparent lifelessness \underline{\hspace{2.5cm}} dormant life.
+\optsfourA{harbours}{leads to}{supports}{affects}
+\ans{(A)}
+
+\textbf{Q.2} Fill in the blank with the correct idiom/phrase.
+
+That boy from the town was a \underline{\hspace{2.5cm}} in the sleepy village.
+\optsfourA{dog out of herd}{sheep from the heap}{fish out of water}{bird from the flock}
+\ans{(C)}
+
+\textbf{Q.3} Choose the statement where underlined word is used correctly.
+\optslistA{When the teacher eludes to different authors, he is being \underline{elusive}.}{When the thief keeps eluding the police, he is being \underline{elusive}.}{Matters that are difficult to understand, identify or remember are \underline{allusive}.}{Mirages can be \underline{allusive}, but a better way to express them is illusory.}
+\ans{(B)}
+
+\textbf{Q.4} Tanya is older than Eric.\\
+Cliff is older than Tanya.\\
+Eric is older than Cliff.
+
+If the first two statements are true, then the third statement is:
+\optsfourA{True}{False}{Uncertain}{Data insufficient}
+\ans{(B)}
+
+\textbf{Q.5} Five teams have to compete in a league, with every team playing every other team exactly once, before going to the next round. How many matches will have to be held to complete the league round of matches?
+\optsfourA{20}{10}{8}{5}
+\ans{(B)}
+
+\subsection*{Q.6 -- Q.10 carry two marks each.}
+
+\textbf{Q.6} Select the appropriate option in place of underlined part of the sentence.
+
+\underline{Increased productivity necessary} reflects greater efforts made by the employees.
+\optslistA{Increase in productivity necessary}{Increase productivity is necessary}{Increase in productivity necessarily}{No improvement required}
+\ans{(C)}
+
+\textbf{Q.7} Given below are two statements followed by two conclusions. Assuming these statements to be true, decide which one logically follows.
+
+Statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] No manager is a leader.
+  \item[II.] All leaders are executives.
+\end{itemize}
+Conclusions:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] No manager is an executive.
+  \item[II.] No executive is a manager.
+\end{itemize}
+\optslistA{Only conclusion I follows.}{Only conclusion II follows.}{Neither conclusion I nor II follows.}{Both conclusions I and II follow.}
+\ans{(C)}
+
+\textbf{Q.8} In the given figure angle $Q$ is a right angle, $PS:QS = 3:1$, $RT:QT = 5:2$ and $PU:UR = 1:1$. (In right triangle $PQR$ right-angled at $Q$, $S$ lies on $PQ$, $T$ lies on $QR$, and $U$ lies on hypotenuse $PR$.) If area of triangle $QTS$ is $20\text{ cm}^2$, then the area of triangle $PQR$ in $\text{cm}^2$ is \underline{\hspace{2cm}}.
+\ans{$280$}
+
+\textbf{Q.9} Right triangle $PQR$ is to be constructed in the $xy$-plane so that the right angle is at $P$ and line $PR$ is parallel to the $x$-axis. The $x$ and $y$ coordinates of $P$, $Q$, and $R$ are to be integers that satisfy the inequalities: $-4 \le x \le 5$ and $6 \le y \le 16$. How many different triangles could be constructed with these properties?
+\optsfourA{110}{1,100}{9,900}{10,000}
+\ans{(C)}
+
+\textbf{Q.10} A coin is tossed thrice. Let $X$ be the event that head occurs in each of the first two tosses. Let $Y$ be the event that a tail occurs on the third toss. Let $Z$ be the event that two tails occur in three tosses. Based on the above information, which one of the following statements is TRUE?
+\optsfourA{$X$ and $Y$ are not independent}{$Y$ and $Z$ are dependent}{$Y$ and $Z$ are independent}{$X$ and $Z$ are independent}
+\ans{(B)}
+
+\section*{Mathematics (MA)}
+
+\textbf{List of Symbols, Notations and Data:}
+$B(n,p)$: Binomial distribution with $n$ trials and success probability $p$; $n \in \{1,2,\dots\}$ and $p \in (0,1)$; $U(a,b)$: Uniform distribution on $(a,b)$, $-\infty < a < b < \infty$; $N(\mu,\sigma^2)$: Normal distribution with mean $\mu$ and variance $\sigma^2$, $\mu \in (-\infty,\infty)$, $\sigma > 0$; $P(A)$: Probability of the event $A$; $\text{Poisson}(\lambda)$: Poisson distribution with mean $\lambda > 0$; $E(X)$: Expected value (mean) of $X$; If $Z \sim N(0,1)$, then $P(Z \le 1.96) = 0.975$ and $P(Z \le 0.54) = 0.7054$; $\mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$: sets of integers, rationals, reals, complexes; $\mathbb{Z}_n$: cyclic group of order $n$; $\mathbb{F}[x]$: polynomial ring over the field $\mathbb{F}$; $C[0,1], C^1[0,1]$: real-valued continuous and continuously differentiable functions on $[0,1]$; $\ell_2$: normed space of square-summable real sequences; $L^2[0,1]$: square-Lebesgue integrable real-valued functions on $[0,1]$; $(C[0,1], \|\cdot\|_2)$ with $\|f\|_2 = (\int_0^1 |f(x)|^2\,dx)^{1/2}$; $(C[0,1], \|\cdot\|_\infty)$ with $\|f\|_\infty = \sup\{|f(x)| : x \in [0,1]\}$; $V^\perp$: orthogonal complement of $V$; $\mathbb{R}^n$: $n$-dimensional Euclidean space with usual metric $d$; $I_n$: $n \times n$ identity matrix ($I$ when order is not specified); $o(g)$: order of the element $g$ of a group.
+
+\subsection*{Q.1 -- Q.25 carry one mark each.}
+
+\textbf{Q.1} Let $T : \mathbb{R}^4 \to \mathbb{R}^4$ be a linear map defined by
+\[
+  T(x, y, z, w) = (x + z,\; 2x + y + 3z,\; 2y + 2z,\; w).
+\]
+Then the rank of $T$ is equal to \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.2} Let $M$ be a $3 \times 3$ matrix and suppose that $1, 2$ and $3$ are the eigenvalues of $M$. If
+\[
+  M^{-1} = \frac{M^2}{\alpha} - M + \frac{11}{\alpha} I_3
+\]
+for some scalar $\alpha \neq 0$, then $\alpha$ is equal to \underline{\hspace{2cm}}.
+\ans{$6$}
+
+\textbf{Q.3} Let $M$ be a $3 \times 3$ singular matrix and suppose that $2$ and $3$ are eigenvalues of $M$. Then the number of linearly independent eigenvectors of $M^3 + 2M + I_3$ is equal to \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.4} Let $M$ be a $3 \times 3$ matrix such that $M \begin{pmatrix} -2 \\ 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 6 \\ -3 \\ 0 \end{pmatrix}$ and suppose that $M^3 \begin{pmatrix} 1 \\ -1/2 \\ 0 \end{pmatrix} = \begin{pmatrix} \alpha \\ \beta \\ \gamma \end{pmatrix}$ for some $\alpha, \beta, \gamma \in \mathbb{R}$. Then $|\alpha|$ is equal to \underline{\hspace{2cm}}.
+\ans{$27$}
+
+\textbf{Q.5} Let $f : [0, \infty) \to \mathbb{R}$ be defined by
+\[
+  f(x) = \int_0^x \sin^2(t^2)\,dt.
+\]
+Then the function $f$ is
+\optslistA{uniformly continuous on $[0, 1)$ but NOT on $(0, \infty)$}{uniformly continuous on $(0, \infty)$ but NOT on $[0, 1)$}{uniformly continuous on both $[0, 1)$ and $(0, \infty)$}{neither uniformly continuous on $[0, 1)$ nor uniformly continuous on $(0, \infty)$}
+\ans{(C)}
+
+\textbf{Q.6} Consider the power series $\sum_{n=0}^{\infty} a_n z^n$, where $a_n = \begin{cases} \frac{1}{3^n} & \text{if } n \text{ is even} \\ \frac{1}{5^n} & \text{if } n \text{ is odd.} \end{cases}$\\
+The radius of convergence of the series is equal to \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.7} Let $C = \{z \in \mathbb{C} : |z - i| = 2\}$. Then $\dfrac{1}{2\pi} \displaystyle\oint_C \dfrac{z^2 - 4}{z^2 + 4}\,dz$ is equal to \underline{\hspace{2cm}}.
+\ans{$-2$}
+
+\textbf{Q.8} Let $X \sim B\!\left(5, \frac{1}{2}\right)$ and $Y \sim U(0, 1)$. Then $\dfrac{P(X + Y \le 2)}{P(X + Y \ge 5)}$ is equal to \underline{\hspace{2cm}}.
+\ans{$6$}
+
+\textbf{Q.9} Let the random variable $X$ have the distribution function
+\[
+  F(x) = \begin{cases}
+    0 & \text{if } x < 0 \\[2pt]
+    \dfrac{x}{2} & \text{if } 0 \le x < 1 \\[6pt]
+    \dfrac{3}{5} & \text{if } 1 \le x < 2 \\[6pt]
+    \dfrac{1}{2} + \dfrac{x}{8} & \text{if } 2 \le x < 3 \\[6pt]
+    1 & \text{if } x \ge 3.
+  \end{cases}
+\]
+Then $P(2 \le X < 4)$ is equal to \underline{\hspace{2cm}}.
+\ans{$0.4$}
+
+\textbf{Q.10} Let $X$ be a random variable having the distribution function
+\[
+  F(x) = \begin{cases}
+    0 & \text{if } x < 0 \\[2pt]
+    \dfrac{1}{4} & \text{if } 0 \le x < 1 \\[6pt]
+    \dfrac{1}{3} & \text{if } 1 \le x < 2 \\[6pt]
+    \dfrac{1}{2} & \text{if } 2 \le x < \dfrac{11}{3} \\[6pt]
+    1 & \text{if } x \ge \dfrac{11}{3}.
+  \end{cases}
+\]
+Then $E(X)$ is equal to \underline{\hspace{2cm}}.
+\ans{$2.25$}
+
+\textbf{Q.11} In an experiment, a fair die is rolled until two sixes are obtained in succession. The probability that the experiment will end in the fifth trial is equal to
+\optsfourA{$\dfrac{125}{6^5}$}{$\dfrac{150}{6^5}$}{$\dfrac{175}{6^5}$}{$\dfrac{200}{6^5}$}
+\ans{(C)}
+
+\textbf{Q.12} Let $x_1 = 2.2,\; x_2 = 4.3,\; x_3 = 3.1,\; x_4 = 4.5,\; x_5 = 1.1$ and $x_6 = 5.7$ be the observed values of a random sample of size $6$ from a $U(\theta - 1, \theta + 4)$ distribution, where $\theta \in (0, \infty)$ is unknown. Then a maximum likelihood estimate of $\theta$ is equal to
+\optsfourA{$1.8$}{$2.3$}{$3.1$}{$3.6$}
+\ans{(A)}
+
+\textbf{Q.13} Let $\Omega = \{(x, y) \in \mathbb{R}^2 \mid x^2 + y^2 < 1\}$ be the open unit disc in $\mathbb{R}^2$ with boundary $\partial\Omega$. If $u(x, y)$ is the solution of the Dirichlet problem
+\begin{align*}
+  u_{xx} + u_{yy} &= 0 && \text{in } \Omega \\
+  u(x, y) &= 1 - 2y^2 && \text{on } \partial\Omega,
+\end{align*}
+then $u\!\left(\frac{1}{2}, 0\right)$ is equal to
+\optsfourA{$-1$}{$\dfrac{-1}{4}$}{$\dfrac{1}{4}$}{$1$}
+\ans{(C)}
+
+\textbf{Q.14} Let $c \in \mathbb{Z}_3$ be such that $\dfrac{\mathbb{Z}_3[X]}{\langle X^3 + cX + 1 \rangle}$ is a field. Then $c$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.15} Let $V = C^1[0, 1]$, $X = (C[0, 1], \|\cdot\|_\infty)$ and $Y = (C[0, 1], \|\cdot\|_2)$. Then $V$ is
+\optslistA{dense in $X$ but NOT in $Y$}{dense in $Y$ but NOT in $X$}{dense in both $X$ and $Y$}{neither dense in $X$ nor dense in $Y$}
+\ans{(C)}
+
+\textbf{Q.16} Let $T : (C[0, 1], \|\cdot\|_\infty) \to \mathbb{R}$ be defined by $T(f) = \int_0^1 2x f(x)\,dx$ for all $f \in C[0, 1]$. Then $\|T\|$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.17} Let $\tau_1$ be the usual topology on $\mathbb{R}$. Let $\tau_2$ be the topology on $\mathbb{R}$ generated by $\mathcal{B} = \{[a, b) \subset \mathbb{R} : -\infty < a < b < \infty\}$. Then the set $\{x \in \mathbb{R} : 4\sin^2 x \le 1\} \cup \left\{\frac{\pi}{2}\right\}$ is
+\optslistA{closed in $(\mathbb{R}, \tau_1)$ but NOT in $(\mathbb{R}, \tau_2)$}{closed in $(\mathbb{R}, \tau_2)$ but NOT in $(\mathbb{R}, \tau_1)$}{closed in both $(\mathbb{R}, \tau_1)$ and $(\mathbb{R}, \tau_2)$}{neither closed in $(\mathbb{R}, \tau_1)$ nor closed in $(\mathbb{R}, \tau_2)$}
+\ans{(C)}
+
+\textbf{Q.18} Let $X$ be a connected topological space such that there exists a non-constant continuous function $f : X \to \mathbb{R}$, where $\mathbb{R}$ is equipped with the usual topology. Let $f(X) = \{f(x) : x \in X\}$. Then
+\optslistA{$X$ is countable but $f(X)$ is uncountable}{$f(X)$ is countable but $X$ is uncountable}{both $f(X)$ and $X$ are countable}{both $f(X)$ and $X$ are uncountable}
+\ans{(D)}
+
+\textbf{Q.19} Let $d_1$ and $d_2$ denote the usual metric and the discrete metric on $\mathbb{R}$, respectively. Let $f : (\mathbb{R}, d_1) \to (\mathbb{R}, d_2)$ be defined by $f(x) = x$, $x \in \mathbb{R}$. Then
+\optslistA{$f$ is continuous but $f^{-1}$ is NOT continuous}{$f^{-1}$ is continuous but $f$ is NOT continuous}{both $f$ and $f^{-1}$ are continuous}{neither $f$ nor $f^{-1}$ is continuous}
+\ans{(B)}
+
+\textbf{Q.20} If the trapezoidal rule with single interval $[0, 1]$ is exact for approximating the integral $\int_0^1 (x^3 - c x^2)\,dx$, then the value of $c$ is equal to \underline{\hspace{2cm}}.
+\ans{$1.5$}
+
+\textbf{Q.21} Suppose that the Newton-Raphson method is applied to the equation $2x^2 + 1 - e^{x^2} = 0$ with an initial approximation $x_0$ sufficiently close to zero. Then, for the root $x = 0$, the order of convergence of the method is equal to \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.22} The minimum possible order of a homogeneous linear ordinary differential equation with real constant coefficients having $x^2 \sin(x)$ as a solution is equal to \underline{\hspace{2cm}}.
+\ans{$6$}
+
+\textbf{Q.23} The Lagrangian of a system in terms of polar coordinates $(r, \theta)$ is given by
+\[
+  L = \frac{1}{2} m \dot{r}^2 + \frac{1}{2} m (\dot{r}^2 + r^2 \dot{\theta}^2) - m g r (1 - \cos(\theta)),
+\]
+where $m$ is the mass, $g$ is the acceleration due to gravity and $\dot{s}$ denotes the derivative of $s$ with respect to time. Then the equations of motion are
+\optslistA{$2\ddot{r} = r\dot{\theta}^2 - g(1 - \cos(\theta)),\; \dfrac{d}{dt}(r^2\dot{\theta}) = -gr\sin(\theta)$}{$2\ddot{r} = r\dot{\theta}^2 + g(1 - \cos(\theta)),\; \dfrac{d}{dt}(r^2\dot{\theta}) = -gr\sin(\theta)$}{$2\ddot{r} = r\dot{\theta}^2 - g(1 - \cos(\theta)),\; \dfrac{d}{dt}(r^2\dot{\theta}) = gr\sin(\theta)$}{$2\ddot{r} = r\dot{\theta}^2 + g(1 - \cos(\theta)),\; \dfrac{d}{dt}(r^2\dot{\theta}) = gr\sin(\theta)$}
+\ans{(A)}
+
+\textbf{Q.24} If $y(x)$ satisfies the initial value problem
+\[
+  (x^2 + y)\,dx = x\,dy, \qquad y(1) = 2,
+\]
+then $y(2)$ is equal to \underline{\hspace{2cm}}.
+\ans{$6$}
+
+\textbf{Q.25} It is known that Bessel functions $J_n(x)$, for $n \ge 0$, satisfy the identity
+\[
+  e^{\frac{x}{2}\left(t - \frac{1}{t}\right)} = J_0(x) + \sum_{n=1}^{\infty} J_n(x) \left(t^n + \frac{(-1)^n}{t^n}\right)
+\]
+for all $t > 0$ and $x \in \mathbb{R}$. The value of $J_0\!\left(\frac{\pi}{3}\right) + 2 \sum_{n=1}^{\infty} J_{2n}\!\left(\frac{\pi}{3}\right)$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\subsection*{Q.26 -- Q.55 carry two marks each.}
+
+\textbf{Q.26} Let $X$ and $Y$ be two random variables having the joint probability density function
+\[
+  f(x, y) = \begin{cases} 2 & \text{if } 0 < x < y < 1 \\ 0 & \text{otherwise.} \end{cases}
+\]
+Then the conditional probability $P\!\left(X \le \frac{2}{3} \;\middle|\; Y = \frac{3}{4}\right)$ is equal to
+\optsfourA{$\dfrac{5}{9}$}{$\dfrac{2}{3}$}{$\dfrac{7}{9}$}{$\dfrac{8}{9}$}
+\ans{(D)}
+
+\textbf{Q.27} Let $\Omega = (0, 1]$ be the sample space and let $P(\cdot)$ be a probability function defined by
+\[
+  P((0, x]) = \begin{cases} \dfrac{x}{2} & \text{if } 0 \le x < \dfrac{1}{2} \\[6pt] x & \text{if } \dfrac{1}{2} \le x \le 1. \end{cases}
+\]
+Then $P\!\left(\left\{\frac{1}{2}\right\}\right)$ is equal to \underline{\hspace{2cm}}.
+\ans{$0.25$}
+
+\textbf{Q.28} Let $X_1, X_2$ and $X_3$ be independent and identically distributed random variables with $E(X_1) = 0$ and $E(X_1^2) = \frac{15}{4}$. If $\psi : (0, \infty) \to (0, \infty)$ is defined through the conditional expectation
+\[
+  \psi(t) = E(X_1^2 \mid X_1^2 + X_2^2 + X_3^2 = t), \qquad t > 0,
+\]
+then $E(\psi((X_1 + X_2)^2))$ is equal to \underline{\hspace{2cm}}.
+\ans{$2.5$}
+
+\textbf{Q.29} Let $X \sim \text{Poisson}(\lambda)$, where $\lambda > 0$ is unknown. If $\delta(X)$ is the unbiased estimator of $g(\lambda) = e^{-\lambda}(3\lambda^2 + 2\lambda + 1)$, then $\sum_{k=0}^{\infty} \delta(k)$ is equal to \underline{\hspace{2cm}}.
+\ans{$9$}
+
+\textbf{Q.30} Let $X_1, \dots, X_n$ be a random sample from $N(\mu, 1)$ distribution, where $\mu \in \left\{0, \frac{1}{2}\right\}$. For testing the null hypothesis $H_0 : \mu = 0$ against the alternative hypothesis $H_1 : \mu = \frac{1}{2}$, consider the critical region
+\[
+  R = \left\{(x_1, x_2, \dots, x_n) : \sum_{i=1}^{n} x_i > c\right\},
+\]
+where $c$ is some real constant. If the critical region $R$ has size $0.025$ and power $0.7054$, then the value of the sample size $n$ is equal to \underline{\hspace{2cm}}.
+\ans{$25$}
+
+\textbf{Q.31} Let $X$ and $Y$ be independently distributed central chi-squared random variables with degrees of freedom $m$ ($\ge 3$) and $n$ ($\ge 3$), respectively. If $E\!\left(\frac{X}{Y}\right) = 3$ and $m + n = 14$, then $E\!\left(\frac{Y}{X}\right)$ is equal to
+\optsfourA{$\dfrac{2}{7}$}{$\dfrac{3}{7}$}{$\dfrac{4}{7}$}{$\dfrac{5}{7}$}
+\ans{(D)}
+
+\textbf{Q.32} Let $X_1, X_2, \dots$ be a sequence of independent and identically distributed random variables with $P(X_1 = 1) = \frac{1}{4}$ and $P(X_1 = 2) = \frac{3}{4}$. If $\bar{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i$, for $n = 1, 2, \dots$, then $\lim_{n\to\infty} P(\bar{X}_n \le 1.8)$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.33} Let $u(x, y) = 2f(y)\cos(x - 2y)$, $(x, y) \in \mathbb{R}^2$, be a solution of the initial value problem
+\begin{align*}
+  2u_x + u_y &= u \\
+  u(x, 0) &= \cos(x).
+\end{align*}
+Then $f(1)$ is equal to
+\optsfourA{$\dfrac{1}{2}$}{$\dfrac{e}{2}$}{$e$}{$\dfrac{3e}{2}$}
+\ans{(B)}
+
+\textbf{Q.34} Let $u(x, t)$, $x \in \mathbb{R}$, $t \ge 0$, be the solution of the initial value problem
+\begin{align*}
+  u_{tt} &= u_{xx} \\
+  u(x, 0) &= x \\
+  u_t(x, 0) &= 1.
+\end{align*}
+Then $u(2, 2)$ is equal to \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.35} Let $W = \operatorname{Span}\left\{\frac{1}{\sqrt{2}}(0, 0, 1, 1),\; \frac{1}{\sqrt{2}}(1, -1, 0, 0)\right\}$ be a subspace of the Euclidean space $\mathbb{R}^4$. Then the square of the distance from the point $(1, 1, 1, 1)$ to the subspace $W$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.36} Let $T : \mathbb{R}^4 \to \mathbb{R}^4$ be a linear map such that the null space of $T$ is
+\[
+  \{(x, y, z, w) \in \mathbb{R}^4 : x + y + z + w = 0\}
+\]
+and the rank of $(T - 4I_4)$ is $3$. If the minimal polynomial of $T$ is $x(x - 4)^\alpha$, then $\alpha$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.37} Let $M$ be an invertible Hermitian matrix and let $x, y \in \mathbb{R}$ be such that $x^2 < 4y$. Then
+\optslistA{both $M^2 + xM + yI$ and $M^2 - xM + yI$ are singular}{$M^2 + xM + yI$ is singular but $M^2 - xM + yI$ is non-singular}{$M^2 + xM + yI$ is non-singular but $M^2 - xM + yI$ is singular}{both $M^2 + xM + yI$ and $M^2 - xM + yI$ are non-singular}
+\ans{(D)}
+
+\textbf{Q.38} Let $G = \{e, x, x^2, x^3, y, xy, x^2y, x^3y\}$ with $o(x) = 4$, $o(y) = 2$ and $xy = yx^3$. Then the number of elements in the center of the group $G$ is equal to
+\optsfourA{$1$}{$2$}{$4$}{$8$}
+\ans{(B)}
+
+\textbf{Q.39} The number of ring homomorphisms from $\mathbb{Z}_2 \times \mathbb{Z}_2$ to $\mathbb{Z}_4$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.40} Let $p(x) = 9x^5 + 10x^3 + 5x + 15$ and $q(x) = x^3 - x^2 - x - 2$ be two polynomials in $\mathbb{Q}[x]$. Then, over $\mathbb{Q}$,
+\optslistA{$p(x)$ and $q(x)$ are both irreducible}{$p(x)$ is reducible but $q(x)$ is irreducible}{$p(x)$ is irreducible but $q(x)$ is reducible}{$p(x)$ and $q(x)$ are both reducible}
+\ans{(C)}
+
+\textbf{Q.41} Consider the linear programming problem
+\begin{align*}
+  \text{Maximize } & 3x + 9y, \\
+  \text{subject to } & 2y - x \le 2 \\
+                     & 3y - x \ge 0 \\
+                     & 2x + 3y \le 10 \\
+                     & x, y \ge 0.
+\end{align*}
+Then the maximum value of the objective function is equal to \underline{\hspace{2cm}}.
+\ans{$24$}
+
+\textbf{Q.42} Let $S = \left\{\left(x, \sin\frac{1}{x}\right) : 0 < x \le 1\right\}$ and $T = S \cup \{(0, 0)\}$. Under the usual metric on $\mathbb{R}^2$,
+\optslistA{$S$ is closed but $T$ is NOT closed}{$T$ is closed but $S$ is NOT closed}{both $S$ and $T$ are closed}{neither $S$ nor $T$ is closed}
+\ans{(D)}
+
+\textbf{Q.43} Let $H = \left\{(x_n) \in \ell_2 : \sum_{n=1}^{\infty} \frac{x_n}{n} = 1\right\}$. Then $H$
+\optsfourA{is bounded}{is closed}{is a subspace}{has an interior point}
+\ans{(B)}
+
+\textbf{Q.44} Let $V$ be a closed subspace of $L^2[0, 1]$ and let $f, g \in L^2[0, 1]$ be given by $f(x) = x$ and $g(x) = x^2$. If $V^\perp = \operatorname{Span}\{f\}$ and $Pg$ is the orthogonal projection of $g$ on $V$, then $(g - Pg)(x)$, $x \in [0, 1]$, is
+\optsfourA{$\dfrac{3}{4} x$}{$\dfrac{1}{4} x$}{$\dfrac{3}{4} x^2$}{$\dfrac{1}{4} x^2$}
+\ans{(A)}
+
+\textbf{Q.45} Let $p(x)$ be the polynomial of degree at most $3$ that passes through the points $(-2, 12)$, $(-1, 1)$, $(0, 2)$ and $(2, -8)$. Then the coefficient of $x^3$ in $p(x)$ is equal to \underline{\hspace{2cm}}.
+\ans{$-2$}
+
+\textbf{Q.46} If, for some $\alpha, \beta \in \mathbb{R}$, the integration formula
+\[
+  \int_0^2 p(x)\,dx = p(\alpha) + p(\beta)
+\]
+holds for all polynomials $p(x)$ of degree at most $3$, then the value of $3(\alpha - \beta)^2$ is equal to \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.47} Let $y(t)$ be a continuous function on $[0, \infty)$ whose Laplace transform exists. If $y(t)$ satisfies
+\[
+  \int_0^t (1 - \cos(t - \tau))\, y(\tau)\,d\tau = t^4,
+\]
+then $y(1)$ is equal to \underline{\hspace{2cm}}.
+\ans{$28$}
+
+\textbf{Q.48} Consider the initial value problem
+\[
+  x^2 y'' - 6y = 0, \qquad y(1) = \alpha,\; y'(1) = 6.
+\]
+If $y(x) \to 0$ as $x \to 0^+$, then $\alpha$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.49} Define $f_1, f_2 : [0, 1] \to \mathbb{R}$ by
+\[
+  f_1(x) = \sum_{n=1}^{\infty} \frac{x\sin(n^2 x)}{n^2} \quad \text{and} \quad f_2(x) = \sum_{n=1}^{\infty} x^2 (1 - x^2)^{n-1}.
+\]
+Then
+\optslistA{$f_1$ is continuous but $f_2$ is NOT continuous}{$f_2$ is continuous but $f_1$ is NOT continuous}{both $f_1$ and $f_2$ are continuous}{neither $f_1$ nor $f_2$ is continuous}
+\ans{(A)}
+
+\textbf{Q.50} Consider the unit sphere $S = \{(x, y, z) \in \mathbb{R}^3 : x^2 + y^2 + z^2 = 1\}$ and the unit normal vector $\hat{n} = (x, y, z)$ at each point $(x, y, z)$ on $S$. The value of the surface integral
+\[
+  \iint_S \left\{\left(\frac{2x}{\pi} + \sin(y^2)\right) x + \left(e^z - \frac{y}{\pi}\right) y + \left(\frac{2z}{\pi} + \sin^2 y\right) z\right\} d\sigma
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.51} Let $D = \{(x, y) \in \mathbb{R}^2 : 1 \le x \le 1000,\; 1 \le y \le 1000\}$. Define
+\[
+  f(x, y) = \frac{xy}{2} + \frac{500}{x} + \frac{500}{y}.
+\]
+Then the minimum value of $f$ on $D$ is equal to \underline{\hspace{2cm}}.
+\ans{$150$}
+
+\textbf{Q.52} Let $\mathbb{D} = \{z \in \mathbb{C} : |z| < 1\}$. Then there exists a non-constant analytic function $f$ on $\mathbb{D}$ such that for all $n = 2, 3, 4, \dots$
+\optsfourA{$f\!\left(\dfrac{\sqrt{-1}}{n}\right) = 0$}{$f\!\left(\dfrac{1}{n}\right) = 0$}{$f\!\left(1 - \dfrac{1}{n}\right) = 0$}{$f\!\left(\dfrac{1}{2} - \dfrac{1}{n}\right) = 0$}
+\ans{(C)}
+
+\textbf{Q.53} Let $\sum_{n=-\infty}^{\infty} a_n z^n$ be the Laurent series expansion of $f(z) = \dfrac{1}{2z^2 - 13z + 15}$ in the annulus $\frac{3}{2} < |z| < 5$. Then $\dfrac{a_1}{a_2}$ is equal to \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.54} The value of $\dfrac{i}{4 - \pi} \displaystyle\int_{|z|=4} \dfrac{dz}{z\cos(z)}$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.55} Suppose that among all continuously differentiable functions $y(x)$, $x \in \mathbb{R}$, with $y(0) = 0$ and $y(1) = \frac{1}{2}$, the function $y_0(x)$ minimizes the functional
+\[
+  \int_0^1 \left(e^{-(y' - x)} + (1 + y)y'\right) dx.
+\]
+Then $y_0\!\left(\frac{1}{2}\right)$ is equal to
+\optsfourA{$0$}{$\dfrac{1}{8}$}{$\dfrac{1}{4}$}{$\dfrac{1}{2}$}
+\ans{(B)}
+
+\newpage
+
+% ============================================================================
+% GATE 2016 -- GENERAL APTITUDE (GA) & MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\LARGE\bfseries GATE 2016}\\[4pt]
+  {\large\bfseries General Aptitude (GA Set-4) \& Mathematics (MA)}\\[2pt]
+  {\small\itshape Official Answer Key attached to every question}
+\end{center}
+\medskip
+
+\section*{General Aptitude (GA Set-4)}
+
+\subsection*{Q.1 -- Q.5 carry one mark each.}
+
+\textbf{Q.1} An apple costs Rs.~10. An onion costs Rs.~8.
+
+Select the most suitable sentence with respect to grammar and usage.
+\optslistA{The price of an apple is greater than an onion.}{The price of an apple is more than onion.}{The price of an apple is greater than that of an onion.}{Apples are more costlier than onions.}
+\ans{(C)}
+
+\textbf{Q.2} The Buddha said, ``Holding on to anger is like \underline{grasping} a hot coal with the intent of throwing it at someone else; you are the one who gets burnt.''
+
+Select the word below which is closest in meaning to the word underlined above.
+\optsfourA{burning}{igniting}{clutching}{flinging}
+\ans{(C)}
+
+\textbf{Q.3} \textbf{M} has a son \textbf{Q} and a daughter \textbf{R}. He has no other children. \textbf{E} is the mother of \textbf{P} and daughter-in-law of \textbf{M}. How is \textbf{P} related to \textbf{M}?
+\optsfourA{\textbf{P} is the son-in-law of \textbf{M}.}{\textbf{P} is the grandchild of \textbf{M}.}{\textbf{P} is the daughter-in-law of \textbf{M}.}{\textbf{P} is the grandfather of \textbf{M}.}
+\ans{(B)}
+
+\textbf{Q.4} The number that least fits this set: $(324, 441, 97 \text{ and } 64)$ is \underline{\hspace{2cm}}.
+\optsfourA{$324$}{$441$}{$97$}{$64$}
+\ans{(C) or (D)}
+
+\textbf{Q.5} It takes $10\text{ s}$ and $15\text{ s}$, respectively, for two trains travelling at different constant speeds to completely pass a telegraph post. The length of the first train is $120\text{ m}$ and that of the second train is $150\text{ m}$. The magnitude of the difference in the speeds of the two trains (in $\text{m/s}$) is \underline{\hspace{2cm}}.
+\optsfourA{$2.0$}{$10.0$}{$12.0$}{$22.0$}
+\ans{(A)}
+
+\subsection*{Q.6 -- Q.10 carry two marks each.}
+
+\textbf{Q.6} The velocity $V$ of a vehicle along a straight line is measured in $\text{m/s}$ and plotted as shown with respect to time in seconds. (The piecewise-linear graph connects $(t, V) = (0,0) \to (1,1) \to (2,1) \to (3,2) \to (4,0) \to (5,0) \to (6,-1) \to (7,0)$.) At the end of the $7$ seconds, how much will the odometer reading increase by (in $\text{m}$)?
+\optsfourA{$0$}{$3$}{$4$}{$5$}
+\ans{(D)}
+
+\textbf{Q.7} The overwhelming number of people infected with rabies in India has been flagged by the World Health Organization as a source of concern. It is estimated that inoculating $70\%$ of pets and stray dogs against rabies can lead to a significant reduction in the number of people infected with rabies.
+
+Which of the following can be logically inferred from the above sentences?
+\optslistA{The number of people in India infected with rabies is high.}{The number of people in other parts of the world who are infected with rabies is low.}{Rabies can be eradicated in India by vaccinating $70\%$ of stray dogs.}{Stray dogs are the main source of rabies worldwide.}
+\ans{(A)}
+
+\textbf{Q.8} A flat is shared by four first year undergraduate students. They agreed to allow the oldest of them to enjoy some extra space in the flat. Manu is two months older than Sravan, who is three months younger than Trideep. Pavan is one month older than Sravan. Who should occupy the extra space in the flat?
+\optsfourA{Manu}{Sravan}{Trideep}{Pavan}
+\ans{(C)}
+
+\textbf{Q.9} Find the area bounded by the lines $3x + 2y = 14$, $2x - 3y = 5$ in the first quadrant.
+\optsfourA{$14.95$}{$15.25$}{$15.70$}{$20.35$}
+\ans{(B)}
+
+\textbf{Q.10} A straight line is fit to a data set $(\ln x, y)$. This line intercepts the abscissa at $\ln x = 0.1$ and has a slope of $-0.02$. What is the value of $y$ at $x = 5$ from the fit?
+\optsfourA{$-0.030$}{$-0.014$}{$0.014$}{$0.030$}
+\ans{(A)}
+
+\section*{Mathematics (MA)}
+
+\textbf{List of Symbols, Notations and Data:}
+i.i.d.: independent and identically distributed; $N(\mu,\sigma^2)$: Normal distribution with mean $\mu$ and variance $\sigma^2$, $\mu \in (-\infty,\infty)$, $\sigma > 0$; $E(X)$: Expected value (mean) of the random variable $X$; $\Phi(t) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^t e^{-\frac{x^2}{2}}\,dx$; $[x]$: the greatest integer less than or equal to $x$; $\mathbb{Z}, \mathbb{Z}_n, \mathbb{R}, \mathbb{C}$: sets of integers, integers modulo $n$, real numbers, complex numbers; $\mathbb{R}^n$: $n$-dimensional Euclidean space with usual metric $d$; $\ell_2$: normed linear space of all square-summable real sequences; $C[0,1]$: set of all real valued continuous functions on $[0,1]$; $\overline{B(0,1)} := \{(x,y) \in \mathbb{R}^2 : x^2 + y^2 \le 1\}$; $M^*$: conjugate transpose of $M$; $M^T$: transpose of $M$; $Id$: identity matrix of appropriate order; $\mathcal{R}(M)$: range space of $M$; $\mathcal{N}(M)$: null space of $M$; $W^\perp$: orthogonal complement of the subspace $W$.
+
+\subsection*{Q.1 -- Q.25 carry one mark each.}
+
+\textbf{Q.1} Let $\{X, Y, Z\}$ be a basis of $\mathbb{R}^3$. Consider the following statements P and Q:\\
+(P): $\{X + Y, Y + Z, X - Z\}$ is a basis of $\mathbb{R}^3$.\\
+(Q): $\{X + Y + Z, X + 2Y - Z, X - 3Z\}$ is a basis of $\mathbb{R}^3$.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(C)}
+
+\textbf{Q.2} Consider the following statements P and Q:\\
+(P): If $M = \begin{bmatrix} 1 & 1 & 1 \\ 1 & 2 & 4 \\ 1 & 3 & 9 \end{bmatrix}$, then $M$ is singular.\\
+(Q): Let $S$ be a diagonalizable matrix. If $T$ is a matrix such that $S + 5T = Id$, then $T$ is diagonalizable.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(C)}
+
+\textbf{Q.3} Consider the following statements P and Q:\\
+(P): If $M$ is an $n \times n$ complex matrix, then $\mathcal{R}(M) = (\mathcal{N}(M^*))^\perp$.\\
+(Q): There exists a unitary matrix with an eigenvalue $\lambda$ such that $|\lambda| < 1$.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.4} Consider a real vector space $V$ of dimension $n$ and a non-zero linear transformation $T : V \to V$. If $\operatorname{dimension}(T(V)) < n$ and $T^2 = \lambda T$, for some $\lambda \in \mathbb{R} \setminus \{0\}$, then which of the following statements is TRUE?
+\optslistA{$\operatorname{determinant}(T) = |\lambda|^n$}{There exists a non-trivial subspace $V_1$ of $V$ such that $T(X) = 0$ for all $X \in V_1$}{$T$ is invertible}{$\lambda$ is the only eigenvalue of $T$}
+\ans{(B)}
+
+\textbf{Q.5} Let $S = [0, 1) \cup [2, 3]$ and $f : S \to \mathbb{R}$ be a strictly increasing function such that $f(S)$ is connected. Which of the following statements is TRUE?
+\optslistA{$f$ has exactly one discontinuity}{$f$ has exactly two discontinuities}{$f$ has infinitely many discontinuities}{$f$ is continuous}
+\ans{(D)}
+
+\textbf{Q.6} Let $a_1 = 1$ and $a_n = a_{n-1} + 4$, $n \ge 2$. Then,
+\[
+  \lim_{n\to\infty} \left[\frac{1}{a_1 a_2} + \frac{1}{a_2 a_3} + \cdots + \frac{1}{a_{n-1} a_n}\right]
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$0.25$ (Official range: $0.24$ to $0.26$)}
+
+\textbf{Q.7} $\operatorname{Maximum}\{x + y : (x, y) \in \overline{B(0, 1)}\}$ is equal to \underline{\hspace{2cm}}.
+\ans{$\sqrt{2} \approx 1.414$ (Official range: $1.39$ to $1.43$)}
+
+\textbf{Q.8} Let $a, b, c, d \in \mathbb{R}$ such that $c^2 + d^2 \neq 0$. Then, the Cauchy problem
+\begin{align*}
+  a u_x + b u_y &= e^{x+y}, \qquad x, y \in \mathbb{R}, \\
+  u(x, y) &= 0 \quad \text{on } cx + dy = 0
+\end{align*}
+has a unique solution if
+\optsfourA{$ac + bd \neq 0$}{$ad - bc \neq 0$}{$ac - bd \neq 0$}{$ad + bc \neq 0$}
+\ans{(A)}
+
+\textbf{Q.9} Let $u(x, t)$ be the d'Alembert's solution of the initial value problem for the wave equation
+\begin{align*}
+  u_{tt} - c^2 u_{xx} &= 0 \\
+  u(x, 0) = f(x), &\quad u_t(x, 0) = g(x),
+\end{align*}
+where $c$ is a positive real number and $f, g$ are smooth odd functions. Then, $u(0, 1)$ is equal to \underline{\hspace{2cm}}.
+\ans{$0$ (Official range: $-0.1$ to $0.1$)}
+
+\textbf{Q.10} Let the probability density function of a random variable $X$ be
+\[
+  f(x) = \begin{cases}
+    x & 0 \le x < \dfrac{1}{2} \\[6pt]
+    c(2x - 1)^2 & \dfrac{1}{2} < x \le 1 \\[4pt]
+    0 & \text{otherwise.}
+  \end{cases}
+\]
+Then, the value of $c$ is equal to \underline{\hspace{2cm}}.
+\ans{$5.25$ (Official range: $5.2$ to $5.3$)}
+
+\textbf{Q.11} Let $V$ be the set of all solutions of the equation $y'' + ay' + by = 0$ satisfying $y(0) = y(1)$, where $a, b$ are positive real numbers. Then, $\operatorname{dimension}(V)$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$ (Official range: $0.9$ to $1.1$)}
+
+\textbf{Q.12} Let $y'' + p(x)y' + q(x)y = 0$, $x \in (-\infty, \infty)$, where $p(x)$ and $q(x)$ are continuous functions. If $y_1(x) = \sin(x) - 2\cos(x)$ and $y_2(x) = 2\sin(x) + \cos(x)$ are two linearly independent solutions of the above equation, then $|4p(0) + 2q(1)|$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.95$ to $2.05$)}
+
+\textbf{Q.13} Let $P_n(x)$ be the Legendre polynomial of degree $n$ and $I = \int_{-1}^{1} x^k P_n(x)\,dx$, where $k$ is a non-negative integer. Consider the following statements P and Q:\\
+(P): $I = 0$ if $k < n$.\\
+(Q): $I = 0$ if $n - k$ is an odd integer.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(A)}
+
+\textbf{Q.14} Consider the following statements P and Q:\\
+(P): $x^2 y'' + x y' + \left(x^2 - \frac{1}{4}\right)y = 0$ has two linearly independent Frobenius series solutions near $x = 0$.\\
+(Q): $x^2 y'' + 3\sin(x) y' + y = 0$ has two linearly independent Frobenius series solutions near $x = 0$.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.15} Let the polynomial $x^4$ be approximated by a polynomial of degree $\le 2$, which interpolates $x^4$ at $x = -1, 0$ and $1$. Then, the maximum absolute interpolation error over the interval $[-1, 1]$ is equal to \underline{\hspace{2cm}}.
+\ans{$0.25$ (Official range: $0.22$ to $0.28$)}
+
+\textbf{Q.16} Let $(z_n)$ be a sequence of distinct points in $D(0, 1) = \{z \in \mathbb{C} : |z| < 1\}$ with $\lim_{n\to\infty} z_n = 0$. Consider the following statements P and Q:\\
+(P): There exists a unique analytic function $f$ on $D(0, 1)$ such that $f(z_n) = \sin(z_n)$ for all $n$.\\
+(Q): There exists an analytic function $f$ on $D(0, 1)$ such that $f(z_n) = 0$ if $n$ is even and $f(z_n) = 1$ if $n$ is odd.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.17} Let $(\mathbb{R}, \tau)$ be a topological space with the cofinite topology. Every infinite subset of $\mathbb{R}$ is
+\optslistA{Compact but NOT connected}{Both compact and connected}{NOT compact but connected}{Neither compact nor connected}
+\ans{(B)}
+
+\textbf{Q.18} Let $c_0 = \{(x_n) : x_n \in \mathbb{R},\; x_n \to 0\}$ and $M = \{(x_n) \in c_0 : x_1 + x_2 + \cdots + x_{10} = 0\}$. Then, $\operatorname{dimension}(c_0 / M)$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$ (Official range: $0.9$ to $1.1$)}
+
+\textbf{Q.19} Consider $(\mathbb{R}^2, \|\cdot\|_\infty)$, where $\|(x, y)\|_\infty = \operatorname{maximum}\{|x|, |y|\}$. Let $f : \mathbb{R}^2 \to \mathbb{R}$ be defined by $f(x, y) = \frac{x + y}{2}$ and $\tilde{f}$ the norm preserving linear extension of $f$ to $(\mathbb{R}^3, \|\cdot\|_\infty)$. Then, $\tilde{f}(1, 1, 1)$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$ (Official range: $0.9$ to $1.1$)}
+
+\textbf{Q.20} $f : [0, 1] \to [0, 1]$ is called a shrinking map if $|f(x) - f(y)| < |x - y|$ for all $x, y \in [0, 1]$ and a contraction if there exists an $\alpha < 1$ such that $|f(x) - f(y)| \le \alpha |x - y|$ for all $x, y \in [0, 1]$.\\
+Which of the following statements is TRUE for the function $f(x) = x - \dfrac{x^2}{2}$?
+\optslistA{$f$ is both a shrinking map and a contraction}{$f$ is a shrinking map but NOT a contraction}{$f$ is NOT a shrinking map but a contraction}{$f$ is Neither a shrinking map nor a contraction}
+\ans{(B) or (D)}
+
+\textbf{Q.21} Let $\mathbb{M}$ be the set of all $n \times n$ real matrices with the usual norm topology. Consider the following statements P and Q:\\
+(P): The set of all symmetric positive definite matrices in $\mathbb{M}$ is connected.\\
+(Q): The set of all invertible matrices in $\mathbb{M}$ is compact.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.22} Let $X_1, X_2, X_3, \dots, X_n$ be a random sample from the following probability density function for $0 < \mu < \infty$, $0 < \alpha < 1$,
+\[
+  f(x; \mu, \alpha) = \begin{cases}
+    \dfrac{1}{\Gamma(\alpha)} (x - \mu)^{\alpha - 1} e^{-(x - \mu)}; & x > \mu \\[6pt]
+    0 & \text{otherwise.}
+  \end{cases}
+\]
+Here $\alpha$ and $\mu$ are unknown parameters. Which of the following statements is TRUE?
+\optslistA{Maximum likelihood estimator of only $\mu$ exists}{Maximum likelihood estimator of only $\alpha$ exists}{Maximum likelihood estimators of both $\mu$ and $\alpha$ exist}{Maximum likelihood estimator of Neither $\mu$ nor $\alpha$ exists}
+\ans{(D)}
+
+\textbf{Q.23} Suppose $X$ and $Y$ are two random variables such that $aX + bY$ is a normal random variable for all $a, b \in \mathbb{R}$. Consider the following statements P, Q, R and S:\\
+(P): $X$ is a standard normal random variable.\\
+(Q): The conditional distribution of $X$ given $Y$ is normal.\\
+(R): The conditional distribution of $X$ given $X + Y$ is normal.\\
+(S): $X - Y$ has mean $0$.\\
+Which of the above statements ALWAYS hold TRUE?
+\optsfourA{both P and Q}{both Q and R}{both Q and S}{both P and S}
+\ans{(B)}
+
+\textbf{Q.24} Consider the following statements P and Q:\\
+(P): If $H$ is a normal subgroup of order $4$ of the symmetric group $S_4$, then $S_4 / H$ is abelian.\\
+(Q): If $Q = \{\pm 1, \pm i, \pm j, \pm k\}$ is the quaternion group, then $Q / \{-1, 1\}$ is abelian.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(C)}
+
+\textbf{Q.25} Let $F$ be a field of order $32$. Then the number of non-zero solutions $(a, b) \in F \times F$ of the equation $x^2 + xy + y^2 = 0$ is equal to \underline{\hspace{2cm}}.
+\ans{$0$ (Official range: $-0.1$ to $0.1$)}
+
+\subsection*{Q.26 -- Q.55 carry two marks each.}
+
+\textbf{Q.26} Let $\gamma = \{z \in \mathbb{C} : |z| = 2\}$ be oriented in the counter-clockwise direction. Let
+\[
+  I = \frac{1}{2\pi i} \oint_\gamma z^7 \cos\!\left(\frac{1}{z^2}\right) dz.
+\]
+Then, the value of $I$ is equal to \underline{\hspace{2cm}}.
+\ans{$\frac{1}{24} \approx 0.0417$ (Official range: $0.039$ to $0.043$)}
+
+\textbf{Q.27} Let $u(x, y) = x^3 + a x^2 y + b x y^2 + 2y^3$ be a harmonic function and $v(x, y)$ its harmonic conjugate. If $v(0, 0) = 1$, then $|a + b + v(1, 1)|$ is equal to \underline{\hspace{2cm}}.
+\ans{$10$ (Official range: $9.9$ to $10.1$)}
+
+\textbf{Q.28} Let $\gamma$ be the triangular path connecting the points $(0, 0)$, $(2, 2)$ and $(0, 2)$ in the counter-clockwise direction in $\mathbb{R}^2$. Then
+\[
+  I = \oint_\gamma \sin(x^3)\,dx + 6xy\,dy
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$16$ (Official range: $15.9$ to $16.1$)}
+
+\textbf{Q.29} Let $y$ be the solution of
+\begin{align*}
+  y' + y &= |x|, \qquad x \in \mathbb{R} \\
+  y(-1) &= 0.
+\end{align*}
+Then $y(1)$ is equal to
+\optsfourA{$\dfrac{2}{e} - \dfrac{2}{e^2}$}{$\dfrac{2}{e} - 2e^2$}{$2 - \dfrac{2}{e}$}{$2 - 2e$}
+\ans{(A)}
+
+\textbf{Q.30} Let $X$ be a random variable with the following cumulative distribution function:
+\[
+  F(x) = \begin{cases}
+    0 & x < 0 \\
+    x^2 & 0 \le x < \dfrac{1}{2} \\[6pt]
+    \dfrac{3}{4} & \dfrac{1}{2} \le x < 1 \\[4pt]
+    1 & x \ge 1.
+  \end{cases}
+\]
+Then $P\!\left(\frac{1}{4} < X < 1\right)$ is equal to \underline{\hspace{2cm}}.
+\ans{$0.6875$ (Official range: $0.65$ to $0.71$)}
+
+\textbf{Q.31} Let $\gamma$ be the curve which passes through $(0, 1)$ and intersects each curve of the family $y = cx^2$ orthogonally. Then $\gamma$ also passes through the point
+\optsfourA{$(\sqrt{2}, 0)$}{$(0, \sqrt{2})$}{$(1, 1)$}{$(-1, 1)$}
+\ans{(A)}
+
+\textbf{Q.32} Let $S(x) = a_0 + \sum_{n=1}^{\infty} (a_n \cos(nx) + b_n \sin(nx))$ be the Fourier series of the $2\pi$ periodic function defined by $f(x) = x^2 + 4\sin(x)\cos(x)$, $-\pi \le x \le \pi$. Then
+\[
+  \left|\sum_{n=0}^{\infty} a_n - \sum_{n=1}^{\infty} b_n\right|
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.9$ to $2.1$)}
+
+\textbf{Q.33} Let $y(t)$ be a continuous function on $[0, \infty)$. If
+\[
+  y(t) = t\!\left(1 - 4\int_0^t y(x)\,dx\right) + 4\int_0^t x y(x)\,dx,
+\]
+then $\int_0^{\pi/2} y(t)\,dt$ is equal to \underline{\hspace{2cm}}.
+\ans{$0.5$ (Official range: $0.45$ to $0.55$)}
+
+\textbf{Q.34} Let $S_n = \sum_{k=1}^{n} \frac{1}{k}$ and $I_n = \int_1^n \frac{x - [x]}{x^2}\,dx$. Then, $S_{10} + I_{10}$ is equal to
+\optsfourA{$\ln 10 + 1$}{$\ln 10 - 1$}{$\ln 10 - \dfrac{1}{10}$}{$\ln 10 + \dfrac{1}{10}$}
+\ans{(A)}
+
+\textbf{Q.35} For any $(x, y) \in \mathbb{R}^2 \setminus \overline{B(0, 1)}$, let
+\begin{align*}
+  f(x, y) &= \operatorname{distance}\!\left((x, y), \overline{B(0, 1)}\right) \\
+          &= \operatorname{infimum}\left\{\sqrt{(x - x_1)^2 + (y - y_1)^2} : (x_1, y_1) \in \overline{B(0, 1)}\right\}.
+\end{align*}
+Then, $\|\nabla f(3, 4)\|$ is equal to \underline{\hspace{2cm}}.
+\ans{$1$ (Official range: $0.9$ to $1.1$)}
+
+\textbf{Q.36} Let $f(x) = \left(\int_0^x e^{-t^2}\,dt\right)^2$ and $g(x) = \int_0^1 \frac{e^{-x^2(1 + t^2)}}{1 + t^2}\,dt$. Then $f'(\sqrt{\pi}) + g'(\sqrt{\pi})$ is equal to \underline{\hspace{2cm}}.
+\ans{$0$ (Official range: $-0.1$ to $0.1$)}
+
+\textbf{Q.37} Let $M = \begin{bmatrix} a & b & c \\ b & d & e \\ c & e & f \end{bmatrix}$ be a real matrix with eigenvalues $1, 0$ and $3$. If the eigenvectors corresponding to $1$ and $0$ are $(1, 1, 1)^T$ and $(1, -1, 0)^T$ respectively, then the value of $3f$ is equal to \underline{\hspace{2cm}}.
+\ans{$7$ (Official range: $6.9$ to $7.1$)}
+
+\textbf{Q.38} Let $M = \begin{bmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{bmatrix}$ and $e^M = Id + M + \frac{1}{2!}M^2 + \frac{1}{3!}M^3 + \cdots$. If $e^M = [b_{ij}]$, then
+\[
+  \frac{1}{e} \sum_{i=1}^{3} \sum_{j=1}^{3} b_{ij}
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$5.5$ (Official range: $5.4$ to $5.6$)}
+
+\textbf{Q.39} Let the integral $I = \int_0^4 f(x)\,dx$, where $f(x) = \begin{cases} x & 0 \le x \le 2 \\ 4 - x & 2 \le x \le 4. \end{cases}$\\
+Consider the following statements P and Q:\\
+(P): If $I_2$ is the value of the integral obtained by the composite trapezoidal rule with two equal sub-intervals, then $I_2$ is exact.\\
+(Q): If $I_3$ is the value of the integral obtained by the composite trapezoidal rule with three equal sub-intervals, then $I_3$ is exact.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.40} The difference between the least two eigenvalues of the boundary value problem
+\begin{align*}
+  y'' + \lambda y &= 0, \qquad 0 < x < \pi \\
+  y(0) = 0, &\qquad y'(\pi) = 0,
+\end{align*}
+is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.9$ to $2.1$)}
+
+\textbf{Q.41} The number of roots of the equation $x^2 - \cos(x) = 0$ in the interval $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.9$ to $2.1$)}
+
+\textbf{Q.42} For the fixed point iteration $x_{k+1} = g(x_k)$, $k = 0, 1, 2, \dots$, consider the following statements P and Q:\\
+(P): If $g(x) = 1 + \frac{2}{x}$ then the fixed point iteration converges to $2$ for all $x_0 \in [1, 100]$.\\
+(Q): If $g(x) = \sqrt{2 + x}$ then the fixed point iteration converges to $2$ for all $x_0 \in [0, 100]$.\\
+Which of the above statements hold TRUE?
+\optsfourA{both P and Q}{only P}{only Q}{Neither P nor Q}
+\ans{(A)}
+
+\textbf{Q.43} Let $T : \ell_2 \to \ell_2$ be defined by
+\[
+  T((x_1, x_2, \dots, x_n, \dots)) = (x_2 - x_1,\; x_3 - x_2,\; \dots,\; x_{n+1} - x_n,\; \dots).
+\]
+Then
+\optslistA{$\|T\| = 1$}{$\|T\| > 2$ but bounded}{$1 < \|T\| \le 2$}{$\|T\|$ is unbounded}
+\ans{(C)}
+
+\textbf{Q.44} Minimize $w = x + 2y$ subject to
+\begin{align*}
+  2x + y &\ge 3 \\
+  x + y &\ge 2 \\
+  x \ge 0,\; y &\ge 0.
+\end{align*}
+Then, the minimum value of $w$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.9$ to $2.1$)}
+
+\textbf{Q.45} Maximize $w = 11x - z$ subject to
+\begin{align*}
+  10x + y - z &\le 1 \\
+  2x - 2y + z &\le 2 \\
+  x, y, z &\ge 0.
+\end{align*}
+Then, the maximum value of $w$ is equal to \underline{\hspace{2cm}}.
+\ans{$1.25$ (Official range: $1.2$ to $1.3$)}
+
+\textbf{Q.46} Let $X_1, X_2, X_3, \dots$ be a sequence of i.i.d.\ random variables with mean $1$. If $N$ is a geometric random variable with the probability mass function $P(N = k) = \frac{1}{2^k}$; $k = 1, 2, 3, \dots$ and it is independent of the $X_i$'s, then $E(X_1 + X_2 + \cdots + X_N)$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.9$ to $2.1$)}
+
+\textbf{Q.47} Let $X_1$ be an exponential random variable with mean $1$ and $X_2$ a gamma random variable with mean $2$ and variance $2$. If $X_1$ and $X_2$ are independently distributed, then $P(X_1 < X_2)$ is equal to \underline{\hspace{2cm}}.
+\ans{$0.75$ (Official range: $0.7$ to $0.8$)}
+
+\textbf{Q.48} Let $X_1, X_2, X_3, \dots$ be a sequence of i.i.d.\ uniform $(0, 1)$ random variables. Then, the value of
+\[
+  \lim_{n\to\infty} P(-\ln(1 - X_1) - \cdots - \ln(1 - X_n) \ge n)
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$0.5$ (Official range: $0.4$ to $0.6$)}
+
+\textbf{Q.49} Let $X$ be a standard normal random variable. Then, $P(X < 0 \mid |[X]| = 1)$ is equal to
+\optsfourA{$\dfrac{\Phi(1) - \frac{1}{2}}{\Phi(2) - \frac{1}{2}}$}{$\dfrac{\Phi(1) + \frac{1}{2}}{\Phi(2) + \frac{1}{2}}$}{$\dfrac{\Phi(1) - \frac{1}{2}}{\Phi(2) + \frac{1}{2}}$}{$\dfrac{\Phi(1) + 1}{\Phi(2) + 1}$}
+\ans{(A)}
+
+\textbf{Q.50} Let $X_1, X_2, X_3, \dots, X_n$ be a random sample from the probability density function
+\[
+  f(x) = \begin{cases}
+    \theta \alpha e^{-\alpha x} + (1 - \theta) 2\alpha e^{-2\alpha x}; & x \ge 0 \\
+    0 & \text{otherwise,}
+  \end{cases}
+\]
+where $\alpha > 0$, $0 \le \theta \le 1$ are parameters. Consider the following testing problem:\\
+$H_0 : \theta = 1, \alpha = 1$ versus $H_1 : \theta = 0, \alpha = 2$.\\
+Which of the following statements is TRUE?
+\optslistA{Uniformly Most Powerful test does NOT exist}{Uniformly Most Powerful test is of the form $\sum_{i=1}^{n} X_i > c$, for some $0 < c < \infty$}{Uniformly Most Powerful test is of the form $\sum_{i=1}^{n} X_i < c$, for some $0 < c < \infty$}{Uniformly Most Powerful test is of the form $c_1 < \sum_{i=1}^{n} X_i < c_2$, for some $0 < c_1 < c_2 < \infty$}
+\ans{(C)}
+
+\textbf{Q.51} Let $X_1, X_2, X_3, \dots$ be a sequence of i.i.d.\ $N(\mu, 1)$ random variables. Then,
+\[
+  \lim_{n\to\infty} \frac{\sqrt{\pi}}{2n} \sum_{i=1}^{n} E(|X_i - \mu|)
+\]
+is equal to \underline{\hspace{2cm}}.
+\ans{$\frac{1}{\sqrt{2}} \approx 0.707$ (Official range: $0.69$ to $0.73$)}
+
+\textbf{Q.52} Let $X_1, X_2, X_3, \dots, X_n$ be a random sample from uniform $[1, \theta]$, for some $\theta > 1$. If $X_{(n)} = \operatorname{Maximum}(X_1, X_2, X_3, \dots, X_n)$, then the UMVUE of $\theta$ is
+\optsfourA{$\dfrac{n+1}{n} X_{(n)} + \dfrac{1}{n}$}{$\dfrac{n+1}{n} X_{(n)} - \dfrac{1}{n}$}{$\dfrac{n}{n+1} X_{(n)} + \dfrac{1}{n}$}{$\dfrac{n}{n+1} X_{(n)} + \dfrac{n+1}{n}$}
+\ans{(B)}
+
+\textbf{Q.53} Let $x_1 = x_2 = x_3 = 1$, $x_4 = x_5 = x_6 = 2$ be a random sample from a Poisson random variable with mean $\theta$, where $\theta \in \{1, 2\}$. Then, the maximum likelihood estimator of $\theta$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.9$ to $2.1$)}
+
+\textbf{Q.54} The remainder when $98!$ is divided by $101$ is equal to \underline{\hspace{2cm}}.
+\ans{$50$ (Official range: $49.9$ to $50.1$)}
+
+\textbf{Q.55} Let $G$ be a group whose presentation is
+\[
+  G = \{x, y \mid x^5 = y^2 = e,\quad x^2 y = y x\}.
+\]
+Then $G$ is isomorphic to
+\optsfourA{$\mathbb{Z}_5$}{$\mathbb{Z}_{10}$}{$\mathbb{Z}_2$}{$\mathbb{Z}_{30}$}
+\ans{(C)}
+
+\newpage
+
+% ============================================================================
+% GATE 2017 -- MATHEMATICS (MA) & GENERAL APTITUDE (GA)
+% ============================================================================
+
+\begin{center}
+  {\LARGE\bfseries GATE 2017}\\[4pt]
+  {\large\bfseries Mathematics (MA) \& General Aptitude (GA)}\\[2pt]
+  {\small\itshape Official Answer Key attached to every question}
+\end{center}
+\medskip
+
+\section*{Mathematics (MA)}
+
+\subsection*{Q.1 -- Q.25 carry one mark each.}
+
+\textbf{Q.1} Consider the vector space $V = \{a_0 + a_1 x + a_2 x^2 : a_i \in \mathbb{R} \text{ for } i = 0, 1, 2\}$ of polynomials of degree at most $2$. Let $f : V \to \mathbb{R}$ be a linear functional such that $f(1 + x) = 0$, $f(1 - x^2) = 0$ and $f(x^2 - x) = 2$. Then $f(1 + x + x^2)$ equals \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.2} Let $A$ be a $7 \times 7$ matrix such that $2A^2 - A^4 = I$, where $I$ is the identity matrix. If $A$ has two distinct eigenvalues and each eigenvalue has geometric multiplicity $3$, then the total number of nonzero entries in the Jordan canonical form of $A$ equals \underline{\hspace{2cm}}.
+\ans{$8$}
+
+\textbf{Q.3} Let $f(z) = (x^2 + y^2) + i\,2xy$ and $g(z) = 2xy + i(y^2 - x^2)$ for $z = x + iy \in \mathbb{C}$. Then, in the complex plane $\mathbb{C}$,
+\optslistA{$f$ is analytic and $g$ is NOT analytic}{$f$ is NOT analytic and $g$ is analytic}{neither $f$ nor $g$ is analytic}{both $f$ and $g$ are analytic}
+\ans{(B)}
+
+\textbf{Q.4} If $\displaystyle\sum_{n=-\infty}^{\infty} a_n (z - 2)^n$ is the Laurent series of the function $f(z) = \dfrac{z^4 + z^3 + z^2}{(z - 2)^3}$ for $z \in \mathbb{C} \setminus \{2\}$, then $a_{-2}$ equals \underline{\hspace{2cm}}.
+\ans{$48$}
+
+\textbf{Q.5} Let $f_n : [0, 1] \to \mathbb{R}$ be given by $f_n(x) = \dfrac{2x^2}{x^2 + (1 - 2nx)^2}$, $n = 1, 2, \dots$. Then the sequence $(f_n)$
+\optslistA{converges uniformly on $[0, 1]$}{does NOT converge uniformly on $[0, 1]$ but has a subsequence that converges uniformly on $[0, 1]$}{does NOT converge pointwise on $[0, 1]$}{converges pointwise on $[0, 1]$ but does NOT have a subsequence that converges uniformly on $[0, 1]$}
+\ans{(D)}
+
+\textbf{Q.6} Let $C : x^2 + y^2 = 9$ be the circle in $\mathbb{R}^2$ oriented positively. Then
+\[
+  \frac{1}{\pi} \oint_C \left(3y - e^{\cos x^2}\right) dx + \left(7x + \sqrt{y^4 + 11}\right) dy
+\]
+equals \underline{\hspace{2cm}}.
+\ans{$36$}
+
+\textbf{Q.7} Consider the following statements:\\
+(P): There exists an unbounded subset of $\mathbb{R}$ whose Lebesgue measure is equal to $5$.\\
+(Q): If $f : \mathbb{R} \to \mathbb{R}$ is continuous and $g : \mathbb{R} \to \mathbb{R}$ is such that $f = g$ almost everywhere on $\mathbb{R}$, then $g$ must be continuous almost everywhere on $\mathbb{R}$.\\
+Which of the above statements hold TRUE?
+\optsfourA{Both P and Q}{Only P}{Only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.8} If $x^3 y^2$ is an integrating factor of $(6y^2 + axy)\,dx + (6xy + bx^2)\,dy = 0$, where $a, b \in \mathbb{R}$, then
+\optsfourA{$3a - 5b = 0$}{$2a - b = 0$}{$3a + 5b = 0$}{$2a + b = 0$}
+\ans{(A)}
+
+\textbf{Q.9} If $x(t)$ and $y(t)$ are the solutions of the system $\dfrac{dx}{dt} = y$ and $\dfrac{dy}{dt} = -x$ with the initial conditions $x(0) = 1$ and $y(0) = 1$, then $x(\pi/2) + y(\pi/2)$ equals \underline{\hspace{2cm}}.
+\ans{$0$}
+
+\textbf{Q.10} If $y = 3e^{2x} + e^{-2x} - \alpha x$ is the solution of the initial value problem
+\[
+  \frac{d^2 y}{dx^2} + \beta y = 4\alpha x, \qquad y(0) = 4 \quad \text{and} \quad \frac{dy}{dx}(0) = 1, \quad \text{where } \alpha, \beta \in \mathbb{R},
+\]
+then
+\optsfourA{$\alpha = 3$ and $\beta = 4$}{$\alpha = 1$ and $\beta = 2$}{$\alpha = 3$ and $\beta = -4$}{$\alpha = 1$ and $\beta = -2$}
+\ans{(C)}
+
+\textbf{Q.11} Let $G$ be a non-abelian group of order $125$. Then the total number of elements in $Z(G) = \{x \in G : gx = xg \text{ for all } g \in G\}$ equals \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.12} Let $F_1$ and $F_2$ be subfields of a finite field $F$ consisting of $2^9$ and $2^6$ elements, respectively. Then the total number of elements in $F_1 \cap F_2$ equals \underline{\hspace{2cm}}.
+\ans{$8$}
+
+\textbf{Q.13} Consider the normed linear space $\mathbb{R}^2$ equipped with the norm given by $\|(x, y)\| = |x| + |y|$ and the subspace $X = \{(x, y) \in \mathbb{R}^2 : x = y\}$. Let $f$ be the linear functional on $X$ given by $f(x, y) = 3x$. If $g(x, y) = \alpha x + \beta y$, $\alpha, \beta \in \mathbb{R}$, is a Hahn-Banach extension of $f$ on $\mathbb{R}^2$, then $\alpha - \beta$ equals \underline{\hspace{2cm}}.
+\ans{$0$}
+
+\textbf{Q.14} For $n \in \mathbb{Z}$, define $c_n = \dfrac{1}{\sqrt{2\pi}} \displaystyle\int_{-\pi}^{\pi} e^{i(n - i)x}\,dx$, where $i^2 = -1$. Then $\displaystyle\sum_{n \in \mathbb{Z}} |c_n|^2$ equals
+\optsfourA{$\cosh(\pi)$}{$\sinh(\pi)$}{$\cosh(2\pi)$}{$\sinh(2\pi)$}
+\ans{(D)}
+
+\textbf{Q.15} If the fourth order divided difference of $f(x) = \alpha x^4 + 5x^3 + 3x + 2$, $\alpha \in \mathbb{R}$, at the points $0.1, 0.2, 0.3, 0.4, 0.5$ is $5$, then $\alpha$ equals \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.16} If the quadrature rule $\displaystyle\int_0^2 f(x)\,dx \approx c_1 f(0) + 3 f(c_2)$, where $c_1, c_2 \in \mathbb{R}$, is exact for all polynomials of degree $\le 1$, then $c_1 + 3c_2$ equals \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.17} If $u(x, y) = 1 + x + y + f(xy)$, where $f : \mathbb{R}^2 \to \mathbb{R}$ is a differentiable function, then $u$ satisfies
+\optsfourA{$x\dfrac{\partial u}{\partial x} - y\dfrac{\partial u}{\partial y} = x^2 - y^2$}{$x\dfrac{\partial u}{\partial x} - y\dfrac{\partial u}{\partial y} = 0$}{$x\dfrac{\partial u}{\partial x} - y\dfrac{\partial u}{\partial y} = x - y$}{$y\dfrac{\partial u}{\partial x} - x\dfrac{\partial u}{\partial y} = x - y$}
+\ans{(C)}
+
+\textbf{Q.18} The partial differential equation $x\dfrac{\partial^2 u}{\partial x^2} + (x - y)\dfrac{\partial^2 u}{\partial x \partial y} - y\dfrac{\partial^2 u}{\partial y^2} + \dfrac{1}{4}\!\left(\dfrac{\partial u}{\partial y} - \dfrac{\partial u}{\partial x}\right) = 0$ is
+\optsfourA{hyperbolic along the line $x + y = 0$}{elliptic along the line $x - y = 0$}{elliptic along the line $x + y = 0$}{parabolic along the line $x + y = 0$}
+\ans{(D)}
+
+\textbf{Q.19} Let $X$ and $Y$ be topological spaces and let $f : X \to Y$ be a continuous surjective function. Which one of the following statements is TRUE?
+\optslistA{If $X$ is separable, then $Y$ is separable}{If $X$ is first countable, then $Y$ is first countable}{If $X$ is Hausdorff, then $Y$ is Hausdorff}{If $X$ is regular, then $Y$ is regular}
+\ans{(A)}
+
+\textbf{Q.20} Consider the topology $\mathcal{T} = \{U \subseteq \mathbb{Z} : \mathbb{Z} \setminus U \text{ is finite or } 0 \notin U\}$ on $\mathbb{Z}$. Then, the topological space $(\mathbb{Z}, \mathcal{T})$ is
+\optsfourA{compact but NOT connected}{connected but NOT compact}{both compact and connected}{neither compact nor connected}
+\ans{(A)}
+
+\textbf{Q.21} Let $F(x)$ be the distribution function of a random variable $X$. Consider the functions:
+\begin{align*}
+  G_1(x) &= (F(x))^3, \qquad x \in \mathbb{R}, \\
+  G_2(x) &= 1 - (1 - F(x))^5, \qquad x \in \mathbb{R}.
+\end{align*}
+Which of the above functions are distribution functions?
+\optsfourA{Neither $G_1$ nor $G_2$}{Only $G_1$}{Only $G_2$}{Both $G_1$ and $G_2$}
+\ans{(D)}
+
+\textbf{Q.22} Let $X_1, X_2, \dots, X_n$ ($n \ge 2$) be independent and identically distributed random variables with finite variance $\sigma^2$ and let $\bar{X} = \dfrac{1}{n} \displaystyle\sum_{i=1}^{n} X_i$. Then the covariance between $\bar{X}$ and $X_1 - \bar{X}$ is
+\optsfourA{$0$}{$-\sigma^2$}{$\dfrac{-\sigma^2}{n}$}{$\dfrac{\sigma^2}{n}$}
+\ans{(A)}
+
+\textbf{Q.23} Let $X_1, X_2, \dots, X_n$ ($n \ge 2$) be a random sample from a $N(\mu, \sigma^2)$ population, where $\sigma^2 = 144$. The smallest $n$ such that the length of the shortest $95\%$ confidence interval for $\mu$ will not exceed $10$ is \underline{\hspace{2cm}}.
+\ans{$23$}
+
+\textbf{Q.24} Consider the linear programming problem (LPP):
+\begin{align*}
+  \text{Maximize } & 4x_1 + 6x_2 \\
+  \text{Subject to } & x_1 + x_2 \le 8, \\
+                     & 2x_1 + 3x_2 \ge 18, \\
+                     & x_1 \ge 6,\; x_2 \text{ is unrestricted in sign.}
+\end{align*}
+Then the LPP has
+\optslistA{no optimal solution}{only one basic feasible solution and that is optimal}{more than one basic feasible solution and a unique optimal solution}{infinitely many optimal solutions}
+\ans{(B)}
+
+\textbf{Q.25} For a linear programming problem (LPP) and its dual, which one of the following is NOT TRUE?
+\optslistA{The dual of the dual is primal}{If the primal LPP has an unbounded objective function, then the dual LPP is infeasible}{If the primal LPP is infeasible, then the dual LPP must have unbounded objective function}{If the primal LPP has a finite optimal solution, then the dual LPP also has a finite optimal solution}
+\ans{(C)}
+
+\subsection*{Q.26 -- Q.55 carry two marks each.}
+
+\textbf{Q.26} If $U$ and $V$ are the null spaces of $\begin{bmatrix} 1 & 1 & 0 & 0 \\ 0 & 0 & 1 & 1 \end{bmatrix}$ and $\begin{bmatrix} 1 & 2 & 3 & 2 \\ 0 & 1 & 2 & 1 \end{bmatrix}$, respectively, then the dimension of the subspace $U + V$ equals \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.27} Given two $n \times n$ matrices $A$ and $B$ with entries in $\mathbb{C}$, consider the following statements:\\
+(P): If $A$ and $B$ have the same minimal polynomial, then $A$ is similar to $B$.\\
+(Q): If $A$ has $n$ distinct eigenvalues, then there exists $u \in \mathbb{C}^n$ such that $u, Au, \dots, A^{n-1}u$ are linearly independent.\\
+Which of the above statements hold TRUE?
+\optsfourA{Both P and Q}{Only P}{Only Q}{Neither P nor Q}
+\ans{(C)}
+
+\textbf{Q.28} Let $A = (a_{ij})$ be a $10 \times 10$ matrix such that $a_{ij} = 1$ for $i \neq j$ and $a_{ii} = \alpha + 1$, where $\alpha > 0$. Let $\lambda$ and $\mu$ be the largest and the smallest eigenvalues of $A$, respectively. If $\lambda + \mu = 24$, then $\alpha$ equals \underline{\hspace{2cm}}.
+\ans{$7$}
+
+\textbf{Q.29} Let $C$ be the simple, positively oriented circle of radius $2$ centered at the origin in the complex plane. Then
+\[
+  \frac{2}{\pi i} \int_C \left(z e^{(1/z)} + \tan\!\left(\frac{z}{2}\right) + \frac{1}{(z - 1)(z - 3)^2}\right) dz
+\]
+equals \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.30} Let $\operatorname{Re}(z)$ and $\operatorname{Im}(z)$, respectively, denote the real part and the imaginary part of a complex number $z$. Let $T : \mathbb{C} \cup \{\infty\} \to \mathbb{C} \cup \{\infty\}$ be the bilinear transformation such that $T(6) = 0$, $T(3 - 3i) = i$ and $T(0) = \infty$. Then, the image of $D = \{z \in \mathbb{C} : |z - 3| < 3\}$ under the mapping $w = T(z)$ is
+\optsfourA{$\{w \in \mathbb{C} : \operatorname{Im}(w) < 0\}$}{$\{w \in \mathbb{C} : \operatorname{Re}(w) < 0\}$}{$\{w \in \mathbb{C} : \operatorname{Im}(w) > 0\}$}{$\{w \in \mathbb{C} : \operatorname{Re}(w) > 0\}$}
+\ans{(D)}
+
+\textbf{Q.31} Let $(x_n)$ and $(y_n)$ be two sequences in a complete metric space $(X, d)$ such that $d(x_n, x_{n+1}) \le \dfrac{1}{n^2}$ and $d(y_n, y_{n+1}) \le \dfrac{1}{n}$ for all $n \in \mathbb{N}$. Then
+\optslistA{both $(x_n)$ and $(y_n)$ converge}{$(x_n)$ converges but $(y_n)$ need NOT converge}{$(y_n)$ converges but $(x_n)$ need NOT converge}{neither $(x_n)$ nor $(y_n)$ converges}
+\ans{(B)}
+
+\textbf{Q.32} Let $f : [0, 1] \to \mathbb{R}$ be given by $f(x) = 0$ if $x$ is rational, and if $x$ is irrational then $f(x) = 9^n$, where $n$ is the number of zeroes immediately after the decimal point in the decimal representation of $x$. Then the Lebesgue integral $\displaystyle\int_0^1 f(x)\,dx$ equals \underline{\hspace{2cm}}.
+\ans{$9$}
+
+\textbf{Q.33} Let $f : \mathbb{R}^2 \to \mathbb{R}$ be defined by
+\[
+  f(x, y) = \begin{cases}
+    \sin\!\left(\dfrac{y^2}{x}\right)\sqrt{x^2 + y^2}, & x \neq 0, \\[8pt]
+    0, & x = 0.
+  \end{cases}
+\]
+Then, at $(0, 0)$,
+\optslistA{$f$ is continuous and the directional derivative of $f$ does NOT exist in some direction}{$f$ is NOT continuous and the directional derivatives of $f$ exist in all directions}{$f$ is NOT differentiable and the directional derivatives of $f$ exist in all directions}{$f$ is differentiable}
+\ans{(C)}
+
+\textbf{Q.34} Let $D$ be the region in $\mathbb{R}^2$ bounded by the parabola $y^2 = 2x$ and the line $y = x$. Then $\displaystyle\iint_D 3xy\,dx\,dy$ equals \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.35} Let $y_1(x) = x^3$ and $y_2(x) = x^2 |x|$ for $x \in \mathbb{R}$.\\
+Consider the following statements:\\
+(P): $y_1(x)$ and $y_2(x)$ are linearly independent solutions of $x^2 \dfrac{d^2 y}{dx^2} - 4x \dfrac{dy}{dx} + 6y = 0$ on $\mathbb{R}$.\\
+(Q): The Wronskian $y_1(x)\dfrac{dy_2}{dx}(x) - y_2(x)\dfrac{dy_1}{dx}(x) = 0$ for all $x \in \mathbb{R}$.\\
+Which of the above statements hold TRUE?
+\optsfourA{Both P and Q}{Only P}{Only Q}{Neither P nor Q}
+\ans{(A)}
+
+\textbf{Q.36} Let $\alpha$ and $\beta$ with $\alpha > \beta$ be the roots of the indicial equation of
+\[
+  (x^2 - 1)^2 \frac{d^2 y}{dx^2} + (x + 1)\frac{dy}{dx} - y = 0 \quad \text{at } x = -1.
+\]
+Then $\alpha - 4\beta$ equals \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.37} Let $S_9$ be the group of all permutations of the set $\{1, 2, 3, 4, 5, 6, 7, 8, 9\}$. Then the total number of elements of $S_9$ that commute with $\tau = (1\; 2\; 3)(4\; 5\; 6\; 7)$ in $S_9$ equals \underline{\hspace{2cm}}.
+\ans{$24$}
+
+\textbf{Q.38} Let $\mathbb{Q}[x]$ be the ring of polynomials over $\mathbb{Q}$. Then the total number of maximal ideals in the quotient ring $\mathbb{Q}[x] / (x^4 - 1)$ equals \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.39} Let $\{e_n : n \in \mathbb{N}\}$ be an orthonormal basis of a Hilbert space $H$. Let $T : H \to H$ be given by $Tx = \displaystyle\sum_{n=1}^{\infty} \frac{1}{n} \langle x, e_n \rangle e_n$. For each $n \in \mathbb{N}$, define $T_n : H \to H$ by $T_n x = \displaystyle\sum_{j=1}^{n} \frac{1}{j} \langle x, e_j \rangle e_j$. Then
+\optslistA{$\|T_n - T\| \to 0$ as $n \to \infty$}{$\|T_n - T\| \nrightarrow 0$ as $n \to \infty$ but for each $x \in H$, $\|T_n x - Tx\| \to 0$ as $n \to \infty$}{for each $x \in H$, $\|T_n x - Tx\| \to 0$ as $n \to \infty$ but the sequence $(\|T_n\|)$ is unbounded}{there exist $x, y \in H$ such that $\langle T_n x, y \rangle \nrightarrow \langle Tx, y \rangle$ as $n \to \infty$}
+\ans{(A)}
+
+\textbf{Q.40} Consider the subspace $V = \left\{(x_n) \in \ell^2 : \sum_{n=1}^{\infty} |x_n| < \infty\right\}$ of the Hilbert space $\ell^2$ of all square summable real sequences. For $n \in \mathbb{N}$, define $T_n : V \to \mathbb{R}$ by $T_n((x_k)) = \displaystyle\sum_{i=1}^{n} x_i$.\\
+Consider the following statements:\\
+(P): $\{T_n : n \in \mathbb{N}\}$ is pointwise bounded on $V$.\\
+(Q): $\{T_n : n \in \mathbb{N}\}$ is uniformly bounded on $\{x \in V : \|x\|_2 = 1\}$.\\
+Which of the above statements hold TRUE?
+\optsfourA{Both P and Q}{Only P}{Only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.41} Let $p(x)$ be the polynomial of degree at most $2$ that interpolates the data $(-1, 2)$, $(0, 1)$ and $(1, 2)$. If $q(x)$ is a polynomial of degree at most $3$ such that $p(x) + q(x)$ interpolates the data $(-1, 2)$, $(0, 1)$, $(1, 2)$ and $(2, 11)$, then $q(3)$ equals \underline{\hspace{2cm}}.
+\ans{$24$}
+
+\textbf{Q.42} Let $J$ be the Jacobi iteration matrix of the linear system $\begin{bmatrix} 1 & 2 & 1 \\ 2 & 1 & 2 \\ -4 & 2 & 1 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$.\\
+Consider the following statements:\\
+(P): One of the eigenvalues of $J$ lies in the interval $[2, 3]$.\\
+(Q): The Jacobi iteration converges for the above system.\\
+Which of the above statements hold TRUE?
+\optsfourA{Both P and Q}{Only P}{Only Q}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.43} Let $u(x, y)$ be the solution of $x\dfrac{\partial u}{\partial x} + y\dfrac{\partial u}{\partial y} = 4u$ satisfying the condition $u(x, y) = 1$ on the circle $x^2 + y^2 = 1$. Then $u(2, 2)$ equals \underline{\hspace{2cm}}.
+\ans{$64$}
+
+\textbf{Q.44} Let $u(r, \theta)$ be the bounded solution of the following boundary value problem in polar coordinates:
+\begin{align*}
+  r^2 \frac{\partial^2 u}{\partial r^2} + r\frac{\partial u}{\partial r} + \frac{\partial^2 u}{\partial \theta^2} &= 0, \qquad 0 < r < 2 \text{ and } 0 \le \theta \le 2\pi, \\
+  u(2, \theta) &= \cos^2 \theta, \qquad 0 \le \theta \le 2\pi.
+\end{align*}
+Then $u(1, \pi/2) + u(1, \pi/4)$ equals
+\optsfourA{$1$}{$\dfrac{9}{8}$}{$\dfrac{7}{8}$}{$\dfrac{3}{8}$}
+\ans{(C)}
+
+\textbf{Q.45} Let $\mathcal{T}_u$ and $\mathcal{T}_d$ denote the usual topology and the discrete topology on $\mathbb{R}$, respectively. Consider the following three topologies:
+\begin{align*}
+  \mathcal{T}_1 &= \text{Usual topology on } \mathbb{R}^2 = \mathbb{R} \times \mathbb{R}, \\
+  \mathcal{T}_2 &= \text{Topology generated by the basis } \{U \times V : U \in \mathcal{T}_d,\; V \in \mathcal{T}_u\} \text{ on } \mathbb{R} \times \mathbb{R}, \\
+  \mathcal{T}_3 &= \text{Dictionary order topology on } \mathbb{R} \times \mathbb{R}.
+\end{align*}
+Then
+\optsfourA{$\mathcal{T}_3 \subsetneq \mathcal{T}_1 \subseteq \mathcal{T}_2$}{$\mathcal{T}_1 \subsetneq \mathcal{T}_2 \subsetneq \mathcal{T}_3$}{$\mathcal{T}_3 \subseteq \mathcal{T}_2 \subsetneq \mathcal{T}_1$}{$\mathcal{T}_1 \subsetneq \mathcal{T}_2 = \mathcal{T}_3$}
+\ans{(D)}
+
+\textbf{Q.46} Let $X$ be a random variable with probability mass function $p(n) = \left(\dfrac{3}{4}\right)^{n-1}\!\left(\dfrac{1}{4}\right)$ for $n = 1, 2, \dots$. Then $E(X - 3 \mid X > 3)$ equals \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.47} Let $X$ and $Y$ be independent and identically distributed random variables with probability mass function $p(n) = 2^{-n}$, $n = 1, 2, \dots$. Then $P(X \ge 2Y)$ equals (rounded to $2$ decimal places) \underline{\hspace{2cm}}.
+\ans{$\frac{2}{7} \approx 0.29$ (Official range: $0.27$ to $0.30$)}
+
+\textbf{Q.48} Let $X_1, X_2, \dots$ be a sequence of independent and identically distributed Poisson random variables with mean $4$. Then
+\[
+  \lim_{n\to\infty} P\!\left(4 - \frac{2}{\sqrt{n}} < \frac{1}{n}\sum_{i=1}^{n} X_i < 4 + \frac{2}{\sqrt{n}}\right)
+\]
+equals \underline{\hspace{2cm}}.
+\ans{$0.68$ (Official range: $0.67$ to $0.70$)}
+
+\textbf{Q.49} Let $X$ and $Y$ be independent and identically distributed exponential random variables with probability density function
+\[
+  f(x) = \begin{cases} e^{-x}, & x > 0, \\ 0, & \text{otherwise.} \end{cases}
+\]
+Then $P(\max(X, Y) < 2)$ equals (rounded to $2$ decimal places) \underline{\hspace{2cm}}.
+\ans{$(1 - e^{-2})^2 \approx 0.75$ (Official range: $0.73$ to $0.77$)}
+
+\textbf{Q.50} Let $E$ and $F$ be any two events with $P(E) = 0.4$, $P(F) = 0.3$ and $P(F \mid E) = 3 P(F \mid E^c)$. Then $P(E \mid F)$ equals (rounded to $2$ decimal places) \underline{\hspace{2cm}}.
+\ans{$\frac{2}{3} \approx 0.67$ (Official range: $0.65$ to $0.68$)}
+
+\textbf{Q.51} Let $X_1, X_2, \dots, X_m$ ($m \ge 2$) be a random sample from a binomial distribution with parameters $n = 1$ and $p$, $p \in (0, 1)$, and let $\bar{X} = \dfrac{1}{m} \displaystyle\sum_{i=1}^{m} X_i$. Then a uniformly minimum variance unbiased estimator for $p(1 - p)$ is
+\optsfourA{$\dfrac{m}{m - 1}\bar{X}(1 - \bar{X})$}{$\bar{X}(1 - \bar{X})$}{$\dfrac{m - 1}{m}\bar{X}(1 - \bar{X})$}{$\dfrac{1}{m}\bar{X}(1 - m\bar{X})$}
+\ans{(A)}
+
+\textbf{Q.52} Let $X_1, X_2, \dots, X_9$ be a random sample from a $N(0, \sigma^2)$ population. For testing $H_0 : \sigma^2 = 2$ against $H_1 : \sigma^2 = 1$, the most powerful test rejects $H_0$ if $\displaystyle\sum_{i=1}^{9} X_i^2 < c$, where $c$ is to be chosen such that the level of significance is $0.1$. Then the power of this test equals \underline{\hspace{2cm}}.
+\ans{$0.50$ (Official range: $0.49$ to $0.51$)}
+
+\textbf{Q.53} Let $X_1, X_2, \dots, X_n$ ($n \ge 2$) be a random sample from a $N(\theta, \theta)$ population, where $\theta > 0$, and let $W = \dfrac{1}{n} \displaystyle\sum_{i=1}^{n} X_i^2$. Then the maximum likelihood estimator of $\theta$ is
+\optsfourA{$\dfrac{1}{2} + \dfrac{1}{2}\sqrt{1 - 4W}$}{$\dfrac{1}{2} + \dfrac{1}{2}\sqrt{1 + 4W}$}{$\dfrac{-1}{2} + \dfrac{1}{2}\sqrt{1 - 4W}$}{$\dfrac{-1}{2} + \dfrac{1}{2}\sqrt{1 + 4W}$}
+\ans{(D)}
+
+\textbf{Q.54} Consider the following transportation problem. The entries inside the cells denote per unit cost of transportation from the origins to the destinations.
+\begin{center}
+\begin{tabular}{c|ccc|c}
+\toprule
+Origin $\backslash$ Destination & $1$ & $2$ & $3$ & Supply \\
+\midrule
+$1$ & $4$ & $3$ & $6$ & $20$ \\
+$2$ & $7$ & $10$ & $5$ & $30$ \\
+$3$ & $8$ & $9$ & $7$ & $50$ \\
+\midrule
+Demand & $10$ & $30$ & $60$ & \\
+\bottomrule
+\end{tabular}
+\end{center}
+The optimal cost of transportation equals \underline{\hspace{2cm}}.
+\ans{$590$}
+
+\textbf{Q.55} Consider the linear programming problem (LPP):
+\begin{align*}
+  \text{Maximize } & k x_1 + 5 x_2 \\
+  \text{Subject to } & x_1 + x_2 \le 1, \\
+                     & 2x_1 + 3x_2 \le 1, \\
+                     & x_1, x_2 \ge 0.
+\end{align*}
+If $x^* = (x_1^*, x_2^*)$ is an optimal solution of the above LPP with $k = 2$, then the largest value of $k$ (rounded to $2$ decimal places) for which $x^*$ remains optimal equals \underline{\hspace{2cm}}.
+\ans{$\frac{10}{3} \approx 3.33$ (Official range: $3.32$ to $3.34$)}
+
+\section*{General Aptitude (GA)}
+
+\subsection*{Q.56 -- Q.60 carry one mark each.}
+
+\textbf{Q.56} The ninth and the tenth of this month are Monday and Tuesday \underline{\hspace{2.5cm}}.
+\optsfourA{figuratively}{retrospectively}{respectively}{rightfully}
+\ans{(C)}
+
+\textbf{Q.57} It is \underline{\hspace{2cm}} to read this year's textbook \underline{\hspace{2cm}} the last year's.
+\optsfourA{easier, than}{most easy, than}{easier, from}{easiest, from}
+\ans{(A)}
+
+\textbf{Q.58} A rule states that in order to drink beer, one must be over $18$ years old. In a bar, there are $4$ people. P is $16$ years old, Q is $25$ years old, R is drinking milkshake and S is drinking a beer. What must be checked to ensure that the rule is being followed?
+\optslistA{Only P's drink}{Only P's drink and S's age}{Only S's age}{Only P's drink, Q's drink and S's age}
+\ans{(B)}
+
+\textbf{Q.59} Fatima starts from point P, goes North for $3\text{ km}$, and then East for $4\text{ km}$ to reach point Q. She then turns to face point P and goes $15\text{ km}$ in that direction. She then goes North for $6\text{ km}$. How far is she from point P, and in which direction should she go to reach point P?
+\optsfourA{$8\text{ km}$, East}{$12\text{ km}$, North}{$6\text{ km}$, East}{$10\text{ km}$, North}
+\ans{(A)}
+
+\textbf{Q.60} $500$ students are taking one or more courses out of Chemistry, Physics, and Mathematics. Registration records indicate course enrolment as follows: Chemistry ($329$), Physics ($186$), Mathematics ($295$), Chemistry and Physics ($83$), Chemistry and Mathematics ($217$), and Physics and Mathematics ($63$). How many students are taking all $3$ subjects?
+\optsfourA{$37$}{$43$}{$47$}{$53$}
+\ans{(D)}
+
+\subsection*{Q.61 -- Q.65 carry two marks each.}
+
+\textbf{Q.61} ``If you are looking for a history of India, or for an account of the rise and fall of the British Raj, or for the reason of the cleaving of the subcontinent into two mutually antagonistic parts and the effects this mutilation will have in the respective sections, and ultimately on Asia, you will not find it in these pages; for though I have spent a lifetime in the country, I lived too near the seat of events, and was too intimately associated with the actors, to get the perspective needed for the impartial recording of these matters.''
+
+Which of the following statements best reflects the author's opinion?
+\optslistA{An intimate association does not allow for the necessary perspective.}{Matters are recorded with an impartial perspective.}{An intimate association offers an impartial perspective.}{Actors are typically associated with the impartial recording of matters.}
+\ans{(A)}
+
+\textbf{Q.62} Each of P, Q, R, S, W, X, Y and Z has been married at most once. X and Y are married and have two children P and Q. Z is the grandfather of the daughter S of P. Further, Z and W are married and are parents of R. Which one of the following must necessarily be FALSE?
+\optsfourA{X is the mother-in-law of R}{P and R are not married to each other}{P is a son of X and Y}{Q cannot be married to R}
+\ans{(D)}
+
+\textbf{Q.63} $1200$ men and $500$ women can build a bridge in $2$ weeks. $900$ men and $250$ women will take $3$ weeks to build the same bridge. How many men will be needed to build the bridge in one week?
+\optsfourA{$3000$}{$3300$}{$3600$}{$3900$}
+\ans{(C)}
+
+\textbf{Q.64} The number of $3$-digit numbers such that the digit $1$ is never to the immediate right of $2$ is
+\optsfourA{$781$}{$791$}{$881$}{$891$}
+\ans{(C)}
+
+\textbf{Q.65} A contour line joins locations having the same height above the mean sea level. The following is a contour plot of a geographical region. Contour lines are shown at $25\text{ m}$ intervals in this plot. (In the contour plot, point P lies inside the $575\text{ m}$ contour; paths leave P westward to Q, northward to R across densely packed contours down below $425\text{ m}$, eastward to S, and southward to T across more widely spaced contours.)
+
+Which of the following is the steepest path leaving from P?
+\optsfourA{P to Q}{P to R}{P to S}{P to T}
+\ans{(B)}
+
+\end{document}

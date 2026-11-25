@@ -1,0 +1,1497 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=20mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\newcommand{\optsfourA}[4]{%
+  \begin{tabbing}
+    \hspace{0.48\linewidth}\=\kill
+    (A) #1 \> (B) #2 \\[2pt]
+    (C) #3 \> (D) #4
+  \end{tabbing}%
+}
+
+\newcommand{\optslistA}[4]{%
+  \begin{itemize}
+    \setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}
+    \item[(A)] #1
+    \item[(B)] #2
+    \item[(C)] #3
+    \item[(D)] #4
+  \end{itemize}%
+}
+
+\newcommand{\ans}[1]{\textbf{Answer:} #1\par\medskip}
+
+\begin{document}
+
+% ============================================================================
+% GATE 2018 -- GENERAL APTITUDE (GA) & MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\LARGE\bfseries GATE 2018}\\[4pt]
+  {\large\bfseries General Aptitude (GA Set-2) \& Mathematics (MA)}\\[2pt]
+  {\small\itshape Official Final Answer Key attached to every question}
+\end{center}
+\medskip
+
+\section*{General Aptitude (GA Set-2)}
+
+\subsection*{Q.1 -- Q.5 carry one mark each.}
+
+\textbf{Q.1} ``The dress \underline{\hspace{2cm}} her so well that they all immediately \underline{\hspace{2cm}} her on her appearance.''
+
+The words that best fill the blanks in the above sentence are
+\optsfourA{complemented, complemented}{complimented, complemented}{complimented, complimented}{complemented, complimented}
+\ans{(D)}
+
+\textbf{Q.2} ``The judge's standing in the legal community, though shaken by false allegations of wrongdoing, remained \underline{\hspace{2cm}}.''
+
+The word that best fills the blank in the above sentence is
+\optsfourA{undiminished}{damaged}{illegal}{uncertain}
+\ans{(A)}
+
+\textbf{Q.3} Find the missing group of letters in the following series:\\
+BC, FGH, LMNO, \underline{\hspace{2cm}}
+\optsfourA{UVWXY}{TUVWX}{STUVW}{RSTUV}
+\ans{(B)}
+
+\textbf{Q.4} The perimeters of a circle, a square and an equilateral triangle are equal. Which one of the following statements is true?
+\optslistA{The circle has the largest area.}{The square has the largest area.}{The equilateral triangle has the largest area.}{All the three shapes have the same area.}
+\ans{(A)}
+
+\textbf{Q.5} The value of the expression $\dfrac{1}{1 + \log_u vw} + \dfrac{1}{1 + \log_v wu} + \dfrac{1}{1 + \log_w uv}$ is \underline{\hspace{2cm}}.
+\optsfourA{$-1$}{$0$}{$1$}{$3$}
+\ans{(C)}
+
+\subsection*{Q.6 -- Q.10 carry two marks each.}
+
+\textbf{Q.6} Forty students watched films A, B and C over a week. Each student watched either only one film or all three. Thirteen students watched film A, sixteen students watched film B and nineteen students watched film C. How many students watched all three films?
+\optsfourA{$0$}{$2$}{$4$}{$8$}
+\ans{(C)}
+
+\textbf{Q.7} A wire would enclose an area of $1936\text{ m}^2$, if it is bent into a square. The wire is cut into two pieces. The longer piece is thrice as long as the shorter piece. The long and the short pieces are bent into a square and a circle, respectively. Which of the following choices is closest to the sum of the areas enclosed by the two pieces in square meters?
+\optsfourA{$1096$}{$1111$}{$1243$}{$2486$}
+\ans{(C)}
+
+\textbf{Q.8} A contract is to be completed in $52$ days and $125$ identical robots were employed, each operational for $7$ hours a day. After $39$ days, five-seventh of the work was completed. How many additional robots would be required to complete the work on time, if each robot is now operational for $8$ hours a day?
+\optsfourA{$50$}{$89$}{$146$}{$175$}
+\ans{Marks to All}
+
+\textbf{Q.9} A house has a number which needs to be identified. The following three statements are given that can help in identifying the house number.
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[i.] If the house number is a multiple of $3$, then it is a number from $50$ to $59$.
+  \item[ii.] If the house number is NOT a multiple of $4$, then it is a number from $60$ to $69$.
+  \item[iii.] If the house number is NOT a multiple of $6$, then it is a number from $70$ to $79$.
+\end{itemize}
+What is the house number?
+\optsfourA{$54$}{$65$}{$66$}{$76$}
+\ans{(D)}
+
+\textbf{Q.10} An unbiased coin is tossed six times in a row and four different such trials are conducted. One trial implies six tosses of the coin. If H stands for head and T stands for tail, the following are the observations from the four trials:\\
+(1) HTHTHT \quad (2) TTHHHT \quad (3) HTTHHT \quad (4) HHHT\underline{\hspace{0.6cm}}\,\underline{\hspace{0.6cm}}.
+
+Which statement describing the last two coin tosses of the fourth trial has the highest probability of being correct?
+\optslistA{Two T will occur.}{One H and one T will occur.}{Two H will occur.}{One H will be followed by one T.}
+\ans{(B)}
+
+\section*{Mathematics (MA)}
+
+\subsection*{Q.1 -- Q.25 carry one mark each.}
+
+\textbf{Q.1} The principal value of $(-1)^{(-2i/\pi)}$ is
+\optsfourA{$e^2$}{$e^{2i}$}{$e^{-2i}$}{$e^{-2}$}
+\ans{(A)}
+
+\textbf{Q.2} Let $f : \mathbb{C} \to \mathbb{C}$ be an entire function with $f(0) = 1$, $f(1) = 2$ and $f'(0) = 0$. If there exists $M > 0$ such that $|f''(z)| \le M$ for all $z \in \mathbb{C}$, then $f(2) =$
+\optsfourA{$2$}{$5$}{$2 + 5i$}{$5 + 2i$}
+\ans{(B)}
+
+\textbf{Q.3} In the Laurent series expansion of $f(z) = \dfrac{1}{z(z - 1)}$ valid for $|z - 1| > 1$, the coefficient of $\dfrac{1}{z - 1}$ is
+\optsfourA{$-2$}{$-1$}{$0$}{$1$}
+\ans{(C)}
+
+\textbf{Q.4} Let $X$ and $Y$ be metric spaces, and let $f : X \to Y$ be a continuous map. For any subset $S$ of $X$, which one of the following statements is true?
+\optslistA{If $S$ is open, then $f(S)$ is open}{If $S$ is connected, then $f(S)$ is connected}{If $S$ is closed, then $f(S)$ is closed}{If $S$ is bounded, then $f(S)$ is bounded}
+\ans{(B)}
+
+\textbf{Q.5} The general solution of the differential equation
+\[
+  xy' = y + \sqrt{x^2 + y^2} \qquad \text{for } x > 0
+\]
+is given by (with an arbitrary positive constant $k$)
+\optslistA{$ky^2 = x + \sqrt{x^2 + y^2}$}{$kx^2 = x + \sqrt{x^2 + y^2}$}{$kx^2 = y + \sqrt{x^2 + y^2}$}{$ky^2 = y + \sqrt{x^2 + y^2}$}
+\ans{(C)}
+
+\textbf{Q.6} Let $p_n(x)$ be the polynomial solution of the differential equation
+\[
+  \frac{d}{dx}\left[(1 - x^2)y'\right] + n(n + 1)y = 0
+\]
+with $p_n(1) = 1$ for $n = 1, 2, 3, \dots$. If
+\[
+  \frac{d}{dx}\left[p_{n+2}(x) - p_n(x)\right] = \alpha_n p_{n+1}(x),
+\]
+then $\alpha_n$ is
+\optsfourA{$2n$}{$2n + 1$}{$2n + 2$}{$2n + 3$}
+\ans{(D)}
+
+\textbf{Q.7} In the permutation group $S_6$, the number of elements of order $8$ is
+\optsfourA{$0$}{$1$}{$2$}{$4$}
+\ans{(A)}
+
+\textbf{Q.8} Let $R$ be a commutative ring with $1$ (unity) which is not a field. Let $I \subset R$ be a proper ideal such that every element of $R$ not in $I$ is invertible in $R$. Then the number of maximal ideals of $R$ is
+\optsfourA{$1$}{$2$}{$3$}{infinite}
+\ans{(A)}
+
+\textbf{Q.9} Let $f : \mathbb{R} \to \mathbb{R}$ be a twice continuously differentiable function. The order of convergence of the secant method for finding root of the equation $f(x) = 0$ is
+\optsfourA{$\dfrac{1 + \sqrt{5}}{2}$}{$\dfrac{2}{1 + \sqrt{5}}$}{$\dfrac{1 + \sqrt{5}}{3}$}{$\dfrac{3}{1 + \sqrt{5}}$}
+\ans{(A)}
+
+\textbf{Q.10} The Cauchy problem $u u_x + y u_y = x$ with $u(x, 1) = 2x$, when solved using its characteristic equations with an independent variable $t$, is found to admit of a solution in the form
+\[
+  x = \frac{3}{2} s e^t - \frac{1}{2} s e^{-t}, \qquad y = e^t, \qquad u = f(s, t).
+\]
+Then $f(s, t) =$
+\optsfourA{$\dfrac{3}{2} s e^t + \dfrac{1}{2} s e^{-t}$}{$\dfrac{1}{2} s e^t + \dfrac{3}{2} s e^{-t}$}{$\dfrac{1}{2} s e^t - \dfrac{3}{2} s e^{-t}$}{$\dfrac{3}{2} s e^t - \dfrac{1}{2} s e^{-t}$}
+\ans{(A)}
+
+\textbf{Q.11} An urn contains four balls, each ball having equal probability of being white or black. Three black balls are added to the urn. The probability that five balls in the urn are black is
+\optsfourA{$2/7$}{$3/8$}{$1/2$}{$5/7$}
+\ans{(B)}
+
+\textbf{Q.12} For a linear programming problem, which one of the following statements is FALSE?
+\optslistA{If a constraint is an equality, then the corresponding dual variable is unrestricted in sign}{Both primal and its dual can be infeasible}{If primal is unbounded, then its dual is infeasible}{Even if both primal and dual are feasible, the optimal values of the primal and the dual can differ}
+\ans{(D)}
+
+\textbf{Q.13} Let $A = \begin{bmatrix} a & 2f & 0 \\ 2f & b & 3f \\ 0 & 3f & c \end{bmatrix}$, where $a, b, c, f$ are real numbers and $f \neq 0$. The geometric multiplicity of the largest eigenvalue of $A$ equals \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.14} Consider the subspaces
+\begin{align*}
+  W_1 &= \{(x_1, x_2, x_3) \in \mathbb{R}^3 : x_1 = x_2 + 2x_3\} \\
+  W_2 &= \{(x_1, x_2, x_3) \in \mathbb{R}^3 : x_1 = 3x_2 + 2x_3\}
+\end{align*}
+of $\mathbb{R}^3$. Then the dimension of $W_1 + W_2$ equals \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.15} Let $V$ be the real vector space of all polynomials of degree less than or equal to $2$ with real coefficients. Let $T : V \to V$ be the linear transformation given by
+\[
+  T(p) = 2p + p' \qquad \text{for } p \in V,
+\]
+where $p'$ is the derivative of $p$. Then the number of nonzero entries in the Jordan canonical form of a matrix of $T$ equals \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.16} Let $I = [2, 3)$, $J$ be the set of all rational numbers in the interval $[4, 6]$, $K$ be the Cantor (ternary) set, and let $L = \{7 + x : x \in K\}$. Then the Lebesgue measure of the set $I \cup J \cup L$ equals \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.17} Let $u(x, y, z) = x^2 - 2y + 4z^2$ for $(x, y, z) \in \mathbb{R}^3$. Then the directional derivative of $u$ in the direction $\dfrac{3}{5}\hat{i} - \dfrac{4}{5}\hat{k}$ at the point $(5, 1, 0)$ is \underline{\hspace{2cm}}.
+\ans{$6$}
+
+\textbf{Q.18} If the Laplace transform of $y(t)$ is given by $Y(s) = L(y(t)) = \dfrac{5}{2(s - 1)} - \dfrac{2}{s - 2} + \dfrac{1}{2(s - 3)}$, then $y(0) + y'(0) =$ \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.19} The number of regular singular points of the differential equation
+\[
+  \left[(x - 1)^2 \sin x\right] y'' + \left[\cos x \sin(x - 1)\right] y' + (x - 1) y = 0
+\]
+in the interval $\left[0, \frac{\pi}{2}\right]$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.20} Let $F$ be a field with $7^6$ elements and let $K$ be a subfield of $F$ with $49$ elements. Then the dimension of $F$ as a vector space over $K$ is \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.21} Let $C([0, 1])$ be the real vector space of all continuous real valued functions on $[0, 1]$, and let $T$ be the linear operator on $C([0, 1])$ given by
+\[
+  (Tf)(x) = \int_0^1 \sin(x + y) f(y)\,dy, \qquad x \in [0, 1].
+\]
+Then the dimension of the range space of $T$ equals \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.22} Let $a \in (-1, 1)$ be such that the quadrature rule
+\[
+  \int_{-1}^{1} f(x)\,dx \simeq f(-a) + f(a)
+\]
+is exact for all polynomials of degree less than or equal to $3$. Then $3a^2 =$ \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.23} Let $X$ and $Y$ have joint probability density function given by
+\[
+  f_{X,Y}(x, y) = \begin{cases} 2, & 0 \le x \le 1 - y,\; 0 \le y \le 1 \\ 0, & \text{otherwise.} \end{cases}
+\]
+If $f_Y$ denotes the marginal probability density function of $Y$, then $f_Y(1/2) =$ \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.24} Let the cumulative distribution function of the random variable $X$ be given by
+\[
+  F_X(x) = \begin{cases}
+    0, & x < 0, \\
+    x, & 0 \le x < 1/2, \\
+    (1 + x)/2, & 1/2 \le x < 1, \\
+    1, & x \ge 1.
+  \end{cases}
+\]
+Then $\mathbb{P}(X = 1/2) =$ \underline{\hspace{2cm}}.
+\ans{$0.25$}
+
+\textbf{Q.25} Let $\{X_j\}$ be a sequence of independent Bernoulli random variables with $\mathbb{P}(X_j = 1) = 1/4$ and let $Y_n = \dfrac{1}{n} \sum_{j=1}^{n} X_j^2$. Then $Y_n$ converges, in probability, to \underline{\hspace{2cm}}.
+\ans{$0.25$}
+
+\subsection*{Q.26 -- Q.55 carry two marks each.}
+
+\textbf{Q.26} Let $\Gamma$ be the circle given by $z = 4e^{i\theta}$, where $\theta$ varies from $0$ to $2\pi$. Then
+\[
+  \oint_\Gamma \frac{e^z}{z^2 - 2z}\,dz =
+\]
+\optsfourA{$2\pi i(e^2 - 1)$}{$\pi i(1 - e^2)$}{$\pi i(e^2 - 1)$}{$2\pi i(1 - e^2)$}
+\ans{(C)}
+
+\textbf{Q.27} The image of the half plane $\operatorname{Re}(z) + \operatorname{Im}(z) > 0$ under the map $w = \dfrac{z - 1}{z + i}$ is given by
+\optsfourA{$\operatorname{Re}(w) > 0$}{$\operatorname{Im}(w) > 0$}{$|w| > 1$}{$|w| < 1$}
+\ans{(D)}
+
+\textbf{Q.28} Let $D \subset \mathbb{R}^2$ denote the closed disc with center at the origin and radius $2$. Then
+\[
+  \iint_D e^{-(x^2 + y^2)}\,dx\,dy =
+\]
+\optsfourA{$\pi(1 - e^{-4})$}{$\dfrac{\pi}{2}(1 - e^{-4})$}{$\pi(1 - e^{-2})$}{$\dfrac{\pi}{2}(1 - e^{-2})$}
+\ans{(A)}
+
+\textbf{Q.29} Consider the polynomial $p(X) = X^4 + 4$ in the ring $\mathbb{Q}[X]$ of polynomials in the variable $X$ with coefficients in the field $\mathbb{Q}$ of rational numbers. Then
+\optslistA{the set of zeros of $p(X)$ in $\mathbb{C}$ forms a group under multiplication}{$p(X)$ is reducible in the ring $\mathbb{Q}[X]$}{the splitting field of $p(X)$ has degree $3$ over $\mathbb{Q}$}{the splitting field of $p(X)$ has degree $4$ over $\mathbb{Q}$}
+\ans{(B)}
+
+\textbf{Q.30} Which one of the following statements is true?
+\optslistA{Every group of order $12$ has a non-trivial proper normal subgroup}{Some group of order $12$ does not have a non-trivial proper normal subgroup}{Every group of order $12$ has a subgroup of order $6$}{Every group of order $12$ has an element of order $12$}
+\ans{(A)}
+
+\textbf{Q.31} For an odd prime $p$, consider the ring $\mathbb{Z}[\sqrt{-p}] = \{a + b\sqrt{-p} : a, b \in \mathbb{Z}\} \subseteq \mathbb{C}$. Then the element $2$ in $\mathbb{Z}[\sqrt{-p}]$ is
+\optsfourA{a unit}{a square}{a prime}{irreducible}
+\ans{(D)}
+
+\textbf{Q.32} Consider the following two statements:\\
+P: The matrix $\begin{bmatrix} 0 & 5 \\ 0 & 7 \end{bmatrix}$ has infinitely many LU factorizations, where $L$ is lower triangular with each diagonal entry $1$ and $U$ is upper triangular.\\
+Q: The matrix $\begin{bmatrix} 0 & 0 \\ 2 & 5 \end{bmatrix}$ has no LU factorization, where $L$ is lower triangular with each diagonal entry $1$ and $U$ is upper triangular.\\
+Then which one of the following options is correct?
+\optslistA{P is TRUE and Q is FALSE}{Both P and Q are TRUE}{P is FALSE and Q is TRUE}{Both P and Q are FALSE}
+\ans{(B)}
+
+\textbf{Q.33} If the characteristic curves of the partial differential equation $x u_{xx} + 2x^2 u_{xy} = u_x - 1$ are $\mu(x, y) = c_1$ and $\nu(x, y) = c_2$, where $c_1$ and $c_2$ are constants, then
+\optslistA{$\mu(x, y) = x^2 - y,\; \nu(x, y) = y$}{$\mu(x, y) = x^2 + y,\; \nu(x, y) = y$}{$\mu(x, y) = x^2 + y,\; \nu(x, y) = x^2$}{$\mu(x, y) = x^2 - y,\; \nu(x, y) = x^2$}
+\ans{(A)}
+
+\textbf{Q.34} Let $f : X \to Y$ be a continuous map from a Hausdorff topological space $X$ to a metric space $Y$. Consider the following two statements:\\
+P: $f$ is a closed map and the inverse image $f^{-1}(y) = \{x \in X : f(x) = y\}$ is compact for each $y \in Y$.\\
+Q: For every compact subset $K \subset Y$, the inverse image $f^{-1}(K)$ is a compact subset of $X$.\\
+Which one of the following is true?
+\optslistA{Q implies P but P does NOT imply Q}{P implies Q but Q does NOT imply P}{P and Q are equivalent}{neither P implies Q nor Q implies P}
+\ans{(C)}
+
+\textbf{Q.35} Let $X$ denote $\mathbb{R}^2$ endowed with the usual topology. Let $Y$ denote $\mathbb{R}$ endowed with the co-finite topology. If $Z$ is the product topological space $Y \times Y$, then
+\optslistA{the topology of $X$ is the same as the topology of $Z$}{the topology of $X$ is strictly coarser (weaker) than that of $Z$}{the topology of $Z$ is strictly coarser (weaker) than that of $X$}{the topology of $X$ cannot be compared with that of $Z$}
+\ans{(C)}
+
+\textbf{Q.36} Consider $\mathbb{R}^n$ with the usual topology for $n = 1, 2, 3$. Each of the following options gives topological spaces $X$ and $Y$ with respective induced topologies. In which option is $X$ homeomorphic to $Y$?
+\optslistA{$X = \{(x, y, z) \in \mathbb{R}^3 : x^2 + y^2 = 1\}$,\quad $Y = \{(x, y, z) \in \mathbb{R}^3 : z = 0,\; x^2 + y^2 \neq 0\}$}{$X = \{(x, y) \in \mathbb{R}^2 : y = \sin(1/x),\; 0 < x \le 1\} \cup \{(x, y) \in \mathbb{R}^2 : x = 0,\; -1 \le y \le 1\}$,\quad $Y = [0, 1] \subseteq \mathbb{R}$}{$X = \{(x, y) \in \mathbb{R}^2 : y = x\sin(1/x),\; 0 < x \le 1\}$,\quad $Y = [0, 1] \subseteq \mathbb{R}$}{$X = \{(x, y, z) \in \mathbb{R}^3 : x^2 + y^2 = 1\}$,\quad $Y = \{(x, y, z) \in \mathbb{R}^3 : x^2 + y^2 = z^2 \neq 0\}$}
+\ans{(A)}
+
+\textbf{Q.37} Let $\{X_i\}$ be a sequence of independent $\text{Poisson}(\lambda)$ variables and let $W_n = \dfrac{1}{n} \sum_{i=1}^{n} X_i$. Then the limiting distribution of $\sqrt{n}(W_n - \lambda)$ is the normal distribution with zero mean and variance given by
+\optsfourA{$1$}{$\sqrt{\lambda}$}{$\lambda$}{$\lambda^2$}
+\ans{(C)}
+
+\textbf{Q.38} Let $X_1, X_2, \dots, X_n$ be independent and identically distributed random variables with probability density function given by
+\[
+  f_X(x; \theta) = \begin{cases} \theta e^{-\theta(x - 1)}, & x \ge 1, \\ 0 & \text{otherwise.} \end{cases}
+\]
+Also, let $\bar{X} = \dfrac{1}{n} \sum_{i=1}^{n} X_i$. Then the maximum likelihood estimator of $\theta$ is
+\optsfourA{$1/\bar{X}$}{$(1/\bar{X}) - 1$}{$1/(\bar{X} - 1)$}{$\bar{X}$}
+\ans{(C)}
+
+\textbf{Q.39} Consider the Linear Programming Problem (LPP):
+\begin{align*}
+  \text{Maximize } & \alpha x_1 + x_2 \\
+  \text{Subject to } & 2x_1 + x_2 \le 6, \\
+                     & -x_1 + x_2 \le 1, \\
+                     & x_1 + x_2 \le 4, \\
+                     & x_1 \ge 0,\; x_2 \ge 0,
+\end{align*}
+where $\alpha$ is a constant. If $(3, 0)$ is the only optimal solution, then
+\optsfourA{$\alpha < -2$}{$-2 < \alpha < 1$}{$1 < \alpha < 2$}{$\alpha > 2$}
+\ans{(D)}
+
+\textbf{Q.40} Let $M_2(\mathbb{R})$ be the vector space of all $2 \times 2$ real matrices over the field $\mathbb{R}$. Define the linear transformation $S : M_2(\mathbb{R}) \to M_2(\mathbb{R})$ by $S(X) = 2X + X^T$, where $X^T$ denotes the transpose of the matrix $X$. Then the trace of $S$ equals \underline{\hspace{2cm}}.
+\ans{$10$}
+
+\textbf{Q.41} Consider $\mathbb{R}^3$ with the usual inner product. If $d$ is the distance from $(1, 1, 1)$ to the subspace $\operatorname{span}\{(1, 1, 0),\; (0, 1, 1)\}$ of $\mathbb{R}^3$, then $3d^2 =$ \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.42} Consider the matrix $A = I_9 - 2u^T u$ with $u = \dfrac{1}{3}[1, 1, 1, 1, 1, 1, 1, 1, 1]$, where $I_9$ is the $9 \times 9$ identity matrix and $u^T$ is the transpose of $u$. If $\lambda$ and $\mu$ are two distinct eigenvalues of $A$, then $|\lambda - \mu| =$ \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.43} Let $f(z) = z^3 e^{z^2}$ for $z \in \mathbb{C}$ and let $\Gamma$ be the circle $z = e^{i\theta}$, where $\theta$ varies from $0$ to $4\pi$. Then
+\[
+  \frac{1}{2\pi i} \oint_\Gamma \frac{f'(z)}{f(z)}\,dz = \underline{\hspace{2cm}}.
+\]
+\ans{$6$}
+
+\textbf{Q.44} Let $S$ be the surface of the solid
+\[
+  V = \{(x, y, z) : 0 \le x \le 1,\; 0 \le y \le 2,\; 0 \le z \le 3\}.
+\]
+Let $\hat{n}$ denote the unit outward normal to $S$ and let
+\[
+  \vec{F}(x, y, z) = x\hat{i} + y\hat{j} + z\hat{k}, \qquad (x, y, z) \in V.
+\]
+Then the surface integral $\displaystyle\iint_S \vec{F} \cdot \hat{n}\,dS$ equals \underline{\hspace{2cm}}.
+\ans{$18$}
+
+\textbf{Q.45} Let $A$ be a $3 \times 3$ matrix with real entries. If three solutions of the linear system of differential equations $\dot{x}(t) = A x(t)$ are given by
+\[
+  \begin{bmatrix} e^t - e^{2t} \\ -e^t + e^{2t} \\ e^t + e^{2t} \end{bmatrix}, \qquad
+  \begin{bmatrix} -e^{2t} - e^{-t} \\ e^{2t} - e^{-t} \\ e^{2t} + e^{-t} \end{bmatrix} \qquad \text{and} \qquad
+  \begin{bmatrix} e^{-t} + 2e^t \\ e^{-t} - 2e^t \\ -e^{-t} + 2e^t \end{bmatrix},
+\]
+then the sum of the diagonal entries of $A$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.46} If $y_1(x) = e^{-x^2}$ is a solution of the differential equation
+\[
+  x y'' + \alpha y' + \beta x^3 y = 0
+\]
+for some real numbers $\alpha$ and $\beta$, then $\alpha \beta =$ \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.47} Let $L^2([0, 1])$ be the Hilbert space of all real valued square integrable functions on $[0, 1]$ with the usual inner product. Let $\phi$ be the linear functional on $L^2([0, 1])$ defined by
+\[
+  \phi(f) = \int_{1/4}^{3/4} 3\sqrt{2}\, f\,d\mu,
+\]
+where $\mu$ denotes the Lebesgue measure on $[0, 1]$. Then $\|\phi\| =$ \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.48} Let $U$ be an orthonormal set in a Hilbert space $H$ and let $x \in H$ be such that $\|x\| = 2$. Consider the set
+\[
+  E = \left\{u \in U : |\langle x, u \rangle| \ge \frac{1}{4}\right\}.
+\]
+Then the maximum possible number of elements in $E$ is \underline{\hspace{2cm}}.
+\ans{$64$}
+
+\textbf{Q.49} If $p(x) = 2 - (x + 1) + x(x + 1) - \beta x(x + 1)(x - \alpha)$ interpolates the points $(x, y)$ in the table
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+$x$ & $-1$ & $0$ & $1$ & $2$ \\
+\hline
+$y$ & $2$ & $1$ & $2$ & $-7$
+\end{tabular}
+\end{center}
+then $\alpha + \beta =$ \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.50} If $\sin(\pi x) = a_0 + \sum_{n=1}^{\infty} a_n \cos(n\pi x)$ for $0 < x < 1$, then $(a_0 + a_1)\pi =$ \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.51} For $n = 1, 2, \dots$, let $f_n(x) = \dfrac{2n x^{n-1}}{1 + x}$, $x \in [0, 1]$. Then $\displaystyle\lim_{n\to\infty} \int_0^1 f_n(x)\,dx =$ \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.52} Let $X_1, X_2, X_3, X_4$ be independent exponential random variables with mean $1, 1/2, 1/3, 1/4$, respectively. Then $Y = \min(X_1, X_2, X_3, X_4)$ has exponential distribution with mean equal to \underline{\hspace{2cm}}.
+\ans{$0.1$}
+
+\textbf{Q.53} Let $X$ be the number of heads in $4$ tosses of a fair coin by Person $1$ and let $Y$ be the number of heads in $4$ tosses of a fair coin by Person $2$. Assume that all the tosses are independent. Then the value of $\mathbb{P}(X = Y)$ correct up to three decimal places is \underline{\hspace{2cm}}.
+\ans{$0.273$ (Official range: $0.272$ to $0.274$)}
+
+\textbf{Q.54} Let $X_1$ and $X_2$ be independent geometric random variables with the same probability mass function given by $\mathbb{P}(X = k) = p(1 - p)^{k-1}$, $k = 1, 2, \dots$. Then the value of $\mathbb{P}(X_1 = 2 \mid X_1 + X_2 = 4)$ correct up to three decimal places is \underline{\hspace{2cm}}.
+\ans{$0.333$ (Official range: $0.332$ to $0.334$)}
+
+\textbf{Q.55} A certain commodity is produced by the manufacturing plants $P_1$ and $P_2$ whose capacities are $6$ and $5$ units, respectively. The commodity is shipped to markets $M_1, M_2, M_3$ and $M_4$ whose requirements are $1, 2, 3$ and $5$ units, respectively. The transportation cost per unit from plant $P_i$ to market $M_j$ is as follows:
+\begin{center}
+\begin{tabular}{c|cccc|c}
+ & $M_1$ & $M_2$ & $M_3$ & $M_4$ & \\
+\hline
+$P_1$ & $1$ & $3$ & $5$ & $8$ & $6$ \\
+$P_2$ & $2$ & $5$ & $6$ & $7$ & $5$ \\
+\hline
+ & $1$ & $2$ & $3$ & $5$ &
+\end{tabular}
+\end{center}
+Then the optimal cost of transportation is \underline{\hspace{2cm}}.
+\ans{$57$}
+
+\newpage
+
+% ============================================================================
+% GATE 2019 -- GENERAL APTITUDE (GA) & MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\LARGE\bfseries GATE 2019}\\[4pt]
+  {\large\bfseries General Aptitude (GA Set-8) \& Mathematics (MA)}\\[2pt]
+  {\small\itshape Official Answer Key attached to every question}
+\end{center}
+\medskip
+
+\section*{General Aptitude (GA Set-8)}
+
+\subsection*{Q.1 -- Q.5 carry one mark each.}
+
+\textbf{Q.1} The fishermen, \underline{\hspace{2cm}} the flood victims owed their lives, were rewarded by the government.
+\optsfourA{whom}{to which}{to whom}{that}
+\ans{(C)}
+
+\textbf{Q.2} Some students were not involved in the strike.
+
+If the above statement is true, which of the following conclusions is/are logically necessary?
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item Some who were involved in the strike were students.
+  \item No student was involved in the strike.
+  \item At least one student was involved in the strike.
+  \item Some who were not involved in the strike were students.
+\end{enumerate}
+\optsfourA{$1$ and $2$}{$3$}{$4$}{$2$ and $3$}
+\ans{(C)}
+
+\textbf{Q.3} The radius as well as the height of a circular cone increases by $10\%$. The percentage increase in its volume is \underline{\hspace{2cm}}.
+\optsfourA{$17.1$}{$21.0$}{$33.1$}{$72.8$}
+\ans{(C)}
+
+\textbf{Q.4} Five numbers $10, 7, 5, 4$ and $2$ are to be arranged in a sequence from left to right following the directions given below:
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item No two odd or even numbers are next to each other.
+  \item The second number from the left is exactly half of the left-most number.
+  \item The middle number is exactly twice the right-most number.
+\end{enumerate}
+Which is the second number from the right?
+\optsfourA{$2$}{$4$}{$7$}{$10$}
+\ans{(C)}
+
+\textbf{Q.5} Until Iran came along, India had never been \underline{\hspace{2.5cm}} in kabaddi.
+\optsfourA{defeated}{defeating}{defeat}{defeatist}
+\ans{(A)}
+
+\subsection*{Q.6 -- Q.10 carry two marks each.}
+
+\textbf{Q.6} Since the last one year, after a $125$ basis point reduction in repo rate by the Reserve Bank of India, banking institutions have been making a demand to reduce interest rates on small saving schemes. Finally, the government announced yesterday a reduction in interest rates on small saving schemes to bring them on par with fixed deposit interest rates.
+
+Which one of the following statements can be inferred from the given passage?
+\optslistA{Whenever the Reserve Bank of India reduces the repo rate, the interest rates on small saving schemes are also reduced}{Interest rates on small saving schemes are always maintained on par with fixed deposit interest rates}{The government sometimes takes into consideration the demands of banking institutions before reducing the interest rates on small saving schemes}{A reduction in interest rates on small saving schemes follow only after a reduction in repo rate by the Reserve Bank of India}
+\ans{(C)}
+
+\textbf{Q.7} In a country of $1400$ million population, $70\%$ own mobile phones. Among the mobile phone owners, only $294$ million access the Internet. Among these Internet users, only half buy goods from e-commerce portals. What is the percentage of these buyers in the country?
+\optsfourA{$10.50$}{$14.70$}{$15.00$}{$50.00$}
+\ans{(A)}
+
+\textbf{Q.8} The nomenclature of Hindustani music has changed over the centuries. Since the medieval period \textit{dhrupad} styles were identified as \textit{baanis}. Terms like \textit{gayaki} and \textit{baaj} were used to refer to vocal and instrumental styles, respectively. With the institutionalization of music education the term \textit{gharana} became acceptable. \textit{Gharana} originally referred to hereditary musicians from a particular lineage, including disciples and grand disciples.
+
+Which one of the following pairings is NOT correct?
+\optsfourA{\textit{dhrupad}, \textit{baani}}{\textit{gayaki}, vocal}{\textit{baaj}, institution}{\textit{gharana}, lineage}
+\ans{(C)}
+
+\textbf{Q.9} Two trains started at $7\text{ AM}$ from the same point. The first train travelled north at a speed of $80\text{ km/h}$ and the second train travelled south at a speed of $100\text{ km/h}$. The time at which they were $540\text{ km}$ apart is \underline{\hspace{1.8cm}} AM.
+\optsfourA{$9$}{$10$}{$11$}{$11.30$}
+\ans{(B)}
+
+\textbf{Q.10} ``I read somewhere that in ancient times the prestige of a kingdom depended upon the number of taxes that it was able to levy on its people. It was very much like the prestige of a head-hunter in his own community.''
+
+Based on the paragraph above, the prestige of a head-hunter depended upon \underline{\hspace{2.5cm}}
+\optslistA{the prestige of the kingdom}{the prestige of the heads}{the number of taxes he could levy}{the number of heads he could gather}
+\ans{(D)}
+
+\section*{Mathematics (MA)}
+
+\subsection*{Q.1 -- Q.25 carry one mark each.}
+
+\textbf{Q.1} For a balanced transportation problem with three sources and three destinations where costs, availabilities and demands are all finite and positive, which one of the following statements is FALSE?
+\optslistA{The transportation problem does not have unbounded solution}{The number of non-basic variables of the transportation problem is $4$}{The dual variables of the transportation problem are unrestricted in sign}{The transportation problem has at most $5$ basic feasible solutions}
+\ans{(D)}
+
+\textbf{Q.2} Let $f : [a, b] \to \mathbb{R}$ (the set of all real numbers) be any function which is twice differentiable in $(a, b)$ with only one root $\alpha$ in $(a, b)$. Let $f'(x)$ and $f''(x)$ denote the first and second order derivatives of $f(x)$ with respect to $x$. If $\alpha$ is a simple root and is computed by the Newton-Raphson method, then the method converges if
+\optsfourA{$|f(x) f''(x)| < |f'(x)|^2$, for all $x \in (a, b)$}{$|f(x) f'(x)| < |f''(x)|$, for all $x \in (a, b)$}{$|f'(x) f''(x)| < |f(x)|^2$, for all $x \in (a, b)$}{$|f(x) f''(x)| < |f'(x)|$, for all $x \in (a, b)$}
+\ans{(A)}
+
+\textbf{Q.3} Let $f : \mathbb{C} \to \mathbb{C}$ (the set of all complex numbers) be defined by
+\[
+  f(x + iy) = x^3 + 3xy^2 + i(y^3 + 3x^2 y), \qquad i = \sqrt{-1}.
+\]
+Let $f'(z)$ denote the derivative of $f$ with respect to $z$. Then which one of the following statements is TRUE?
+\optsfourA{$f'(1 + i)$ exists and $|f'(1 + i)| = 3\sqrt{5}$}{$f$ is analytic at the origin}{$f$ is not differentiable at $i$}{$f$ is differentiable at $1$}
+\ans{(D)}
+
+\textbf{Q.4} The partial differential equation
+\[
+  (x^2 + y^2 - 1)\frac{\partial^2 u}{\partial x^2} + 2\frac{\partial^2 u}{\partial x \partial y} + (x^2 + y^2 - 1)\frac{\partial^2 u}{\partial y^2} = 0
+\]
+is
+\optsfourA{parabolic in the region $x^2 + y^2 > 2$}{hyperbolic in the region $x^2 + y^2 > 2$}{elliptic in the region $0 < x^2 + y^2 < 2$}{hyperbolic in the region $0 < x^2 + y^2 < 2$}
+\ans{(D)}
+
+\textbf{Q.5} If
+\[
+  u_n = \int_1^n e^{-t^2}\,dt, \qquad n = 1, 2, 3, \dots,
+\]
+then which one of the following statements is TRUE?
+\optslistA{Both the sequence $\{u_n\}_{n=1}^{\infty}$ and the series $\sum_{n=1}^{\infty} u_n$ are convergent}{Both the sequence $\{u_n\}_{n=1}^{\infty}$ and the series $\sum_{n=1}^{\infty} u_n$ are divergent}{The sequence $\{u_n\}_{n=1}^{\infty}$ is convergent but the series $\sum_{n=1}^{\infty} u_n$ is divergent}{$\lim_{n\to\infty} u_n = \dfrac{2}{e}$}
+\ans{(C)}
+
+\textbf{Q.6} Let $\Gamma = \{(x, y, z) \in \mathbb{R}^3 : -1 < x < 1,\; -1 < y < 1,\; -1 < z < 1\}$ and $\phi : \Gamma \to \mathbb{R}$ be a function whose all second order partial derivatives exist and are continuous. If $\phi$ satisfies the Laplace equation $\nabla^2 \phi = 0$ for all $(x, y, z) \in \Gamma$, then which one of the following statements is TRUE in $\Gamma$?\\
+($\mathbb{R}$ is the set of all real numbers, and $\mathbb{R}^3 = \{(x, y, z) : x, y, z \in \mathbb{R}\}$)
+\optslistA{$\vec{\nabla}\phi$ is solenoidal but not irrotational}{$\vec{\nabla}\phi$ is irrotational but not solenoidal}{$\vec{\nabla}\phi$ is both solenoidal and irrotational}{$\vec{\nabla}\phi$ is neither solenoidal nor irrotational}
+\ans{(C)}
+
+\textbf{Q.7} Let $X = \{(x_1, x_2, \dots) : x_i \in \mathbb{R} \text{ and only finitely many } x_i\text{'s are non-zero}\}$ and $d : X \times X \to \mathbb{R}$ be a metric on $X$ defined by
+\[
+  d(x, y) = \sup_{i \in \mathbb{N}} |x_i - y_i| \qquad \text{for } x = (x_1, x_2, \dots),\; y = (y_1, y_2, \dots) \text{ in } X.
+\]
+($\mathbb{R}$ is the set of all real numbers and $\mathbb{N}$ is the set of all natural numbers)\\
+Consider the following statements:\\
+$P$: $(X, d)$ is a complete metric space.\\
+$Q$: The set $\{x \in X : d(\underline{0}, x) \le 1\}$ is compact, where $\underline{0}$ is the zero element of $X$.\\
+Which of the above statements is/are TRUE?
+\optsfourA{Both $P$ and $Q$}{$P$ only}{$Q$ only}{Neither $P$ nor $Q$}
+\ans{(D)}
+
+\textbf{Q.8} Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] The set $\mathbb{Q} \times \mathbb{Z}$ is uncountable.
+  \item[II.] The set $\{f : f \text{ is a function from } \mathbb{N} \text{ to } \{0, 1\}\}$ is uncountable.
+  \item[III.] The set $\{\sqrt{p} : p \text{ is a prime number}\}$ is uncountable.
+  \item[IV.] For any infinite set, there exists a bijection from the set to one of its proper subsets.
+\end{itemize}
+($\mathbb{Q}$ is the set of all rational numbers, $\mathbb{Z}$ is the set of all integers and $\mathbb{N}$ is the set of all natural numbers)\\
+Which of the above statements are TRUE?
+\optsfourA{I and IV only}{II and IV only}{II and III only}{I, II and IV only}
+\ans{(B)}
+
+\textbf{Q.9} Let $f : \mathbb{R}^2 \to \mathbb{R}$ be defined by
+\[
+  f(x, y) = x^6 - 2x^2 y - x^4 y + 2y^2.
+\]
+($\mathbb{R}$ is the set of all real numbers and $\mathbb{R}^2 = \{(x, y) : x, y \in \mathbb{R}\}$)\\
+Which one of the following statements is TRUE?
+\optslistA{$f$ has a local maximum at origin}{$f$ has a local minimum at origin}{$f$ has a saddle point at origin}{The origin is not a critical point of $f$}
+\ans{(C)}
+
+\textbf{Q.10} Let $\{a_n\}_{n=0}^{\infty}$ be any sequence of real numbers such that $\displaystyle\sum_{n=0}^{\infty} |a_n|^2 < \infty$. If the radius of convergence of $\displaystyle\sum_{n=0}^{\infty} a_n x^n$ is $r$, then which one of the following statements is necessarily TRUE?
+\optslistA{$r \ge 1$ or $r$ is infinite}{$r < 1$}{$r = \left(\displaystyle\sum_{n=0}^{\infty} |a_n|^2\right)^{\frac{1}{2}}$}{$r = \displaystyle\sum_{n=0}^{\infty} |a_n|^2$}
+\ans{(A)}
+
+\textbf{Q.11} Let $T_1$ be the co-countable topology on $\mathbb{R}$ (the set of real numbers) and $T_2$ be the co-finite topology on $\mathbb{R}$.\\
+Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] In $(\mathbb{R}, T_1)$, the sequence $\left\{\frac{1}{n}\right\}_{n=1}^{\infty}$ converges to $0$.
+  \item[II.] In $(\mathbb{R}, T_2)$, the sequence $\left\{\frac{1}{n}\right\}_{n=1}^{\infty}$ converges to $0$.
+  \item[III.] In $(\mathbb{R}, T_1)$, there is no sequence of rational numbers which converges to $\sqrt{3}$.
+  \item[IV.] In $(\mathbb{R}, T_2)$, there is no sequence of rational numbers which converges to $\sqrt{3}$.
+\end{itemize}
+Which of the above statements are TRUE?
+\optsfourA{I and II only}{II and III only}{III and IV only}{I and IV only}
+\ans{(B)}
+
+\textbf{Q.12} Let $X$ and $Y$ be normed linear spaces, and let $T : X \to Y$ be any bijective linear map with closed graph. Then which one of the following statements is TRUE?
+\optsfourA{The graph of $T$ is equal to $X \times Y$}{$T^{-1}$ is continuous}{The graph of $T^{-1}$ is closed}{$T$ is continuous}
+\ans{(C)}
+
+\textbf{Q.13} Let $g : \mathbb{R}^2 \to \mathbb{R}^2$ be a function defined by $g(x, y) = (e^x \cos y, e^x \sin y)$ and $(a, b) = g\!\left(1, \frac{\pi}{3}\right)$.\\
+($\mathbb{R}$ is the set of all real numbers and $\mathbb{R}^2 = \{(x, y) : x, y \in \mathbb{R}\}$)\\
+Which one of the following statements is TRUE?
+\optslistA{$g$ is injective}{If $h$ is the continuous inverse of $g$, defined in some neighbourhood of $(a, b) \in \mathbb{R}^2$, such that $h(a, b) = \left(1, \frac{\pi}{3}\right)$, then the Jacobian of $h$ at $(a, b)$ is $e^2$}{If $h$ is the continuous inverse of $g$, defined in some neighbourhood of $(a, b) \in \mathbb{R}^2$, such that $h(a, b) = \left(1, \frac{\pi}{3}\right)$, then the Jacobian of $h$ at $(a, b)$ is $e^{-2}$}{$g$ is surjective}
+\ans{(C)}
+
+\textbf{Q.14} Let
+\[
+  u_n = \frac{n!}{1 \cdot 3 \cdot 5 \cdots (2n - 1)}, \qquad n \in \mathbb{N} \text{ (the set of all natural numbers)}.
+\]
+Then $\lim_{n\to\infty} u_n$ is equal to \underline{\hspace{2cm}}.
+\ans{$0$}
+
+\textbf{Q.15} If the differential equation
+\[
+  \frac{dy}{dx} = \sqrt{x^2 + y^2}, \qquad y(1) = 2
+\]
+is solved using the Euler's method with step-size $h = 0.1$, then $y(1.2)$ is equal to \underline{\hspace{2cm}} (round off to $2$ places of decimal).
+\ans{$2.47$ (Official range: $2.40$ to $2.50$)}
+
+\textbf{Q.16} Let $f$ be any polynomial function of degree at most $2$ over $\mathbb{R}$ (the set of all real numbers). If the constants $a$ and $b$ are such that
+\[
+  \frac{df}{dx} = a f(x) + 2 f(x + 1) + b f(x + 2), \qquad \text{for all } x \in \mathbb{R},
+\]
+then $4a + 3b$ is equal to \underline{\hspace{2cm}} (round off to $2$ places of decimal).
+\ans{$-7.5$}
+
+\textbf{Q.17} Let $L$ denote the value of the line integral $\displaystyle\oint_C (3x - 4x^2 y)\,dx + (4xy^2 + 2y)\,dy$, where $C$, a circle of radius $2$ with centre at origin of the $xy$-plane, is traversed once in the anti-clockwise direction. Then $\dfrac{L}{\pi}$ is equal to \underline{\hspace{2cm}}.
+\ans{$32$ (Official range: $31.90$ to $32.10$)}
+
+\textbf{Q.18} The temperature $T : \mathbb{R}^3 \setminus \{(0, 0, 0)\} \to \mathbb{R}$ at any point $P(x, y, z)$ is inversely proportional to the square of the distance of $P$ from the origin. If the value of the temperature $T$ at the point $R(0, 0, 1)$ is $\sqrt{3}$, then the rate of change of $T$ at the point $Q(1, 1, 2)$ in the direction of $\overrightarrow{QR}$ is equal to \underline{\hspace{2cm}} (round off to $2$ places of decimal).\\
+($\mathbb{R}$ is the set of all real numbers, $\mathbb{R}^3 = \{(x, y, z) : x, y, z \in \mathbb{R}\}$ and $\mathbb{R}^3 \setminus \{(0, 0, 0)\}$ denotes $\mathbb{R}^3$ excluding the origin)
+\ans{$0.22$ (Official range: $0.21$ to $0.23$)}
+
+\textbf{Q.19} Let $f$ be a continuous function defined on $[0, 2]$ such that $f(x) \ge 0$ for all $x \in [0, 2]$. If the area bounded by $y = f(x)$, $x = 0$, $y = 0$ and $x = b$ is $\sqrt{3 + b^2} - \sqrt{3}$, where $b \in (0, 2]$, then $f(1)$ is equal to \underline{\hspace{2cm}} (round off to $1$ place of decimal).
+\ans{$0.5$}
+
+\textbf{Q.20} If the characteristic polynomial and minimal polynomial of a square matrix $A$ are $(\lambda - 1)(\lambda + 1)^4 (\lambda - 2)^5$ and $(\lambda - 1)(\lambda + 1)(\lambda - 2)$, respectively, then the rank of the matrix $A + I$ is \underline{\hspace{2cm}}, where $I$ is the identity matrix of appropriate order.
+\ans{$6$}
+
+\textbf{Q.21} Let $\omega$ be a primitive complex cube root of unity and $i = \sqrt{-1}$. Then the degree of the field extension $\mathbb{Q}(i, \sqrt{3}, \omega)$ over $\mathbb{Q}$ (the field of rational numbers) is \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.22} Let
+\[
+  \alpha = \int_C \frac{e^{i\pi z}\,dz}{2z^2 - 5z + 2}, \qquad C : \cos t + i\sin t,\; 0 \le t \le 2\pi,\; i = \sqrt{-1}.
+\]
+Then the greatest integer less than or equal to $|\alpha|$ is \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.23} Consider the system:
+\begin{align*}
+  3x_1 + x_2 + 2x_3 - x_4 &= a, \\
+  x_1 + x_2 + x_3 - 2x_4 &= 3, \\
+  x_1, x_2, x_3, x_4 &\ge 0.
+\end{align*}
+If $x_1 = 1$, $x_2 = b$, $x_3 = 0$, $x_4 = c$ is a basic feasible solution of the above system (where $a$, $b$ and $c$ are real constants), then $a + b + c$ is equal to \underline{\hspace{2cm}}.
+\ans{$7$}
+
+\textbf{Q.24} Let $f : \mathbb{C} \to \mathbb{C}$ be a function defined by $f(z) = z^6 - 5z^4 + 10$. Then the number of zeros of $f$ in $\{z \in \mathbb{C} : |z| < 2\}$ is \underline{\hspace{2cm}}.\\
+($\mathbb{C}$ is the set of all complex numbers)
+\ans{$4$}
+
+\textbf{Q.25} Let
+\[
+  \ell^2 = \left\{x = (x_1, x_2, \dots) : x_i \in \mathbb{C},\; \sum_{i=1}^{\infty} |x_i|^2 < \infty\right\}
+\]
+be a normed linear space with the norm
+\[
+  \|x\|_2 = \left(\sum_{i=1}^{\infty} |x_i|^2\right)^{\frac{1}{2}}.
+\]
+Let $g : \ell^2 \to \mathbb{C}$ be the bounded linear functional defined by
+\[
+  g(x) = \sum_{n=1}^{\infty} \frac{x_n}{3^n} \qquad \text{for all } x = (x_1, x_2, \dots) \in \ell^2.
+\]
+Then $\left(\sup\{|g(x)| : \|x\|_2 \le 1\}\right)^2$ is equal to \underline{\hspace{2cm}} (round off to $3$ places of decimal).\\
+($\mathbb{C}$ is the set of all complex numbers)
+\ans{$0.125$}
+
+\subsection*{Q.26 -- Q.55 carry two marks each.}
+
+\textbf{Q.26} For the linear programming problem (LPP):
+\begin{align*}
+  \text{Maximize } & Z = 2x_1 + 4x_2 \\
+  \text{subject to } & -x_1 + 2x_2 \le 4, \\
+                     & 3x_1 + \beta x_2 \le 6, \\
+                     & x_1, x_2 \ge 0,\; \beta \in \mathbb{R},
+\end{align*}
+($\mathbb{R}$ is the set of all real numbers)\\
+consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] The LPP always has a finite optimal value for any $\beta \ge 0$.
+  \item[II.] The dual of the LPP may be infeasible for some $\beta \ge 0$.
+  \item[III.] If for some $\beta$, the point $(1, 2)$ is feasible to the dual of the LPP, then $Z \le 16$, for any feasible solution $(x_1, x_2)$ of the LPP.
+  \item[IV.] If for some $\beta$, $x_1$ and $x_2$ are the basic variables in the optimal table of the LPP with $x_1 = \frac{1}{2}$, then the optimal value of dual of the LPP is $10$.
+\end{itemize}
+Then which of the above statements are TRUE?
+\optsfourA{I and III only}{I, III and IV only}{III and IV only}{II and IV only}
+\ans{(B)}
+
+\textbf{Q.27} Let $f : \mathbb{R}^2 \to \mathbb{R}$ be defined by
+\[
+  f(x, y) = \begin{cases}
+    (x^2 + y^2)\sin\!\left(\dfrac{1}{x^2 + y^2}\right), & \text{if } (x, y) \neq (0, 0) \\[8pt]
+    0, & \text{if } (x, y) = (0, 0).
+  \end{cases}
+\]
+Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] The partial derivatives $\dfrac{\partial f}{\partial x}, \dfrac{\partial f}{\partial y}$ exist at $(0, 0)$ but are unbounded in any neighbourhood of $(0, 0)$.
+  \item[II.] $f$ is continuous but not differentiable at $(0, 0)$.
+  \item[III.] $f$ is not continuous at $(0, 0)$.
+  \item[IV.] $f$ is differentiable at $(0, 0)$.
+\end{itemize}
+($\mathbb{R}$ is the set of all real numbers and $\mathbb{R}^2 = \{(x, y) : x, y \in \mathbb{R}\}$)\\
+Which of the above statements is/are TRUE?
+\optsfourA{I and II only}{I and IV only}{IV only}{III only}
+\ans{(B)}
+
+\textbf{Q.28} Let $K = [k_{i,j}]_{i,j=1}^{\infty}$ be an infinite matrix over $\mathbb{C}$ (the set of all complex numbers) such that\\
+(i) for each $i \in \mathbb{N}$ (the set of all natural numbers), the $i^{\text{th}}$ row $(k_{i,1}, k_{i,2}, \dots)$ of $K$ is in $\ell^\infty$ and\\
+(ii) for every $x = (x_1, x_2, \dots) \in \ell^1$, $\displaystyle\sum_{j=1}^{\infty} k_{i,j} x_j$ is summable for all $i \in \mathbb{N}$, and $(y_1, y_2, \dots) \in \ell^1$, where $y_i = \displaystyle\sum_{j=1}^{\infty} k_{i,j} x_j$.
+
+Let the set of all rows of $K$ be denoted by $E$. Consider the following statements:\\
+P: $E$ is a bounded set in $\ell^\infty$.\\
+Q: $E$ is a dense set in $\ell^\infty$.\\
+$\left(\ell^1 = \left\{(x_1, x_2, \dots) : x_i \in \mathbb{C},\; \sum_{i=1}^{\infty} |x_i| < \infty\right\},\; \ell^\infty = \left\{(x_1, x_2, \dots) : x_i \in \mathbb{C},\; \sup_{i \in \mathbb{N}} |x_i| < \infty\right\}\right)$\\
+Which of the above statements is/are TRUE?
+\optsfourA{Both P and Q}{P only}{Q only}{Neither P nor Q}
+\ans{(B)}
+
+\textbf{Q.29} Consider the following heat conduction problem for a finite rod
+\[
+  \frac{\partial u}{\partial t} = \frac{\partial^2 u}{\partial x^2} - x e^t - 2t, \qquad t > 0,\quad 0 < x < \pi,
+\]
+with the boundary conditions $u(0, t) = -t^2$, $u(\pi, t) = -\pi e^t - t^2$, $t > 0$ and the initial condition $u(x, 0) = \sin x - \sin^3 x - x$, $0 \le x \le \pi$. If $v(x, t) = u(x, t) + x e^t + t^2$, then which one of the following is CORRECT?
+\optslistA{$v(x, t) = \dfrac{1}{4}\left(e^{-t}\sin x + e^{-9t}\sin 3x\right)$}{$v(x, t) = \dfrac{1}{4}\left(7e^{-t}\sin x - e^{-9t}\sin 3x\right)$}{$v(x, t) = \dfrac{1}{4}\left(e^{-t}\sin x + e^{-3t}\sin 3x\right)$}{$v(x, t) = \dfrac{1}{4}\left(3e^{-t}\sin x - e^{-3t}\sin 3x\right)$}
+\ans{(A)}
+
+\textbf{Q.30} Let $f : \mathbb{C} \to \mathbb{C}$ be non-zero and analytic at all points in $\mathbb{Z}$. If $F(z) = \pi f(z) \cot(\pi z)$ for $z \in \mathbb{C} \setminus \mathbb{Z}$, then the residue of $F$ at $n \in \mathbb{Z}$ is \underline{\hspace{1.8cm}}.\\
+($\mathbb{C}$ is the set of all complex numbers, $\mathbb{Z}$ is the set of all integers and $\mathbb{C} \setminus \mathbb{Z}$ denotes the set of all complex numbers excluding integers)
+\optsfourA{$\pi f(n)$}{$f(n)$}{$\dfrac{f(n)}{\pi}$}{$\left(\dfrac{df}{dz}\right)_{z=n}$}
+\ans{(B)}
+
+\textbf{Q.31} Let the general integral of the partial differential equation
+\[
+  (2xy - 1)\frac{\partial z}{\partial x} + (z - 2x^2)\frac{\partial z}{\partial y} = 2(x - yz)
+\]
+be given by $F(u, v) = 0$, where $F : \mathbb{R}^2 \to \mathbb{R}$ is a continuously differentiable function.\\
+($\mathbb{R}$ is the set of all real numbers and $\mathbb{R}^2 = \{(x, y) : x, y \in \mathbb{R}\}$)\\
+Then which one of the following is TRUE?
+\optsfourA{$u = x^2 + y^2 + z,\; v = xz + y$}{$u = x^2 + y^2 - z,\; v = xz - y$}{$u = x^2 - y^2 + z,\; v = yz + x$}{$u = x^2 + y^2 - z,\; v = yz - x$}
+\ans{(A)}
+
+\textbf{Q.32} Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] If $\mathbb{Q}$ denotes the additive group of rational numbers and $f : \mathbb{Q} \to \mathbb{Q}$ is a non-trivial homomorphism, then $f$ is an isomorphism.
+  \item[II.] Any quotient group of a cyclic group is cyclic.
+  \item[III.] If every subgroup of a group $G$ is a normal subgroup, then $G$ is abelian.
+  \item[IV.] Every group of order $33$ is cyclic.
+\end{itemize}
+Which of the above statements are TRUE?
+\optsfourA{II and IV only}{II and III only}{I, II and IV only}{I, III and IV only}
+\ans{(C)}
+
+\textbf{Q.33} A solution of the Dirichlet problem
+\begin{align*}
+  \nabla^2 u(r, \theta) &= 0, \qquad 0 < r < 1,\quad -\pi \le \theta \le \pi, \\
+  u(1, \theta) &= |\theta|, \qquad -\pi \le \theta \le \pi,
+\end{align*}
+is given by
+\optslistA{$u(r, \theta) = \dfrac{\pi}{2} + \displaystyle\sum_{n=1}^{\infty} \left[\dfrac{(-1)^n - 1}{n^2}\right] r^n \cos(n\theta)$}{$u(r, \theta) = \dfrac{2}{\pi} \displaystyle\sum_{n=1}^{\infty} \left[\dfrac{(-1)^{n+1}}{n^2}\right] r^n \cos(n\theta)$}{$u(r, \theta) = \dfrac{\pi}{2} + \dfrac{2}{\pi} \displaystyle\sum_{n=1}^{\infty} \left[\dfrac{(-1)^n - 1}{n^2}\right] r^n \cos(n\theta)$}{$u(r, \theta) = \dfrac{\pi}{2} - \dfrac{2}{\pi} \displaystyle\sum_{n=1}^{\infty} \left[\dfrac{(-1)^n + 1}{n^2}\right] r^n \cos(n\theta)$}
+\ans{(C)}
+
+\textbf{Q.34} Consider the subspace $Y = \{(x, x) : x \in \mathbb{C}\}$ of the normed linear space $(\mathbb{C}^2, \|\cdot\|_\infty)$. If $\phi$ is a bounded linear functional on $Y$, defined by $\phi(x, x) = x$, then which one of the following sets is equal to
+\[
+  \left\{\psi(1, 0) : \psi \text{ is a norm preserving extension of } \phi \text{ to } (\mathbb{C}^2, \|\cdot\|_\infty)\right\}.
+\]
+($\mathbb{C}$ is the set of all complex numbers, $\mathbb{C}^2 = \{(x, y) : x, y \in \mathbb{C}\}$ and $\|(x_1, x_2)\|_\infty = \sup\{|x_1|, |x_2|\}$)
+\optsfourA{$\{1\}$}{$\left[\dfrac{1}{2}, \dfrac{3}{2}\right]$}{$[1, \infty)$}{$[0, 1]$}
+\ans{(D)}
+
+\textbf{Q.35} Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] The ring $\mathbb{Z}[\sqrt{-1}]$ is a unique factorization domain.
+  \item[II.] The ring $\mathbb{Z}[\sqrt{-5}]$ is a principal ideal domain.
+  \item[III.] In the polynomial ring $\mathbb{Z}_2[x]$, the ideal generated by $x^3 + x + 1$ is a maximal ideal.
+  \item[IV.] In the polynomial ring $\mathbb{Z}_3[x]$, the ideal generated by $x^6 + 1$ is a prime ideal.
+\end{itemize}
+($\mathbb{Z}$ denotes the set of all integers, $\mathbb{Z}_n$ denotes the set of all integers modulo $n$, for any positive integer $n$)\\
+Which of the above statements are TRUE?
+\optsfourA{I, II and III only}{I and III only}{I, II and IV only}{II and III only}
+\ans{(B)}
+
+\textbf{Q.36} Let $M$ be a $3 \times 3$ real symmetric matrix with eigenvalues $0, 2$ and $a$ with the respective eigenvectors $u = (4, b, c)^T$, $v = (-1, 2, 0)^T$ and $w = (1, 1, 1)^T$.\\
+Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] $a + b - c = 10$.
+  \item[II.] The vector $x = \left(0, \frac{3}{2}, \frac{1}{2}\right)^T$ satisfies $Mx = v + w$.
+  \item[III.] For any $d \in \operatorname{span}\{u, v, w\}$, $Mx = d$ has a solution.
+  \item[IV.] The trace of the matrix $M^2 + 2M$ is $8$.
+\end{itemize}
+($y^T$ denotes the transpose of the vector $y$)\\
+Which of the above statements are TRUE?
+\optsfourA{I, II and III only}{I and II only}{II and IV only}{III and IV only}
+\ans{(B)}
+
+\textbf{Q.37} Consider the region
+\[
+  \Omega = \left\{x + iy : -1 \le x \le 2,\; \frac{-\pi}{3} \le y \le \frac{\pi}{3}\right\}, \qquad i = \sqrt{-1}
+\]
+in the complex plane. The transformation $x + iy \mapsto e^{x+iy}$ maps the region $\Omega$ onto the region $S \subset \mathbb{C}$ (the set of all complex numbers). Then the area of the region $S$ is equal to
+\optsfourA{$\dfrac{\pi}{3}(e^4 - e^{-2})$}{$\dfrac{\pi}{4}(e^4 + e^{-2})$}{$\dfrac{2\pi}{3}(e^4 - e^{-2})$}{$\dfrac{\pi}{6}(e^4 - e^{-2})$}
+\ans{(A)}
+
+\textbf{Q.38} Consider the sequence $\{g_n\}_{n=1}^{\infty}$ of functions, where $g_n(x) = \dfrac{x}{1 + nx^2}$, $x \in \mathbb{R}$, $n \in \mathbb{N}$ and $g_n'(x)$ is the derivative of $g_n(x)$ with respect to $x$.\\
+($\mathbb{R}$ is the set of all real numbers, $\mathbb{N}$ is the set of all natural numbers).\\
+Then which one of the following statements is TRUE?
+\optslistA{$\{g_n\}_{n=1}^{\infty}$ does NOT converge uniformly on $\mathbb{R}$}{$\{g_n'\}_{n=1}^{\infty}$ converges uniformly on any closed interval which does NOT contain $1$}{$\{g_n'\}_{n=1}^{\infty}$ converges point-wise to a continuous function on $\mathbb{R}$}{$\{g_n'\}_{n=1}^{\infty}$ converges uniformly on any closed interval which does NOT contain $0$}
+\ans{(D)}
+
+\textbf{Q.39} Consider the boundary value problem (BVP)
+\[
+  \frac{d^2 y}{dx^2} + \alpha y(x) = 0, \qquad \alpha \in \mathbb{R} \text{ (the set of all real numbers)},
+\]
+with the boundary conditions $y(0) = 0$, $y(\pi) = k$ ($k$ is a non-zero real number).\\
+Then which one of the following statements is TRUE?
+\optslistA{For $\alpha = 1$, the BVP has infinitely many solutions}{For $\alpha = 1$, the BVP has a unique solution}{For $\alpha = -1$, $k < 0$, the BVP has a solution $y(x)$ such that $y(x) > 0$ for all $x \in (0, \pi)$}{For $\alpha = -1$, $k > 0$, the BVP has a solution $y(x)$ such that $y(x) > 0$ for all $x \in (0, \pi)$}
+\ans{(D)}
+
+\textbf{Q.40} Consider the ordered square $I_0^2$, the set $[0, 1] \times [0, 1]$ with the dictionary order topology. Let the general element of $I_0^2$ be denoted by $x \times y$, where $x, y \in [0, 1]$. Then the closure of the subset
+\[
+  S = \left\{x \times \frac{3}{4} : 0 < a < x < b < 1\right\} \text{ in } I_0^2
+\]
+is
+\optsfourA{$S \cup ((a, b] \times \{0\}) \cup ([a, b) \times \{1\})$}{$S \cup ([a, b) \times \{0\}) \cup ((a, b] \times \{1\})$}{$S \cup ((a, b) \times \{0\}) \cup ((a, b) \times \{1\})$}{$S \cup ((a, b] \times \{0\})$}
+\ans{(A)}
+
+\textbf{Q.41} Let $P_2$ be the vector space of all polynomials of degree at most $2$ over $\mathbb{R}$ (the set of real numbers). Let a linear transformation $T : P_2 \to P_2$ be defined by
+\[
+  T(a + bx + cx^2) = (a + b) + (b - c)x + (a + c)x^2.
+\]
+Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] The null space of $T$ is $\{\alpha(-1 + x + x^2) : \alpha \in \mathbb{R}\}$.
+  \item[II.] The range space of $T$ is spanned by the set $\{1 + x^2, 1 + x\}$.
+  \item[III.] $T(T(1 + x)) = 1 + x^2$.
+  \item[IV.] If $M$ is the matrix representation of $T$ with respect to the standard basis $\{1, x, x^2\}$ of $P_2$, then the trace of the matrix $M$ is $3$.
+\end{itemize}
+Which of the above statements are TRUE?
+\optsfourA{I and II only}{I, III and IV only}{I, II and IV only}{II and IV only}
+\ans{(C)}
+
+\textbf{Q.42} Let $T_1$ and $T_2$ be two topologies defined on $\mathbb{N}$ (the set of all natural numbers), where $T_1$ is the topology generated by $\mathcal{B} = \{\{2n - 1, 2n\} : n \in \mathbb{N}\}$ and $T_2$ is the discrete topology on $\mathbb{N}$.\\
+Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] In $(\mathbb{N}, T_1)$, every infinite subset has a limit point.
+  \item[II.] The function $f : (\mathbb{N}, T_1) \to (\mathbb{N}, T_2)$ defined by
+  \[
+    f(n) = \begin{cases} \dfrac{n}{2}, & \text{if } n \text{ is even} \\[6pt] \dfrac{n + 1}{2}, & \text{if } n \text{ is odd} \end{cases}
+  \]
+  is a continuous function.
+\end{itemize}
+Which of the above statements is/are TRUE?
+\optsfourA{Both I and II}{I only}{II only}{Neither I nor II}
+\ans{(A)}
+
+\textbf{Q.43} Let $1 \le p < q < \infty$. Consider the following statements:
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] $\ell^p \subset \ell^q$
+  \item[II.] $L^p[0, 1] \subset L^q[0, 1]$,
+\end{itemize}
+where $\ell^p = \left\{(x_1, x_2, \dots) : x_i \in \mathbb{R},\; \sum_{i=1}^{\infty} |x_i|^p < \infty\right\}$ and
+\[
+  L^p[0, 1] = \left\{f : [0, 1] \to \mathbb{R} : f \text{ is } \mu\text{-measurable},\; \int_{[0, 1]} |f|^p\,d\mu < \infty, \text{ where } \mu \text{ is the Lebesgue measure}\right\}.
+\]
+($\mathbb{R}$ is the set of all real numbers)\\
+Which of the above statements is/are TRUE?
+\optsfourA{Both I and II}{I only}{II only}{Neither I nor II}
+\ans{(B)}
+
+\textbf{Q.44} Consider the differential equation
+\[
+  t\frac{d^2 y}{dt^2} + 2\frac{dy}{dt} + t y = 0, \qquad t > 0,\quad y(0+) = 1,\quad \left(\frac{dy}{dt}\right)_{t=0+} = 0.
+\]
+If $Y(s)$ is the Laplace transform of $y(t)$, then the value of $Y(1)$ is \underline{\hspace{2cm}} (round off to $2$ places of decimal).\\
+(Here, the inverse trigonometric functions assume principal values only)
+\ans{$\frac{\pi}{4} \approx 0.79$ (Official range: $0.76$ to $0.83$)}
+
+\textbf{Q.45} Let $R$ be the region in the $xy$-plane bounded by the curves $y = x^2$, $y = 4x^2$, $xy = 1$ and $xy = 5$. Then the value of the integral $\displaystyle\iint_R \frac{y^2}{x}\,dy\,dx$ is equal to \underline{\hspace{2cm}}.
+\ans{$12$}
+
+\textbf{Q.46} Let $V$ be the vector space of all $3 \times 3$ matrices with complex entries over the real field. If
+\[
+  W_1 = \{A \in V : A = \bar{A}^T\} \qquad \text{and} \qquad W_2 = \{A \in V : \text{trace of } A = 0\},
+\]
+then the dimension of $W_1 + W_2$ is equal to \underline{\hspace{2cm}}.\\
+($\bar{A}^T$ denotes the conjugate transpose of $A$)
+\ans{$17$}
+
+\textbf{Q.47} The number of elements of order $15$ in the additive group $\mathbb{Z}_{60} \times \mathbb{Z}_{50}$ is \underline{\hspace{2cm}}.\\
+($\mathbb{Z}_n$ denotes the group of integers modulo $n$, under the operation of addition modulo $n$, for any positive integer $n$)
+\ans{$48$}
+
+\textbf{Q.48} Consider the following cost matrix of assigning four jobs to four persons:
+\begin{center}
+\begin{tabular}{c|cccc}
+\toprule
+Persons $\backslash$ Jobs & $\text{J}_1$ & $\text{J}_2$ & $\text{J}_3$ & $\text{J}_4$ \\
+\midrule
+$\text{P}_1$ & $5$ & $8$ & $6$ & $10$ \\
+$\text{P}_2$ & $2$ & $5$ & $4$ & $8$ \\
+$\text{P}_3$ & $6$ & $7$ & $6$ & $9$ \\
+$\text{P}_4$ & $6$ & $9$ & $8$ & $10$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Then the minimum cost of the assignment problem subject to the constraint that job $\text{J}_4$ is assigned to person $\text{P}_2$, is \underline{\hspace{2cm}}.
+\ans{$27$}
+
+\textbf{Q.49} Let $y : [-1, 1] \to \mathbb{R}$ with $y(1) = 1$ satisfy the Legendre differential equation
+\[
+  (1 - x^2)\frac{d^2 y}{dx^2} - 2x\frac{dy}{dx} + 6y = 0 \qquad \text{for } |x| < 1.
+\]
+Then the value of $\displaystyle\int_{-1}^{1} y(x)(x + x^2)\,dx$ is equal to \underline{\hspace{2cm}} (round off to $2$ places of decimal).
+\ans{$\frac{4}{15} \approx 0.27$ (Official range: $0.25$ to $0.30$)}
+
+\textbf{Q.50} Let $\mathbb{Z}_{125}$ be the ring of integers modulo $125$ under the operations of addition modulo $125$ and multiplication modulo $125$. If $m$ is the number of maximal ideals of $\mathbb{Z}_{125}$ and $n$ is the number of non-units of $\mathbb{Z}_{125}$, then $m + n$ is equal to \underline{\hspace{2cm}}.
+\ans{$26$}
+
+\textbf{Q.51} The maximum value of the error term of the composite Trapezoidal rule when it is used to evaluate the definite integral
+\[
+  \int_{0.2}^{1.4} (\sin x - \log_e x)\,dx
+\]
+with $12$ sub-intervals of equal length, is equal to \underline{\hspace{2cm}} (round off to $3$ places of decimal).
+\ans{$0.025$ (Official range: $0.022$ to $0.028$)}
+
+\textbf{Q.52} By the Simplex method, the optimal table of the linear programming problem:
+\begin{align*}
+  \text{Maximize } & Z = \alpha x_1 + 3x_2 \\
+  \text{subject to } & \beta x_1 + x_2 + x_3 = 8, \\
+                     & 2x_1 + x_2 + x_4 = \gamma, \\
+                     & x_1, x_2, x_3, x_4 \ge 0,
+\end{align*}
+where $\alpha, \beta, \gamma$ are real constants, is
+\begin{center}
+\begin{tabular}{c|cccc|c}
+\toprule
+$c_j \to$ & $\alpha$ & $3$ & $0$ & $0$ & \\
+\midrule
+Basic variable & $x_1$ & $x_2$ & $x_3$ & $x_4$ & Solution \\
+\midrule
+$x_2$ & $1$ & $0$ & $2$ & $-1$ & $6$ \\
+$x_1$ & $0$ & $1$ & $-1$ & $1$ & $2$ \\
+\midrule
+$z_j - c_j$ & $0$ & $0$ & $2$ & $1$ & - \\
+\bottomrule
+\end{tabular}
+\end{center}
+Then the value of $\alpha + \beta + \gamma$ is \underline{\hspace{2cm}}.
+\ans{Official range: $14.0$ to $16.0$ OR $17.0$ to $18.5$}
+
+\textbf{Q.53} Consider the inner product space $P_2$ of all polynomials of degree at most $2$ over the field of real numbers with the inner product $\langle f, g \rangle = \displaystyle\int_0^1 f(t) g(t)\,dt$ for $f, g \in P_2$.
+
+Let $\{f_0, f_1, f_2\}$ be an orthogonal set in $P_2$, where $f_0 = 1$, $f_1 = t + c_1$, $f_2 = t^2 + c_2 f_1 + c_3$ and $c_1, c_2, c_3$ are real constants. Then the value of $2c_1 + c_2 + 3c_3$ is equal to \underline{\hspace{2cm}}.
+\ans{$-3$}
+
+\textbf{Q.54} Consider the system of linear differential equations
+\begin{align*}
+  \frac{dx_1}{dt} &= 5x_1 - 2x_2, \\
+  \frac{dx_2}{dt} &= 4x_1 - x_2,
+\end{align*}
+with the initial conditions $x_1(0) = 0$, $x_2(0) = 1$. Then $\log_e(x_2(2) - x_1(2))$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$ (Official range: $1.95$ to $2.05$)}
+
+\textbf{Q.55} Consider the differential equation
+\[
+  x(1 + x^2)\frac{d^2 y}{dx^2} - 9\frac{dy}{dx} + 7y = 0.
+\]
+The sum of the roots of the indicial equation of the Frobenius series solution for the above differential equation in a neighborhood of $x = 0$ is equal to \underline{\hspace{2cm}}.
+\ans{$10$}
+
+\newpage
+
+% ============================================================================
+% GATE 2020 -- GENERAL APTITUDE (GA) & MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\LARGE\bfseries GATE 2020}\\[4pt]
+  {\large\bfseries General Aptitude (GA) \& Mathematics (MA)}\\[2pt]
+  {\small\itshape Official Answer Key attached to every question}
+\end{center}
+\medskip
+
+\section*{General Aptitude (GA)}
+
+\subsection*{Q.1 -- Q.5 carry one mark each.}
+
+\textbf{Q.1} Rajiv Gandhi Khel Ratna Award was conferred \underline{\hspace{1.8cm}} Mary Kom, a six-time world champion in boxing, recently in a ceremony \underline{\hspace{1.8cm}} the Rashtrapati Bhawan (the President's official residence) in New Delhi.
+\optsfourA{with, at}{on, in}{on, at}{to, at}
+\ans{(C)}
+
+\textbf{Q.2} Despite a string of poor performances, the chances of K. L. Rahul's selection in the team are \underline{\hspace{2cm}}.
+\optsfourA{slim}{bright}{obvious}{uncertain}
+\ans{(B)}
+
+\textbf{Q.3} Select the word that fits the analogy:\\
+Cover : Uncover :: Associate : \underline{\hspace{2cm}}
+\optsfourA{Unassociate}{Inassociate}{Misassociate}{Dissociate}
+\ans{(D)}
+
+\textbf{Q.4} Hit by floods, the kharif (summer sown) crops in various parts of the country have been affected. Officials believe that the loss in production of the kharif crops can be recovered in the output of the rabi (winter sown) crops so that the country can achieve its food-grain production target of $291$ million tons in the crop year 2019--20 (July--June). They are hopeful that good rains in July--August will help the soil retain moisture for a longer period, helping winter sown crops such as wheat and pulses during the November--February period.
+
+Which of the following statements can be inferred from the given passage?
+\optslistA{Officials declared that the food-grain production target will be met due to good rains.}{Officials want the food-grain production target to be met by the November--February period.}{Officials feel that the food-grain production target cannot be met due to floods.}{Officials hope that the food-grain production target will be met due to a good rabi produce.}
+\ans{(D)}
+
+\textbf{Q.5} The difference between the sum of the first $2n$ natural numbers and the sum of the first $n$ odd natural numbers is \underline{\hspace{2cm}}.
+\optsfourA{$n^2 - n$}{$n^2 + n$}{$2n^2 - n$}{$2n^2 + n$}
+\ans{(B)}
+
+\subsection*{Q.6 -- Q.10 carry two marks each.}
+
+\textbf{Q.6} Repo rate is the rate at which Reserve Bank of India (RBI) lends commercial banks, and reverse repo rate is the rate at which RBI borrows money from commercial banks.
+
+Which of the following statements can be inferred from the above passage?
+\optslistA{Decrease in repo rate will increase cost of borrowing and decrease lending by commercial banks.}{Increase in repo rate will decrease cost of borrowing and increase lending by commercial banks.}{Increase in repo rate will decrease cost of borrowing and decrease lending by commercial banks.}{Decrease in repo rate will decrease cost of borrowing and increase lending by commercial banks.}
+\ans{(D)}
+
+\textbf{Q.7} P, Q, R, S, T, U, V, and W are seated around a circular table.
+\begin{itemize}
+  \setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}
+  \item[I.] S is seated opposite to W.
+  \item[II.] U is seated at the second place to the right of R.
+  \item[III.] T is seated at the third place to the left of R.
+  \item[IV.] V is a neighbour of S.
+\end{itemize}
+Which of the following must be true?
+\optslistA{P is a neighbour of R.}{Q is a neighbour of R.}{P is not seated opposite to Q.}{R is the left neighbour of S.}
+\ans{(C)}
+
+\textbf{Q.8} The distance between Delhi and Agra is $233\text{ km}$. A car $P$ started travelling from Delhi to Agra and another car $Q$ started from Agra to Delhi along the same road $1$ hour after the car $P$ started. The two cars crossed each other $75$ minutes after the car $Q$ started. Both cars were travelling at constant speed. The speed of car $P$ was $10\text{ km/hr}$ more than the speed of car $Q$. How many kilometers the car $Q$ had travelled when the cars crossed each other?
+\optsfourA{$66.6$}{$75.2$}{$88.2$}{$116.5$}
+\ans{(B)}
+
+\textbf{Q.9} For a matrix $M = [m_{ij}]$; $i, j = 1, 2, 3, 4$, the diagonal elements are all zero and $m_{ij} = -m_{ji}$. The minimum number of elements required to fully specify the matrix is \underline{\hspace{2cm}}.
+\optsfourA{$0$}{$6$}{$12$}{$16$}
+\ans{(B)}
+
+\textbf{Q.10} The profit shares of two companies P and Q are shown in the figure (tabulated below). If the two companies have invested a fixed and equal amount every year, then the ratio of the total revenue of company P to the total revenue of company Q, during 2013--2018 is \underline{\hspace{2cm}}.
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+Year & 2013 & 2014 & 2015 & 2016 & 2017 & 2018 \\
+\midrule
+Company P (Profit \%) & 10 & 20 & 40 & 40 & 50 & 40 \\
+Company Q (Profit \%) & 20 & 30 & 30 & 50 & 60 & 60 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\optsfourA{$15 : 17$}{$16 : 17$}{$17 : 15$}{$17 : 16$}
+\ans{(B)}
+
+\section*{Mathematics (MA)}
+
+\subsection*{Q.1 -- Q.25 carry one mark each.}
+
+\textbf{Q.1} Suppose that $\mathfrak{T}_1$ and $\mathfrak{T}_2$ are topologies on $X$ induced by metrics $d_1$ and $d_2$, respectively, such that $\mathfrak{T}_1 \subseteq \mathfrak{T}_2$. Then which of the following statements is TRUE?
+\optslistA{If a sequence converges in $(X, d_2)$ then it converges in $(X, d_1)$}{If a sequence converges in $(X, d_1)$ then it converges in $(X, d_2)$}{Every open ball in $(X, d_1)$ is an open ball in $(X, d_2)$}{The map $x \mapsto x$ from $(X, d_1)$ to $(X, d_2)$ is continuous}
+\ans{(A)}
+
+\textbf{Q.2} Let $D = [-1, 1] \times [-1, 1]$. If the function $f : D \to \mathbb{R}$ is defined by
+\[
+  f(x, y) = \begin{cases}
+    \dfrac{x^2 - y^2}{(x^2 + y^2)^2}, & (x, y) \neq (0, 0) \\[8pt]
+    0, & (x, y) = (0, 0),
+  \end{cases}
+\]
+then
+\optslistA{$f$ is continuous at $(0, 0)$}{both the first order partial derivatives of $f$ exist at $(0, 0)$}{$\displaystyle\iint_D |f(x, y)|^{\frac{1}{2}}\,dx\,dy$ is finite}{$\displaystyle\iint_D |f(x, y)|\,dx\,dy$ is finite}
+\ans{(C)}
+
+\textbf{Q.3} The initial value problem
+\[
+  y' = y^{\frac{3}{5}}, \qquad y(0) = b
+\]
+has
+\optslistA{a unique solution if $b = 0$}{no solution if $b = 1$}{infinitely many solutions if $b = 2$}{a unique solution if $b = 1$}
+\ans{(D)}
+
+\textbf{Q.4} Consider the following statements:\\
+I: $\log(|z|)$ is harmonic on $\mathbb{C} \setminus \{0\}$\\
+II: $\log(|z|)$ has a harmonic conjugate on $\mathbb{C} \setminus \{0\}$\\
+Then
+\optslistA{both I and II are true}{I is true but II is false}{I is false but II is true}{both I and II are false}
+\ans{(B)}
+
+\textbf{Q.5} Let $G$ and $H$ be defined by
+\begin{align*}
+  G &= \mathbb{C} \setminus \{z = x + iy \in \mathbb{C} : x \le 0,\; y = 0\}, \\
+  H &= \mathbb{C} \setminus \{z = x + iy \in \mathbb{C} : x \in \mathbb{Z},\; x \le 0,\; y = 0\}.
+\end{align*}
+Suppose $f : G \to \mathbb{C}$ and $g : H \to \mathbb{C}$ are analytic functions. Consider the following statements:\\
+I: $\displaystyle\int_\gamma f\,dz$ is independent of paths $\gamma$ in $G$ joining $-i$ and $i$\\
+II: $\displaystyle\int_\gamma g\,dz$ is independent of paths $\gamma$ in $H$ joining $-i$ and $i$\\
+Then
+\optslistA{both I and II are true}{I is true but II is false}{I is false but II is true}{both I and II are false}
+\ans{(B)}
+
+\textbf{Q.6} Let $f(z) = e^{1/z}$, $z \in \mathbb{C} \setminus \{0\}$ and let, for $n \in \mathbb{N}$,
+\[
+  R_n = \left\{z = x + iy \in \mathbb{C} : |x| < \frac{1}{n},\; |y| < \frac{1}{n}\right\} \setminus \{0\}.
+\]
+If for a subset $S$ of $\mathbb{C}$, $\overline{S}$ denotes the closure of $S$ in $\mathbb{C}$, then
+\optslistA{$\overline{f(R_{n+1})} \neq f(R_n)$}{$\overline{f(R_n)} \setminus \overline{f(R_{n+1})} = \overline{f(R_n \setminus R_{n+1})}$}{$\overline{f\!\left(\bigcap_{n=1}^{\infty} R_n\right)} = \bigcap_{n=1}^{\infty} \overline{f(R_n)}$}{$\overline{f(R_n)} = \overline{f(R_{n+1})}$}
+\ans{(A) or (D)}
+
+\textbf{Q.7} Suppose that
+\begin{align*}
+  U &= \mathbb{R}^2 \setminus \{(x, y) \in \mathbb{R}^2 : x, y \in \mathbb{Q}\}, \\
+  V &= \mathbb{R}^2 \setminus \left\{(x, y) \in \mathbb{R}^2 : x > 0,\; y = \frac{1}{x}\right\}.
+\end{align*}
+Then, with respect to the Euclidean metric on $\mathbb{R}^2$,
+\optslistA{both $U$ and $V$ are disconnected}{$U$ is disconnected but $V$ is connected}{$U$ is connected but $V$ is disconnected}{both $U$ and $V$ are connected}
+\ans{(C)}
+
+\textbf{Q.8} If (D1) and (D2) denote the dual problems of the linear programming problems (P1) and (P2), respectively, where\\
+(P1): minimize $x_1 - 2x_2$ \quad subject to $-x_1 + x_2 = 10$, $x_1, x_2 \ge 0$,\\
+(P2): minimize $x_1 - 2x_2$ \quad subject to $-x_1 + x_2 = 10$, $x_1 - x_2 = 10$, $x_1, x_2 \ge 0$,\\
+then
+\optslistA{both (D1) and (D2) are infeasible}{(P2) is infeasible and (D2) is feasible}{(D1) is infeasible and (D2) is feasible but unbounded}{(P1) is feasible but unbounded and (D1) is feasible}
+\ans{(A)}
+
+\textbf{Q.9} If $(4, 0)$ and $\left(0, -\frac{1}{2}\right)$ are critical points of the function
+\[
+  f(x, y) = 5 - (\alpha + \beta)x^2 + \beta y^2 + (\alpha + 1)y^3 + x^3,
+\]
+where $\alpha, \beta \in \mathbb{R}$, then
+\optslistA{$\left(4, -\frac{1}{2}\right)$ is a point of local maxima of $f$}{$\left(4, -\frac{1}{2}\right)$ is a saddle point of $f$}{$\alpha = 4,\; \beta = 2$}{$\left(4, -\frac{1}{2}\right)$ is a point of local minima of $f$}
+\ans{(B)}
+
+\textbf{Q.10} Consider the iterative scheme
+\[
+  x_n = \frac{x_{n-1}}{2} + \frac{3}{x_{n-1}}, \qquad n \ge 1,
+\]
+with initial point $x_0 > 0$. Then the sequence $\{x_n\}$
+\optslistA{converges only if $x_0 > 1$}{converges only if $x_0 < 3$}{converges for any $x_0$}{does not converge for any $x_0$}
+\ans{(C)}
+
+\textbf{Q.11} Let $C[0, 1]$ denote the space of all real-valued continuous functions on $[0, 1]$ equipped with the supremum norm $\|\cdot\|_\infty$. Let $T : C[0, 1] \to C[0, 1]$ be the linear operator defined by
+\[
+  T(f)(x) = \int_0^x e^{-y} f(y)\,dy.
+\]
+Then
+\optslistA{$\|T\| = 1$}{$I - T$ is not invertible}{$T$ is surjective}{$\|I + T\| = 1 + \|T\|$}
+\ans{(D)}
+
+\textbf{Q.12} Suppose that $M$ is a $5 \times 5$ matrix with real entries and $p(x) = \det(xI - M)$. Then
+\optslistA{$p(0) = \det(M)$}{every eigenvalue of $M$ is real if $p(1) + p(2) = 0 = p(2) + p(3)$}{$M^{-1}$ is necessarily a polynomial in $M$ of degree $4$ if $M$ is invertible}{$M$ is not invertible if $M^2 - 2M = 0$}
+\ans{(C)}
+
+\textbf{Q.13} Let $C[0, 1]$ denote the space of all real-valued continuous functions on $[0, 1]$ equipped with the supremum norm $\|\cdot\|_\infty$. Let $f \in C[0, 1]$ be such that
+\[
+  |f(x) - f(y)| \le M |x - y|, \qquad \text{for all } x, y \in [0, 1] \text{ and for some } M > 0.
+\]
+For $n \in \mathbb{N}$, let $f_n(x) = f\!\left(x^{1 + \frac{1}{n}}\right)$. If $S = \{f_n : n \in \mathbb{N}\}$, then
+\optslistA{the closure of $S$ is compact}{$S$ is closed and bounded}{$S$ is bounded but not totally bounded}{$S$ is compact}
+\ans{(A)}
+
+\textbf{Q.14} Let $K : \mathbb{R} \times (0, \infty) \to \mathbb{R}$ be a function such that the solution of the initial value problem $\dfrac{\partial u}{\partial t} = \dfrac{\partial^2 u}{\partial x^2}$, $u(x, 0) = f(x)$, $x \in \mathbb{R}$, $t > 0$, is given by
+\[
+  u(x, t) = \int_{\mathbb{R}} K(x - y, t) f(y)\,dy
+\]
+for all bounded continuous functions $f$. Then the value of $\displaystyle\int_{\mathbb{R}} K(x, t)\,dx$ is \underline{\hspace{2cm}}.
+\ans{$1$}
+
+\textbf{Q.15} The number of cyclic subgroups of the quaternion group
+\[
+  Q_8 = \langle a, b \mid a^4 = 1,\; a^2 = b^2,\; ba = a^3 b \rangle
+\]
+is \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.16} The number of elements of order $3$ in the symmetric group $S_6$ is \underline{\hspace{2cm}}.
+\ans{$80$}
+
+\textbf{Q.17} Let $F$ be the field with $4096$ elements. The number of proper subfields of $F$ is \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.18} If $(x_1^*, x_2^*)$ is an optimal solution of the linear programming problem,
+\begin{align*}
+  \text{minimize } & x_1 + 2x_2 \\
+  \text{subject to } & 4x_1 - x_2 \ge 8 \\
+                     & 2x_1 + x_2 \ge 10 \\
+                     & -x_1 + x_2 \le 7 \\
+                     & x_1, x_2 \ge 0
+\end{align*}
+and $(\lambda_1^*, \lambda_2^*, \lambda_3^*)$ is an optimal solution of its dual problem, then $\sum_{i=1}^{2} x_i^* + \sum_{j=1}^{3} \lambda_j^*$ is equal to \underline{\hspace{2cm}} (correct up to one decimal place).
+\ans{$5.5$}
+
+\textbf{Q.19} Let $a, b, c \in \mathbb{R}$ be such that the quadrature rule
+\[
+  \int_{-1}^{1} f(x)\,dx \approx a f(-1) + b f(0) + c f'(1)
+\]
+is exact for all polynomials of degree less than or equal to $2$. Then $b$ is equal to \underline{\hspace{2cm}} (rounded off to two decimal places).
+\ans{$\frac{7}{4} = 1.75$ (Official range: $1.70$ to $1.80$)}
+
+\textbf{Q.20} Let $f(x) = x^4$ and let $p(x)$ be the interpolating polynomial of $f$ at nodes $1, 2$ and $3$. Then $p(0)$ is equal to \underline{\hspace{2cm}}.
+\ans{$36$}
+
+\textbf{Q.21} For $n \ge 2$, define the sequence $\{x_n\}$ by
+\[
+  x_n = \frac{1}{2\pi} \int_0^{\frac{\pi}{2}} \tan^{\frac{1}{n}} t\,dt.
+\]
+Then the sequence $\{x_n\}$ converges to \underline{\hspace{2cm}} (correct up to two decimal places).
+\ans{$0.25$}
+
+\textbf{Q.22} Let
+\[
+  L^2[0, 10] = \left\{f : [0, 10] \to \mathbb{R} : f \text{ is Lebesgue measurable and } \int_0^{10} f^2\,dx < \infty\right\}
+\]
+equipped with the norm $\|f\| = \left(\int_0^{10} f^2\,dx\right)^{\frac{1}{2}}$ and let $T$ be the linear functional on $L^2[0, 10]$ given by
+\[
+  T(f) = \int_0^2 f(x)\,dx - \int_3^{10} f(x)\,dx.
+\]
+Then $\|T\|$ is equal to \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.23} If $\{x_{13}, x_{22}, x_{23} = 10, x_{31}, x_{32}, x_{34}\}$ is the set of basic variables of a balanced transportation problem seeking to minimize cost of transportation from origins to destinations, where the cost matrix is,
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+ & $D_1$ & $D_2$ & $D_3$ & $D_4$ & Availability \\
+\hline
+$O_1$ & $6$ & $2$ & $-1$ & $0$ & $10$ \\
+\hline
+$O_2$ & $4$ & $2$ & $2$ & $3$ & $\lambda + 5$ \\
+\hline
+$O_3$ & $3$ & $1$ & $2$ & $1$ & $3\lambda$ \\
+\hline
+Demand & $10$ & $\mu - 5$ & $\mu + 5$ & $15$ & \\
+\hline
+\end{tabular}
+\end{center}
+and $\lambda, \mu \in \mathbb{R}$, then $x_{32}$ is equal to \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.24} Let $\mathbb{Z}_{225}$ be the ring of integers modulo $225$. If $x$ is the number of prime ideals and $y$ is the number of nontrivial units in $\mathbb{Z}_{225}$, then $x + y$ is equal to \underline{\hspace{2cm}}.
+\ans{$121$}
+
+\textbf{Q.25} Let $u(x, t)$ be the solution of
+\[
+  \frac{\partial^2 u}{\partial t^2} - \frac{\partial^2 u}{\partial x^2} = 0, \qquad u(x, 0) = f(x), \qquad \frac{\partial u}{\partial t}(x, 0) = 0, \qquad x \in \mathbb{R},\; t > 0,
+\]
+where $f$ is a twice continuously differentiable function. If $f(-2) = 4$, $f(0) = 0$, and $u(2, 2) = 8$, then the value of $u(1, 3)$ is \underline{\hspace{2cm}}.
+\ans{$10$}
+
+\subsection*{Q.26 -- Q.55 carry two marks each.}
+
+\textbf{Q.26} Let $\{e_n\}_{n=1}^{\infty}$ be an orthonormal basis for a separable Hilbert space $H$ with the inner product $\langle \cdot, \cdot \rangle$. Define
+\[
+  f_n = e_n - \frac{1}{n + 1} e_{n+1} \qquad \text{for } n \in \mathbb{N}.
+\]
+Then
+\optslistA{the closure of the $\operatorname{span}\{f_n : n \in \mathbb{N}\}$ equals $H$}{$f = 0$ if $\langle f, f_n \rangle = \langle f, e_n \rangle$ for all $n \in \mathbb{N}$}{$\{f_n\}_{n=1}^{\infty}$ is an orthogonal subset of $H$}{there does not exist nonzero $f \in H$ such that $\langle f, e_2 \rangle = \langle f, f_2 \rangle$}
+\ans{(A)}
+
+\textbf{Q.27} Suppose $V$ is a finite dimensional non-zero vector space over $\mathbb{C}$ and $T : V \to V$ is a linear transformation such that $\operatorname{Range}(T) = \operatorname{Nullspace}(T)$. Then which of the following statements is FALSE?
+\optslistA{The dimension of $V$ is even}{$0$ is the only eigenvalue of $T$}{Both $0$ and $1$ are eigenvalues of $T$}{$T^2 = 0$}
+\ans{(C)}
+
+\textbf{Q.28} Let $P \in M_{m \times n}(\mathbb{R})$. Consider the following statements:\\
+I: If $XPY = 0$ for all $X \in M_{1 \times m}(\mathbb{R})$ and $Y \in M_{n \times 1}(\mathbb{R})$, then $P = 0$.\\
+II: If $m = n$, $P$ is symmetric and $P^2 = 0$, then $P = 0$.\\
+Then
+\optslistA{both I and II are true}{I is true but II is false}{I is false but II is true}{both I and II are false}
+\ans{(A)}
+
+\textbf{Q.29} For $n \in \mathbb{N}$, let $T_n : (\ell^1, \|\cdot\|_1) \to (\ell^\infty, \|\cdot\|_\infty)$ and $T : (\ell^1, \|\cdot\|_1) \to (\ell^\infty, \|\cdot\|_\infty)$ be the bounded linear operators defined by
+\[
+  T_n(x_1, x_2, \dots) = (y_1, y_2, \dots), \quad \text{where } y_j = \begin{cases} x_j, & j \le n \\ x_n, & j > n \end{cases}
+\]
+and
+\[
+  T(x_1, x_2, \dots) = (x_1, x_2, \dots).
+\]
+Then
+\optslistA{$\|T_n\|$ does not converge to $\|T\|$ as $n \to \infty$}{$\|T_n - T\|$ converges to zero as $n \to \infty$}{for all $x \in \ell^1$, $\|T_n(x) - T(x)\|$ converges to zero as $n \to \infty$}{for each non-zero $x \in \ell^1$, there exists a continuous linear functional $g$ on $\ell^\infty$ such that $g(T_n(x))$ does not converge to $g(T(x))$ as $n \to \infty$}
+\ans{(C)}
+
+\textbf{Q.30} Let $P(\mathbb{R})$ denote the power set of $\mathbb{R}$, equipped with the metric
+\[
+  d(U, V) = \sup_{x \in \mathbb{R}} |\chi_U(x) - \chi_V(x)|,
+\]
+where $\chi_U$ and $\chi_V$ denote the characteristic functions of the subsets $U$ and $V$, respectively, of $\mathbb{R}$. The set $\{\{m\} : m \in \mathbb{Z}\}$ in the metric space $(P(\mathbb{R}), d)$ is
+\optslistA{bounded but not totally bounded}{totally bounded but not compact}{compact}{not bounded}
+\ans{(A)}
+
+\textbf{Q.31} Let $f : \mathbb{R} \to \mathbb{R}$ be defined by
+\[
+  f(x) = \sum_{n=0}^{\infty} \frac{1}{2^n} \chi_{(n, n+1]}(x),
+\]
+where $\chi_{(n, n+1]}$ is the characteristic function of the interval $(n, n+1]$. For $\alpha \in \mathbb{R}$, let $S_\alpha = \{x \in \mathbb{R} : f(x) > \alpha\}$. Then
+\optsfourA{$S_{\frac{1}{2}}$ is open}{$S_{\frac{\sqrt{5}}{2}}$ is not measurable}{$S_0$ is closed}{$S_{\frac{1}{\sqrt{2}}}$ is measurable}
+\ans{(D)}
+
+\textbf{Q.32} For $n \in \mathbb{N}$, let $f_n, g_n : (0, 1) \to \mathbb{R}$ be functions defined by
+\[
+  f_n(x) = x^n \quad \text{and} \quad g_n(x) = x^n (1 - x).
+\]
+Then
+\optslistA{$\{f_n\}$ converges uniformly but $\{g_n\}$ does not converge uniformly}{$\{g_n\}$ converges uniformly but $\{f_n\}$ does not converge uniformly}{both $\{f_n\}$ and $\{g_n\}$ converge uniformly}{neither $\{f_n\}$ nor $\{g_n\}$ converge uniformly}
+\ans{(B)}
+
+\textbf{Q.33} Let $u$ be a solution of the differential equation $y' + xy = 0$ and let $\phi = u\psi$ be a solution of the differential equation $y'' + 2xy' + (x^2 + 2)y = 0$ satisfying $\phi(0) = 1$ and $\phi'(0) = 0$. Then $\phi(x)$ is
+\optsfourA{$(\cos^2 x) e^{-\frac{x^2}{2}}$}{$(\cos x) e^{-\frac{x^2}{2}}$}{$(1 + x^2) e^{-\frac{x^2}{2}}$}{$(\cos x) e^{-x^2}$}
+\ans{(B)}
+
+\textbf{Q.34} For $n \in \mathbb{N} \cup \{0\}$, let $y_n$ be a solution of the differential equation
+\[
+  x y'' + (1 - x) y' + n y = 0
+\]
+satisfying $y_n(0) = 1$. For which of the following functions $w(x)$, the integral
+\[
+  \int_0^\infty y_p(x) y_q(x) w(x)\,dx, \qquad (p \neq q)
+\]
+is equal to zero?
+\optsfourA{$e^{-x^2}$}{$e^{-x}$}{$x e^{-x^2}$}{$x e^{-x}$}
+\ans{(B)}
+
+\textbf{Q.35} Suppose that
+\[
+  X = \{(0, 0)\} \cup \left\{\left(x, \sin\frac{1}{x}\right) : x \in \mathbb{R} \setminus \{0\}\right\}
+\]
+and
+\[
+  Y = \{(0, 0)\} \cup \left\{\left(x, x\sin\frac{1}{x}\right) : x \in \mathbb{R} \setminus \{0\}\right\}
+\]
+are metric spaces with metrics induced by the Euclidean metric of $\mathbb{R}^2$. Let $B_X$ and $B_Y$ be the open unit balls around $(0, 0)$ in $X$ and $Y$, respectively. Consider the following statements:\\
+I: The closure of $B_X$ in $X$ is compact.\\
+II: The closure of $B_Y$ in $Y$ is compact.\\
+Then
+\optslistA{both I and II are true}{I is true but II is false}{I is false but II is true}{both I and II are false}
+\ans{(C)}
+
+\textbf{Q.36} If $f : \mathbb{C} \setminus \{0\} \to \mathbb{C}$ is a function such that $f(z) = f\!\left(\frac{z}{|z|}\right)$ and its restriction to the unit circle is continuous, then
+\optslistA{$f$ is continuous but not necessarily analytic}{$f$ is analytic but not necessarily a constant function}{$f$ is a constant function}{$\lim_{z\to 0} f(z)$ exists}
+\ans{(A)}
+
+\textbf{Q.37} For a subset $S$ of a topological space, let $\operatorname{Int}(S)$ and $\overline{S}$ denote the interior and closure of $S$, respectively. Then which of the following statements is TRUE?
+\optslistA{If $S$ is open, then $S = \operatorname{Int}(\overline{S})$}{If the boundary of $S$ is empty, then $S$ is open}{If the boundary of $S$ is empty, then $S$ is not closed}{If $\overline{S} \setminus S$ is a proper subset of the boundary of $S$, then $S$ is open}
+\ans{(B)}
+
+\textbf{Q.38} Suppose $\mathfrak{T}_1, \mathfrak{T}_2$ and $\mathfrak{T}_3$ are the smallest topologies on $\mathbb{R}$ containing $S_1, S_2$ and $S_3$, respectively, where
+\begin{align*}
+  S_1 &= \left\{\left(a, a + \frac{\pi}{n}\right) : a \in \mathbb{Q},\; n \in \mathbb{N}\right\}, \\
+  S_2 &= \{(a, b) : a < b,\quad a, b \in \mathbb{Q}\}, \\
+  S_3 &= \{(a, b) : a < b,\quad a, b \in \mathbb{R}\}.
+\end{align*}
+Then
+\optsfourA{$\mathfrak{T}_3 \supsetneq \mathfrak{T}_1$}{$\mathfrak{T}_3 \supsetneq \mathfrak{T}_2$}{$\mathfrak{T}_1 = \mathfrak{T}_2$}{$\mathfrak{T}_1 \supsetneq \mathfrak{T}_2$}
+\ans{(C)}
+
+\textbf{Q.39} Let $M = \begin{bmatrix} \alpha & 3 & 0 \\ \beta & 3 & 1 \\ 0 & 1 & 2 \end{bmatrix}$. Consider the following statements:\\
+I: There exists a lower triangular matrix $L$ such that $M = LL^t$, where $L^t$ denotes transpose of $L$.\\
+II: Gauss-Seidel method for $Mx = b$ ($b \in \mathbb{R}^3$) converges for any initial choice $x_0 \in \mathbb{R}^3$.\\
+Then
+\optslistA{I is not true when $\alpha > \frac{9}{2},\; \beta = 3$}{II is not true when $\alpha > \frac{9}{2},\; \beta = -1$}{II is not true when $\alpha = 4,\; \beta = \frac{3}{2}$}{I is true when $\alpha = 5,\; \beta = 3$}
+\ans{(D)}
+
+\textbf{Q.40} Let $I$ and $J$ be the ideals generated by $\{5, \sqrt{10}\}$ and $\{4, \sqrt{10}\}$ in the ring $\mathbb{Z}[\sqrt{10}] = \{a + b\sqrt{10} \mid a, b \in \mathbb{Z}\}$, respectively. Then
+\optslistA{both $I$ and $J$ are maximal ideals}{$I$ is a maximal ideal but $J$ is not a prime ideal}{$I$ is not a maximal ideal but $J$ is a prime ideal}{neither $I$ nor $J$ is a maximal ideal}
+\ans{(B)}
+
+\textbf{Q.41} Suppose $V$ is a finite dimensional vector space over $\mathbb{R}$. If $W_1, W_2$ and $W_3$ are subspaces of $V$, then which of the following statements is TRUE?
+\optslistA{If $W_1 + W_2 + W_3 = V$ then $\operatorname{span}(W_1 \cup W_2) \cup \operatorname{span}(W_2 \cup W_3) \cup \operatorname{span}(W_3 \cup W_1) = V$}{If $W_1 \cap W_2 = \{0\}$ and $W_1 \cap W_3 = \{0\}$, then $W_1 \cap (W_2 + W_3) = \{0\}$}{If $W_1 + W_2 = W_1 + W_3$, then $W_2 = W_3$}{If $W_1 \neq V$, then $\operatorname{span}(V \setminus W_1) = V$}
+\ans{(D)}
+
+\textbf{Q.42} Let $\alpha, \beta \in \mathbb{R}$, $\alpha \neq 0$. The system
+\begin{align*}
+  x_1 - 2x_2 + \alpha x_3 &= 8 \\
+  x_1 - x_2 + x_4 &= \beta \\
+  x_1, x_2, x_3, x_4 &\ge 0
+\end{align*}
+has NO basic feasible solution if
+\optsfourA{$\alpha < 0,\; \beta > 8$}{$\alpha > 0,\; 0 < \beta < 8$}{$\alpha > 0,\; \beta < 0$}{$\alpha < 0,\; \beta < 8$}
+\ans{(D)}
+
+\textbf{Q.43} Let $0 < p < 1$ and let
+\[
+  X = \left\{f : \mathbb{R} \to \mathbb{R} \text{ is continuous and } \int_{\mathbb{R}} |f(x)|^p\,dx < \infty\right\}.
+\]
+For $f \in X$, define
+\[
+  |f|_p = \left(\int_{\mathbb{R}} |f(x)|^p\,dx\right)^{\frac{1}{p}}.
+\]
+Then
+\optslistA{$|\cdot|_p$ defines a norm on $X$}{$|f + g|_p \le |f|_p + |g|_p$ for all $f, g \in X$}{$|f + g|_p^p \le |f|_p^p + |g|_p^p$ for all $f, g \in X$}{if $f_n$ converges to $f$ pointwise on $\mathbb{R}$, then $\lim_{n\to\infty} |f_n|_p = |f|_p$}
+\ans{(C)}
+
+\textbf{Q.44} Suppose that $\phi_1$ and $\phi_2$ are linearly independent solutions of the differential equation
+\[
+  2x^2 y'' - (x + x^2) y' + (x^2 - 2) y = 0,
+\]
+and $\phi_1(0) = 0$. Then the smallest positive integer $n$ such that
+\[
+  \lim_{x\to 0} x^n \frac{\phi_2(x)}{\phi_1(x)} = 0
+\]
+is \underline{\hspace{2cm}}.
+\ans{$3$}
+
+\textbf{Q.45} Suppose that $f(z) = \prod_{n=1}^{17} \left(z - \frac{\pi}{n}\right)$, $z \in \mathbb{C}$ and $\gamma(t) = e^{2it}$, $t \in [0, 2\pi]$. If
+\[
+  \int_\gamma \frac{f'(z)}{f(z)}\,dz = \alpha \pi i,
+\]
+then the value of $\alpha$ is equal to \underline{\hspace{2cm}}.
+\ans{$56$}
+
+\textbf{Q.46} If $\gamma(t) = \frac{1}{2} e^{3\pi i t}$, $t \in [0, 2]$ and
+\[
+  \int_\gamma \frac{1}{z^2 (e^z - 1)}\,dz = \beta \pi i,
+\]
+then $\beta$ is equal to \underline{\hspace{2cm}} (correct up to one decimal place).
+\ans{$0.5$}
+
+\textbf{Q.47} Let $K = \mathbb{Q}\!\left(\sqrt{3 + 2\sqrt{2}},\; \omega\right)$, where $\omega$ is a primitive cube root of unity. Then the degree of extension of $K$ over $\mathbb{Q}$ is \underline{\hspace{2cm}}.
+\ans{$4$}
+
+\textbf{Q.48} Let $\alpha \in \mathbb{R}$. If $(3, 0, 0, \beta)$ is an optimal solution of the linear programming problem
+\begin{align*}
+  \text{minimize } & x_1 + x_2 + x_3 - \alpha x_4 \\
+  \text{subject to } & 2x_1 - x_2 + x_3 = 6 \\
+                     & -x_1 + x_2 + x_4 = 3 \\
+                     & x_1, x_2, x_3, x_4 \ge 0
+\end{align*}
+then the maximum value of $\beta - \alpha$ is \underline{\hspace{2cm}}.
+\ans{$7$}
+
+\textbf{Q.49} Suppose that $T : \mathbb{R}^4 \to \mathbb{R}[x]$ is a linear transformation over $\mathbb{R}$ satisfying
+\[
+  T(-1, 1, 1, 1) = x^2 + 2x^4, \qquad T(1, 2, 3, 4) = 1 - x^2, \qquad T(2, -1, -1, 0) = x^3 - x^4.
+\]
+Then the coefficient of $x^4$ in $T(-3, 5, 6, 6)$ is \underline{\hspace{2cm}}.
+\ans{$5$}
+
+\textbf{Q.50} Let $\vec{F}(x, y, z) = (2x - 2y\cos x)\hat{i} + (2y - y^2 \sin x)\hat{j} + 4z\hat{k}$ and let $S$ be the surface of the tetrahedron bounded by the planes
+\[
+  x = 0,\; y = 0,\; z = 0 \quad \text{and} \quad x + y + z = 1.
+\]
+If $\hat{n}$ is the unit outward normal to the tetrahedron, then the value of
+\[
+  \iint_S \vec{F} \cdot \hat{n}\,dS
+\]
+is \underline{\hspace{2cm}} (rounded off to two decimal places).
+\ans{$\frac{4}{3} \approx 1.33$ (Official range: $1.30$ to $1.40$)}
+
+\textbf{Q.51} Let $\vec{F} = (x + 2y)e^z \hat{i} + (ye^z + x^2)\hat{j} + y^2 z \hat{k}$ and let $S$ be the surface $x^2 + y^2 + z = 1$, $z \ge 0$. If $\hat{n}$ is a unit normal to $S$ and
+\[
+  \left|\iint_S (\nabla \times \vec{F}) \cdot \hat{n}\,dS\right| = \alpha\pi.
+\]
+Then $\alpha$ is equal to \underline{\hspace{2cm}}.
+\ans{$2$}
+
+\textbf{Q.52} Let $G$ be a non-cyclic group of order $57$. Then the number of elements of order $3$ in $G$ is \underline{\hspace{2cm}}.
+\ans{$38$}
+
+\textbf{Q.53} The coefficient of $(x - 1)^5$ in the Taylor expansion about $x = 1$ of the function
+\[
+  F(x) = \int_1^x \frac{\log_e t}{t - 1}\,dt, \qquad 0 < x < 2
+\]
+is \underline{\hspace{2cm}} (correct up to two decimal places).
+\ans{$0.04$}
+
+\textbf{Q.54} Let $u(x, y)$ be the solution of the initial value problem
+\[
+  \frac{\partial u}{\partial x} + (\sqrt{u})\frac{\partial u}{\partial y} = 0, \qquad u(x, 0) = 1 + x^2.
+\]
+Then the value of $u(0, 1)$ is \underline{\hspace{2cm}} (rounded off to three decimal places).
+\ans{$1.618$ (Official range: $1.610$ to $1.625$)}
+
+\textbf{Q.55} The value of
+\[
+  \lim_{n\to\infty} \int_0^1 n x^n e^{x^2}\,dx
+\]
+is \underline{\hspace{2cm}} (rounded off to three decimal places).
+\ans{$e \approx 2.718$ (Official range: $2.710$ to $2.725$)}
+
+\end{document}

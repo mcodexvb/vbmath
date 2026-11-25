@@ -104,7 +104,7 @@ print(len(P),'papers',len(Q),'questions',len(S),'scans')
 
 
 # Competitive papers use the same browser record shape and keep their own source file.
-EXAM_NAMES={'JAM':'IIT JAM','NET':'CSIR-UGC NET','TIFR':'TIFR Graduate School','NBHM':'NBHM'}
+EXAM_NAMES={'JAM':'IIT JAM','NET':'CSIR-UGC NET','GATE':'GATE Mathematics','TIFR':'TIFR Graduate School','NBHM':'NBHM'}
 def competitive_dataset(name):
     source_path=os.path.join(ROOT,f'data/{name}.jsonl')
     CP=[]; CQ=[]; CPI={}
@@ -154,18 +154,19 @@ for d in ('paper','semester'):
 pname=lambda p: p['code'] or ('Internal test' if p['kind'][0]=='i' else 'Paper')
 byp=collections.defaultdict(list)
 for q in Q: byp[q[0]].append(q)
-urls=[('/','1.0'),('/papers/','0.9'),('/search/','0.8'),('/topics/','0.7'),('/scans/','0.7'),('/exams/','0.6'),('/syllabus/','0.5'),('/notes/','0.5'),('/books/','0.4'),('/learn/','0.3'),('/people/','0.3'),('/guides/','0.4'),('/tools/','0.4'),('/contribute/','0.4'),('/about/','0.3')]
+urls=[('/','1.0'),('/papers/','0.9'),('/search/','0.8'),('/topics/','0.7'),('/scans/','0.7'),('/exams/','0.6'),('/exams/gate/','0.6'),('/syllabus/','0.5'),('/notes/','0.5'),('/books/','0.4'),('/learn/','0.3'),('/people/','0.3'),('/guides/','0.4'),('/tools/','0.4'),('/contribute/','0.4'),('/about/','0.3')]
 TOP={'search':('Search questions · VBMath','Search 7,700+ Visva-Bharati mathematics exam questions by text, semester, year, paper code, topic and length.'),
      'papers':('Question papers by semester · VBMath','Visva-Bharati B.Sc. (Semesters I–VIII) and M.Sc. (Semesters I–IV) Mathematics question papers by semester and year.'),
      'topics':('Topics and trends · VBMath','How often each area of mathematics appears in Visva-Bharati B.Sc. and M.Sc. papers, year by year.'),
      'scans':('Original scanned papers · VBMath','All scanned Visva-Bharati mathematics question papers in Google Drive, from 2004 onwards.'),
      'exams':('JAM, NET, GATE, NBHM, TIFR papers · VBMath','Previous papers for IIT JAM, CSIR-UGC NET, GATE, NBHM, TIFR and the Visva-Bharati M.Sc. admission test.'),
+     'exams/gate':('GATE Mathematics · VBMath','Search and browse typed GATE Mathematics papers from 2000 to 2026.'),
      'notes':('Notes · VBMath','Class notes from the Department of Mathematics, Visva-Bharati, shared by former students.'),
      'syllabus':('Syllabus · VBMath','Visva-Bharati B.Sc. and M.Sc. Mathematics syllabi: NEP 2025, CBCS 2020 and 2017, BMC; NET and JAM syllabi.'),
      'books':('Books · VBMath','Recommended mathematics textbooks by subject.'),'learn':('Videos and websites · VBMath','Video courses and useful websites for mathematics students.'),
      'people':('People · VBMath','Faculty of the Department of Mathematics, Visva-Bharati.'),'guides':('Guides · VBMath','Scholarships, admission, reaching Santiniketan, LaTeX and Ph.D. thesis submission at Visva-Bharati.'),
      'contribute':('Contribute · VBMath','Send question papers, type questions, fix topic tags or share solutions.'),'about':('About · VBMath','About VBMath, the student-run archive of Visva-Bharati mathematics question papers.'),
-     'tools':('Mathematics tools ? VBMath','Coding, numerical methods, and LaTeX resources for mathematics students.'),
+     'tools':('Mathematics tools · VBMath','Coding, numerical methods, and LaTeX resources for mathematics students.'),
      'preview':('Paper preview · VBMath','Preview your collected questions as an A4 question paper.')}
 for k,(t,d) in TOP.items():
     page(f'/{k}/',t,d,f'<div class="wrap"><h1>{H.escape(t.split(" · ")[0])}</h1><p class="lede">{H.escape(d)}</p></div>')

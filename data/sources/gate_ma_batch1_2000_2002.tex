@@ -1,0 +1,1144 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=20mm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage[hidelinks]{hyperref}
+
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\parindent}{0pt}
+
+\newcommand{\optsfour}[4]{%
+  \begin{tabbing}
+    \hspace{0.48\linewidth}\=\kill
+    (a) #1 \> (b) #2 \\[2pt]
+    (c) #3 \> (d) #4
+  \end{tabbing}%
+}
+
+\newcommand{\optslist}[4]{%
+  \begin{itemize}
+    \setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}
+    \item[(a)] #1
+    \item[(b)] #2
+    \item[(c)] #3
+    \item[(d)] #4
+  \end{itemize}%
+}
+
+\newcommand{\ans}[1]{\textbf{Answer:} #1\par\medskip}
+
+\begin{document}
+
+% ============================================================================
+% GATE 2000 -- MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\Large\bfseries GATE 2000 -- Mathematics (MA)}\\[4pt]
+  {\small Duration: Three hours \quad\textbar\quad Maximum Marks: 150}
+\end{center}
+
+\medskip
+\textbf{Note:} The symbols $\mathbb{R}$, $\mathbb{Q}$, $I$, and $\mathbb{C}$ denote the sets of all real, rational, integer, and complex numbers, respectively. Vector quantities are denoted by bold letters.
+
+\section*{SECTION A (75 Marks)}
+
+\textbf{1.} This question consists of THIRTY (30) sub-questions, each carrying two marks. For each sub-question one or more of the suggested alternatives may be correct. The alphabet corresponding to the correct alternative(s) MUST be written only in the boxes corresponding to the questions in the first sheet of the answer book. \hfill $(30 \times 2 = 60)$
+
+\medskip
+
+\textbf{1.1} Let $W$ be the space spanned by $f = \sin x$ and $g = \cos x$. Then for any real value of $\theta$, $f_1 = \sin(x+\theta)$ and $g_1 = \cos(x+\theta)$
+\optsfour{are vectors in $W$}{are linearly independent}{do not form a basis for $W$}{form a basis for $W$}
+\ans{(a), (b), (d)}
+
+\textbf{1.2} Consider the basis $S = \{v_1, v_2, v_3\}$ for $\mathbb{R}^3$ where $v_1 = (1,1,1)$, $v_2 = (1,1,0)$, $v_3 = (1,0,0)$, and let $T : \mathbb{R}^3 \to \mathbb{R}^2$ be a linear transformation such that $Tv_1 = (1,0)$, $Tv_2 = (2,-1)$, $Tv_3 = (4,3)$. Then $T(2,-3,5)$ is
+\optsfour{$(-1,5)$}{$(3,4)$}{$(0,0)$}{$(9,23)$}
+\ans{(d)}
+
+\textbf{1.3} For $0 < \theta < \pi$, the matrix
+\[
+  \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}
+\]
+\optsfour{has no real eigenvalue}{is orthogonal}{is symmetric}{is skew symmetric}
+\ans{(a), (b)}
+
+\textbf{1.4} For the function $f(z) = \dfrac{1 - e^{-z}}{z}$, the point $z = 0$ is
+\optsfour{an essential singularity}{a pole of order zero}{a pole of order one}{a removable singularity}
+\ans{(d)}
+
+\textbf{1.5} The transformation $w = e^{i\theta}\!\left(\dfrac{z - p}{\bar{p}z - 1}\right)$, where $p$ is a constant, maps $|z| < 1$ onto
+\optsfour{$|w| < 1$ if $|p| < 1$}{$|w| > 1$ if $|p| > 1$}{$|w| = 1$ if $|p| = 1$}{$|w| = 3$ if $p = 0$}
+\ans{(a), (b), (c)}
+
+\textbf{1.6} The value of the integral $\displaystyle\oint_C \frac{dz}{z^2 - 1}$, $C : |z| = 4$, is equal to
+\optsfour{$\pi i$}{$0$}{$-\pi i$}{$2\pi i$}
+\ans{(b)}
+
+\textbf{1.7} Let $E$ be the set of all rationals $p$ such that $2 < p^2 < 3$. Then $E$ is
+\optsfour{compact in $\mathbb{Q}$}{closed and bounded in $\mathbb{Q}$}{not compact in $\mathbb{Q}$}{closed and unbounded in $\mathbb{Q}$}
+\ans{(b), (c)}
+
+\textbf{1.8} Let $A$ be the set of points in the interval $(0,1)$ representing the numbers whose expansion as infinite decimals do not contain the digit $7$. Then the measure of $A$ is
+\optsfour{$1$}{$0$}{$\dfrac{1}{2}$}{$\infty$}
+\ans{(b)}
+
+\textbf{1.9} The Fourier expansion in the interval $[-4, 4]$ of the function
+\[
+  f(x) = \begin{cases} -x, & -4 \le x \le 0, \\ x, & 0 \le x \le 4, \end{cases}
+\]
+has
+\optsfour{no cosine term}{no sine term}{both cosine and sine terms}{none of these}
+\ans{(b)}
+
+\textbf{1.10} The particular solution of the equation $y'\sin x = y\ln y$ satisfying the initial condition $y\!\left(\dfrac{\pi}{2}\right) = e$, is
+\optsfour{$e^{\tan(x/2)}$}{$e^{\cot(x/2)}$}{$\ln\tan\!\left(\dfrac{x}{2}\right)$}{$\ln\cot\!\left(\dfrac{x}{2}\right)$}
+\ans{(a)}
+
+\textbf{1.11} The differential equation $\dfrac{dy}{dx} = k(a - y)(b - y)$, when solved with the condition $y(0) = 0$, yields the result
+\optsfour{$\dfrac{b(a-y)}{a(b-y)} = e^{(a-b)kx}$}{$\dfrac{b(a-x)}{a(b-x)} = e^{(b-a)ky}$}{$\dfrac{a(b-y)}{b(a-y)} = e^{(a-b)kx}$}{$xy = ke$}
+\ans{(a)}
+
+\textbf{1.12} The Sturm--Liouville problem $y'' + \lambda^2 y = 0$, $y'(0) = 0$, $y'(\pi) = 0$ has its eigenvectors given by $y =$
+\optsfour{$\sin\!\left(n + \dfrac{1}{2}\right)x$}{$\sin nx$}{$\cos\!\left(n + \dfrac{1}{2}\right)x$}{$\cos nx$; where $n = 0, 1, 2, \dots$}
+\ans{(d)}
+
+\textbf{1.13} Let $G$ be the additive group of integers $I$ and $G'$ be the multiplicative group of the fourth roots of unity. Let $f : G \to G'$ be a homomorphism mapping given by $f(n) = i^n$, where $i = \sqrt{-1}$. Then the Kernel of $f$ is
+\optsfour{empty set}{$\{4m : m \in I\}$}{$\{(2m)^2 + 1 : m \in I\}$}{$\{2m + 1 : m \in I\}$}
+\ans{(b)}
+
+\textbf{1.14} If $A$ is the subspace of $l^\infty$ consisting of all sequences of zeros and ones and $d$ is the induced metric on $A$, then the rare sets in $(A, d)$ are
+\optsfour{empty set}{all singleton subsets of $A$}{power set of $A$}{set $A$ itself}
+\ans{(a)}
+
+\textbf{1.15} The norm of the linear functional $f$ defined on $C[-1,1]$ by
+\[
+  f(x) = \int_{-1}^{0} x(t)\,dt - \int_{0}^{1} x(t)\,dt
+\]
+is
+\optsfour{zero}{one}{two}{three}
+where $C[-1,1]$ denotes a Banach space of all real-valued functions $x(t)$ on $[-1,1]$ with norm given by $\|x\| = \max_{t \in [-1,1]} |x(t)|$.
+\ans{(c)}
+
+\textbf{1.16} The smallest value of $x$ ($|x| < 1$) correct to two decimal places satisfying the equation
+\[
+  x - \frac{x^3}{3} + \frac{x^5}{10} - \frac{x^7}{42} + \frac{x^9}{216} - \frac{x^{11}}{1320} + \dots = 0.4431135
+\]
+is
+\optsfour{$0.58$}{$0.47$}{$0.44$}{$0.88$}
+\ans{(b)}
+
+\textbf{1.17} The Jacobi's iteration method for the set of equations
+\[
+  x_1 + ax_2 = 2, \qquad 2ax_1 + x_2 = 7, \qquad \left(a \ne \frac{1}{\sqrt{2}}\right)
+\]
+converges for
+\optsfour{all values of $a$}{$a = 1$}{$|a| < \dfrac{1}{\sqrt{2}}$}{$\dfrac{1}{\sqrt{2}} < a < \sqrt{\dfrac{3}{2}}$}
+\ans{(c)}
+
+\textbf{1.18} The interpolating polynomial of highest degree which corresponds to the functional values $f(-1) = 9$, $f(0) = 5$, $f(2) = 3$, $f(5) = 15$, is
+\optsfour{$x^3 + x^2 + 2x + 5$}{$x^2 - 3x + 5$}{$x^4 + 4x^3 + 5x^2 + 5$}{$x + 5$}
+\ans{(b)}
+
+\textbf{1.19} The equation $x^2(y - 1)Z_{xx} - x(y^2 - 1)Z_{xy} + y(y^2 - 1)Z_{yy} + Z_x = 0$ is hyperbolic in the entire $xy$-plane except along
+\optsfour{$x$-axis}{$y$-axis}{a line parallel to $y$-axis}{a line parallel to $x$-axis}
+\ans{(b), (d)}
+
+\textbf{1.20} The solution of the Cauchy problem $u_{yy}(x,y) - u_{xx}(x,y) = 0$; $u(x,0) = 0$, $u_y(x,0) = x$ is $u(x,y) =$
+\optsfour{$\dfrac{x}{y}$}{$xy$}{$xy + \dfrac{x}{y}$}{$0$}
+\ans{(b)}
+
+\textbf{1.21} The characteristic curves of the equation $x^2 u_{xx} - y^2 u_{yy} = x^2 y^2 + x$; $x > 0$, $u = u(x,y)$ are
+\optsfour{rectangular hyperbola}{parabola}{circle}{straight line}
+\ans{(a), (d)}
+
+\textbf{1.22} The number of generalized coordinates for a pair of scissors that can move in a plane is
+\optsfour{$1$}{$2$}{$3$}{$4$}
+\ans{(d)}
+
+\textbf{1.23} The topology $\tau$ on the real line $\mathbb{R}$ generated by the class $\mathcal{I}$ of all closed intervals $[d, d+1]$ with length $1$ is
+\optsfour{indiscrete}{discrete}{standard topology}{neither discrete nor Hausdorff}
+\ans{(b)}
+
+\textbf{1.24} Let norms $\|x\|_1 = \sum_{i=1}^n |\xi_i|$ and $\|x\|_2 = \left(\sum_{i=1}^n |\xi_i|^2\right)^{1/2}$ induce topologies $\tau_1$ and $\tau_2$ on $\mathbb{R}^n$, the $n$-dimensional Euclidean space, then
+\optsfour{$\tau_1$ is weaker than $\tau_2$}{$\tau_1$ is stronger than $\tau_2$}{$\tau_1$ is equivalent to $\tau_2$}{$\tau_1$ and $\tau_2$ are incomparable}
+\ans{(c)}
+
+\textbf{1.25} The probability that exactly one of the events $E$ or $F$ occurs is equal to
+\optsfour{$P(E) + P(F) - P(EF)$}{$P(E) + P(F) - 2P(EF)$}{$P(EF^c) + P(E^c F)$}{$P(E) + P(F)$}
+\ans{(b), (c)}
+
+\textbf{1.26} If $\{A_n, n \ge 1\}$ is a sequence of events, then $\lim_{n\to\infty} P(A_n) = P\!\left(\lim_{n\to\infty} A_n\right)$ if
+\optslist{$\{A_n\}$ is an increasing sequence of events}{$\{A_n\}$ is a decreasing sequence of events}{$\{A_n\}$ is neither increasing nor decreasing sequence of events}{none of these}
+\ans{(a), (b)}
+
+\textbf{1.27} Suppose that the five random variables $X_1, \dots, X_5$ are independent and each has standard normal distribution. A constant $C$ such that the random variable
+\[
+  \frac{C(X_1 + X_2)}{(X_3^2 + X_4^2 + X_5^2)^{1/2}}
+\]
+will have a $t$-distribution, has the value
+% NOTE: Option (d) was missing in the source PDF scan on page 4.
+\optsfour{$\dfrac{\sqrt{3}}{2}$}{$\sqrt{\dfrac{3}{2}}$}{$\dfrac{3}{2}$}{[\textit{missing in scan}]}
+\ans{(b)}
+
+\textbf{1.28} Suppose that $X_1, \dots, X_n$ are random variables such that the variance of each variable is $1$ and the correlation between each pair of different variables is $\dfrac{1}{4}$. Then $\operatorname{Var}(X_1 + X_2 + \dots + X_n)$ is
+\optsfour{$\dfrac{n(n+1)}{2}$}{$\dfrac{n(n+2)}{4}$}{$\dfrac{n(n+3)}{4}$}{$\dfrac{n(n+3)}{2}$}
+\ans{(c)}
+
+\textbf{1.29} The objective function of the dual problem for the following primal linear programming problem:
+\begin{align*}
+  \text{Maximize } & f = 2x_1 + x_2 \\
+  \text{subject to } & x_1 - 2x_2 \ge 2, \\
+                     & x_1 + 2x_2 = 8, \\
+                     & x_1 - x_2 \le 11,
+\end{align*}
+with $x_1 \ge 0$ and $x_2$ unrestricted in sign, is given by
+\optsfour{minimize $z = 2y_1 - 8y_2 + 11y_3$}{minimize $z = 2y_1 + 8y_2 + 11y_3$}{minimize $z = 2y_1 - 8y_2 - 11y_3$}{minimize $z = 2y_1 + 8y_2 - 11y_3$}
+\ans{(b)}
+
+\textbf{1.30} If $y(t) = 1 + \displaystyle\int_0^t y(v) e^{-(t-v)}\,dv$, then $y(t)$ at $t = 1$ equals
+% NOTE: Source PDF OCR read e^{-(t+v)}; e^{-(t-v)} yields y(t) = 1 + t and y(1) = 2.
+\optsfour{$0$}{$1$}{$2$}{$3$}
+\ans{(c)}
+
+\bigskip
+
+\textbf{2.} This question consists of FIVE sub-questions, carrying THREE marks each. All the sub-questions are to be answered. \hfill $(5 \times 3 = 15)$
+
+\medskip
+
+\textbf{2.1} Expand the function $f(z) = \dfrac{1}{3 - 2z}$ in powers of $(z - 3)$ and find the radius of convergence of the series so obtained.
+\ans{$f(z) = -\dfrac{1}{3}\displaystyle\sum_{n=0}^{\infty} \left(-\frac{2}{3}\right)^n (z - 3)^n$; radius of convergence $R = \dfrac{3}{2}$.}
+
+\textbf{2.2} Develop the Hamiltonian and hence obtain the canonical equations of motion for a system for which the Lagrangian is $L = \dfrac{1}{2}m\dot{q}^2 - \dfrac{\mu}{2}q^2$, where $\dot{q} = \dfrac{dq}{dt}$, $q$ being the generalized co-ordinate of the system.
+\ans{$H = \dfrac{p^2}{2m} + \dfrac{\mu}{2}q^2$; canonical equations: $\dot{q} = \dfrac{p}{m}$, $\dot{p} = -\mu q$.}
+
+\textbf{2.3} Evaluate $\displaystyle\int_0^{\pi/2} \sqrt{1 - 0.162\sin^2\phi}\,d\phi$ by Simpson's one-third rule by taking the step size as $\dfrac{\pi}{12}$.
+\ans{$\approx 1.5059$.}
+
+\textbf{2.4} Show that in an inner product space, $x \perp y$ ($x$ is orthogonal to $y$) if and only if we have $\|x + \alpha y\| = \|x - \alpha y\|$ for all scalars $\alpha$.
+\ans{Subjective / Proof.}
+
+\textbf{2.5} Let $X$ and $Y$ have joint probability density function
+\[
+  f_{X,Y}(x,y) = 2e^{-(x+y)}, \qquad 0 < x < y, \quad 0 < y < \infty.
+\]
+Find $P(Y < 3X)$.
+\ans{$\dfrac{1}{2}$.}
+
+\section*{SECTION B (75 Marks)}
+
+This section consists of TWENTY questions of five marks each. Any FIFTEEN out of them have to be answered. If more number of questions are attempted, score off the answers not to be evaluated, else only the first fifteen unscored answers will be considered strictly. \hfill $(15 \times 5 = 75)$
+
+\medskip
+
+\textbf{3.} Solve the following linear programming problem using the Simplex method: \hfill [5]
+\begin{align*}
+  \text{Minimize } & f = -40x_1 - 100x_2 \\
+  \text{subject to } & 10x_1 + 5x_2 \le 2500, \\
+                     & 4x_1 + 10x_2 \le 2000, \\
+                     & 2x_1 + 3x_2 \le 900, \\
+                     & x_1 \ge 0, \quad x_2 \ge 0.
+\end{align*}
+\ans{Optimal solution $(x_1, x_2) = (0, 200)$ with minimum $f = -20000$.}
+
+\textbf{4.} Evaluate the integral $\displaystyle\int_C \frac{e^{1/z^2}}{z^2 + 1}\,dz$, $C : |z - i| = \frac{7}{2}$, where integration is to be taken counterclockwise. \hfill [5]
+\ans{$0$ (residue at $\infty$ is $0$, and all finite singularities $z = 0, \pm i$ lie inside $C$).}
+
+\textbf{5.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] Construct an analytic function $f(z)$ of which the real part is $u(x,y) = 2xy + \cosh x \sin y$, given that $f(0) = 0$. \hfill [2]
+  \item[(b)] Determine all harmonic functions of the form $u = f\!\left(\dfrac{x^2 + y^2}{x}\right)$ that are not constant. \hfill [3]
+\end{itemize}
+\ans{(a) $f(z) = -i(z^2 + \sinh z)$; \quad (b) $u(x,y) = c_1 \dfrac{x}{x^2 + y^2} + c_2$ ($c_1 \ne 0$).}
+
+\textbf{6.} Evaluate $\displaystyle\iint_S (\operatorname{curl}\mathbf{v}) \cdot \mathbf{n}\,dS$, where $\mathbf{v} = 2y\mathbf{i} + 3x\mathbf{j} - z^2\mathbf{k}$ and $S$ is the upper half surface of the sphere $x^2 + y^2 + z^2 = 9$, $\mathbf{n}$ is a positive unit normal vector to $S$, and $C$ is its boundary. \hfill [5]
+\ans{$9\pi$.}
+
+\textbf{7.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] Examine the series $\displaystyle\sum_{n=1}^{\infty} \frac{nx}{n+x}$, $x \in [0,1]$, as regards to its uniform convergence on the domain $0 \le x \le 1$. \hfill [3]
+  \item[(b)] Prove that the set of points on which a sequence of measurable functions $(f_n)$ converges is measurable. \hfill [2]
+\end{itemize}
+\ans{(a) Diverges for all $x \in (0,1]$ (hence not uniformly convergent on $[0,1]$); \quad (b) Subjective / Proof.}
+
+\textbf{8.} Use the Laplace transform procedure to solve the initial value problem: \hfill [5]
+\[
+  t y''(t) + y'(t) + t y(t) = 0; \qquad y(0) = 1, \quad y'(0) = k \quad (k \text{ is a constant}).
+\]
+\ans{$y(t) = J_0(t)$ (requires $k = 0$ for a bounded solution at $t=0$).}
+
+\textbf{9.} Construct the Green's function for the boundary value problem: \hfill [5]
+% NOTE: Verify upper boundary point in source PDF scan (page 6 OCR read "y 22 = 0", reconstructed as y(\pi/2) = 0).
+\[
+  y''(x) + y(x) = -1; \qquad y(0) = 0, \quad y\!\left(\frac{\pi}{2}\right) = 0,
+\]
+and hence solve the equation.
+\ans{$G(x,t) = \begin{cases} -\sin x \cos t, & 0 \le x \le t, \\ -\cos x \sin t, & t \le x \le \pi/2; \end{cases}$ \quad $y(x) = \cos x + \sin x - 1$.}
+
+\textbf{10.} Prove that the set $A$ of all $2 \times 2$ matrices of the form $\begin{bmatrix} a & 0 \\ b & 0 \end{bmatrix}$, where $a, b \in I$ (the set of integers), is a left ideal but not a right ideal in the ring $R$ of all $2 \times 2$ matrices over $I$. \hfill [5]
+\ans{Subjective / Proof.}
+
+\textbf{11.} Show that if $p$ is a prime number, then any group $G$ of order $2p$ has a normal subgroup of order $p$. \hfill [5]
+\ans{Subjective / Proof.}
+
+\textbf{12.} If $(x_n)$ in a Banach space $(X, \|\cdot\|)$ is such that $(f(x_n))$ is bounded for all $f \in X'$, the dual of $X$, then using the uniform boundedness theorem, show that $(\|x_n\|)$ is bounded. \hfill [5]
+\ans{Subjective / Proof.}
+
+\textbf{13.} Let $X$ be the normed space whose points are sequences of complex numbers $x = (\xi_j)$ with only finitely many non-zero terms and norm defined by $\|x\| = \sup_j |\xi_j|$. Let $T : X \to X$ be defined by
+\[
+  y = Tx = \left(\xi_1, \frac{1}{2}\xi_2, \frac{1}{3}\xi_3, \dots\right).
+\]
+Show that $T$ is linear and bounded, but $T^{-1}$ is unbounded. Does this contradict the open mapping theorem? \hfill [5]
+\ans{No; it does not contradict the open mapping theorem because $X$ is not complete (not a Banach space).}
+
+\textbf{14.} Determine the step-size that can be used to evaluate the integration $\displaystyle\int_1^2 \frac{dx}{x}$ by using Simpson's one-third rule so that the truncation error is less than $5 \times 10^{-4}$, and hence evaluate the integral. \hfill [5]
+% NOTE: Verify exponent in source PDF scan (page 7 OCR read "5 x 10^{-1}", likely 5 x 10^{-4}).
+\ans{Step size $h = \dfrac{1}{4}$ ($n = 4$ sub-intervals); integral $\approx 0.69325$ (exact $\ln 2 \approx 0.69315$).}
+
+\textbf{15.} Solve $\dfrac{d^2y}{dx^2} = x\dfrac{dy}{dx} - y$; $y(0) = 3$, $y'(0) = 0$, to approximate $y(0.1)$ by using the fourth order Runge--Kutta method. \hfill [5]
+\ans{$y(0.1) \approx 2.9850$.}
+
+\textbf{16.} Use Lagrange's method to solve the equation \hfill [5]
+% NOTE: Verify (2,3) entry in source PDF scan (page 7 OCR read "y", likely "c").
+\[
+  \begin{vmatrix}
+    x & y & z \\
+    a & b & c \\
+    \dfrac{\partial z}{\partial x} & \dfrac{\partial z}{\partial y} & -1
+  \end{vmatrix} = 0,
+\]
+where $z = z(x,y)$.
+\ans{$F(ax + by + cz,\, x^2 + y^2 + z^2) = 0$.}
+
+\textbf{17.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] Reduce the equation $u_{xx}(x,y) - u_{yy}(x,y) - \dfrac{2}{x}u_x = 0$ to a possible canonical form. \hfill [3]
+  \item[(b)] Reduce the following heat conduction problem with non-homogeneous boundary conditions: \hfill [2]
+  \begin{align*}
+    u_t(x,t) - u_{xx}(x,t) &= 0; \qquad 0 < x < \pi, \quad t > 0, \\
+    u(0,t) = 0, \quad u(\pi,t) &= 10, \\
+    u(x,0) &= f(x),
+  \end{align*}
+  to a problem with homogeneous boundary conditions.
+\end{itemize}
+\ans{(a) With $\xi = x+y, \eta = x-y$: $u_{\xi\eta} - \dfrac{u_\xi + u_\eta}{2(\xi+\eta)} = 0$; \quad (b) Set $v(x,t) = u(x,t) - \dfrac{10}{\pi}x$, giving $v_t - v_{xx} = 0$, $v(0,t)=v(\pi,t)=0$, $v(x,0)=f(x)-\dfrac{10}{\pi}x$.}
+
+\textbf{18.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] A smooth circular wire rotates with constant angular velocity $\omega$ about the vertical axis $CA$ which lies on the plane of the circle and passes through the point $C$ on the diameter of the circle such that the distance $CO = d$, where $O$ is the centre of the circle. A particle $P$ slides on the wire. Taking $PC = R$ and $\angle PCA = \theta$, develop the Lagrangian of the system and hence the equations of motion if the generalized force-components are $Q_R$ and $Q_\theta$. \hfill [3]
+  % NOTE: Verify angular velocity symbol in source PDF scan (page 8 OCR read "V", likely \omega or \Omega).
+  \item[(b)] A system moves in a force-free space with kinetic energy given by $T = q_i \dot{q}_i - \sqrt{1 - \dot{q}_i^2}$, where $q_i$ are the generalized coordinates of the system and $\dot{q}_i$ are the generalized velocity components. Show that the generalized accelerations $\ddot{q}_i$ vanish. \hfill [2]
+\end{itemize}
+\ans{(a) Subjective / Derivation; \quad (b) Subjective / Proof.}
+
+\textbf{19.} Let $A$ be a subset of a topological space $(X, \tau)$ and $\tau_A$ be the relative topology on $A$. Then $A$ is $\tau$-connected if and only if $A$ is $\tau_A$-connected. Prove this. \hfill [5]
+\ans{Subjective / Proof.}
+
+\textbf{20.} Let $X_1, X_2, \dots, X_n$ be a random sample from a Poisson distribution with parameter $\theta > 0$. Find the uniformly minimum variance unbiased estimator (UMVUE) of $P(X \le 1) = (1 + \theta)e^{-\theta}$. \hfill [5]
+\ans{$\left(1 - \dfrac{1}{n}\right)^{T}\!\left(1 + \dfrac{T}{n - 1}\right)$ for $T = \displaystyle\sum_{i=1}^n X_i$ (for $n \ge 2$).}
+
+\textbf{21.} Let $X_1, X_2, \dots, X_n$ be a random sample from a distribution that is normally distributed with mean $\theta_1$ and variance $\theta_2$. Find a best test of the simple hypothesis $H_0 : \theta_1 = 0, \theta_2 = 1$ against the alternative simple hypothesis $H_1 : \theta_1 = 1, \theta_2 = 4$. \hfill [5]
+\ans{By Neyman--Pearson lemma, reject $H_0$ if $\displaystyle\sum_{i=1}^n \left(X_i + \frac{1}{3}\right)^2 > c$.}
+
+\textbf{22.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] Solve the integral equation $y(t) = t^2 + \dfrac{1}{2}\displaystyle\int_0^t y(v)\sin(t - v)\,dv$. \hfill [3]
+  \item[(b)] Use the Euler--Lagrange condition to show that the shortest distance between two points in a plane is a straight line. \hfill [2]
+\end{itemize}
+\ans{(a) $y(t) = 2t^2 - 4 + 4\cos\!\left(\dfrac{t}{\sqrt{2}}\right)$; \quad (b) Subjective / Proof.}
+
+\newpage
+
+% ============================================================================
+% GATE 2001 -- MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\Large\bfseries GATE 2001 -- Mathematics (MA)}\\[4pt]
+  {\small Duration: Three hours \quad\textbar\quad Maximum Marks: 150}
+\end{center}
+
+\medskip
+\textbf{Note:} The symbols $\mathbb{R}$ and $\mathbb{C}$ denote the sets of all real and complex numbers, respectively. Vector quantities are denoted by bold letters.
+
+\section*{SECTION A (75 Marks)}
+
+\textbf{MA-1.} This question consists of TWENTY FIVE sub-questions (1.1--1.25) of ONE mark each. For each of these sub-questions, four possible answers (a, b, c and d) are given, out of which only one is correct. \hfill $(25 \times 1 = 25)$
+
+\medskip
+
+\textbf{1.1} The eigenvalues of a $3 \times 3$ real matrix $P$ are $1, 2, 3$. Then
+% NOTE: As printed in the paper, eigenvalues are 1, 2, 3; for eigenvalues 1, -2, 3 option (a) holds exactly.
+\optsfour{$P^{-1} = \dfrac{1}{6}(5I + 2P - P^2)$}{$P^{-1} = \dfrac{1}{6}(5I - 2P + P^2)$}{$P^{-1} = \dfrac{1}{6}(5I - 2P - P^2)$}{$P^{-1} = \dfrac{1}{6}(5I + 2P + P^2)$}
+\ans{(a) (exact if eigenvalues are $1, -2, 3$; with $1, 2, 3$ the exact formula is $\frac{1}{6}(11I - 6P + P^2)$)}
+
+\textbf{1.2} Let $T : \mathbb{C}^n \to \mathbb{C}^n$ be a linear operator having $n$ distinct eigenvalues. Then
+\optsfour{$T$ is invertible}{$T$ is invertible as well as diagonalizable}{$T$ is not diagonalizable}{$T$ is diagonalizable}
+\ans{(d)}
+
+\textbf{1.3} Let $U$ be a $3 \times 3$ complex Hermitian matrix which is unitary. Then the distinct eigenvalues of $U$ are
+\optsfour{$\pm i$}{$1 \pm i$}{$\pm 1$}{$\dfrac{1}{2}(1 \pm i)$}
+\ans{(c)}
+
+\textbf{1.4} The function $\sin z$ is analytic in
+\optsfour{$\mathbb{C} \cup \{\infty\}$}{$\mathbb{C}$ except on the negative real axis}{$\mathbb{C} - \{0\}$}{$\mathbb{C}$}
+\ans{(d)}
+
+\textbf{1.5} The series $\displaystyle\sum_{n=1}^{\infty} \frac{z^n}{n\sqrt{n+1}}$, $|z| \le 1$, is
+\optslist{uniformly but not absolutely convergent}{uniformly and absolutely convergent}{absolutely convergent but not uniformly convergent}{convergent but not uniformly convergent}
+\ans{(b)}
+
+\textbf{1.6} If $f(z) = z^3$, then it
+\optsfour{has an essential singularity at $z = \infty$}{has a pole of order $3$ at $z = \infty$}{has a pole of order $3$ at $z = 0$}{is analytic at $z = \infty$}
+\ans{(b)}
+
+\textbf{1.7} A uniformly continuous function is
+\optsfour{measurable}{not measurable}{measurable and simple}{integrable and simple}
+\ans{(a)}
+
+\textbf{1.8} Which of the following pairs of functions is not a linearly independent pair of solutions of $y'' + 9y = 0$?
+\optsfour{$\sin 3x,\ \sin 3x - \cos 3x$}{$\sin 3x + \cos 3x,\ 3\sin x - 4\sin^3 x$}{$\sin 3x,\ \sin 3x \cos 3x$}{$\sin 3x + \cos 3x,\ 4\cos^3 x - 3\cos x$}
+\ans{(c)}
+
+\textbf{1.9} Determine the type of the following differential equation:
+\[
+  \frac{d^2y}{dx^2} + \sin(x + y) = \sin x.
+\]
+\optsfour{Linear, homogeneous}{Nonlinear, homogeneous}{Linear, nonhomogeneous}{Nonlinear, nonhomogeneous}
+\ans{(d)}
+
+\textbf{1.10} Which of the following is not an integrating factor of $x\,dy - y\,dx = 0$?
+\optsfour{$\dfrac{1}{x^2}$}{$\dfrac{1}{x^2 + y^2}$}{$\dfrac{1}{xy}$}{$\dfrac{x}{y}$}
+\ans{(d)}
+
+\textbf{1.11} Let $G$ be a group of order $49$. Then
+\optsfour{$G$ is abelian}{$G$ is cyclic}{$G$ is non-abelian}{centre of $G$ has order $7$}
+\ans{(a)}
+
+\textbf{1.12} The polynomial $f(x) = x^5 + 5$ is
+\optsfour{irreducible over $\mathbb{C}$}{irreducible over $\mathbb{R}$}{irreducible over $\mathbb{Q}$}{not irreducible over $\mathbb{Q}$}
+where $\mathbb{Q}$ denotes the field of rational numbers.
+\ans{(c)}
+
+\textbf{1.13} Given a nontrivial normed linear space, the nontriviality of its dual space is assured by
+\optsfour{the Hahn--Banach Theorem}{the Principle of Uniform Boundedness}{the Open Mapping Theorem}{the Closed Graph Theorem}
+\ans{(a)}
+
+\textbf{1.14} If $\Delta$ and $\nabla$ are the forward and the backward difference operators respectively, then $\Delta - \nabla$ is equal to
+\optsfour{$-\Delta\nabla$}{$\Delta\nabla$}{$\Delta + \nabla$}{$\dfrac{\Delta}{\nabla}$}
+\ans{(b)}
+
+\textbf{1.15} One root of the equation $e^x - 3x^2 = 0$ lies in the interval $(3, 4)$. The least number of iterations of the bisection method so that $|\text{error}| \le 10^{-3}$ is
+\optsfour{$10$}{$8$}{$6$}{$4$}
+\ans{(a)}
+
+\textbf{1.16} If $f(r, \theta, \varphi)$ is a harmonic function in a domain $D$, where $(r, \theta, \varphi)$ are spherical polar co-ordinates, then so is
+\optsfour{$\dfrac{1}{r}f(r, \theta, \varphi)$}{$\dfrac{1}{r^2}f\!\left(\dfrac{1}{r}, \theta, \varphi\right)$}{$\dfrac{1}{r^2}f\!\left(\dfrac{1}{r^2}, \theta, \varphi\right)$}{$\dfrac{1}{r}f\!\left(\dfrac{1}{r}, \theta, \varphi\right)$}
+\ans{(d)}
+
+\textbf{1.17} The solution of the initial value problem $u_{tt} = 4u_{xx}$, $t > 0$, $-\infty < x < \infty$, satisfying the conditions $u(x,0) = x$, $u_t(x,0) = 0$ is
+\optsfour{$x$}{$\dfrac{x^2}{2}$}{$2x$}{$2t$}
+\ans{(a)}
+
+\textbf{1.18} In the motion of a two-particle system, if two particles are connected by a rigid weightless rod of constant length, then the number of degrees of freedom of the system is
+\optsfour{$2$}{$3$}{$5$}{$6$}
+\ans{(c)}
+
+\textbf{1.19} Consider a planet of mass $m$ orbiting around the sun under the inverse square law of attraction $\dfrac{\mu m}{r^2}$, $\mu > 0$. If the position of the planet at time $t$ is given by the polar co-ordinates $(r, \theta)$, then the Lagrangian $L$ of the system is given by
+\optsfour{$\dfrac{1}{2}m(\dot{r}^2 + r^2\dot{\theta}^2) - \dfrac{\mu m}{r}$}{$\dfrac{1}{2}m(\dot{r}^2 + r^2\dot{\theta}^2) + \dfrac{\mu m}{r}$}{$\dfrac{1}{2}m(\dot{r}^2 + \dot{\theta}^2) + \dfrac{\mu m}{r}$}{$\dfrac{1}{2}m(\dot{r}^2 + \dot{\theta}^2) - \dfrac{\mu m}{r}$}
+\ans{(b)}
+
+\textbf{1.20} The following statement is false:
+\optslist{Any product of compact spaces is compact}{Any product of Hausdorff spaces is Hausdorff}{Any product of connected spaces is connected}{Any product of metrizable spaces is metrizable}
+\ans{(d)}
+
+\textbf{1.21} The random variable $X$ has a $t$-distribution with $\nu$ degrees of freedom. Then the probability distribution of $X^2$ is
+\optslist{chi-square distribution with $1$ degree of freedom}{chi-square distribution with $\nu$ degrees of freedom}{$F$-distribution with $(1, \nu)$ degrees of freedom}{$F$-distribution with $(\nu, 1)$ degrees of freedom}
+\ans{(c)}
+
+\textbf{1.22} Let $S_1 = \{(x,y) \in \mathbb{R}^2 : x^2 + y^2 \le 1\}$ and $S_2 = \{(x,y) \in \mathbb{R}^2 : y \le x^2\}$. Then
+\optslist{$S_1$ and $S_2$ both are convex sets}{$S_1$ is a convex set but $S_2$ is not a convex set}{$S_2$ is a convex set but $S_1$ is not a convex set}{neither $S_1$ nor $S_2$ is a convex set}
+\ans{(b)}
+
+\textbf{1.23} Let $T$ be the matrix (occurring in a typical transportation problem) given by
+\[
+  \begin{pmatrix}
+    1 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 1 \\
+    1 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 1
+  \end{pmatrix}.
+\]
+Then
+\optsfour{$\operatorname{Rank} T = 4$ and $T$ is unimodular}{$\operatorname{Rank} T = 4$ and $T$ is not unimodular}{$\operatorname{Rank} T = 3$ and $T$ is unimodular}{$\operatorname{Rank} T = 3$ and $T$ is not unimodular}
+\ans{(c)}
+
+\textbf{1.24} Consider the primal problem (LP):
+\begin{align*}
+  \max\ & 4x_1 + 3x_2 \\
+  \text{subject to } & x_1 + x_2 \le 8, \\
+                     & 2x_1 + x_2 \le 10, \\
+                     & x_1 \ge 0, \quad x_2 \ge 10,
+\end{align*}
+together with its dual (LD). Then
+\optsfour{(LP) and (LD) both are infeasible}{(LP) and (LD) both are feasible}{(LP) is feasible but (LD) is infeasible}{(LP) is infeasible but (LD) is feasible}
+\ans{(d)}
+
+\textbf{1.25} The initial value problem corresponding to the integral equation $y(x) = 1 + \displaystyle\int_0^x y(t)\,dt$ is
+\optsfour{$y' - y = 0,\ y(0) = 1$}{$y' + y = 0,\ y(0) = 0$}{$y' - y = 0,\ y(0) = 0$}{$y' + y = 0,\ y(0) = 1$}
+\ans{(a)}
+
+\bigskip
+
+\textbf{MA-2.} This question consists of TWENTY FIVE sub-questions (2.1--2.25) of TWO marks each. For each of these sub-questions, four possible answers (a, b, c and d) are given, out of which only one is correct. \hfill $(25 \times 2 = 50)$
+
+\medskip
+
+\textbf{2.1} Let $A$ be an $n \times n$ complex matrix whose characteristic polynomial is given by
+\[
+  f(t) = t^n + c_{n-1}t^{n-1} + \dots + c_1 t + c_0.
+\]
+Then
+\optsfour{$\det(A) = c_{n-1}$}{$\det(A) = c_0$}{$\det(A) = (-1)^n c_{n-1}$}{$\det(A) = (-1)^n c_0$}
+\ans{(d)}
+
+\textbf{2.2} Let $A$ be any $n \times n$ non-singular complex matrix and let $B = (\bar{A})^t A$, where $(\bar{A})^t$ is the conjugate transpose of $A$. If $\lambda$ is an eigenvalue of $B$, then
+\optsfour{$\lambda$ is real and $\lambda < 0$}{$\lambda$ is real and $\lambda \le 0$}{$\lambda$ is real and $\lambda \ge 0$}{$\lambda$ is real and $\lambda > 0$}
+\ans{(d)}
+
+\textbf{2.3} Let $T : \mathbb{C}^n \to \mathbb{C}^n$ be a linear operator of rank $n - 2$. Then
+\optsfour{$0$ is not an eigenvalue of $T$}{$0$ must be an eigenvalue of $T$}{$1$ can never be an eigenvalue of $T$}{$1$ must be an eigenvalue of $T$}
+\ans{(b)}
+
+\textbf{2.4} The fixed points of $f(z) = \dfrac{2iz + 5}{z - 2i}$ are
+\optsfour{$1 \pm i$}{$1 \pm 2i$}{$2i \pm 1$}{$i \pm 1$}
+\ans{(c)}
+
+\textbf{2.5} The function $f(z) = |z|^2$ is
+\optsfour{differentiable everywhere}{differentiable only at the origin}{not differentiable anywhere}{differentiable on real $x$-axis}
+\ans{(b)}
+
+\textbf{2.6} The connected subsets of the real line with the usual topology are
+\optsfour{all intervals}{only bounded intervals}{only compact intervals}{only semi-infinite intervals}
+\ans{(a)}
+
+\textbf{2.7} Let $f : [a, b] \to \mathbb{R}$ be a bounded function where $-\infty < a < b < \infty$. Then $f$ is Riemann integrable if and only if $f$ is continuous everywhere on $[a, b]$ except on
+\optsfour{the empty set}{a set of measure zero}{a finite number of points}{a countably infinite number of points}
+\ans{(b)}
+
+\textbf{2.8} The general solution of the differential equation $\dfrac{dy}{dx} + \tan y \tan x = \cos x \sec y$ is
+\optsfour{$2\sin y = (x + c - \sin x\cos x)\sec x$}{$\sin y = (x + c)\cos x$}{$\cos y = (x + c)\sin x$}{$\sec y = (x + c)\cos x$}
+\ans{(b)}
+
+\textbf{2.9} The eigenvalues of the Sturm--Liouville system $y'' + \lambda y = 0$, $0 \le x \le \pi$, $y(0) = 0$, $y'(\pi) = 0$ are
+\optsfour{$\dfrac{n^2}{4}$}{$\dfrac{(2n - 1)^2\pi^2}{4}$}{$\dfrac{(2n - 1)^2}{4}$}{$\dfrac{n^2\pi^2}{4}$}
+\ans{(c)}
+
+\textbf{2.10} The differential equation whose linearly independent solutions are $\cos 2x$, $\sin 2x$, and $e^{-x}$ is
+\optsfour{$(D^3 + D^2 + 4D + 4)y = 0$}{$(D^3 - D^2 + 4D - 4)y = 0$}{$(D^3 + D^2 - 4D - 4)y = 0$}{$(D^3 - D^2 - 4D + 4)y = 0$}
+where $D = \dfrac{d}{dx}$.
+\ans{(a)}
+
+\textbf{2.11} Let $(\mathbb{Z}, +)$ denote the group of all integers under addition. Then the number of all automorphisms of $(\mathbb{Z}, +)$ is
+\optsfour{$1$}{$2$}{$3$}{$4$}
+\ans{(b)}
+
+\textbf{2.12} Let $G$ be a finite group of order $200$. Then the number of subgroups of $G$ of order $25$ is
+\optsfour{$1$}{$4$}{$5$}{$10$}
+\ans{(a)}
+
+\textbf{2.13} If $p$ is prime, and $\mathbb{Z}_{p^4}$ denotes the ring of integers modulo $p^4$, then the number of maximal ideals in $\mathbb{Z}_{p^4}$ is
+\optsfour{$4$}{$2$}{$3$}{$1$}
+\ans{(d)}
+
+\textbf{2.14} All norms on a normed vector space $X$ are equivalent provided
+\optsfour{$X$ is reflexive}{$X$ is complete}{$X$ is finite dimensional}{$X$ is an inner product space}
+\ans{(c)}
+
+\textbf{2.15} The space $l_p$ is a Hilbert space if and only if
+\optsfour{$p > 1$}{$p$ is even}{$p = \infty$}{$p = 2$}
+\ans{(d)}
+
+\textbf{2.16} The least squares approximation of first degree to the function $f(x) = \sin x$ over the interval $\left[-\dfrac{\pi}{2}, \dfrac{\pi}{2}\right]$ is
+\optsfour{$\dfrac{24x}{\pi^3}$}{$\dfrac{24x}{\pi^2}$}{$\dfrac{24x}{\pi}$}{$24x$}
+\ans{(a)}
+
+\textbf{2.17} The order of the numerical differentiation formula
+\[
+  f''(x_0) = \frac{1}{12h^2}\Big[-\{f(x_0 - 2h) + f(x_0 + 2h)\} + 16\{f(x_0 - h) + f(x_0 + h)\} - 30f(x_0)\Big]
+\]
+is
+\optsfour{$2$}{$3$}{$4$}{$1$}
+\ans{(c)}
+
+\textbf{2.18} The method
+\begin{align*}
+  y_{n+1} &= y_n + \frac{1}{4}(k_1 + 3k_2), \qquad n = 0, 1, \dots, \\
+  k_1 &= h f(x_n, y_n), \\
+  k_2 &= h f\!\left(x_n + \frac{2h}{3},\, y_n + \frac{2}{3}k_1\right)
+\end{align*}
+is used to solve the initial value problem $y' = f(x,y) = -10y$, $y(0) = 1$. The method will produce stable results if the step size $h$ satisfies
+\optsfour{$0.2 < h < 0.5$}{$0 < h < 0.5$}{$0 < h < 1$}{$0 < h < 0.2$}
+\ans{(d)}
+
+\textbf{2.19} The general integral of the partial differential equation
+\[
+  (y + zx)z_x - (x + yz)z_y = x^2 - y^2
+\]
+is
+\optsfour{$F(x^2 + y^2 + z^2,\, xy + z) = 0$}{$F(x^2 + y^2 - z^2,\, xy + z) = 0$}{$F(x^2 - y^2 - z^2,\, xy + z) = 0$}{$F(x^2 + y^2 + z^2,\, xy - z) = 0$}
+where $F$ is an arbitrary function.
+\ans{(a)}
+
+\textbf{2.20} The differential equation governing the damped motion of a certain coil spring of unit mass under the action of an external force is given by
+\[
+  \frac{d^2x}{dt^2} + 4\frac{dx}{dt} + 24x = 30\cos\omega t,
+\]
+where $x(t)$ is the displacement from the equilibrium position at time $t$ and $\omega$ is a constant. The resonant frequency when the forcing function is in resonance with the system is
+\optsfour{$\sqrt{\dfrac{2}{\pi}}$}{$\dfrac{\pi}{2}$}{$2\pi$}{$\dfrac{2}{\pi}$}
+\ans{(d)}
+
+\textbf{2.21} A metric space is always
+\optsfour{first countable}{second countable}{Lindel\"of}{separable}
+\ans{(a)}
+
+\textbf{2.22} Let $X$ be the indiscrete space and $Y$ a $T_0$ space. If $f : X \to Y$ is continuous, then
+\optsfour{$X$ must be a one-point space}{$Y$ must be discrete}{$f$ must be a constant}{$Y$ must be a one-point space}
+\ans{(c)}
+
+\textbf{2.23} Let $(X, Y)$ be the co-ordinates of a point chosen at random inside the disc $x^2 + y^2 \le r^2$, where $r > 0$. The probability that $Y > mX$ is
+\optsfour{$\dfrac{1}{2^r}$}{$\dfrac{1}{2}$}{$\dfrac{1}{2^m}$}{$\dfrac{1}{2^{m+r}}$}
+\ans{(b)}
+
+\textbf{2.24} Let $(X, Y)$ be a two-dimensional random variable such that $E(X) = E(Y) = 3$, $\operatorname{Var}(X) = \operatorname{Var}(Y) = 1$, and $\operatorname{Cov}(X, Y) = \dfrac{1}{2}$. Then $P(|X - Y| > 6)$ is
+\optsfour{less than $\dfrac{1}{6}$}{equal to $\dfrac{1}{2}$}{equal to $\dfrac{1}{3}$}{greater than $\dfrac{1}{2}$}
+\ans{(a)}
+
+\textbf{2.25} Let $Z^*$ denote the optimal value of the LPP
+\begin{align*}
+  \max Z &= 4x_1 + 6x_2 + 2x_3 \\
+  \text{such that } & 3x_1 + 2x_2 + x_3 = 12, \\
+                    & x_1 \ge 0, \quad x_2 \ge 0, \quad x_3 \ge 0.
+\end{align*}
+Then
+\optsfour{$10 \le Z^* \le 20$}{$20 < Z^* \le 30$}{$30 < Z^* \le 40$}{$Z^* > 40$}
+\ans{(c)}
+
+\section*{SECTION B (75 Marks)}
+
+This section consists of TWENTY questions of FIVE marks each. ANY FIFTEEN out of them have to be answered on the Answer Book provided. \hfill $(15 \times 5 = 75)$
+
+\medskip
+
+\textbf{3.} Let $T : V \to V$ be a linear transformation on a vector space $V$ over a field $K$ satisfying the property $Tx = 0 \Rightarrow x = 0$. If $x_1, x_2, \dots, x_n$ are linearly independent elements in $V$, show that $Tx_1, Tx_2, \dots, Tx_n$ are also linearly independent.
+\ans{Subjective / Proof.}
+
+\textbf{4.} Let $T : V \to V$ be a linear operator on a finite dimensional vector space $V$ over a field $K$ and let $p(t)$ be the minimal polynomial of $T$. If $T$ is diagonalizable, show that
+\[
+  p(t) = (t - \lambda_1)(t - \lambda_2)\cdots(t - \lambda_r)
+\]
+for some distinct scalars $\lambda_1, \lambda_2, \dots, \lambda_r$.
+\ans{Subjective / Proof.}
+
+\textbf{5.} Suppose $z = a$ is an isolated singularity of $f(z)$. Prove that $f(z)$ cannot be bounded in a neighbourhood of $z = a$ (unless $z = a$ is removable).
+\ans{Subjective / Proof.}
+
+\textbf{6.} Evaluate $\displaystyle\int_{-\infty}^{\infty} \frac{x\sin\pi x}{x^2 + 2x + 5}\,dx$ using the method of residues.
+\ans{$-\pi e^{-2\pi}$.}
+
+\textbf{7.} The function $f$ is defined on $[0, 1]$ as follows:
+\[
+  f(x) = x\sin\frac{1}{x}, \quad x \ne 0; \qquad f(0) = 0.
+\]
+Find the (Lebesgue) measure of the set $\{x \mid f(x) \ge 0\}$.
+\ans{$1 - \dfrac{\ln 2}{\pi}$.}
+
+\textbf{8.} Consider two metric spaces $(\mathbb{R}, d_1)$, $(\mathbb{R}, d_2)$ where
+\[
+  d_1(y, z) = |y - z| \qquad \text{and} \qquad d_2(y, z) = \left|\frac{y}{1 + |y|} - \frac{z}{1 + |z|}\right|.
+\]
+Let the functions $f, f_n : [0, \infty) \to \mathbb{R}$ be defined by $f(x) = x$, $f_n(x) = x\!\left(1 + \dfrac{1}{n}\right)$ for $0 \le x < \infty$, where $[0, \infty)$ is the subspace of $(\mathbb{R}, d_1)$. Show that $f_n$ converges to $f$ uniformly on $[0, \infty)$ when $\mathbb{R}$ has metric $d_2$, but $f_n$ does not converge uniformly to $f$ on $[0, \infty)$ when $\mathbb{R}$ has metric $d_1$.
+\ans{Subjective / Proof.}
+
+\textbf{9.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] Find the general solution of the differential equation $\dfrac{d^2y}{dx^2} + 4y = \sec^2 2x$ using the method of variation of parameters.
+  \item[(b)] Construct Green's function for the boundary value problem $y'' + y = -x$, $y(0) = y(\pi) = 0$, if it exists.
+\end{itemize}
+\ans{(a) $y(x) = c_1\cos 2x + c_2\sin 2x + \dfrac{1}{4}\sin 2x\ln|\sec 2x + \tan 2x| - \dfrac{1}{4}$; \quad (b) Green's function does not exist because $\lambda = 1$ is an eigenvalue ($\sin x$ is a nontrivial homogeneous solution).}
+
+\textbf{10.} Show that the alternating group $A_n$, $n \ge 3$, is generated by all cycles of length $3$.
+\ans{Subjective / Proof.}
+
+\textbf{11.} Let $R$ be a commutative principal ideal domain with identity $1 \ne 0$ and let $P$ be a non-zero prime ideal of $R$. Show that $P$ is a maximal ideal of $R$.
+\ans{Subjective / Proof.}
+
+\textbf{12.} In an inner product space $X$, fix $b \in X$ and define $f(x) = \langle x, b \rangle$, where $\langle x, b \rangle$ is the inner product of $x$ with $b$. Show that $f$ is a continuous linear functional and $\|f\| = \|b\|$.
+\ans{Subjective / Proof.}
+
+\textbf{13.} Find the value of $p$ such that the integration method
+% NOTE: Verify derivative order in source PDF scan (page 18 OCR read "ph^3[f'(x_0)+f'(x_2)]", reconstructed as ph^3[f''(x_0)+f''(x_1)]).
+\[
+  \int_{x_0}^{x_1} f(x)\,dx = \frac{h}{2}[f(x_0) + f(x_1)] + p h^3[f''(x_0) + f''(x_1)],
+\]
+where $x_1 = x_0 + h$, provides exact result for highest degree polynomial. Find also the order of the method and the error term.
+\ans{$p = -\dfrac{1}{24}$; exact for polynomials of degree $\le 3$ (order $4$); error term $\dfrac{h^5}{240}f^{(4)}(\xi)$.}
+
+\textbf{14.} Set up the Gauss--Seidel iteration scheme in matrix form to solve the system of equations
+\[
+  \begin{pmatrix}
+    1 & 1 & 2 \\
+    1 & 5 & 1 \\
+    2 & 1 & 4
+  \end{pmatrix} x =
+  \begin{pmatrix}
+    -1 \\ 5 \\ 3
+  \end{pmatrix}.
+\]
+Is this method convergent? If yes, find its rate of convergence.
+\ans{No; the coefficient matrix is not positive definite ($\det = -1 < 0$) and the Gauss--Seidel iteration matrix has spectral radius $\rho > 1$ (divergent).}
+
+\textbf{15.} Find the region in which the partial differential equation
+\[
+  u_{xx} - y u_{xy} + x u_x + y u_y + u = 0
+\]
+is hyperbolic and reduce it to a canonical form.
+\ans{Hyperbolic for all $y \ne 0$ ($B^2 - 4AC = y^2 > 0$). Canonical variables $\xi = y$, $\eta = x + \ln|y|$ (for $y \ne 0$).}
+
+\textbf{16.} Determine the curve joining two points, which generates a surface of revolution of minimum area, when revolved about the $x$-axis.
+\ans{Catenary: $y = c_1 \cosh\!\left(\dfrac{x - c_2}{c_1}\right)$.}
+
+\textbf{17.} Let $X$ be a group with identity $e$ and let $p : X \to \mathbb{R}$ be a function satisfying
+\begin{itemize}
+  \setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}
+  \item[(i)] $p(x) \ge 0$ for all $x \in X$, $p(x) = 0$ iff $x = e$,
+  \item[(ii)] $p(xy) \le p(x) + p(y)$ for all $x, y \in X$,
+  \item[(iii)] $p(x^{-1}) = p(x)$ for all $x \in X$.
+\end{itemize}
+Define $d(x, y) = p(x^{-1}y)$. Show that $d$ is a metric on $X$.
+\ans{Subjective / Proof.}
+
+\textbf{18.} The number $N$ of persons getting injured in a bomb blast at a busy market place is a random variable having a Poisson distribution with parameter $\lambda$ ($\lambda \ge 1$). A person injured in the explosion may either suffer a minor injury requiring first aid or suffer a major injury requiring hospitalisation. Let the number of persons with minor injury be $N_1$ and the conditional distribution of $N_1$ given $N$ be
+\[
+  P(N_1 = i \mid N) = \frac{1}{N}, \qquad i = 1, 2, \dots, N.
+\]
+Find the expected number of persons requiring hospitalisation in a bomb blast.
+\ans{$\dfrac{\lambda - 1 + e^{-\lambda}}{2}$ (since $E[N - N_1 \mid N > 0] = \dfrac{N-1}{2}$).}
+
+\textbf{19.} Let $X_1, X_2, \dots, X_{200}$ be identically and independently distributed random variables each with mean $0$ and variance $1$. Show that
+\[
+  \sqrt{\frac{\pi}{2}}\, P(|X_1 X_2 + X_3 X_4 + \dots + X_{199} X_{200}| < 10)
+\]
+is approximately equal to $\displaystyle\int_0^1 e^{-x^2/2}\,dx$.
+\ans{Subjective / Proof (by Central Limit Theorem applied to $Y_k = X_{2k-1}X_{2k}$, $k=1,\dots,100$).}
+
+\textbf{20.} The following table gives the scores on some scale of four ability groups taught by three different teaching methods:
+\begin{center}
+\begin{tabular}{cccc}
+  \toprule
+  & \multicolumn{3}{c}{Teaching method} \\
+  \cmidrule(lr){2-4}
+  Ability group & A & B & C \\
+  \midrule
+  1 & 5 & 9 & 4 \\
+  2 & 8 & 7 & 2 \\
+  3 & 12 & 15 & 7 \\
+  4 & 7 & 11 & 9 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+Test whether or not the teaching methods are equally effective. You may use appropriate values from the following upper percentile values of $F$-distribution for your test:
+\[
+  F_{2,6,0.01} = 10.92, \quad F_{3,6,0.01} = 9.78, \quad F_{2,6,0.05} = 5.14, \quad F_{3,6,0.05} = 4.76.
+\]
+\ans{Two-way ANOVA: $F_{\text{methods}} \approx 10.67 > F_{2,6,0.05} = 5.14$ (reject $H_0$ at $5\%$ level; teaching methods are not equally effective).}
+
+\newpage
+
+% ============================================================================
+% GATE 2002 -- MATHEMATICS (MA)
+% ============================================================================
+
+\begin{center}
+  {\Large\bfseries GATE 2002 -- Mathematics (MA)}\\[4pt]
+  {\small Duration: Three hours \quad\textbar\quad Maximum Marks: 150}
+\end{center}
+
+\medskip
+\textbf{Note:} The symbols $\mathbb{Z}$, $\mathbb{R}$, and $\mathbb{C}$ denote the sets of all integers, real numbers, and complex numbers, respectively. Vector quantities are denoted by bold letters.
+
+\section*{SECTION A (75 Marks)}
+
+\textbf{MA-1.} This question consists of twenty five sub-questions (1.1--1.25) of one mark each. For each of these sub-questions, four possible answers (a, b, c and d) are given, out of which only one is correct. \hfill $(25 \times 1 = 25)$
+
+\medskip
+
+\textbf{1.1} The dimension of the vector space of all $3 \times 3$ real symmetric matrices is
+\optsfour{$3$}{$9$}{$6$}{$4$}
+\ans{(c)}
+
+\textbf{1.2} Let $A$ be a non-zero upper triangular matrix all of whose eigenvalues are $0$. Then $I + A$ is
+\optsfour{invertible}{singular}{idempotent}{nilpotent}
+\ans{(a)}
+
+\textbf{1.3} The eigenvalues of a skew-symmetric matrix are
+\optsfour{negative}{real}{of absolute value $1$}{purely imaginary or zero}
+\ans{(d)}
+
+\textbf{1.4} The function $f(z) = z^2$ maps the first quadrant onto
+\optsfour{itself}{upper half plane}{third quadrant}{right half plane}
+\ans{(b)}
+
+\textbf{1.5} The radius of convergence of the power series of the function $f(z) = \dfrac{1}{1 - z}$ about $z = \dfrac{1}{4}$ is
+\optsfour{$1$}{$\dfrac{1}{4}$}{$\dfrac{3}{4}$}{$0$}
+\ans{(c)}
+
+\textbf{1.6} Let $\Gamma$ be any circle enclosing the origin and oriented counter-clockwise. Then the value of the integral $\displaystyle\int_\Gamma \frac{\cos z}{z^2}\,dz$ is
+\optsfour{$2\pi i$}{$0$}{$-2\pi i$}{undefined}
+\ans{(b)}
+
+\textbf{1.7} Suppose $S_1$, $S_2$, and $S_3$ are measurable subsets of $[0,1]$, each of measure $3/4$, such that the measure of $S_1 \cup S_2 \cup S_3$ is $1$. Then, the measure of $S_1 \cap S_2 \cap S_3$ lies in
+\optsfour{$\left[0, \dfrac{1}{16}\right]$}{$\left[\dfrac{1}{16}, \dfrac{1}{8}\right]$}{$\left[\dfrac{1}{8}, \dfrac{1}{4}\right]$}{$\left[\dfrac{1}{4}, 1\right]$}
+\ans{(d)}
+
+\textbf{1.8} Let $f : [0,1] \to \mathbb{R}$ be a bounded Riemann integrable function and let $g : \mathbb{R} \to \mathbb{R}$ be continuous. Then $g \circ f$ is
+\optslist{Riemann integrable}{continuous}{Lebesgue integrable, but not Riemann integrable}{not necessarily measurable}
+\ans{(a)}
+
+\textbf{1.9} Let $V$ be the volume of a region bounded by a smooth closed surface $S$. Let $\mathbf{r}$ denote the position vector and $\hat{\mathbf{n}}$ denote the outward unit normal to $S$. Then the integral $\displaystyle\iint_S \mathbf{r} \cdot \hat{\mathbf{n}}\,dS$ equals
+\optsfour{$V$}{$\dfrac{V}{3}$}{$3V$}{$0$}
+\ans{(c)}
+
+\textbf{1.10} Let $G$ be a cyclic group of order $6$. Then the number of elements $g \in G$ such that $G = \langle g \rangle$ is
+\optsfour{$5$}{$3$}{$4$}{$2$}
+\ans{(d)}
+
+\textbf{1.11} The number of elements of order $5$ in the symmetric group $S_5$ is
+\optsfour{$5$}{$20$}{$12$}{$24$}
+\ans{(d)}
+
+\textbf{1.12} The order of the element $(\bar{2}, \bar{2})$ in $\mathbb{Z}_4 \times \mathbb{Z}_6$ is
+\optsfour{$2$}{$6$}{$4$}{$12$}
+\ans{(b)}
+
+\textbf{1.13} Which of the following Banach spaces is not separable?
+\optsfour{$L^1[0,1]$}{$L^\infty[0,1]$}{$L^2[0,1]$}{$C[0,1]$}
+\ans{(b)}
+
+\textbf{1.14} For a subset $A$ of a metric space, which of the following implies the other three?
+\optsfour{$A$ is closed}{$A$ is bounded}{Closure of $B$ is compact for every $B \subseteq A$}{$A$ is compact}
+\ans{(d)}
+
+\textbf{1.15} Let $n$ be a nonnegative integer. The eigenvalues of the Sturm--Liouville problem
+\[
+  \frac{d^2y}{dx^2} + \lambda y = 0,
+\]
+with boundary conditions $y(0) = y(2\pi)$, $\dfrac{dy}{dx}(0) = \dfrac{dy}{dx}(2\pi)$, are
+\optsfour{$n$}{$n^2\pi^2$}{$n\pi$}{$n^2$}
+\ans{(d)}
+
+\textbf{1.16} The Bessel's functions $\{J_0(\alpha_k x)\}_{k=1}^{\infty}$ with $\alpha_k$ denoting the $k$-th zero of $J_0(x)$ form an orthogonal system on $[0,1]$ with respect to weight function
+\optsfour{$1$}{$x^2$}{$x$}{$\sqrt{x}$}
+\ans{(c)}
+
+\textbf{1.17} Linear combinations of solutions of an ordinary differential equation are also solutions if the differential equation is
+\optsfour{Linear nonhomogeneous}{Linear homogeneous}{Nonlinear homogeneous}{Nonlinear nonhomogeneous}
+\ans{(b)}
+
+\textbf{1.18} Which of the following, concerning the solution of the Neumann problem for Laplace's equation on a smooth bounded domain, is true?
+\optslist{Solution is unique}{Solution is unique up to an additive constant}{Solution is unique up to a multiplicative constant}{No conclusion can be drawn about uniqueness}
+\ans{(b)}
+
+\textbf{1.19} Which of the following satisfies the heat equation (without source terms and with diffusion constant $1$) in one space dimension?
+\optsfour{$\sin\!\left(\dfrac{x^2}{4t}\right)$}{$e^t\sin x$}{$x^2 - t$}{$\dfrac{e^{-x^2/(4t)}}{\sqrt{t}}$}
+\ans{(d)}
+
+\textbf{1.20} Which of the following is elliptic?
+\optsfour{Laplace equation}{Wave equation}{Heat equation}{$u_{xx} + 2u_{xy} - 4u_{yy} = 0$}
+\ans{(a)}
+
+\textbf{1.21} Consider the motion of a three-particle system in the $3$-dimensional space. Suppose that all pairs of particles are at invariant distance apart, so that the system constitutes a rigid body. For such a system, the number of degrees of freedom is
+\optsfour{$6$}{$3$}{$1$}{$9$}
+\ans{(a)}
+
+\textbf{1.22} If $f(x)$ has an isolated zero of multiplicity $3$ at $x = \xi$, and the iteration
+\[
+  x_{n+1} = x_n - \frac{3f(x_n)}{f'(x_n)}, \qquad n = 0, 1, 2, \dots,
+\]
+converges to $\xi$, then the rate of convergence is
+\optslist{linear}{faster than linear but slower than quadratic}{quadratic}{cubic}
+\ans{(c)}
+
+\textbf{1.23} The best possible error estimate in the Gauss--Hermite formula with $3$ points, for calculating the integral $\displaystyle\int_{-\infty}^{\infty} x^4 e^{-x^2}\,dx$, is
+\optsfour{$0$}{$0.30$}{$0.65$}{$1.20$}
+\ans{(a)}
+
+\textbf{1.24} Let $P(X = n) = \dfrac{\lambda}{n^2(n+1)}$, $n = 1, 2, \dots$, where $\lambda$ is an appropriate constant. Then $E(X)$ is
+\optsfour{$2\lambda + 1$}{$\lambda$}{$\infty$}{$2\lambda$}
+\ans{(b)}
+
+\textbf{1.25} Let $x$ be a non-optimal feasible solution of a linear programming maximization problem and $y$ a dual feasible solution. Then
+\optslist{The primal objective value at $x$ is greater than the dual objective value at $y$}{The primal objective value at $x$ could equal the dual objective value at $y$}{The primal objective value at $x$ is less than the dual objective value at $y$}{The dual could be unbounded}
+\ans{(c)}
+
+\bigskip
+
+\textbf{MA-2.} This question consists of TWENTY FIVE sub-questions (2.1--2.25) of TWO marks each. For each of these sub-questions, four possible answers (a, b, c and d) are given, out of which only one is correct. \hfill $(25 \times 2 = 50)$
+
+\medskip
+
+\textbf{2.1} Let $A$ be a $3 \times 3$ matrix with eigenvalues $1, -1, 0$. Then the determinant of $I + A^{100}$ is
+\optsfour{$6$}{$4$}{$9$}{$100$}
+\ans{(b)}
+
+\textbf{2.2} Let $A$ be a $2 \times 2$ orthogonal matrix of trace $1$ and determinant $1$. Then the angle between $Au$ and $u$ ($u = [1\;\;0]^t$) is
+\optsfour{$15^\circ$}{$30^\circ$}{$45^\circ$}{$60^\circ$}
+\ans{(d)}
+
+\textbf{2.3} Let $w(z) = \dfrac{az + b}{cz + d}$ and $f(z) = \dfrac{\alpha z + \beta}{\gamma z + \delta}$ be bilinear (M\"obius) transformations. Then the following is also a bilinear transformation:
+\optsfour{$f(z)w(z)$}{$f(w(z))$}{$f(z) + w(z)$}{$f(z) + \dfrac{1}{w(z)}$}
+\ans{(b)}
+
+\textbf{2.4} For the function $f(z) = \sin\dfrac{1}{z}$, $z = 0$ is a
+\optsfour{removable singularity}{simple pole}{branch point}{essential singularity}
+\ans{(d)}
+
+\textbf{2.5} Pick out the largest of the sets given below on which the sequence of functions $\{e^{-n\cos^2 x}\}_{n=1}^{\infty}$ converges uniformly:
+\optsfour{$\left[0, \dfrac{9\pi}{20}\right) \cup \left(\dfrac{11\pi}{20}, \pi\right]$}{$\left[0, \dfrac{\pi}{2}\right) \cup \left(\dfrac{\pi}{2}, \pi\right]$}{$\left[0, \dfrac{\pi}{2} - \delta\right) \cup \left(\dfrac{\pi}{2} + \delta, \pi\right]$, $0 < \delta < \dfrac{\pi}{100}$}{$[0, \pi]$}
+\ans{(c)}
+
+\textbf{2.6} Let $f : \mathbb{R}^2 \to \mathbb{R}$ be a smooth function with positive definite Hessian at every point. Let $(a, b) \in \mathbb{R}^2$ be a critical point of $f$. Then
+\optslist{$f$ has a global minimum at $(a, b)$}{$f$ has a local, but not a global minimum at $(a, b)$}{$f$ has a local, but not a global maximum at $(a, b)$}{$f$ has a global maximum at $(a, b)$}
+\ans{(a)}
+
+\textbf{2.7} Let $G$ be a group of order $30$. Let $A$ and $B$ be normal subgroups of orders $2$ and $5$ respectively. Then the order of the group $G / AB$ is
+\optsfour{$10$}{$3$}{$2$}{$5$}
+\ans{(b)}
+
+\textbf{2.8} Let $m$ and $n$ be coprime natural numbers. Then the kernel of the ring homomorphism $\phi : \mathbb{Z} \to \mathbb{Z}_m \times \mathbb{Z}_n$ defined by $\phi(x) = (\bar{x}, \bar{x})$ is
+\optsfour{$m\mathbb{Z}$}{$mn\mathbb{Z}$}{$n\mathbb{Z}$}{$\mathbb{Z}$}
+\ans{(b)}
+
+\textbf{2.9} Consider the Banach space $C[0, \pi]$ with the supremum norm. The norm of the linear functional $l : C[0, \pi] \to \mathbb{R}$, given by $l(f) = \displaystyle\int_0^\pi f(x)\sin^2 x\,dx$, is
+\optsfour{$1$}{$\dfrac{\pi}{2}$}{$\pi$}{$2\pi$}
+\ans{(b)}
+
+\textbf{2.10} The topology on the real line $\mathbb{R}$ generated by left-open right-closed intervals $(a, b]$ is
+\optslist{strictly coarser than the usual topology}{strictly finer than the usual topology}{not comparable with the usual topology}{same as the usual topology}
+\ans{(b)}
+
+\textbf{2.11} Let $X, Y$ be topological spaces and $f : X \to Y$ be a continuous and bijective map. Then $f$ is a homeomorphism if
+\optsfour{$X$ and $Y$ are compact}{$X$ is Hausdorff and $Y$ is compact}{$X$ is compact and $Y$ is Hausdorff}{$X$ and $Y$ are Hausdorff}
+\ans{(c)}
+
+\textbf{2.12} If the integrating factor of $(x^7 y^2 + 3y)\,dx + (3x^8 y - x)\,dy = 0$ is $x^m y^n$, then
+\optsfour{$m = -7,\ n = 1$}{$m = 1,\ n = -7$}{$m = n = 0$}{$m = n = 1$}
+\ans{(a)}
+
+\textbf{2.13} The initial value problem $(x^2 - x)\dfrac{dy}{dx} = (2x - 1)y$, $y(x_0) = y_0$, has a unique solution if $(x_0, y_0)$ equals
+\optsfour{$(2, 1)$}{$(1, 1)$}{$(0, 0)$}{$(0, 1)$}
+\ans{(a)}
+
+\textbf{2.14} If $u$ is harmonic on $\{(x,y) \mid x^2 + y^2 \le 1\}$, then $\displaystyle\int_0^{2\pi} \frac{\partial u}{\partial n}\,d\theta$ (where $\dfrac{\partial u}{\partial n}$ is the normal derivative of $u$ on the boundary of the unit disc) equals
+\optsfour{$2\pi$}{$1$}{$\pi$}{$0$}
+\ans{(d)}
+
+\textbf{2.15} Let $u$ be a solution of the initial value problem
+\[
+  \frac{\partial^2 u}{\partial t^2} - \frac{\partial^2 u}{\partial x^2} = 0; \qquad u(x,0) = x^2, \quad \frac{\partial u}{\partial t}(x,0) = 0.
+\]
+Then $u(0, 1)$ equals
+\optsfour{$1$}{$0$}{$2$}{$\dfrac{1}{2}$}
+\ans{(a)}
+
+\textbf{2.16} Euler's equations of motion of a rigid body about a fixed point $O$ in the absence of external forces are
+\begin{align*}
+  A\frac{d\omega_1}{dt} - (B - C)\omega_2\omega_3 &= 0, \\
+  B\frac{d\omega_2}{dt} - (C - A)\omega_3\omega_1 &= 0, \\
+  C\frac{d\omega_3}{dt} - (A - B)\omega_1\omega_2 &= 0,
+\end{align*}
+where $\omega_1, \omega_2, \omega_3$ are components of the angular velocity of the rigid body in the direction of principal axes of inertia at $O$; $A, B, C$ are principal moments of inertia at $O$. Let $T$ denote the kinetic energy during the motion and $h$ the magnitude of the angular momentum of the body about $O$. Then, during the motion
+\optslist{$T$ and $h$ both vary}{$T$ varies but $h$ remains constant}{$T$ remains constant but $h$ varies}{$T$ and $h$ both remain constant}
+\ans{(d)}
+
+\textbf{2.17} The fourth divided difference of the polynomial $3x^3 + 11x^2 + 5x + 71$ over the points $x = 0, 1, 4, 6$, and $7$ is
+\optsfour{$18$}{$11$}{$3$}{$0$}
+\ans{(d)}
+
+\textbf{2.18} The degree of the polynomial of least degree interpolating the data $(0, 4), (1, 5), (2, 8), (3, 13)$ is
+\optsfour{$4$}{$3$}{$2$}{$1$}
+\ans{(c)}
+
+\textbf{2.19} For the matrix
+\[
+  \begin{bmatrix}
+    0 & 1 & -1 & 1 \\
+    1 & 0 & 0 & 2 \\
+    -1 & 0 & 0 & 0 \\
+    1 & 2 & 0 & 0
+  \end{bmatrix},
+\]
+the bound for the eigenvalues predicted by Gershgorin's theorem is
+\optsfour{$3$}{$1$}{$2$}{$4$}
+\ans{(a)}
+
+\textbf{2.20} An extremal of the functional $I[y(x)] = \displaystyle\int_a^b F\!\left(x, y, \frac{dy}{dx}\right)dx$; $y(a) = y_1$, $y(b) = y_2$, satisfies Euler's equation, which in general
+\optslist{is a second order linear ordinary differential equation (ODE)}{is a nonlinear ODE of order greater than two}{admits a unique solution satisfying the conditions $y(a) = y_1$, $y(b) = y_2$}{may not admit a solution satisfying the conditions $y(a) = y_1$, $y(b) = y_2$}
+\ans{(d)}
+
+\textbf{2.21} A lot of $1000$ screws contains $1\%$ with major defects and $5\%$ with minor defects. If $50$ screws are picked at random and inspected, then the ordered pair (expected number of major defectives, expected number of minor defectives) is
+\optsfour{$(1, 5)$}{$(2.5, 0.5)$}{$(0.5, 2.5)$}{$(5, 1)$}
+\ans{(c)}
+
+\textbf{2.22} The sample correlation of the transformed random variables $aX + b$ and $cY + d$ is the same as that of $X$ and $Y$ provided
+\optsfour{$ac < 0;\ b, d \in (0, \infty)$}{$ac < 0;\ b, d \in (-\infty, 0)$}{$ac > 0;\ b, d \in \mathbb{R}$}{$ac < 0;\ b, d \in \mathbb{R}$}
+\ans{(c)}
+
+\textbf{2.23} There are two identical locks, with two identical keys, and the keys are among the six different ones which a person carries in his pocket. In a hurry he drops one key somewhere. Then the probability that the locks can still be opened by drawing one key at random is equal to
+\optsfour{$\dfrac{1}{3}$}{$\dfrac{5}{6}$}{$\dfrac{1}{30}$}{$\dfrac{1}{12}$}
+\ans{(a)}
+
+\textbf{2.24} The system $Ax \le 0$, where $A$ is an $n \times n$ matrix,
+\optslist{may not have a nonzero solution}{always has a nonzero solution}{always has at least $2$ linearly independent solutions}{always has at least $n$ linearly independent solutions}
+\ans{(b)}
+
+\textbf{2.25} Consider the following linear program $P$:
+\[
+  \max \sum_{j=1}^{n} c_j x_j \qquad \text{subject to } \sum_{j=1}^{n} a_{ij} x_j \le b_i \;\; (1 \le i \le m) \quad \text{and} \quad x_j \ge 0 \;\; (1 \le j \le n).
+\]
+Suppose that we are keeping the $c_j$ and $a_{ij}$ fixed and varying the $b_i$'s. Suppose that $P$ is unbounded for some set of the parameter values $b_i$. Then, for every choice of $b_i$,
+\optslist{$P$ is unbounded or infeasible}{$P$ is unbounded}{The dual problem to $P$ has a finite optimum}{The dual problem to $P$ is unbounded}
+\ans{(a)}
+
+\section*{SECTION B (75 Marks)}
+
+This section consists of TWENTY questions of FIVE marks each. ANY FIFTEEN out of them have to be answered on the Answer Book provided. \hfill $(15 \times 5 = 75)$
+
+\medskip
+
+\textbf{3.} Let $J_n$ be the $n \times n$ matrix each of whose entries equals $1$. Find the nullity and the characteristic polynomial of $J_n$.
+\ans{Nullity $= n - 1$; characteristic polynomial $p(\lambda) = \lambda^{n-1}(\lambda - n)$ (up to sign $(-1)^n$).}
+
+\textbf{4.} Evaluate the integral $\displaystyle\int_{-\infty}^{\infty} \frac{dx}{(x^2 + a^2)^2}$, $a > 0$, by the method of residue calculus.
+\ans{$\dfrac{\pi}{2a^3}$.}
+
+\textbf{5.} Let $a, b$ be real numbers with $0 < a < b$. Define sequences $\{a_n\}$ and $\{b_n\}$ recursively by
+\[
+  a_{n+1} = \sqrt{a_n b_n} \qquad \text{and} \qquad b_{n+1} = \frac{a_n + b_n}{2}, \qquad \text{where } a_1 = a,\ b_1 = b.
+\]
+Show that $\{a_n\}$ is an increasing sequence, $\{b_n\}$ is a decreasing sequence, and both converge to the same limit.
+\ans{Subjective / Proof.}
+
+\textbf{6.} Let $f(t)$ be a real-valued continuous function on $[0, 1]$ such that
+\[
+  \int_0^1 f(t) t^n\,dt = 0 \qquad \text{for all } n = 0, 1, 2, \dots
+\]
+Prove that $f(t)$ vanishes identically.
+\ans{Subjective / Proof (by Weierstrass approximation theorem).}
+
+\textbf{7.} Let $p$ be a prime and $q$ be a prime divisor of $2^p - 1$. Find the order of $\bar{2}$ (the residue class of $2$) in the multiplicative group $G$ of non-zero residue classes of integers modulo $q$. Conclude that $q > p$.
+\ans{Order of $\bar{2}$ is $p$; by Lagrange's theorem $p \mid (q - 1)$, hence $q > p$.}
+
+\textbf{8.} Let $X$ be an infinite dimensional Banach space. Prove that $X$ cannot have countable dimension as a vector space.
+\ans{Subjective / Proof (by Baire Category Theorem).}
+
+\textbf{9.} Show that $X$ is a Hausdorff topological space if and only if the diagonal $\Delta$ defined by
+\[
+  \Delta = \{(x, y) \in X \times X \mid x = y\}
+\]
+is a closed subset of $X \times X$ (with product topology).
+\ans{Subjective / Proof.}
+
+\textbf{10.} Find the general solution of the differential equation
+\[
+  \frac{d^4y}{dx^4} - y = x\sin x.
+\]
+\ans{$y(x) = c_1 e^x + c_2 e^{-x} + c_3\cos x + c_4\sin x + \dfrac{x^2}{8}\cos x - \dfrac{3x}{8}\sin x$.}
+
+\textbf{11.} Find the general solution of the differential equation [\textit{equation clipped/illegible in source PDF scan on page 28}] in powers of $(x - 1)$ using the Frobenius method.
+% NOTE: Equation on page 28 OCR was "(x-n^2 d^2y/+ix 71 dy"; please verify against the original printed paper.
+\ans{Subjective (equation incomplete in source scan).}
+
+\textbf{12.} Solve the initial value problem
+\[
+  \frac{\partial^2 u}{\partial t^2} - \frac{\partial^2 u}{\partial x^2} = 0, \qquad t > 0,\ x \in (-\infty, \infty),
+\]
+\[
+  u(x, 0) = x, \qquad \frac{\partial u}{\partial t}(x, 0) = \frac{x}{1 + x^2}.
+\]
+\ans{$u(x, t) = x + \dfrac{1}{4}\ln\!\left(\dfrac{1 + (x + t)^2}{1 + (x - t)^2}\right)$.}
+
+\textbf{13.} Consider the initial value problem
+\[
+  \frac{\partial u}{\partial y} + u\frac{\partial u}{\partial x} = 0, \qquad y > 0,\ x \in \mathbb{R}, \qquad u(x, 0) = f(x).
+\]
+Show that the solution is constant along the characteristics. Hence deduce that if $f$ is decreasing monotonically, the solution cannot exist as a single valued function for all $y > 0$.
+\ans{Subjective / Proof.}
+
+\textbf{14.} Consider a pendulum consisting of a bob of mass $m$ at the end of a rod of length $a$. If the bob is pulled to one side through an angle $\alpha$ to the downward vertical and released, show that the time required for one complete oscillation is given by
+\[
+  T = 4\sqrt{\frac{a}{g}}\int_0^{\pi/2} \frac{d\phi}{\sqrt{1 - k^2\sin^2\phi}},
+\]
+where $k = \sin\!\left(\dfrac{\alpha}{2}\right)$ and $g$ is the acceleration due to gravity. Assume that the mass of the rod and the air resistance are negligible.
+\ans{Subjective / Proof.}
+
+\textbf{15.} Determine the $LU$ decomposition of the matrix
+\[
+  A = \begin{bmatrix}
+    5 & -2 & -3 \\
+    20 & -5 & -13 \\
+    35 & -5 & -17
+  \end{bmatrix}
+\]
+with $L$ having all its diagonal entries $1$; and hence solve the system $AX = [0\;\;2\;\;13]^t$.
+\ans{$L = \begin{bmatrix} 1 & 0 & 0 \\ 4 & 1 & 0 \\ 7 & 3 & 1 \end{bmatrix}$, $U = \begin{bmatrix} 5 & -2 & -3 \\ 0 & 3 & -1 \\ 0 & 0 & 7 \end{bmatrix}$; \quad $X = [1\;\;1\;\;1]^t$.}
+
+\textbf{16.} Using the Runge--Kutta method of order $4$ and taking the step size $h = 0.1$, determine $y(0.1)$, where $y(x)$ is the solution of
+\[
+  \frac{dy}{dx} + 2xy^2 = 0, \qquad y(0) = 1.
+\]
+\ans{$y(0.1) \approx 0.9901$ (exact $\dfrac{1}{1 + x^2} = \dfrac{1}{1.01} \approx 0.990099$).}
+
+\textbf{17.} Solve the integral equation
+\[
+  \phi(x) = x + \int_0^1 (x - \xi)\phi(\xi)\,d\xi.
+\]
+\ans{$\phi(x) = \dfrac{18}{13}x - \dfrac{4}{13}$.}
+
+\textbf{18.} Let $X_1, X_2, \dots, X_{100}$ be independent and identical Poisson random variables with parameter $\lambda = 0.03$. Let $S = \displaystyle\sum_{i=1}^{100} X_i$. Use the Central Limit Theorem to evaluate $P(\{S \ge 3\})$ and compare the result with the exact probability of the event $\{S \ge 3\}$.
+\ans{CLT approximation: $P(S \ge 3) \approx 0.5000$ (with continuity correction: $P(Z \ge -0.5/\sqrt{3}) \approx 0.6136$); exact ($S \sim \operatorname{Poisson}(3)$): $1 - 8.5\,e^{-3} \approx 0.5768$.}
+
+\textbf{19.} Let $X_1, X_2, \dots, X_n$ be a random sample from exponential density $f_\theta(x) = \theta e^{-\theta x}$, $x \ge 0$, $\theta > 0$. Find the maximum likelihood estimate (MLE) of $\theta$. Also, find the MLE of $P_\theta(X_1 \ge 1)$. Further show that both the estimators are consistent.
+\ans{$\hat{\theta}_{\text{MLE}} = \dfrac{1}{\bar{X}}$; \quad $\widehat{P_\theta(X_1 \ge 1)}_{\text{MLE}} = e^{-1/\bar{X}}$; consistency follows from WLLN and continuous mapping theorem.}
+
+\textbf{20.}
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(a)] Let $X \sim B(n_1, p_1)$ and $Y \sim B(n_2, p_2)$ where $p_1$ and $p_2$ are unknowns. Further, let $X$ and $Y$ be statistically independent. Construct an approximate $100(1-\alpha)\%$ confidence interval for $(p_1 - p_2)$. \hfill [3]
+  \item[(b)] An antibiotic for pneumonia was injected into $100$ patients with kidney malfunctions (uremic patients) and into $100$ patients with no kidney malfunctions (normal patients). Some allergic reaction developed in $38$ of the uremic patients and in $21$ of the normal patients. Use the result in part (a) to construct a $95\%$ confidence interval for the difference between the two population proportions (Use the appropriate table value $Z_{0.025} = 1.960$, $Z_{0.05} = 1.645$). \hfill [2]
+\end{itemize}
+\ans{(a) $(\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2}\sqrt{\dfrac{\hat{p}_1(1-\hat{p}_1)}{n_1} + \dfrac{\hat{p}_2(1-\hat{p}_2)}{n_2}}$; \quad (b) $0.17 \pm 0.1243$, i.e., $(0.0457,\, 0.2943)$.}
+
+\textbf{21.} Consider the Linear Program
+\[
+  \max \sum_{i=1}^{4} c_i x_i \qquad \text{subject to } \sum_{i=1}^{4} a_i x_i \le a_0, \quad 0 \le x_1, x_2, x_3, x_4 \le 1,
+\]
+where $a_i > 0$, $c_i > 0$ for $i = 1, 2, 3, 4$ and $a_0 > 0$.
+\begin{itemize}
+  \setlength{\itemsep}{3pt}\setlength{\parskip}{0pt}
+  \item[(i)] Write the dual of this Linear Programming Problem. \hfill [3]
+  \item[(ii)] Assuming $\dfrac{c_1}{a_1} \ge \dfrac{c_2}{a_2} \ge \dfrac{c_3}{a_3} \ge \dfrac{c_4}{a_4}$, $a_1 + a_2 \le a_0$, and $a_1 + a_2 + a_3 > a_0$, show that the feasible solution $x_1 = x_2 = 1$, $x_3 = \dfrac{a_0 - a_1 - a_2}{a_3}$, $x_4 = 0$, is an optimal solution. \hfill [2]
+\end{itemize}
+\ans{(i) Minimize $a_0 y_0 + \displaystyle\sum_{i=1}^4 y_i$ subject to $a_i y_0 + y_i \ge c_i$ ($i=1,2,3,4$), $y_0, y_1, y_2, y_3, y_4 \ge 0$; \quad (ii) Subjective / Proof (via complementary slackness / weak duality with $y_0 = c_3/a_3$).}
+
+\textbf{22.} Consider the optimal assignment problem, in which $n$ persons $P_1, P_2, \dots, P_n$ are to be assigned $n$ jobs $J_1, J_2, \dots, J_n$ and where the effectiveness rating of the person $P_i$ for the job $J_j$ is $a_{ij} > 0$. The objective is to find an assignment of persons to jobs, that is, a permutation $\sigma : \{1, 2, \dots, n\} \to \{1, 2, \dots, n\}$ which assigns person $P_i$ to job $J_{\sigma(i)}$, so as to maximize the total effectiveness $\displaystyle\sum_{i=1}^{n} a_{i,\sigma(i)}$. Show that in any optimal assignment, at least one person is assigned a job at which he is best.
+\ans{Subjective / Note: The statement as printed is actually false in general for $n \ge 3$ (counterexample: $\begin{pmatrix} 10 & 9 & 0 \\ 0 & 10 & 9 \\ 9 & 0 & 10 \end{pmatrix}$ or $\begin{pmatrix} 5 & 4 & 0 \\ 5 & 0 & 4 \\ 0 & 3 & 3 \end{pmatrix}$); verify against original paper.}
+
+\end{document}

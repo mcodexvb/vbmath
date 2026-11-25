@@ -1,7 +1,10 @@
 /preview/* /preview/index.html 200
 /maker/* /preview/index.html 200
 /papers/* /papers/index.html 200
-/exams/* /exams/index.html 200
+/exams/jam/ /exams/index.html 200
+/exams/net/ /exams/index.html 200
+/exams/nbhm/ /exams/index.html 200
+/exams/tifr/ /exams/index.html 200
 /people/* /people/index.html 200
 /lectures/ /learn/index.html 200
 /websites/ /learn/index.html 200
