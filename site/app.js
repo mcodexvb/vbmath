@@ -1242,7 +1242,8 @@
             if (isDirect) {
               const pLbl = `${currentQnum} ${String.fromCharCode(97 + pIdx)})`;
               partsHtml += `
-                <li class="pv-part" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}">
+                <li class="pv-part${isStudio ? ' pv-part-draggable' : ''}" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}"${isStudio ? ' draggable="true"' : ''}>
+                  ${isStudio ? '<span class="pv-part-grip" title="Drag to move subpart">' + IC.grip + '</span>' : ''}
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
                   <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
@@ -1252,7 +1253,8 @@
               const pLbl = formatPartLabel(partStyle, currentQnum, pIdx);
               const qPrefix = pIdx === 0 ? `${currentQnum}.` : "";
               partsHtml += `
-                <li class="pv-part" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}">
+                <li class="pv-part${isStudio ? ' pv-part-draggable' : ''}" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}"${isStudio ? ' draggable="true"' : ''}>
+                  ${isStudio ? '<span class="pv-part-grip" title="Drag to move subpart">' + IC.grip + '</span>' : ''}
                   <span class="pv-qno">${esc(qPrefix)}</span>
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
@@ -2366,61 +2368,169 @@
         });
       });
 
-      // Drag and Drop questions on the sheet
-      let draggedQIdx = null;
+      // ── Drag and Drop: whole questions AND subparts ──────────────
+      let draggedQIdx = null;    // set when dragging a whole question
+      let draggedPart = null;    // { qIdx, pIdx } when dragging a subpart
+
+      function dndRelabel(q) {
+        if (!q.parts.length) return;
+        if (q.parts.length === 1) { q.parts[0].label = ""; return; }
+        q.parts.forEach((p, i) => { p.label = String.fromCharCode(97 + i); });
+      }
 
       canvasEl.addEventListener("dragstart", (e) => {
-        const card = e.target.closest(".pv-q");
-        if (!card) return;
-        draggedQIdx = +card.dataset.qidx;
-        card.classList.add("is-dragging");
-        if (e.dataTransfer) {
-          e.dataTransfer.effectAllowed = "move";
-          e.dataTransfer.setData("text/plain", String(draggedQIdx));
+        const partEl = e.target.closest(".pv-part-draggable");
+        const card   = e.target.closest(".pv-q");
+        if (partEl && partEl.dataset.pidx != null) {
+          // ── subpart drag ──────────────────────────────────────────
+          draggedPart = { qIdx: +partEl.dataset.qidx, pIdx: +partEl.dataset.pidx };
+          draggedQIdx = null;
+          partEl.classList.add("is-dragging-part");
+          if (e.dataTransfer) { e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", "part"); }
+        } else if (card && e.target.closest(".pv-drag-handle")) {
+          // ── whole question drag (must start from handle) ──────────
+          draggedQIdx = +card.dataset.qidx;
+          draggedPart = null;
+          card.classList.add("is-dragging");
+          if (e.dataTransfer) { e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", "question"); }
+        } else {
+          e.preventDefault();
         }
       });
 
       canvasEl.addEventListener("dragover", (e) => {
-        const overCard = e.target.closest(".pv-q");
-        if (!overCard || draggedQIdx == null) return;
-        e.preventDefault();
-        if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
-        $$(".pv-q").forEach((c) => c.classList.remove("drag-over"));
-        if (+overCard.dataset.qidx !== draggedQIdx) {
-          overCard.classList.add("drag-over");
+        // clear all highlights
+        $$(".pv-q").forEach((c) => c.classList.remove("drag-over", "drag-over-merge"));
+        $$(".pv-part").forEach((p) => p.classList.remove("drag-over-part"));
+
+        if (draggedPart !== null) {
+          // subpart drag – highlight target part row or target question
+          const targetPart = e.target.closest(".pv-part-draggable");
+          const targetQ    = e.target.closest(".pv-q");
+          if (targetPart) {
+            const { qIdx: sQ, pIdx: sP } = draggedPart;
+            if (+targetPart.dataset.qidx !== sQ || +targetPart.dataset.pidx !== sP) {
+              targetPart.classList.add("drag-over-part");
+            }
+          } else if (targetQ) {
+            if (+targetQ.dataset.qidx !== draggedPart.qIdx) {
+              targetQ.classList.add("drag-over-merge");
+            }
+          }
+          e.preventDefault();
+        } else if (draggedQIdx !== null) {
+          // question drag – top half = reorder, bottom half = merge
+          const targetQ = e.target.closest(".pv-q");
+          if (!targetQ) return;
+          e.preventDefault();
+          if (+targetQ.dataset.qidx === draggedQIdx) return;
+          const rect = targetQ.getBoundingClientRect();
+          const isTopHalf = e.clientY < rect.top + rect.height / 2;
+          targetQ.classList.add(isTopHalf ? "drag-over" : "drag-over-merge");
         }
       });
 
       canvasEl.addEventListener("dragleave", (e) => {
         const overCard = e.target.closest(".pv-q");
+        const overPart = e.target.closest(".pv-part");
         if (overCard && !overCard.contains(e.relatedTarget)) {
-          overCard.classList.remove("drag-over");
+          overCard.classList.remove("drag-over", "drag-over-merge");
+        }
+        if (overPart && !overPart.contains(e.relatedTarget)) {
+          overPart.classList.remove("drag-over-part");
         }
       });
 
       canvasEl.addEventListener("drop", (e) => {
-        const overCard = e.target.closest(".pv-q");
-        if (!overCard || draggedQIdx == null) return;
         e.preventDefault();
-        const targetQIdx = +overCard.dataset.qidx;
         const sec = (doc.sections || [])[0];
-        if (sec && targetQIdx !== draggedQIdx && targetQIdx >= 0 && targetQIdx < sec.questions.length) {
-          pushUndo();
-          const [moved] = sec.questions.splice(draggedQIdx, 1);
-          sec.questions.splice(targetQIdx, 0, moved);
-          saveMakerDoc(doc);
-          refreshStudio(targetQIdx, null);
-          toast(`Question moved to position ${targetQIdx + 1}`);
+        if (!sec) return;
+
+        if (draggedPart !== null) {
+          // ── DROP SUBPART ──────────────────────────────────────────
+          const { qIdx: srcQ, pIdx: srcP } = draggedPart;
+          const targetPartEl = e.target.closest(".pv-part-draggable");
+          const targetQEl    = e.target.closest(".pv-q");
+
+          if (targetPartEl) {
+            // Drop onto specific part → insert before that part
+            const tgtQ = +targetPartEl.dataset.qidx;
+            const tgtP = +targetPartEl.dataset.pidx;
+            if (srcQ === tgtQ && srcP === tgtP) { draggedPart = null; return; }
+            pushUndo();
+            const srcQuestion = sec.questions[srcQ];
+            const [movedPart] = srcQuestion.parts.splice(srcP, 1);
+            dndRelabel(srcQuestion);
+            if (!srcQuestion.parts.length) sec.questions.splice(srcQ, 1);
+
+            // After potential splice, find target question by its DOM qid
+            const tgtQId = targetPartEl.closest(".pv-q").dataset.qid;
+            const dstQuestion = sec.questions.find(q => q.id === tgtQId);
+            if (dstQuestion) {
+              const insertAt = +targetPartEl.dataset.pidx; // recalc after src splice
+              dstQuestion.parts.splice(insertAt, 0, movedPart);
+              dndRelabel(dstQuestion);
+              const dstIdx = sec.questions.indexOf(dstQuestion);
+              saveMakerDoc(doc); refreshStudio(dstIdx, null);
+              toast("Subpart moved");
+            }
+          } else if (targetQEl) {
+            // Drop onto question body → add as last subpart
+            const tgtQId = targetQEl.dataset.qid;
+            const dstQuestion = sec.questions.find(q => q.id === tgtQId);
+            const srcQuestion = sec.questions[srcQ];
+            if (!dstQuestion || dstQuestion === srcQuestion) { draggedPart = null; return; }
+            pushUndo();
+            const [movedPart] = srcQuestion.parts.splice(srcP, 1);
+            dndRelabel(srcQuestion);
+            if (!srcQuestion.parts.length) sec.questions.splice(sec.questions.indexOf(srcQuestion), 1);
+            dstQuestion.parts.push(movedPart);
+            dndRelabel(dstQuestion);
+            const dstIdx = sec.questions.indexOf(dstQuestion);
+            saveMakerDoc(doc); refreshStudio(dstIdx, null);
+            toast("Subpart added to question");
+          }
+          draggedPart = null;
+
+        } else if (draggedQIdx !== null) {
+          // ── DROP WHOLE QUESTION ───────────────────────────────────
+          const targetQEl = e.target.closest(".pv-q");
+          if (!targetQEl) { draggedQIdx = null; return; }
+          const tgtQ = +targetQEl.dataset.qidx;
+          if (tgtQ === draggedQIdx) { draggedQIdx = null; return; }
+
+          const rect = targetQEl.getBoundingClientRect();
+          const isTopHalf = e.clientY < rect.top + rect.height / 2;
+
+          if (isTopHalf) {
+            // REORDER: insert dragged question before target
+            pushUndo();
+            const [moved] = sec.questions.splice(draggedQIdx, 1);
+            const insertAt = draggedQIdx < tgtQ ? tgtQ - 1 : tgtQ;
+            sec.questions.splice(insertAt, 0, moved);
+            saveMakerDoc(doc); refreshStudio(insertAt, null);
+            toast(`Question moved to position ${insertAt + 1}`);
+          } else {
+            // MERGE: add all parts of dragged question into target question
+            pushUndo();
+            const srcQ = sec.questions[draggedQIdx];
+            const dstQ = sec.questions[tgtQ];
+            srcQ.parts.forEach(pt => dstQ.parts.push(pt));
+            dndRelabel(dstQ);
+            sec.questions.splice(draggedQIdx, 1);
+            const finalIdx = draggedQIdx < tgtQ ? tgtQ - 1 : tgtQ;
+            saveMakerDoc(doc); refreshStudio(finalIdx, null);
+            toast("Questions merged");
+          }
+          draggedQIdx = null;
         }
-        draggedQIdx = null;
       });
 
       canvasEl.addEventListener("dragend", () => {
-        $$(".pv-q").forEach((c) => {
-          c.classList.remove("is-dragging");
-          c.classList.remove("drag-over");
-        });
+        $$(".pv-q").forEach((c) => c.classList.remove("is-dragging", "drag-over", "drag-over-merge"));
+        $$(".pv-part").forEach((p) => p.classList.remove("is-dragging-part", "drag-over-part"));
         draggedQIdx = null;
+        draggedPart = null;
       });
     }
   }
