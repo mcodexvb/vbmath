@@ -327,7 +327,7 @@
       <div class="dlist">${qs.map((q, k) => { const p = D.papers[q.p]; return `<div class="ditem" data-id="${esc(q.id)}"><span class="n">${k + 1}.</span><div style="min-width:0"><div class="tx">${esc(plainOf(q.tex))}</div><div class="src">${esc(semLabel(p))} · ${p.year} · ${esc(pname(p))} · Q${esc(qLabel(q))}${q.marks != null ? " · " + esc(fmtMarks(q)) + " marks" : ""}</div></div>
         <div class="ctl"><button type="button" data-mv="${k}" data-d="-1" aria-label="Move up">${IC.up}</button><button type="button" data-mv="${k}" data-d="1" aria-label="Move down">${IC.down}</button><button type="button" data-rm="${esc(q.id)}" aria-label="Remove">${IC.x}</button></div></div>`; }).join("")}</div>
       <div class="dfoot">
-        <a class="btn btn-primary btn-block" href="${L("preview")}" data-close>${IC.file} Preview the full paper (PDF)</a>
+        <a class="btn btn-primary btn-block" href="${L("preview")}" data-close>${IC.file} Open Question Maker</a>
         <div class="r3"><button class="btn btn-ghost btn-sm" type="button" id="dcopy">${IC.copy} LaTeX</button><button class="btn btn-ghost btn-sm" type="button" id="dtxt">${IC.copy} Text</button><button class="btn btn-ghost btn-sm" type="button" id="dclear">${IC.trash} Clear</button></div>
       </div>` : `<div class="dempty"><p style="font:17px/1.6 var(--f-text);color:var(--ink-2)">Tap <b>Collect</b> on any question to add it here, like a cart.</p><p>Build a practice sheet or a new question paper, then preview it as a PDF or copy the LaTeX.</p><a class="btn btn-primary" href="${L("search")}" data-close>Find questions</a></div>`}`;
     $("#dclose").onclick = closeDrawer;
@@ -1103,6 +1103,50 @@
   }
 
   /* ---------- preview (A4) ---------- */
+  function viewStudio() {
+    return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Question Maker</div>
+      <div class="pagehead"><h1>Question Maker Studio</h1><p class="lede">Arrange collected questions and their parts on an A4 paper.</p></div>
+      <div id="paper-studio" class="pv-layout studio-layout">
+        <aside class="pv-side" aria-label="Paper settings">
+          <button type="button" class="btn btn-primary btn-block" data-studio-export="print">${IC.print} Print / Save as PDF</button>
+          <div class="two"><button type="button" class="btn btn-ghost btn-sm" data-studio-export="download">${IC.dl} .tex</button><button type="button" class="btn btn-ghost btn-sm" data-studio-export="copy">${IC.copy} LaTeX</button></div>
+          <button type="button" class="btn btn-ghost" data-studio-export="overleaf">${IC.ext} Open in Overleaf</button>
+          <details class="studio-settings-panel" open><summary>Paper format and numbering</summary><div id="studio-settings"></div></details>
+          <details data-studio-figures hidden><summary>Figure files for LaTeX export</summary><p>Save the figures under <code>assets/competitive</code> in the LaTeX project.</p><div data-studio-figure-links></div></details>
+        </aside>
+        <div class="studio-workspace">
+          <div class="studio-toolbar">
+            <a class="btn btn-ghost" href="${L("search")}">Find questions</a>
+            <button type="button" class="btn btn-ghost" data-studio-collection>Collection</button>
+            <button type="button" class="btn btn-ghost" data-studio-clean aria-pressed="false">Clean preview</button>
+          </div>
+          <p class="studio-instructions studio-editor">Drag the handles to reorder questions. Drop a part onto another question, or use the Move to menu.</p>
+          <div id="studio-status" class="sr" role="status"></div>
+          <div class="pv-stage"><article class="a4 studio-sheet" id="studio-sheet" aria-label="A4 question paper">
+            <header class="ah"><div class="i" data-paper-field="inst"></div><div class="e" data-paper-field="exam"></div><div class="p" data-paper-field="paper"></div></header>
+            <div class="meta"><span data-paper-field="time"></span><span data-paper-field="full"></span></div>
+            <div class="instr" data-paper-field="instr"></div>
+            <p id="studio-empty" class="studio-editor">Collect questions from search results or a paper to start editing.</p>
+            <ol id="studio-rows" class="studio-groups"></ol>
+          </article></div>
+        </div>
+      </div></div>`;
+  }
+  async function bindStudio() {
+    const root = $("#paper-studio");
+    try {
+      const {mountStudio} = await import("./paper-studio.mjs");
+      if (!root.isConnected) return;
+      mountStudio(root, {
+        questions: coll.map(id => D.byId.get(id)).filter(Boolean),
+        esc, renderMath:texToHtml, typeset, load:store.get, save:store.set, defaultHead:defaultHead(), base:BASE,
+        preamble:toLatex([],null,defaultHead()).split("\\begin{document}")[0].trim(),
+        copy:tex=>copy(tex,"LaTeX copied"), download, overleaf, openDrawer,
+      });
+    } catch {
+      if (root.isConnected) root.innerHTML = '<div class="empty" role="status">Could not load Question Maker. Reload to try again.</div>';
+    }
+  }
   function viewPreview(arg) {
     const pi = arg ? D.byKey.get(arg) : null;
     const p = pi != null ? D.papers[pi] : null;
@@ -1639,7 +1683,7 @@
     search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, null, "Question papers by semester · VBMath"],
     ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), bindArchive, PROG[code] + " question papers · VBMath"]])),
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
-    preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
+    preview: [viewStudio, bindStudio, "Question Maker Studio · VBMath"],
     ...Object.entries(EXAM_CODE).reduce((routes, [name, code]) => {
       routes["exams-" + code.toLowerCase()] = [() => viewExams(code), bindArchive, name + " question papers · VBMath"];
       return routes;
@@ -1694,7 +1738,7 @@
     const app = $("#app");
     if (name === "paper") { app.innerHTML = viewPaper(arg); bindPaper(arg); }
     else if (name === "semester") { app.innerHTML = viewSemester(arg); bindSemester(arg); }
-    else if (name === "preview") { app.innerHTML = viewPreview(arg); bindPreview(arg); setMeta("Paper preview · VBMath"); }
+    else if (name === "preview" && arg) { app.innerHTML = viewPreview(arg); bindPreview(arg); setMeta("Paper preview · VBMath"); }
     else if (!ROUTES[name] && name !== "basket" && name !== "collection") { app.innerHTML = `<div class="wrap" style="max-width:720px;padding-block:40px"><div class="eyebrow">Error 404</div><h1>This page isn’t here</h1><p class="lede">The link may be old or mistyped. Search the archive or open a semester instead.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn btn-primary" href="${L("search")}">Search questions</a><a class="btn btn-ghost" href="${L("papers")}">Papers by semester</a></p></div>`; setMeta("Page not found · VBMath"); }
     else { if (!ROUTES[name]) name = "home"; const [v, b, t] = ROUTES[name]; app.innerHTML = v(); b && b(); setMeta(t, name === "home" ? "Previous-year B.Sc. and M.Sc. Mathematics question papers of Visva-Bharati, typed in LaTeX, searchable by topic, year and paper code, with the original scans." : null); }
     const navName = name === "paper" || name === "semester" ? "papers" : name;
@@ -1730,8 +1774,8 @@
       group("pyq", "PYQ", [
         ...Object.entries(PROGRAMME_ROUTES).map(([label, path]) => link(path, label)),
         ...["NET", "GATE", "JAM", "TIFR", "NBHM"].map((e) => link("exams-" + e.toLowerCase(), e)),
-        link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"),
-      ], "papers exams search topics scans"),
+        link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"), link("preview", "Question Maker"),
+      ], "papers exams search topics scans preview"),
       group("resources", "Resources", [
         link("notes", "VB Notes"),
         link("lectures", "Lectures &amp; Notes"),
