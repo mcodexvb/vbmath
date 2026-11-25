@@ -1275,3 +1275,29 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 .pdf-export .pdf-page mjx-container img{max-width:100%}
 .pdf-export .pdf-page .meta{display:flex;color:#111}
 .pdf-export .pdf-page :is(.pv-q,.pv-part,.sec-head){overflow-wrap:anywhere}
+.lab-gallery{display:grid;grid-template-columns:minmax(190px,260px) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:start}
+.lab-exhibits{display:grid;gap:8px;min-width:0;padding:16px;border:1px solid var(--rule);border-radius:14px;background:var(--card)}
+.lab-exhibits label{font-size:.88rem;font-weight:650}
+.lab-exhibits :is(select,input){width:100%;min-width:0}
+.lab-count{font-size:.88rem}
+.lab-list{display:grid;gap:4px;max-height:485px;overflow-y:auto}
+.lab-list button{padding:9px 11px;text-align:left;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink);cursor:pointer}
+.lab-list button:hover,.lab-list button[aria-pressed=true]{border-color:var(--rule-2);background:var(--green-soft);color:var(--green-ink)}
+.lab-exhibit-head{scroll-margin-top:95px}
+.lab-exhibit-head h2{font:600 clamp(23px,3vw,34px)/1.13 var(--f-editorial);margin:0 0 6px}
+.lab-equation{font:500 .9rem/1.5 var(--f-mono);overflow-wrap:anywhere;color:var(--green-ink);margin:0 0 14px}
+.lab-stage{height:clamp(305px,40vw,490px);background:#091d24;border:1px solid var(--rule-2);border-radius:14px;overflow:hidden}
+.lab-stage canvas{width:100%;height:100%;display:block}
+.lab-stage:fullscreen{width:100%;height:100%;border:0;border-radius:0}
+.lab-actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.lab-description,.lab-tip{margin:0 0 12px}
+.lab-parameters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,236px),1fr));gap:12px;margin-top:18px}
+.lab-parameters label{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;border:1px solid var(--rule);border-radius:10px;padding:10px 12px}
+.lab-parameters span{grid-column:1/-1;font-weight:600}
+.lab-parameters input{width:100%;min-width:0;accent-color:var(--green-2)}
+.lab-parameters output{min-width:4ch;color:var(--green-ink);font-variant-numeric:tabular-nums}
+@media(max-width:760px){
+  .lab-gallery{grid-template-columns:1fr}
+  .lab-list{grid-template-columns:repeat(2,minmax(0,1fr));max-height:174px}
+  .lab-stage{height:clamp(300px,85vw,400px)}
+}

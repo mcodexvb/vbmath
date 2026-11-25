@@ -3358,7 +3358,31 @@
   }
 
   /* ---------- router ---------- */
+  let stopLabGallery;
+  function viewLabGallery() {
+    return page("Resources","Math Gallery","Explore interactive simulations of mathematical ideas.",
+      '<div id="lab-gallery"><p class="loading" role="status">Loading exhibits…</p></div>');
+  }
+  async function bindLabGallery() {
+    const root = $("#lab-gallery");
+    const version = routeVersion;
+    try {
+      const {mountLabGallery} = await import("./lab-gallery.mjs");
+      if (version !== routeVersion || !root.isConnected) return;
+      stopLabGallery = mountLabGallery(root, {
+        initial: routeParams().get("figure"),
+        setFigure(id) {
+          const params = routeParams();
+          params.set("figure",id);
+          history.replaceState(history.state,"",HASH ? "#gallery?" + params : location.pathname + "?" + params);
+        }
+      });
+    } catch {
+      if (root.isConnected) root.innerHTML = '<p class="empty">The exhibits could not be loaded. Reload the page to try again.</p>';
+    }
+  }
   const ROUTES = {
+    gallery: [viewLabGallery,bindLabGallery,"Math Gallery · VBMath"],
     home: [viewHome, bindHome, "VBMath — Visva-Bharati Mathematics question papers, typed and searchable"],
     search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, null, "Question papers by semester · VBMath"],
     ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), bindArchive, PROG[code] + " question papers · VBMath"]])),
@@ -3386,9 +3410,11 @@
     const needsBank = needsQuestions(r);
     homeObserver?.disconnect();
     homeObserver = null;
+    stopLabGallery?.();
+    stopLabGallery = null;
     stopHomeFigure?.();
     stopHomeFigure = null;
-    if (!home && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
+    if (!home && r !== "gallery" && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
       if (needsBank && !questionsReady && lastRoute !== null) {
         $("#app").innerHTML = `<div class="loading" role="status">Loading the question bank…</div>`;
       }
@@ -3466,8 +3492,9 @@
         link("notes", "VB Notes"),
         link("lectures", "Lectures &amp; Notes"),
         link("websites", "Useful Websites"),
+        link("gallery", "Math Gallery"),
         link("books", "Books"),
-      ], "notes learn books"),
+      ], "notes learn books gallery"),
       link("syllabus", "Syllabus"),
       group("people", "People", [
         ...Object.entries(PEOPLE_LABELS).map(([key, label]) => link("people-" + key, label)),
