@@ -327,7 +327,7 @@
       <div class="dlist">${qs.map((q, k) => { const p = D.papers[q.p]; return `<div class="ditem" data-id="${esc(q.id)}"><span class="n">${k + 1}.</span><div style="min-width:0"><div class="tx">${esc(plainOf(q.tex))}</div><div class="src">${esc(semLabel(p))} · ${p.year} · ${esc(pname(p))} · Q${esc(qLabel(q))}${q.marks != null ? " · " + esc(fmtMarks(q)) + " marks" : ""}</div></div>
         <div class="ctl"><button type="button" data-mv="${k}" data-d="-1" aria-label="Move up">${IC.up}</button><button type="button" data-mv="${k}" data-d="1" aria-label="Move down">${IC.down}</button><button type="button" data-rm="${esc(q.id)}" aria-label="Remove">${IC.x}</button></div></div>`; }).join("")}</div>
       <div class="dfoot">
-        <a class="btn btn-primary btn-block" href="${L("preview")}" data-close>${IC.file} Preview the full paper (PDF)</a>
+        <a class="btn btn-primary btn-block" href="${L("preview")}" data-close>${IC.file} Open Question Maker</a>
         <div class="r3"><button class="btn btn-ghost btn-sm" type="button" id="dcopy">${IC.copy} LaTeX</button><button class="btn btn-ghost btn-sm" type="button" id="dtxt">${IC.copy} Text</button><button class="btn btn-ghost btn-sm" type="button" id="dclear">${IC.trash} Clear</button></div>
       </div>` : `<div class="dempty"><p style="font:17px/1.6 var(--f-text);color:var(--ink-2)">Tap <b>Collect</b> on any question to add it here, like a cart.</p><p>Build a practice sheet or a new question paper, then preview it as a PDF or copy the LaTeX.</p><a class="btn btn-primary" href="${L("search")}" data-close>Find questions</a></div>`}`;
     $("#dclose").onclick = closeDrawer;
@@ -804,7 +804,7 @@
       [figure, async () => {
         try {
           const {mountDailyFigure} = await import("./math-figures.mjs");
-          if (figure.isConnected) mountDailyFigure(figure);
+          if (figure.isConnected) mountDailyFigure(figure, L("gallery"));
         } catch {
           if (figure.isConnected) figure.hidden = true;
         }
@@ -1103,6 +1103,50 @@
   }
 
   /* ---------- preview (A4) ---------- */
+  function viewStudio() {
+    return `<div class="wrap"><div class="crumbs"><a href="${L("home")}">Home</a> / Question Maker</div>
+      <div class="pagehead"><h1>Question Maker Studio</h1><p class="lede">Arrange collected questions and their parts on an A4 paper.</p></div>
+      <div id="paper-studio" class="pv-layout studio-layout">
+        <aside class="pv-side" aria-label="Paper settings">
+          <button type="button" class="btn btn-primary btn-block" data-studio-export="print">${IC.print} Print / Save as PDF</button>
+          <div class="two"><button type="button" class="btn btn-ghost btn-sm" data-studio-export="download">${IC.dl} .tex</button><button type="button" class="btn btn-ghost btn-sm" data-studio-export="copy">${IC.copy} LaTeX</button></div>
+          <button type="button" class="btn btn-ghost" data-studio-export="overleaf">${IC.ext} Open in Overleaf</button>
+          <details class="studio-settings-panel" open><summary>Paper format and numbering</summary><div id="studio-settings"></div></details>
+          <details data-studio-figures hidden><summary>Figure files for LaTeX export</summary><p>Save the figures under <code>assets/competitive</code> in the LaTeX project.</p><div data-studio-figure-links></div></details>
+        </aside>
+        <div class="studio-workspace">
+          <div class="studio-toolbar">
+            <a class="btn btn-ghost" href="${L("search")}">Find questions</a>
+            <button type="button" class="btn btn-ghost" data-studio-collection>Collection</button>
+            <button type="button" class="btn btn-ghost" data-studio-clean aria-pressed="false">Clean preview</button>
+          </div>
+          <p class="studio-instructions studio-editor">Drag the handles to reorder questions. Drop a part onto another question, or use the Move to menu.</p>
+          <div id="studio-status" class="sr" role="status"></div>
+          <div class="pv-stage"><article class="a4 studio-sheet" id="studio-sheet" aria-label="A4 question paper">
+            <header class="ah"><div class="i" data-paper-field="inst"></div><div class="e" data-paper-field="exam"></div><div class="p" data-paper-field="paper"></div></header>
+            <div class="meta"><span data-paper-field="time"></span><span data-paper-field="full"></span></div>
+            <div class="instr" data-paper-field="instr"></div>
+            <p id="studio-empty" class="studio-editor">Collect questions from search results or a paper to start editing.</p>
+            <ol id="studio-rows" class="studio-groups"></ol>
+          </article></div>
+        </div>
+      </div></div>`;
+  }
+  async function bindStudio() {
+    const root = $("#paper-studio");
+    try {
+      const {mountStudio} = await import("./paper-studio.mjs");
+      if (!root.isConnected) return;
+      mountStudio(root, {
+        questions: coll.map(id => D.byId.get(id)).filter(Boolean),
+        esc, renderMath:texToHtml, typeset, load:store.get, save:store.set, defaultHead:defaultHead(), base:BASE,
+        preamble:toLatex([],null,defaultHead()).split("\\begin{document}")[0].trim(),
+        copy:tex=>copy(tex,"LaTeX copied"), download, overleaf, openDrawer,
+      });
+    } catch {
+      if (root.isConnected) root.innerHTML = '<div class="empty" role="status">Could not load Question Maker. Reload to try again.</div>';
+    }
+  }
   function viewPreview(arg) {
     const pi = arg ? D.byKey.get(arg) : null;
     const p = pi != null ? D.papers[pi] : null;
@@ -1572,18 +1616,81 @@
       <section class="section"><div class="section-head"><h2>People behind it</h2></div><div class="grid g2">${Object.entries(C.credits).map(([k, v]) => `<div class="card"><h3>${esc(k)}</h3><p>${v.map(esc).join(", ")}</p></div>`).join("")}</div></section>`);
   }
 
+  function viewGallery() {
+    return page("Resources", "Math Gallery", "Explore fluid flow, chaos, and mathematical constructions. Reproduce each exhibit in Python.",
+      `<div class="gallery-layout" id="gallery">
+        <aside aria-label="Gallery figures"><div class="gallery-list"></div></aside>
+        <div class="gallery-main">
+          <figure class="gallery-stage" aria-labelledby="gallery-figure-title">
+            <div class="daily-figure-label gallery-category">Interactive figure</div>
+            <h2 id="gallery-figure-title">Loading figures…</h2>
+            <div class="gallery-plot daily-figure-plot"></div>
+            <p class="gallery-equation"></p>
+            <p class="gallery-telemetry"></p>
+            <figcaption class="gallery-caption"></figcaption>
+            <div class="gallery-controls">
+              <button type="button" class="btn btn-primary" data-gallery-play>Play</button>
+              <button type="button" class="btn btn-ghost" data-gallery-replay>Replay</button>
+              <label class="sr" for="gallery-timeline">Animation timeline</label>
+              <input type="range" id="gallery-timeline" min="0" max="3300" value="0">
+              <span class="gallery-elapsed" aria-hidden="true"></span>
+            </div>
+          </figure>
+          <section class="gallery-python" aria-label="Python example">
+            <div class="gallery-python-head"><h2>Reproduce in Python</h2>
+              <button type="button" class="btn btn-ghost" data-gallery-copy>${IC.copy} Copy code</button></div>
+            <p>Install <code>numpy</code> and <code>matplotlib</code>, then run the script. Add <code>--gif figure.gif</code> to save the animation.</p>
+            <p class="gallery-code-status" role="status"></p>
+            <details class="gallery-code-details"><summary>View Python code</summary><pre><code class="gallery-code"></code></pre></details>
+          </section>
+        </div>
+      </div>`);
+  }
+  let galleryCodeRequest;
+  async function bindGallery() {
+    const root = $("#gallery");
+    try {
+      const {mountGallery} = await import("./math-gallery.mjs");
+      if (!root.isConnected) return;
+      mountGallery(root, {
+        initial: routeParams().get("figure"),
+        copy: code => copy(code, "Python code copied"),
+        loadCodes() {
+          galleryCodeRequest ??= loadJSON("gallery-python").catch(error => { galleryCodeRequest = null; throw error; });
+          return galleryCodeRequest;
+        },
+      });
+    } catch {
+      if (root.isConnected) root.innerHTML = '<p class="empty" role="status">Could not load the Math Gallery. Please reload to try again.</p>';
+    }
+  }
+  function viewMainulResources() {
+    const resources = [
+      ["Phase Plane Explorer", "Explore trajectories, nullclines, equilibria and time series of planar systems.", "https://mainul.pages.dev/tools/phase-plane/"],
+      ["Numerical mathematics tools", "Open Mainul’s collection of browser-based numerical methods.", "https://mainul.pages.dev/tools/numerical/"],
+      ["Research", "Read about mathematical ecology, nonlinear dynamics and bifurcation studies.", "https://mainul.pages.dev/research"],
+      ["Publications", "Browse Mainul’s papers and publication records.", "https://mainul.pages.dev/publications.html"],
+    ];
+    return page("Resources", "Mainul’s resources", "Mathematics tools and research from Dr. Mainul Hossain.",
+      `<div class="people-directory"><ul class="people-list">${resources.map(([label, detail, url]) =>
+        `<li class="people-record">${ext(url,label)}<p>${esc(detail)}</p></li>`).join("")}</ul>
+      <p>${ext("https://mainul.pages.dev/", "Mainul Hossain’s website")}</p></div>`);
+  }
+
   /* ---------- router ---------- */
   const ROUTES = {
     home: [viewHome, bindHome, "VBMath — Visva-Bharati Mathematics question papers, typed and searchable"],
     search: [viewSearch, bindSearch, "Search questions · VBMath"], papers: [viewPapers, null, "Question papers by semester · VBMath"],
     ...Object.fromEntries(Object.entries(PROGRAMME_ROUTES).map(([code, path]) => [path, [() => viewPapers(code), bindArchive, PROG[code] + " question papers · VBMath"]])),
     scans: [viewScans, bindScans, "Original scanned papers · VBMath"], topics: [viewTopics, bindTopics, "Topics and trends · VBMath"],
-    preview: [() => viewPreview(null), () => bindPreview(null), "Paper preview · VBMath"],
+    preview: [viewStudio, bindStudio, "Question Maker Studio · VBMath"],
     ...Object.entries(EXAM_CODE).reduce((routes, [name, code]) => {
       routes["exams-" + code.toLowerCase()] = [() => viewExams(code), bindArchive, name + " question papers · VBMath"];
       return routes;
     }, {}),
     lectures: [() => viewLearn("lectures"), bindLearn, "Lectures & Notes · VBMath"],
+    gallery: [viewGallery, bindGallery, "Math Gallery · VBMath"],
+    "mainul-resources": [viewMainulResources, null, "Mainul’s resources · VBMath"],
     websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
     ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), key === "alumni" ? bindAlumni : null, label + " · VBMath"]])),
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, bindNotes, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
@@ -1598,10 +1705,11 @@
     const r = current(), version = ++routeVersion;
     const dataset = Object.hasOwn(PEOPLE_DATA, r) ? PEOPLE_DATA[r] : null;
     const home = /^(?:home|basket|collection)$/.test(r);
+    const standalone = home || r === "gallery" || r === "mainul-resources";
     const needsBank = needsQuestions(r);
     homeObserver?.disconnect();
     homeObserver = null;
-    if (!home && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
+    if (!standalone && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
       if (needsBank && !questionsReady && lastRoute !== null) {
         $("#app").innerHTML = `<div class="loading" role="status">Loading the question bank…</div>`;
       }
@@ -1630,7 +1738,7 @@
     const app = $("#app");
     if (name === "paper") { app.innerHTML = viewPaper(arg); bindPaper(arg); }
     else if (name === "semester") { app.innerHTML = viewSemester(arg); bindSemester(arg); }
-    else if (name === "preview") { app.innerHTML = viewPreview(arg); bindPreview(arg); setMeta("Paper preview · VBMath"); }
+    else if (name === "preview" && arg) { app.innerHTML = viewPreview(arg); bindPreview(arg); setMeta("Paper preview · VBMath"); }
     else if (!ROUTES[name] && name !== "basket" && name !== "collection") { app.innerHTML = `<div class="wrap" style="max-width:720px;padding-block:40px"><div class="eyebrow">Error 404</div><h1>This page isn’t here</h1><p class="lede">The link may be old or mistyped. Search the archive or open a semester instead.</p><p style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn btn-primary" href="${L("search")}">Search questions</a><a class="btn btn-ghost" href="${L("papers")}">Papers by semester</a></p></div>`; setMeta("Page not found · VBMath"); }
     else { if (!ROUTES[name]) name = "home"; const [v, b, t] = ROUTES[name]; app.innerHTML = v(); b && b(); setMeta(t, name === "home" ? "Previous-year B.Sc. and M.Sc. Mathematics question papers of Visva-Bharati, typed in LaTeX, searchable by topic, year and paper code, with the original scans." : null); }
     const navName = name === "paper" || name === "semester" ? "papers" : name;
@@ -1666,14 +1774,16 @@
       group("pyq", "PYQ", [
         ...Object.entries(PROGRAMME_ROUTES).map(([label, path]) => link(path, label)),
         ...["NET", "GATE", "JAM", "TIFR", "NBHM"].map((e) => link("exams-" + e.toLowerCase(), e)),
-        link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"),
-      ], "papers exams search topics scans"),
+        link("exams", "Competitive"), link("search", "Search questions"), link("topics", "Topic map"), link("scans", "Original scans"), link("preview", "Question Maker"),
+      ], "papers exams search topics scans preview"),
       group("resources", "Resources", [
         link("notes", "VB Notes"),
         link("lectures", "Lectures &amp; Notes"),
         link("websites", "Useful Websites"),
         link("books", "Books"),
-      ], "notes learn books"),
+        link("gallery", "Math Gallery"),
+        link("mainul-resources", "Mainul’s resources"),
+      ], "notes learn books gallery mainul-resources"),
       link("syllabus", "Syllabus"),
       group("people", "People", [
         ...Object.entries(PEOPLE_LABELS).map(([key, label]) => link("people-" + key, label)),
