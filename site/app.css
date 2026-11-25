@@ -979,8 +979,9 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 .studio-sheet ol{list-style:none;padding:0;margin:0}
 .studio-group{position:relative;margin-bottom:12px}
 .studio-section-title{text-align:center;font-weight:700;margin:12px 0 10px;break-after:avoid}
-.studio-part{position:relative;display:grid;grid-template-columns:3.8ch 3ch minmax(0,1fr) auto;gap:4px;align-items:baseline;margin:0 0 10px}
+.studio-part{position:relative;display:grid;grid-template-columns:minmax(3.8ch,max-content) minmax(3.6ch,max-content) minmax(0,1fr) auto;gap:4px;align-items:baseline;margin:0 0 10px}
 .studio-question-number,.studio-part-number,.studio-paper-marks{font-weight:700}
+.studio-question-number,.studio-part-number,.studio-paper-marks{white-space:nowrap;overflow-wrap:normal}
 .studio-paper-marks{text-align:right;min-width:3ch}
 .studio-part .qbody{min-width:0;overflow-x:auto;overflow-wrap:anywhere}
 .studio-editor button,.studio-editor input,.studio-editor select{color:#1a3930;background:#f5f8f5;border:1px solid #b5c8bc;border-radius:6px;min-height:35px;padding:4px 7px;font:600 .84rem var(--f-ui)}
@@ -993,7 +994,8 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 .studio-section-field input{width:100%}
 .studio-part-tools{grid-column:2/-1;margin:1px 0 2px;color:#29493d;font:600 .83rem var(--f-ui);min-width:0}
 .studio-part-tools label{display:flex;align-items:center;gap:4px}
-.studio-part-tools input[type=number]{width:5ch;padding-inline:4px}
+.studio-part-tools input[type=number]{width:7.5ch;padding-inline:5px;appearance:textfield}
+.studio-part-tools input[type=number]::-webkit-inner-spin-button{appearance:none}
 .studio-part-tools select{max-width:17ch}
 .studio-dropzone{border-top:1px dashed #b0c9bb;padding:4px 8px;color:#456356;font:.76rem var(--f-ui)}
 .studio-drop-before,.studio-drop-after{outline:0}
@@ -1008,7 +1010,7 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 }
 @media(max-width:540px){
   .studio-sheet{padding-inline:clamp(11px,4vw,22px)}
-  .studio-part{column-gap:3px;grid-template-columns:3ch 2.8ch minmax(0,1fr) auto}
+  .studio-part{column-gap:3px;grid-template-columns:minmax(3ch,max-content) minmax(3.6ch,max-content) minmax(0,1fr) auto}
   .studio-part-tools{grid-column:1/-1}
   .studio-toolbar .btn{padding-inline:8px}
 }
