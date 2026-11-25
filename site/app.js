@@ -17,6 +17,29 @@
   };
   const PROGRAMME_ROUTES = {BSc:"papers-bsc", MSc:"papers-msc"};
   const PEOPLE_LABELS = {teachers:"Teachers", alumni:"Alumni", scholars:"Scholars", "student-achievements":"Student achievements"};
+  const FACULTY_DIRECTORY = "https://www.visvabharati.ac.in/home/facul_mathematics/";
+  const FACULTY_PROFILES = {
+    "Tapas Ray Mahapatra": {profile:"https://visvabharati.irins.org/profile/157925", scholar:"UEjM2XYAAAAJ"},
+    "Prasanta Chatterjee": {website:"https://sites.google.com/site/prasantavbmath/home", scholar:"mKlOQgoAAAAJ", researchgate:"Prasanta-Chatterjee"},
+    "Prashanta Kumar Mandal": {website:"https://sites.google.com/a/visva-bharati.ac.in/dr-pk-mandal/work-experience", cv:"https://www.visvabharati.ac.in/file/prashantakumarmandal.pdf", scholar:"Tir_SYsAAAAJ"},
+    "Amar Prasad Misra": {profile:"https://visvabharati.irins.org/profile/155499", website:"https://sites.google.com/a/visva-bharati.ac.in/apmisra/home", scholar:"OLb4zgYAAAAJ"},
+    "Tarapada Bag": {profile:"https://visvabharati.irins.org/profile/322520", scholar:"hHdQ7_sAAAAJ", researchgate:"Tarapada-Bag"},
+    "Dibyendu Banerjee": {profile:"https://www.visvabharati.ac.in/DibyenduBanerjee.html", scholar:"XDgfvoIAAAAJ", researchgate:"Dibyendu-Banerjee-8"},
+    "Subhasis Ray": {profile:"https://www.visvabharati.ac.in/subhasisRoy.html", scholar:"V7pOJVgAAAAJ", researchgate:"Ray-S"},
+    "Anjan Kumar Bhuniya": {profile:"https://www.visvabharati.ac.in/AnjanKumarBhuniya.html", scholar:"wSBoVaMAAAAJ"},
+    "Lakshmi Narayan Guin": {profile:"https://www.visvabharati.ac.in/lakshminarayanguin.html", website:"https://sites.google.com/site/lakshmiguin/", scholar:"HJyEsPMAAAAJ", researchgate:"Lakshmi-Guin-2"},
+    "Kalyan Hansda": {scholar:"kEkNaVEAAAAJ", researchgate:"Kalyan-Hansda-2"},
+    "Nikhil Pal": {profile:"https://www.visvabharati.ac.in/nikhilpal.html", website:"https://sites.google.com/site/nikhilpalmath/", scholar:"9RsWjvMAAAAJ", researchgate:"Nikhil-Pal"},
+    "Sougata Biswas": {website:"https://sites.google.com/site/sougatasrf/", cv:"https://www.visvabharati.ac.in/file/sougatabiswas.pdf", scholar:"4PkvH4sAAAAJ", researchgate:"Sougata-Biswas"},
+    "Bipul Pal": {profile:"https://www.visvabharati.ac.in/bipulpal.html", researchgate:"Bipul-Pal"},
+    "Jaitra Chattopadhyay": {website:"https://sites.google.com/view/jaitrac/home", cv:"https://www.visvabharati.ac.in/file/CV%20Jaitra.pdf", scholar:"KPs7vcgAAAAJ"},
+    "Swapan Raha": {profile:"https://visvabharati.irins.org/profile/155506", scholar:"SJiJMjcAAAAJ"},
+    "Puspajit Mandal": {profile:"https://www.visvabharati.ac.in/PuspajitMandal.html", researchgate:"Puspajit-Mandal"},
+    "Syamal Kumar Samanta": {profile:"https://www.visvabharati.ac.in/SyamalKumarSamanta.html"},
+    "Santabrata Chakravarty": {researchgate:"Santabrata-Chakravarty"},
+    "Dulal Pal": {profile:"https://visvabharati.irins.org/profile/158866", scholar:"Rq_JS0oAAAAJ", researchgate:"Dulal-Pal"},
+    "Madan Mohan Panja": {profile:"https://www.visvabharati.ac.in/DrMadanMohanPanja.html", cv:"https://www.visvabharati.ac.in/file/madanmohanpanja.pdf"},
+  };
   const PEOPLE_DATA = {"people-alumni":"alumni", "people-student-achievements":"student-achievements"};
   const NSEM = { BSc: 8, MSc: 4 };
   const SHORT_MAX = 4;
@@ -1340,11 +1363,9 @@
     $$(".pcode").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.code = b.dataset.code; F.sort = "new"; go("search"); }));
   }
   function viewAlumni() {
-    const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
     const rows = D.alumni.map(([name, years, degree]) => `<li class="people-record" data-alumnus>
       <h2>${esc(name)}</h2><p class="people-meta">${[years, degree].filter(Boolean).map(esc).join(" · ")}</p></li>`).join("");
-    return `<div class="people-toolbar"><div><label for="alumni-find">Filter alumni</label><input id="alumni-find" type="search" placeholder="Name, years or degree"></div>
-      ${ext(alumniForm, "Register as an alumnus", "btn btn-ghost")}</div>
+    return `<div class="people-toolbar"><div><label for="alumni-find">Filter alumni</label><input id="alumni-find" type="search" placeholder="Name, years or degree"></div></div>
       <p class="people-meta" id="alumni-count" role="status">${D.alumni.length} alumni</p>
       <ul class="people-list">${rows}</ul>`;
   }
@@ -1371,14 +1392,29 @@
         <ul class="people-list">${students.map(([name, exams, study]) => `<li class="people-record"><strong>${esc(name)}</strong><p>${[exams, study].filter(Boolean).map(esc).join(" · ")}</p></li>`).join("")}</ul></details>`).join("")}
       <p>${ext(source, "Source · Visva-Bharati Department of Mathematics")}</p></div>`;
   }
+  function facultyCard(name, teaching, research) {
+    const {profile, website, cv, scholar, researchgate} = FACULTY_PROFILES[name.replace(/^(?:Prof|Dr)\. /, "")] || {};
+    const links = [
+      ["University profile", profile],
+      ["Academic website", website],
+      ["University CV (PDF)", cv],
+      ["Google Scholar", scholar && "https://scholar.google.com/citations?user=" + scholar],
+      ["ResearchGate", researchgate && "https://www.researchgate.net/profile/" + researchgate],
+    ].filter(([, url]) => url);
+    return `<article class="card"><h3>${esc(name)}</h3>
+      ${teaching ? `<p><b>Teaches</b> ${esc(teaching)}</p>` : ""}
+      ${research ? `<p><b>Research</b> ${esc(research)}</p>` : ""}
+      ${links.length ? `<p class="archive-resources">${links.map(([label, url]) => ext(url, label)).join("")}</p>` : ""}</article>`;
+  }
   function viewPeople(section) {
     if (section === "alumni") return page("People", "Alumni", "Visva-Bharati mathematics alumni directory.", viewAlumni());
     if (section === "student-achievements") return page("People", "Student achievements", "Qualifications, further study and honours reported by the Department of Mathematics.", viewStudentAchievements());
-    const teachers = `<section id="teachers" aria-label="Teachers" tabindex="-1"><div class="grid g2">${D.C.faculty.map(([n, c, r]) => `<div class="card"><h3>${esc(n)}</h3><p><b>Teaches</b> ${esc(c)}</p>${r ? `<p style="margin-top:6px"><b>Research</b> ${esc(r)}</p>` : ""}</div>`).join("")}</div>
-      <section class="section"><div class="section-head"><h2>Former faculty</h2></div><p class="prose">${D.C.retired.map(esc).join(" · ")}</p></section></section>`;
+    const teachers = `<section id="teachers" aria-label="Teachers" tabindex="-1">
+      <p class="archive-resources">${ext(FACULTY_DIRECTORY, "Visva-Bharati mathematics faculty directory")}</p>
+      <div class="grid g2">${D.C.faculty.map(([name, teaching, research]) => facultyCard(name, teaching, research)).join("")}</div>
+      <section class="section"><div class="section-head"><h2>Former faculty</h2></div>
+      <div class="grid g2">${D.C.retired.map((name) => facultyCard(name)).join("")}</div></section></section>`;
     const scholars = `<div class="card" id="scholars" tabindex="-1"><p>See the directory of current and graduated research scholars and their supervisors.</p><p style="margin-top:12px">${ext(D.C.scholars_link, "Open the scholar directory", "btn btn-ghost")}</p></div>`;
-    const alumniForm = "https://docs.google.com/forms/d/e/1FAIpQLScyvb5VHAmnuJwmp3_QZGX2XJ73NXReZMbJnUUow6s2nKx2DQ/viewform";
-    const alumni = `<div class="card" id="alumni" tabindex="-1"><p>Visva-Bharati mathematics alumni can add their details through the VBMath alumni form.</p><p style="margin-top:12px">${ext(alumniForm, "Open alumni registration", "btn btn-ghost")}</p></div>`;
     if (section) return page("People", PEOPLE_LABELS[section], "", {teachers, scholars}[section]);
     return page("People", "People", "", `<div class="resource-grid">${Object.entries(PEOPLE_LABELS).map(([key, label]) => `<a class="card" href="${L("people-" + key)}"><h2>${label}</h2></a>`).join("")}</div>
       <div class="section">${teachers}</div><div class="section">${scholars}</div>`);
