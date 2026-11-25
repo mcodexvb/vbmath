@@ -1072,13 +1072,8 @@ details.more summary{cursor:pointer;font-weight:600}
 .daily-figure-plot .cloud{stroke-width:1;opacity:.65}
 .daily-figure-plot .stem-plot{stroke-width:4}
 .daily-figure-plot svg text{fill:var(--ink-3);font:600 14px var(--f-ui)}
-@media(prefers-reduced-motion:no-preference){
-  .daily-figure-plot.playing .draw{stroke-dasharray:1 1;animation:figure-draw var(--draw-time,620ms) ease-out var(--step) both}
-  .daily-figure-plot.playing .trajectory{--draw-time:105ms;animation-timing-function:linear}
-  .daily-figure-plot.playing .reveal{animation:figure-reveal 230ms ease-out var(--step) both}
-}
-@keyframes figure-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes figure-reveal{from{opacity:0}}
+.home-figure .daily-figure-plot .draw{vector-effect:none;stroke-width:1.35}
+.home-figure .daily-figure-plot .stem-plot{stroke-width:3}
 .hero-feature>.qod{border-radius:15px;box-shadow:var(--shadow)}
 .qod .qbody{overflow-x:auto}
 .qod .qodh b::before{content:"";display:inline-block;width:5px;height:12px;margin-right:8px;

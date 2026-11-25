@@ -13,8 +13,18 @@ const path = (d, kind, delay = 0) => tag("path", {d, class: kind, pathLength: 1,
 const line = (a, b, kind = "axis", delay = 0) => path("M" + a.join(",") + "L" + b.join(","), kind, delay);
 const dot = ([cx, cy], r = 3, kind = "point", delay = 0) => tag("circle", {cx, cy, r, class: kind, style: "--step:" + delay + "ms"});
 const text = (x, y, label, anchor = "middle") => tag("text", {x, y, "text-anchor": anchor}, label);
-const trace = (data, project, kind = "draw", delay = 0) => path(data.map((pt, i) =>
-  (i ? "L" : "M") + project(pt).join(",")).join(""), kind, delay);
+const pathData = (data, project) => data.map((pt, i) =>
+  (i ? "L" : "M") + project(pt).join(",")).join("");
+const trace = (data, project, kind = "draw", delay = 0) => path(pathData(data, project), kind, delay);
+
+function setTrace(node, points, progress, tip, project) {
+  const prefix = points.slice(0, Math.floor(progress * (points.length - 1)) + 1);
+  node.setAttribute("d", pathData([...prefix, tip], project));
+}
+function setPoint(node, [x, y]) {
+  node.setAttribute("cx", x);
+  node.setAttribute("cy", y);
+}
 
 function mapper([xmin, xmax, ymin, ymax], [x, y, w, h]) {
   return ([u, v]) => [round(x + w * (u - xmin) / (xmax - xmin)), round(y + h * (ymax - v) / (ymax - ymin))];
@@ -184,10 +194,26 @@ function bezier() {
     return [one,two,blend(two[0],two[1],t)];
   };
   const flip=([x,y])=>[round(x),round(170-y)];
-  const [one,two,result]=levels(0.58);
-  return trace(controls,flip,"guide") + controls.map(pt=>dot(flip(pt),2.5,"point")).join("")
-    + trace(one,flip,"draw faint",200) + trace(two,flip,"draw alt",395)
-    + trace(points(180,t=>levels(t)[2]),flip,"draw",540) + dot(flip(result),4,"point reveal",900);
+  const curve = points(180,t=>levels(t)[2]);
+  const [one,two,result]=levels(1);
+  return {
+    graphic: trace(controls,flip,"guide") + controls.map(pt=>dot(flip(pt),2.5,"point")).join("")
+      + trace(one,flip,"faint moving-first") + trace(two,flip,"alt moving-second")
+      + trace(curve,flip,"moving-trace") + dot(flip(result),4,"point moving-tip"),
+    motion(svg) {
+      const first = svg.querySelector(".moving-first");
+      const second = svg.querySelector(".moving-second");
+      const trail = svg.querySelector(".moving-trace");
+      const tip = svg.querySelector(".moving-tip");
+      return (progress) => {
+        const [one,two,result] = levels(progress);
+        first.setAttribute("d", pathData(one, flip));
+        second.setAttribute("d", pathData(two, flip));
+        setTrace(trail, curve, progress, result, flip);
+        setPoint(tip, flip(result));
+      };
+    }
+  };
 }
 
 function pendulum() {
@@ -207,17 +233,31 @@ function pendulum() {
 }
 
 function cycloid() {
-  const curve=points(420,s=>{
-    const t=TAU*2*s;
-    return [t-Math.sin(t),1-Math.cos(t)];
-  });
-  const p=fitted([...curve,[TAU*2,0]],[27,18,426,135]);
-  const t=TAU*1.58;
-  const [cx,cy]=p([t,1]);
-  const pt=p([t-Math.sin(t),1-Math.cos(t)]);
-  return line(p([0,0]),p([TAU*2,0])) + trace(curve,p)
-    + tag("circle",{cx,cy,r:round(cy-p([t,2])[1]),class:"guide reveal",style:"--step:710ms"})
-    + line([cx,cy],pt,"draw alt",710) + dot(pt,3.5,"point reveal",890);
+  const turns = TAU * 2;
+  const at = t => [t - Math.sin(t), 1 - Math.cos(t)];
+  const curve = points(240, s => at(turns * s));
+  const p = fitted(curve, [40, 18, 400, 135]);
+  const [cx,cy] = p([turns,1]);
+  const radius = round(cy - p([turns,2])[1]);
+  return {
+    graphic: line(p([0,0]),p([turns,0])) + trace(curve,p,"moving-trace")
+      + tag("circle",{cx,cy,r:radius,class:"guide rolling-wheel"})
+      + line([cx,cy],p(at(turns)),"alt moving-radius") + dot(p(at(turns)),3.5,"point moving-tip"),
+    motion(svg) {
+      const wheel = svg.querySelector(".rolling-wheel");
+      const spoke = svg.querySelector(".moving-radius");
+      const trail = svg.querySelector(".moving-trace");
+      const tip = svg.querySelector(".moving-tip");
+      return (progress) => {
+        const t = turns * progress;
+        const center = p([t,1]), result = at(t), point = p(result);
+        setTrace(trail, curve, progress, result, p);
+        setPoint(wheel, center);
+        setPoint(tip, point);
+        spoke.setAttribute("d", "M" + center + "L" + point);
+      };
+    }
+  };
 }
 
 function gibbs() {
@@ -250,16 +290,74 @@ const figures = [
   ["Gibbs phenomenon", "Adding Fourier terms sharpens a square wave, while overshoot remains near the jump.", gibbs],
 ];
 
+function playFigure(panel, motion) {
+  const svg = panel.querySelector("svg");
+  const drawMotion = motion?.(svg);
+  const tracks = Array.from(svg.querySelectorAll(".draw,.reveal"), (node) => ({
+    node,
+    delay: parseFloat(node.style.getPropertyValue("--step")) * 2,
+    duration: node.classList.contains("trajectory") ? 210 : node.classList.contains("draw") ? 1240 : 460,
+    reveal: node.classList.contains("reveal"),
+    opacity: Number(getComputedStyle(node).opacity)
+  }));
+  const drawTime = drawMotion ? 3200 : Math.max(...tracks.map(({delay, duration}) => delay + duration));
+  const period = drawTime + 1400;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let frame = 0, start, painted, visible = false;
+
+  const paint = (time) => {
+    const elapsed = Math.min(time, drawTime);
+    if (elapsed === painted) return;
+    painted = elapsed;
+    drawMotion?.(elapsed / drawTime);
+    for (const {node, delay, duration, reveal, opacity} of tracks) {
+      const progress = Math.max(0, Math.min(1, (elapsed - delay) / duration));
+      if (reveal) node.style.opacity = progress * opacity;
+      else {
+        node.style.strokeDasharray = progress === 1 ? "none" : "1 1";
+        node.style.strokeDashoffset = 1 - progress;
+      }
+    }
+  };
+  const tick = (now) => {
+    start ??= now;
+    paint((now - start) % period);
+    frame = requestAnimationFrame(tick);
+  };
+  const sync = () => {
+    cancelAnimationFrame(frame);
+    start = undefined;
+    if (reducedMotion.matches) paint(drawTime);
+    else if (visible && !document.hidden) frame = requestAnimationFrame(tick);
+  };
+  const observer = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting;
+    sync();
+  });
+  paint(reducedMotion.matches ? drawTime : 0);
+  observer.observe(panel);
+  reducedMotion.addEventListener("change", sync);
+  document.addEventListener("visibilitychange", sync);
+  return () => {
+    observer.disconnect();
+    cancelAnimationFrame(frame);
+    reducedMotion.removeEventListener("change", sync);
+    document.removeEventListener("visibilitychange", sync);
+  };
+}
+
 export function mountHomeFigure(panel) {
   const [title, caption, draw] = figures[Math.floor(Math.random() * figures.length)];
+  const scene = draw();
   const graphic = tag("svg", {
     viewBox: "0 0 " + VIEW_WIDTH + " " + VIEW_HEIGHT,
     "aria-hidden": "true",
     focusable: "false"
-  }, draw());
-  panel.innerHTML = '<div class="daily-figure-plot playing">' + graphic + '</div>'
+  }, typeof scene === "string" ? scene : scene.graphic);
+  panel.innerHTML = '<div class="daily-figure-plot">' + graphic + '</div>'
     + '<figcaption class="sr">' + title + '. ' + caption + '</figcaption>';
   panel.removeAttribute("aria-busy");
+  return playFigure(panel, scene.motion);
 }
 
 export { mountHomeFigure as mountDailyFigure };

@@ -1088,7 +1088,7 @@
     return (h >>> 0) % n;
   }
   const WAVE_UNUSED = `<svg class="wave" viewBox="0 0 170 50" aria-hidden="true"><path d="M4 34 C38 44 58 8 92 6 C116 4 128 16 166 8 C140 26 122 18 98 22 C64 28 50 50 4 34 Z" fill="#E8A62C"/></svg>`;
-  let homeRequest, homeObserver;
+  let homeRequest, homeObserver, stopHomeFigure;
   function loadHomeData() {
     homeRequest ??= loadJSON("home").catch((error) => { homeRequest = null; throw error; });
     return homeRequest;
@@ -1164,6 +1164,7 @@
           </article>`;
   }
   function bindHome() {
+    const version = routeVersion;
     $("#homeform").addEventListener("submit", (e) => { e.preventDefault(); F = defaultFilters(); F.q = $("#homeq").value.trim(); go("search"); });
     $$("[data-hint]").forEach((b) => b.addEventListener("click", () => { F = defaultFilters(); F.q = b.dataset.hint; go("search"); }));
     $$("[data-open-coll]").forEach((a) => a.addEventListener("click", (e) => { if (!coll.length) { e.preventDefault(); e.stopPropagation(); openDrawer(); } }, true));
@@ -1177,8 +1178,8 @@
     const sections = new Map([
       [figure, async () => {
         try {
-          const {mountHomeFigure} = await import("./math-figures.mjs?v=2");
-          if (figure.isConnected) mountHomeFigure(figure);
+          const {mountHomeFigure} = await import("./math-figures.mjs?v=3");
+          if (version === routeVersion && figure.isConnected) stopHomeFigure = mountHomeFigure(figure);
         } catch {
           if (figure.isConnected) figure.hidden = true;
         }
@@ -3385,6 +3386,8 @@
     const needsBank = needsQuestions(r);
     homeObserver?.disconnect();
     homeObserver = null;
+    stopHomeFigure?.();
+    stopHomeFigure = null;
     if (!home && (!catalogueReady || (needsBank && !questionsReady) || (dataset && !D[dataset]))) {
       if (needsBank && !questionsReady && lastRoute !== null) {
         $("#app").innerHTML = `<div class="loading" role="status">Loading the question bank…</div>`;
