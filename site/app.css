@@ -960,65 +960,6 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 .gallery-list .gallery-simulation-option{font-weight:700;color:var(--green-ink)}
 .gallery-list .gallery-simulation-option::before{content:"";display:inline-block;width:6px;height:6px;margin:0 7px 2px 0;border-radius:50%;background:var(--logo-gold)}
 
-/* Question Maker */
-.studio-layout{grid-template-columns:minmax(220px,270px) minmax(0,1fr)}
-.studio-layout .pv-side{max-height:calc(100dvh - 118px);overflow:auto}
-.studio-workspace{min-width:0}
-#studio-settings{display:grid;gap:9px}
-.studio-settings-panel summary{cursor:pointer;font-weight:700;margin-bottom:7px}
-#studio-settings label{display:grid;gap:4px;color:var(--ink-2);font:600 .88rem var(--f-ui)}
-#studio-settings textarea{width:100%;resize:vertical;font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--rule-2);border-radius:8px;padding:8px}
-#studio-settings input[type=text],#studio-settings select{width:100%;min-width:0}
-#studio-settings .studio-checkbox{display:flex;gap:7px;align-items:center}
-.studio-numbering{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.studio-toolbar,.studio-editor{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.studio-toolbar{margin-bottom:8px}
-.studio-instructions{margin:0 0 12px;color:var(--ink-2)}
-.studio-sheet{width:min(794px,100%);min-height:0;aspect-ratio:210/297;overflow-wrap:anywhere}
-.studio-sheet .instr{white-space:pre-line}
-.studio-sheet ol{list-style:none;padding:0;margin:0}
-.studio-group{position:relative;margin-bottom:12px}
-.studio-section-title{text-align:center;font-weight:700;margin:12px 0 10px;break-after:avoid}
-.studio-part{position:relative;display:grid;grid-template-columns:3.8ch 3ch minmax(0,1fr) auto;gap:4px;align-items:baseline;margin:0 0 10px}
-.studio-question-number,.studio-part-number,.studio-paper-marks{font-weight:700}
-.studio-paper-marks{text-align:right;min-width:3ch}
-.studio-part .qbody{min-width:0;overflow-x:auto;overflow-wrap:anywhere}
-.studio-editor button,.studio-editor input,.studio-editor select{color:#1a3930;background:#f5f8f5;border:1px solid #b5c8bc;border-radius:6px;min-height:35px;padding:4px 7px;font:600 .84rem var(--f-ui)}
-.studio-editor button:not(:disabled){cursor:pointer}
-.studio-editor button[draggable=true]{cursor:grab}
-.studio-editor :disabled{opacity:.5}
-.studio-editor :focus-visible{outline:2px solid #236150;outline-offset:2px}
-.studio-group-tools{position:relative;margin:0 0 8px;padding:6px;border-radius:8px;background:#eaf2ed;color:#1a3930}
-.studio-section-field{flex:1 1 130px;min-width:0}
-.studio-section-field input{width:100%}
-.studio-part-tools{grid-column:2/-1;margin:1px 0 2px;color:#29493d;font:600 .83rem var(--f-ui);min-width:0}
-.studio-part-tools label{display:flex;align-items:center;gap:4px}
-.studio-part-tools input[type=number]{width:5ch;padding-inline:4px}
-.studio-part-tools select{max-width:17ch}
-.studio-dropzone{border-top:1px dashed #b0c9bb;padding:4px 8px;color:#456356;font:.76rem var(--f-ui)}
-.studio-drop-before,.studio-drop-after{outline:0}
-.studio-drop-before::before,.studio-drop-after::after{content:"";position:absolute;z-index:1;pointer-events:none;inset-inline:0;height:3px;background:#2b866a;border-radius:2px}
-.studio-drop-before::before{top:-2px}
-.studio-drop-after::after{bottom:-2px}
-.studio-dropzone{position:relative}
-.studio-clean .studio-editor{display:none}
-@media(max-width:980px){
-  .studio-layout{grid-template-columns:minmax(0,1fr)}
-  .studio-layout .pv-side{max-height:none}
-}
-@media(max-width:540px){
-  .studio-sheet{padding-inline:clamp(11px,4vw,22px)}
-  .studio-part{column-gap:3px;grid-template-columns:3ch 2.8ch minmax(0,1fr) auto}
-  .studio-part-tools{grid-column:1/-1}
-  .studio-toolbar .btn{padding-inline:8px}
-}
-@media print{
-  .studio-layout .studio-toolbar,.studio-editor{display:none!important}
-  .studio-sheet{aspect-ratio:auto;min-height:0}
-  .studio-part{break-inside:avoid}
-  .studio-sheet .qbody{overflow:visible}
-}
-
 /* Gallery: open exhibition wall and an edge-to-edge experiment, not nested cards. */
 .gallery-layout{display:flex;flex-direction:column;gap:56px}
 .gallery-collection,.gallery-main{width:100%;min-width:0}
