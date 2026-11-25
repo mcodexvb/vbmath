@@ -1617,9 +1617,9 @@
   }
 
   function viewGallery() {
-    return page("Resources", "Math Gallery", "Explore fluid flow, chaos, and mathematical constructions. Reproduce each exhibit in Python.",
+    return page("Resources", "Math Gallery", "Motion, structure, and the unexpected. An interactive collection of mathematical experiments.",
       `<div class="gallery-layout" id="gallery">
-        <aside aria-label="Gallery figures"><div class="gallery-list"></div></aside>
+        <section class="gallery-collection" aria-label="Gallery exhibits"><div class="gallery-collection-head"><h2>Explore the collection</h2><span>Select an exhibit to enter the experiment</span></div><div class="gallery-list"></div></section>
         <div class="gallery-main">
           <figure class="gallery-stage" aria-labelledby="gallery-figure-title">
             <div class="daily-figure-label gallery-category">Interactive figure</div>
@@ -1628,18 +1628,22 @@
             <p class="gallery-equation"></p>
             <p class="gallery-telemetry"></p>
             <figcaption class="gallery-caption"></figcaption>
-            <div class="gallery-controls">
+            <div class="gallery-parameters" aria-label="Simulation parameters"></div><div class="gallery-controls">
               <button type="button" class="btn btn-primary" data-gallery-play>Play</button>
               <button type="button" class="btn btn-ghost" data-gallery-replay>Replay</button>
               <label class="sr" for="gallery-timeline">Animation timeline</label>
               <input type="range" id="gallery-timeline" min="0" max="3300" value="0">
               <span class="gallery-elapsed" aria-hidden="true"></span>
+              <label>Speed <select data-gallery-speed><option value="0.25">¼×</option><option value="0.5">½×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+              <label><input type="checkbox" data-gallery-loop checked> Loop</label>
+              <button class="btn btn-ghost" data-gallery-fullscreen>Full screen</button>
+              <button class="btn btn-ghost" data-gallery-snapshot>Save PNG</button>
             </div>
           </figure>
           <section class="gallery-python" aria-label="Python example">
             <div class="gallery-python-head"><h2>Reproduce in Python</h2>
               <button type="button" class="btn btn-ghost" data-gallery-copy>${IC.copy} Copy code</button></div>
-            <p>Install <code>numpy</code> and <code>matplotlib</code>, then run the script. Add <code>--gif figure.gif</code> to save the animation.</p>
+            <p>Install <code>numpy</code> and <code>matplotlib</code>, then run the script. Scripts reproduce the default exhibit settings. Add <code>--gif figure.gif</code> to save the animation.</p>
             <p class="gallery-code-status" role="status"></p>
             <details class="gallery-code-details"><summary>View Python code</summary><pre><code class="gallery-code"></code></pre></details>
           </section>

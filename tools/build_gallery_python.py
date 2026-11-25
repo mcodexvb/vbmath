@@ -271,4 +271,6 @@ if __name__ == "__main__":
         for key,title,fn,equal in EXHIBITS
     }
     scripts.update(standalone_simulations())
+    for key, filename in [('fourier-portrait','fourier_portrait'), ('vortex-laboratory','vortex_laboratory'), ('duffing-atlas','duffing_atlas')]:
+        scripts[key] = (root / 'tools' / 'gallery_examples' / (filename + '.py')).read_text()
     output.write_text(json.dumps(scripts,ensure_ascii=False,separators=(",",":")) + "\n",encoding="utf-8")

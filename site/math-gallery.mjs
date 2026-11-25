@@ -1,11 +1,13 @@
 import {galleryFigures, renderFigure} from "./math-figures.mjs";
 import {mountSimulation, simulations} from "./gallery-simulations.mjs";
 
-const DURATION = 3300;
-const SCALE = 2.05;
+import {laboratory, mountLab} from "./gallery-lab.mjs";
+
+const DURATION = 12000;
+const SCALE = 7.4;
 const SVG_NS = "http://www.w3.org/2000/svg";
 const clamp = value => Math.max(0, Math.min(1, value));
-const exhibits = [...simulations, ...galleryFigures.map((figure, index) => ({...figure, index}))
+const exhibits = [...laboratory, ...simulations, ...galleryFigures.map((figure, index) => ({...figure, index}))
   .filter(figure => !simulations.some(simulation => simulation.id === figure.id))];
 
 export function mountGallery(root, {copy, loadCodes, initial}) {
@@ -25,17 +27,59 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   const copyButton = root.querySelector("[data-gallery-copy]");
   const codeStatus = root.querySelector(".gallery-code-status");
   let current = 0, clock = 0, active = false, raf = 0, previous, tracks = [], marker;
-  let duration = DURATION, drawSimulation;
+  let duration = DURATION, drawSimulation, options = {}, speed = 1, loop = true, customPath, visible = false;
+  const parameterPanel = root.querySelector('.gallery-parameters');
+  const stage = root.querySelector('.gallery-stage');
+  const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;}, {rootMargin:'100px'});observer.observe(stage);
+  const thumbs = [
+    '<path d="M70 150 Q40 50 110 40 Q180 40 160 100 L172 115 L157 122 Q168 160 130 157 L124 180 M80 180 L88 140 Q64 115 80 93 M112 85 L146 88 M130 90 L126 118 L143 120 M123 134 L149 133"/><circle cx="94" cy="103" r="60"/><circle cx="141" cy="118" r="20"/>',
+    '<path d="M5 75 C60 5 145 25 140 90 S55 160 69 105 S144 58 166 90 S200 195 235 120 M5 90 C60 20 126 35 124 90 S70 145 83 106 S138 75 151 95 S198 180 235 134 M5 105 C50 40 115 35 108 94 S85 130 99 107 S130 94 136 102 S200 160 235 148"/>',
+    '<path d="M10 110 C30 10 85 10 117 105 S202 205 226 108 S170 12 120 104 S30 202 10 110 M27 111 C43 43 75 40 117 105 S190 177 207 110 S170 40 120 104 S49 173 27 111"/>'
+  ];
 
-  const buttons = exhibits.map(({title: label, build}, index) => {
+  const buttons = exhibits.map((exhibit, index) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = label;
-    if (build) button.className = "gallery-simulation-option";
-    button.addEventListener("click", () => select(index));
+    const thumb = document.createElement('span'); thumb.className='gallery-thumbnail';
+    if(index < 3) {const img=document.createElement('img');img.src='/assets/gallery/'+exhibit.id+'.webp';img.alt='';img.loading='lazy';img.width=480;img.height=270;thumb.append(img);}
+    else if(!exhibit.build) thumb.innerHTML=renderFigure(exhibit.index).graphic;
+    else thumb.innerHTML='<svg viewBox="0 0 240 210" aria-hidden="true">'+thumbs[exhibit.id==='cylinder-flow'?1:2]+'</svg>';
+    const label=document.createElement('strong');label.textContent=exhibit.title;
+    const kind=document.createElement('small');kind.textContent=exhibit.kind||'Mathematical construction';
+    button.append(thumb,kind,label);
+    button.addEventListener("click", () => {select(index);stage.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});});
     list.append(button);
     return button;
   });
+  function setParameters(exhibit){
+    parameterPanel.replaceChildren();options={};
+    const rebuild=()=>{playing(false);drawSimulation=mountLab(plot,exhibit,options);clock=0;paint(clock);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)playing(true);};
+    for(const p of exhibit.controls||[]){
+      const label=document.createElement('label'),input=document.createElement('input'),out=document.createElement('output');
+      label.append(p.label+' ',out);input.type='range';Object.assign(input,{min:p.min,max:p.max,step:p.step,value:p.value});options[p.key]=p.value;out.value=p.value;label.append(input);
+      input.addEventListener('input',()=>{out.value=input.value;});input.addEventListener('change',()=>{options[p.key]=Number(input.value);rebuild();});parameterPanel.append(label);
+    }
+    for(const [key,name,values] of exhibit.selects||[]){const label=document.createElement('label'),input=document.createElement('select');label.append(name);for(const [value,text] of values)input.add(new Option(text,value));options[key]=values[0][0];input.onchange=()=>{options[key]=input.value;rebuild();};label.append(input);parameterPanel.append(label);}
+    for(const [key,name,value] of exhibit.toggles||[]){const label=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=value;options[key]=value;input.onchange=()=>{options[key]=input.checked;paint(clock);};label.append(input,' '+name);parameterPanel.append(label);}
+    if(exhibit.id==='fourier-portrait'){
+      const button=document.createElement('button');button.className='btn btn-ghost';button.textContent='Draw your own';
+      button.onclick=()=>{playing(false);customPath=[];plot.classList.add('is-drawing');plot.querySelector('canvas').getContext('2d').clearRect(0,0,960,540);button.textContent='Drag in the canvas; release to reconstruct';};parameterPanel.append(button);
+      const reset=document.createElement('button');reset.className='btn btn-ghost';reset.textContent='Restore portrait';reset.onclick=()=>{customPath=null;delete options.path;plot.classList.remove('is-drawing');rebuild();};parameterPanel.append(reset);
+    }
+  }
+  let drawing=false;
+  plot.addEventListener('pointerdown',event=>{
+    const canvas=plot.querySelector('canvas');if(!canvas)return;const r=canvas.getBoundingClientRect(),x=(event.clientX-r.left)*960/r.width,y=(event.clientY-r.top)*540/r.height;
+    if(exhibits[current].id==='duffing-atlas' && x<640){options.seed=[Math.max(-2.2,Math.min(2.2,(x-330)/125)),Math.max(-1.8,Math.min(1.8,(270-y)/125))];drawSimulation=mountLab(plot,exhibits[current],options);clock=0;paint(0);return;}
+    if(!plot.classList.contains('is-drawing'))return;drawing=true;customPath=[[(x-540)/164,(y-247)/164]];plot.setPointerCapture(event.pointerId);
+  });
+  plot.addEventListener('pointermove',event=>{if(!drawing)return;const canvas=plot.querySelector('canvas'),r=canvas.getBoundingClientRect(),x=(event.clientX-r.left)*960/r.width,y=(event.clientY-r.top)*540/r.height,prev=customPath.at(-1);customPath.push([(x-540)/164,(y-247)/164]);const c=canvas.getContext('2d');c.strokeStyle='#f3ce85';c.lineWidth=2;c.beginPath();c.moveTo(540+prev[0]*164,247+prev[1]*164);c.lineTo(x,y);c.stroke();});
+  const finishDrawing=()=>{if(!drawing)return;drawing=false;plot.classList.remove('is-drawing');if(customPath.length>3){customPath.push(customPath[0]);options.path=customPath;}drawSimulation=mountLab(plot,exhibits[current],options);clock=0;paint(0);playing(true);};
+  plot.addEventListener('pointerup',finishDrawing);plot.addEventListener('pointercancel',finishDrawing);
+  root.querySelector('[data-gallery-speed]').onchange=e=>{speed=Number(e.target.value);};
+  root.querySelector('[data-gallery-loop]').onchange=e=>{loop=e.target.checked;};
+  root.querySelector('[data-gallery-fullscreen]').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await stage.requestFullscreen();}catch{stage.classList.toggle('gallery-expanded');}};
+  root.querySelector('[data-gallery-snapshot]').onclick=()=>{const canvas=plot.querySelector('canvas');if(!canvas)return;const exported=document.createElement('canvas');exported.width=canvas.width;exported.height=canvas.height;const context=exported.getContext('2d');context.fillStyle='#0a2424';context.fillRect(0,0,exported.width,exported.height);context.drawImage(canvas,0,0);exported.toBlob(blob=>{if(!blob)return;const link=document.createElement('a'),url=URL.createObjectURL(blob);link.href=url;link.download=exhibits[current].id+'.png';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});};
 
   function paint(time) {
     if (drawSimulation) telemetry.textContent = drawSimulation(time / 1000);
@@ -69,11 +113,11 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
   }
 
   function step(now) {
-    if (!root.isConnected) return;
-    if (previous !== undefined && !document.hidden) clock = Math.min(duration, clock + Math.min(50, now - previous));
+    if (!root.isConnected) {observer.disconnect();return;}
+    if (previous !== undefined && !document.hidden && visible) clock = Math.min(duration, clock + speed * Math.min(80, now - previous));
     previous = now;
-    paint(clock);
-    if (clock >= duration) playing(false);
+    if(visible && !document.hidden) paint(clock);
+    if (clock >= duration) {if(loop){clock=0;raf=requestAnimationFrame(step);}else playing(false);}
     else raf = requestAnimationFrame(step);
   }
 
@@ -88,6 +132,9 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
     category.textContent = exhibit.kind || "Mathematical figure";
     telemetry.textContent = "";
     plot.classList.toggle("gallery-plot-simulation", Boolean(exhibit.build));
+    plot.classList.remove("is-drawing");customPath=null;drawing=false;
+    setParameters(exhibit);
+    root.querySelector("[data-gallery-snapshot]").disabled=!exhibit.build;
     duration = exhibit.build ? exhibit.seconds * 1000 : DURATION;
     timeline.max = String(duration);
     drawSimulation = null;
@@ -95,7 +142,7 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
     marker = null;
     buttons.forEach((button, i) => button.setAttribute("aria-pressed", String(i === current)));
     if (exhibit.build) {
-      drawSimulation = mountSimulation(plot, exhibit);
+      drawSimulation = laboratory.includes(exhibit) ? mountLab(plot, exhibit,options) : mountSimulation(plot, exhibit);
     } else {
       plot.innerHTML = figure.graphic;
       const svg = plot.querySelector("svg");
@@ -114,6 +161,7 @@ export function mountGallery(root, {copy, loadCodes, initial}) {
         svg.append(marker);
       }
     }
+    history.replaceState(null, "", "?figure="+encodeURIComponent(exhibit.id));
     source.textContent = "";
     codeStatus.textContent = "";
     if (details.open) showCode(index);
