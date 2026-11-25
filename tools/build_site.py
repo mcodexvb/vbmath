@@ -154,7 +154,7 @@ for d in ('paper','semester'):
 pname=lambda p: p['code'] or ('Internal test' if p['kind'][0]=='i' else 'Paper')
 byp=collections.defaultdict(list)
 for q in Q: byp[q[0]].append(q)
-urls=[('/','1.0'),('/papers/','0.9'),('/search/','0.8'),('/topics/','0.7'),('/scans/','0.7'),('/exams/','0.6'),('/syllabus/','0.5'),('/notes/','0.5'),('/books/','0.4'),('/learn/','0.3'),('/people/','0.3'),('/guides/','0.4'),('/contribute/','0.4'),('/about/','0.3')]
+urls=[('/','1.0'),('/papers/','0.9'),('/search/','0.8'),('/topics/','0.7'),('/scans/','0.7'),('/exams/','0.6'),('/syllabus/','0.5'),('/notes/','0.5'),('/books/','0.4'),('/learn/','0.3'),('/people/','0.3'),('/guides/','0.4'),('/tools/','0.4'),('/contribute/','0.4'),('/about/','0.3')]
 TOP={'search':('Search questions · VBMath','Search 7,700+ Visva-Bharati mathematics exam questions by text, semester, year, paper code, topic and length.'),
      'papers':('Question papers by semester · VBMath','Visva-Bharati B.Sc. (Semesters I–VIII) and M.Sc. (Semesters I–IV) Mathematics question papers by semester and year.'),
      'topics':('Topics and trends · VBMath','How often each area of mathematics appears in Visva-Bharati B.Sc. and M.Sc. papers, year by year.'),
@@ -165,6 +165,7 @@ TOP={'search':('Search questions · VBMath','Search 7,700+ Visva-Bharati mathema
      'books':('Books · VBMath','Recommended mathematics textbooks by subject.'),'learn':('Videos and websites · VBMath','Video courses and useful websites for mathematics students.'),
      'people':('People · VBMath','Faculty of the Department of Mathematics, Visva-Bharati.'),'guides':('Guides · VBMath','Scholarships, admission, reaching Santiniketan, LaTeX and Ph.D. thesis submission at Visva-Bharati.'),
      'contribute':('Contribute · VBMath','Send question papers, type questions, fix topic tags or share solutions.'),'about':('About · VBMath','About VBMath, the student-run archive of Visva-Bharati mathematics question papers.'),
+     'tools':('Mathematics tools ? VBMath','Coding, numerical methods, and LaTeX resources for mathematics students.'),
      'preview':('Paper preview · VBMath','Preview your collected questions as an A4 question paper.')}
 for k,(t,d) in TOP.items():
     page(f'/{k}/',t,d,f'<div class="wrap"><h1>{H.escape(t.split(" · ")[0])}</h1><p class="lede">{H.escape(d)}</p></div>')
