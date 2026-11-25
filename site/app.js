@@ -1135,8 +1135,7 @@
             <form class="bigsearch" id="homeform" role="search">${IC.search}<input type="search" id="homeq" name="q" placeholder="Search a theorem, topic or paper code" aria-label="Search questions" autocomplete="off"><button class="btn btn-primary" type="submit">Search</button></form>
             <div class="hints"><span class="muted">Try</span>${["Cayley-Hamilton", "Sylow", "Green's theorem", "Frobenius", "Simplex"].map((h) => `<button type="button" class="chip" data-hint="${esc(h)}">${esc(h)}</button>`).join("")}</div>
           </div>
-          <div class="hero-feature"><figure class="daily-figure" id="home-figure" aria-busy="true">
-              <figcaption class="daily-figure-label">Math figure of the day</figcaption>
+          <div class="hero-feature"><figure class="home-figure" id="home-figure" aria-busy="true">
               <div class="daily-figure-plot"></div>
             </figure>
             <article class="qod" id="home-daily">
@@ -1178,8 +1177,8 @@
     const sections = new Map([
       [figure, async () => {
         try {
-          const {mountDailyFigure} = await import("./math-figures.mjs");
-          if (figure.isConnected) mountDailyFigure(figure);
+          const {mountHomeFigure} = await import("./math-figures.mjs?v=2");
+          if (figure.isConnected) mountHomeFigure(figure);
         } catch {
           if (figure.isConnected) figure.hidden = true;
         }
