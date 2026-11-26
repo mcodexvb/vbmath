@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>SECMA-1 Algebra II and Analysis II 2022 · B.Sc. Mathematics Semester III · VBMath</title>
-<meta name="description" content="Visva-Bharati B.Sc. Mathematics Semester III 2022 end-semester question paper SECMA-1 (Algebra II and Analysis II): 8 questions typed in LaTeX.">
+<title>SECMA-1 Boolean Algebra and Circuit Design 2022 · B.Sc. Mathematics Semester III · VBMath</title>
+<meta name="description" content="Visva-Bharati B.Sc. Mathematics Semester III 2022 end-semester question paper SECMA-1 (Boolean Algebra and Circuit Design): 8 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/bsc-3-2022-s-4/">
-<meta property="og:title" content="SECMA-1 Algebra II and Analysis II 2022 · B.Sc. Mathematics Semester III · VBMath">
-<meta property="og:description" content="Visva-Bharati B.Sc. Mathematics Semester III 2022 end-semester question paper SECMA-1 (Algebra II and Analysis II): 8 questions typed in LaTeX.">
+<meta property="og:title" content="SECMA-1 Boolean Algebra and Circuit Design 2022 · B.Sc. Mathematics Semester III · VBMath">
+<meta property="og:description" content="Visva-Bharati B.Sc. Mathematics Semester III 2022 end-semester question paper SECMA-1 (Boolean Algebra and Circuit Design): 8 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/bsc-3-2022-s-4/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "SECMA-1 Algebra II and Analysis II 2022 · B.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/bsc-3-2022-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Undergraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "B.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/bsc-3/"}, {"@type": "ListItem", "position": 3, "name": "SECMA-1 2022", "item": "https://vbmath.pages.dev/paper/bsc-3-2022-s-4/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "SECMA-1 Boolean Algebra and Circuit Design 2022 · B.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/bsc-3-2022-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Undergraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "B.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/bsc-3/"}, {"@type": "ListItem", "position": 3, "name": "SECMA-1 2022", "item": "https://vbmath.pages.dev/paper/bsc-3-2022-s-4/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/bsc-3/">B.Sc. Semester III</a> / 2022</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>SECMA-1</h1><div class="sub">Algebra II and Analysis II</div><div class="fm"><span>B.Sc. Mathematics · Semester III</span><span>2022</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Define Boolean algebra. Give an example of your choice. Explain some unusuality in its definition. Would it be possible to have a three element Boolean algebra? Define a Boolean expression.</span></li><li><b>2</b> <span class="qbody">Show from definition that elements of a Boolean algebra obey association law, absorption law and De-Morgan&#x27;s law.</span></li><li><b>3</b> <span class="qbody">Define equivalence of two Boolean expressions. Define complete conjunctive normal form of a Boolean expression. Show that there are only a finite number of distinct Boolean expressions in \(n\) Boolean variables.</span></li><li><b>4</b> <span class="qbody">Define a Boolean function. Define a Karnaugh map. State how Boolean functions are represented in a Karnaugh map. Use Karnaugh map to represent the Boolean function \(NAND(x,y,z)\).</span></li><li><b>5</b> <span class="qbody">Minimize the function \(f(x,y,z,w)=\Sigma(0,2,8,9,10,12,13,14)\) and implement the same using two-input NAND gates.</span></li><li><b>6</b> <span class="qbody">Design a full adder logic circuit.</span> [5]</li><li><b>7</b> <span class="qbody">State the function of flip-flop in the design of digital circuits. Draw the block diagram, state table, state equation, external state diagram, steering table and the \(NAND\) implementation of a JK-ff.</span></li><li><b>8</b> <span class="qbody">State the functions of an SR-ff. Design an SR-ff from \(NAND\) gates. Determine the logic levels at each output of a gate.</span></li></ol></div><!--/APP--></main>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/bsc-3/">B.Sc. Semester III</a> / 2022</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>SECMA-1</h1><div class="sub">Boolean Algebra and Circuit Design</div><div class="fm"><span>B.Sc. Mathematics · Semester III</span><span>2022</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Define Boolean algebra. Give an example of your choice. Explain some unusuality in its definition. Would it be possible to have a three element Boolean algebra? Define a Boolean expression.</span></li><li><b>2</b> <span class="qbody">Show from definition that elements of a Boolean algebra obey association law, absorption law and De-Morgan&#x27;s law.</span></li><li><b>3</b> <span class="qbody">Define equivalence of two Boolean expressions. Define complete conjunctive normal form of a Boolean expression. Show that there are only a finite number of distinct Boolean expressions in \(n\) Boolean variables.</span></li><li><b>4</b> <span class="qbody">Define a Boolean function. Define a Karnaugh map. State how Boolean functions are represented in a Karnaugh map. Use Karnaugh map to represent the Boolean function \(NAND(x,y,z)\).</span></li><li><b>5</b> <span class="qbody">Minimize the function \(f(x,y,z,w)=\Sigma(0,2,8,9,10,12,13,14)\) and implement the same using two-input NAND gates.</span></li><li><b>6</b> <span class="qbody">Design a full adder logic circuit.</span> [5]</li><li><b>7</b> <span class="qbody">State the function of flip-flop in the design of digital circuits. Draw the block diagram, state table, state equation, external state diagram, steering table and the \(NAND\) implementation of a JK-ff.</span></li><li><b>8</b> <span class="qbody">State the functions of an SR-ff. Design an SR-ff from \(NAND\) gates. Determine the logic levels at each output of a gate.</span></li></ol></div><!--/APP--></main>
 <footer class="foot">
   <div class="wrap">
     <div class="cols">
@@ -79,6 +79,6 @@ window.MathJax = {
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>MMC-41 New Syllabus 2019 · M.Sc. Mathematics Semester IV · VBMath</title>
-<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMC-41 (New Syllabus): 8 questions typed in LaTeX.">
+<title>MMC-41 Differential Geometry 2019 · M.Sc. Mathematics Semester IV · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMC-41 (Differential Geometry): 8 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/msc-4-2019-s-1/">
-<meta property="og:title" content="MMC-41 New Syllabus 2019 · M.Sc. Mathematics Semester IV · VBMath">
-<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMC-41 (New Syllabus): 8 questions typed in LaTeX.">
+<meta property="og:title" content="MMC-41 Differential Geometry 2019 · M.Sc. Mathematics Semester IV · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMC-41 (Differential Geometry): 8 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/msc-4-2019-s-1/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-41 New Syllabus 2019 · M.Sc. Mathematics Semester IV", "url": "https://vbmath.pages.dev/paper/msc-4-2019-s-1/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester IV", "item": "https://vbmath.pages.dev/semester/msc-4/"}, {"@type": "ListItem", "position": 3, "name": "MMC-41 2019", "item": "https://vbmath.pages.dev/paper/msc-4-2019-s-1/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-41 Differential Geometry 2019 · M.Sc. Mathematics Semester IV", "url": "https://vbmath.pages.dev/paper/msc-4-2019-s-1/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester IV", "item": "https://vbmath.pages.dev/semester/msc-4/"}, {"@type": "ListItem", "position": 3, "name": "MMC-41 2019", "item": "https://vbmath.pages.dev/paper/msc-4-2019-s-1/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-4/">M.Sc. Semester IV</a> / 2019</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-41</h1><div class="sub">New Syllabus</div><div class="fm"><span>M.Sc. Mathematics · Semester IV</span><span>2019</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Define normal section of a smooth surface $M$ at a point $P\big((x^1(u,v),x^2(u,v),x^3(u,v))\big)$ in the direction $\vec w$. Hence find the normal section to the surface $M=\{(x^1,x^2,x^3):(x^1)^2+(x^2)^2=1,\ -2\le x^3\le2\}$ at the point $(0,1,0)$ in the direction $\vec w_1=(0,0,1)$, $\vec w_2=(0,1,0)$ and $\vec w_3=\left(\frac1{\sqrt2},0,\frac1{\sqrt2}\right)$. Find curvature and torsion to these curves. 
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-4/">M.Sc. Semester IV</a> / 2019</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-41</h1><div class="sub">Differential Geometry</div><div class="fm"><span>M.Sc. Mathematics · Semester IV</span><span>2019</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Define normal section of a smooth surface $M$ at a point $P\big((x^1(u,v),x^2(u,v),x^3(u,v))\big)$ in the direction $\vec w$. Hence find the normal section to the surface $M=\{(x^1,x^2,x^3):(x^1)^2+(x^2)^2=1,\ -2\le x^3\le2\}$ at the point $(0,1,0)$ in the direction $\vec w_1=(0,0,1)$, $\vec w_2=(0,1,0)$ and $\vec w_3=\left(\frac1{\sqrt2},0,\frac1{\sqrt2}\right)$. Find curvature and torsion to these curves. 
 \par\centerline{\textbf{OR}}
 Define manifold $\mathcal M$ of dimension $m$ and a affine linear connection on $\mathcal M$. Define covariant derivative of a vector field in terms of connection. Derive expressions for $\nabla_Xf$, $\nabla_XY$ and $\nabla_X\omega$ for $f:\mathcal M\to\mathbb R$, $X=X^i(\tilde x)\frac{\partial}{\partial x^i}$, $Y=Y^i(\tilde x)\frac{\partial}{\partial x^i}$, $\omega=\omega_i(\tilde x)dx^i$.</span> [10]</li><li><b>2</b> <span class="qbody">Define the first fundamental form of a smooth surface $M=\{(x^1(u,v),x^2(u,v),x^3(u,v)):(u,v)\in\Omega\subset\mathbb R^2\}$. Give geometrical interpretation of coefficients involved in the first fundamental form. Find the first fundamental form for the surface $M=\{\sin u\cos v,\sin u\sin v,\cos u\}$ $(0\le u\le\pi,\ 0\le v\le2\pi)$. 
 \par\centerline{\textbf{OR}}
@@ -91,6 +91,6 @@ What do you mean by commutator? State few important properties of this operation
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

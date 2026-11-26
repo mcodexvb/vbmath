@@ -1,3 +1,13 @@
+/paper/bsc-2-2024-s-1-3/ /paper/bsc-2-2024-s-3/ 301
+/paper/bsc-5-2024-sx-1/ /paper/bsc-5-2024-s-1/ 301
+/paper/bsc-5-2024-sx-2/ /paper/bsc-5-2024-s-2/ 301
+/paper/bsc-5-2024-sx-3/ /paper/bsc-5-2024-s-4/ 301
+/paper/msc-3-2018-s-1/ /paper/msc-1-2018-s-1/ 301
+/paper/msc-3-2018-s-2/ /paper/msc-1-2018-s-2/ 301
+/paper/msc-3-2018-s-3/ /paper/msc-1-2018-s-3/ 301
+/paper/msc-3-2018-s-4/ /paper/msc-1-2018-s-4/ 301
+/paper/msc-3-2018-s-5/ /paper/msc-1-2018-s-5/ 301
+/paper/msc-3-2018-s-6/ /paper/msc-1-2018-s-6/ 301
 /preview/:paper/ /preview/?paper=:paper 302
 /preview/:paper /preview/?paper=:paper 302
 /maker/* /preview/index.html 200

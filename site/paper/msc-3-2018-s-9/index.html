@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>MMC-33 New Old 2018 · M.Sc. Mathematics Semester III · VBMath</title>
-<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester III 2018 end-semester question paper MMC-33 (New Old): 19 questions typed in LaTeX.">
+<title>MMC-33 Fluid Mechanics 2018 · M.Sc. Mathematics Semester III · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester III 2018 end-semester question paper MMC-33 (Fluid Mechanics): 19 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/msc-3-2018-s-9/">
-<meta property="og:title" content="MMC-33 New Old 2018 · M.Sc. Mathematics Semester III · VBMath">
-<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester III 2018 end-semester question paper MMC-33 (New Old): 19 questions typed in LaTeX.">
+<meta property="og:title" content="MMC-33 Fluid Mechanics 2018 · M.Sc. Mathematics Semester III · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester III 2018 end-semester question paper MMC-33 (Fluid Mechanics): 19 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/msc-3-2018-s-9/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-33 New Old 2018 · M.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/msc-3-2018-s-9/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/msc-3/"}, {"@type": "ListItem", "position": 3, "name": "MMC-33 2018", "item": "https://vbmath.pages.dev/paper/msc-3-2018-s-9/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-33 Fluid Mechanics 2018 · M.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/msc-3-2018-s-9/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/msc-3/"}, {"@type": "ListItem", "position": 3, "name": "MMC-33 2018", "item": "https://vbmath.pages.dev/paper/msc-3-2018-s-9/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-3/">M.Sc. Semester III</a> / 2018</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-33</h1><div class="sub">New Old</div><div class="fm"><span>M.Sc. Mathematics · Semester III</span><span>2018</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Show that the equation of continuity by the Eulerian method and Lagrangian method are equivalent.</span> [3]</li><li><b>1(b)</b> <span class="qbody">Consider a two dimensional incompressible steady flow field with velocity components in spherical coordinates $(r,\theta,\varphi)$ given by\par
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-3/">M.Sc. Semester III</a> / 2018</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-33</h1><div class="sub">Fluid Mechanics</div><div class="fm"><span>M.Sc. Mathematics · Semester III</span><span>2018</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Show that the equation of continuity by the Eulerian method and Lagrangian method are equivalent.</span> [3]</li><li><b>1(b)</b> <span class="qbody">Consider a two dimensional incompressible steady flow field with velocity components in spherical coordinates $(r,\theta,\varphi)$ given by\par
 \[v_r=c_1\left(1-\frac32\frac{r_0}{r}+\frac12\frac{r_0^2}{r^2}\right)\cos\theta,\]
 \[v_\theta=-c_1\left(1-\frac34\frac{r_0}{r}-\frac14\frac{r_0^2}{r^2}\right)\sin\theta,\ v_\varphi=0,\]
 $r\ge r_0&gt;0$ where $c_1$ and $r_0$ are arbitrary constants. Is the equation of continuity satisfied?</span> [3]</li><li><b>1(c)</b> <span class="qbody">If the velocity components for a two-dimensional fluid system are given in the Eulerian system by $u=2x+2y+3t$, $v=x+y+\frac t2$, find the displacement of a fluid particle in the Lagrangian system.</span> [4]</li><li><b>2(a)</b> <span class="qbody">Find the condition that the surface $F(x,y,z,t)=0$ may be a boundary surface of a fluid in motion. Also find the normal velocity of the boundary.</span> [2]</li><li><b>2(b)</b> <span class="qbody">Establish the relation connecting the angular velocity and the vorticity vector.</span> [2]</li><li><b>2(c)</b> <span class="qbody">Show that if the motion of an ideal fluid, for which density is a function of pressure only, is steady and the external forces are conservative, then there exists a family of surfaces which contain the stream lines and vortex lines.</span> [3]</li><li><b>2(d)</b> <span class="qbody">At a point in an incompressible fluid having spherical polar co-ordinates $(r,\theta,\varphi)$, the velocity components are $\left(2Mr^{-3}\cos\theta,\,Mr^{-3}\sin\theta,\,0\right)$, where $M$ is a constant. Show the velocity is of the potential kind. Find the velocity potential and the equations of the stream lines.</span> [3]</li><li><b>3(a)</b> <span class="qbody">Find the physical significance of stream function.</span> [2]</li><li><b>3(b)</b> <span class="qbody">State and prove Milne-Thomson circle theorem.</span> [3]</li><li><b>3(c)</b> <span class="qbody">Determine image system for a source outside a circle of radius $a$ with the help of the circle theorem. 
@@ -83,6 +83,6 @@ $r\ge r_0&gt;0$ where $c_1$ and $r_0$ are arbitrary constants. Is the equation o
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

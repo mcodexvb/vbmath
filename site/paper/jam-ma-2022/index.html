@@ -22,8 +22,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -31,10 +32,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -806,6 +806,6 @@ is equal to \rule{3cm}{1pt}. (Rounded off to two decimal places)</span></li></ol
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>MMC-26 New Old Syllabus 2025 · M.Sc. Mathematics Semester II · VBMath</title>
-<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester II 2025 end-semester question paper MMC-26 (New Old Syllabus): 13 questions typed in LaTeX.">
+<title>MMC-26 Numerical Analysis 2025 · M.Sc. Mathematics Semester II · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester II 2025 end-semester question paper MMC-26 (Numerical Analysis): 13 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/msc-2-2025-s-6/">
-<meta property="og:title" content="MMC-26 New Old Syllabus 2025 · M.Sc. Mathematics Semester II · VBMath">
-<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester II 2025 end-semester question paper MMC-26 (New Old Syllabus): 13 questions typed in LaTeX.">
+<meta property="og:title" content="MMC-26 Numerical Analysis 2025 · M.Sc. Mathematics Semester II · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester II 2025 end-semester question paper MMC-26 (Numerical Analysis): 13 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/msc-2-2025-s-6/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-26 New Old Syllabus 2025 · M.Sc. Mathematics Semester II", "url": "https://vbmath.pages.dev/paper/msc-2-2025-s-6/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester II", "item": "https://vbmath.pages.dev/semester/msc-2/"}, {"@type": "ListItem", "position": 3, "name": "MMC-26 2025", "item": "https://vbmath.pages.dev/paper/msc-2-2025-s-6/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMC-26 Numerical Analysis 2025 · M.Sc. Mathematics Semester II", "url": "https://vbmath.pages.dev/paper/msc-2-2025-s-6/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester II", "item": "https://vbmath.pages.dev/semester/msc-2/"}, {"@type": "ListItem", "position": 3, "name": "MMC-26 2025", "item": "https://vbmath.pages.dev/paper/msc-2-2025-s-6/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-2/">M.Sc. Semester II</a> / 2025</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-26</h1><div class="sub">New Old Syllabus</div><div class="fm"><span>M.Sc. Mathematics · Semester II</span><span>2025</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Suppose $f\in C^{2n+2}[a,b]$ and $x_0,x_1,x_2,\cdots x_n$ are distinct points in $[a,b]$. Let $H_{2n+1}(x)$ be the Hermite interpolating polynomial for $f$ with respect to these points. Show that the error in Hermite interpolation is given by\par
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-2/">M.Sc. Semester II</a> / 2025</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMC-26</h1><div class="sub">Numerical Analysis</div><div class="fm"><span>M.Sc. Mathematics · Semester II</span><span>2025</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Suppose $f\in C^{2n+2}[a,b]$ and $x_0,x_1,x_2,\cdots x_n$ are distinct points in $[a,b]$. Let $H_{2n+1}(x)$ be the Hermite interpolating polynomial for $f$ with respect to these points. Show that the error in Hermite interpolation is given by\par
 \[R(x)=\frac{f^{(2n+2)}(\xi)}{(2n+2)!}\prod_{i=0}^n(x-x_i)^2,\ \forall x\in[a,b],\ a&lt;\xi&lt;b.\]</span> [5]</li><li><b>1(b)</b> <span class="qbody">Find the cubic spline curve that passes through $(0,0)$, $(1,0.5)$, $(2,2)$ and $(3,1.5)$ with the vanishing curvature end conditions.</span> [5]</li><li><b>2(a)</b> <span class="qbody">If $P_n(x)$ is any monic polynomial of degree $n$ and $\tilde T_n(x)=\frac1{2^{n-1}}T_n(x)$ is the monic Chebyshev polynomial, then show that $\max_{x\in[-1,1]}|\tilde T_n(x)|&lt;\max_{x\in[-1,1]}|P_n(x)|$.</span> [5]</li><li><b>2(b)</b> <span class="qbody">A person runs the same race track for five consecutive days and is timed as follows:\par
 \begin{center}\begin{tabular}{|c|c|c|c|c|c|}\hline day $(x)$&amp;1&amp;2&amp;3&amp;4&amp;5\\\hline time $(y)$&amp;15.30&amp;15.10&amp;15.00&amp;14.50&amp;14.00\\\hline\end{tabular}\end{center}
 Find the least square fit to the above data using the function $a+\dfrac bx+\dfrac c{x^2}$.</span> [5]</li><li><b>3(a)</b> <span class="qbody">What do you mean by Romberg&#x27;s quadrature? Derive Romberg&#x27;s quadrature formula for evaluating $I=\int_a^bf(x)dx$ by Simpson&#x27;s one-third rule. Also mention the stopping criterion.</span> [1+4+1]</li><li><b>3(b)</b> <span class="qbody">Obtain an approximate value of the integral $I=\int_{-1}^1(1-x^2)^{\frac12}\cos x\ dx$ by using the Gauss-Chebyshev three-point formula.</span> [4]</li><li><b>4(a)</b> <span class="qbody">If $C_i^{(n)}$ be the Cotes&#x27; coefficients, then show that $C_i^{(n)}=C_{n-i}^{(n)},i=0,1,2,\cdots n$</span> [3]</li><li><b>4(b)</b> <span class="qbody">Outline the sequence of steps in the Shooting method for numerically solving two-point boundary value problems for ordinary differential equations.</span> [2]</li><li><b>4(c)</b> <span class="qbody">Show that the finite difference method for approximating the boundary value problem $y^{\prime\prime}+p(x)y^\prime+q(x)y=r(x),a&lt;x&lt;b,\ p(x),q(x),r(x)\in C[a,b]$ with boundary conditions $y(a)=\alpha$ and $y(b)=\beta$ leads to a tri-diagonal system.</span> [5]</li><li><b>5(a)</b> <span class="qbody">If $f(x,y)$ has continuous partial derivatives upto sufficient number of times for $(x,y)\in D$ where, $D=\{(x,y):a\le x\le b,-\infty&lt;y&lt;\infty\}$ then show that the grid error $E$ for a single-step method in solving the initial value problem $\frac{dy}{dx}=f(x,y),\ y(a)=y_0$ is given by\par
@@ -84,6 +84,6 @@ where, $K,M$ are positive constants, $p$ is the order of the single-step method.
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

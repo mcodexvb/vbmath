@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>SECMA-2 Analysis-II and Tensor Calculus 2022 · B.Sc. Mathematics Semester IV · VBMath</title>
-<meta name="description" content="Visva-Bharati B.Sc. Mathematics Semester IV 2022 end-semester question paper SECMA-2 (Analysis-II and Tensor Calculus): 8 questions typed in LaTeX.">
+<title>SECMA-2 2022 · B.Sc. Mathematics Semester IV · VBMath</title>
+<meta name="description" content="Visva-Bharati B.Sc. Mathematics Semester IV 2022 end-semester question paper SECMA-2: 8 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/bsc-4-2022-s-4/">
-<meta property="og:title" content="SECMA-2 Analysis-II and Tensor Calculus 2022 · B.Sc. Mathematics Semester IV · VBMath">
-<meta property="og:description" content="Visva-Bharati B.Sc. Mathematics Semester IV 2022 end-semester question paper SECMA-2 (Analysis-II and Tensor Calculus): 8 questions typed in LaTeX.">
+<meta property="og:title" content="SECMA-2 2022 · B.Sc. Mathematics Semester IV · VBMath">
+<meta property="og:description" content="Visva-Bharati B.Sc. Mathematics Semester IV 2022 end-semester question paper SECMA-2: 8 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/bsc-4-2022-s-4/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "SECMA-2 Analysis-II and Tensor Calculus 2022 · B.Sc. Mathematics Semester IV", "url": "https://vbmath.pages.dev/paper/bsc-4-2022-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Undergraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "B.Sc. Semester IV", "item": "https://vbmath.pages.dev/semester/bsc-4/"}, {"@type": "ListItem", "position": 3, "name": "SECMA-2 2022", "item": "https://vbmath.pages.dev/paper/bsc-4-2022-s-4/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "SECMA-2 2022 · B.Sc. Mathematics Semester IV", "url": "https://vbmath.pages.dev/paper/bsc-4-2022-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Undergraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "B.Sc. Semester IV", "item": "https://vbmath.pages.dev/semester/bsc-4/"}, {"@type": "ListItem", "position": 3, "name": "SECMA-2 2022", "item": "https://vbmath.pages.dev/paper/bsc-4-2022-s-4/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/bsc-4/">B.Sc. Semester IV</a> / 2022</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>SECMA-2</h1><div class="sub">Analysis-II and Tensor Calculus</div><div class="fm"><span>B.Sc. Mathematics · Semester IV</span><span>2022</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Define scalar, vector and tensor fields. The relations among components $A(i,j,k,l)(\tilde u)$ in two coordinate systems $\tilde u(=(u^1,u^2,\ldots,u^n))$ and $\tilde{\bar u}(=(\bar u^1,\bar u^2,\ldots,\bar u^n))$ are
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/bsc-4/">B.Sc. Semester IV</a> / 2022</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>SECMA-2</h1><div class="fm"><span>B.Sc. Mathematics · Semester IV</span><span>2022</span></div></header><ol class="prerender"><li><b>1</b> <span class="qbody">Define scalar, vector and tensor fields. The relations among components $A(i,j,k,l)(\tilde u)$ in two coordinate systems $\tilde u(=(u^1,u^2,\ldots,u^n))$ and $\tilde{\bar u}(=(\bar u^1,\bar u^2,\ldots,\bar u^n))$ are
 \[\bar A(\alpha,\beta,\gamma,\delta)(\tilde{\bar u})=A(\alpha,\beta,\gamma,\delta)(\tilde u).\]
 Determine whether $A(i,j,k,l)(\tilde u)$ are tensor. Give their order and rank. Write down the explicit expression for $A_{pq}A^{qr}$ following the rule of summation convention.</span> [1+1+1+1+1]</li><li><b>2</b> <span class="qbody">Assuming a point in space can be described by two sets of variables $\tilde u(=(u^1,u^2,\ldots,u^n))$ and $\tilde{\bar u}(=(\bar u^1,\bar u^2,\ldots,\bar u^n))$ uniquely, prove that $du^p$ and $\frac{\partial\phi}{\partial u^k}(\tilde u)$ are tensor fields. Determine their natures (covariant/contravariant).</span> [2+2+1]</li><li><b>3</b> <span class="qbody">If $A_r^{pq}$ and $B_s^t$ are tensor fields, verify the outer product $A_r^{pq}B_s^t$ is a tensor field or not. Show that contraction of the outer product of tensor fields $A^p$ and $C_r$ is a scalar field. Find the rank of the inner product of the tensor fields $C_r^p$ and $B_t^{qs}$.</span> [2+2+1]</li><li><b>4</b> <span class="qbody">A quantity $B(i,j,k)$ is such that $B(i,j,k)C_i^{jl}=A_k^l$, where $C_i^{jl}$ is an arbitrary tensor field. Prove that $B(i,j,k)$ is a tensor field. Determine its rank.</span> [4+1]</li><li><b>5</b> <span class="qbody">If $ds^2=g_{pq}du^pdu^q$ is an invariant, prove that $g_{pq}$ is a tensor. Determine its rank and verify whether it is symmetric. Find $g_{pq}$ for the cylindrical polar coordinates $(u^1,u^2,u^3)$.</span> [3+1+1]</li><li><b>6</b> <span class="qbody">Define Christoffel&#x27;s symbol of first and second kinds. Prove that the Christoffel symbol of the first kind is symmetric in the first two indices, and the second kind is symmetric for indices appearing in the subscript. Prove the formula $\Gamma_{pq}^p=\frac{\partial}{\partial u^q}\ln\sqrt g$.</span> [1+2+2]</li><li><b>7</b> <span class="qbody">Prove that $\frac{\partial}{\partial u^q}\Phi(\tilde u)$ is a tensor for any scalar field $\Phi(\tilde u)$. Check whether $\frac{\partial}{\partial u^q}A^p(\tilde u)$ is a tensor field. Define covariant derivative. Find the covariant derivative of $g_{st}(\tilde u)$ with respect to the variable $u^i$.</span> [1+1+1+2]</li><li><b>8</b> <span class="qbody">For any tensor field $A_q(\tilde u)$, establish the formula $A_{p,qr}-A_{p,rq}=R^s_{pqr}A_s$. Here $B_{p,q}$ stands for the covariant derivative of the tensor field $B_p(\tilde u)$ with respect to $u^q$.</span> [5]</li></ol></div><!--/APP--></main>
 <footer class="foot">
@@ -81,6 +81,6 @@ Determine whether $A(i,j,k,l)(\tilde u)$ are tensor. Give their order and rank. 
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

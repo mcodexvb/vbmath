@@ -10,6 +10,30 @@ BROAD=list(TOP)
 CODE=re.compile(r'\b(MJAMA|MJMA|MNMA|SECMA|SEC|DSEMA|DSE|GEMA|CCMA|CC|BMC|BME|BMO|MMC|MME|MMO|GEC|AECC|MDMA)\s*[-–_ ]?\s*0*(\d{1,2})',re.I)
 ROMAN={'I':1,'II':2,'III':3,'IV':4,'V':5,'VI':6}
 def prog(p): return 'BSc' if p.startswith('BSc') else 'MSc'
+# ---- drop papers typed twice (same questions, same programme, semester and year)
+_sig=collections.defaultdict(list)
+for r in R: _sig[(r['source_file'],r['paper_index'])].append(r['latex'])
+_first={}; _dupes=set()
+for k,texts in _sig.items():
+    r0=next(r for r in R if (r['source_file'],r['paper_index'])==k)
+    key=(r0['programme'],r0['semester'],r0['year'],'||'.join(texts))
+    if key in _first: _dupes.add(k)
+    else: _first[key]=k
+R=[r for r in R if (r['source_file'],r['paper_index']) not in _dupes]
+# ---- paper code and title clean-up
+def fix_code_title(code,title,sem,pg):
+    """Unify code spellings and turn syllabus notes and elective numbers in the title field into codes."""
+    t=(title or '').strip()
+    if code:
+        code=re.sub(r'\(([AP])0*(\d+)\)',lambda m:f'({m.group(1)}{m.group(2)})',code.strip())
+    m=re.fullmatch(r'(?:New Syllabus-)?P-?0*(\d+)(?:/A0*(\d+))?',t,re.I)
+    if m and pg=='MSc' and sem in (3,4):
+        el=f"P{m.group(1)}"+(f"/A{m.group(2)}" if m.group(2) else '')
+        base=re.sub(r'\(.*','',code) if code else f'MMO-{sem}1'
+        code=f'{base}({el})'; t=''
+    if re.fullmatch(r'(nep[- ]?new|(new|old)( (new|old))?( syllabus)?)',t,re.I): t=''
+    t=re.sub(r'\bAdvance\b(?!d)','Advanced',t)
+    return code,(t or None)
 # ---- papers
 papers={};order=[]
 for r in R:
@@ -18,11 +42,12 @@ for r in R:
         kind='i' if r['kind']=='internal' else 's'
         key=f"{prog(r['programme']).lower()}-{r['semester']}-{r['year']}-{kind}-{len([1 for kk in papers if kk[0]==r['source_file']])+1}"
         if r['source_file'].startswith('Extra_'): key=key.replace(f'-{kind}-',f'-{kind}x-')
+        code,title=fix_code_title(r['paper_code'],r['paper_title'],r['semester'],prog(r['programme']))
         papers[k]=dict(key=key,prog=prog(r['programme']),sem=r['semester'],year=r['year'],kind=kind,
-          code=r['paper_code'],title=r['paper_title'],full=r['full_marks'],rule=r['choice_rule'],n=0)
+          code=code,title=title,full=r['full_marks'],rule=r['choice_rule'],n=0)
         order.append(k)
     papers[k]['n']+=1
-    if not papers[k]['code'] and r['paper_code']: papers[k]['code']=r['paper_code']
+    if not papers[k]['code'] and r['paper_code']: papers[k]['code']=fix_code_title(r['paper_code'],None,r['semester'],prog(r['programme']))[0]
 # dedupe keys
 seen=collections.Counter()
 for k in order:
@@ -41,10 +66,10 @@ for p in P: p['title']=clean_title(p['title'])
 # fill missing titles from the nearest-year paper with the same programme+code
 byc=collections.defaultdict(list)
 for p in P:
-    if p['code'] and p['title']: byc[(p['prog'],p['code'])].append(p)
+    if p['code'] and p['title']: byc[(p['prog'],p['sem'],p['code'])].append(p)
 for p in P:
-    if not p['title'] and p['code'] and byc.get((p['prog'],p['code'])):
-        best=min(byc[(p['prog'],p['code'])],key=lambda x:abs(x['year']-p['year']))
+    if not p['title'] and p['code'] and byc.get((p['prog'],p['sem'],p['code'])):
+        best=min(byc[(p['prog'],p['sem'],p['code'])],key=lambda x:abs(x['year']-p['year']))
         if abs(best['year']-p['year'])<=4: p['title']=best['title'];p['title_guess']=1
 # ---- repeats: same question text asked in different years
 def norm(t): return re.sub(r'[^a-z0-9]','',t.lower())
@@ -90,6 +115,7 @@ for l in open(os.path.join(ROOT,'tools/scans_raw.tsv'),encoding='utf-8'):
         lab=nm['name']
         if len(nm['codes'])==1: code=nm['codes'][0]
         elif len(nm['codes'])>1: code=None
+    if pg=='MSc' and sem==3 and yr==2018 and code and re.fullmatch(r'MMC-1\d',code): sem=1  # filed under Sem III on Drive
     d=dict(id=i,prog=pg,sem=sem,year=yr,kind=kind,old=older,label=lab,code=code,other=bool(NONMATH.search(lab+' '+fname)) and not (nm and nm['codes'] and not NONMATH.search(lab)),group=sub[0] if sub else None)
     if fname!=lab: d['file']=fname
     if nm and nm.get('pages'): d['pages']=nm['pages']
@@ -167,7 +193,7 @@ TOP={'search':('Search questions · VBMath','Search 7,700+ Visva-Bharati mathema
      'people':('People · VBMath','Faculty of the Department of Mathematics, Visva-Bharati.'),'guides':('Guides · VBMath','Scholarships, admission, reaching Santiniketan, LaTeX and Ph.D. thesis submission at Visva-Bharati.'),
      'contribute':('Contribute · VBMath','Send question papers, type questions, fix topic tags or share solutions.'),'about':('About · VBMath','About VBMath, the student-run archive of Visva-Bharati mathematics question papers.'),
      'tools':('Mathematics tools · VBMath','Coding, numerical methods, and LaTeX resources for mathematics students.'),
-     'gallery':('Math Gallery · VBMath','Explore 24 interactive mathematical simulations and their live controls.'),
+     'gallery':('Math Gallery · VBMath','25 interactive mathematical simulations with their equations, explanations and live controls.'),
      'preview':('Paper preview · VBMath','Preview your collected questions as an A4 question paper.')}
 for k,(t,d) in TOP.items():
     page(f'/{k}/',t,d,f'<div class="wrap"><h1>{H.escape(t.split(" · ")[0])}</h1><p class="lede">{H.escape(d)}</p></div>')

@@ -510,83 +510,260 @@
     };
   }
 
-  function chooseSampleQuestions(pool, marks) {
-    const target = Math.round(marks * 100);
-    const reachable = new Map([[0, null]]);
-    const shuffled = [...pool];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  /* ---- sample paper: whole questions from one course, spread over its topics ---- */
+  const BAD_TEX = /\\(unreadable|missingglyph|gapmark)|\b(figure|diagram|graph) (shown|given|below|above)\b|\bfig\.?\s*\d/i;
+  const DEPENDS = /^\s*(\\?\(?[a-z]\)\s*)?(hence|deduce|using (this|the above|the result)|show further|also show|in the above|from the above)\b/i;
+  const normText = (t) => plainOf(t).toLowerCase().replace(/[^a-z0-9]/g, "");
+  function courseKey(p) { return p.prog + "|" + p.sem + "|" + (p.code || "").replace(/\s+/g, "").replace(/\(.*/, ""); }
+
+  // Every question of the given papers as a block of its parts, with marks, topics and position in its paper.
+  function questionBlocks(paperIdx) {
+    const out = [];
+    paperIdx.forEach((i) => {
+      const rows = D.byPaper[i].filter((q) => !q.stem);
+      const groups = new Map();
+      rows.forEach((q) => { const k = q.sec + "|" + q.qno; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(q); });
+      const list = [...groups.values()];
+      list.forEach((parts, k) => {
+        if (parts.some((q) => !(q.marks > 0) || BAD_TEX.test(q.tex) || plainOf(q.tex).length < 12)) return;
+        if (parts.length > 5) return;
+        const count = new Map();
+        parts.forEach((q) => q.t.forEach((t) => count.set(t, (count.get(t) || 0) + 1)));
+        const broad = new Map();
+        parts.forEach((q) => q.broads.forEach((b) => broad.set(b, (broad.get(b) || 0) + 1)));
+        const top = (m) => [...m].sort((x, y) => y[1] - x[1])[0]?.[0] ?? -1;
+        out.push({ parts, paper: i, year: D.papers[i].year, pos: (k + 0.5) / list.length,
+          marks: parts.reduce((t, q) => t + q.marks, 0), topic: top(count), broad: top(broad),
+          rep: Math.max(...parts.map((q) => q.rep.length)), sig: parts.map((q) => normText(q.tex)).join("|") });
+      });
+    });
+    return out;
+  }
+  // A block with exactly the wanted marks: the whole question, or its opening parts (later parts may rely on earlier ones).
+  function fitBlock(b, marks) {
+    if (Math.abs(b.marks - marks) < 1e-6) return b;
+    let t = 0;
+    for (let k = 0; k < b.parts.length - 1; k++) {
+      t += b.parts[k].marks;
+      if (Math.abs(t - marks) < 1e-6 && k >= 0) return { ...b, parts: b.parts.slice(0, k + 1), marks, trimmed: true };
+      if (t > marks) break;
     }
-    for (const question of shuffled) {
-      const points = Math.round(question.marks * 100);
-      if (points <= 0 || points > target) continue;
-      for (const subtotal of [...reachable.keys()]) {
-        const total = subtotal + points;
-        if (total <= target && !reachable.has(total)) reachable.set(total, {subtotal, question});
-      }
-      if (reachable.has(target)) {
-        const selected = [];
-        for (let total = target; total > 0;) {
-          const item = reachable.get(total);
-          selected.push(item.question);
-          total = item.subtotal;
-        }
-        return selected.reverse();
-      }
+    return null;
+  }
+  // Join two smaller blocks on the same topic area into one question of the wanted size.
+  function joinedBlocks(blocks, marks) {
+    const small = blocks.filter((b) => b.marks < marks && !DEPENDS.test(b.parts[0].tex));
+    const out = [];
+    for (let i = 0; i < small.length; i++) for (let j = i + 1; j < small.length; j++) {
+      const x = small[i], y = small[j];
+      if (Math.abs(x.marks + y.marks - marks) > 1e-6 || x.broad !== y.broad || x.broad < 0 || x.paper === y.paper && x.parts[0].qno === y.parts[0].qno) continue;
+      out.push({ parts: [...x.parts, ...y.parts], paper: x.paper, year: Math.max(x.year, y.year), pos: (x.pos + y.pos) / 2, marks,
+        topic: x.topic, broad: x.broad, rep: Math.max(x.rep, y.rep), sig: x.sig + "|" + y.sig, joined: true });
+      if (out.length > 400) return out;
     }
-    return [];
+    return out;
+  }
+  // Greedy choice that spreads questions over topics, favours recent and often-set questions, and never repeats a question.
+  function pickBlocks(cands, n, used) {
+    const years = cands.map((c) => c.year), y0 = Math.min(...years), y1 = Math.max(...years);
+    const topicUse = new Map(), broadUse = new Map(), paperUse = new Map(), chosen = [];
+    const pool = cands.filter((c) => !c.parts.some((q) => used.has(q.id)));
+    while (chosen.length < n && pool.length) {
+      let best = -1, bestScore = -Infinity;
+      pool.forEach((c, k) => {
+        const score = -4 * (topicUse.get(c.topic) || 0) * (c.topic >= 0) - 2 * (broadUse.get(c.broad) || 0) * (c.broad >= 0)
+          - 1.5 * (paperUse.get(c.paper) || 0) + (y1 > y0 ? (c.year - y0) / (y1 - y0) : 0) + Math.min(c.rep, 3) * 0.35
+          - (c.joined ? 1.2 : 0) - (c.trimmed ? 0.4 : 0) + Math.random() * 1.6;
+        if (score > bestScore) { bestScore = score; best = k; }
+      });
+      const c = pool.splice(best, 1)[0];
+      if (c.parts.some((q) => used.has(q.id))) continue;
+      chosen.push(c);
+      c.parts.forEach((q) => used.add(q.id));
+      topicUse.set(c.topic, (topicUse.get(c.topic) || 0) + 1);
+      broadUse.set(c.broad, (broadUse.get(c.broad) || 0) + 1);
+      paperUse.set(c.paper, (paperUse.get(c.paper) || 0) + 1);
+    }
+    return chosen.sort((a, b) => a.pos - b.pos);
+  }
+  function candidatesFor(blocks, marks) {
+    const seen = new Set(), out = [];
+    blocks.sort((a, b) => b.year - a.year);
+    for (const b of blocks) {
+      const f = fitBlock(b, marks);
+      if (!f) continue;
+      const sig = f.parts.map((q) => normText(q.tex)).join("|");
+      if (seen.has(sig)) continue;
+      seen.add(sig); out.push(f);
+    }
+    return out;
+  }
+  const blockToQuestion = (b, k) => ({ id: "mq_" + k + "_" + b.parts[0].id, qno: "", orAlternative: false,
+    parts: b.parts.map((q, j) => ({ id: q.id, label: b.parts.length > 1 ? String.fromCharCode(97 + j) : "", marks: q.marks, tex: q.tex, sourcePaper: q.p })) });
+  const marksLabel = (m) => Number.isInteger(m) ? String(m) : String(+m.toFixed(2));
+  const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+  const inWords = (n) => NUMBER_WORDS[n] || String(n);
+  const ruleText = (x, n, m) => `${x >= n ? "Answer all questions." : `Answer any ${inWords(x)} questions.`} (${x} × ${marksLabel(m)} = ${marksLabel(x * m)})`;
+
+  // What the latest paper of a course looks like: number of questions and the usual marks per question.
+  function courseFormat(idx) {
+    const latest = idx.slice().sort((a, b) => D.papers[b].year - D.papers[a].year)[0];
+    const blocks = questionBlocks([latest]);
+    const tally = new Map();
+    blocks.forEach((b) => tally.set(b.marks, (tally.get(b.marks) || 0) + 1));
+    const marks = [...tally].sort((x, y) => y[1] - x[1] || y[0] - x[0])[0]?.[0] || 10;
+    const n = Math.min(8, Math.max(4, blocks.filter((b) => b.marks === marks).length || 8));
+    return { marks, n, x: Math.max(1, Math.min(n, Math.round(n * 0.625))) };
   }
 
   function openSamplePaper(onGenerate) {
-    const programmes = Object.entries({...PROG, ...EXAM});
     const dialog = document.createElement("dialog");
-    dialog.className = "vbm-dialog";
+    dialog.className = "vbm-dialog sample-dialog";
     dialog.setAttribute("aria-labelledby", "sample-title");
+    const thisYear = new Date().getFullYear();
     dialog.innerHTML = `<form class="vbm-dialog-form">
-      <h2 id="sample-title">Generate a sample paper</h2>
-      <label>Exam or programme <select name="exam" required>${programmes.map(([code, name]) => `<option value="${code}">${esc(name)}</option>`).join("")}</select></label>
-      <label>Source paper <select name="paper"></select></label>
-      <label>Total marks <input name="marks" type="number" min="0.01" max="500" step="0.01" value="50" required></label>
-      <p class="muted">Uses questions with known marks from the selected archive.</p>
-      <p class="sample-error" role="status"></p>
-      <div class="vbm-dialog-actions"><button type="button" class="btn btn-ghost" data-cancel>Cancel</button><button type="submit" class="btn btn-primary">Generate paper</button></div>
+      <h2 id="sample-title">Set a sample paper</h2>
+      <p class="muted">Whole questions are taken from the course's past papers, spread across its topics and arranged in syllabus order. Repeated questions are used once.</p>
+      <div class="sample-grid">
+        <label>Programme <select name="prog">${Object.entries(PROG).map(([c, n]) => `<option value="${c}">${esc(n)}</option>`).join("")}${Object.entries(EXAM).map(([c, n]) => `<option value="${c}">${esc(n)}</option>`).join("")}</select></label>
+        <label data-acad>Semester <select name="sem"></select></label>
+        <label class="wide">Course <select name="course"></select></label>
+        <label>Questions from <select name="from"></select></label>
+        <p class="sample-pool muted wide" role="status"></p>
+      </div>
+      <fieldset class="sample-set" data-acad><legend>Long questions</legend>
+        <label>Set <input name="n" type="number" min="1" max="20" value="8"></label>
+        <label>Answer any <input name="x" type="number" min="1" max="20" value="5"></label>
+        <label>Marks each <input name="marks" type="number" min="1" max="50" step="0.5" value="10"></label>
+      </fieldset>
+      <fieldset class="sample-set" data-acad><legend><label class="inline"><input type="checkbox" name="short"> Add a group of short questions</label></legend>
+        <label>Set <input name="sn" type="number" min="1" max="20" value="8" disabled></label>
+        <label>Answer any <input name="sx" type="number" min="1" max="20" value="5" disabled></label>
+        <label>Marks each <input name="sm" type="number" min="1" max="10" step="0.5" value="2" disabled></label>
+      </fieldset>
+      <fieldset class="sample-set" data-exam hidden><legend>Questions</legend>
+        <label>Number of questions <input name="en" type="number" min="5" max="80" value="25"></label>
+      </fieldset>
+      <p class="sample-error" role="alert"></p>
+      <div class="vbm-dialog-actions"><button type="button" class="btn btn-ghost" data-cancel>Cancel</button><button type="submit" class="btn btn-primary">Set paper</button></div>
     </form>`;
     document.body.append(dialog);
-    const form = dialog.querySelector("form");
-    const {exam, paper, marks} = form.elements;
-    const feedback = $(".sample-error", dialog);
-    const populate = () => {
-      paper.replaceChildren(new Option("Any paper in this exam or programme", ""));
-      const candidates = D.papers.filter((p, i) => p.prog === exam.value && D.byPaper[i].some((q) => !q.stem && q.marks > 0));
-      candidates.sort((a, b) => b.year - a.year || paperLabel(a).localeCompare(paperLabel(b)));
-      candidates.forEach((p) => paper.add(new Option(`${p.year} · ${p.sem ? `Semester ${p.sem} · ` : ""}${paperLabel(p)}`, p.key)));
+    const form = dialog.querySelector("form"), E = form.elements;
+    const feedback = $(".sample-error", dialog), poolNote = $(".sample-pool", dialog);
+    const isExam = () => !!EXAM[E.prog.value];
+    let courses = [];
+    const coursePapers = () => {
+      const c = courses.find((x) => x.k === E.course.value);
+      if (!c) return [];
+      return c.papers.filter((p) => p.kind[0] !== "i" && p.year >= +E.from.value).map((p) => D.byKey.get(p.key));
     };
-    exam.onchange = populate;
+    const examPapers = () => D.papers.map((p, i) => i).filter((i) => D.papers[i].prog === E.prog.value && D.papers[i].year >= +E.from.value);
+    const fillYears = (years) => {
+      const ys = Array.from(new Set(years)).sort((a, b) => b - a);
+      E.from.innerHTML = ys.map((y) => `<option value="${y}">${y} onwards</option>`).join("");
+      E.from.value = String(ys[ys.length - 1] ?? thisYear);
+    };
+    const showPool = () => {
+      feedback.textContent = "";
+      if (isExam()) {
+        const idx = examPapers(); const n = idx.reduce((t, i) => t + D.byPaper[i].filter((q) => !q.stem).length, 0);
+        poolNote.textContent = `${n.toLocaleString()} questions in ${idx.length} papers.`; return;
+      }
+      const idx = coursePapers(), blocks = questionBlocks(idx), m = +E.marks.value;
+      const fit = candidatesFor(blocks, m).length;
+      const topics = new Set(blocks.map((b) => b.broad).filter((b) => b >= 0));
+      poolNote.textContent = idx.length ? `${idx.length} past paper${idx.length === 1 ? "" : "s"}, ${fit} usable ${marksLabel(m)}-mark question${fit === 1 ? "" : "s"}, ${topics.size} topic area${topics.size === 1 ? "" : "s"}.` : "No typed papers for this course yet.";
+    };
+    const fillCourses = () => {
+      courses = semCodes(E.prog.value, +E.sem.value).filter((c) => !c.other && c.papers.some((p) => p.kind[0] !== "i"));
+      E.course.innerHTML = courses.map((c) => `<option value="${esc(c.k)}">${esc(c.name)}${c.title ? " · " + esc(c.title) : ""}${c.current ? "" : " (earlier syllabus)"}</option>`).join("");
+      const c = courses[0];
+      if (!c) { E.from.innerHTML = ""; showPool(); return; }
+      fillYears(c.papers.filter((p) => p.kind[0] !== "i").map((p) => p.year));
+      const f = courseFormat(c.papers.filter((p) => p.kind[0] !== "i").map((p) => D.byKey.get(p.key)));
+      E.marks.value = f.marks; E.n.value = f.n; E.x.value = f.x;
+      showPool();
+    };
+    const fillSems = () => {
+      $$("[data-acad]", dialog).forEach((el) => { el.hidden = isExam(); });
+      $$("[data-exam]", dialog).forEach((el) => { el.hidden = !isExam(); });
+      if (isExam()) { fillYears(examPapers().map((i) => D.papers[i].year)); showPool(); return; }
+      const sems = Array.from(new Set(D.papers.filter((p) => p.prog === E.prog.value && D.byPaper[D.byKey.get(p.key)]?.length).map((p) => p.sem))).sort((a, b) => a - b);
+      E.sem.innerHTML = sems.map((s) => `<option value="${s}">Semester ${ROMAN[s]}</option>`).join("");
+      fillCourses();
+    };
+    E.prog.onchange = fillSems;
+    E.sem.onchange = fillCourses;
+    E.course.onchange = () => {
+      const c = courses.find((x) => x.k === E.course.value);
+      fillYears(c.papers.filter((p) => p.kind[0] !== "i").map((p) => p.year));
+      const f = courseFormat(c.papers.filter((p) => p.kind[0] !== "i").map((p) => D.byKey.get(p.key)));
+      E.marks.value = f.marks; E.n.value = f.n; E.x.value = f.x; showPool();
+    };
+    E.from.onchange = showPool;
+    E.marks.oninput = showPool;
+    E.short.onchange = () => { [E.sn, E.sx, E.sm].forEach((i) => { i.disabled = !E.short.checked; }); };
     form.oninput = () => { feedback.textContent = ""; };
     $("[data-cancel]", dialog).onclick = () => dialog.close();
     dialog.addEventListener("close", () => dialog.remove(), {once:true});
     form.onsubmit = (event) => {
       event.preventDefault();
-      const selectedPaper = paper.value ? D.papers[D.byKey.get(paper.value)] : null;
-      const pool = D.Q.filter((q) => !q.stem && q.marks > 0 &&
-        (selectedPaper ? D.papers[q.p] === selectedPaper : D.papers[q.p].prog === exam.value));
-      const questions = chooseSampleQuestions(pool, marks.valueAsNumber);
-      if (!questions.length) {
-        feedback.textContent = "This selection cannot make that exact mark total. Change the total or choose another paper.";
-        return;
+      const used = new Set();
+      if (isExam()) {
+        const pool = examPapers().flatMap((i) => D.byPaper[i].filter((q) => !q.stem && !BAD_TEX.test(q.tex)));
+        const blocks = pool.map((q) => ({ parts: [q], paper: q.p, year: D.papers[q.p].year, pos: Math.random(), marks: q.marks || 0,
+          topic: q.t[0] ?? -1, broad: [...q.broads][0] ?? -1, rep: q.rep.length, sig: normText(q.tex) }));
+        const n = Math.max(5, +E.en.value || 25), chosen = pickBlocks(blocks, n, used);
+        if (!chosen.length) { feedback.textContent = "No questions were found for this exam."; return; }
+        const name = EXAM[E.prog.value];
+        const head = { ...defaultMakerHead(), inst: name, dept: "", exam: "Practice paper", paper: `${chosen.length} questions from papers of ${E.from.value} onwards`,
+          time: "", autoFull: true, ruleType: "all" };
+        onGenerate({ source: "sample", header: head, sections: [{ id: "sec_1", title: "", rule: "", questions: chosen.map(blockToQuestion) }] });
+        dialog.close(); return;
       }
-      const label = EXAM[exam.value] || PROG[exam.value];
-      const sourceHead = selectedPaper ? paperHead(selectedPaper) : null;
-      const head = {...defaultMakerHead(), ...sourceHead,
-        ...(EXAM[exam.value] ? {inst: label, dept:""} : {}),
-        exam: sourceHead?.exam || label,
-        paper: selectedPaper ? `Sample paper · ${pname(selectedPaper)}` : "Sample question paper",
-        time: "", full: marks.value, autoFull: true, ruleType: "all" };
-      onGenerate(makeStudioDoc(questions, head, "sample"));
+      const c = courses.find((x) => x.k === E.course.value);
+      if (!c) { feedback.textContent = "Choose a course."; return; }
+      const idx = coursePapers(), blocks = questionBlocks(idx);
+      const n = Math.max(1, Math.round(+E.n.value)), x = Math.min(n, Math.max(1, Math.round(+E.x.value))), m = +E.marks.value;
+      if (!(m > 0)) { feedback.textContent = "Enter the marks for each question."; return; }
+      let cands = candidatesFor(blocks, m);
+      if (cands.length < n) cands = cands.concat(joinedBlocks(blocks, m));
+      const longQs = pickBlocks(cands, n, used);
+      if (!longQs.length) { feedback.textContent = `These papers have no ${marksLabel(m)}-mark questions. Try another mark value, or include earlier years.`; return; }
+      let shortQs = [];
+      if (E.short.checked) {
+        const sn = Math.max(1, Math.round(+E.sn.value)), sm = +E.sm.value;
+        const pieces = blocks.flatMap((b) => b.parts.map((q, k) => ({ parts: [q], paper: b.paper, year: b.year, pos: b.pos, marks: q.marks,
+          topic: q.t[0] ?? b.topic, broad: [...q.broads][0] ?? b.broad, rep: q.rep.length, sig: normText(q.tex), first: k === 0 })))
+          .filter((b) => Math.abs(b.marks - sm) < 1e-6 && (b.first || !DEPENDS.test(b.parts[0].tex)));
+        shortQs = pickBlocks(candidatesFor(pieces, sm), sn, used);
+      }
+      const p0 = D.papers[idx[0]] || c.papers[0];
+      const prog = c.papers[0].prog === "BSc" ? "B.Sc." : "M.Sc.";
+      const sx = Math.min(shortQs.length, Math.max(1, Math.round(+E.sx.value)));
+      const lx = Math.min(x, longQs.length);
+      const full = lx * m + (shortQs.length ? sx * +E.sm.value : 0);
+      const time = full <= 25 ? "Time: 1 Hour" : full <= 50 ? "Time: 2 Hours" : "Time: 3 Hours";
+      const head = { ...defaultMakerHead(), inst: "VISVA-BHARATI", dept: "Department of Mathematics",
+        exam: `${prog} Mathematics Examination ${thisYear}, Semester ${ROMAN[c.papers[0].sem]}`,
+        paper: `${c.name}${c.title ? " — " + c.title : ""} (sample paper)`, time, full: marksLabel(full), choiceX: lx, choiceY: longQs.length };
+      let doc;
+      if (shortQs.length) {
+        const qs = shortQs.map(blockToQuestion).concat(longQs.map((b, k) => blockToQuestion(b, k + 100)));
+        qs[0].groupHead = { title: "Group A", rule: ruleText(sx, shortQs.length, +E.sm.value) };
+        qs[shortQs.length].groupHead = { title: "Group B", rule: ruleText(lx, longQs.length, m) };
+        doc = { source: "sample", header: { ...head, autoFull: false, ruleType: "custom",
+          instr: "Candidates are required to give their answers in their own words as far as practicable. Figures in the right margin indicate full marks." },
+          sections: [{ id: "sec_1", title: "", rule: "", questions: qs }] };
+      } else {
+        doc = { source: "sample", header: { ...head, autoFull: true, ruleType: lx < longQs.length ? "choice" : "all" },
+          sections: [{ id: "sec_1", title: "", rule: "", questions: longQs.map(blockToQuestion) }] };
+      }
+      const short = longQs.length < n ? ` Only ${longQs.length} suitable questions were found, so the paper has ${longQs.length}.` : "";
+      onGenerate(doc, short);
       dialog.close();
     };
-    populate();
+    fillSems();
     dialog.showModal();
     return dialog;
   }
@@ -800,13 +977,16 @@
         lines.push(`\\item[] \\begin{center}\\textbf{${sec.title}}${sec.rule ? "\\\\\\textit{" + sec.rule + "}" : ""}\\end{center}`);
       }
       (sec.questions || []).forEach((q, qIdx) => {
+        if (q.groupHead) {
+          lines.push(`\\item[] \\begin{center}\\textbf{${q.groupHead.title || ""}}${q.groupHead.rule ? "\\\\\\textit{" + q.groupHead.rule + "}" : ""}\\end{center}`);
+        }
         if (q.orAlternative) {
           lines.push("\\item[] \\begin{center}\\textbf{OR}\\end{center}");
         }
         const parts = q.parts || [];
         if (!parts.length) return;
 
-        if (parts.length === 1 && !parts[0].label) {
+        if (parts.length === 1) {
           const p0 = parts[0];
           const mk = p0.marks != null && p0.marks !== "" ? ` \\hfill [${p0.marks}]` : "";
           lines.push(`\\item ${p0.tex.trim().replace(/\\hfill\s*\\printedmarks\{[^}]*\}/g, "")}${mk}`);
@@ -1050,30 +1230,83 @@
   /* ---------- semester helpers ---------- */
   function semPapers(pg, s) { return D.papers.filter((p) => p.prog === pg && p.sem === s); }
   function semCodes(pg, s) {
-    // unique paper choices: code (or internal label), newest first, with the newest title
+    // One menu entry per course. Internal tests sit under their course as extra years, so a course is never listed twice.
+    const papers = semPapers(pg, s).slice().sort((a, b) => b.year - a.year || (a.kind[0] === "i") - (b.kind[0] === "i"));
+    const codeOf = (p) => (p.code || "").replace(/\s+/g, "");
     const m = new Map();
-    semPapers(pg, s).slice().sort((a, b) => b.year - a.year).forEach((p) => {
-      const k = (p.kind[0] === "i" ? "i:" : "s:") + pname(p);
-      if (!m.has(k)) m.set(k, { k, name: pname(p), title: p.title, kind: p.kind[0], years: [] });
-      if (!m.get(k).years.includes(p.year)) m.get(k).years.push(p.year);
+    papers.filter((p) => codeOf(p)).forEach((p) => {
+      const k = "c:" + codeOf(p);
+      if (!m.has(k)) m.set(k, { k, name: codeOf(p), title: null, papers: [] });
+      m.get(k).papers.push(p);
     });
-    return Array.from(m.values()).sort((a, b) => (a.kind === "i") - (b.kind === "i") || b.years[0] - a.years[0] || a.name.localeCompare(b.name, "en", { numeric: true }));
+    // an internal-only code such as SEC-1 joins SEC-1A when that is the only longer code with the same stem
+    for (const [k, e] of [...m]) {
+      if (e.papers.some((p) => p.kind[0] !== "i")) continue;
+      const kin = [...m.values()].filter((o) => o !== e && o.name.startsWith(e.name) && /^[A-Z]$/.test(o.name.slice(e.name.length)));
+      if (kin.length === 1) { kin[0].papers.push(...e.papers); m.delete(k); }
+    }
+    const loose = papers.filter((p) => !codeOf(p));
+    if (loose.length) m.set("x:other", { k: "x:other", name: "Other papers", title: "without a paper code", papers: loose, other: true });
+    const list = [...m.values()];
+    list.forEach((e) => {
+      e.papers.sort((a, b) => b.year - a.year || (a.kind[0] === "i") - (b.kind[0] === "i"));
+      if (!e.other) e.title = (e.papers.find((p) => p.title && p.kind[0] !== "i") || e.papers.find((p) => p.title) || {}).title || null;
+      e.years = Array.from(new Set(e.papers.map((p) => p.year)));
+      e.latest = e.years[0];
+      e.kind = e.papers.some((p) => p.kind[0] !== "i") ? "s" : "i";
+    });
+    // electives filed under two codes with the same name (A3 and A8, P3 and P9) are one menu entry
+    const same = (a, b) => (a || "").toLowerCase().replace(/[^a-z0-9]/g, "") === (b || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    for (let i = 0; i < list.length; i++) for (let j = list.length - 1; j > i; j--) {
+      const a = list[i], b = list[j], base = (n) => n.replace(/\(.*/, "");
+      if (a.other || b.other || !a.title || !same(a.title, b.title) || base(a.name) !== base(b.name)) continue;
+      const tag = (n) => (n.match(/\((.*)\)/) || [, ""])[1];
+      a.name = tag(a.name) && tag(b.name) ? `${base(a.name)}(${[tag(a.name), tag(b.name)].sort((x, y) => x.localeCompare(y, "en", { numeric: true })).join("/")})` : a.name;
+      a.papers.push(...b.papers); a.papers.sort((x, y) => y.year - x.year);
+      a.years = Array.from(new Set(a.papers.map((p) => p.year))); a.latest = a.years[0];
+      list.splice(j, 1);
+    }
+    const newest = Math.max(...list.map((e) => e.latest));
+    list.forEach((e) => { e.current = !e.other && e.latest >= newest - 1; });
+    return list.sort((a, b) => !!a.other - !!b.other || b.current - a.current || (a.kind === "i") - (b.kind === "i") ||
+      a.name.localeCompare(b.name, "en", { numeric: true }));
   }
   function pickerParts(pg, s, id) {
     const codes = semCodes(pg, s);
     if (!codes.length) return ["", ""];
-    return [`<select id="${id}-c" aria-label="Paper">${codes.map((c) => `<option value="${esc(c.k)}">${esc(c.name)}${c.title ? " · " + esc(c.title) : ""}${c.kind === "i" ? " (internal)" : ""}</option>`).join("")}</select>`,
+    const option = (c) => `<option value="${esc(c.k)}">${esc(c.name)}${c.title ? " · " + esc(c.title) : ""}</option>`;
+    const group = (label, cs) => cs.length ? `<optgroup label="${esc(label)}">${cs.map(option).join("")}</optgroup>` : "";
+    const current = codes.filter((c) => c.current), earlier = codes.filter((c) => !c.current && !c.other), other = codes.filter((c) => c.other);
+    const body = earlier.length || other.length
+      ? group("Current syllabus", current) + group("Earlier syllabi", earlier) + group("Other", other)
+      : codes.map(option).join("");
+    return [`<select id="${id}-c" aria-label="Paper">${body}</select>`,
       `<select id="${id}-y" aria-label="Year">${yearOpts(codes[0])}</select>`];
   }
   const pickerHtml = (pg, s, id) => pickerParts(pg, s, id).join("");
-  const yearOpts = (c) => `<option value="all">All years (${c.years.length})</option>` + c.years.map((y) => `<option value="${y}">${y}</option>`).join("");
+  const yearOpts = (c) => {
+    const many = new Map();
+    c.papers.forEach((p) => many.set(p.year + p.kind[0], (many.get(p.year + p.kind[0]) || 0) + 1));
+    const nth = new Map(), sameTitle = (a, b) => (a || "").toLowerCase().replace(/[^a-z0-9]/g, "") === (b || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const label = (p) => {
+      const bits = [String(p.year)];
+      if (p.kind[0] === "i") bits.push("internal test");
+      if (c.other) bits.push(pname(p) + (p.title ? " · " + p.title : ""));
+      else if (p.title && c.title && !sameTitle(p.title, c.title)) bits.push(p.title);
+      if (!c.other && many.get(p.year + p.kind[0]) > 1 && (!p.title || sameTitle(p.title, c.title))) {
+        const k = p.year + p.kind[0]; nth.set(k, (nth.get(k) || 0) + 1); bits.push("set " + nth.get(k));
+      }
+      return bits.join(" · ");
+    };
+    return `<option value="all">All years (${c.years.length})</option>` + c.papers.map((p) => `<option value="${esc(p.key)}">${esc(label(p))}</option>`).join("");
+  };
   function bindPicker(pg, s, id, btn) {
     const codes = semCodes(pg, s); const cs = $("#" + id + "-c"), ys = $("#" + id + "-y"); if (!cs) return;
     cs.addEventListener("change", () => { ys.innerHTML = yearOpts(codes.find((c) => c.k === cs.value)); });
     $(btn).addEventListener("click", () => {
       const c = codes.find((x) => x.k === cs.value), y = ys.value;
-      if (y !== "all") { const p = D.papers.find((p) => p.prog === pg && p.sem === s && p.year === +y && (p.kind[0] === "i" ? "i:" : "s:") + pname(p) === c.k); if (p) return go("paper-" + p.key); }
-      F = defaultFilters(); F.prog = pg; F.sem = String(s); if (c.name && !/^Internal|^Paper/.test(c.name)) F.code = c.name; if (c.kind === "i") F.kind = "i"; F.sort = "new"; go("search");
+      if (y !== "all") return go("paper-" + y);
+      F = defaultFilters(); F.prog = pg; F.sem = String(s); if (!c.other) F.code = c.name; if (c.kind === "i") F.kind = "i"; F.sort = "new"; go("search");
     });
   }
 
@@ -1172,7 +1405,7 @@
     const dataRequest = loadHomeData();
     dataRequest.then(({questions, papers, scans, years}) => {
       if (!stats.isConnected) return;
-      const counts = [[questions.toLocaleString(), "questions"], [papers.toLocaleString(), "typed papers"], [scans.toLocaleString(), "original scans"], [years.join("–"), "examination years"]];
+      const counts = [[questions.toLocaleString(), "Visva-Bharati questions"], [papers.toLocaleString(), "typed papers"], [scans.toLocaleString(), "original scans"], [years.join("–"), "examination years"]];
       stats.innerHTML = counts.map(([value, label]) => `<div><b>${esc(value)}</b><span>${label}</span></div>`).join("");
     }).catch(() => {});
     const sections = new Map([
@@ -1362,7 +1595,7 @@
       ${programme ? "" : `<div class="progtabs" role="group" aria-label="Mathematics programmes">${Object.entries(PROGRAMME_ROUTES).map(([code, route]) => `<a class="chip${code === tab ? " on" : ""}" href="${L(route)}">${PROG[code]}</a>`).join("")}</div>`}
       <div class="semgrid">${sems.map((s) => {
         const ps = semPapers(tab, s), ys = ps.map((p) => p.year), sc = D.scans.filter((x) => x.prog === tab && x.sem === s && !x.other).length;
-        const codes = semCodes(tab, s).filter((c) => c.kind === "s").slice(0, 4).map((c) => c.name).join(" · ");
+        const codes = semCodes(tab, s).filter((c) => c.kind === "s" && c.current).slice(0, 4).map((c) => c.name).join(" · ");
         return `<a class="semlink${ps.length ? "" : " none"}" href="${L("semester-" + tab.toLowerCase() + "-" + s)}"><span class="big">${ROMAN[s]}</span><b>Semester ${ROMAN[s]}</b><small>${ps.length ? `${ps.length} papers · ${Math.min(...ys)}–${Math.max(...ys)} · ${sc} scans` : sc ? sc + " scans, none typed yet" : "No papers yet"}</small><span class="codes">${esc(codes || "—")}</span></a>`;
       }).join("")}</div>
       ${programme ? archiveBrowser(tab) : ""}
@@ -1493,6 +1726,9 @@
     (doc.sections || []).forEach((sec) => {
       let qListHtml = "";
       (sec.questions || []).forEach((q, qIdx) => {
+        if (q.groupHead) {
+          qListHtml += `<li class="pv-or-div pv-group-head"><div class="sec-title">${esc(q.groupHead.title || "")}</div>${q.groupHead.rule ? `<div class="sec-rule">${esc(q.groupHead.rule)}</div>` : ""}</li>`;
+        }
         if (q.orAlternative) {
           qListHtml += `<li class="pv-or-div"><span>OR</span></li>`;
         } else {
@@ -1532,7 +1768,7 @@
             </div>`;
         }
 
-        if (parts.length === 1 && !parts[0].label) {
+        if (parts.length === 1) {
           const pt = parts[0];
           const mkStr = pt.marks != null && pt.marks !== "" ? `[${pt.marks}]` : "";
           const isEditing = isStudio && (editingPartId === qIdx + "_0");
@@ -2252,7 +2488,7 @@
       startPaper(initDocFromColl(), "Paper started from your collection");
     };
     $("#m-sample").onclick = () => {
-      const dialog = openSamplePaper((sample) => startPaper(sample, "Sample paper generated"));
+      const dialog = openSamplePaper((sample, note) => startPaper(sample, "Sample paper set." + (note || "")));
       signal.addEventListener("abort", () => { if (dialog.open) dialog.close(); }, {once:true});
     };
 
@@ -2294,9 +2530,10 @@
         const lines = [`${doc.header.inst} - ${doc.header.exam}`, `${doc.header.paper}`, `${doc.header.time} | Full Marks: ${doc.header.full}`, "", doc.header.instr, ""];
         let n = 0;
         (doc.sections[0]?.questions || []).forEach((q) => {
+          if (q.groupHead) lines.push(`${q.groupHead.title || ""}${q.groupHead.rule ? " — " + q.groupHead.rule : ""}`, "");
           if (q.orAlternative) { lines.push("\n--- OR ---\n"); return; }
           n++;
-          if (q.parts.length === 1 && !q.parts[0].label) {
+          if (q.parts.length === 1) {
             lines.push(`${n}. ${plainOf(q.parts[0].tex)}  [${q.parts[0].marks}]`);
           } else {
             lines.push(`${n}. [${q._breakdown} = ${q._totalMarks} marks]`);
@@ -2544,7 +2781,8 @@
 
           if (act === "q-del" && qIdx >= 0) {
             pushUndo();
-            sec.questions.splice(qIdx, 1);
+            const [gone] = sec.questions.splice(qIdx, 1);
+            if (gone?.groupHead && sec.questions[qIdx] && !sec.questions[qIdx].groupHead) sec.questions[qIdx].groupHead = gone.groupHead;
             saveMakerDoc(doc);
             refreshStudio(Math.max(0, qIdx - 1), null);
             toast("Question removed");
@@ -3360,14 +3598,14 @@
   /* ---------- router ---------- */
   let stopLabGallery;
   function viewLabGallery() {
-    return page("Resources","Math Gallery","Explore interactive simulations of mathematical ideas.",
+    return page("Resources","Math Gallery","",
       '<div id="lab-gallery"><p class="loading" role="status">Loading exhibits…</p></div>');
   }
   async function bindLabGallery() {
     const root = $("#lab-gallery");
     const version = routeVersion;
     try {
-      const {mountLabGallery} = await import("./lab-gallery.mjs");
+      const {mountLabGallery} = await import("./lab-gallery.mjs?v=3.2");
       if (version !== routeVersion || !root.isConnected) return;
       stopLabGallery = mountLabGallery(root, {
         initial: routeParams().get("figure"),

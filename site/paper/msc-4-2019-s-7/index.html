@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>MMO-41(A09) New Syllabus 2019 · M.Sc. Mathematics Semester IV · VBMath</title>
-<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMO-41(A09) (New Syllabus): 7 questions typed in LaTeX.">
+<title>MMO-41(A9) Lie Group of Transformations and Partial Differential Equations 2019 · M.Sc. Mathematics Semester IV · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMO-41(A9) (Lie Group of Transformations and Partial Differential Equations): 7 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/msc-4-2019-s-7/">
-<meta property="og:title" content="MMO-41(A09) New Syllabus 2019 · M.Sc. Mathematics Semester IV · VBMath">
-<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMO-41(A09) (New Syllabus): 7 questions typed in LaTeX.">
+<meta property="og:title" content="MMO-41(A9) Lie Group of Transformations and Partial Differential Equations 2019 · M.Sc. Mathematics Semester IV · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester IV 2019 end-semester question paper MMO-41(A9) (Lie Group of Transformations and Partial Differential Equations): 7 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/msc-4-2019-s-7/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMO-41(A09) New Syllabus 2019 · M.Sc. Mathematics Semester IV", "url": "https://vbmath.pages.dev/paper/msc-4-2019-s-7/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester IV", "item": "https://vbmath.pages.dev/semester/msc-4/"}, {"@type": "ListItem", "position": 3, "name": "MMO-41(A09) 2019", "item": "https://vbmath.pages.dev/paper/msc-4-2019-s-7/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMO-41(A9) Lie Group of Transformations and Partial Differential Equations 2019 · M.Sc. Mathematics Semester IV", "url": "https://vbmath.pages.dev/paper/msc-4-2019-s-7/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester IV", "item": "https://vbmath.pages.dev/semester/msc-4/"}, {"@type": "ListItem", "position": 3, "name": "MMO-41(A9) 2019", "item": "https://vbmath.pages.dev/paper/msc-4-2019-s-7/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-4/">M.Sc. Semester IV</a> / 2019</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMO-41(A09)</h1><div class="sub">New Syllabus</div><div class="fm"><span>M.Sc. Mathematics · Semester IV</span><span>2019</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">If $y=e^x$ is a solution of $\dfrac{dy}{dx}=e^{2x}-ye^x+e^{-x}y^2$, find another solution of the ODE using the transformation $y=e^x+\dfrac1v$.</span></li><li><b>1(b)</b> <span class="qbody">Using tanh-coth method solve Burger&#x27;s equation.</span> [5+5]</li><li><b>2</b> <span class="qbody">Find the solution of \textit{KdV} equation and using the Conservation laws of \textit{KdV} equation, find the analytical solution of damped forced \textit{KdV} equation.</span> [3+7]</li><li><b>3</b> <span class="qbody">Using Hirota Direct method, find one soliton solution of the \textit{KdV} equation.</span> [10]</li><li><b>4</b> <span class="qbody">Derive Lax compatibility equation. Hence find the Lax pair of \textit{KdV} and \textit{MKdV} equation.</span> [3+7]</li><li><b>5</b> <span class="qbody">Let $y=y_1(x)$ be a particular solution of the \textit{Strum-Liouville} problem\par $y&#x27;&#x27;+(\lambda-u)y=0,$\hfill(1)\par where the value of the spectral parameter $\lambda=\lambda_1$. Consider the \textit{Darboux} transformation $y\to y[1]=\left(\dfrac d{dx}-l\right)y$ of an arbitrary solution of (1) where $l=\dfrac d{dx}(\log y_1)$. Show that $y[1]$ obeys the following equation\par $y&#x27;&#x27;[1]+(\lambda-u[1])\,y[1]=0$, where $u[1]$ is given by $u[1]=u-\dfrac d{dx}(l)=u-\dfrac{d^2}{dx^2}\log y_1$.</span> [10]</li><li><b>6</b> <span class="qbody">Find one soliton solution of \textit{Sine-Gordon} and \textit{Liouville&#x27;s} equation by using Backlund transformation.</span> [5+5]</li></ol></div><!--/APP--></main>
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-4/">M.Sc. Semester IV</a> / 2019</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMO-41(A9)</h1><div class="sub">Lie Group of Transformations and Partial Differential Equations</div><div class="fm"><span>M.Sc. Mathematics · Semester IV</span><span>2019</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">If $y=e^x$ is a solution of $\dfrac{dy}{dx}=e^{2x}-ye^x+e^{-x}y^2$, find another solution of the ODE using the transformation $y=e^x+\dfrac1v$.</span></li><li><b>1(b)</b> <span class="qbody">Using tanh-coth method solve Burger&#x27;s equation.</span> [5+5]</li><li><b>2</b> <span class="qbody">Find the solution of \textit{KdV} equation and using the Conservation laws of \textit{KdV} equation, find the analytical solution of damped forced \textit{KdV} equation.</span> [3+7]</li><li><b>3</b> <span class="qbody">Using Hirota Direct method, find one soliton solution of the \textit{KdV} equation.</span> [10]</li><li><b>4</b> <span class="qbody">Derive Lax compatibility equation. Hence find the Lax pair of \textit{KdV} and \textit{MKdV} equation.</span> [3+7]</li><li><b>5</b> <span class="qbody">Let $y=y_1(x)$ be a particular solution of the \textit{Strum-Liouville} problem\par $y&#x27;&#x27;+(\lambda-u)y=0,$\hfill(1)\par where the value of the spectral parameter $\lambda=\lambda_1$. Consider the \textit{Darboux} transformation $y\to y[1]=\left(\dfrac d{dx}-l\right)y$ of an arbitrary solution of (1) where $l=\dfrac d{dx}(\log y_1)$. Show that $y[1]$ obeys the following equation\par $y&#x27;&#x27;[1]+(\lambda-u[1])\,y[1]=0$, where $u[1]$ is given by $u[1]=u-\dfrac d{dx}(l)=u-\dfrac{d^2}{dx^2}\log y_1$.</span> [10]</li><li><b>6</b> <span class="qbody">Find one soliton solution of \textit{Sine-Gordon} and \textit{Liouville&#x27;s} equation by using Backlund transformation.</span> [5+5]</li></ol></div><!--/APP--></main>
 <footer class="foot">
   <div class="wrap">
     <div class="cols">
@@ -79,6 +79,6 @@ window.MathJax = {
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

@@ -540,6 +540,19 @@ const sp=Math.max(1,Math.round(2*s.speed));if(s.dt>0&&Math.abs(f(...s.p))<1e7)fo
 fadeB(c,s.tr.map(p=>[mx(p[0]),my(p[1])]),C.gold,40,2);const q=s.p;dot(c,mx(q[0]),my(q[1]),5,'#fff');const fv=f(...q),g=gr(...q),gn=Math.hypot(g[0],g[1]);c.font=MONO;box(c,6,6,Math.min(w-12,250),48);
 T(c,['f = x² + 10y²','Rosenbrock (banana valley)','Himmelblau (4 minima)'][fi],12,21,'left');T(c,'iter '+s.it+'   f = '+(Math.abs(fv)>1e6?'diverged':fv.toFixed(4)),12,35,'left',Math.abs(fv)>1e6?'#f472b6':C.txt);T(c,'|∇f| = '+(gn>1e6?'∞':gn.toFixed(4))+'   step = '+(lr/sc).toFixed(2)+'×',12,49,'left');T(c,'tap anywhere to choose a new starting point',w/2,h-8)};
 
+/* ===== Wave interference (from the VBMath Lab file) ===== */
+const IL=lut([[0,[6,18,34]],[.35,[18,92,110]],[.5,[10,22,30]],[.65,[150,110,40]],[1,[255,226,150]]]);
+X.interference=(c,w,h,t,s)=>{const RW=Math.max(100,Math.min(240,Math.round(w/1.8))),RH=Math.max(70,Math.round(RW*h/w));
+if(!s.ib||s.ib.width!==RW||s.ib.height!==RH){s.ib=document.createElement('canvas');s.ib.width=RW;s.ib.height=RH;s.ig=s.ib.getContext('2d');s.id=s.ig.createImageData(RW,RH)}
+const n=Math.round(s.par.n??2),lam=s.par.lam??.12,span=s.par.sp??.4,asp=w/h,k=TAU/lam,src=[...Array(n)].map((_,i)=>[.16*asp,.5+(n>1?(i/(n-1)-.5)*span:0)]),ph=t*3.2,d=s.id.data;let o=0;
+for(let py=0;py<RH;py++){const y=py/RH;for(let px=0;px<RW;px++,o+=4){const x=px/RW*asp;let v=0;for(let i=0;i<n;i++){const dx=x-src[i][0],dy=y-src[i][1],r=Math.sqrt(dx*dx+dy*dy);v+=Math.sin(k*r-ph)/Math.sqrt(r*8+.5)}
+v=clamp(v*1.35/Math.sqrt(n),-1,1);const m=IL[Math.round((v*.5+.5)*255)];d[o]=m[0];d[o+1]=m[1];d[o+2]=m[2];d[o+3]=255}}
+s.ig.putImageData(s.id,0,0);c.imageSmoothingEnabled=true;c.drawImage(s.ib,0,0,w,h);
+const sx=w*.97,I=[];let mx=0;for(let i=0;i<=120;i++){const y=i/120;let re=0,im=0;for(let q=0;q<n;q++){const dx=asp-src[q][0],dy=y-src[q][1],r=Math.hypot(dx,dy);re+=Math.cos(k*r)/Math.sqrt(r);im+=Math.sin(k*r)/Math.sqrt(r)}const v=re*re+im*im;if(v>mx)mx=v;I.push(v)}
+c.fillStyle='rgba(4,10,14,.55)';c.fillRect(sx-w*.14,0,w*.17,h);c.strokeStyle=C.gold;c.lineWidth=1.8;c.beginPath();I.forEach((v,i)=>{const X_=sx-v/mx*w*.12,Y_=i/120*h;i?c.lineTo(X_,Y_):c.moveTo(X_,Y_)});c.stroke();c.lineWidth=1.4;
+src.forEach(p=>{const X_=p[0]/asp*w,Y_=p[1]*h,ring=(t*1.2)%1;c.strokeStyle=`rgba(255,240,200,${.5*(1-ring)})`;c.beginPath();c.arc(X_,Y_,4+ring*22,0,TAU);c.stroke();dot(c,X_,Y_,4,'#fff')});
+c.font=MONO;T(c,n+(n===1?' source':' sources')+'   λ = '+lam.toFixed(2),w*.04,h*.08,'left','rgba(255,255,255,.88)');T(c,'screen',sx-w*.07,h*.95,'center','rgba(255,255,255,.7)')};
+
 /* ===== registry ===== */
 const M=(id,title,eq,desc,tags,p)=>META.push({id,title,eq,desc,tags,p});
 M('mandel','Mandelbrot & Julia sets (zoom)','zₙ₊₁ = zₙ² + c','The Mandelbrot set is every complex c for which iterating z → z² + c from 0 stays bounded. Zoom in with scroll, pinch or the + button: the boundary never gets simpler. Switch to Julia mode to fix c and iterate over z instead.',['Iteration','Complex dynamics','Self-similarity'],[['jm','Mode (1 Mandelbrot, 2 Julia)',1,2,1,1],['it','Max iterations',40,500,10,150],['jr','Julia c (real)',-1.5,1.5,.01,-.8],['ji','Julia c (imag)',-1.5,1.5,.01,.156]]);
@@ -558,8 +571,10 @@ upd('rocket',m=>{m.p=[['mr','Mass ratio m₀/m_f',5,16,.5,10],['pp','Pitch progr
 upd('square',m=>{m.title='Fourier series: square, saw & triangle';m.p=[['N','Harmonics',1,25,1,5],['wf','Wave (1 square, 2 saw, 3 triangle)',1,3,1,1]];m.desc='Circles rotate at integer multiples of a base frequency; the height of the chain tip is the wave. The faint curve is the ideal wave; near a jump the partial sums overshoot by about 9% however many terms (Gibbs). Spectrum bars show how fast amplitudes decay: 1/k for square, 1/k² for triangle.'});
 upd('heat',m=>{m.title='Heat equation (rod)';m.p=[['ic','Initial heat (1 spot, 2 two spots, 3 step)',1,3,1,1],['bc','Ends (1 held cold, 2 insulated)',1,2,1,1],['k','Diffusion speed',.1,.45,.05,.4]];m.desc='Heat flows from hot to cold. Top: temperature curve. Colour strip: the rod itself. Waterfall: every row is a later moment, so you see the spike spread and fade. Held-cold ends drain heat away; insulated ends conserve it, the rod levels to a constant.'});
 upd('clifford',m=>{m.desc='Sixty thousand iterates of one simple map, coloured by how often each pixel is visited (dark → violet → magenta → orange → white). Tiny changes to a and b rewrite the whole shape.'});
+M('interference','Wave interference','u(x,t) = Σ sin(k·rᵢ − ωt) / √rᵢ','Several point sources send out circular waves. Where crest meets crest they reinforce; where crest meets trough they cancel. The curve on the right is what a screen would record.',['Interference','Superposition'],[['n','Sources',1,5,1,2],['lam','Wavelength',.05,.25,.01,.12],['sp','Source spacing',.1,.8,.05,.4]]);
+CAT.wave[3].push('interference');
 CAT.uni=['BSc / MSc syllabus',15,340,['mandel','taylor','eigen','lotka','graddesc']];
-Object.assign(TIP,{mandel:'Zoom into the “seahorse valley” near −0.75 + 0.1i, then switch to Julia mode and slide c.',taylor:'Pick ln(1+x) and push the degree to 15: the fit stays perfect inside |x|<1 and explodes outside.',eigen:'Set a₁₂ = −a₂₁ and a₁₁ = a₂₂ to get a pure rotation: the eigenvectors vanish.',lotka:'Raise α: how do the cycles change for predators vs prey?',graddesc:'On Rosenbrock, raise the step until it diverges, then add momentum 0.9.'});
+Object.assign(TIP,{interference:'Two sources: count the bright fringes on the screen curve, then shrink the wavelength.',mandel:'Zoom into the “seahorse valley” near −0.75 + 0.1i, then switch to Julia mode and slide c.',taylor:'Pick ln(1+x) and push the degree to 15: the fit stays perfect inside |x|<1 and explodes outside.',eigen:'Set a₁₂ = −a₂₁ and a₁₁ = a₂₂ to get a pure rotation: the eigenvectors vanish.',lotka:'Raise α: how do the cycles change for predators vs prey?',graddesc:'On Rosenbrock, raise the step until it diverges, then add momentum 0.9.'});
 })();
 
 export { META as exhibits, CAT as exhibitCategories, TIP as exhibitTips };

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>MMO-31 P-02 2025 · M.Sc. Mathematics Semester III · VBMath</title>
-<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester III 2025 end-semester question paper MMO-31 (P-02): 13 questions typed in LaTeX.">
+<title>MMO-31(P2) 2025 · M.Sc. Mathematics Semester III · VBMath</title>
+<meta name="description" content="Visva-Bharati M.Sc. Mathematics Semester III 2025 end-semester question paper MMO-31(P2): 13 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/msc-3-2025-s-8/">
-<meta property="og:title" content="MMO-31 P-02 2025 · M.Sc. Mathematics Semester III · VBMath">
-<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester III 2025 end-semester question paper MMO-31 (P-02): 13 questions typed in LaTeX.">
+<meta property="og:title" content="MMO-31(P2) 2025 · M.Sc. Mathematics Semester III · VBMath">
+<meta property="og:description" content="Visva-Bharati M.Sc. Mathematics Semester III 2025 end-semester question paper MMO-31(P2): 13 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/msc-3-2025-s-8/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMO-31 P-02 2025 · M.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/msc-3-2025-s-8/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/msc-3/"}, {"@type": "ListItem", "position": 3, "name": "MMO-31 2025", "item": "https://vbmath.pages.dev/paper/msc-3-2025-s-8/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "MMO-31(P2) 2025 · M.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/msc-3-2025-s-8/", "learningResourceType": "Exam question paper", "educationalLevel": "Postgraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "M.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/msc-3/"}, {"@type": "ListItem", "position": 3, "name": "MMO-31(P2) 2025", "item": "https://vbmath.pages.dev/paper/msc-3-2025-s-8/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-3/">M.Sc. Semester III</a> / 2025</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMO-31</h1><div class="sub">P-02</div><div class="fm"><span>M.Sc. Mathematics · Semester III</span><span>2025</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">If $K$ and $C$ are compact and closed susets respectively in a topological vector space (tvs) $X$ such that $K\cap C=\phi$, show that there is a neighbourhood (nbd) $V$ of $\theta$ in $X$ such that $(K+V)\cap(C+V)=\phi$. Hence show that every tvs is Hausdorff.</span> [5+2]</li><li><b>1(b)</b> <span class="qbody">If $X$ is a locally convex tvs then prove that there exists a nbd base of $\theta$ consisting of convex and balanced nbd.</span> [3]</li><li><b>2(a)</b> <span class="qbody">Let $p$ be a seminorm on a vector space $X$. Then for $x,y\in X$, prove the following:\par
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/msc-3/">M.Sc. Semester III</a> / 2025</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>MMO-31(P2)</h1><div class="fm"><span>M.Sc. Mathematics · Semester III</span><span>2025</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">If $K$ and $C$ are compact and closed susets respectively in a topological vector space (tvs) $X$ such that $K\cap C=\phi$, show that there is a neighbourhood (nbd) $V$ of $\theta$ in $X$ such that $(K+V)\cap(C+V)=\phi$. Hence show that every tvs is Hausdorff.</span> [5+2]</li><li><b>1(b)</b> <span class="qbody">If $X$ is a locally convex tvs then prove that there exists a nbd base of $\theta$ consisting of convex and balanced nbd.</span> [3]</li><li><b>2(a)</b> <span class="qbody">Let $p$ be a seminorm on a vector space $X$. Then for $x,y\in X$, prove the following:\par
 \hspace*{1em}(i) $p(\theta)=0$;\par
 \hspace*{1em}(ii) $|p(x)-p(y)|\le p(x-y)$;\par
 \hspace*{1em}(iii) $p(x)\ge0$;\par
@@ -92,6 +92,6 @@ window.MathJax = {
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

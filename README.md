@@ -23,13 +23,14 @@ VBMath turns ten years of scanned B.Sc. and M.Sc. Mathematics papers into a sear
 
 | | |
 |---|---|
-| **Questions** | 7,700+ question parts from 456 papers, 2016–2026, typed in LaTeX |
+| **Questions** | 7,700+ question parts from 452 Visva-Bharati papers, 2016–2026, typed in LaTeX |
 | **Semesters** | B.Sc. I–VIII (four-year NEP programme) and M.Sc. I–IV, one page each with paper and year pickers |
 | **Scans** | 738 original PDFs in Google Drive, each with its own link, back to 2004 |
 | **Topics** | 16 broad areas and 84 specific topics, with a year-by-year trend table |
 | **Repeats** | Questions set in more than one year are marked, with the years |
-| **Collection** | Collect questions like a cart, reorder them, preview an A4 paper, print or save as PDF, open in Overleaf, or download .tex |
-| **Resources** | JAM, NET, GATE, NBHM, TIFR papers; notes; syllabi; books; guides |
+| **Question Maker** | Collect questions or set a sample paper for any course: whole questions from its past papers, spread across its topics, in syllabus order, with an optional short-answer group. Edit, then print, save as PDF, open in Overleaf or download .tex |
+| **Resources** | JAM, NET, NBHM, TIFR papers and typed GATE Mathematics papers 2000–2026; notes; syllabi; books; guides |
+| **Math Gallery** | 25 live simulations (Fourier series, interference, Mandelbrot and Julia sets, chaos, orbits, heat flow) laid out as one explorable page |
 
 The site is static: no server, no database, no cost. Every semester and every paper has its own prerendered page with a proper title, description and structured data, listed in `sitemap.xml`, so search engines can find individual papers. Search runs in the browser and the maths is rendered with MathJax.
 

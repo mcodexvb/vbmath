@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!--HEAD-->
-<title>SECMA-1 Algebra II and Analysis II 2021 · B.Sc. Mathematics Semester III · VBMath</title>
-<meta name="description" content="Visva-Bharati B.Sc. Mathematics Semester III 2021 end-semester question paper SECMA-1 (Algebra II and Analysis II): 13 questions typed in LaTeX.">
+<title>SECMA-1 Boolean Algebra and Circuit Design 2021 · B.Sc. Mathematics Semester III · VBMath</title>
+<meta name="description" content="Visva-Bharati B.Sc. Mathematics Semester III 2021 end-semester question paper SECMA-1 (Boolean Algebra and Circuit Design): 13 questions typed in LaTeX.">
 <link rel="canonical" href="https://vbmath.pages.dev/paper/bsc-3-2021-s-4/">
-<meta property="og:title" content="SECMA-1 Algebra II and Analysis II 2021 · B.Sc. Mathematics Semester III · VBMath">
-<meta property="og:description" content="Visva-Bharati B.Sc. Mathematics Semester III 2021 end-semester question paper SECMA-1 (Algebra II and Analysis II): 13 questions typed in LaTeX.">
+<meta property="og:title" content="SECMA-1 Boolean Algebra and Circuit Design 2021 · B.Sc. Mathematics Semester III · VBMath">
+<meta property="og:description" content="Visva-Bharati B.Sc. Mathematics Semester III 2021 end-semester question paper SECMA-1 (Boolean Algebra and Circuit Design): 13 questions typed in LaTeX.">
 <meta property="og:url" content="https://vbmath.pages.dev/paper/bsc-3-2021-s-4/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "SECMA-1 Algebra II and Analysis II 2021 · B.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/bsc-3-2021-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Undergraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "B.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/bsc-3/"}, {"@type": "ListItem", "position": 3, "name": "SECMA-1 2021", "item": "https://vbmath.pages.dev/paper/bsc-3-2021-s-4/"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "SECMA-1 Boolean Algebra and Circuit Design 2021 · B.Sc. Mathematics Semester III", "url": "https://vbmath.pages.dev/paper/bsc-3-2021-s-4/", "learningResourceType": "Exam question paper", "educationalLevel": "Undergraduate", "inLanguage": "en", "isAccessibleForFree": true, "about": "Mathematics", "provider": {"@type": "Organization", "name": "VBMath"}, "breadcrumb": {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Papers", "item": "https://vbmath.pages.dev/papers/"}, {"@type": "ListItem", "position": 2, "name": "B.Sc. Semester III", "item": "https://vbmath.pages.dev/semester/bsc-3/"}, {"@type": "ListItem", "position": 3, "name": "SECMA-1 2021", "item": "https://vbmath.pages.dev/paper/bsc-3-2021-s-4/"}]}}</script>
 <!--/HEAD-->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VBMath">
@@ -23,8 +23,9 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/app.css?v=3.1">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap"></noscript>
+<link rel="stylesheet" href="/app.css?v=3.2">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VBMath","url":"https://vbmath.pages.dev/","description":"Visva-Bharati B.Sc. and M.Sc. Mathematics question papers, typed and searchable.","potentialAction":{"@type":"SearchAction","target":"https://vbmath.pages.dev/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 <script>
 window.MathJax = {
@@ -32,10 +33,9 @@ window.MathJax = {
     macros: { R: "\\mathbb{R}", N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}", C: "\\mathbb{C}", missingglyph: "\\square", unreadable: ["{#1}", 1], printedmarks: ["\\quad[#1]", 1], gapmark: ["\\ldots", 1], rank: "\\operatorname{rank}", tr: "\\operatorname{tr}", sgn: "\\operatorname{sgn}" } },
   svg: { fontCache: "global" },
   options: { ignoreHtmlClass: "nomath" },
-  startup: { pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
+  startup: { typeset: false, pageReady() { return MathJax.startup.defaultPageReady().then(() => { window.__vbmMathReady && window.__vbmMathReady(); }); } }
 };
 </script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 </head>
 <body>
 <a class="sr" href="#app">Skip to content</a>
@@ -64,7 +64,7 @@ window.MathJax = {
     </div>
   </div>
 </header>
-<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/bsc-3/">B.Sc. Semester III</a> / 2021</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>SECMA-1</h1><div class="sub">Algebra II and Analysis II</div><div class="fm"><span>B.Sc. Mathematics · Semester III</span><span>2021</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Let \(A\) be the set of all positive divisors of \(n\) and define for \(a,b,c\in A\)
+<main id="app"><!--APP--><div class="wrap" style="max-width:920px"><nav class="crumbs"><a href="/">Home</a> / <a href="/papers/">Papers</a> / <a href="/semester/bsc-3/">B.Sc. Semester III</a> / 2021</nav><header class="exam-head"><div class="inst">Visva-Bharati · Department of Mathematics</div><h1>SECMA-1</h1><div class="sub">Boolean Algebra and Circuit Design</div><div class="fm"><span>B.Sc. Mathematics · Semester III</span><span>2021</span></div></header><ol class="prerender"><li><b>1(a)</b> <span class="qbody">Let \(A\) be the set of all positive divisors of \(n\) and define for \(a,b,c\in A\)
 \[
 \begin{aligned}
 a+b&amp;=\text{l.c.m of }a\text{ and }b;\\
@@ -97,6 +97,6 @@ Express the expression in disjunctive normal form.</span></li><li><b>4</b> <span
 <button class="fab" id="fab" type="button" hidden><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7.5 12 4l8 3.5-8 3.5z"/><path d="m4 12 8 3.5 8-3.5"/><path d="m4 16.5 8 3.5 8-3.5"/></svg>Your collection <span class="cnt coll-n">0</span></button>
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" aria-label="Your collection"></aside>
-<script src="/app.js?v=3.1"></script>
+<script src="/app.js?v=3.2"></script>
 </body>
 </html>

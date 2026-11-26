@@ -7,15 +7,19 @@ DATA_DIR = Path(__file__).resolve().parents[1] / 'site' / 'data'
 
 
 def write_home_data(target, datasets, scans):
-    papers = [paper for catalogue, _ in datasets for paper in catalogue]
+    # The headline numbers describe the Visva-Bharati archive (the first data set) only;
+    # competitive and scholarship papers are counted separately.
+    papers = datasets[0][0]
     years = [paper['year'] for paper in papers]
+    extra_papers = sum(len(catalogue) for catalogue, _ in datasets[1:])
     eligible = []
     count = 0
     for catalogue, questions in datasets:
         for row in questions:
             if row[12]:
                 continue
-            count += 1
+            if catalogue is datasets[0][0]:
+                count += 1
             index, _, number, part, marks, marks_raw, tex = row[:7]
             if (marks is None or marks < 3 or not 60 < len(tex) < 520
                     or re.search(r'tabular|verbatim', tex)):
@@ -28,6 +32,7 @@ def write_home_data(target, datasets, scans):
     size = min(48, len(eligible))
     home = dict(questions=count, papers=len(papers), scans=len(scans),
                 years=[min(years), max(years)] if years else [],
+                otherPapers=extra_papers,
                 dailyQuestions=[eligible[i * len(eligible) // size] for i in range(size)])
     target.write_text(json.dumps(home, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
 
