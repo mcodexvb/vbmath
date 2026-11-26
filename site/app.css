@@ -1344,3 +1344,45 @@ a.archive-item-head:hover{color:var(--green-ink);text-decoration:underline}
 .sample-error:empty{display:none}
 .sample-error{color:#b3261e;margin:0}
 @media(max-width:520px){.sample-grid{grid-template-columns:1fr}.sample-set{grid-template-columns:1fr 1fr 1fr;gap:8px}}
+
+/* Tools page, in the style of the VBMath Lab */
+.tb{--tb-l:light-dark(42%,70%)}
+.tb-lede{font-size:1.1rem;color:var(--ink-2);max-width:62ch;margin:0 0 24px}
+.tb-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(18px,3vw,34px);align-items:center;padding:clamp(20px,3.5vw,34px);border-radius:20px;border:1px solid transparent;
+  background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,hsl(158 70% 50% / .75),transparent 42%,transparent 60%,hsl(42 85% 55% / .65)) border-box;box-shadow:0 26px 60px -34px hsl(158 60% 25% / .7)}
+.tb-kicker{display:inline-block;font:600 .8rem var(--f-ui);color:var(--green-ink);background:var(--green-tint);border:1px solid hsl(158 55% 45% / .35);border-radius:99px;padding:3px 12px}
+.tb-hero h2{margin:12px 0 10px;font:600 clamp(25px,3.6vw,36px)/1.15 var(--f-editorial)}
+.tb-hero p{margin:0 0 18px;color:var(--ink-2);max-width:52ch}
+.tb-hero-acts{display:flex;flex-wrap:wrap;gap:10px}
+.tb-hero-acts .btn svg{width:15px;height:15px;margin-left:6px}
+.tb-code-sample{margin:0;padding:18px 20px;border-radius:14px;background:#0a1d23;color:#e9eef0;font:500 13.5px/1.65 var(--f-mono);overflow-x:auto;box-shadow:inset 0 0 0 1px #ffffff14,0 18px 40px -24px #000}
+.tb-code-sample .k{color:#7fe0d2}.tb-code-sample .s{color:#f5c451}
+.tb-out{display:block;margin-top:12px;padding-top:10px;border-top:1px dashed #ffffff26;color:#9fc4bd}
+.tb-out::before{content:"output  ";color:#ffffff66}
+.tb-toc{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 6px}
+.tb-toc a{display:inline-flex;align-items:center;gap:8px;padding:6px 14px 6px 11px;border:1px solid var(--rule);border-radius:99px;background:var(--card);color:var(--ink);text-decoration:none;font:600 .92rem var(--f-ui)}
+.tb-toc a:hover{border-color:hsl(var(--h) 60% var(--tb-l))}
+.tb-toc i{width:9px;height:9px;border-radius:50%;background:hsl(var(--h) 75% var(--tb-l));box-shadow:0 0 10px hsl(var(--h) 85% 55% / .8)}
+.tb-group{margin-top:clamp(34px,5vw,52px);scroll-margin-top:90px}
+.tb-group h2{display:flex;align-items:center;gap:12px;margin:0 0 14px;font:600 clamp(22px,3vw,28px)/1.2 var(--f-editorial)}
+.tb-group h2::before{content:"";width:4px;height:1.1em;border-radius:3px;background:linear-gradient(hsl(var(--h) 80% var(--tb-l)),hsl(calc(var(--h) + 50) 80% var(--tb-l)))}
+.tb-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px}
+.tb-tool{display:flex;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid transparent;
+  background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(140deg,hsl(var(--h) 70% 55% / .55),var(--rule) 40%,var(--rule) 70%,hsl(calc(var(--h) + 60) 70% 55% / .45)) border-box;transition:transform .2s,box-shadow .2s}
+.tb-tool:hover{transform:translateY(-2px);box-shadow:0 18px 40px -26px hsl(var(--h) 70% 35% / .8)}
+.tb-mark{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;font:700 .95rem var(--f-ui);color:hsl(var(--h) 70% var(--tb-l));background:hsl(var(--h) 60% 50% / .13);border:1px solid hsl(var(--h) 60% 50% / .3)}
+.tb-main{min-width:0}
+.tb-name{display:inline-flex;align-items:center;gap:6px;font:650 1.05rem var(--f-ui);color:var(--ink);text-decoration:none}
+.tb-name::after{content:"";position:absolute;inset:0}
+.tb-tool{position:relative}
+.tb-name svg{width:14px;height:14px;opacity:.6}
+.tb-name:hover{color:hsl(var(--h) 70% var(--tb-l))}
+.tb-main p{margin:5px 0 9px;color:var(--ink-2);font-size:.95rem;line-height:1.5}
+.tb-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.tb-tags span{font:600 .74rem var(--f-ui);padding:2px 9px;border-radius:99px;background:var(--paper-2);color:var(--ink-3)}
+.tb-tags .tb-host{background:none;padding-left:2px;font-weight:500}
+.tb-code{position:relative;z-index:1;display:inline-flex;align-items:center;gap:4px;font:600 .78rem var(--f-ui)}
+.tb-code svg{width:12px;height:12px}
+.tb-foot{margin:44px 0 10px;padding-top:18px;border-top:1px solid var(--rule);color:var(--ink-3)}
+@media(max-width:760px){.tb-hero{grid-template-columns:1fr}.tb-code-sample{font-size:12.5px}}
+@media(prefers-reduced-motion:reduce){.tb-tool{transition:none}.tb-tool:hover{transform:none}}

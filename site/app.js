@@ -3532,17 +3532,41 @@
       <div class="section">${teachers}</div><div class="section">${scholars}</div>`);
   }
   function viewTools() {
-    const coding = D.C.tools.filter(([label]) => label.startsWith("Math++"));
-    const numerical = D.C.tools.filter(([label]) => !label.startsWith("Math++"));
-    return page("Tools", "Mathematics tools", "",
-      `<div class="resource-grid">${[["Coding", coding], ["Numerical methods", numerical], ["LaTeX", D.C.latex]].map(([title, links]) => `
-        <section class="topic-card exam-card"><div class="exam-card-title"><span class="resource-icon">${IC.file}</span><h2>${title}</h2></div>
-          <div class="exam-rows">${links.map(([label, url]) => `<a class="exam-row" href="${esc(url)}" target="_blank" rel="noopener"><span>${esc(label)}</span>${IC.ext}</a>`).join("")}</div>
-        </section>`).join("")}</div>`);
+    const host = (u) => { try { return new URL(u, location.href).hostname.replace(/^www\./, ""); } catch (e) { return ""; } };
+    const card = ([name, what, url, tags, code], k) => {
+      const own = url.startsWith("/");
+      return `<li class="tb-tool">
+        <span class="tb-mark" aria-hidden="true">${esc(name.replace(/[^A-Za-z0-9]/g, "").slice(0, 2))}</span>
+        <div class="tb-main"><a class="tb-name" href="${esc(url)}"${own ? "" : ' target="_blank" rel="noopener"'}>${esc(name)}${own ? IC.arrow : IC.ext}</a>
+          <p>${esc(what)}</p>
+          <div class="tb-tags">${tags.map((t) => `<span>${esc(t)}</span>`).join("")}${own ? "" : `<span class="tb-host">${esc(host(url))}</span>`}${code ? `<a class="tb-code" href="${esc(code)}" target="_blank" rel="noopener">Source code${IC.ext}</a>` : ""}</div></div></li>`;
+    };
+    const groups = D.C.toolbox || [];
+    const [mine, ...rest] = groups;
+    const clab = mine?.items[0];
+    return page("Tools", "Tools", "",
+      `<div class="tb">
+        <p class="tb-lede">Free tools for computing, programming, writing and research, chosen for mathematics students and scholars. Most run in the browser with nothing to install.</p>
+        ${clab ? `<section class="tb-hero" aria-labelledby="tb-clab">
+          <div class="tb-hero-text"><span class="tb-kicker">Built for this department</span><h2 id="tb-clab">${esc(clab[0])}: C in your browser</h2><p>${esc(clab[1])}</p>
+            <div class="tb-hero-acts"><a class="btn btn-primary" href="${esc(clab[2])}" target="_blank" rel="noopener">Open CLab${IC.ext}</a><a class="btn btn-ghost" href="${esc(clab[4])}" target="_blank" rel="noopener">Source on GitHub${IC.ext}</a></div></div>
+          <pre class="tb-code-sample" aria-hidden="true"><span class="k">#include</span> <span class="s">&lt;stdio.h&gt;</span>
+<span class="k">int</span> main(<span class="k">void</span>) {
+    <span class="k">double</span> x = 1;
+    <span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; 5; i++)
+        x = x - (x*x - 2) / (2*x);
+    printf(<span class="s">"%.10f\\n"</span>, x);
+}<span class="tb-out">1.4142135624</span></pre></section>` : ""}
+        <nav class="tb-toc" aria-label="Kinds of tool">${groups.map((g) => `<a href="#tb-${esc(g.id)}" style="--h:${g.hue}"><i></i>${esc(g.name)}</a>`).join("")}</nav>
+        ${groups.map((g, gi) => `<section class="tb-group" id="tb-${esc(g.id)}" style="--h:${g.hue}" aria-labelledby="tbh-${esc(g.id)}">
+          <h2 id="tbh-${esc(g.id)}">${esc(g.name)}</h2>
+          <ul class="tb-list">${(gi === 0 ? g.items.slice(1) : g.items).map(card).join("")}</ul></section>`).join("")}
+        <p class="tb-foot">Looking for course websites, lecture videos or LaTeX installers? See <a href="${L("websites")}">Useful Websites</a>. Know a tool that should be here? <a href="https://github.com/mcodexvb/vbmath/issues/new" target="_blank" rel="noopener">Suggest it on GitHub</a>.</p>
+      </div>`);
   }
   function viewGuides() {
     const C = D.C;
-    const parts = [["sch", "Scholarships"], ["adm", "Admission"], ["reach", "Reaching the department"], ["latex", "LaTeX"], ["tools", "Numerical tools"], ["thesis", "Ph.D. thesis submission"]];
+    const parts = [["sch", "Scholarships"], ["adm", "Admission"], ["reach", "Reaching the department"], ["latex", "LaTeX"], ["thesis", "Ph.D. thesis submission"]];
     const linkList = (items) => `<ul class="glinks">${items.map(([l, u]) => `<li>${ext(u, l)}</li>`).join("")}</ul>`;
     return `<div class="wrap"><nav class="crumbs"><a href="${L("home")}">Home</a> / Guides</nav>
       <div class="pagehead"><h1>Guides</h1><p class="lede">Practical help for students of the department, from scholarships and admission to submitting a Ph.D. thesis.</p></div>
@@ -3558,7 +3582,6 @@
           <section id="g-adm"><h2>Admission to Visva-Bharati</h2>${C.admission.map((x) => `<p>${esc(x)}</p>`).join("")}</section>
           <section id="g-reach"><h2>Reaching the department</h2><dl class="gdl">${C.reach.map(([t, d, u]) => `<dt>${esc(t)}</dt><dd>${esc(d)}${u ? ` ${ext(u, t === "Map" ? "Open in Google Maps" : "Train timings")}` : ""}</dd>`).join("")}</dl></section>
           <section id="g-latex"><h2>LaTeX for project work</h2><p>LaTeX places text and equations for you, so a long mathematical document stays tidy as you edit it. Install an editor with a TeX distribution, or write online on Overleaf.</p>${linkList(C.latex)}</section>
-          <section id="g-tools"><h2>Numerical tools</h2><p>Small calculators for common numerical methods, hosted on Math++.</p>${linkList(C.tools)}</section>
           <section id="g-thesis"><h2>Ph.D. thesis submission</h2><p>The usual order of steps at Visva-Bharati. Confirm details with your supervisor and the Bhavana office.</p>
             <ol class="gsteps">${C.thesis.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
             <h3>Forms and links</h3>${linkList(C.thesis.links)}</section>
@@ -3605,7 +3628,7 @@
     const root = $("#lab-gallery");
     const version = routeVersion;
     try {
-      const {mountLabGallery} = await import("./lab-gallery.mjs?v=3.2");
+      const {mountLabGallery} = await import("./lab-gallery.mjs?v=3.3");
       if (version !== routeVersion || !root.isConnected) return;
       stopLabGallery = mountLabGallery(root, {
         initial: routeParams().get("figure"),
@@ -3634,7 +3657,7 @@
     websites: [() => viewLearn("websites"), null, "Useful Websites · VBMath"],
     ...Object.fromEntries(Object.entries(PEOPLE_LABELS).map(([key, label]) => ["people-" + key, [() => viewPeople(key), key === "alumni" ? bindAlumni : null, label + " · VBMath"]])),
     exams: [viewExams, null, "JAM, NET, GATE, NBHM, TIFR papers · VBMath"], notes: [viewNotes, bindNotes, "Notes · VBMath"], syllabus: [viewSyllabus, null, "Syllabus · VBMath"],
-    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Mathematics tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
+    books: [viewBooks, null, "Books · VBMath"], learn: [viewLearn, bindLearn, "Videos and websites · VBMath"], tools: [viewTools, null, "Tools · VBMath"], people: [viewPeople, null, "People · VBMath"],
     guides: [viewGuides, bindGuides, "Guides · VBMath"], contribute: [viewContribute, null, "Contribute · VBMath"], about: [viewAbout, null, "About · VBMath"],
   };
   let lastRoute = null, routeVersion = 0;

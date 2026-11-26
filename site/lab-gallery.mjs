@@ -1,6 +1,6 @@
 // Math Gallery: an explorable essay. Each idea gets a few lines of explanation,
 // a live figure, its controls directly underneath, and things to try.
-import {exhibits, exhibitCategories, exhibitTips, mountExhibit} from "./lab-exhibits.mjs?v=3.2";
+import {exhibits, exhibitCategories, exhibitTips, mountExhibit} from "./lab-exhibits.mjs?v=3.3";
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 

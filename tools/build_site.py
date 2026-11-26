@@ -192,7 +192,7 @@ TOP={'search':('Search questions · VBMath','Search 7,700+ Visva-Bharati mathema
      'books':('Books · VBMath','Recommended mathematics textbooks by subject.'),'learn':('Videos and websites · VBMath','Video courses and useful websites for mathematics students.'),
      'people':('People · VBMath','Faculty of the Department of Mathematics, Visva-Bharati.'),'guides':('Guides · VBMath','Scholarships, admission, reaching Santiniketan, LaTeX and Ph.D. thesis submission at Visva-Bharati.'),
      'contribute':('Contribute · VBMath','Send question papers, type questions, fix topic tags or share solutions.'),'about':('About · VBMath','About VBMath, the student-run archive of Visva-Bharati mathematics question papers.'),
-     'tools':('Mathematics tools · VBMath','Coding, numerical methods, and LaTeX resources for mathematics students.'),
+     'tools':('Tools · VBMath','CLab and free tools for computing, programming, LaTeX and research, for mathematics students and scholars.'),
      'gallery':('Math Gallery · VBMath','25 interactive mathematical simulations with their equations, explanations and live controls.'),
      'preview':('Paper preview · VBMath','Preview your collected questions as an A4 question paper.')}
 for k,(t,d) in TOP.items():
