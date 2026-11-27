@@ -220,7 +220,7 @@
     }
     mjQueue = mjQueue.then(() => MathJax.typesetPromise([el])).catch(() => {});
   }
-  window.__vbmMathReady = () => { $$('[data-pending-math="1"]').forEach((el) => { el.removeAttribute("data-pending-math"); typeset(el); }); };
+  window.__vbmMathReady = () => { $$('[data-pending-math="1"]').forEach((el) => { el.removeAttribute("data-pending-math"); typeset(el); }); mjQueue = mjQueue.then(() => $$('[data-hl="1"]').forEach((el) => { el.removeAttribute("data-hl"); if (typeof highlightHits === "function") highlightHits(el); })); };
 
   /* ---------- data ---------- */
   function loadJSON(name, options) {
@@ -573,7 +573,7 @@
       pool.forEach((c, k) => {
         const score = -4 * (topicUse.get(c.topic) || 0) * (c.topic >= 0) - 2 * (broadUse.get(c.broad) || 0) * (c.broad >= 0)
           - 1.5 * (paperUse.get(c.paper) || 0) + (y1 > y0 ? (c.year - y0) / (y1 - y0) : 0) + Math.min(c.rep, 3) * 0.35
-          - (c.joined ? 1.2 : 0) - (c.trimmed ? 0.4 : 0) + Math.random() * 1.6;
+          - (c.joined ? 1.2 : 0) - (c.trimmed ? 0.4 : 0) - (c.adj ? 2.5 : 0) + Math.random() * 1.6;
         if (score > bestScore) { bestScore = score; best = k; }
       });
       const c = pool.splice(best, 1)[0];
@@ -585,6 +585,41 @@
       paperUse.set(c.paper, (paperUse.get(c.paper) || 0) + 1);
     }
     return chosen.sort((a, b) => a.pos - b.pos);
+  }
+  // A question set for `orig` marks may be used for `target` marks only if the change is small: up by one mark
+  // (1→2, 2→3) or a fifth for long questions (10→12); down to three fifths (5→4 or 3, 10→6). Never 2→5, 3→7 or 2→1.
+  function marksOk(orig, target) {
+    if (!(orig > 0) || !(target > 0)) return false;
+    if (Math.abs(orig - target) < 1e-6) return true;
+    if (target > orig) return target - orig <= Math.max(1, 0.2 * orig) + 1e-9;
+    return target >= 0.6 * orig - 1e-9;
+  }
+  // Rescale the parts of a question to a new total, in half marks; null if a part would get no marks.
+  function scaleParts(parts, from, to) {
+    if (parts.length === 1) return [{ ...parts[0], marks: to, origMarks: parts[0].marks }];
+    const out = parts.map((q) => ({ ...q, origMarks: q.marks, marks: Math.round(q.marks * to / from * 2) / 2 }));
+    const rest = out.slice(0, -1).reduce((t, q) => t + q.marks, 0);
+    out[out.length - 1].marks = Math.round((to - rest) * 2) / 2;
+    return out.every((q) => q.marks > 0) ? out : null;
+  }
+  // Everything that can fill one place of `marks` marks: whole questions (or their opening parts), single independent parts,
+  // two shorter questions joined, and, if allowed, questions with a small change of marks. Exact marks are preferred when picking.
+  function rowCandidates(blocks, marks, allowAdj, n) {
+    const pieces = blocks.flatMap((b) => b.parts.length < 2 ? [] : b.parts.map((q, k) => ({ parts: [q], paper: b.paper, year: b.year, pos: b.pos, marks: q.marks,
+      topic: q.t[0] ?? b.topic, broad: [...q.broads][0] ?? b.broad, rep: q.rep.length, sig: normText(q.tex), first: k === 0 })))
+      .filter((b) => b.first || !DEPENDS.test(b.parts[0].tex));
+    const all = blocks.concat(pieces);
+    let out = candidatesFor(all.slice(), marks);
+    if (out.length < n) out = out.concat(joinedBlocks(blocks, marks));
+    if (allowAdj) {
+      const seen = new Set(out.map((c) => c.sig));
+      all.forEach((b) => {
+        if (Math.abs(b.marks - marks) < 1e-6 || !marksOk(b.marks, marks) || seen.has(b.sig)) return;
+        const parts = scaleParts(b.parts, b.marks, marks); if (!parts) return;
+        seen.add(b.sig); out.push({ ...b, parts, marks, adj: true, orig: b.marks });
+      });
+    }
+    return out;
   }
   function candidatesFor(blocks, marks) {
     const seen = new Set(), out = [];
@@ -599,7 +634,7 @@
     return out;
   }
   const blockToQuestion = (b, k) => ({ id: "mq_" + k + "_" + b.parts[0].id, qno: "", orAlternative: false,
-    parts: b.parts.map((q, j) => ({ id: q.id, label: b.parts.length > 1 ? String.fromCharCode(97 + j) : "", marks: q.marks, tex: q.tex, sourcePaper: q.p })) });
+    parts: b.parts.map((q, j) => ({ id: q.id, label: b.parts.length > 1 ? String.fromCharCode(97 + j) : "", marks: q.marks, tex: q.tex, sourcePaper: q.p, ...(q.origMarks != null && Math.abs(q.origMarks - q.marks) > 1e-6 ? { origMarks: q.origMarks } : {}) })) });
   const marksLabel = (m) => Number.isInteger(m) ? String(m) : String(+m.toFixed(2));
   const NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
   const inWords = (n) => NUMBER_WORDS[n] || String(n);
@@ -616,6 +651,15 @@
     return { marks, n, x: Math.max(1, Math.min(n, Math.round(n * 0.625))) };
   }
 
+  // Rows of the paper: [{n: questions set, x: how many to answer, m: marks each, g: heading}]. Returns what was found for each row.
+  function generateRows(rows, idx, allowAdj) {
+    const blocks = questionBlocks(idx), used = new Set();
+    return rows.map((r) => {
+      const n = Math.max(1, Math.round(r.n || 1)), m = +r.m;
+      const chosen = m > 0 ? pickBlocks(rowCandidates(blocks, m, allowAdj, n), n, used) : [];
+      return { row: r, n, m, x: Math.min(n, Math.max(1, Math.round(r.x || n))), qs: chosen, adj: chosen.filter((c) => c.adj).length, joined: chosen.filter((c) => c.joined).length };
+    });
+  }
   function openSamplePaper(onGenerate) {
     const dialog = document.createElement("dialog");
     dialog.className = "vbm-dialog sample-dialog";
@@ -623,35 +667,31 @@
     const thisYear = new Date().getFullYear();
     dialog.innerHTML = `<form class="vbm-dialog-form">
       <h2 id="sample-title">Set a sample paper</h2>
-      <p class="muted">Whole questions are taken from the course's past papers, spread across its topics and arranged in syllabus order. Repeated questions are used once.</p>
+      <p class="muted">Questions are taken from the course's past papers, spread across its topics and arranged in syllabus order. Repeated questions are used once.</p>
       <div class="sample-grid">
         <label>Programme <select name="prog">${Object.entries(PROG).map(([c, n]) => `<option value="${c}">${esc(n)}</option>`).join("")}${Object.entries(EXAM).map(([c, n]) => `<option value="${c}">${esc(n)}</option>`).join("")}</select></label>
         <label data-acad>Semester <select name="sem"></select></label>
         <label class="wide">Course <select name="course"></select></label>
         <label>Questions from <select name="from"></select></label>
-        <p class="sample-pool muted wide" role="status"></p>
       </div>
-      <fieldset class="sample-set" data-acad><legend>Long questions</legend>
-        <label>Set <input name="n" type="number" min="1" max="20" value="8"></label>
-        <label>Answer any <input name="x" type="number" min="1" max="20" value="5"></label>
-        <label>Marks each <input name="marks" type="number" min="1" max="50" step="0.5" value="10"></label>
+      <fieldset class="sample-rows" data-acad><legend>Structure of the paper</legend>
+        <div class="srow-h" aria-hidden="true"><span>Set</span><span>Answer any</span><span>Marks each</span><span>Heading (optional)</span><span></span></div>
+        <div class="srow-l"></div>
+        <button type="button" class="btn btn-ghost btn-sm" data-addrow>+ Add a row</button>
       </fieldset>
-      <fieldset class="sample-set" data-acad><legend><label class="inline"><input type="checkbox" name="short"> Add a group of short questions</label></legend>
-        <label>Set <input name="sn" type="number" min="1" max="20" value="8" disabled></label>
-        <label>Answer any <input name="sx" type="number" min="1" max="20" value="5" disabled></label>
-        <label>Marks each <input name="sm" type="number" min="1" max="10" step="0.5" value="2" disabled></label>
-      </fieldset>
+      <label class="sample-adj" data-acad><input type="checkbox" name="adj" checked> <span>Allow small changes of marks when a question of the exact marks is not available (1→2, 2→3, 5→4 or 3; never 2→5 or 3→7)</span></label>
       <fieldset class="sample-set" data-exam hidden><legend>Questions</legend>
         <label>Number of questions <input name="en" type="number" min="5" max="80" value="25"></label>
       </fieldset>
+      <section class="sample-preview" aria-live="polite"><h3>Preview</h3><div class="sample-pv"></div></section>
       <p class="sample-error" role="alert"></p>
       <div class="vbm-dialog-actions"><button type="button" class="btn btn-ghost" data-cancel>Cancel</button><button type="submit" class="btn btn-primary">Set paper</button></div>
     </form>`;
     document.body.append(dialog);
     const form = dialog.querySelector("form"), E = form.elements;
-    const feedback = $(".sample-error", dialog), poolNote = $(".sample-pool", dialog);
+    const feedback = $(".sample-error", dialog), pv = $(".sample-pv", dialog), rowList = $(".srow-l", dialog);
     const isExam = () => !!EXAM[E.prog.value];
-    let courses = [];
+    let courses = [], rows = [], lastGen = null;
     const coursePapers = () => {
       const c = courses.find((x) => x.k === E.course.value);
       if (!c) return [];
@@ -663,31 +703,48 @@
       E.from.innerHTML = ys.map((y) => `<option value="${y}">${y} onwards</option>`).join("");
       E.from.value = String(ys[ys.length - 1] ?? thisYear);
     };
-    const showPool = () => {
+    const rowsHtml = () => {
+      rowList.innerHTML = rows.map((r, i) => `<div class="srow" data-r="${i}">
+        <label><span>Set</span><input type="number" min="1" max="30" inputmode="numeric" data-f="n" value="${r.n}" aria-label="Row ${i + 1}: questions set"></label>
+        <label><span>Answer any</span><input type="number" min="1" max="30" inputmode="numeric" data-f="x" value="${r.x}" aria-label="Row ${i + 1}: how many to answer"></label>
+        <label><span>Marks each</span><input type="number" min="0.5" max="50" step="0.5" inputmode="decimal" data-f="m" value="${r.m}" aria-label="Row ${i + 1}: marks of each question"></label>
+        <label class="srow-g"><span>Heading</span><input type="text" data-f="g" value="${esc(r.g)}" placeholder="${rows.length > 1 ? "Group " + "ABCDEFGH"[i] : "optional"}" aria-label="Row ${i + 1}: heading"></label>
+        <button type="button" class="srow-x" data-x="${i}" aria-label="Remove row ${i + 1}"${rows.length < 2 ? " disabled" : ""}>×</button></div>`).join("");
+    };
+    const preview = () => {
       feedback.textContent = "";
       if (isExam()) {
         const idx = examPapers(); const n = idx.reduce((t, i) => t + D.byPaper[i].filter((q) => !q.stem).length, 0);
-        poolNote.textContent = `${n.toLocaleString()} questions in ${idx.length} papers.`; return;
+        pv.innerHTML = `<p>${n.toLocaleString()} questions in ${idx.length} papers.</p>`; lastGen = null; return;
       }
-      const idx = coursePapers(), blocks = questionBlocks(idx), m = +E.marks.value;
-      const fit = candidatesFor(blocks, m).length;
-      const topics = new Set(blocks.map((b) => b.broad).filter((b) => b >= 0));
-      poolNote.textContent = idx.length ? `${idx.length} past paper${idx.length === 1 ? "" : "s"}, ${fit} usable ${marksLabel(m)}-mark question${fit === 1 ? "" : "s"}, ${topics.size} topic area${topics.size === 1 ? "" : "s"}.` : "No typed papers for this course yet.";
+      const idx = coursePapers();
+      if (!idx.length) { pv.innerHTML = `<p class="warn">No typed papers for this course yet.</p>`; lastGen = null; return; }
+      lastGen = generateRows(rows, idx, E.adj.checked);
+      let full = 0, short = 0;
+      pv.innerHTML = `<ol class="spv">${lastGen.map((g, i) => {
+        const got = g.qs.length, ok = got >= g.n, x = Math.min(g.x, got);
+        full += x * g.m; if (!ok) short++;
+        const head = (rows.length > 1 ? (g.row.g || "Group " + "ABCDEFGH"[i]) + ": " : g.row.g ? g.row.g + ": " : "") + (g.x < g.n ? `answer any ${inWords(g.x)} of ${g.n}` : `answer all ${g.n}`) + ` · ${marksLabel(g.m)} marks each`;
+        const extra = [g.adj ? `${g.adj} with a small change of marks` : "", g.joined ? `${g.joined} joined from two shorter questions` : ""].filter(Boolean).join(", ");
+        return `<li class="${ok ? "ok" : "warn"}"><b>${esc(head)}</b><span>${ok ? `✓ All ${g.n} places filled${extra ? " (" + extra + ")" : ""}.` : `⚠ Only ${got} suitable question${got === 1 ? "" : "s"} for ${g.n} places${E.adj.checked ? "" : " (allowing small changes of marks may find more)"}; ${g.n - got} will stay empty.`}</span></li>`;
+      }).join("")}</ol><p class="spv-t">Full marks: <b>${marksLabel(full)}</b>${short ? ` · <span class="warn">${short} row${short > 1 ? "s" : ""} cannot be filled completely. Include earlier years, change the marks, or ask for fewer questions.</span>` : ""}</p>`;
+    };
+    const setFormat = (c) => {
+      const f = courseFormat(c.papers.filter((p) => p.kind[0] !== "i").map((p) => D.byKey.get(p.key)));
+      rows = [{ n: f.n, x: f.x, m: f.marks, g: "" }]; rowsHtml();
     };
     const fillCourses = () => {
       courses = semCodes(E.prog.value, +E.sem.value).filter((c) => !c.other && c.papers.some((p) => p.kind[0] !== "i"));
       E.course.innerHTML = courses.map((c) => `<option value="${esc(c.k)}">${esc(c.name)}${c.title ? " · " + esc(c.title) : ""}${c.current ? "" : " (earlier syllabus)"}</option>`).join("");
       const c = courses[0];
-      if (!c) { E.from.innerHTML = ""; showPool(); return; }
+      if (!c) { E.from.innerHTML = ""; preview(); return; }
       fillYears(c.papers.filter((p) => p.kind[0] !== "i").map((p) => p.year));
-      const f = courseFormat(c.papers.filter((p) => p.kind[0] !== "i").map((p) => D.byKey.get(p.key)));
-      E.marks.value = f.marks; E.n.value = f.n; E.x.value = f.x;
-      showPool();
+      setFormat(c); preview();
     };
     const fillSems = () => {
       $$("[data-acad]", dialog).forEach((el) => { el.hidden = isExam(); });
       $$("[data-exam]", dialog).forEach((el) => { el.hidden = !isExam(); });
-      if (isExam()) { fillYears(examPapers().map((i) => D.papers[i].year)); showPool(); return; }
+      if (isExam()) { fillYears(examPapers().map((i) => D.papers[i].year)); preview(); return; }
       const sems = Array.from(new Set(D.papers.filter((p) => p.prog === E.prog.value && D.byPaper[D.byKey.get(p.key)]?.length).map((p) => p.sem))).sort((a, b) => a - b);
       E.sem.innerHTML = sems.map((s) => `<option value="${s}">Semester ${ROMAN[s]}</option>`).join("");
       fillCourses();
@@ -697,12 +754,19 @@
     E.course.onchange = () => {
       const c = courses.find((x) => x.k === E.course.value);
       fillYears(c.papers.filter((p) => p.kind[0] !== "i").map((p) => p.year));
-      const f = courseFormat(c.papers.filter((p) => p.kind[0] !== "i").map((p) => D.byKey.get(p.key)));
-      E.marks.value = f.marks; E.n.value = f.n; E.x.value = f.x; showPool();
+      setFormat(c); preview();
     };
-    E.from.onchange = showPool;
-    E.marks.oninput = showPool;
-    E.short.onchange = () => { [E.sn, E.sx, E.sm].forEach((i) => { i.disabled = !E.short.checked; }); };
+    E.from.onchange = preview;
+    E.adj.onchange = preview;
+    let deb;
+    rowList.addEventListener("input", (e) => {
+      const r = e.target.closest(".srow"); if (!r) return;
+      const o = rows[+r.dataset.r], k = e.target.dataset.f;
+      if (k === "g") o.g = e.target.value; else o[k] = +e.target.value;
+      clearTimeout(deb); deb = setTimeout(preview, 160);
+    });
+    rowList.addEventListener("click", (e) => { const x = e.target.closest("[data-x]"); if (!x || rows.length < 2) return; rows.splice(+x.dataset.x, 1); rowsHtml(); preview(); });
+    $("[data-addrow]", dialog).onclick = () => { rows.unshift({ n: 8, x: 5, m: 2, g: "" }); rowsHtml(); preview(); $("input", rowList).focus(); };
     form.oninput = () => { feedback.textContent = ""; };
     $("[data-cancel]", dialog).onclick = () => dialog.close();
     dialog.addEventListener("close", () => dialog.remove(), {once:true});
@@ -723,44 +787,29 @@
       }
       const c = courses.find((x) => x.k === E.course.value);
       if (!c) { feedback.textContent = "Choose a course."; return; }
-      const idx = coursePapers(), blocks = questionBlocks(idx);
-      const n = Math.max(1, Math.round(+E.n.value)), x = Math.min(n, Math.max(1, Math.round(+E.x.value))), m = +E.marks.value;
-      if (!(m > 0)) { feedback.textContent = "Enter the marks for each question."; return; }
-      let cands = candidatesFor(blocks, m);
-      if (cands.length < n) cands = cands.concat(joinedBlocks(blocks, m));
-      const longQs = pickBlocks(cands, n, used);
-      if (!longQs.length) { feedback.textContent = `These papers have no ${marksLabel(m)}-mark questions. Try another mark value, or include earlier years.`; return; }
-      let shortQs = [];
-      if (E.short.checked) {
-        const sn = Math.max(1, Math.round(+E.sn.value)), sm = +E.sm.value;
-        const pieces = blocks.flatMap((b) => b.parts.map((q, k) => ({ parts: [q], paper: b.paper, year: b.year, pos: b.pos, marks: q.marks,
-          topic: q.t[0] ?? b.topic, broad: [...q.broads][0] ?? b.broad, rep: q.rep.length, sig: normText(q.tex), first: k === 0 })))
-          .filter((b) => Math.abs(b.marks - sm) < 1e-6 && (b.first || !DEPENDS.test(b.parts[0].tex)));
-        shortQs = pickBlocks(candidatesFor(pieces, sm), sn, used);
-      }
-      const p0 = D.papers[idx[0]] || c.papers[0];
-      const prog = c.papers[0].prog === "BSc" ? "B.Sc." : "M.Sc.";
-      const sx = Math.min(shortQs.length, Math.max(1, Math.round(+E.sx.value)));
-      const lx = Math.min(x, longQs.length);
-      const full = lx * m + (shortQs.length ? sx * +E.sm.value : 0);
+      if (rows.some((r) => !(+r.m > 0) || !(+r.n > 0))) { feedback.textContent = "Each row needs a number of questions and their marks."; return; }
+      const gen = lastGen || generateRows(rows, coursePapers(), E.adj.checked);
+      if (!gen.some((g) => g.qs.length)) { feedback.textContent = "These papers have no questions with these marks. Try other marks, or include earlier years."; return; }
+      const p0 = c.papers[0], prog = p0.prog === "BSc" ? "B.Sc." : "M.Sc.";
+      let k = 0, full = 0;
+      const qs = [];
+      gen.forEach((g, i) => {
+        if (!g.qs.length) return;
+        const x = Math.min(g.x, g.qs.length); full += x * g.m;
+        const list = g.qs.map((b) => blockToQuestion(b, k++));
+        if (gen.length > 1 || g.row.g) list[0].groupHead = { title: g.row.g || "Group " + "ABCDEFGH"[i], rule: ruleText(x, g.qs.length, g.m) };
+        qs.push(...list);
+      });
       const time = full <= 25 ? "Time: 1 Hour" : full <= 50 ? "Time: 2 Hours" : "Time: 3 Hours";
+      const single = gen.length === 1 && !gen[0].row.g;
       const head = { ...defaultMakerHead(), inst: "VISVA-BHARATI", dept: "Department of Mathematics",
-        exam: `${prog} Mathematics Examination ${thisYear}, Semester ${ROMAN[c.papers[0].sem]}`,
-        paper: `${c.name}${c.title ? " — " + c.title : ""} (sample paper)`, time, full: marksLabel(full), choiceX: lx, choiceY: longQs.length };
-      let doc;
-      if (shortQs.length) {
-        const qs = shortQs.map(blockToQuestion).concat(longQs.map((b, k) => blockToQuestion(b, k + 100)));
-        qs[0].groupHead = { title: "Group A", rule: ruleText(sx, shortQs.length, +E.sm.value) };
-        qs[shortQs.length].groupHead = { title: "Group B", rule: ruleText(lx, longQs.length, m) };
-        doc = { source: "sample", header: { ...head, autoFull: false, ruleType: "custom",
-          instr: "Candidates are required to give their answers in their own words as far as practicable. Figures in the right margin indicate full marks." },
-          sections: [{ id: "sec_1", title: "", rule: "", questions: qs }] };
-      } else {
-        doc = { source: "sample", header: { ...head, autoFull: true, ruleType: lx < longQs.length ? "choice" : "all" },
-          sections: [{ id: "sec_1", title: "", rule: "", questions: longQs.map(blockToQuestion) }] };
-      }
-      const short = longQs.length < n ? ` Only ${longQs.length} suitable questions were found, so the paper has ${longQs.length}.` : "";
-      onGenerate(doc, short);
+        exam: `${prog} Mathematics Examination ${thisYear}, Semester ${ROMAN[p0.sem]}`,
+        paper: `${c.name}${c.title ? " — " + c.title : ""} (sample paper)`, time, full: marksLabel(full) };
+      if (single) Object.assign(head, { choiceX: Math.min(gen[0].x, qs.length), choiceY: qs.length, autoFull: true, ruleType: gen[0].x < qs.length ? "choice" : "all" });
+      else Object.assign(head, { autoFull: false, ruleType: "custom", instr: "Candidates are required to give their answers in their own words as far as practicable. Figures in the right margin indicate full marks." });
+      const missing = gen.reduce((t, g) => t + Math.max(0, g.n - g.qs.length), 0), adj = gen.reduce((t, g) => t + g.adj, 0);
+      const note = (adj ? ` ${adj} question${adj > 1 ? "s" : ""} with a small change of marks.` : "") + (missing ? ` ${missing} place${missing > 1 ? "s" : ""} could not be filled.` : "");
+      onGenerate({ source: "sample", header: head, sections: [{ id: "sec_1", title: "", rule: "", questions: qs }] }, note);
       dialog.close();
     };
     fillSems();
@@ -1067,63 +1116,93 @@
     }
     return a.length > b.length ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
   }
+  let searchDF = null, searchN = 1;
   function scoringQuery(value) {
-    const exact = [];
-    const plain = value.replace(/"([^"]+)"/g, (_, quoted) => { exact.push(searchWords(quoted, false)); return " "; });
+    const exact = [], neg = [];
+    let plain = value.replace(/"([^"]+)"/g, (_, quoted) => { exact.push(searchWords(quoted, false)); return " "; });
+    // a minus sign before a word leaves out questions that contain it
+    plain = plain.replace(/(^|\s)-([^\s-][^\s]*)/g, (_, sp, w) => { const t = searchWords(w).trim(); if (t) t.split(" ").forEach((x) => neg.push(" " + x + " ")); return " "; });
+    const typingLast = !/\s$/.test(value) && !/"$/.test(value.trim());
     let words = [...new Set(searchWords(plain).trim().split(/ +/).filter(Boolean))];
     if (words.some((w) => !STOP_WORDS.has(w))) words = words.filter((w) => !STOP_WORDS.has(w));
-    if (!words.length && !exact.length) return null;
+    if (!words.length && !exact.length && !neg.length) return null;
     if (!searchVocabulary) {
-      searchVocabulary = new Set();
-      for (const q of D.Q) for (const field of q.search) for (const word of field.trim().split(" ")) searchVocabulary.add(word);
+      // vocabulary and document frequency (in how many questions a word occurs): rare words count for more
+      searchVocabulary = new Set(); searchDF = new Map(); searchN = 0;
+      for (const q of D.Q) {
+        if (q.stem) continue; searchN++;
+        const seen = new Set();
+        for (const field of q.search) for (const word of field.trim().split(" ")) { if (!word) continue; searchVocabulary.add(word); seen.add(word); }
+        seen.forEach((w) => searchDF.set(w, (searchDF.get(w) || 0) + 1));
+      }
     }
-    const terms = words.map((w) => {
+    const terms = words.map((w, wi) => {
+      // the word being typed also matches longer words that start with it (sylo -> sylow)
+      if (typingLast && wi === words.length - 1 && w.length >= 3 && /^[a-z]+$/.test(w)) {
+        const longer = [...searchVocabulary].filter((t) => t.length > w.length && t.startsWith(w)).sort((a, b) => (searchDF.get(b) || 0) - (searchDF.get(a) || 0)).slice(0, 12);
+        if (longer.length) return [" " + w + " ", ...longer.map((t) => " " + t + " ")];
+      }
       if (w.length < 5 || searchVocabulary.has(w) || !/^[a-z]+$/.test(w)) return [" " + w + " "];
       const typoForms = w.endsWith("s") && w.length > 6 ? [w, w.slice(0, -1)] : [w];
       const alternatives = [...searchVocabulary].filter((term) => term[0] === w[0] && typoForms.some((form) => oneEdit(form, term)));
       return [" " + w + " ", ...alternatives.slice(0, 8).map((t) => " " + t + " ")];
     });
     const phrase = searchWords(plain);
-    return { terms, exact, phrase };
+    const idf = terms.map((alts) => { const df = searchDF.get(alts[0].trim()) || Math.min(...alts.map((t) => searchDF.get(t.trim()) || searchN)); return Math.log((searchN + 1) / (df + 0.5)) / Math.log(searchN + 1); });
+    return { terms, exact, phrase, neg, idf, words };
   }
-  function searchScore(q, query) {
+  // minMatch: how many of the query words a question must contain (all of them, unless no question has all)
+  function searchScore(q, query, minMatch = query.terms.length) {
     const display = query.exact.length ? searchWords(plainOf(q.tex), false) : "";
     if (query.exact.some((x) => !display.includes(x))) return -1;
-    let score = 8 * query.exact.length;
-    for (const alternatives of query.terms) {
-      let best = 0;
+    if (query.neg.length && query.neg.some((x) => q.search.some((f) => f.includes(x)))) return -1;
+    let score = 8 * query.exact.length, matched = 0;
+    for (const [k, alternatives] of query.terms.entries()) {
+      let t0 = 0, t1 = 0, t2 = 0;
       for (const [i, term] of alternatives.entries()) {
-        if (q.search[0].includes(term)) best = Math.max(best, i ? 2 : 5);
-        if (q.search[1].includes(term)) best = Math.max(best, i ? 3 : 8);
-        if (q.search[2].includes(term)) best = Math.max(best, i ? 2 : 6);
+        if (q.search[0].includes(term)) t0 = Math.max(t0, i ? 2.5 : 6);
+        if (q.search[1].includes(term)) t1 = Math.max(t1, i ? 2 : 5);
+        if (q.search[2].includes(term)) t2 = Math.max(t2, i ? 2 : 5);
       }
-      if (!best) return -1;
-      score += best;
+      // The question's own words count most; a matching topic tag or paper name adds to that.
+      const best = t0 + 0.6 * t1 + 0.6 * t2;
+      if (!best) { if (minMatch >= query.terms.length) return -1; continue; }
+      matched++;
+      score += best * (0.45 + query.idf[k]);
     }
+    if (matched < minMatch) return -1;
     if (query.phrase.trim().includes(" ") && q.search.some((x) => x.includes(query.phrase))) score += 6;
     return score;
   }
+  // Does question q pass the filters? `skip` leaves one filter out, to count what each choice in that list would give.
+  function passFilters(q, skip) {
+    const p = D.papers[q.p];
+    const from = +F.from || 0, to = +F.to || 9999;
+    if (F.prog && p.prog !== F.prog) return false;
+    if (skip !== "sem" && F.sem && p.sem !== +F.sem) return false;
+    if (p.year < from || p.year > to) return false;
+    if (skip !== "code" && F.code && compactCode(p.code) !== compactCode(F.code)) return false;
+    if (skip !== "kind" && F.kind && (EXAM[F.kind] ? p.prog !== F.kind : p.kind[0] !== F.kind)) return false;
+    if (EXAM[F.kind] && skip === "kind" && p.prog !== F.kind) return false;
+    if (skip !== "topic" && skip !== "broad" && F.topic !== "" && !q.t.includes(+F.topic)) return false;
+    if (skip !== "broad" && F.broad !== "" && !q.broads.has(+F.broad)) return false;
+    if (skip !== "len" && F.len && lenOf(q) !== F.len) return false;
+    if (skip !== "rep" && F.rep && q.rep.length < 2) return false;
+    return true;
+  }
+  let searchNote = "", searchHits = null, facetBase = [];
   function runSearch() {
     const query = scoringQuery(F.q);
-    const from = +F.from || 0, to = +F.to || 9999;
-    const topic = F.topic === "" ? -1 : +F.topic, broad = F.broad === "" ? -1 : +F.broad;
-    const res = [];
-    for (const q of D.Q) {
-      if (q.stem) continue;
-      const p = D.papers[q.p];
-      if (F.prog && p.prog !== F.prog) continue;
-      if (F.sem && p.sem !== +F.sem) continue;
-      if (p.year < from || p.year > to) continue;
-      if (F.code && compactCode(p.code) !== compactCode(F.code)) continue;
-      if (F.kind && (EXAM[F.kind] ? p.prog !== F.kind : p.kind[0] !== F.kind)) continue;
-      if (topic >= 0 && !q.t.includes(topic)) continue;
-      if (broad >= 0 && !q.broads.has(broad)) continue;
-      if (F.len && lenOf(q) !== F.len) continue;
-      if (F.rep && q.rep.length < 2) continue;
-      const score = query ? searchScore(q, query) : 0;
-      if (score < 0) continue;
-      res.push([q, score]);
+    const scored = (minMatch) => { const out = []; for (const q of D.Q) { if (q.stem) continue; const sc = query ? searchScore(q, query, minMatch) : 0; if (sc >= 0) out.push([q, sc]); } return out; };
+    let base = scored(query ? query.terms.length : 0);
+    searchNote = "";
+    if (query && !base.length && query.terms.length > 1) {
+      base = scored(Math.ceil(query.terms.length / 2));
+      if (base.length) searchNote = "No question has all of these words; these have most of them.";
     }
+    facetBase = base;
+    searchHits = query ? new Set(query.terms.flat().map((t) => t.trim()).concat(query.words || [])) : null;
+    const res = base.filter(([q]) => passFilters(q, null));
     const S = F.sort;
     res.sort((a, b) => {
       const pa = D.papers[a[0].p], pb = D.papers[b[0].p];
@@ -1135,6 +1214,51 @@
     });
     return res.map((r) => r[0]);
   }
+  // Each filter list shows only what the other filters and the search leave, with counts; empty choices disappear.
+  function updateFacets() {
+    const cnt = { sem: new Map(), broad: new Map(), topic: new Map(), len: new Map(), kind: new Map(), code: new Map() };
+    const tot = { sem: 0, broad: 0, topic: 0, len: 0, kind: 0 }; let rep = 0;
+    const bump = (m, k) => m.set(String(k), (m.get(String(k)) || 0) + 1);
+    for (const [q] of facetBase) {
+      const p = D.papers[q.p];
+      if (passFilters(q, "sem")) { tot.sem++; bump(cnt.sem, p.sem); }
+      if (passFilters(q, "broad")) { tot.broad++; q.broads.forEach((b) => bump(cnt.broad, b)); }
+      if (passFilters(q, "topic") && (F.broad === "" || q.broads.has(+F.broad))) { tot.topic++; q.t.forEach((t) => bump(cnt.topic, t)); }
+      if (passFilters(q, "len")) { tot.len++; bump(cnt.len, lenOf(q)); }
+      if (passFilters(q, "kind")) { tot.kind++; bump(cnt.kind, p.kind[0]); }
+      if (passFilters(q, "code")) bump(cnt.code, p.code);
+      if (passFilters(q, "rep") && q.rep.length > 1) rep++;
+    }
+    const fill = (id, map, total, anyLabel, label, keep) => {
+      const el = $("#" + id); if (!el) return;
+      const cur = el.value, keys = [...map.keys()];
+      if (cur !== "" && !map.has(cur)) keys.push(cur);
+      el.innerHTML = `<option value="">${esc(anyLabel)} (${total.toLocaleString()})</option>` + keys.sort(keep).map((k) => `<option value="${esc(k)}">${esc(label(k))} (${(map.get(k) || 0).toLocaleString()})</option>`).join("");
+      el.value = cur;
+    };
+    fill("f-sem", cnt.sem, tot.sem, "Any semester", (k) => +k ? "Semester " + ROMAN[+k] : "Competitive exams", (a, b) => (+a || 99) - (+b || 99));
+    fill("f-broad", cnt.broad, tot.broad, "Any area", (k) => D.broad[+k], (a, b) => D.broad[+a].localeCompare(D.broad[+b]));
+    fill("f-topic", cnt.topic, tot.topic, "Any specific topic", (k) => D.topics[+k][1], (a, b) => D.topics[+a][1].localeCompare(D.topics[+b][1]));
+    $$('.seg[data-f="len"] .chip').forEach((c) => { const v = c.dataset.v; c.dataset.n = v ? (cnt.len.get(v) || 0) : tot.len; c.title = (+c.dataset.n).toLocaleString() + " questions"; });
+    $$('.seg[data-f="kind"] .chip').forEach((c) => { const v = c.dataset.v; c.dataset.n = v ? (cnt.kind.get(v) || 0) : tot.kind; c.title = (+c.dataset.n).toLocaleString() + " questions"; });
+    const rn = $("#f-repn"); if (rn) rn.textContent = "(" + rep.toLocaleString() + ")";
+    const dl = $("#codes"); if (dl) dl.innerHTML = [...cnt.code.keys()].filter(Boolean).sort().map((c) => `<option value="${esc(c)}">${(cnt.code.get(c)).toLocaleString()} questions</option>`).join("");
+  }
+  // Mark the words that matched, only in plain text (never inside typeset maths).
+  function highlightHits(box) {
+    if (!searchHits || !searchHits.size || !box) return;
+    const hit = (w) => { const t = searchWords(w).trim(); return t && t.split(" ").some((x) => searchHits.has(x)); };
+    const walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT, { acceptNode: (n) => n.parentElement.closest(".qbody") && !n.parentElement.closest("mjx-container,mark,code,pre,script,.MathJax") && /[A-Za-z]{3}/.test(n.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((n) => {
+      if (/\$|\\\(|\\\[/.test(n.nodeValue)) return;
+      const parts = n.nodeValue.split(/([A-Za-z][A-Za-z'-]{2,})/);
+      if (!parts.some((w, i) => i % 2 && hit(w))) return;
+      const frag = document.createDocumentFragment();
+      parts.forEach((w, i) => { if (i % 2 && hit(w)) { const m = document.createElement("mark"); m.textContent = w; frag.appendChild(m); } else if (w) frag.appendChild(document.createTextNode(w)); });
+      n.replaceWith(frag);
+    });
+  }
   function opt(v, label, cur) { return `<option value="${esc(v)}"${String(cur) === String(v) ? " selected" : ""}>${esc(label)}</option>`; }
   let searchFiltersOpen = false;
   function viewSearch() {
@@ -1144,7 +1268,7 @@
       <div class="crumbs"><a href="${L("home")}">Home</a> / Search</div>
       ${editorialHeading("Search the question bank", `${D.Q.filter((q) => !q.stem).length.toLocaleString()} questions from ${D.papers.length} papers. Find a topic, theorem, formula or paper code.`, false)}
       <div class="search-console">
-        <form class="searchbar" id="sform" role="search">${IC.search}<input name="q" type="search" id="sq" placeholder="Try: Cayley-Hamilton, Sylow, Frobenius, &quot;uniformly continuous&quot;" value="${esc(F.q)}" aria-label="Search questions"><button class="btn btn-primary" type="submit">Search</button></form>
+        <form class="searchbar" id="sform" role="search">${IC.search}<input name="q" type="search" id="sq" placeholder="Try: Cayley-Hamilton, Sylow, &quot;uniformly continuous&quot;, group -abelian" value="${esc(F.q)}" aria-label="Search questions"><button class="btn btn-primary" type="submit">Search</button></form>
         <div class="source-picker"><span class="flabel" id="source-label">Question source</span><div class="seg" data-f="prog" role="group" aria-labelledby="source-label">${[["", "All"], ["BSc", "B.Sc."], ["MSc", "M.Sc."], ...Object.keys(EXAM).map((code) => [code, code])].map(([v, l]) => `<button type="button" class="chip${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v ? " on" : ""}" data-v="${v}" aria-pressed="${(F.prog || (EXAM[F.kind] ? F.kind : "")) === v}">${l}</button>`).join("")}</div></div>
       </div>
       <div class="search-layout">
@@ -1159,11 +1283,11 @@
             <select id="f-topic" style="margin-top:8px" aria-label="Specific topic">${opt("", "Any specific topic", F.topic)}${specific.map(([i, t]) => opt(i, t[1], F.topic)).join("")}</select></div>
           <div><span class="flabel">Length</span><div class="seg" data-f="len">${[["", "Any"], ["short", "Short ≤" + SHORT_MAX], ["long", "Long ≥" + (SHORT_MAX + 1)]].map(([v, l]) => `<button type="button" class="chip${F.len === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
           <div ${EXAM[F.kind] ? "hidden" : ""}><span class="flabel">VB exam type</span><div class="seg" data-f="kind">${[["", "All"], ["s", "Semester"], ["i", "Internal"]].map(([v, l]) => `<button type="button" class="chip${F.kind === v ? " on" : ""}" data-v="${v}">${l}</button>`).join("")}</div></div>
-          <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> Only questions asked in more than one year</label></div>
+          <div><label style="display:flex;gap:8px;align-items:center;font:500 14px var(--f-ui);color:var(--ink-2)"><input type="checkbox" id="f-rep" ${F.rep ? "checked" : ""}> <span>Only questions asked in more than one year <span class="muted" id="f-repn"></span></span></label></div>
           </div>
         </aside>
         <section style="min-width:0">
-          <div class="resultbar"><span id="rcount"></span><label>Sort <select id="f-sort">${opt("rel", "Relevance", F.sort)}${opt("new", "Newest first", F.sort)}${opt("old", "Oldest first", F.sort)}${opt("marks", "Most marks", F.sort)}${opt("rep", "Most repeated", F.sort)}</select></label></div>
+          <div class="resultbar"><span id="rcount"></span><span class="rnote" id="rnote" hidden></span><label>Sort <select id="f-sort">${opt("rel", "Relevance", F.sort)}${opt("new", "Newest first", F.sort)}${opt("old", "Oldest first", F.sort)}${opt("marks", "Most marks", F.sort)}${opt("rep", "Most repeated", F.sort)}</select></label></div>
           <div id="results"></div>
           <div class="pager"><button class="btn btn-ghost" type="button" id="more" hidden>Show more</button></div>
         </section>
@@ -1209,10 +1333,11 @@
   }
   let lastRes = [];
   function renderResults(append) {
-    if (!append) lastRes = runSearch();
+    if (!append) { lastRes = runSearch(); updateFacets(); }
     const box = $("#results"); if (!box) return;
     const n = lastRes.length;
     $("#rcount").textContent = n ? `${n.toLocaleString()} question${n === 1 ? "" : "s"}` : "";
+    const rn = $("#rnote"); if (rn) { rn.textContent = searchNote; rn.hidden = !searchNote; }
     if (!n && F.kind === "GATE" && !D.papers.some((p) => p.prog === "GATE")) {
       box.innerHTML = `<div class="empty">Use the <a href="${L("exams-gate")}">GATE archive</a> to search PDF text and browse available typed editions.</div>`;
       $("#more").hidden = true;
@@ -1221,8 +1346,9 @@
     if (!n) { box.innerHTML = `<div class="empty">No questions match. Loosen a filter, or check the <a href="${L("scans")}">scanned papers</a> — not every scan has been typed yet.</div>`; $("#more").hidden = true; return; }
     const from = append ? box.children.length : 0;
     const html = lastRes.slice(from, shown).map((q) => qCard(q)).join("");
-    if (append) { const tmp = document.createElement("div"); tmp.innerHTML = html; const frag = Array.from(tmp.children); frag.forEach((c) => box.appendChild(c)); frag.forEach(typeset); }
-    else { box.innerHTML = html; typeset(box); }
+    const hl = (el) => { if (window.MathJax?.typesetPromise) mjQueue = mjQueue.then(() => highlightHits(el)); else el.dataset.hl = "1"; };
+    if (append) { const tmp = document.createElement("div"); tmp.innerHTML = html; const frag = Array.from(tmp.children); frag.forEach((c) => box.appendChild(c)); frag.forEach((c) => { typeset(c); hl(c); }); }
+    else { box.innerHTML = html; typeset(box); hl(box); }
     $("#more").hidden = shown >= n;
     $("#more").textContent = `Show more (${(n - Math.min(shown, n)).toLocaleString()} left)`;
   }
@@ -1725,7 +1851,9 @@
 
     (doc.sections || []).forEach((sec) => {
       let qListHtml = "";
+      const gapHtml = (g) => isStudio ? `<li class="pv-gap" data-gap="${g}" aria-hidden="true"><span>Drop here to make it a separate question</span></li>` : "";
       (sec.questions || []).forEach((q, qIdx) => {
+        qListHtml += gapHtml(qIdx);
         if (q.groupHead) {
           qListHtml += `<li class="pv-or-div pv-group-head"><div class="sec-title">${esc(q.groupHead.title || "")}</div>${q.groupHead.rule ? `<div class="sec-rule">${esc(q.groupHead.rule)}</div>` : ""}</li>`;
         }
@@ -1748,7 +1876,7 @@
             <div class="pv-q-floating-bar" role="toolbar" aria-label="Question actions">
               <div class="pv-q-bar-left">
                 <span class="pv-q-badge" title="Question ${esc(currentQnum)}">Q${esc(currentQnum)}</span>
-                <span class="pv-act-btn pv-drag-handle" title="Drag to reorder" draggable="true">${IC.grip}<span>Drag</span></span>
+                <span class="pv-act-btn pv-drag-handle" data-drag="q" role="button" tabindex="-1" title="Drag: between questions to move it, onto another question to join it, or onto the bin to delete it">${IC.grip}<span>Drag</span></span>
               </div>
               <div class="pv-q-bar-right">
                 <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search and replace question">${IC.search}<span>Replace</span></button>
@@ -1788,11 +1916,12 @@
           }
 
           qListHtml += `
-            <li class="pv-q pv-q-single ${isStudio ? 'pv-interactive' : ''} ${isSelected ? 'is-selected' : ''}" data-qid="${esc(q.id || "")}" data-qidx="${qIdx}" ${isStudio ? 'draggable="true"' : ''}>
+            <li class="pv-q pv-q-single ${isStudio ? 'pv-interactive' : ''} ${isSelected ? 'is-selected' : ''}" data-qid="${esc(q.id || "")}" data-qidx="${qIdx}">
+              ${isStudio ? '<span class="pv-qgrip" data-drag="q" aria-hidden="true" title="Drag to move this question">' + IC.grip + '</span>' : ''}
               ${floatingBarHtml}
               <span class="pv-qno">${esc(currentQnum)}.</span>
               ${bodyHtml}
-              <span class="pv-qmk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="0" title="${isStudio ? 'Click to edit marks' : ''}">${esc(mkStr)}</span>
+              <span class="pv-qmk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="0" title="${isStudio ? 'Click to edit marks' : ''}">${esc(mkStr)}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This question was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
             </li>`;
         } else {
           // Composite question with subparts (e.g. 1 a), 1 b) or 1. (a), (b))
@@ -1836,30 +1965,31 @@
             if (isDirect) {
               const pLbl = `${currentQnum} ${String.fromCharCode(97 + pIdx)})`;
               partsHtml += `
-                <li class="pv-part${isStudio ? ' pv-part-draggable' : ''}" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}"${isStudio ? ' draggable="true"' : ''}>
-                  ${isStudio ? '<span class="pv-part-grip" title="Drag to move subpart">' + IC.grip + '</span>' : ''}
+                <li class="pv-part${isStudio ? ' pv-part-draggable' : ''}" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}">
+                  ${isStudio ? '<span class="pv-part-grip" data-drag="p" title="Drag this subpart: into another question, between questions to make it a question of its own, or onto the bin">' + IC.grip + '</span>' : ''}
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
-                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
+                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This part was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
                   ${partToolsHtml}
                 </li>`;
             } else {
               const pLbl = formatPartLabel(partStyle, currentQnum, pIdx);
               const qPrefix = pIdx === 0 ? `${currentQnum}.` : "";
               partsHtml += `
-                <li class="pv-part${isStudio ? ' pv-part-draggable' : ''}" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}"${isStudio ? ' draggable="true"' : ''}>
-                  ${isStudio ? '<span class="pv-part-grip" title="Drag to move subpart">' + IC.grip + '</span>' : ''}
+                <li class="pv-part${isStudio ? ' pv-part-draggable' : ''}" data-pid="${esc(pt.id || "")}" data-qidx="${qIdx}" data-pidx="${pIdx}">
+                  ${isStudio ? '<span class="pv-part-grip" data-drag="p" title="Drag this subpart: into another question, between questions to make it a question of its own, or onto the bin">' + IC.grip + '</span>' : ''}
                   <span class="pv-qno">${esc(qPrefix)}</span>
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
-                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}</span>
+                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This part was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
                   ${partToolsHtml}
                 </li>`;
             }
           });
 
           qListHtml += `
-            <li class="pv-q pv-q-comp ${isStudio ? 'pv-interactive' : ''} ${isSelected ? 'is-selected' : ''}" data-qid="${esc(q.id || "")}" data-qidx="${qIdx}" ${isStudio ? 'draggable="true"' : ''}>
+            <li class="pv-q pv-q-comp ${isStudio ? 'pv-interactive' : ''} ${isSelected ? 'is-selected' : ''}" data-qid="${esc(q.id || "")}" data-qidx="${qIdx}">
+              ${isStudio ? '<span class="pv-qgrip" data-drag="q" aria-hidden="true" title="Drag to move this question">' + IC.grip + '</span>' : ''}
               ${floatingBarHtml}
               <ol class="pv-parts ${isDirect ? "pv-parts-direct" : ""}">
                 ${partsHtml}
@@ -1871,7 +2001,7 @@
 
       secHtml += `
         ${sec.title ? `<div class="sec-head"><div class="sec-title">${esc(sec.title)}</div>${sec.rule ? `<div class="sec-rule">${esc(sec.rule)}</div>` : ""}</div>` : ""}
-        <ol class="qs">${qListHtml}</ol>`;
+        <ol class="qs">${qListHtml}${(sec.questions || []).length ? gapHtml(sec.questions.length) : ""}</ol>`;
     });
 
     return `
@@ -3079,170 +3209,208 @@
         });
       }
 
-      // ── Drag and Drop: whole questions AND subparts ──────────────
-      let draggedQIdx = null;    // set when dragging a whole question
-      let draggedPart = null;    // { qIdx, pIdx } when dragging a subpart
-
+      // ── Drag and drop by mouse, trackpad or finger (pointer events) ──────────────
+      // Drag a question (gutter grip, or "Drag" in its bar), a subpart (its grip) or a collected question (collection panel):
+      // between questions to place it there (a subpart becomes a question of its own), onto a question or subpart to join it,
+      // or onto the bin to delete it. Escape cancels; Undo reverses any drop.
       function dndRelabel(q) {
         if (!q.parts.length) return;
         if (q.parts.length === 1) { q.parts[0].label = ""; return; }
         q.parts.forEach((p, i) => { p.label = String.fromCharCode(97 + i); });
       }
-
-      canvasEl.addEventListener("dragstart", (e) => {
-        const partEl = e.target.closest(".pv-part-draggable");
-        const card   = e.target.closest(".pv-q");
-        if (partEl && partEl.dataset.pidx != null) {
-          // ── subpart drag ──────────────────────────────────────────
-          draggedPart = { qIdx: +partEl.dataset.qidx, pIdx: +partEl.dataset.pidx };
-          draggedQIdx = null;
-          partEl.classList.add("is-dragging-part");
-          if (e.dataTransfer) { e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", "part"); }
-        } else if (card && e.target.closest(".pv-drag-handle")) {
-          // ── whole question drag (must start from handle) ──────────
-          draggedQIdx = +card.dataset.qidx;
-          draggedPart = null;
-          card.classList.add("is-dragging");
-          if (e.dataTransfer) { e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", "question"); }
+      const bin = document.createElement("div");
+      bin.className = "vb-bin"; bin.hidden = true;
+      bin.innerHTML = `${IC.trash}<span>Drop here to delete</span>`;
+      document.body.appendChild(bin);
+      signal.addEventListener("abort", () => bin.remove(), { once: true });
+      let drag = null;
+      const sheetQs = () => ((doc.sections || [])[0] || { questions: [] }).questions;
+      // removing a question passes its group heading on to the next question
+      const dropQuestion = (Q, i) => { const [gone] = Q.splice(i, 1); if (gone?.groupHead && Q[i] && !Q[i].groupHead) { Q[i].groupHead = gone.groupHead; delete gone.groupHead; } return gone; };
+      function dragStart(e, grip) {
+        const kind = grip.dataset.drag;
+        let src;
+        if (kind === "c") src = { kind, id: grip.closest("[data-cid]").dataset.cid, el: grip.closest(".vb-ci") };
+        else if (kind === "p") { const li = grip.closest(".pv-part"); src = { kind, q: +li.dataset.qidx, p: +li.dataset.pidx, el: li }; }
+        else { const li = grip.closest(".pv-q"); src = { kind: "q", q: +li.dataset.qidx, el: li }; }
+        drag = { src, x0: e.clientX, y0: e.clientY, x: e.clientX, y: e.clientY, on: false, id: e.pointerId, target: null };
+        try { grip.setPointerCapture(e.pointerId); } catch (er) {}
+      }
+      function dragBegin() {
+        drag.on = true;
+        const r = drag.src.el.getBoundingClientRect(), g = drag.src.el.cloneNode(true);
+        g.classList.add("vb-ghost"); g.removeAttribute("id"); g.querySelectorAll("[id]").forEach((x) => x.removeAttribute("id"));
+        g.style.width = Math.min(r.width, 520) + "px";
+        drag.ghost = g; drag.dx = Math.min(drag.x0 - r.left, 60); drag.dy = Math.min(drag.y0 - r.top, 24);
+        document.body.appendChild(g);
+        drag.src.el.classList.add("vb-dragsrc");
+        document.body.classList.add("vb-dragging");
+        drag.panelWasOpen = document.body.classList.contains("vb-coll-open");
+        document.body.classList.remove("vb-coll-open");
+        bin.hidden = drag.src.kind === "c";
+        drag.raf = requestAnimationFrame(autoscroll);
+      }
+      function clearMarks() { $$(".vb-ins-before,.vb-ins-after,.vb-target,.pv-gap.on").forEach((x) => x.classList.remove("vb-ins-before", "vb-ins-after", "vb-target", "on")); bin.classList.remove("on"); }
+      function findTarget(x, y) {
+        const el = document.elementFromPoint(x, y); if (!el) return null;
+        const s = drag.src;
+        if (el.closest(".vb-bin")) return s.kind === "c" ? null : { kind: "bin", el: bin };
+        const gap = el.closest(".pv-gap"); if (gap) return { kind: "gap", g: +gap.dataset.gap, el: gap };
+        if (!el.closest("#studio-stage")) return null;
+        const head = el.closest(".pv-group-head");
+        if (head) { const nx = head.nextElementSibling?.matches?.(".pv-q") ? head.nextElementSibling : null; if (nx) { const g = +nx.dataset.qidx, ge = $(`.pv-gap[data-gap="${g}"]`); return ge ? { kind: "gap", g, el: ge } : null; } }
+        const part = el.closest(".pv-part");
+        if (part && part !== s.el) {
+          const r = part.getBoundingClientRect(), before = y < r.top + r.height / 2;
+          return { kind: "into", q: +part.dataset.qidx, k: +part.dataset.pidx + (before ? 0 : 1), el: part, pos: before ? "before" : "after" };
+        }
+        const q = el.closest(".pv-q");
+        if (q && !(s.kind === "q" && q === s.el)) {
+          const qi = +q.dataset.qidx, n = (sheetQs()[qi]?.parts || []).length;
+          if (q.classList.contains("pv-q-single")) { const r = q.getBoundingClientRect(), before = y < r.top + r.height / 2; return { kind: "into", q: qi, k: before ? 0 : 1, el: q, pos: before ? "before" : "after" }; }
+          return { kind: "into", q: qi, k: n, el: q, pos: "block" };
+        }
+        return null;
+      }
+      function validTarget(t) {
+        if (!t) return null; const s = drag.src, Q = sheetQs();
+        if (t.kind === "gap" && s.kind === "q" && (t.g === s.q || t.g === s.q + 1)) return null;
+        if (t.kind === "gap" && s.kind === "p" && Q[s.q]?.parts.length === 1 && (t.g === s.q || t.g === s.q + 1)) return null;
+        if (t.kind === "into" && s.kind === "q" && t.q === s.q) return null;
+        if (t.kind === "into" && s.kind === "p" && t.q === s.q && (t.k === s.p || t.k === s.p + 1)) return null;
+        return t;
+      }
+      function retarget() {
+        const t = validTarget(findTarget(drag.x, drag.y)); drag.target = t; clearMarks();
+        if (!t) return;
+        if (t.kind === "bin") bin.classList.add("on");
+        else if (t.kind === "gap") t.el.classList.add("on");
+        else t.el.classList.add(t.pos === "before" ? "vb-ins-before" : t.pos === "after" ? "vb-ins-after" : "vb-target");
+      }
+      function autoscroll(ts) {
+        if (!drag || !drag.on) return;
+        const now = ts || performance.now(), dt = drag.last ? Math.min(0.1, (now - drag.last) / 1000) : 0; drag.last = now;
+        const st = $("#studio-stage"), sr = st ? st.getBoundingClientRect() : null, H = window.innerHeight, binH = bin.hidden ? 0 : 84, edge = 90;
+        const top = Math.max($(".studio-topbar")?.getBoundingClientRect().bottom || 0, sr ? sr.top : 0), bot = Math.min(H - binH, sr ? sr.bottom : H);
+        let v = 0;
+        if (drag.y < top + edge) v = -1000 * Math.min(1, (top + edge - drag.y) / edge);
+        else if (drag.y > bot - edge && drag.y < H - binH) v = 1000 * Math.min(1, (drag.y - (bot - edge)) / edge);
+        if (v && dt) {
+          const canIn = st && (v < 0 ? st.scrollTop > 0 : st.scrollTop + st.clientHeight < st.scrollHeight - 1);
+          if (canIn) st.scrollTop += v * dt; else window.scrollBy(0, v * dt);
+          retarget();
+        }
+        drag.raf = requestAnimationFrame(autoscroll);
+      }
+      let dragEndedAt = -1e9;
+      function dragEnd(e, cancel) {
+        if (!drag || (e && e.pointerId !== drag.id)) return;
+        const d = drag; drag = null; cancelAnimationFrame(d.raf);
+        if (!d.on) return;
+        dragEndedAt = performance.now();
+        d.ghost.remove(); d.src.el.classList.remove("vb-dragsrc"); clearMarks();
+        document.body.classList.remove("vb-dragging"); bin.hidden = true;
+        if (!cancel && d.target) dropOn(d.src, d.target);
+        if (d.panelWasOpen) { document.body.classList.add("vb-coll-open"); renderCollPanel(); }
+      }
+      function dropOn(s, t) {
+        const sec = (doc.sections || [])[0]; if (!sec) return;
+        const Q = sec.questions;
+        const tq = t.kind === "into" ? Q[t.q] : null, gapRef = t.kind === "gap" ? (Q[t.g] || null) : undefined;
+        pushUndo();
+        let moving, msg, sel = null, k = t.k;
+        if (s.kind === "c") {
+          const q = D.byId.get(s.id); if (!q) return;
+          moving = { parts: [{ id: q.id, label: "", marks: q.marks, tex: q.tex, sourcePaper: q.p }] }; msg = "Added from your collection";
+        } else if (s.kind === "q") {
+          if (t.kind === "bin") { dropQuestion(Q, s.q); saveMakerDoc(doc); refreshStudio(null, null); toast("Question deleted. Undo brings it back."); return; }
+          moving = dropQuestion(Q, s.q);
+          msg = t.kind === "gap" ? "Question moved" : "Joined the two questions";
         } else {
-          e.preventDefault();
+          const srcQ = Q[s.q], [part] = srcQ.parts.splice(s.p, 1);
+          if (!srcQ.parts.length) dropQuestion(Q, Q.indexOf(srcQ)); else dndRelabel(srcQ);
+          if (t.kind === "bin") { saveMakerDoc(doc); refreshStudio(null, null); toast("Subpart deleted. Undo brings it back."); return; }
+          moving = { parts: [part] }; msg = t.kind === "gap" ? "Now a question of its own" : "Subpart moved";
+          if (t.kind === "into" && tq === srcQ && k > s.p) k--;
         }
-      });
-
-      canvasEl.addEventListener("dragover", (e) => {
-        // clear all highlights
-        $$(".pv-q").forEach((c) => c.classList.remove("drag-over", "drag-over-merge"));
-        $$(".pv-part").forEach((p) => p.classList.remove("drag-over-part"));
-
-        if (draggedPart !== null) {
-          // subpart drag – highlight target part row or target question
-          const targetPart = e.target.closest(".pv-part-draggable");
-          const targetQ    = e.target.closest(".pv-q");
-          if (targetPart) {
-            const { qIdx: sQ, pIdx: sP } = draggedPart;
-            if (+targetPart.dataset.qidx !== sQ || +targetPart.dataset.pidx !== sP) {
-              targetPart.classList.add("drag-over-part");
-            }
-          } else if (targetQ) {
-            if (+targetQ.dataset.qidx !== draggedPart.qIdx) {
-              targetQ.classList.add("drag-over-merge");
-            }
-          }
-          e.preventDefault();
-        } else if (draggedQIdx !== null) {
-          // question drag – top half = reorder, bottom half = merge
-          const targetQ = e.target.closest(".pv-q");
-          if (!targetQ) return;
-          e.preventDefault();
-          if (+targetQ.dataset.qidx === draggedQIdx) return;
-          const rect = targetQ.getBoundingClientRect();
-          const isTopHalf = e.clientY < rect.top + rect.height / 2;
-          targetQ.classList.add(isTopHalf ? "drag-over" : "drag-over-merge");
+        if (t.kind === "gap") {
+          const q = s.kind === "q" ? moving : { id: "mq_" + Date.now(), qno: "", orAlternative: false, parts: moving.parts };
+          dndRelabel(q);
+          const at = gapRef ? Q.indexOf(gapRef) : Q.length;
+          Q.splice(at < 0 ? Q.length : at, 0, q); sel = Q.indexOf(q);
+        } else {
+          if (!tq || Q.indexOf(tq) < 0) { saveMakerDoc(doc); refreshStudio(null, null); return; }
+          tq.parts.splice(Math.min(k, tq.parts.length), 0, ...moving.parts);
+          dndRelabel(tq); sel = Q.indexOf(tq);
         }
-      });
-
-      canvasEl.addEventListener("dragleave", (e) => {
-        const overCard = e.target.closest(".pv-q");
-        const overPart = e.target.closest(".pv-part");
-        if (overCard && !overCard.contains(e.relatedTarget)) {
-          overCard.classList.remove("drag-over", "drag-over-merge");
-        }
-        if (overPart && !overPart.contains(e.relatedTarget)) {
-          overPart.classList.remove("drag-over-part");
-        }
-      });
-
-      canvasEl.addEventListener("drop", (e) => {
+        saveMakerDoc(doc); refreshStudio(sel, null); renderCollPanel(); toast(msg);
+      }
+      document.addEventListener("pointerdown", (e) => {
+        const g = e.target.closest?.("[data-drag]"); if (!g || (e.pointerType === "mouse" && e.button !== 0)) return;
+        if (!g.closest("#studio-stage") && !g.closest(".vb-coll")) return;
+        e.preventDefault(); e.stopPropagation(); dragStart(e, g);
+      }, { signal, capture: true });
+      document.addEventListener("pointermove", (e) => {
+        if (!drag || e.pointerId !== drag.id) return;
+        drag.x = e.clientX; drag.y = e.clientY;
+        if (!drag.on) { if (Math.abs(drag.x - drag.x0) + Math.abs(drag.y - drag.y0) < 5) return; dragBegin(); }
         e.preventDefault();
-        const sec = (doc.sections || [])[0];
-        if (!sec) return;
+        drag.ghost.style.transform = `translate(${drag.x - drag.dx}px,${drag.y - drag.dy}px)`;
+        retarget();
+      }, { signal, passive: false });
+      document.addEventListener("pointerup", (e) => dragEnd(e, false), { signal });
+      document.addEventListener("pointercancel", (e) => dragEnd(e, true), { signal });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && drag?.on) { e.preventDefault(); e.stopPropagation(); dragEnd({ pointerId: drag.id }, true); toast("Drag cancelled"); } }, { signal, capture: true });
+      // a click on a grip must not select or open anything
+      canvasEl.addEventListener("click", (e) => { if (e.target.closest("[data-drag]")) { e.stopPropagation(); e.preventDefault(); } }, { signal, capture: true });
+      for (const t of ["click", "dblclick", "contextmenu"]) document.addEventListener(t, (e) => { if (performance.now() - dragEndedAt < 400) { e.stopPropagation(); e.preventDefault(); } }, { signal, capture: true });
 
-        if (draggedPart !== null) {
-          // ── DROP SUBPART ──────────────────────────────────────────
-          const { qIdx: srcQ, pIdx: srcP } = draggedPart;
-          const targetPartEl = e.target.closest(".pv-part-draggable");
-          const targetQEl    = e.target.closest(".pv-q");
-
-          if (targetPartEl) {
-            // Drop onto specific part → insert before that part
-            const tgtQ = +targetPartEl.dataset.qidx;
-            const tgtP = +targetPartEl.dataset.pidx;
-            if (srcQ === tgtQ && srcP === tgtP) { draggedPart = null; return; }
-            pushUndo();
-            const srcQuestion = sec.questions[srcQ];
-            const [movedPart] = srcQuestion.parts.splice(srcP, 1);
-            dndRelabel(srcQuestion);
-            if (!srcQuestion.parts.length) sec.questions.splice(srcQ, 1);
-
-            // After potential splice, find target question by its DOM qid
-            const tgtQId = targetPartEl.closest(".pv-q").dataset.qid;
-            const dstQuestion = sec.questions.find(q => q.id === tgtQId);
-            if (dstQuestion) {
-              const insertAt = +targetPartEl.dataset.pidx; // recalc after src splice
-              dstQuestion.parts.splice(insertAt, 0, movedPart);
-              dndRelabel(dstQuestion);
-              const dstIdx = sec.questions.indexOf(dstQuestion);
-              saveMakerDoc(doc); refreshStudio(dstIdx, null);
-              toast("Subpart moved");
-            }
-          } else if (targetQEl) {
-            // Drop onto question body → add as last subpart
-            const tgtQId = targetQEl.dataset.qid;
-            const dstQuestion = sec.questions.find(q => q.id === tgtQId);
-            const srcQuestion = sec.questions[srcQ];
-            if (!dstQuestion || dstQuestion === srcQuestion) { draggedPart = null; return; }
-            pushUndo();
-            const [movedPart] = srcQuestion.parts.splice(srcP, 1);
-            dndRelabel(srcQuestion);
-            if (!srcQuestion.parts.length) sec.questions.splice(sec.questions.indexOf(srcQuestion), 1);
-            dstQuestion.parts.push(movedPart);
-            dndRelabel(dstQuestion);
-            const dstIdx = sec.questions.indexOf(dstQuestion);
-            saveMakerDoc(doc); refreshStudio(dstIdx, null);
-            toast("Subpart added to question");
-          }
-          draggedPart = null;
-
-        } else if (draggedQIdx !== null) {
-          // ── DROP WHOLE QUESTION ───────────────────────────────────
-          const targetQEl = e.target.closest(".pv-q");
-          if (!targetQEl) { draggedQIdx = null; return; }
-          const tgtQ = +targetQEl.dataset.qidx;
-          if (tgtQ === draggedQIdx) { draggedQIdx = null; return; }
-
-          const rect = targetQEl.getBoundingClientRect();
-          const isTopHalf = e.clientY < rect.top + rect.height / 2;
-
-          if (isTopHalf) {
-            // REORDER: insert dragged question before target
-            pushUndo();
-            const [moved] = sec.questions.splice(draggedQIdx, 1);
-            const insertAt = draggedQIdx < tgtQ ? tgtQ - 1 : tgtQ;
-            sec.questions.splice(insertAt, 0, moved);
-            saveMakerDoc(doc); refreshStudio(insertAt, null);
-            toast(`Question moved to position ${insertAt + 1}`);
-          } else {
-            // MERGE: add all parts of dragged question into target question
-            pushUndo();
-            const srcQ = sec.questions[draggedQIdx];
-            const dstQ = sec.questions[tgtQ];
-            srcQ.parts.forEach(pt => dstQ.parts.push(pt));
-            dndRelabel(dstQ);
-            sec.questions.splice(draggedQIdx, 1);
-            const finalIdx = draggedQIdx < tgtQ ? tgtQ - 1 : tgtQ;
-            saveMakerDoc(doc); refreshStudio(finalIdx, null);
-            toast("Questions merged");
-          }
-          draggedQIdx = null;
-        }
+      // ── Collection panel: questions collected in the archive, ready to drag into the paper ──
+      const panel = document.createElement("aside");
+      panel.className = "vb-coll"; panel.setAttribute("aria-label", "Your collection");
+      document.body.appendChild(panel);
+      signal.addEventListener("abort", () => { panel.remove(); document.body.classList.remove("vb-coll-open", "vb-dragging"); }, { once: true });
+      function inPaper() { const s = new Set(); (doc.sections || []).forEach((sec) => sec.questions.forEach((q) => q.parts.forEach((p) => s.add(p.id)))); return s; }
+      function renderCollPanel() {
+        const used = inPaper(), items = coll.map((id) => D.byId.get(id)).filter(Boolean), free = items.filter((q) => !used.has(q.id)).length;
+        const btn = $("#m-collection"); if (btn) btn.innerHTML = `Collection <b class="vb-cn">${free}${free !== items.length ? "/" + items.length : ""}</b>`;
+        if (!document.body.classList.contains("vb-coll-open")) return;
+        if (innerWidth > 700) { const tb = $(".studio-topbar")?.getBoundingClientRect().bottom || 60; panel.style.top = Math.max(12, Math.round(tb) + 8) + "px"; } else panel.style.top = "";
+        panel.innerHTML = `<header><div><b>Your collection</b><span>${items.length ? `${free} of ${items.length} not yet in the paper` : "Empty"}</span></div><button type="button" class="vb-collx" aria-label="Close">${IC.x}</button></header>
+          <p class="vb-coll-h">Drag a question by ${IC.grip} into the paper: between questions, or onto a question to join it. Or select + to add it at the end.</p>
+          <ol class="vb-coll-l">${items.length ? items.map((q) => { const p = D.papers[q.p], u = used.has(q.id);
+            return `<li class="vb-ci${u ? " used" : ""}" data-cid="${esc(q.id)}">${u ? '<span class="vb-ci-g"></span>' : `<span class="vb-ci-g" data-drag="c" title="Drag into the paper">${IC.grip}</span>`}
+              <div class="vb-ci-b"><div class="vb-ci-s">${esc(semLabel(p))} · ${p.year} · ${esc(pname(p))}${q.marks != null ? ` · <b>${esc(fmtMarks(q))} marks</b>` : ""}${u ? " · <i>in the paper</i>" : ""}</div><div class="vb-ci-t">${texToHtml(q.tex)}</div></div>
+              ${u ? "" : `<button type="button" class="vb-ci-add" data-addc="${esc(q.id)}" aria-label="Add to the end of the paper" title="Add to the end of the paper">${IC.plus}</button>`}</li>`; }).join("")
+            : `<li class="vb-ci-empty">Select <b>Collect</b> on questions in the archive to gather them here.</li>`}</ol>
+          <footer><button type="button" class="btn btn-primary btn-sm" data-coll-new ${items.length ? "" : "disabled"}>Start a new paper from these</button><button type="button" class="btn btn-ghost btn-sm" data-coll-all ${free ? "" : "disabled"}>Add all at the end</button></footer>`;
+        typeset(panel);
+      }
+      const addAtEnd = (ids) => {
+        const sec = (doc.sections || [])[0]; if (!sec || !ids.length) return;
+        pushUndo();
+        ids.forEach((id, n) => { const q = D.byId.get(id); if (q) sec.questions.push({ id: "mq_" + Date.now() + "_" + n, qno: "", orAlternative: false, parts: [{ id: q.id, label: "", marks: q.marks, tex: q.tex, sourcePaper: q.p }] }); });
+        saveMakerDoc(doc); refreshStudio(sec.questions.length - 1, null); renderCollPanel();
+        toast(ids.length > 1 ? ids.length + " questions added at the end" : "Added at the end");
+      };
+      panel.addEventListener("click", (e) => {
+        if (e.target.closest(".vb-collx")) { document.body.classList.remove("vb-coll-open"); $("#m-collection")?.setAttribute("aria-expanded", "false"); return; }
+        const a = e.target.closest("[data-addc]"); if (a) { addAtEnd([a.dataset.addc]); return; }
+        if (e.target.closest("[data-coll-all]")) { const used = inPaper(); addAtEnd(coll.filter((id) => D.byId.has(id) && !used.has(id))); return; }
+        if (e.target.closest("[data-coll-new]")) { document.body.classList.remove("vb-coll-open"); pushUndo(); doc = initDocFromColl(); saveMakerDoc(doc); refreshStudio(null, null); renderCollPanel(); toast("Paper started from your collection"); }
       });
-
-      canvasEl.addEventListener("dragend", () => {
-        $$(".pv-q").forEach((c) => c.classList.remove("is-dragging", "drag-over", "drag-over-merge"));
-        $$(".pv-part").forEach((p) => p.classList.remove("is-dragging-part", "drag-over-part"));
-        draggedQIdx = null;
-        draggedPart = null;
-      });
+      const collBtn = $("#m-collection");
+      if (collBtn) {
+        collBtn.setAttribute("aria-expanded", "false"); collBtn.setAttribute("aria-haspopup", "dialog");
+        collBtn.onclick = (e) => {
+          e.stopPropagation();
+          const open = !document.body.classList.contains("vb-coll-open");
+          document.body.classList.toggle("vb-coll-open", open); collBtn.setAttribute("aria-expanded", String(open));
+          if (open) renderCollPanel();
+        };
+      }
+      renderCollPanel();
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && document.body.classList.contains("vb-coll-open") && !drag) { document.body.classList.remove("vb-coll-open"); collBtn?.setAttribute("aria-expanded", "false"); } }, { signal });
     }
   }
 
