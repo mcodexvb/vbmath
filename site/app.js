@@ -588,6 +588,15 @@
   }
   // A question set for `orig` marks may be used for `target` marks only if the change is small: up by one mark
   // (1→2, 2→3) or a fifth for long questions (10→12); down to three fifths (5→4 or 3, 10→6). Never 2→5, 3→7 or 2→1.
+  // Rough kind of question, read from its wording
+  function qType(q) {
+    const t = (q._plain ??= plainOf(q.tex).toLowerCase());
+    if (/\(i\).*\(ii\).*\(iii\)|true or false|\bt\/f\b|multiple choice|which of the following/.test(t)) return "objective";
+    if (/^\s*(define|state\b|what (is|are|do you mean)|write down|give an example)/.test(t)) return "define";
+    if (/\b(prove|show that|establish|deduce|verify that|justify)\b/.test(t)) return "proof";
+    if (/\b(find|evaluate|compute|calculate|solve|determine|obtain)\b/.test(t)) return "compute";
+    return "other";
+  }
   function marksOk(orig, target) {
     if (!(orig > 0) || !(target > 0)) return false;
     if (Math.abs(orig - target) < 1e-6) return true;
@@ -1876,23 +1885,10 @@
             <div class="pv-q-floating-bar" role="toolbar" aria-label="Question actions">
               <div class="pv-q-bar-left">
                 <span class="pv-q-badge" title="Question ${esc(currentQnum)}">Q${esc(currentQnum)}</span>
-                <span class="pv-act-btn pv-drag-handle" data-drag="q" role="button" tabindex="-1" title="Drag: between questions to move it, onto another question to join it, or onto the bin to delete it">${IC.grip}<span>Drag</span></span>
+                <span class="pv-act-btn pv-drag-handle" data-drag="q" role="button" tabindex="-1" title="Drag: between questions to move it, onto another question to join it, or onto the bin to delete it">${IC.grip}</span>
               </div>
               <div class="pv-q-bar-right">
-                <button type="button" class="pv-act-btn" data-act="q-replace" data-qidx="${qIdx}" title="Search and replace question">${IC.search}<span>Replace</span></button>
-                <button type="button" class="pv-act-btn" data-act="q-edit" data-qidx="${qIdx}" title="Edit LaTeX text">${IC.pen}<span>Edit</span></button>
-                <span class="pv-bar-sep" aria-hidden="true"></span>
-                <button type="button" class="pv-act-btn" data-act="q-add-part" data-qidx="${qIdx}" title="Add a subpart">${IC.plus}<span>Part</span></button>
-                <button type="button" class="pv-act-btn" data-act="q-split" data-qidx="${qIdx}" title="${esc(splitTitle)}">${IC.scissors}<span>Split</span></button>
-                <button type="button" class="pv-act-btn" data-act="q-add-or" data-qidx="${qIdx}" title="Add alternative question (OR)">${IC.branch}<span>OR</span></button>
-                <span class="pv-bar-sep" aria-hidden="true"></span>
-                <button type="button" class="pv-act-btn" data-act="q-join-prev" data-qidx="${qIdx}" title="Add to previous question (merge as subpart)" ${qIdx === 0 ? "disabled" : ""}>${IC.mergeUp}<span>To Prev</span></button>
-                <button type="button" class="pv-act-btn" data-act="q-join-next" data-qidx="${qIdx}" title="Add to next question (merge as subpart)" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.mergeDown}<span>To Next</span></button>
-                <span class="pv-bar-sep" aria-hidden="true"></span>
-                <button type="button" class="pv-act-btn pv-act-icon" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>${IC.chevronUp}</button>
-                <button type="button" class="pv-act-btn pv-act-icon" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.chevronDown}</button>
-                <button type="button" class="pv-act-btn pv-act-icon pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">${IC.trash}</button>
-                <button type="button" class="pv-act-btn pv-act-icon pv-more" data-act="q-more" data-qidx="${qIdx}" title="More actions (right-click, or Shift+F10)" aria-haspopup="menu">${IC.dots}</button>
+                <button type="button" class="pv-act-btn pv-act-icon pv-more" data-act="q-more" data-qidx="${qIdx}" title="Actions: replace, edit, subparts, split, OR, merge, move, delete (or right-click)" aria-label="Actions for question ${esc(currentQnum)}" aria-haspopup="menu">${IC.dots}</button>
               </div>
             </div>`;
         }
@@ -1957,9 +1953,7 @@
 
             const partToolsHtml = (isStudio && !isEditing && parts.length > 1) ? `
               <span class="pv-part-tools" title="Subpart actions">
-                <button type="button" class="pv-part-tool-btn" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Split this subpart into a new question">${IC.scissors}<span>Split</span></button>
-                <button type="button" class="pv-part-tool-btn danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Delete subpart">${IC.trash}</button>
-                <button type="button" class="pv-part-tool-btn" data-act="p-more" data-qidx="${qIdx}" data-pidx="${pIdx}" title="More subpart actions" aria-haspopup="menu">${IC.dots}</button>
+                <button type="button" class="pv-part-tool-btn" data-act="p-more" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Subpart actions: edit, split, move, delete" aria-label="Actions for this subpart" aria-haspopup="menu">${IC.dots}</button>
               </span>` : "";
 
             if (isDirect) {
@@ -2156,7 +2150,7 @@
             <input type="search" id="rep-query" placeholder="Type topic, theorem, or keyword (e.g. Cauchy, Riemann, continuous)..." autofocus>
             <select id="rep-marks">
               <option value="all">Any marks</option>
-              ${initialMarks ? `<option value="${initialMarks}" selected>Target marks (${initialMarks})</option>` : ""}
+              ${initialMarks ? `<option value="near" selected>Close to ${initialMarks} marks</option><option value="${initialMarks}">Exactly ${initialMarks} marks</option>` : ""}
               <option value="2">2 marks</option>
               <option value="3">3 marks</option>
               <option value="4">4 marks</option>
@@ -2214,44 +2208,81 @@
     const resContainer = $("#rep-results");
     const countEl = $("#rep-count");
 
+    // What is being replaced: its source questions, paper, topics and kind of question
+    const targetParts = targetType === "part" ? (pt ? [pt] : []) : (q.parts || []);
+    const srcItems = targetParts.map((x) => D.byId.get(x.id)).filter(Boolean);
+    const srcPaperIdx = new Set(srcItems.map((x) => x.p).concat(targetParts.map((x) => x.sourcePaper).filter((x) => x != null)));
+    const codeOf = (pi) => (D.papers[pi]?.code || "").replace(/\(.*/, "").replace(/[\s-]/g, "").toUpperCase();
+    const srcCodes = new Set([...srcPaperIdx].map(codeOf).filter(Boolean));
+    const srcTopics = new Set(srcItems.flatMap((x) => x.t)), srcBroads = new Set(srcItems.flatMap((x) => [...x.broads]));
+    const srcKinds = new Set(srcItems.map(qType));
+    const srcProg = new Set([...srcPaperIdx].map((i) => D.papers[i]?.prog)), srcSem = new Set([...srcPaperIdx].map((i) => D.papers[i]?.sem));
+    const srcWords = new Set(srcItems.flatMap((x) => x.search[0].trim().split(" ")).filter((w) => w.length > 3));
+    const inPaperIds = new Set(sec.questions.flatMap((x) => x.parts.map((y) => y.id)));
+    const overlap = (A, B) => { if (!A.size || !B.size) return 0; let n = 0; for (const x of A) if (B.has(x)) n++; return n / Math.min(A.size, B.size); };
+
+    // Candidates: single questions or subparts, and, when a whole question is replaced, whole questions with all their subparts
+    let shownUnits = [];
+    const repUnits = [];
+    for (const item of D.Q) if (!item.stem) repUnits.push({ parts: [item], p: item.p, marks: item.marks });
+    if (targetType !== "part") for (const list of D.byPaper) {
+      const groups = new Map();
+      for (const x of list) { const k = x.sec + "|" + x.qno; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(x); }
+      for (const g of groups.values()) {
+        const parts = g.filter((x) => !x.stem);
+        if (parts.length > 1 && parts.every((x) => x.marks != null)) repUnits.push({ parts, p: parts[0].p, marks: parts.reduce((t, x) => t + x.marks, 0) });
+      }
+    }
+
     const doSearch = () => {
-      const qVal = qInput.value.trim().toLowerCase();
+      const qVal = qInput.value.trim();
       const mVal = mSelect.value;
       const sVal = sSelect.value;
+      const query = qVal ? scoringQuery(qVal) : null;
+      const near = mVal === "near", targetM = mVal === "all" || near ? null : parseFloat(mVal);
 
-      const qTokens = searchWords(qVal).split(" ").filter(Boolean);
-
-      let matches = [];
-      for (const item of D.Q) {
-        if (item.stem) continue;
-        const p = D.papers[item.p];
+      let scored = [];
+      for (const u of repUnits) {
+        const item = u.parts[0];
+        if (u.parts.some((x) => inPaperIds.has(x.id))) continue;
+        const p = D.papers[u.p];
         if (!p) continue;
-
         if (sVal && String(p.sem) !== sVal) continue;
-        if (mVal !== "all") {
-          const targetM = parseFloat(mVal);
-          if (item.marks !== targetM) continue;
-        }
-
-        if (!qTokens.every((token) => item.search.some((field) => field.includes(token)))) continue;
-
-        matches.push(item);
-        if (matches.length >= 35) break;
+        if (targetM != null && u.marks !== targetM) continue;
+        if (near && !(u.marks != null && marksOk(u.marks, initialMarks))) continue;
+        let qs = 0;
+        if (query && query.terms.length + query.exact.length) { qs = Math.max(...u.parts.map((x) => searchScore(x, query))); if (qs < 0) continue; }
+        const same = srcPaperIdx.has(u.p) ? 2 : srcCodes.has(codeOf(u.p)) ? 1 : 0;
+        const words = new Set(u.parts.flatMap((x) => x.search[0].trim().split(" ")).filter((w) => w.length > 3));
+        const sim = 30 * overlap(new Set(u.parts.flatMap((x) => x.t)), srcTopics) + 10 * overlap(new Set(u.parts.flatMap((x) => [...x.broads])), srcBroads)
+          + (u.parts.some((x) => srcKinds.has(qType(x))) ? 12 : 0) + 15 * overlap(words, srcWords)
+          + (srcProg.has(p.prog) ? 4 : 0) + (srcSem.has(p.sem) ? 4 : 0)
+          + (u.parts.length === targetParts.length ? 6 : 0)
+          + (targetM == null && initialMarks ? (u.marks === initialMarks ? 8 : 3) : 0);
+        scored.push({ u, same, score: same * 1000 + sim + qs * 3 });
       }
+      scored.sort((x, y) => y.score - x.score || (D.papers[y.u.p]?.year || 0) - (D.papers[x.u.p]?.year || 0));
+      const total = scored.length;
+      scored = scored.slice(0, 60);
+      shownUnits = scored.map((x) => x.u);
 
-      countEl.textContent = `Found ${matches.length} matching question${matches.length === 1 ? "" : "s"}${matches.length >= 35 ? " (showing top 35)" : ""}:`;
-
-      if (!matches.length) {
+      countEl.textContent = total ? `${total.toLocaleString()} question${total === 1 ? "" : "s"}: the same paper first, then the most similar by topic, kind of question and wording${total > 60 ? " (top 60 shown)" : ""}.` : "";
+      if (!scored.length) {
         resContainer.innerHTML = `<div class="empty" style="padding:24px 10px"><p>No matching questions found. Try removing filters or searching a simpler keyword.</p></div>`;
         return;
       }
 
-      resContainer.innerHTML = matches.map((item) => {
-        const p = D.papers[item.p];
+      let lastSame = -1;
+      resContainer.innerHTML = scored.map(({ u, same }, k) => {
+        let head = "";
+        if (same !== lastSame && srcCodes.size) { lastSame = same; head = `<div class="rep-grp">${same === 2 ? "From the same paper" : same === 1 ? "Same paper, other years" : "Similar questions from other papers"}</div>`; }
+        const item = u.parts[0], p = D.papers[u.p];
         const paperTitle = p ? `${pname(p)} ${p.year} (Sem ${ROMAN[p.sem]})` : "";
-        const qTag = `Q${item.qno}${item.part ? ` (${item.part})` : ""}`;
-        const mkTag = item.marks != null ? `${item.marks} marks` : "";
-        return `
+        const whole = u.parts.length > 1;
+        const qTag = whole ? `Q${item.qno} (whole question)` : `Q${item.qno}${item.part ? ` (${item.part})` : ""}`;
+        const mkTag = u.marks != null ? (whole ? `${u.parts.map((x) => x.marks).join(" + ")} = ${u.marks} marks` : `${u.marks} marks`) : "";
+        const body = whole ? u.parts.map((x, j) => `<div class="rep-part"><b>(${esc(x.part || String.fromCharCode(97 + j))})</b><div>${texToHtml(x.tex)}</div></div>`).join("") : texToHtml(item.tex);
+        return head + `
           <div class="replace-card" data-idx="${item.i}">
             <div class="replace-card-head">
               <div>
@@ -2260,10 +2291,10 @@
               </div>
               <div style="display:flex;align-items:center;gap:8px">
                 ${mkTag ? `<span class="mq-mk-pill">${esc(mkTag)}</span>` : ""}
-                <button class="btn btn-primary btn-sm" type="button" data-act="apply-rep" data-idx="${item.i}">✓ Replace with this</button>
+                <button class="btn btn-primary btn-sm" type="button" data-act="apply-rep" data-k="${k}">✓ Replace with this</button>
               </div>
             </div>
-            <div class="replace-card-math">${texToHtml(item.tex)}</div>
+            <div class="replace-card-math">${body}</div>
           </div>`;
       }).join("");
 
@@ -2277,11 +2308,11 @@
     resContainer.addEventListener("click", (e) => {
       const applyBtn = e.target.closest('[data-act="apply-rep"]');
       if (!applyBtn) return;
-      const idx = +applyBtn.dataset.idx;
-      const chosen = D.Q[idx];
-      if (!chosen) return;
-
-      onReplace(chosen);
+      const u = shownUnits[+applyBtn.dataset.k];
+      if (!u) return;
+      // With "close to N marks", the chosen question takes the target marks (shown as "set for N")
+      const wantMarks = mSelect.value === "near" && initialMarks && u.marks != null && u.marks !== initialMarks ? initialMarks : null;
+      onReplace(u.parts, wantMarks, u.marks);
       close();
     });
 
@@ -2715,24 +2746,12 @@
               targetType: "question",
               qIdx,
               doc,
-              onReplace: (chosen) => {
+              onReplace: (items, wantMarks, from) => {
                 pushUndo();
-                const siblings = D.byPaper[chosen.p]?.filter((sq) => sq.qno === chosen.qno) || [];
-                if (siblings.length > 1) {
-                  q.parts = siblings.map((sq) => ({
-                    id: "pt_" + sq.id,
-                    label: sq.part || "",
-                    marks: sq.marks != null ? sq.marks : 5,
-                    tex: sq.tex
-                  }));
-                } else {
-                  q.parts = [{
-                    id: "pt_" + chosen.id,
-                    label: chosen.part || "",
-                    marks: chosen.marks != null ? chosen.marks : 5,
-                    tex: chosen.tex
-                  }];
-                }
+                const chosen = items[0];
+                let parts = items.map((x, j) => ({ id: x.id, label: items.length > 1 ? (x.part || String.fromCharCode(97 + j)) : "", marks: x.marks != null ? x.marks : 5, tex: x.tex, sourcePaper: x.p }));
+                if (wantMarks != null) parts = scaleParts(parts, from, wantMarks) || parts;
+                q.parts = parts;
                 saveMakerDoc(doc);
                 refreshStudio(qIdx, null);
                 toast(`Question replaced with ${D.papers[chosen.p]?.title || "question"}`);
@@ -2747,10 +2766,11 @@
               qIdx,
               pIdx,
               doc,
-              onReplace: (chosen) => {
+              onReplace: ([chosen], wantMarks) => {
                 pushUndo();
-                pt.tex = chosen.tex;
-                if (chosen.marks != null) pt.marks = chosen.marks;
+                pt.id = chosen.id; pt.tex = chosen.tex; pt.sourcePaper = chosen.p; delete pt.origMarks;
+                if (wantMarks != null) { pt.marks = wantMarks; pt.origMarks = chosen.marks; }
+                else if (chosen.marks != null) pt.marks = chosen.marks;
                 saveMakerDoc(doc);
                 refreshStudio(qIdx, null);
                 toast(`Subpart replaced with ${D.papers[chosen.p]?.title || "question"}`);
@@ -3138,6 +3158,8 @@
           const ptLabel = q.parts[pIdx]?.label || String.fromCharCode(97 + pIdx);
           partSectionHtml = `
             <div class="studio-cm-label">Subpart (${esc(ptLabel)})</div>
+            <button type="button" data-act="p-replace" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.search}<span>Replace Subpart (${esc(ptLabel)})...</span></button>
+            <button type="button" data-act="p-edit-text" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.pen}<span>Edit Subpart (${esc(ptLabel)})</span></button>
             <button type="button" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.scissors}<span>Split Part (${esc(ptLabel)}) into New Question</span></button>
             ${qIdx > 0 ? `<button type="button" data-act="p-move-prev" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeUp}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx}</span></button>` : ""}
             ${qIdx < totalQs - 1 ? `<button type="button" data-act="p-move-next" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeDown}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx + 2}</span></button>` : ""}
