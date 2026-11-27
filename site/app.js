@@ -1558,8 +1558,18 @@
     const sections = new Map([
       [figure, async () => {
         try {
-          const {mountHomeFigure} = await import("./math-figures.mjs?v=3");
-          if (version === routeVersion && figure.isConnected) stopHomeFigure = mountHomeFigure(figure);
+          // A live exhibit from the Lab gallery, a different one on each visit
+          const {exhibits, mountExhibit} = await import("./lab-exhibits.mjs?v=3.3");
+          if (!(version === routeVersion && figure.isConnected)) return;
+          const picks = ["portrait", "eddy", "lorenz", "pendulum", "clifford", "spiro", "vanderpol", "satellite", "square", "epicycloid", "lissajous"]
+            .map((id) => exhibits.find((e) => e.id === id)).filter(Boolean);
+          const ex = picks[Math.floor(Math.random() * picks.length)];
+          figure.innerHTML = `<div class="daily-figure-plot home-exhibit"><canvas aria-hidden="true"></canvas></div>
+            <figcaption><a href="${L("gallery")}#${esc(ex.id)}">${esc(ex.title)}</a><span> · live, from the Lab gallery</span></figcaption>`;
+          figure.removeAttribute("aria-busy");
+          const sim = mountExhibit(figure.querySelector("canvas"), ex.id);
+          ex.p.forEach(([key, , , , , value]) => sim.set(key, value));
+          stopHomeFigure = () => sim.destroy();
         } catch {
           if (figure.isConnected) figure.hidden = true;
         }

@@ -166,9 +166,17 @@ SITE='https://vbmath.pages.dev'
 ROMAN=['','I','II','III','IV','V','VI','VII','VIII']
 PS={'BSc':'B.Sc.','MSc':'M.Sc.'}
 TPL=open(os.path.join(ROOT,'site/index.html'),encoding='utf-8').read()
+# share images (tools/og/make_og.py) by the first part of the address
+OG={'':'home','paper':'papers','papers':'papers','semester':'papers','search':'search','topics':'topics','scans':'scans','exams':'exams',
+    'syllabus':'syllabus','notes':'notes','books':'learn','learn':'learn','people':'people','guides':'guides','contribute':'contribute',
+    'about':'about','tools':'tools','gallery':'gallery','preview':'maker','maker':'maker'}
+def og_tags(path,title):
+    name=OG.get(path.strip('/').split('/')[0],'home')
+    return (f'<meta property="og:image" content="{SITE}/assets/og/{name}.png">\n<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">\n'
+            f'<meta property="og:image:alt" content="{H.escape(title)}">\n<meta name="twitter:image" content="{SITE}/assets/og/{name}.png">\n')
 def page(path,title,desc,body,ld=None):
     head=(f'<title>{H.escape(title)}</title>\n<meta name="description" content="{H.escape(desc)}">\n<link rel="canonical" href="{SITE}{path}">\n'
-          f'<meta property="og:title" content="{H.escape(title)}">\n<meta property="og:description" content="{H.escape(desc)}">\n<meta property="og:url" content="{SITE}{path}">\n')
+          f'<meta property="og:title" content="{H.escape(title)}">\n<meta property="og:description" content="{H.escape(desc)}">\n<meta property="og:url" content="{SITE}{path}">\n'+og_tags(path,title))
     if ld: head+=f'<script type="application/ld+json">{json.dumps(ld,ensure_ascii=False)}</script>\n'
     t=re.sub(r'<!--HEAD-->.*?<!--/HEAD-->','<!--HEAD-->\n'+head.replace('\\','\\\\')+'<!--/HEAD-->',TPL,flags=re.S)
     t=re.sub(r'<!--APP-->.*?<!--/APP-->','<!--APP-->'+body.replace('\\','\\\\')+'<!--/APP-->',t,flags=re.S)
