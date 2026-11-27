@@ -1564,3 +1564,8 @@ body.vb-coll-open .vb-coll{display:flex}
 .replace-results{grid-auto-rows:max-content;align-content:start;grid-template-columns:minmax(0,1fr)}
 .replace-card{grid-template-columns:minmax(0,1fr)}
 .replace-card-head>div:last-child{flex-wrap:wrap;justify-content:flex-end;max-width:100%}
+/* Marks: an empty slot to click in the maker, and an in-place number box */
+.pv-mk-empty{font:500 11.5px var(--f-ui);color:var(--ink-3,#8a948e);border:1px dashed currentColor;border-radius:6px;padding:1px 6px;white-space:nowrap;opacity:.8}
+.a4 .pv-q:not(.is-selected):not(:hover) .pv-mk-empty{opacity:.35}
+.pv-mk-input{width:4.2em;font:600 14px var(--f-ui);padding:2px 4px;border:1.5px solid var(--green-2,#2f7d4f);border-radius:6px;text-align:center;background:var(--card,#fff);color:var(--ink)}
+@media print{.pv-mk-empty{display:none!important}}

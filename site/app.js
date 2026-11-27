@@ -398,7 +398,7 @@
       <div class="qbody">${texToHtml(q.tex)}</div>
       ${q.answer ? `<details class="q-answer"><summary>${q.answerOrigin ? "Answer from compilation" : "Official answer"}</summary>
         <p>${q.answerOrigin ? texToHtml(q.answer) : esc(q.answer === "MTA" ? "Marks to all (MTA)" : q.answer.replaceAll(";", ", "))}</p>
-        ${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : ""}
+        ${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : q.notes.length ? `<details class="q-answer q-note"><summary>Transcriber's note</summary>${q.notes.map((note) => `<p class="muted">${esc(note)}</p>`).join("")}</details>` : ""}
       <footer class="qf"><div class="qtags">${tags.join("")}</div>
         <div class="qbtns">
           <button type="button" class="qbtn" data-act="copy" title="Copy LaTeX" aria-label="Copy LaTeX">${IC.copy}<span class="sr">Copy LaTeX</span></button>
@@ -908,14 +908,25 @@
     return { totalQuestions, totalPaperMarks, choiceX, choiceY, fullMarks };
   }
 
+  // Marks typed at the end of a question ("... \hfill 5", "\hfill \(4+1\)") belong in the marks field
+  const TRAIL_MARKS = /\s*\\hfill\s*(?:\\\(|\$)?\s*[\[(]?\s*(\d+(?:\.\d+)?(?:\s*\+\s*\d+(?:\.\d+)?)*)\s*[\])]?\s*(?:\\\)|\$)?\s*$/;
+  function liftMarks(pt) {
+    if (!pt || typeof pt.tex !== "string") return;
+    const m = pt.tex.match(TRAIL_MARKS);
+    if (!m) return;
+    const n = m[1].split("+").reduce((t, x) => t + parseFloat(x), 0);
+    if (pt.marks == null || pt.marks === "" || +pt.marks === n) { pt.tex = pt.tex.slice(0, m.index).trimEnd(); if (pt.marks == null || pt.marks === "") pt.marks = n; }
+  }
   function getMakerDoc() {
     const doc = store.get("maker_doc", null);
     if (!doc?.sections?.length) return initDocFromColl();
+    for (const sec of doc.sections) for (const q of sec.questions || []) (q.parts || []).forEach(liftMarks);
     calcDocStats(doc);
     return doc;
   }
 
   function saveMakerDoc(doc) {
+    for (const sec of doc.sections || []) for (const q of sec.questions || []) (q.parts || []).forEach(liftMarks);
     calcDocStats(doc);
     store.set("maker_doc", doc);
   }
@@ -1917,7 +1928,7 @@
               ${floatingBarHtml}
               <span class="pv-qno">${esc(currentQnum)}.</span>
               ${bodyHtml}
-              <span class="pv-qmk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="0" title="${isStudio ? 'Click to edit marks' : ''}">${esc(mkStr)}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This question was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
+              <span class="pv-qmk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="0" title="${isStudio ? 'Click to set marks' : ''}">${mkStr ? esc(mkStr) : isStudio ? '<span class="pv-mk-empty">+ marks</span>' : ""}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This question was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
             </li>`;
         } else {
           // Composite question with subparts (e.g. 1 a), 1 b) or 1. (a), (b))
@@ -1963,7 +1974,7 @@
                   ${isStudio ? '<span class="pv-part-grip" data-drag="p" title="Drag this subpart: into another question, between questions to make it a question of its own, or onto the bin">' + IC.grip + '</span>' : ''}
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
-                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This part was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
+                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to set marks' : ''}">${pMk ? esc(pMk) : isStudio && (pt.marks == null || pt.marks === "") ? '<span class="pv-mk-empty">+ marks</span>' : ""}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This part was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
                   ${partToolsHtml}
                 </li>`;
             } else {
@@ -1975,7 +1986,7 @@
                   <span class="pv-qno">${esc(qPrefix)}</span>
                   <span class="pv-part-lbl">${esc(pLbl)}</span>
                   ${bodyHtml}
-                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to edit marks' : ''}">${esc(pMk)}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This part was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
+                  <span class="pv-part-mk ${isStudio ? 'pv-part-mk-editable' : ''}" data-act="${isStudio ? 'p-edit-marks' : ''}" data-qidx="${qIdx}" data-pidx="${pIdx}" title="${isStudio ? 'Click to set marks' : ''}">${pMk ? esc(pMk) : isStudio && (pt.marks == null || pt.marks === "") ? '<span class="pv-mk-empty">+ marks</span>' : ""}${isStudio && pt.origMarks != null ? `<small class="pv-adj" title="This part was set for ${esc(pt.origMarks)} marks in its paper">set for ${esc(pt.origMarks)}</small>` : ""}</span>
                   ${partToolsHtml}
                 </li>`;
             }
@@ -2802,14 +2813,7 @@
           }
 
           if (act === "p-edit-marks" && q && pt) {
-            const curM = pt.marks != null ? String(pt.marks) : "";
-            const newM = prompt("Enter marks for this question part:", curM);
-            if (newM !== null) {
-              pushUndo();
-              pt.marks = newM.trim();
-              saveMakerDoc(doc);
-              refreshStudio(qIdx, null);
-            }
+            editMarksInline(actBtn.closest(".pv-qmk,.pv-part-mk") || actBtn, q, pt, qIdx);
             return;
           }
 
@@ -3065,6 +3069,29 @@
 
       // Question menu: right-click, long-press (Android), Shift+F10 / Menu key, or the ⋯ button on the question bar.
       // On wide screens it opens at the pointer and is kept inside the window; on phones it is a bottom sheet.
+      // Marks are edited in place: a small number box; Enter or leaving it saves, Escape cancels, empty clears
+      function editMarksInline(el, q, pt, qIdx) {
+        if (!el || el.querySelector("input")) return;
+        const span = el.matches(".pv-qmk,.pv-part-mk") ? el : canvasEl.querySelector(`[data-act="p-edit-marks"][data-qidx="${qIdx}"][data-pidx="${q.parts.indexOf(pt)}"]`);
+        if (!span) return;
+        const inp = document.createElement("input");
+        Object.assign(inp, { type: "number", min: "0", max: "100", step: "0.5", inputMode: "decimal", value: pt.marks ?? "", className: "pv-mk-input" });
+        inp.setAttribute("aria-label", "Marks");
+        span.replaceChildren(inp); inp.focus(); inp.select();
+        let done = false;
+        const finish = (save) => {
+          if (done) return; done = true;
+          const v = inp.value.trim();
+          if (save && v !== String(pt.marks ?? "") && (v === "" || (+v >= 0 && isFinite(+v)))) {
+            pushUndo(); pt.marks = v === "" ? "" : +v; delete pt.origMarks; saveMakerDoc(doc); toast(v === "" ? "Marks cleared" : `Marks set to ${+v}`);
+          }
+          refreshStudio(qIdx, null);
+        };
+        inp.addEventListener("keydown", (e) => { e.stopPropagation(); if (e.key === "Enter") { e.preventDefault(); finish(true); } else if (e.key === "Escape") { e.preventDefault(); finish(false); } });
+        inp.addEventListener("blur", () => finish(true));
+        inp.addEventListener("click", (e) => e.stopPropagation());
+        inp.addEventListener("pointerdown", (e) => e.stopPropagation());
+      }
       let contextMenuEl = null, menuScrim = null, menuReturnFocus = null;
       const isSheetMode = () => window.matchMedia("(max-width:700px), (pointer:coarse)").matches;
       const closeContextMenu = () => {
@@ -3160,6 +3187,7 @@
             <div class="studio-cm-label">Subpart (${esc(ptLabel)})</div>
             <button type="button" data-act="p-replace" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.search}<span>Replace Subpart (${esc(ptLabel)})...</span></button>
             <button type="button" data-act="p-edit-text" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.pen}<span>Edit Subpart (${esc(ptLabel)})</span></button>
+            <button type="button" data-act="p-edit-marks" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.pen}<span>Set Marks of (${esc(ptLabel)})…</span></button>
             <button type="button" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.scissors}<span>Split Part (${esc(ptLabel)}) into New Question</span></button>
             ${qIdx > 0 ? `<button type="button" data-act="p-move-prev" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeUp}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx}</span></button>` : ""}
             ${qIdx < totalQs - 1 ? `<button type="button" data-act="p-move-next" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeDown}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx + 2}</span></button>` : ""}
@@ -3178,6 +3206,7 @@
           ${partSectionHtml}
           <button type="button" data-act="q-replace" data-qidx="${qIdx}">${IC.search}<span>Replace Question...</span></button>
           <button type="button" data-act="q-edit" data-qidx="${qIdx}">${IC.pen}<span>Edit LaTeX</span></button>
+          ${q.parts.length === 1 ? `<button type="button" data-act="p-edit-marks" data-qidx="${qIdx}" data-pidx="0">${IC.pen}<span>Set Marks…</span></button>` : ""}
           <button type="button" data-act="q-add-part" data-qidx="${qIdx}">${IC.plus}<span>Add Subpart</span></button>
           <button type="button" data-act="q-split" data-qidx="${qIdx}">${IC.scissors}<span>${hasParts ? "Split Subpart into New Question" : "Split into Subparts (a) & (b)"}</span></button>
           <hr>

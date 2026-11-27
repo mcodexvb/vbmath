@@ -86,7 +86,7 @@ for r in R:
     Q.append([PI[(r['source_file'],r['paper_index'])],r.get('section') or '',r['qno'],r.get('part') or '',
               r['marks'],r.get('marks_raw') or '',r['latex'],tp,tb,1 if r.get('needs_topic_review') else 0,r['id'],
               sorted(rep.get((prog(r['programme']),norm(r['text'])),[])) if len(rep.get((prog(r['programme']),norm(r['text'])),[]))>1 and not RUB.match(r['text']) else [],
-              1 if RUB.match(r['text']) else 0])
+              1 if RUB.match(r['text']) else 0]+([r['notes']] if r.get('notes') else []))
 # ---- scans
 NONMATH=re.compile(r'tagore|statist|\bstat\b|stat minor|physic|mnphy|phy\b|chem|english|bengali|bangla|environment|\bevs\b|\bgec|aecc|hindi|sanskrit|history|philosophy|economics|geography|computer sc|sec theory|botany|zoology',re.I)
 SN=json.load(open(os.path.join(ROOT,'tools/scan_names.json'),encoding='utf-8')) if os.path.exists(os.path.join(ROOT,'tools/scan_names.json')) else {}
