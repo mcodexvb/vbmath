@@ -104,6 +104,7 @@
     dl: I('<path d="M12 4v11m0 0-4-4m4 4 4-4"/><path d="M5 20h14"/>'),
     sun: I('<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'),
     moon: I('<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>'),
+    palette: I('<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.7 1.7-1.7H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.1"/><circle cx="10.5" cy="7.3" r="1.1"/><circle cx="15" cy="7.6" r="1.1"/>'),
     menu: I('<path d="M4 7h16M4 12h16M4 17h16"/>'),
     pen: I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),
     tag: I('<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>'),
@@ -4089,28 +4090,33 @@
     });
     const themeToggle = $("#theme");
     const root = document.documentElement;
-    const themes = {system:"System", light:"Light", dark:"Dark", lab:"VBMath Lab"};
+    const themes = {lab:"VBMath Lab", light:"Light", dark:"Dark", system:"Match my device (light or dark)"};
+    const themeColors = [...document.querySelectorAll('meta[name="theme-color"]')].map((m) => [m, m.content]);
     const applyTheme = (theme) => {
       if (theme === "system") delete root.dataset.theme;
       else root.dataset.theme = theme;
+      themeColors.forEach(([m, c]) => { m.content = theme === "lab" ? "#071a22" : theme === "dark" ? "#0F1412" : theme === "light" ? "#FFFFFF" : c; });
       if (theme === "lab" && !$("#lab-theme-styles")) {
         const stylesheet = document.createElement("link");
         stylesheet.id = "lab-theme-styles";
         stylesheet.rel = "stylesheet";
         stylesheet.href = BASE + "lab-theme.css";
         document.head.append(stylesheet);
+      }
+      if (theme === "lab" && !$(".lab-ambient")) {
         const backdrop = document.createElement("div");
         backdrop.className = "lab-ambient";
         backdrop.setAttribute("aria-hidden", "true");
         backdrop.innerHTML = "<i></i><i></i><i></i>";
         document.body.prepend(backdrop);
       }
-      themeToggle.innerHTML = theme === "lab" ? IC.grid : theme === "dark" ? IC.moon : IC.sun;
+      themeToggle.innerHTML = IC.palette;
       themeToggle.setAttribute("aria-label", "Website theme");
       themeToggle.title = "Theme: " + themes[theme];
     };
-    const savedTheme = store.get("theme", "system");
-    applyTheme(Object.hasOwn(themes, savedTheme) ? savedTheme : "system");
+    // VBMath Lab is the site's main theme; a choice made in the theme window is remembered
+    const savedTheme = store.get("theme", "lab");
+    applyTheme(Object.hasOwn(themes, savedTheme) ? savedTheme : "lab");
     themeToggle.onclick = () => {
       const dialog = document.createElement("dialog");
       dialog.className = "vbm-dialog theme-dialog";

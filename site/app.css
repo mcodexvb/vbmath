@@ -77,7 +77,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .brand{display:flex;align-items:center;text-decoration:none;flex:none;height:56px}
 .brand .logo{height:50px;width:auto;display:block}
 @media (max-width:640px){:root{--toph:62px}.brand .logo{height:42px}}
-.logo-d{display:none!important}
+.logo-d,.logo-lab{display:none!important}
 :root[data-theme="dark"] .logo-l{display:none!important}
 :root[data-theme="dark"] .logo-d{display:block!important}
 @media(prefers-color-scheme:dark){
