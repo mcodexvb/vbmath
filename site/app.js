@@ -1764,6 +1764,7 @@
                 <button type="button" class="pv-act-btn pv-act-icon" data-act="q-up" data-qidx="${qIdx}" title="Move Up" ${qIdx === 0 ? "disabled" : ""}>${IC.chevronUp}</button>
                 <button type="button" class="pv-act-btn pv-act-icon" data-act="q-down" data-qidx="${qIdx}" title="Move Down" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.chevronDown}</button>
                 <button type="button" class="pv-act-btn pv-act-icon pv-danger" data-act="q-del" data-qidx="${qIdx}" title="Delete Question">${IC.trash}</button>
+                <button type="button" class="pv-act-btn pv-act-icon pv-more" data-act="q-more" data-qidx="${qIdx}" title="More actions (right-click, or Shift+F10)" aria-haspopup="menu">${IC.dots}</button>
               </div>
             </div>`;
         }
@@ -1829,6 +1830,7 @@
               <span class="pv-part-tools" title="Subpart actions">
                 <button type="button" class="pv-part-tool-btn" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Split this subpart into a new question">${IC.scissors}<span>Split</span></button>
                 <button type="button" class="pv-part-tool-btn danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}" title="Delete subpart">${IC.trash}</button>
+                <button type="button" class="pv-part-tool-btn" data-act="p-more" data-qidx="${qIdx}" data-pidx="${pIdx}" title="More subpart actions" aria-haspopup="menu">${IC.dots}</button>
               </span>` : "";
 
             if (isDirect) {
@@ -1934,7 +1936,7 @@
                 <span id="st-source">${makerSourceLabel(doc)}</span>
                 <span><b id="st-qcount">${stats.totalQuestions}</b> Questions</span>
                 <span>·</span>
-                <span><b id="st-choice">${stats.choiceX}</b> to answer</span>
+                <span><b id="st-choice">${stats.totalQuestions ? stats.choiceX : 0}</b> to answer</span>
                 <span>·</span>
                 <span>Full Marks: <b id="st-fullmk">${h.full || stats.fullMarks}</b></span>
                 <span>·</span>
@@ -2435,7 +2437,7 @@
       $("#st-source").textContent = makerSourceLabel(doc);
       $(".studio-title").textContent = doc.header.paper || "Question Paper Studio";
       const qCountEl = $("#st-qcount"); if (qCountEl) qCountEl.textContent = stats.totalQuestions;
-      const choiceEl = $("#st-choice"); if (choiceEl) choiceEl.textContent = stats.choiceX;
+      const choiceEl = $("#st-choice"); if (choiceEl) choiceEl.textContent = stats.totalQuestions ? stats.choiceX : 0;
       const fullEl = $("#st-fullmk"); if (fullEl) fullEl.textContent = doc.header.full || stats.fullMarks;
       const paperMkEl = $("#st-papermk"); if (paperMkEl) paperMkEl.textContent = stats.totalPaperMarks;
 
@@ -2911,27 +2913,86 @@
         }
       });
 
-      // Right-Click Context Menu
-      let contextMenuEl = null;
+      // Question menu: right-click, long-press (Android), Shift+F10 / Menu key, or the ⋯ button on the question bar.
+      // On wide screens it opens at the pointer and is kept inside the window; on phones it is a bottom sheet.
+      let contextMenuEl = null, menuScrim = null, menuReturnFocus = null;
+      const isSheetMode = () => window.matchMedia("(max-width:700px), (pointer:coarse)").matches;
       const closeContextMenu = () => {
-        if (contextMenuEl) {
-          contextMenuEl.remove();
-          contextMenuEl = null;
-        }
+        if (contextMenuEl) { contextMenuEl.remove(); contextMenuEl = null; }
+        if (menuScrim) { menuScrim.remove(); menuScrim = null; }
+        if (menuReturnFocus && document.contains(menuReturnFocus)) menuReturnFocus.focus({ preventScroll: true });
+        menuReturnFocus = null;
       };
       signal.addEventListener("abort", closeContextMenu);
-      document.addEventListener("click", closeContextMenu, { signal });
+      document.addEventListener("click", (e) => { if (contextMenuEl && !contextMenuEl.contains(e.target)) closeContextMenu(); }, { signal });
       document.addEventListener("contextmenu", (e) => {
         if (!e.target.closest(".studio-canvas")) closeContextMenu();
       }, { signal });
+      window.addEventListener("scroll", () => { if (contextMenuEl && !contextMenuEl.classList.contains("is-sheet")) closeContextMenu(); }, { signal, passive: true, capture: true });
+      window.addEventListener("resize", () => closeContextMenu(), { signal });
+      document.addEventListener("keydown", (e) => {
+        if (contextMenuEl) {
+          const items = [...contextMenuEl.querySelectorAll("button:not(:disabled)")];
+          const i = items.indexOf(document.activeElement);
+          if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); closeContextMenu(); }
+          else if (e.key === "ArrowDown") { e.preventDefault(); (items[i + 1] || items[0])?.focus(); }
+          else if (e.key === "ArrowUp") { e.preventDefault(); (items[i - 1] || items[items.length - 1])?.focus(); }
+          else if (e.key === "Tab") { closeContextMenu(); }
+          return;
+        }
+        if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) {
+          if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+          const qEl = document.querySelector(".pv-q.is-selected") || document.querySelector(".pv-q");
+          if (!qEl) return;
+          e.preventDefault();
+          const r = qEl.getBoundingClientRect();
+          openQuestionMenu(qEl, null, { x: r.left + 24, y: Math.max(r.top, 0) + 24 }, document.activeElement);
+        }
+      }, { signal });
+
+      canvasEl.addEventListener("click", (e) => {
+        const more = e.target.closest('[data-act="q-more"],[data-act="p-more"]');
+        if (!more) return;
+        e.preventDefault(); e.stopPropagation();
+        if (contextMenuEl) { closeContextMenu(); return; }
+        const r = more.getBoundingClientRect();
+        const part = more.dataset.act === "p-more" ? more.closest(".pv-part") : null;
+        openQuestionMenu(more.closest(".pv-q"), part, { x: r.right, y: r.bottom + 4, alignRight: true }, more);
+      }, { signal, capture: true });
 
       canvasEl.addEventListener("contextmenu", (e) => {
         const qEl = e.target.closest(".pv-q");
         if (!qEl) return;
         e.preventDefault();
         e.stopPropagation();
-        closeContextMenu();
+        openQuestionMenu(qEl, e.target.closest(".pv-part"), { x: e.clientX, y: e.clientY }, null);
+      }, { signal });
 
+      function placeQuestionMenu(menu, at) {
+        if (isSheetMode()) {
+          menu.classList.add("is-sheet");
+          menuScrim = document.createElement("div");
+          menuScrim.className = "studio-cm-scrim";
+          menuScrim.addEventListener("click", closeContextMenu);
+          document.body.appendChild(menuScrim);
+          return;
+        }
+        const pad = 8, W = window.innerWidth, H = window.innerHeight;
+        menu.style.maxHeight = (H - 2 * pad) + "px";
+        const r = menu.getBoundingClientRect();
+        let x = at.alignRight ? at.x - r.width : at.x;
+        let y = at.y;
+        if (x + r.width > W - pad) x = W - pad - r.width;
+        if (y + r.height > H - pad) y = Math.max(pad, (at.alignRight ? at.y - 4 : at.y) - r.height);
+        if (y + r.height > H - pad) y = Math.max(pad, H - pad - r.height);
+        menu.style.left = Math.max(pad, x) + "px";
+        menu.style.top = y + "px";
+      }
+
+      function openQuestionMenu(qEl, pEl, at, returnFocus) {
+        if (!qEl) return;
+        closeContextMenu();
+        menuReturnFocus = returnFocus;
         const qIdx = +qEl.dataset.qidx;
         selectedQIdx = qIdx;
         $$(".pv-q").forEach((c, idx) => c.classList.toggle("is-selected", idx === qIdx));
@@ -2939,7 +3000,6 @@
         const sec = (doc.sections || [])[0];
         const q = sec && sec.questions[qIdx];
         const totalQs = sec?.questions?.length || 0;
-        const pEl = e.target.closest(".pv-part");
         const pIdx = pEl && pEl.dataset.pidx != null ? +pEl.dataset.pidx : -1;
         const hasParts = q && q.parts && q.parts.length > 1;
 
@@ -2947,23 +3007,23 @@
         if (hasParts && pIdx >= 0) {
           const ptLabel = q.parts[pIdx]?.label || String.fromCharCode(97 + pIdx);
           partSectionHtml = `
-            <hr>
             <div class="studio-cm-label">Subpart (${esc(ptLabel)})</div>
             <button type="button" data-act="p-split" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.scissors}<span>Split Part (${esc(ptLabel)}) into New Question</span></button>
             ${qIdx > 0 ? `<button type="button" data-act="p-move-prev" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeUp}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx}</span></button>` : ""}
             ${qIdx < totalQs - 1 ? `<button type="button" data-act="p-move-next" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.mergeDown}<span>Move Part (${esc(ptLabel)}) to Question ${qIdx + 2}</span></button>` : ""}
             <button type="button" class="danger" data-act="p-del-part" data-qidx="${qIdx}" data-pidx="${pIdx}">${IC.trash}<span>Delete Subpart (${esc(ptLabel)})</span></button>
+            <hr><div class="studio-cm-label">Whole question</div>
           `;
         }
 
         const menu = document.createElement("div");
         menu.className = "studio-context-menu";
-        const x = Math.min(e.clientX, window.innerWidth - 240);
-        const y = Math.min(e.clientY, window.innerHeight - 360);
-        menu.style.left = x + "px";
-        menu.style.top = y + "px";
+        menu.setAttribute("role", "menu");
+        menu.setAttribute("aria-label", `Question ${qIdx + 1} actions`);
 
         menu.innerHTML = `
+          <div class="studio-cm-head"><b>Question ${qIdx + 1}${partSectionHtml ? ` (${esc(q.parts[pIdx]?.label || String.fromCharCode(97 + pIdx))})` : ""}</b><button type="button" class="studio-cm-close" aria-label="Close">${IC.x}</button></div>
+          ${partSectionHtml}
           <button type="button" data-act="q-replace" data-qidx="${qIdx}">${IC.search}<span>Replace Question...</span></button>
           <button type="button" data-act="q-edit" data-qidx="${qIdx}">${IC.pen}<span>Edit LaTeX</span></button>
           <button type="button" data-act="q-add-part" data-qidx="${qIdx}">${IC.plus}<span>Add Subpart</span></button>
@@ -2972,7 +3032,6 @@
           <button type="button" data-act="q-join-prev" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>${IC.mergeUp}<span>Add to Previous Question (Merge)</span></button>
           <button type="button" data-act="q-join-next" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.mergeDown}<span>Add to Next Question (Merge)</span></button>
           <button type="button" data-act="q-add-or" data-qidx="${qIdx}">${IC.branch}<span>Add Alternative (OR)</span></button>
-          ${partSectionHtml}
           <hr>
           <button type="button" data-act="q-up" data-qidx="${qIdx}" ${qIdx === 0 ? "disabled" : ""}>${IC.chevronUp}<span>Move Up</span></button>
           <button type="button" data-act="q-down" data-qidx="${qIdx}" ${qIdx === totalQs - 1 ? "disabled" : ""}>${IC.chevronDown}<span>Move Down</span></button>
@@ -2985,12 +3044,17 @@
 
         document.body.appendChild(menu);
         contextMenuEl = menu;
+        menu.querySelectorAll("button").forEach((b) => b.setAttribute("role", "menuitem"));
+        placeQuestionMenu(menu, at);
+        (menu.querySelector("button:not(.studio-cm-close):not(:disabled)"))?.focus({ preventScroll: true });
 
         menu.addEventListener("click", (evt) => {
           const btn = evt.target.closest("button");
           if (!btn) return;
           evt.stopPropagation();
+          menuReturnFocus = null;
           closeContextMenu();
+          if (btn.classList.contains("studio-cm-close")) return;
 
           if (btn.id === "cm-undo") {
             doUndo();
@@ -3013,7 +3077,7 @@
             fakeBtn.remove();
           }
         });
-      });
+      }
 
       // ── Drag and Drop: whole questions AND subparts ──────────────
       let draggedQIdx = null;    // set when dragging a whole question
