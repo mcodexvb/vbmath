@@ -1560,7 +1560,7 @@
       [figure, async () => {
         try {
           // A live exhibit from the Lab gallery, a different one on each visit
-          const {exhibits, mountExhibit} = await import("./lab-exhibits.mjs?v=3.4");
+          const {exhibits, mountExhibit} = await import("./lab-exhibits.mjs?v=3.5");
           if (!(version === routeVersion && figure.isConnected)) return;
           const picks = ["portrait", "eddy", "lorenz", "pendulum", "clifford", "spiro", "vanderpol", "satellite", "square", "epicycloid", "lissajous"]
             .map((id) => exhibits.find((e) => e.id === id)).filter(Boolean);
@@ -3923,7 +3923,7 @@
     const root = $("#lab-gallery");
     const version = routeVersion;
     try {
-      const {mountLabGallery} = await import("./lab-gallery.mjs?v=3.4");
+      const {mountLabGallery} = await import("./lab-gallery.mjs?v=3.5");
       if (version !== routeVersion || !root.isConnected) return;
       stopLabGallery = mountLabGallery(root, {
         initial: routeParams().get("figure"),

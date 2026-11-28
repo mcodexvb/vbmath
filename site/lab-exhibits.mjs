@@ -152,7 +152,7 @@ function mount(canvas, id, opts) {
   let width = 0, height = 0, frame = 0, previous;
   let visible = false, playing = !reducedMotion.matches;
   const resetState = () => {
-    for (const key of ["tr","y","p","q","u","h","key","r","co","V","pt"]) state[key] = null;
+    for (const key of ["tr","y","p","q","u","h","key","r","co","V","pt","lbm"]) state[key] = null;
   };
   const paint = (dt) => {
     state.dt = dt;
@@ -208,6 +208,7 @@ function mount(canvas, id, opts) {
     setPlaying(value) { playing = value; sync(); },
     set(name,value) {
       state.par[name] = value;
+      if (draw.keep && draw.keep.includes(name)) { if (visible && width && !playing) still(); return; }   // e.g. a live fluid: change it without starting over
       resetState();
       if (visible && width && !playing) still();
     },
@@ -230,24 +231,6 @@ VBViz = { mount, X, H: { C, TAU, U, P, dot, circ, T, fade, rk } };
 /* VBMath extension: eddy, rocket, satellite, portrait. Load after vbmath-viz.js */
 (() => {
 const { X, H } = VBViz, { C, TAU, U, P, dot, circ, T, fade } = H;
-X.eddy = (c, w, h, t, s) => {
-  const g = s.par.g ?? 1.5, Ts = s.par.T ?? 1.1, Uf = .7, R = .1, xc = .4, k = w / 3.2, mx = x => x * k, my = y => h / 2 - y * k, dt = s.dt;
-  const sh = i => ({ x: xc + .1, y: i % 2 ? -.07 : .07, G: (i % 2 ? 1 : -1) * g * .28 });
-  const rs = p => { p.x = 0; p.y = (Math.random() - .5) * .7; p.c = p.y > 0; };
-  if (!s.V) { s.V = []; s.acc = 0; s.n = 6; for (let i = 0; i < 6; i++) { const v = sh(i); v.x += .55 * Uf * Ts * (5 - i); s.V.push(v); } s.pt = Array.from({ length: 900 }, () => { const p = {}; rs(p); p.x = Math.random() * 3.2; return p; }); }
-  if (dt > 0) { s.acc += dt; if (s.acc >= Ts) { s.acc -= Ts; s.V.push(sh(s.n++)); } s.V.forEach(v => v.x += .55 * Uf * dt); s.V = s.V.filter(v => v.x < 3.5); }
-  c.globalAlpha = .8;
-  for (const p of s.pt) {
-    let dx = p.x - xc, dy = p.y, r2 = dx * dx + dy * dy; if (r2 < R * R * 1.05) { rs(p); dx = p.x - xc; dy = p.y; r2 = dx * dx + dy * dy; }
-    const r4 = r2 * r2; let u = Uf * (1 - R * R * (dx * dx - dy * dy) / r4), v = -2 * Uf * R * R * dx * dy / r4;
-    for (const o of s.V) { const ex = p.x - o.x, ey = p.y - o.y, f = o.G / (TAU * (ex * ex + ey * ey + .01)); u -= f * ey; v += f * ex; }
-    p.x += u * dt; p.y += v * dt; if (p.x > 3.25 || Math.abs(p.y) > .9) rs(p);
-    c.fillStyle = p.c ? C.teal : C.gold; c.fillRect(mx(p.x), my(p.y), 1.8, 1.8);
-  }
-  c.globalAlpha = 1; s.V.forEach(o => circ(c, mx(o.x), my(o.y), 9, 'rgba(255,255,255,.07)'));
-  c.fillStyle = '#0b1d1a'; c.beginPath(); c.arc(mx(xc), my(0), R * k, 0, TAU); c.fill(); circ(c, mx(xc), my(0), R * k, C.gold);
-  T(c, 'dye released upstream, shed vortices alternate in sign', w * .04, h * .08, 'left');
-};
 X.satellite = (c, w, h, t, s) => {
   const e = s.par.e ?? .5, a = Math.min(w * .4, h * .36 / Math.sqrt(1 - e * e)), b = a * Math.sqrt(1 - e * e), fx = w / 2 + a * e, fy = h / 2;
   const at = M => { let E = M; for (let i = 0; i < 7; i++) E -= (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E)); return [fx + a * (Math.cos(E) - e), fy - b * Math.sin(E), E]; };
@@ -259,30 +242,6 @@ X.satellite = (c, w, h, t, s) => {
   dot(c, fx, fy, 10, '#2f8f84'); circ(c, fx, fy, 13, C.faint);
   c.strokeStyle = C.teal; P(c, [[x, y], [x + vx / vn * L, y + vy / vn * L]]); dot(c, x, y, 4.5, C.gold);
   T(c, 'e = ' + e.toFixed(2) + '   v = ' + q.toFixed(2) + ' v_circ', w * .04, h * .08, 'left'); T(c, 'both shaded wedges sweep equal areas in equal time', w / 2, h * .95);
-};
-X.rocket = (c, w, h, t, s) => {
-  const mr = s.par.mr ?? 10, ve = .55, tw = 1.7, tb = (1 - 1 / mr) * ve / tw, md = (1 - 1 / mr) / tb;
-  if (!s.r) { s.r = [0, 1, 0, 0, 1]; s.tr = []; s.T = 0; s.hold = 0; }
-  let [x, y, vx, vy, m] = s.r;
-  if (s.hold > 0) { s.hold -= s.dt; if (s.hold <= 0) { s.r = null; return; } }
-  else {
-    let bud = s.dt * (s.T < tb ? .25 : 1.6);
-    while (bud > 0) {
-      const d = Math.min(.002, bud); bud -= d; const r = Math.hypot(x, y); let ax = -x / r ** 3, ay = -y / r ** 3;
-      if (s.T < tb) { const ux = x / r, uy = y / r; let dx, dy; if (s.T < .02) { dx = ux; dy = uy; } else if (s.T < .05) { dx = ux * .984 + uy * .18; dy = uy * .984 - ux * .18; } else { const sp = Math.hypot(vx, vy) || 1; dx = vx / sp; dy = vy / sp; } const a = md * ve / m; ax += a * dx; ay += a * dy; m -= md * d; }
-      vx += ax * d; vy += ay * d; x += vx * d; y += vy * d; s.T += d;
-      if (r < 1 && s.T > tb) { s.hold = 1.5; break; }
-    }
-    if (s.T > 7) s.hold = .01; s.r = [x, y, vx, vy, m];
-  }
-  const Rp = h * .18, cx = w / 2, cy = h * .6, mp = (X_, Y_) => [cx + X_ * Rp, cy - Y_ * Rp], gr = c.createRadialGradient(cx - Rp * .3, cy - Rp * .3, Rp * .1, cx, cy, Rp);
-  gr.addColorStop(0, '#3a9a8e'); gr.addColorStop(1, '#10352f'); c.fillStyle = gr; c.beginPath(); c.arc(cx, cy, Rp, 0, TAU); c.fill(); circ(c, cx, cy, Rp * 1.04, C.faint);
-  const p = mp(x, y); if (s.dt && s.hold <= 0) s.tr.push(p); if (s.tr.length > 1500) s.tr.shift(); c.lineWidth = 1.8; fade(c, s.tr, C.gold); c.lineWidth = 1.4;
-  const sp = Math.hypot(vx, vy) || 1, ux = sp > .01 ? vx / sp : x / Math.hypot(x, y), uy = sp > .01 ? vy / sp : y / Math.hypot(x, y), dx = ux, dy = -uy, nx = -dy, ny = dx;
-  c.fillStyle = C.gold; c.beginPath(); c.moveTo(p[0] + dx * 8, p[1] + dy * 8); c.lineTo(p[0] - dx * 5 + nx * 3.5, p[1] - dy * 5 + ny * 3.5); c.lineTo(p[0] - dx * 5 - nx * 3.5, p[1] - dy * 5 - ny * 3.5); c.fill();
-  if (s.T < tb) { c.strokeStyle = C.teal; c.lineWidth = 2.5; P(c, [[p[0] - dx * 5, p[1] - dy * 5], [p[0] - dx * 15, p[1] - dy * 15]]); c.lineWidth = 1.4; }
-  T(c, 'ideal Δv = ve·ln(m₀/m_f) = ' + (ve * Math.log(mr)).toFixed(2) + ' v_c', w * .04, h * .08, 'left');
-  T(c, (s.hold > 0 && s.T > tb ? 'impact' : s.T < tb ? 'burn' : 'coast') + '   alt ' + (Math.hypot(x, y) - 1).toFixed(2) + ' R   v ' + sp.toFixed(2) + ' v_c', w * .04, h * .08 + 16, 'left');
 };
 X.portrait = (c, w, h, t, s) => {
   if (!s.co) {
@@ -301,13 +260,13 @@ X.portrait = (c, w, h, t, s) => {
 
 const META=[
 {id:'portrait',title:'A portrait, in circles',eq:'z(t) = Σ cₖ·e^(ikt)',desc:'A single closed line is split into rotating circles (a discrete Fourier transform). Each circle has a size and speed; chained tip to tail, their sum redraws the line. More circles, finer detail.',tags:['Fourier series','Superposition'],p:[['n','Circles',2,70,1,40]]},
-{id:'eddy',title:'Eddy: von Kármán vortex street',eq:'v = U∞·(potential flow) + Σ Γᵢ/(2π)·(−dy, dx)/(r²+ε²)',desc:'Flow past a cylinder sheds vortices alternately from each side. Here the vortices are point sources of spin (Lamb–Oseen cores), and dye particles are carried by the combined flow.',tags:['Vorticity','Numerical integration'],p:[['g','Vortex strength',.4,3,.1,1.5],['T','Shedding period',.5,2,.1,1.1]]},
+{id:'eddy',title:'Eddy: von Kármán vortex street',eq:'∂u/∂t + (u·∇)u = −∇p/ρ + ν∇²u   (lattice Boltzmann, D2Q9)',desc:'A real fluid simulation: water flows left to right past a body, and the Navier–Stokes equations are solved on a grid of about twenty thousand cells. Two dyes show how the wake rolls up. Below Re ≈ 47 the wake is steady; above it the flow sheds vortices from alternate sides, at a rate given by the Strouhal number, which is measured live, together with the drag and lift on the body.',tags:['Vorticity','Navier–Stokes','Numerical integration'],p:[['re','Reynolds number',20,600,1,100],['view','View (0 Dye, 1 Vorticity, 2 Speed, 3 Pressure)',0,3,1,0],['body','Body (0 Circle, 1 Square, 2 Plate, 3 Wing, 4 Two circles)',0,4,1,0],['aoa','Angle (degrees, for plate and wing)',-40,40,1,0],['mouse','Mouse (0 Move body, 1 Stir, 2 Draw wall, 3 Erase wall)',0,3,1,0]]},
 {id:'lorenz',title:'Lorenz attractor',eq:'ẋ = σ(y−x),  ẏ = x(ρ−z)−y,  ż = xy−βz',desc:'A simplified model of atmospheric convection. Trajectories never repeat and never settle, yet stay on a butterfly-shaped set. Two starts that differ slightly end up far apart.',tags:['Chaos','Phase space'],p:[['rho','ρ',10,40,1,28]]},
-{id:'pendulum',title:'Double pendulum',eq:'Lagrangian: L = T − V, with two coupled angles θ₁, θ₂',desc:'Two rods joined end to end. Energy is conserved, but motion is chaotic for large swings; the teal path traces the lower bob.',tags:['Chaos','Conservation law','Numerical integration'],p:[['a1','Start angle θ₁',.3,3,.1,2.2]]},
+{id:'pendulum',title:'Double pendulum',eq:'Lagrangian: L = T − V, with two coupled angles θ₁, θ₂',desc:'Two rods joined end to end, each with a weight. Energy is conserved, but motion is chaotic for large swings; the path traces the lower bob. Change the weights: a heavy lower bob drags the upper one around, a light one is flung about like a whip.',tags:['Chaos','Conservation law','Numerical integration'],p:[['a1','Start angle θ₁',.3,3,.1,2.2],['m1','Upper mass m₁',.2,5,.1,1],['m2','Lower mass m₂',.2,5,.1,1]]},
 {id:'vanderpol',title:'Van der Pol oscillator',eq:'ẍ − μ(1−x²)ẋ + x = 0',desc:'A self-sustaining oscillator: it pumps energy in at small amplitude and drains it at large amplitude. Every start spirals onto the same closed loop.',tags:['Limit cycle','Phase space'],p:[['mu','μ',.1,4,.1,1.5]]},
 {id:'logistic',title:'Logistic bifurcation',eq:'xₙ₊₁ = r·xₙ(1 − xₙ)',desc:'A population model. As r grows, the long-term behaviour doubles from a fixed point to 2, 4, 8 cycles, then chaos, with windows of order inside it. The teal dots are the long-term values at the marked r.',tags:['Bifurcation','Iteration','Chaos'],p:[]},
 {id:'satellite',title:'Satellite orbit',eq:'r³/T² = const,  v² = μ(2/r − 1/a)',desc:'Kepler’s laws: orbits are ellipses with the planet at one focus, the satellite speeds up near the planet, and the radius vector sweeps equal areas in equal times.',tags:['Orbit','Conservation law'],p:[['e','Eccentricity',0,.85,.05,.5]]},
-{id:'rocket',title:'Rocket launch',eq:'Δv = vₑ·ln(m₀/m_f)',desc:'Tsiolkovsky’s rocket equation with gravity and a gravity turn. Mass ratio decides whether the rocket falls back (suborbital), reaches orbit, or escapes. Units: Earth radius and circular orbit speed.',tags:['Conservation law','Orbit','Numerical integration'],p:[['mr','Mass ratio m₀/m_f',5,14,.5,10]]},
+{id:'rocket',title:'Rocket launch',eq:'Δv = vₑ·ln(m₀/m_f)',desc:'A whole launch: countdown, liftoff, a gravity turn, engine cut-off, then the coast. The dashed curve is the path the rocket would follow if the engine stopped now (a Kepler conic). The run ends with one complete orbit, an escape, or a fall back to Earth. Mass ratio m₀/m_f is launch mass over empty mass; turn shape sets how early the rocket tips over.',tags:['Conservation law','Orbit','Numerical integration'],p:[['mr','Mass ratio m₀/m_f',5,16,.5,10],['pp','Turn shape (low = tip over early)',.2,1.5,.05,.5]]},
 {id:'epicycloid',title:'Epicycloid',eq:'x = (R+r)cos θ − r cos((R+r)θ/r)',desc:'The path of a point on a circle rolling around the outside of another. The ratio R/r sets the number of cusps.',tags:['Parametric curve','Rolling'],p:[['k','Cusps (R/r)',2,8,1,3]]},
 {id:'cycloid',title:'Cycloid',eq:'x = r(θ − sin θ),  y = r(1 − cos θ)',desc:'The path of a point on a wheel rolling along a line. It is also the curve of fastest descent (brachistochrone).',tags:['Parametric curve','Rolling'],p:[]},
 {id:'lissajous',title:'Lissajous curve',eq:'x = sin(at + δ),  y = sin(bt)',desc:'Two perpendicular oscillations. When the frequencies have a simple ratio the curve closes; the phase δ rotates it in 3D-like fashion.',tags:['Parametric curve','Superposition'],p:[['a','a',1,7,1,3],['b','b',1,7,1,2]]},
@@ -327,7 +286,7 @@ META.push({id:'clifford',title:'Clifford attractor',eq:'xₙ₊₁ = sin(a yₙ)
 {id:'spiro',title:'Spirograph',eq:'x = (1−r)cos θ + d·r·cos((1−r)θ/r)',desc:'A pen inside a small circle rolling inside a larger one draws a hypotrochoid. The ratio sets the number of lobes; the pen offset sets how sharp they are.',tags:['Rolling','Parametric curve'],p:[['k','Ratio R/r',3,12,1,5],['d','Pen offset',.2,1.4,.05,.8]]});
 /* ---- gallery ---- */
 const CAT={chaos:['Chaos & dynamics',330,275,['lorenz','pendulum','vanderpol','logistic','clifford']],wave:['Waves & Fourier',190,225,['portrait','square','lissajous','spiro']],curve:['Curves & geometry',42,18,['epicycloid','cycloid','bezier','roots']],frac:['Fractals & iteration',150,175,['sierpinski','newton']],phys:['Physics & flow',262,205,['eddy','satellite','rocket','heat']]};
-const TIP={portrait:'Drag the circle count down to 3: watch the shape dissolve into a blob.',eddy:'Raise vortex strength and shorten the period to see the street become turbulent.',lorenz:'Two nearly identical starting points: how long until they part ways?',pendulum:'Release from a high angle and compare two runs: that is sensitive dependence.',vanderpol:'Try μ near 0 (a plain sine) and then large (sudden relaxation jumps).',logistic:'Find the window of period 3 near r ≈ 3.83.',satellite:'Raise eccentricity and watch the speed change near the focus.',rocket:'Lower the mass ratio until the rocket can no longer reach orbit.',epicycloid:'Integer ratios close the curve; others never repeat.',cycloid:'The cycloid is also the brachistochrone: the fastest slide between two points.',lissajous:'Ratios 1:2, 2:3, 3:4 give the classic knots.',square:'Count the overshoot at each corner: it never goes away (Gibbs).',heat:'Peak height falls like 1/√t: check it against the faint curves.',newton:'Change the start mentally: any positive guess finds √2.',sierpinski:'Each step multiplies the triangles by three but the area by ¾.',roots:'Set n = 6 and picture the hexagon: multiply by ω to rotate a vertex.',bezier:'Move through t and see how the construction nests lines inside lines.',clifford:'Nudge a by 0.05 repeatedly: the symmetry changes entirely.',spiro:'Ratio 7 with a small offset gives a rosette; raise the offset for loops.'};
+const TIP={portrait:'Drag the circle count down to 3: watch the shape dissolve into a blob.',eddy:'Drag the cylinder up and down and watch the wake whip; then set Re to 40 and the shedding stops.',lorenz:'Two nearly identical starting points: how long until they part ways?',pendulum:'Release from a high angle and compare two runs: that is sensitive dependence.',vanderpol:'Try μ near 0 (a plain sine) and then large (sudden relaxation jumps).',logistic:'Find the window of period 3 near r ≈ 3.83.',satellite:'Raise eccentricity and watch the speed change near the focus.',rocket:'Lower the mass ratio until the rocket falls back; raise it past about 14 and it escapes.',epicycloid:'Integer ratios close the curve; others never repeat.',cycloid:'The cycloid is also the brachistochrone: the fastest slide between two points.',lissajous:'Ratios 1:2, 2:3, 3:4 give the classic knots.',square:'Count the overshoot at each corner: it never goes away (Gibbs).',heat:'Peak height falls like 1/√t: check it against the faint curves.',newton:'Change the start mentally: any positive guess finds √2.',sierpinski:'Each step multiplies the triangles by three but the area by ¾.',roots:'Set n = 6 and picture the hexagon: multiply by ω to rotate a vertex.',bezier:'Move through t and see how the construction nests lines inside lines.',clifford:'Nudge a by 0.05 repeatedly: the symmetry changes entirely.',spiro:'Ratio 7 with a small offset gives a rosette; raise the offset for loops.'};
 /* ---- v2 extension: improved exhibits + university-syllabus exhibits ---- */
 (()=>{const{X,H}=VBViz,{C,TAU,U,P,dot,circ,T,rk}=H,SB='₀₁₂₃₄₅₆₇₈₉',sub=n=>String(n).replace(/\d/g,d=>SB[d]);
 const MONO='500 11px "JetBrains Mono",ui-monospace,Menlo,monospace',SANS='500 11px Inter,system-ui,sans-serif';
@@ -389,14 +348,17 @@ if(d>0.6)T(c,'the two paths are now unrelated',w*.04,h*.07+30,'left','#f472b6')}
 const SUP9={0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};
 
 /* ===== 3. Double pendulum: short trail, twin ===== */
-X.pendulum=(c,w,h,t,s)=>{const g=9.81,f=([a,b,p,q])=>{const d=a-b,den=3-Math.cos(2*d);return[p,q,(-3*g*Math.sin(a)-g*Math.sin(a-2*b)-2*Math.sin(d)*(q*q+p*p*Math.cos(d)))/den,(2*Math.sin(d)*(2*p*p+2*g*Math.cos(a)+q*q*Math.cos(d)))/den]};
+// two masses m1 (upper) and m2 (lower) on equal rods; with m1 = m2 this is the classic equal-mass pendulum
+X.pendulum=(c,w,h,t,s)=>{const g=9.81,m1=s.par.m1??1,m2=s.par.m2??1,M=m1+m2,f=([a,b,p,q])=>{const d=a-b,den=2*m1+m2-m2*Math.cos(2*d);return[p,q,(-g*(2*m1+m2)*Math.sin(a)-m2*g*Math.sin(a-2*b)-2*Math.sin(d)*m2*(q*q+p*p*Math.cos(d)))/den,(2*Math.sin(d)*(p*p*M+g*M*Math.cos(a)+q*q*m2*Math.cos(d)))/den]};
 const a1=s.par.a1??2.2,twin=(s.par.tw??1)>0;if(!s.y){s.y=[a1,2.6,0,0];s.q=[a1+.001,2.6,0,0];s.tr=[[],[]]}
 const n=Math.max(1,Math.round(s.dt/.002));for(let i=0;i<n;i++){s.y=rk(f,s.y,s.dt/n);s.q=rk(f,s.q,s.dt/n)}
 const L=U(w,h,.2),ox=w/2,oy=h*.4,pos=y=>{const x1=ox+L*Math.sin(y[0]),y1=oy+L*Math.cos(y[0]);return[x1,y1,x1+L*Math.sin(y[1]),y1+L*Math.cos(y[1])]};
-const draw=(y,i,col,al)=>{const p=pos(y);if(s.dt>0)s.tr[i].push([p[2],p[3]]);if(s.tr[i].length>85)s.tr[i].shift();c.globalAlpha=al;fadeB(c,s.tr[i],col,17,2);c.strokeStyle=col;c.lineWidth=2.4;P(c,[[ox,oy],[p[0],p[1]],[p[2],p[3]]]);c.lineWidth=1.4;dot(c,p[0],p[1],6,col);dot(c,p[2],p[3],7,col);c.globalAlpha=1};
+const draw=(y,i,col,al)=>{const p=pos(y);if(s.dt>0)s.tr[i].push([p[2],p[3]]);if(s.tr[i].length>85)s.tr[i].shift();c.globalAlpha=al;fadeB(c,s.tr[i],col,17,2);c.strokeStyle=col;c.lineWidth=2.4;P(c,[[ox,oy],[p[0],p[1]],[p[2],p[3]]]);c.lineWidth=1.4;dot(c,p[0],p[1],6.5*Math.cbrt(m1),col);dot(c,p[2],p[3],6.5*Math.cbrt(m2),col);c.globalAlpha=1};
 if(twin)draw(s.q,1,'#f472b6',.7);draw(s.y,0,C.gold,1);
 c.fillStyle='rgba(255,255,255,.18)';c.fillRect(ox-24,oy-5,48,3);dot(c,ox,oy,3.5,'#fff');c.font=MONO;T(c,'t = '+s.t.toFixed(1)+' s',w*.04,h*.07,'left');
-if(twin)T(c,'twin differs by 0.001 rad: |Δθ₂| = '+Math.abs(s.y[1]-s.q[1]).toFixed(3)+' rad',w*.04,h*.07+15,'left',Math.abs(s.y[1]-s.q[1])>.5?'#f472b6':C.txt)};
+if(twin)T(c,'twin differs by 0.001 rad: |Δθ₂| = '+Math.abs(s.y[1]-s.q[1]).toFixed(3)+' rad',w*.04,h*.07+15,'left',Math.abs(s.y[1]-s.q[1])>.5?'#f472b6':C.txt);
+{const [a,b,p,q]=s.y,E=.5*M*p*p+.5*m2*q*q+m2*p*q*Math.cos(a-b)-M*g*Math.cos(a)-m2*g*Math.cos(b);T(c,'m₁ = '+m1+'  m₂ = '+m2+'   energy E = '+E.toFixed(3)+' (stays constant)',w*.04,h*.07+30,'left','rgba(159,196,189,.9)')}};
+X.pendulum.keep=['m1','m2'];   // change a mass mid-swing: the motion carries on with the new mass
 
 /* ===== 4. Van der Pol: many streams, inside + outside, flow field ===== */
 X.vanderpol=(c,w,h,t,s)=>{const mu=s.par.mu??1.5,f=([x,y])=>[y,mu*(1-x*x)*y-x],mx=x=>w/2+x*w/8,my=y=>h/2-y*h/(mu>2.5?14:10);
@@ -436,25 +398,6 @@ const KE=q*q/2,PE=-1/(r/a),bx=w*.04,by=h*.9,sc=Math.min(w*.18,70);T(c,'e = '+e.t
 if(!s.clean){c.fillStyle='rgba(127,214,200,.7)';c.fillRect(bx,by-26,KE*sc,6);c.fillStyle='rgba(224,189,108,.7)';c.fillRect(bx,by-16,-PE*sc,6);c.fillStyle='#fff';c.fillRect(bx+.5*sc-1,by-30,2,24);T(c,'KE',bx+KE*sc+16,by-20,'left');T(c,'|PE|',bx-PE*sc+22,by-10,'left');T(c,'KE − |PE| = −½ always (energy conserved)',bx,by+6,'left')}};
 
 /* ===== 7. Rocket: pitch programme, auto camera, orbit read-out ===== */
-X.rocket=(c,w,h,t,s)=>{const mr=s.par.mr??10,pp=s.par.pp??.5,ve=.6,mdot=1.4/ve,tb=(1-1/mr)/mdot,tv=.04;
-if(!s.r){s.r={x:0,y:1,vx:0,vy:0,m:1,T:0,end:0,why:''};s.tr=[];s.vr=1.6}
-const q=s.r;if(q.end>0){q.end-=s.dt;if(q.end<=0){s.r=null;return}}else{const sim=s.dt*(q.T<tb?.06:1.2),n=clamp(Math.ceil(sim/.0008),1,90),d=sim/n;
-for(let i=0;i<n;i++){const r=Math.hypot(q.x,q.y),ux=q.x/r,uy=q.y/r;let ax=-ux/r/r,ay=-uy/r/r;
-if(q.T<tb){const th=Math.PI/2*Math.min(1,Math.max(0,(q.T-tv)/(tb-tv)))**pp,dx=ux*Math.cos(th)+uy*Math.sin(th),dy=uy*Math.cos(th)-ux*Math.sin(th),a=mdot*ve/q.m;ax+=a*dx;ay+=a*dy;q.m-=mdot*d;q.th=th}
-q.vx+=ax*d;q.vy+=ay*d;q.x+=q.vx*d;q.y+=q.vy*d;q.T+=d;if(Math.hypot(q.x,q.y)<1&&q.T>.05){q.end=1.6;q.why='crashed';break}}
-if(q.T>tb+13||Math.hypot(q.x,q.y)>10){q.end=1.2}}
-const rr=Math.hypot(q.x,q.y),sp=Math.hypot(q.vx,q.vy),eps=sp*sp/2-1/rr,hh=q.x*q.vy-q.y*q.vx;s.vr+=(Math.max(1.6,rr*1.3)-s.vr)*.04;
-const sc=Math.min(w,h)*.5/s.vr,cx=w/2,cy=h/2,mp=(x,y)=>[cx+x*sc,cy-y*sc];
-const gr=c.createRadialGradient(cx-sc*.3,cy-sc*.3,sc*.1,cx,cy,sc);gr.addColorStop(0,'#3a9a8e');gr.addColorStop(1,'#10352f');c.fillStyle=gr;c.beginPath();c.arc(cx,cy,sc,0,TAU);c.fill();circ(c,cx,cy,sc*1.03,'rgba(127,214,200,.25)');
-if(s.dt&&q.end<=0)s.tr.push([q.x,q.y]);if(s.tr.length>4000)s.tr.shift();fadeB(c,s.tr.map(p=>mp(p[0],p[1])),C.gold,40,2);
-const p=mp(q.x,q.y),burn=q.T<tb&&q.end<=0,ang=burn?(q.th??0):0,ux=q.x/rr,uy=q.y/rr;let dx=sp>.02?q.vx/sp:ux,dy=sp>.02?q.vy/sp:uy;dy=-dy;const nx=-dy,ny=dx;
-c.fillStyle='#f1ecdc';c.beginPath();c.moveTo(p[0]+dx*9,p[1]+dy*9);c.lineTo(p[0]-dx*6+nx*4,p[1]-dy*6+ny*4);c.lineTo(p[0]-dx*6-nx*4,p[1]-dy*6-ny*4);c.fill();
-if(burn){c.fillStyle='#f97316';c.beginPath();c.moveTo(p[0]-dx*6+nx*3,p[1]-dy*6+ny*3);c.lineTo(p[0]-dx*(14+6*Math.random())  ,p[1]-dy*(14+6*Math.random()));c.lineTo(p[0]-dx*6-nx*3,p[1]-dy*6-ny*3);c.fill()}
-c.font=MONO;T(c,'Δv ideal = vₑ ln(m₀/m_f) = '+(ve*Math.log(mr)).toFixed(2)+' v꜀',w*.04,h*.07,'left');
-let res,col=C.txt;if(burn)res='burning…';else if(q.why==='crashed'||(eps<0&&(-1/(2*eps))*(1-Math.sqrt(Math.max(0,1+2*eps*hh*hh)))<1)){const a=-1/(2*eps),ec=Math.sqrt(Math.max(0,1+2*eps*hh*hh));res=eps<0?'SUBORBITAL: periapsis '+(a*(1-ec)).toFixed(2)+' R is underground':'';col='#f472b6'}
-else if(eps>=0){res='ESCAPE: v > √2 v꜀ at this height';col='#7fe0d2'}else{const a=-1/(2*eps),ec=Math.sqrt(1+2*eps*hh*hh);res='ORBIT: periapsis '+(a*(1-ec)).toFixed(2)+' R, apoapsis '+(a*(1+ec)).toFixed(2)+' R';col='#7fe0d2'}
-T(c,res,w*.04,h*.07+15,'left',col);T(c,'alt '+(rr-1).toFixed(2)+' R   v '+sp.toFixed(2)+' v꜀   pitch '+(ang*180/Math.PI).toFixed(0)+'°',w*.04,h*.95,'left')};
-
 /* ===== 8. Fourier: rotating circles + unrolled wave + spectrum ===== */
 X.square=(c,w,h,t,s)=>{const N=s.par.N??5,wf=clamp(s.par.wf??1,1,3),th=t*1.1,cx=w*.2,cy=h*.46,u=Math.min(h*.27,w*.12);
 const term=k=>wf===1?(k%2?4/(Math.PI*k):0):wf===2?2/Math.PI*(k%2?1:-1)/k:(k%2?8/(Math.PI**2)*(((k-1)/2)%2?-1:1)/k/k:0),ideal=a=>{const m=((a%TAU)+TAU)%TAU;return wf===1?(m<Math.PI?1:-1):wf===2?(m<Math.PI?m/Math.PI:m/Math.PI-2)*1:(m<Math.PI?-1+2*m/Math.PI:3-2*m/Math.PI)*-1};
@@ -485,7 +428,8 @@ const tot=s.u.reduce((a,b)=>a+b,0)/s.h0;c.font=MONO;T(c,'u(x,t)',L,Tp-10,'left')
 const CP=lut([[0,[6,8,28]],[.2,[44,22,110]],[.42,[170,36,140]],[.66,[255,120,60]],[.88,[255,214,120]],[1,[255,250,225]]]);
 X.clifford=(c,w,h,t,s)=>{const a=(s.par.a??-1.7)+.12*Math.sin(t*.25),b=(s.par.b??1.8)+.1*Math.cos(t*.2),cc=-.9,d=-1.2,W=Math.ceil(w/2),Hh=Math.ceil(h/2);
 if(!s.im||s.im.width!==W||s.im.height!==Hh){s.im=document.createElement('canvas');s.im.width=W;s.im.height=Hh;s.cnt=new Uint16Array(W*Hh)}
-if(s.dt>0||!s.done){const cnt=s.cnt,u=Math.min(W,Hh)*.21*(s.clean?.98:1.25);cnt.fill(0);let x=.1,y=.1,mxc=1;for(let i=0;i<60000;i++){const nx=Math.sin(a*y)+cc*Math.cos(a*x),ny=Math.sin(b*x)+d*Math.cos(b*y);x=nx;y=ny;if(i<20)continue;const px=(W/2+x*u)|0,py=(Hh/2+y*u)|0;if(px>=0&&px<W&&py>=0&&py<Hh){const k=py*W+px;if(++cnt[k]>mxc)mxc=cnt[k]}}
+if(s.dt>0||!s.done){// the orbit never leaves |x| ≤ 1+|c|, |y| ≤ 1+|d|: scale to that box, so it always fits whatever a and b are
+const cnt=s.cnt,fit=s.clean?.96:.86,u=fit*Math.min(W/(2*(1+Math.abs(cc))),Hh/(2*(1+Math.abs(d)))),cy0=Hh*(s.clean?.5:.53);cnt.fill(0);let x=.1,y=.1,mxc=1;for(let i=0;i<60000;i++){const nx=Math.sin(a*y)+cc*Math.cos(a*x),ny=Math.sin(b*x)+d*Math.cos(b*y);x=nx;y=ny;if(i<20)continue;const px=(W/2+x*u)|0,py=(cy0+y*u)|0;if(px>=0&&px<W&&py>=0&&py<Hh){const k=py*W+px;if(++cnt[k]>mxc)mxc=cnt[k]}}
 const g=s.im.getContext('2d'),im=g.createImageData(W,Hh),lm=Math.log(1+mxc*.6);for(let i=0;i<cnt.length;i++){const v=cnt[i]?Math.min(1,Math.log(1+cnt[i])/lm):0,m=CP[Math.round(v**.8*255)];im.data[i*4]=m[0];im.data[i*4+1]=m[1];im.data[i*4+2]=m[2];im.data[i*4+3]=v>0?255:0}g.putImageData(im,0,0);s.done=1}
 if(!s.clean){c.fillStyle='#050615';c.fillRect(0,0,w,h)}c.drawImage(s.im,0,0,w,h);c.font=MONO;T(c,'a = '+a.toFixed(2)+'   b = '+b.toFixed(2)+'   (colour = how often the orbit visits a pixel)',w*.04,h*.07,'left','rgba(255,240,210,.85)')};
 
@@ -567,11 +511,11 @@ M('graddesc','Gradient descent','xₖ₊₁ = xₖ − η∇f(xₖ) + β(xₖ �
 const upd=(id,f)=>f(META.find(m=>m.id===id));
 upd('newton',m=>{m.desc='Follow the tangent to the axis for the next guess; correct digits roughly double each step. Table shows every iterate and its error. Zoom (scroll, pinch, + / −) into the root to see the curve turn into its own tangent. Try function 4 starting at 0: Newton cycles forever.';m.p=[['fn','Function (1–4)',1,4,1,1],['x0','Start x₀',-3,4,.1,3]];m.tags=['Iteration','Convergence']});
 upd('lorenz',m=>{m.desc='Atmospheric convection model. Two trajectories (gold, pink) start a tiny distance apart: the graph shows their separation growing exponentially until they are completely unrelated. Sensitive dependence on initial conditions.';m.p=[['rho','ρ',10,40,1,28],['gap','Initial gap (10⁻ⁿ)',1,9,1,4],['tl','Trail length',500,9000,250,5000]]});
-upd('pendulum',m=>{m.desc='Two rods joined end to end. Energy is conserved but the motion is chaotic for large swings. A twin released 0.001 rad away (pink) tracks the gold one for a while, then diverges. Short trail = the last 1.4 seconds.';m.p=[['a1','Start angle θ₁',.3,3,.1,2.2],['tw','Show twin (0/1)',0,1,1,1]]});
+upd('pendulum',m=>{m.desc='Two rods joined end to end, each carrying a weight. Energy is conserved but the motion is chaotic for large swings. A twin released 0.001 rad away (pink) tracks the gold one for a while, then diverges. Change the weights, even mid-swing: a light lower bob is flung about like a whip, a heavy one drags the upper rod around.';m.p=[['a1','Start angle θ₁',.3,3,.1,2.2],['m1','Upper mass m₁',.2,5,.1,1],['m2','Lower mass m₂',.2,5,.1,1],['tw','Show twin (0/1)',0,1,1,1]]});
 upd('vanderpol',m=>{m.desc='A self-sustaining oscillator that pumps energy in at small amplitude and drains it at large amplitude. Paths started outside (gold) spiral in, paths started inside (teal) spiral out, all onto one limit cycle. Arrows show the flow.'});
 upd('logistic',m=>{m.p=[['r','Fix r (2.8 = auto sweep)',2.8,4,.001,2.8],['z','Zoom window (1 full, 2 chaos, 3 period-3)',1,3,1,1]];m.desc='xₙ₊₁ = r xₙ(1−xₙ). As r grows the long-term behaviour doubles: period 1, 2, 4, 8… then chaos at r ≈ 3.5699 (Feigenbaum), with an island of period 3 at 3.8284. The readout gives the detected period and the Lyapunov exponent λ (λ<0 stable, λ>0 chaos). The coloured strip names each regime.'});
 upd('satellite',m=>{m.desc='Kepler’s laws: elliptical orbits with the planet at one focus; equal areas in equal times (both wedges); and energy conservation: kinetic energy rises exactly as potential energy falls. Pink arrow = velocity.'});
-upd('rocket',m=>{m.p=[['mr','Mass ratio m₀/m_f',5,16,.5,10],['pp','Pitch programme (low = flatter)',.3,1.2,.1,.5]];m.eq='Δv = vₑ·ln(m₀/m_f)  (gravity & pitch losses reduce it)';m.desc='Single stage launched vertically, then pitched over to horizontal by burnout. Low mass ratio: falls back. Around 10: reaches an ellipse. Above ~14: near escape. The camera follows the rocket and the read-out classifies the trajectory.'});
+upd('rocket',m=>{m.eq='Δv = vₑ·ln(m₀/m_f)  (gravity and steering losses reduce it)'});
 upd('square',m=>{m.title='Fourier series: square, saw & triangle';m.p=[['N','Harmonics',1,25,1,5],['wf','Wave (1 square, 2 saw, 3 triangle)',1,3,1,1]];m.desc='Circles rotate at integer multiples of a base frequency; the height of the chain tip is the wave. The faint curve is the ideal wave; near a jump the partial sums overshoot by about 9% however many terms (Gibbs). Spectrum bars show how fast amplitudes decay: 1/k for square, 1/k² for triangle.'});
 upd('heat',m=>{m.title='Heat equation (rod)';m.p=[['ic','Initial heat (1 spot, 2 two spots, 3 step)',1,3,1,1],['bc','Ends (1 held cold, 2 insulated)',1,2,1,1],['k','Diffusion speed',.1,.45,.05,.4]];m.desc='Heat flows from hot to cold. Top: temperature curve. Colour strip: the rod itself. Waterfall: every row is a later moment, so you see the spike spread and fade. Held-cold ends drain heat away; insulated ends conserve it, the rod levels to a constant.'});
 upd('clifford',m=>{m.desc='Sixty thousand iterates of one simple map, coloured by how often each pixel is visited (dark → violet → magenta → orange → white). Tiny changes to a and b rewrite the whole shape.'});
@@ -579,6 +523,372 @@ M('interference','Wave interference','u(x,t) = Σ sin(k·rᵢ − ωt) / √rᵢ
 CAT.wave[3].push('interference');
 CAT.uni=['BSc / MSc syllabus',15,340,['mandel','taylor','eigen','lotka','graddesc']];
 Object.assign(TIP,{interference:'Two sources: count the bright fringes on the screen curve, then shrink the wavelength.',mandel:'Zoom into the “seahorse valley” near −0.75 + 0.1i, then switch to Julia mode and slide c.',taylor:'Pick ln(1+x) and push the degree to 15: the fit stays perfect inside |x|<1 and explodes outside.',eigen:'Set a₁₂ = −a₂₁ and a₁₁ = a₂₂ to get a pure rotation: the eigenvectors vanish.',lotka:'Raise α: how do the cycles change for predators vs prey?',graddesc:'On Rosenbrock, raise the step until it diverges, then add momentum 0.9.'});
+})();
+
+/* ===== Eddy: a real fluid. Lattice Boltzmann (D2Q9) with a Smagorinsky eddy viscosity ======
+   The flow comes in from the left at speed U. Bodies are walls (half-way bounce-back). The force on
+   the body comes from the momentum the fluid gives it at each bounce, which gives drag and lift.
+   A probe in the wake measures the shedding frequency, and so the Strouhal number St = f·D/U.
+   Two passive dyes ride on the flow: a colour (blue above, red below) and stripes, like smoke lines.
+   Mouse / finger: move the body, stir the fluid, draw walls or erase them. */
+(() => {
+const { X, H } = VBViz, { C, T } = H;
+const CX = [0, 1, 0, -1, 0, 1, -1, -1, 1], CY = [0, 0, 1, 0, -1, 1, 1, -1, -1];
+const WT = [4 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 9, 1 / 36, 1 / 36, 1 / 36, 1 / 36], OPP = [0, 3, 4, 1, 2, 7, 8, 5, 6];
+const REFY = [0, 1, 4, 3, 2, 8, 7, 6, 5];                          // the same direction reflected off a horizontal wall
+const U0 = 0.1, CELLS = 19000, CS2 = 0.12 * 0.12;                  // inflow speed (lattice units), grid size, Smagorinsky constant²
+const VIEWS = ['Dye', 'Vorticity', 'Speed', 'Pressure'], MODES = ['drag to move the body', 'drag to stir the water', 'draw walls', 'rub out walls'];
+
+function make(NX, NY) {   // the body is ~15% of the channel height: little blockage
+  const N = NX * NY, L = { NX, NY, N, f: new Float32Array(9 * N), g: new Float32Array(9 * N), ux: new Float32Array(N), uy: new Float32Array(N), rho: new Float32Array(N),
+    solid: new Uint8Array(N), wall: new Uint8Array(N), dye: new Float32Array(N), str: new Float32Array(N), tmpA: new Float32Array(N), tmpB: new Float32Array(N),
+    step: 0, D: Math.max(9, Math.round(Math.min(NY / 6.5, NX / 9))), probe: [], St: 0, cross: [], lift: [], Fx: 0, Fy: 0, cd: 0, cl: 0 };
+  L.bx = Math.round(Math.min(NX * 0.24, NX / 2 - L.D * 1.5)); L.by = NY / 2 + 0.4;   // a hair off-centre: real flows are never perfectly symmetric
+  reset(L); return L;
+}
+function feq(i, r, u, v) { const cu = 3 * (CX[i] * u + CY[i] * v); return WT[i] * r * (1 + cu + 0.5 * cu * cu - 1.5 * (u * u + v * v)); }
+function reset(L) {
+  const { N, NY } = L;
+  for (let k = 0; k < N; k++) {
+    const y = (k / L.NX) | 0;
+    for (let i = 0; i < 9; i++) L.f[i * N + k] = feq(i, 1, U0, 0);
+    L.dye[k] = y < NY / 2 ? 1 : -1; L.str[k] = stripe(y);
+  }
+  L.step = 0; L.cross = []; L.St = 0; L.lift = [];
+}
+const stripe = (y) => 0.5 + 0.5 * Math.cos(2 * Math.PI * y / 7);
+
+/* the body: is the cell (x, y) inside it? */
+function inside(L, kind, ang, x, y) {
+  const D = L.D, dx = x - L.bx, dy = y - L.by, ca = Math.cos(ang), sa = Math.sin(ang);
+  const rx = dx * ca - dy * sa, ry = dx * sa + dy * ca;                  // body frame: the angle tilts it nose-up
+  if (kind === 0) return dx * dx + dy * dy <= D * D / 4;
+  if (kind === 1) return Math.abs(rx) <= D / 2 && Math.abs(ry) <= D / 2;
+  if (kind === 2) return Math.abs(rx) <= Math.max(1.1, D / 12) && Math.abs(ry) <= D * 0.6;
+  if (kind === 3) { const ch = 2.4 * D, xx = (rx + ch / 2) / ch; if (xx < 0 || xx > 1) return false;   // NACA 0012
+    const yt = 5 * 0.12 * ch * (0.2969 * Math.sqrt(xx) - 0.126 * xx - 0.3516 * xx * xx + 0.2843 * xx ** 3 - 0.1015 * xx ** 4); return Math.abs(ry) <= yt; }
+  const r2 = D * D / 4; return dx * dx + dy * dy <= r2 || (dx - 2.6 * D) ** 2 + dy * dy <= r2;     // two cylinders in a row
+}
+function build(L, kind, ang) {
+  const { NX, NY, N } = L;
+  for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) {
+    const k = y * NX + x, was = L.solid[k], now = inside(L, kind, ang, x + 0.5, y + 0.5) ? 1 : L.wall[k] ? 2 : 0;   // 1 body, 2 drawn wall (no force counted)
+    if (was && !now) for (let i = 0; i < 9; i++) L.f[i * N + k] = feq(i, 1, 0, 0);     // a cell the body has left: still water
+    L.solid[k] = now;
+  }
+  L.kind = kind; L.ang = ang; L.cross = []; L.St = 0;
+}
+
+/* one lattice step: pull from neighbours (with bounce-back and boundaries), then relax towards equilibrium.
+   Written out by hand for speed: this loop runs about two hundred thousand times a frame. */
+const EQ = new Float64Array(9), FI = new Float64Array(9), FEQ_INF = new Float64Array(9);
+function stepLBM(L, tau0, ramp) {
+  const { NX, NY, N, f, g, solid, ux, uy, rho } = L, Uin = U0 * ramp, cs = 18 * 1.4142 * CS2, t02 = tau0 * tau0, spx = Math.round(NX * 0.88);
+  for (let i = 0; i < 9; i++) FEQ_INF[i] = feq(i, 1, Uin, 0);
+  let Fx = 0, Fy = 0;
+  for (let y = 0; y < NY; y++) {
+    const edgeY = y === 0 || y === NY - 1;
+    for (let x = 0; x < NX; x++) {
+      const k = y * NX + x;
+      if (solid[k]) { ux[k] = 0; uy[k] = 0; rho[k] = 1; continue; }
+      if (x === 0) { const usq = 1.5 * Uin * Uin; for (let i = 0; i < 9; i++) { const cu = 3 * CX[i] * Uin; g[i * N + k] = WT[i] * (1 + cu + 0.5 * cu * cu - usq); } ux[k] = Uin; uy[k] = 0; rho[k] = 1; continue; }
+      let r = 0, mu = 0, mv = 0;
+      if (!edgeY && x < NX - 1) {                                   // interior: every neighbour exists
+        for (let i = 0; i < 9; i++) {
+          const sk = k - CY[i] * NX - CX[i]; let v;
+          if (solid[sk]) { const o = OPP[i]; v = f[o * N + k]; if (solid[sk] === 1) { Fx += 2 * v * CX[o]; Fy += 2 * v * CY[o]; } } else v = f[i * N + sk];
+          FI[i] = v; r += v; mu += v * CX[i]; mv += v * CY[i];
+        }
+      } else {
+        for (let i = 0; i < 9; i++) {
+          let sx = x - CX[i], sy = y - CY[i], ii = i, v;
+          if (sx >= NX) sx = NX - 1;                                     // outflow: let it leave
+          if (sy < 0 || sy >= NY) { sy = y; ii = REFY[i]; }               // free-slip walls top and bottom
+          const sk = sy * NX + sx;
+          if (solid[sk]) { const o = OPP[i]; v = f[o * N + k]; if (solid[sk] === 1) { Fx += 2 * v * CX[o]; Fy += 2 * v * CY[o]; } } else v = f[ii * N + sk];
+          FI[i] = v; r += v; mu += v * CX[i]; mv += v * CY[i];
+        }
+      }
+      const u = mu / r, w = mv / r, usq = 1.5 * (u * u + w * w);
+      let pxx = 0, pyy = 0, pxy = 0;
+      for (let i = 0; i < 9; i++) {
+        const cu = 3 * (CX[i] * u + CY[i] * w), e = WT[i] * r * (1 + cu + 0.5 * cu * cu - usq), ne = FI[i] - e; EQ[i] = e;
+        if (i) { pxx += CX[i] * CX[i] * ne; pyy += CY[i] * CY[i] * ne; pxy += CX[i] * CY[i] * ne; }
+      }
+      // eddy viscosity from the non-equilibrium stress (Smagorinsky): stays stable at high Reynolds number
+      const Q = Math.sqrt(2 * (pxx * pxx + pyy * pyy + 2 * pxy * pxy)), om = 2 / (tau0 + Math.sqrt(t02 + cs * Q / r));
+      for (let i = 0; i < 9; i++) g[i * N + k] = FI[i] + om * (EQ[i] - FI[i]);
+      if (x > spx) { const sg = 0.06 * ((x - spx) / (NX - spx)) ** 2; for (let i = 0; i < 9; i++) g[i * N + k] += sg * (FEQ_INF[i] - g[i * N + k]); }   // outlet sponge: sound waves leave instead of echoing
+      ux[k] = u; uy[k] = w; rho[k] = r;
+    }
+  }
+  L.f = g; L.g = f; L.Fx = Fx; L.Fy = Fy; L.step++;
+}
+
+/* carry the dyes along the flow (semi-Lagrangian: look back along the velocity) */
+function advect(L, n) {
+  const { NX, NY, ux, uy, solid } = L, A = L.tmpA, B = L.tmpB;
+  for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) {
+    const k = y * NX + x;
+    if (x === 0) { A[k] = y < NY / 2 ? 1 : -1; B[k] = stripe(y); continue; }
+    if (solid[k]) { A[k] = L.dye[k]; B[k] = L.str[k]; continue; }
+    let px = x - ux[k] * n, py = y - uy[k] * n;
+    px = Math.max(0, Math.min(NX - 1.001, px)); py = Math.max(0, Math.min(NY - 1.001, py));
+    const x0 = px | 0, y0 = py | 0, fx = px - x0, fy = py - y0, k0 = y0 * NX + x0;
+    A[k] = (L.dye[k0] * (1 - fx) + L.dye[k0 + 1] * fx) * (1 - fy) + (L.dye[k0 + NX] * (1 - fx) + L.dye[k0 + NX + 1] * fx) * fy;
+    B[k] = (L.str[k0] * (1 - fx) + L.str[k0 + 1] * fx) * (1 - fy) + (L.str[k0 + NX] * (1 - fx) + L.str[k0 + NX + 1] * fx) * fy;
+  }
+  L.tmpA = L.dye; L.dye = A; L.tmpB = L.str; L.str = B;
+}
+
+function render(L, view) {
+  const { NX, NY, N, ux, uy, rho, solid } = L;
+  if (!L.cv) { L.cv = document.createElement('canvas'); L.cv.width = NX; L.cv.height = NY; L.img = L.cv.getContext('2d').createImageData(NX, NY); }
+  const d = L.img.data, ws = 1 / (U0 * 3 / L.D);
+  for (let y = 0; y < NY; y++) for (let x = 0; x < NX; x++) {
+    const k = y * NX + x, o = k * 4; let r, g, b;
+    if (solid[k] && !L.wall[k]) { r = 14; g = 26; b = 34; }
+    else if (L.wall[k]) { r = 120; g = 130; b = 140; }
+    else if (view === 0) {                                         // dye: blue above, red below, with smoke-like stripes
+      const a = L.dye[k], s = 0.18 + 0.82 * L.str[k] ** 1.6, mix = Math.min(1, Math.abs(a));
+      if (a > 0) { r = 40; g = 120; b = 235; } else { r = 232; g = 64; b = 58; }
+      r = (r * mix + 10 * (1 - mix)) * s; g = (g * mix + 14 * (1 - mix)) * s; b = (b * mix + 22 * (1 - mix)) * s;
+    } else if (view === 1) {                                       // vorticity: red spins one way, blue the other
+      if (x < 2) { r = 16; g = 12; b = 18; } else {
+      const xm = Math.max(0, x - 1), xp = Math.min(NX - 1, x + 1), ym = Math.max(0, y - 1), yp = Math.min(NY - 1, y + 1);
+      const om = ((uy[y * NX + xp] - uy[y * NX + xm]) - (ux[yp * NX + x] - ux[ym * NX + x])) * 0.5 * ws;
+      const v = Math.max(-1, Math.min(1, om * 0.6)), m = Math.abs(v) ** 0.7;
+      if (v > 0) { r = 16 + 220 * m; g = 12 + 30 * m; b = 18 + 20 * m; } else { r = 16 + 20 * m; g = 12 + 80 * m; b = 18 + 220 * m; } }
+    } else if (view === 2) {                                       // speed: dark (still) through teal to warm gold (fast)
+      const v = Math.min(1, Math.hypot(ux[k], uy[k]) / (U0 * 1.6));
+      r = 10 + 245 * Math.max(0, v - 0.45) / 0.55; g = 14 + 200 * Math.min(1, v * 1.25); b = 24 + 150 * Math.sin(Math.min(1, v * 1.1) * Math.PI);
+    } else {                                                       // pressure (p = ρ/3) on the dynamic-pressure scale: orange high, cyan low
+      const v = Math.max(-1, Math.min(1, (rho[k] - 1) * 2 / (3 * U0 * U0) / 1.2)), m = Math.abs(v) ** 0.85;   // pressure coefficient Cp = Δp / ½ρU²
+      if (v > 0) { r = 14 + 240 * m; g = 16 + 120 * m; b = 22 + 20 * m; } else { r = 14 + 20 * m; g = 16 + 190 * m; b = 22 + 220 * m; }
+    }
+    d[o] = r; d[o + 1] = g; d[o + 2] = b; d[o + 3] = 255;
+  }
+  L.cv.getContext('2d').putImageData(L.img, 0, 0);
+}
+
+function outline(c, L, kind, ang, mp, cs) {
+  c.save(); c.fillStyle = '#1b2f3a'; c.strokeStyle = 'rgba(110,170,255,.9)'; c.lineWidth = 2;
+  c.beginPath();
+  const P0 = mp(L.bx, L.by), D = L.D * cs, ca = Math.cos(ang), sa = Math.sin(ang);
+  const rot = (rx, ry) => [P0[0] + (rx * ca + ry * sa) * cs, P0[1] + (-rx * sa + ry * ca) * cs];   // inverse of the body frame
+  if (kind === 0 || kind === 4) { c.arc(P0[0], P0[1], D / 2, 0, 7); if (kind === 4) { c.moveTo(P0[0] + 2.6 * D + D / 2, P0[1]); c.arc(P0[0] + 2.6 * D, P0[1], D / 2, 0, 7); } }
+  else if (kind === 1 || kind === 2) { const hx = kind === 1 ? L.D / 2 : Math.max(1.1, L.D / 12), hy = kind === 1 ? L.D / 2 : L.D * 0.6; [[-hx, -hy], [hx, -hy], [hx, hy], [-hx, hy]].forEach((q, i) => { const p = rot(q[0], q[1]); i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); }); c.closePath(); }
+  else { const ch = 2.4 * L.D; for (let j = 0; j <= 60; j++) { const th = j / 60 * 2 * Math.PI, xx = (1 - Math.cos(th)) / 2, yt = 5 * 0.12 * ch * (0.2969 * Math.sqrt(xx) - 0.126 * xx - 0.3516 * xx * xx + 0.2843 * xx ** 3 - 0.1015 * xx ** 4) * (th < Math.PI ? -1 : 1), p = rot(xx * ch - ch / 2, yt); j ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]); } c.closePath(); }
+  const gr = c.createRadialGradient(P0[0] - D * 0.2, P0[1] - D * 0.2, 1, P0[0], P0[1], D * 0.8); gr.addColorStop(0, '#2d4a55'); gr.addColorStop(1, '#13232c');
+  c.fillStyle = gr; c.shadowColor = 'rgba(0,0,0,.5)'; c.shadowBlur = 12; c.fill(); c.shadowBlur = 0; c.stroke(); c.restore();
+}
+
+/* mouse and finger */
+function bindPointer(cv, s) {
+  if (s.eb === cv) return; s.eb = cv; cv.style.touchAction = 'none';
+  let drag = null;
+  const at = (e) => { const L = s.lbm, r = cv.getBoundingClientRect(); if (!L || !L.map) return null; const { ox, oy, cs } = L.map;
+    return [(e.clientX - r.left - ox) / cs, (e.clientY - r.top - oy) / cs]; };
+  cv.addEventListener('pointerdown', (e) => {
+    const p = at(e), L = s.lbm; if (!p) return; const mode = s.par.mouse ?? 0;
+    if (mode === 0 && Math.hypot(p[0] - L.bx, p[1] - L.by) > L.D * 1.6 + (L.kind === 3 ? L.D : 0) + (L.kind === 4 ? 2.6 * L.D : 0)) return;
+    drag = { p, mode, id: e.pointerId }; cv.setPointerCapture(e.pointerId); e.preventDefault(); paint(p, p, mode);
+  });
+  cv.addEventListener('pointermove', (e) => { if (!drag || e.pointerId !== drag.id) return; const p = at(e); if (!p) return; paint(drag.p, p, drag.mode); drag.p = p; });
+  const up = (e) => { if (drag && e.pointerId === drag.id) drag = null; };
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  function paint(a, b, mode) {
+    const L = s.lbm; if (!L) return;
+    if (mode === 0) { L.bx = Math.max(L.D, Math.min(L.NX - L.D * (L.kind === 4 ? 4 : 1.5), L.bx + b[0] - a[0])); L.by = Math.max(L.D * 0.8, Math.min(L.NY - L.D * 0.8, L.by + b[1] - a[1])); L.moved = true; return; }
+    if (mode === 1) { L.stir = { x: b[0], y: b[1], u: Math.max(-0.12, Math.min(0.12, (b[0] - a[0]) * 0.05)), v: Math.max(-0.12, Math.min(0.12, (b[1] - a[1]) * 0.05)) }; return; }
+    const R = Math.max(1.5, L.D * 0.18), n = Math.ceil(Math.hypot(b[0] - a[0], b[1] - a[1])) + 1;
+    for (let j = 0; j <= n; j++) { const cx = a[0] + (b[0] - a[0]) * j / n, cy = a[1] + (b[1] - a[1]) * j / n;
+      for (let y = Math.floor(cy - R); y <= cy + R; y++) for (let x = Math.floor(cx - R); x <= cx + R; x++) {
+        if (x < 2 || y < 0 || x >= L.NX - 1 || y >= L.NY || (x - cx) ** 2 + (y - cy) ** 2 > R * R) continue;
+        L.wall[y * L.NX + x] = mode === 2 ? 1 : 0; } }
+    L.moved = true;
+  }
+}
+function stir(L) {
+  const st = L.stir; if (!st) return; L.stir = null;
+  const R = L.D * 0.9, { NX, NY, N, f } = L;
+  for (let y = Math.max(0, Math.floor(st.y - R)); y < Math.min(NY, st.y + R); y++) for (let x = Math.max(1, Math.floor(st.x - R)); x < Math.min(NX, st.x + R); x++) {
+    const k = y * NX + x, q = 1 - ((x - st.x) ** 2 + (y - st.y) ** 2) / (R * R); if (q <= 0 || L.solid[k]) continue;
+    for (let i = 0; i < 9; i++) f[i * N + k] += WT[i] * 3 * (CX[i] * st.u + CY[i] * st.v) * q;
+  }
+}
+
+X.eddy = (c, w, h, t, s) => {
+  const par = s.par, Re = par.re ?? 100, view = s.clean ? 0 : (par.view ?? 0), kind = par.body ?? 0, ang = -(par.aoa ?? 0) * Math.PI / 180;   // positive angle: nose up (screen y points down)
+  const NX = Math.max(60, Math.round(Math.sqrt(CELLS * w / h))), NY = Math.max(40, Math.round(NX * h / w));
+  let L = s.lbm;
+  if (!L || L.NX !== NX || L.NY !== NY) { L = s.lbm = make(NX, NY); build(L, kind, ang); }
+  if (L.kind !== kind || Math.abs(L.ang - ang) > 1e-6 || L.moved) { if (L.kind !== kind) { L.bx = Math.round(Math.min(NX * 0.24, NX / 2 - L.D * 1.5)); L.by = NY / 2 + 0.4; } build(L, kind, ang); L.moved = false; }
+  if (L.Re !== Re) { L.Re = Re; L.cross = []; L.St = 0; }
+  if (!s.clean) bindPointer(c.canvas, s);
+  const Dch = kind === 3 ? 2.4 * L.D * Math.abs(Math.sin(ang)) + 0.3 * L.D : kind === 2 ? 1.2 * L.D * Math.abs(Math.cos(ang)) + 0.2 * L.D : L.D;   // the width the flow sees
+  const nu = U0 * L.D / Re, tau0 = 3 * nu + 0.5;
+  // as many steps as fit in ~9 ms, scaled by the speed slider
+  if (s.dt > 0) {
+    const want = Math.min(40, Math.max(1, Math.round(s.dt * 60 * 12))), t0 = performance.now(); let n = 0;
+    while (n < want && (n < 2 || performance.now() - t0 < 10)) {
+      stir(L); stepLBM(L, tau0, Math.min(1, L.step / 400)); n++;
+      if (L.step < 500) { const k = Math.round(L.by) * NX + Math.round(L.bx + L.D); for (let i = 0; i < 9; i++) L.f[i * L.N + k] += WT[i] * 3 * CY[i] * 0.01; }   // a small nudge starts the shedding sooner
+      // probe in the wake: the cross-flow speed changes sign twice per shed pair
+      const pk = Math.round(Math.min(NY - 1, L.by + 0.3 * L.D)) * NX + Math.min(NX - 2, Math.round(L.bx + (kind === 4 ? 4.6 : 2.5) * L.D + (kind === 3 ? L.D : 0)));
+      const v = L.uy[pk]; if (L.pv !== undefined && L.pv < 0 && v >= 0 && L.step > 700) { L.cross.push(L.step); if (L.cross.length > 6) L.cross.shift(); if (L.cross.length >= 3) { const per = (L.cross[L.cross.length - 1] - L.cross[0]) / (L.cross.length - 1); L.St = Dch / (per * U0); } } L.pv = v;
+    }
+    advect(L, n);
+    const q = 0.5 * U0 * U0 * (kind === 3 ? 2.4 * L.D : kind === 2 ? 1.2 * L.D : L.D); L.cd = L.cd * 0.9 + 0.1 * L.Fx / q; L.cl = L.Fy / q;   // per unit of chord (wing, plate) or diameter
+    L.lift.push(-L.cl); if (L.lift.length > 220) L.lift.shift();
+    let bad = false; for (let k = 0; k < L.N; k += 97) if (!(L.rho[k] > 0.3 && L.rho[k] < 3)) { bad = true; break; }
+    if (bad) { reset(L); build(L, kind, ang); }                          // blew up (e.g. a wild stir): start the flow again
+  }
+  render(L, view);
+  const cs = Math.max(w / NX, h / NY), ox = (w - NX * cs) / 2, oy = (h - NY * cs) / 2; L.map = { ox, oy, cs };
+  c.save(); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = 'high'; c.drawImage(L.cv, ox, oy, NX * cs, NY * cs); c.restore();
+  outline(c, L, kind, ang, (x, y) => [ox + x * cs, oy + y * cs], cs);
+  if (s.clean) return;
+  // what is happening, measured live
+  const regime = Re < 6 ? 'creeping flow: no separation' : Re < 47 ? 'two steady eddies behind the body' : Re < 190 ? 'vortex shedding' : 'vortex shedding (3-D and turbulent in real life)';
+  c.font = '600 13px system-ui,sans-serif';
+  T(c, 'Re = ' + Re + '   ·   ' + regime, 16, 22, 'left', 'rgba(255,255,255,.92)');
+  const rosh = kind === 0 && Re >= 47 ? (Re < 300 ? 0.212 * (1 - 21.2 / Re) : 0.212 * (1 - 12.7 / Re)) : null;
+  T(c, Re < 47 ? 'steady: no shedding below Re ≈ 47' : 'Strouhal St = ' + (L.St ? L.St.toFixed(3) : 'measuring…') + (rosh ? '   (Roshko fit ' + rosh.toFixed(3) + ')' : ''), 16, 40, 'left', 'rgba(170,205,255,.9)');
+  T(c, 'drag Cd = ' + (isFinite(L.cd) ? L.cd.toFixed(2) : '–') + '    lift Cl = ' + (isFinite(L.cl) ? (-L.cl >= 0 ? '+' : '') + (-L.cl).toFixed(2) : '–'), 16, 58, 'left', 'rgba(255,255,255,.72)');
+  // lift over time
+  const gw = Math.min(200, w * 0.32), gh = 38, gx = w - gw - 14, gy = h - gh - 14;
+  c.fillStyle = 'rgba(5,10,16,.55)'; c.fillRect(gx - 6, gy - 18, gw + 12, gh + 24);
+  T(c, 'lift', gx, gy - 6, 'left', 'rgba(255,255,255,.6)');
+  const mx = Math.max(0.3, ...L.lift.map(Math.abs)); c.strokeStyle = 'rgba(255,255,255,.15)'; c.beginPath(); c.moveTo(gx, gy + gh / 2); c.lineTo(gx + gw, gy + gh / 2); c.stroke();
+  c.strokeStyle = '#7fb4ff'; c.lineWidth = 1.6; c.beginPath(); L.lift.forEach((v, i) => { const X_ = gx + gw * i / 219, Y_ = gy + gh / 2 - v / mx * gh / 2; i ? c.lineTo(X_, Y_) : c.moveTo(X_, Y_); }); c.stroke();
+  T(c, VIEWS[view] + '  ·  ' + MODES[par.mouse ?? 0], 34, h - 14, 'left', 'rgba(255,255,255,.6)');
+};
+X.eddy.keep = ['re', 'view', 'body', 'aoa', 'mouse'];   // changing these does not restart the flow
+})();
+
+/* ===== Rocket launch, start to finish ======================================================
+   Units: Earth's radius R = 1, GM = 1, so circular-orbit speed at the surface v꜀ = 1 (7.9 km/s)
+   and one time unit is about 13 minutes. Exhaust speed 0.6 v꜀ (4.7 km/s); thrust is 1.4 times
+   the launch weight. The rocket rises straight up, then tips over gradually (a gravity turn) until
+   its engine cuts off. Each run ends in an orbit flown once round, an escape, or a fall back. */
+(() => {
+const { X, H } = VBViz, { C, T, TAU } = H;
+const VE = 0.6, TW = 1.4;
+const lerp = (a, b, t) => a + (b - a) * t, sstep = (t) => { t = Math.max(0, Math.min(1, t)); return t * t * (3 - 2 * t); };
+function elements(q) {                                                // the orbit (a conic) the rocket would follow with the engine off
+  const r = Math.hypot(q.x, q.y), v2 = q.vx * q.vx + q.vy * q.vy, h = q.x * q.vy - q.y * q.vx, eps = v2 / 2 - 1 / r;
+  const rv = q.x * q.vx + q.y * q.vy, ex = (v2 - 1 / r) * q.x - rv * q.vx, ey = (v2 - 1 / r) * q.y - rv * q.vy, e = Math.hypot(ex, ey), p = h * h;
+  return { eps, h, e, p, w: Math.atan2(ey, ex), peri: p / (1 + e), apo: e < 1 ? p / (1 - e) : Infinity };
+}
+function start(s) {
+  s.r = { x: 0, y: 1, vx: 0, vy: 0, m: 1, T: 0, phase: 'pad', clock: 0, swept: 0, ang0: null, end: '', hold: 0 };
+  s.tr = []; s.fx = []; s.cam = null;
+  if (!s.stars) { s.stars = []; for (let i = 0; i < 160; i++) s.stars.push([Math.random(), Math.random(), Math.random()]); }
+}
+X.rocket = (c, w, h, t, s) => {
+  const mr = s.par.mr ?? 10, pp = s.par.pp ?? 0.5, mdot = TW / VE, mf = 1 / mr, tb = (1 - mf) / mdot, tv = 0.035;
+  if (!s.r) start(s);
+  const q = s.r, dt = s.dt;
+  // ---- advance
+  if (dt > 0) {
+    q.clock += dt;
+    if (q.phase === 'pad') { if (q.clock > 1.2) q.phase = 'burn'; }
+    else if (q.phase === 'done') { q.hold += dt; if (q.hold > 3.2) { start(s); return; } }
+    else {
+      const rate = q.phase === 'burn' ? 0.07 : 1.5, sim = dt * rate, n = Math.max(1, Math.min(160, Math.ceil(sim / 0.0007))), d = sim / n;
+      for (let i = 0; i < n; i++) {
+        const r = Math.hypot(q.x, q.y), ux = q.x / r, uy = q.y / r; let ax = -ux / (r * r), ay = -uy / (r * r);
+        if (q.phase === 'burn') {
+          const th = Math.PI / 2 * Math.min(1, Math.max(0, (q.T - tv) / (tb - tv))) ** pp;   // pitch from vertical
+          const dx = ux * Math.cos(th) + uy * Math.sin(th), dy = uy * Math.cos(th) - ux * Math.sin(th), a = mdot * VE / q.m;
+          ax += a * dx; ay += a * dy; q.m = Math.max(mf, q.m - mdot * d); q.th = th;
+          if (q.m <= mf + 1e-9) { q.phase = 'coast'; q.meco = q.clock; q.ang0 = Math.atan2(q.y, q.x); q.prevA = q.ang0; s.fx.push({ k: 'meco', t: q.clock }); }
+        }
+        q.vx += ax * d; q.vy += ay * d; q.x += q.vx * d; q.y += q.vy * d; q.T += d;
+        const rn = Math.hypot(q.x, q.y);
+        if (rn < 1 && q.T > 0.02) { const k = 1 / rn; q.x *= k; q.y *= k; q.phase = 'done'; q.end = 'fell'; s.fx.push({ k: 'boom', t: q.clock, x: q.x, y: q.y }); break; }
+        if (q.phase === 'coast') {
+          const A = Math.atan2(q.y, q.x); let dA = A - q.prevA; if (dA > Math.PI) dA -= TAU; if (dA < -Math.PI) dA += TAU; q.swept += Math.abs(dA); q.prevA = A;
+          const el = elements(q);
+          if (el.eps >= 0 && rn > 5) { q.phase = 'done'; q.end = 'escape'; break; }
+          if (q.swept >= TAU) { q.phase = 'done'; q.end = 'orbit'; break; }
+        }
+      }
+      if (q.phase === 'burn' || q.phase === 'coast') { s.tr.push([q.x, q.y]); if (s.tr.length > 5000) s.tr.shift(); }
+    }
+  }
+  const el = elements(q), rr = Math.hypot(q.x, q.y), sp = Math.hypot(q.vx, q.vy);
+  // ---- camera: close on the pad at first, then out to fit the whole path
+  const fitR = q.end === 'escape' || el.eps >= 0 ? Math.max(1.8, rr * 1.25) : Math.max(1.35, Math.min(8, (el.apo < Infinity ? el.apo : rr) * 1.12));
+  const z = q.phase === 'pad' ? 0 : sstep((q.T / tb) * 1.4 - 0.15) * 0.75 + (q.phase === 'burn' ? 0 : 0.25) * sstep((q.clock - (q.meco || q.clock)) / 1.5);
+  const zz = Math.min(1, q.phase === 'coast' || q.phase === 'done' ? Math.max(z, 0.75 + 0.25 * sstep((q.clock - (q.meco || 0)) / 1.5)) : z);
+  const tgt = { cx: lerp(q.x, 0, zz), cy: lerp(q.y + 0.04, 0, zz), vr: lerp(0.13, fitR, zz ** 1.6) };
+  if (!s.cam) s.cam = tgt; else { const k = dt > 0 ? 0.12 : 0; s.cam.cx += (tgt.cx - s.cam.cx) * k; s.cam.cy += (tgt.cy - s.cam.cy) * k; s.cam.vr += (tgt.vr - s.cam.vr) * k; }
+  const cam = s.cam, sc = Math.min(w, h) * 0.5 / cam.vr, mp = (x, y) => [w / 2 + (x - cam.cx) * sc, h / 2 - (y - cam.cy) * sc], O = mp(0, 0);
+  // ---- sky, stars, planet, air
+  c.fillStyle = '#050b14'; c.fillRect(0, 0, w, h);
+  for (const st of s.stars) { c.fillStyle = 'rgba(255,255,255,' + (0.25 + 0.6 * st[2]) + ')'; c.fillRect(st[0] * w, st[1] * h, 1.3, 1.3); }
+  const air = c.createRadialGradient(O[0], O[1], sc * 0.98, O[0], O[1], sc * 1.07); air.addColorStop(0, 'rgba(120,200,255,.45)'); air.addColorStop(1, 'rgba(120,200,255,0)');
+  c.fillStyle = air; c.beginPath(); c.arc(O[0], O[1], sc * 1.07, 0, TAU); c.fill();
+  const gr = c.createRadialGradient(O[0] - sc * 0.35, O[1] - sc * 0.35, sc * 0.1, O[0], O[1], sc); gr.addColorStop(0, '#3fa58f'); gr.addColorStop(0.7, '#1d5a52'); gr.addColorStop(1, '#0d2f2b');
+  c.fillStyle = gr; c.beginPath(); c.arc(O[0], O[1], sc, 0, TAU); c.fill();
+  // launch tower at the top of the planet
+  const pad = mp(0, 1), tH = 0.012 * sc; if (tH > 2) { c.fillStyle = '#9aa7b0'; c.fillRect(pad[0] - tH * 0.9, pad[1] - tH * 2.2, tH * 0.35, tH * 2.2); c.fillRect(pad[0] - tH * 1.6, pad[1] - 2, tH * 3.2, 3); }
+  // ---- the orbit it would follow with the engine off (dashed)
+  if (q.phase !== 'pad' && rr > 1.002) {
+    c.save(); c.setLineDash([5, 6]); c.strokeStyle = el.eps >= 0 ? 'rgba(127,224,210,.7)' : el.peri < 1 ? 'rgba(244,114,182,.75)' : 'rgba(127,224,210,.75)'; c.lineWidth = 1.4; c.beginPath();
+    let first = true; const nuMax = el.e >= 1 ? Math.acos(-1 / el.e) * 0.96 : Math.PI;
+    for (let j = 0; j <= 240; j++) {
+      const nu = -nuMax + 2 * nuMax * j / 240, r = el.p / (1 + el.e * Math.cos(nu)); if (r < 0.999 || r > 20) { first = true; continue; }
+      const a = nu + el.w, P = mp(r * Math.cos(a), r * Math.sin(a)); first ? c.moveTo(P[0], P[1]) : c.lineTo(P[0], P[1]); first = false;
+    }
+    c.stroke(); c.restore();
+  }
+  // ---- path flown
+  if (s.tr.length > 1) { c.strokeStyle = C.gold; c.lineWidth = 2; c.beginPath(); s.tr.forEach((p, i) => { const P = mp(p[0], p[1]); i ? c.lineTo(P[0], P[1]) : c.moveTo(P[0], P[1]); }); c.stroke(); }
+  // ---- rocket and plume
+  const P = mp(q.x, q.y), burn = q.phase === 'burn', ux = q.x / rr, uy = q.y / rr;
+  let dx, dy; if (burn || sp < 0.02) { const th = q.th || 0; dx = ux * Math.sin(th) * 0 + (ux * Math.cos(th) + uy * Math.sin(th)); dy = uy * Math.cos(th) - ux * Math.sin(th); } else { dx = q.vx / sp; dy = q.vy / sp; }
+  if (q.phase === 'pad') { dx = 0; dy = 1; }
+  const L = Math.max(9, Math.min(22, 0.02 * sc)), sx = dx, sy = -dy, nx = -sy, ny = sx;
+  if (burn && dt > 0) for (let k = 0; k < 3; k++) s.fx.push({ k: 'smoke', t: q.clock, x: P[0] - sx * L * 0.7 + (Math.random() - 0.5) * 4, y: P[1] - sy * L * 0.7 + (Math.random() - 0.5) * 4, vx: -sx * (40 + 60 * Math.random()) + (Math.random() - 0.5) * 30, vy: -sy * (40 + 60 * Math.random()) + (Math.random() - 0.5) * 30, low: rr < 1.03 });
+  s.fx = s.fx.filter((f) => q.clock - f.t < (f.k === 'smoke' ? (f.low ? 1.6 : 0.5) : 2.5));
+  for (const f of s.fx) if (f.k === 'smoke') {
+    const a = (q.clock - f.t) / (f.low ? 1.6 : 0.5), px = f.x + f.vx * (q.clock - f.t), py = f.y + f.vy * (q.clock - f.t);
+    c.fillStyle = f.low ? 'rgba(220,220,225,' + 0.35 * (1 - a) + ')' : 'rgba(255,170,80,' + 0.6 * (1 - a) + ')'; c.beginPath(); c.arc(px, py, (f.low ? 3 + 16 * a : 2 + 5 * a), 0, TAU); c.fill();
+  }
+  if (burn) { const fl = L * (0.9 + 0.5 * Math.random()); const g2 = c.createLinearGradient(P[0] - sx * L * 0.5, P[1] - sy * L * 0.5, P[0] - sx * (L * 0.5 + fl), P[1] - sy * (L * 0.5 + fl)); g2.addColorStop(0, '#fff3c4'); g2.addColorStop(0.4, '#ffa53a'); g2.addColorStop(1, 'rgba(255,80,40,0)');
+    c.fillStyle = g2; c.beginPath(); c.moveTo(P[0] - sx * L * 0.45 + nx * L * 0.2, P[1] - sy * L * 0.45 + ny * L * 0.2); c.lineTo(P[0] - sx * (L * 0.5 + fl), P[1] - sy * (L * 0.5 + fl)); c.lineTo(P[0] - sx * L * 0.45 - nx * L * 0.2, P[1] - sy * L * 0.45 - ny * L * 0.2); c.fill(); }
+  if (q.end !== 'fell' && cam.vr > 0.6) { c.fillStyle = 'rgba(255,220,140,.25)'; c.beginPath(); c.arc(P[0], P[1], L * 0.9, 0, TAU); c.fill(); }   // a halo so it stays visible when zoomed out
+  if (q.end !== 'fell') {
+    c.fillStyle = '#f1ecdc'; c.beginPath(); c.moveTo(P[0] + sx * L * 0.6, P[1] + sy * L * 0.6);
+    c.lineTo(P[0] - sx * L * 0.45 + nx * L * 0.18, P[1] - sy * L * 0.45 + ny * L * 0.18); c.lineTo(P[0] - sx * L * 0.45 - nx * L * 0.18, P[1] - sy * L * 0.45 - ny * L * 0.18); c.fill();
+    c.fillStyle = '#e0bd6c'; c.beginPath(); c.moveTo(P[0] - sx * L * 0.2 + nx * L * 0.18, P[1] - sy * L * 0.2 + ny * L * 0.18); c.lineTo(P[0] - sx * L * 0.5 + nx * L * 0.33, P[1] - sy * L * 0.5 + ny * L * 0.33); c.lineTo(P[0] - sx * L * 0.45, P[1] - sy * L * 0.45); c.fill();
+    c.beginPath(); c.moveTo(P[0] - sx * L * 0.2 - nx * L * 0.18, P[1] - sy * L * 0.2 - ny * L * 0.18); c.lineTo(P[0] - sx * L * 0.5 - nx * L * 0.33, P[1] - sy * L * 0.5 - ny * L * 0.33); c.lineTo(P[0] - sx * L * 0.45, P[1] - sy * L * 0.45); c.fill();
+  }
+  for (const f of s.fx) if (f.k === 'boom') { const a = (q.clock - f.t) / 2.5, B = mp(f.x, f.y); c.strokeStyle = 'rgba(255,150,80,' + (1 - a) + ')'; c.lineWidth = 3; c.beginPath(); c.arc(B[0], B[1], 6 + 40 * a, 0, TAU); c.stroke(); }
+  if (s.clean) return;
+  // ---- readouts
+  const used = VE * Math.log(1 / q.m), ideal = VE * Math.log(mr);
+  c.font = '600 13px system-ui,sans-serif';
+  let msg, col = 'rgba(255,255,255,.92)';
+  if (q.phase === 'pad') msg = 'T − ' + Math.max(0, Math.ceil((1.2 - q.clock) * 3)) + ' … liftoff';
+  else if (q.phase === 'burn') msg = (q.th || 0) < 0.05 ? 'Liftoff: rising straight up' : 'Gravity turn: pitched ' + Math.round((q.th || 0) * 180 / Math.PI) + '° from vertical';
+  else if (q.phase === 'coast') msg = el.eps >= 0 ? 'Engine off. Faster than escape speed: leaving Earth' : el.peri < 1 ? 'Engine off. Not fast enough: this path meets the ground' : 'Engine off. Coasting in orbit, once round';
+  else if (q.end === 'orbit') { msg = '✓ Orbit complete'; col = '#7fe0d2'; }
+  else if (q.end === 'escape') { msg = '✓ Escaped Earth’s gravity'; col = '#7fe0d2'; }
+  else { msg = '✗ Fell back: suborbital. Raise the mass ratio'; col = '#f472b6'; }
+  T(c, msg, 16, 22, 'left', col);
+  const orb = el.eps >= 0 ? 'escape path (energy ≥ 0)' : el.peri < 1 ? 'coasting now would reach ' + Math.round((el.apo - 1) * 6371) + ' km, then hit the ground' : 'orbit: lowest ' + Math.round((el.peri - 1) * 6371) + ' km, highest ' + Math.round((el.apo - 1) * 6371) + ' km';
+  if (q.phase !== 'pad') T(c, orb, 16, 40, 'left', el.peri < 1 && el.eps < 0 ? 'rgba(244,114,182,.9)' : 'rgba(170,230,220,.85)');
+  T(c, 'Δv used ' + used.toFixed(2) + ' of ' + ideal.toFixed(2) + ' v꜀ (vₑ ln m₀/m)', 16, 58, 'left', 'rgba(255,255,255,.65)');
+  T(c, 'altitude ' + Math.round(Math.max(0, rr - 1) * 6371) + ' km    speed ' + (sp * 7.91).toFixed(2) + ' km/s', 16, 76, 'left', 'rgba(255,255,255,.7)');
+  // fuel gauge
+  const fuel = (q.m - mf) / (1 - mf), gx = w - 26, gy = 16, gh = Math.min(120, h * 0.35);
+  c.fillStyle = 'rgba(255,255,255,.12)'; c.fillRect(gx, gy, 10, gh); c.fillStyle = fuel > 0.2 ? '#e0bd6c' : '#f97316'; c.fillRect(gx, gy + gh * (1 - fuel), 10, gh * fuel);
+  c.save(); c.translate(gx - 6, gy + gh / 2); c.rotate(-Math.PI / 2); T(c, 'fuel', 0, 0, 'center', 'rgba(255,255,255,.6)'); c.restore();
+};
 })();
 
 export { META as exhibits, CAT as exhibitCategories, TIP as exhibitTips };

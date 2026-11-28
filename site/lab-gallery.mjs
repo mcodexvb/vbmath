@@ -1,6 +1,6 @@
 // Math Gallery: an explorable essay. Each idea gets a few lines of explanation,
 // a live figure, its controls directly underneath, and things to try.
-import {exhibits, exhibitCategories, exhibitTips, mountExhibit} from "./lab-exhibits.mjs?v=3.4";
+import {exhibits, exhibitCategories, exhibitTips, mountExhibit} from "./lab-exhibits.mjs?v=3.5";
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -29,14 +29,14 @@ const NOTES = {
   sierpinski: {seen: "Fractal antennas and Pascal’s triangle mod 2.", tries: ["Count the triangles at each step: 1, 3, 9, 27, …"]},
   mandel: {seen: "Complex dynamics and fractal art; the Mandelbrot set is a map of all Julia sets.", tries: ["Zoom into the boundary: it never gets simpler.", "Switch to Julia mode and slide c: inside the Mandelbrot set the Julia set is one piece, outside it shatters into dust."]},
   lorenz: {seen: "Why weather forecasts fail beyond a week or two.", tries: ["Watch the separation graph grow by orders of magnitude.", "Set ρ near 14: the motion spirals in and settles. At 28 it never does."]},
-  pendulum: {seen: "Robot-arm dynamics and classroom chaos demonstrations.", tries: ["Watch the twin: for a while it shadows the main pendulum, then breaks away."]},
+  pendulum: {seen: "Robot-arm dynamics and classroom chaos demonstrations.", tries: ["Watch the twin: for a while it shadows the main pendulum, then breaks away.", "Make the lower mass 0.2: it whips around while the upper rod barely notices.", "Make the upper mass 5 and the lower 0.2: the top swings like a simple pendulum, the bottom goes wild.", "Change a mass mid-swing: the energy shown jumps, then stays constant again."]},
   vanderpol: {seen: "Early radio circuits, heartbeat and neuron models.", tries: ["μ ≈ 0.1: a near-circular loop.", "μ = 4: sharp, relaxation-style jumps."]},
   logistic: {seen: "Population ecology and the study of routes to chaos.", tries: ["Follow the sweep to r ≈ 3.83: a window of period-3 order inside the chaos."]},
   clifford: {seen: "Generative art and the study of strange attractors.", tries: ["Change a by 0.05 at a time and watch the structure bloom and collapse."]},
   satellite: {seen: "GPS and communications satellites, comet orbits.", tries: ["e = 0 gives a circle at constant speed.", "At 0.85 the satellite whips past the planet and crawls at the far end."]},
   rocket: {seen: "Mission design, and why real rockets are built in stages.", tries: ["Sweep the mass ratio from 5 to 16 and compare the paths against the ideal Δv readout."]},
   heat: {seen: "Cooling of materials, spreading of pollutants, and option pricing.", tries: ["Compare cold ends with insulated ends: only one keeps its heat."]},
-  eddy: {seen: "Chimneys, bridge cables and ocean wakes that sing in the wind.", tries: ["Raise the strength: the wake swirls harder.", "Shorten the period for a tightly packed street."]}
+  eddy: {seen: "Chimneys, bridge cables and ocean wakes that sing in the wind; the Tacoma Narrows bridge; Kármán streets in clouds behind islands.", tries: ["Raise Re from 40 to 60: the steady pair of eddies starts to shed.", "Switch the body to Wing and tilt it to 15°: lift appears; at 30° it stalls and sheds.", "Choose Draw wall and build a channel or a second obstacle in the wake.", "Choose Vorticity: red and blue are spins in opposite directions."]},
 };
 const CONCEPTS = {
   "Fourier series": "Any periodic shape is a sum of waves, or rotating circles, of different sizes and speeds.",
