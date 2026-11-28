@@ -1575,3 +1575,5 @@ body.vb-coll-open .vb-coll{display:flex}
 .home-figure figcaption{font:500 12.5px var(--f-ui);color:var(--hero-ink-2);margin-top:4px;text-align:right}
 .home-figure figcaption a{color:var(--hero-ink);text-decoration:none;border-bottom:1px solid color-mix(in srgb,currentColor 40%,transparent)}
 .home-figure figcaption a:hover{border-bottom-color:currentColor}
+/* the home page's live figure is only a picture: it takes no taps or drags */
+.home-figure .home-exhibit canvas{pointer-events:none}

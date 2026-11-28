@@ -8,7 +8,7 @@ const U = (w, h, k) => Math.min(w, h) * k;
 const P = (c, pts, close) => { c.beginPath(); pts.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); if (close) c.closePath(); c.stroke(); };
 const dot = (c, x, y, r, col) => { c.fillStyle = col; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); };
 const circ = (c, x, y, r, col) => { c.strokeStyle = col; c.beginPath(); c.arc(x, y, r, 0, TAU); c.stroke(); };
-const T = (c, s, x, y, al = 'center', col = C.txt) => { c.fillStyle = col; c.textAlign = al; c.fillText(s, x, y); };
+const T = (c, s, x, y, al = 'center', col = C.txt) => { if (c.__clean) return; c.fillStyle = col; c.textAlign = al; c.fillText(s, x, y); };
 const fade = (c, pts, col) => { c.strokeStyle = col; const n = pts.length; for (let i = 1; i < n; i++) { c.globalAlpha = (i / n) ** 1.5; c.beginPath(); c.moveTo(pts[i - 1][0], pts[i - 1][1]); c.lineTo(pts[i][0], pts[i][1]); c.stroke(); } c.globalAlpha = 1; };
 const rk = (f, y, dt) => { const a = (b, k, s) => b.map((v, i) => v + k[i] * s), k1 = f(y), k2 = f(a(y, k1, dt / 2)), k3 = f(a(y, k2, dt / 2)), k4 = f(a(y, k3, dt)); return y.map((v, i) => v + dt / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i])); };
 const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
@@ -141,11 +141,13 @@ const X = {
   }
 };
 
-function mount(canvas, id) {
+// opts.clean: the figure alone, without labels or inset charts (for small frames such as the home page)
+function mount(canvas, id, opts) {
   const draw = X[id];
   if (!draw) throw new Error("Unknown exhibit: " + id);
   const context = canvas.getContext("2d");
-  const state = {t:0, dt:0, speed:1, par:{}};
+  const state = {t:0, dt:0, speed:1, par:{}, clean:!!(opts && opts.clean)};
+  context.__clean = state.clean;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let width = 0, height = 0, frame = 0, previous;
   let visible = false, playing = !reducedMotion.matches;
@@ -332,11 +334,11 @@ const MONO='500 11px "JetBrains Mono",ui-monospace,Menlo,monospace',SANS='500 11
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const nice=r=>{const p=10**Math.floor(Math.log10(r/4)),m=r/4/p;return p*(m<1.5?1:m<3.5?2:m<7.5?5:10)};
 const fadeB=(c,pts,col,n=24,lw=1.6)=>{const L=pts.length;if(L<2)return;c.strokeStyle=col;c.lineWidth=lw;const k=Math.ceil(L/n);for(let i=0;i<L-1;i+=k){c.globalAlpha=.07+.93*(i/L)**1.4;c.beginPath();c.moveTo(pts[i][0],pts[i][1]);for(let j=i+1;j<=Math.min(i+k,L-1);j++)c.lineTo(pts[j][0],pts[j][1]);c.stroke()}c.globalAlpha=1;c.lineWidth=1.4};
-const box=(c,x,y,w,h)=>{c.fillStyle='rgba(6,20,24,.72)';c.beginPath();c.roundRect?c.roundRect(x,y,w,h,8):c.rect(x,y,w,h);c.fill()};
+const box=(c,x,y,w,h)=>{if(c.__clean)return;c.fillStyle='rgba(6,20,24,.72)';c.beginPath();c.roundRect?c.roundRect(x,y,w,h,8):c.rect(x,y,w,h);c.fill()};
 const lut=(stops,n=256)=>{const o=[];for(let i=0;i<n;i++){const v=i/(n-1);let j=0;while(j<stops.length-2&&v>stops[j+1][0])j++;const[a,A]=stops[j],[b,B]=stops[j+1],f=clamp((v-a)/(b-a),0,1);o.push(A.map((q,k)=>q+(B[k]-q)*f))}return o};
 const hsl=(h,s,l)=>{const a=s*Math.min(l,1-l),f=n=>{const k=(n+h/30)%12;return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,9-k,1))))};return[f(0),f(8),f(4)]};
 /* pan / pinch / wheel zoom + on-canvas buttons; view = s.vw {cx,cy,sc}  (screen = w/2+(x-cx)sc , h/2-(y-cy)sc) */
-const zoomable=(c,s)=>{const cv=c.canvas;if(s.zb===cv)return;s.zb=cv;cv.style.touchAction='none';const ptrs=new Map();let lastD=0;
+const zoomable=(c,s)=>{const cv=c.canvas;if(s.clean||s.zb===cv)return;s.zb=cv;cv.style.touchAction='none';const ptrs=new Map();let lastD=0;
 const R=()=>cv.getBoundingClientRect(),zoomAt=(px,py,f)=>{const v=s.vw,r=R();if(!v)return;const x=v.cx+(px-r.width/2)/v.sc,y=v.cy-(py-r.height/2)/v.sc;v.sc=clamp(v.sc*f,5,1e13);v.cx=x-(px-r.width/2)/v.sc;v.cy=y+(py-r.height/2)/v.sc;s.dirty=1};
 cv.addEventListener('wheel',e=>{e.preventDefault();const r=R();zoomAt(e.clientX-r.left,e.clientY-r.top,Math.exp(-e.deltaY*.0015))},{passive:false});
 cv.addEventListener('pointerdown',e=>{const r=R(),px=e.clientX-r.left,py=e.clientY-r.top;if(px>r.width-38&&px<r.width-6&&py>6&&py<110){const i=Math.floor((py-8)/34);if(i===0)zoomAt(r.width/2,r.height/2,1.7);else if(i===1)zoomAt(r.width/2,r.height/2,1/1.7);else if(i===2){s.vw=null;s.dirty=1}return}
@@ -344,7 +346,7 @@ ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});cv.setPointerCapture?.(e.pointer
 cv.addEventListener('pointermove',e=>{const p=ptrs.get(e.pointerId),v=s.vw;if(!p||!v)return;const r=R();if(ptrs.size===1){v.cx-=(e.clientX-p.x)/v.sc;v.cy+=(e.clientY-p.y)/v.sc;s.dirty=1}else{const o=[...ptrs.entries()].find(([k])=>k!==e.pointerId)[1],d0=Math.hypot(p.x-o.x,p.y-o.y);p.x=e.clientX;p.y=e.clientY;const d=Math.hypot(p.x-o.x,p.y-o.y);if(d0>0)zoomAt((p.x+o.x)/2-r.left,(p.y+o.y)/2-r.top,d/d0)}p.x=e.clientX;p.y=e.clientY});
 const up=e=>{ptrs.delete(e.pointerId)};cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
 cv.addEventListener('dblclick',e=>{const r=R();zoomAt(e.clientX-r.left,e.clientY-r.top,e.shiftKey?.4:2.2)})};
-const zbtns=(c,w)=>{c.save();c.font='600 16px system-ui';c.textAlign='center';['+','−','⌂'].forEach((g,i)=>{const x=w-36,y=8+i*34;box(c,x,y,28,28);c.strokeStyle=C.dim;c.strokeRect(x,y,28,28);c.fillStyle=C.gold;c.fillText(g,x+14,y+20)});c.restore()};
+const zbtns=(c,w)=>{if(c.__clean)return;c.save();c.font='600 16px system-ui';c.textAlign='center';['+','−','⌂'].forEach((g,i)=>{const x=w-36,y=8+i*34;box(c,x,y,28,28);c.strokeStyle=C.dim;c.strokeRect(x,y,28,28);c.fillStyle=C.gold;c.fillText(g,x+14,y+20)});c.restore()};
 
 /* ===== 1. Newton: zoom + iteration table ===== */
 const NF=[[x=>x*x-2,x=>2*x,'x² − 2',Math.SQRT2],[x=>x**3-2*x-5,x=>3*x*x-2,'x³ − 2x − 5',2.0945514815],[x=>Math.cos(x)-x,x=>-Math.sin(x)-1,'cos x − x',.7390851332],[x=>x**3-2*x+2,x=>3*x*x-2,'x³ − 2x + 2  (cycles from 0!)',-1.7692923542]];
@@ -372,16 +374,18 @@ zbtns(c,w)};
 
 /* ===== 2. Lorenz: twin trajectories ===== */
 X.lorenz=(c,w,h,t,s)=>{const rho=s.par.rho??28,gap=10**-(s.par.gap??4),TL=s.par.tl??5000,f=([x,y,z])=>[10*(y-x),x*(rho-z)-y,x*y-8/3*z];
-if(!s.p){s.p=[1,1,1];s.q=[1+gap,1,1];s.tr=[[],[]];s.h=[]}
+if(!s.p){s.p=[1,1,1];s.q=[1+gap,1,1];s.tr=[[],[]];s.h=[];if(s.clean)for(let i=0;i<3200;i++){s.p=rk(f,s.p,.008);s.q=rk(f,s.q,.008);if(i>400){s.tr[0].push(s.p);s.tr[1].push(s.q)}}}   // clean: start with the butterfly already drawn
 const n=Math.round(5*s.speed);for(let i=0;i<n;i++){s.p=rk(f,s.p,.008);s.q=rk(f,s.q,.008);s.tr[0].push(s.p);s.tr[1].push(s.q);if(i%2===0)s.h.push(Math.log10(Math.hypot(s.p[0]-s.q[0],s.p[1]-s.q[1],s.p[2]-s.q[2])+1e-12))}
 s.tr.forEach(a=>{if(a.length>TL)a.splice(0,a.length-TL)});if(s.h.length>900)s.h.splice(0,s.h.length-900);
-const A=.5*Math.sin(t*.1),ca=Math.cos(A),sa=Math.sin(A),k=Math.min(w/46,h/58),pr=([x,y,z])=>[w/2+(x*ca-y*sa)*k,h*.47-(z-25)*k];
+// Turn the view only towards the side that opens the wings: x and y move together on this attractor,
+// so turning the other way folds the butterfly into a thin V. Fit it between the labels and the chart.
+const A=-(s.clean?.18:.3)*(1+Math.sin(t*.1)),ca=Math.cos(A),sa=Math.sin(A),yT=s.clean?h*.04:h*.07+38,yB=s.clean?h*.96:h*.93-52,k=Math.min(w/52,(yB-yT)/50),pr=([x,y,z])=>[w/2+(x*ca-y*sa)*k,(yT+yB)/2-(z-25)*k];
 fadeB(c,s.tr[0].map(pr),C.gold,30,1.5);fadeB(c,s.tr[1].map(pr),'#f472b6',30,1.5);
 const a=pr(s.p),b=pr(s.q);dot(c,a[0],a[1],4,C.gold);dot(c,b[0],b[1],4,'#f472b6');
 const d=s.h.length?s.h[s.h.length-1]:-4;c.font=MONO;T(c,'start gap 10'+('⁻'+String(s.par.gap??4).replace(/\d/g,x=>SUP9[x])),w*.04,h*.07,'left');T(c,'now Δ = '+(10**d).toExponential(1),w*.04,h*.07+15,'left',d>0?'#f472b6':C.txt);
-const gx=w*.04,gy=h*.93,gw=Math.min(w*.5,230),gh=34;box(c,gx-4,gy-gh-14,gw+8,gh+20);c.strokeStyle=C.faint;P(c,[[gx,gy],[gx+gw,gy]]);
-const hp=s.h.map((v,i)=>[gx+i/900*gw,gy-clamp((v+8)/10,0,1)*gh]);c.strokeStyle=C.teal;P(c,hp);T(c,'log₁₀ separation (grows ×e^λt, then saturates)',gx,gy-gh-4,'left','rgba(159,196,189,.9)');
-if(d>0.6)T(c,'the two paths are now unrelated',w/2,h*.07,'center','#f472b6')};
+if(!s.clean){const gx=w*.04,gy=h*.93,gw=Math.min(w*.5,230),gh=34;box(c,gx-4,gy-gh-14,gw+8,gh+20);c.strokeStyle=C.faint;P(c,[[gx,gy],[gx+gw,gy]]);
+const hp=s.h.map((v,i)=>[gx+i/900*gw,gy-clamp((v+8)/10,0,1)*gh]);c.strokeStyle=C.teal;P(c,hp);T(c,w<520?'log₁₀ separation':'log₁₀ separation (grows ×e^λt, then saturates)',gx,gy-gh-4,'left','rgba(159,196,189,.9)')}
+if(d>0.6)T(c,'the two paths are now unrelated',w*.04,h*.07+30,'left','#f472b6')};   // its own line: on a narrow screen it would sit on the gap label
 const SUP9={0:'⁰',1:'¹',2:'²',3:'³',4:'⁴',5:'⁵',6:'⁶',7:'⁷',8:'⁸',9:'⁹'};
 
 /* ===== 3. Double pendulum: short trail, twin ===== */
@@ -429,7 +433,7 @@ c.strokeStyle='rgba(224,189,108,.5)';P(c,[[fx,fy],[x,y]]);const ex=x+vx/vn*Lv,ey
 c.fillStyle=C.gold;c.fillRect(x-4,y-4,8,8);c.fillStyle='rgba(127,214,200,.8)';c.fillRect(x-11,y-1.5,6,3);c.fillRect(x+5,y-1.5,6,3);
 dot(c,fx+a*(1-e)*-1+0,fy,0,'#0000');c.font=MONO;const pe=[fx+a*(1-e),fy],ap=[fx-a*(1+e),fy];dot(c,pe[0],pe[1],3,'#fff');dot(c,ap[0],ap[1],3,'#fff');T(c,'periapsis',pe[0],pe[1]+16);T(c,'apoapsis',ap[0],ap[1]+16);
 const KE=q*q/2,PE=-1/(r/a),bx=w*.04,by=h*.9,sc=Math.min(w*.18,70);T(c,'e = '+e.toFixed(2)+'   r = '+(r/a).toFixed(2)+'a   v = '+q.toFixed(2)+' v₀',w*.04,h*.07,'left');
-c.fillStyle='rgba(127,214,200,.7)';c.fillRect(bx,by-26,KE*sc,6);c.fillStyle='rgba(224,189,108,.7)';c.fillRect(bx,by-16,-PE*sc,6);c.fillStyle='#fff';c.fillRect(bx+.5*sc-1,by-30,2,24);T(c,'KE',bx+KE*sc+16,by-20,'left');T(c,'|PE|',bx-PE*sc+22,by-10,'left');T(c,'KE − |PE| = −½ always (energy conserved)',bx,by+6,'left')};
+if(!s.clean){c.fillStyle='rgba(127,214,200,.7)';c.fillRect(bx,by-26,KE*sc,6);c.fillStyle='rgba(224,189,108,.7)';c.fillRect(bx,by-16,-PE*sc,6);c.fillStyle='#fff';c.fillRect(bx+.5*sc-1,by-30,2,24);T(c,'KE',bx+KE*sc+16,by-20,'left');T(c,'|PE|',bx-PE*sc+22,by-10,'left');T(c,'KE − |PE| = −½ always (energy conserved)',bx,by+6,'left')}};
 
 /* ===== 7. Rocket: pitch programme, auto camera, orbit read-out ===== */
 X.rocket=(c,w,h,t,s)=>{const mr=s.par.mr??10,pp=s.par.pp??.5,ve=.6,mdot=1.4/ve,tb=(1-1/mr)/mdot,tv=.04;
@@ -463,7 +467,7 @@ const hist=[];for(let px=0;px<=w*.97-x0;px+=2){const a=th-px/pw;let yy=0;ks.forE
 c.strokeStyle='rgba(224,189,108,.5)';P(c,[[x,y],[x0,hist[0][1]]]);dot(c,x,y,4,C.gold);dot(c,x0,hist[0][1],3.5,C.teal);
 const mxv=Math.max(...hist.map(p=>(cy-p[1])/u));c.font=MONO;T(c,['square','sawtooth','triangle'][wf-1]+' wave, '+ks.length+' harmonics',w*.04,h*.07,'left');
 if(wf<3)T(c,'peak '+mxv.toFixed(3)+(wf===1?' vs 1 (Gibbs overshoot ≈ 9% of the jump)':' (ideal → 1)'),w*.04,h*.07+15,'left');
-const bx=w*.04,by=h*.93,bw=Math.min(14,(w*.5)/Math.max(ks.length,1)-2);T(c,'amplitude spectrum',bx,by-40,'left','rgba(159,196,189,.9)');ks.forEach((k,i)=>{const a=Math.abs(term(k))/1.3*34;c.fillStyle=C.teal;c.fillRect(bx+i*(bw+2),by-a,bw,a);if(bw>9)T(c,k,bx+i*(bw+2)+bw/2,by+11)})};
+const bx=w*.04,by=h*.93,bw=Math.min(14,(w*.5)/Math.max(ks.length,1)-2);if(!s.clean){T(c,'amplitude spectrum',bx,by-40,'left','rgba(159,196,189,.9)');ks.forEach((k,i)=>{const a=Math.abs(term(k))/1.3*34;c.fillStyle=C.teal;c.fillRect(bx+i*(bw+2),by-a,bw,a);if(bw>9)T(c,k,bx+i*(bw+2)+bw/2,by+11)})}};
 
 /* ===== 9. Heat: waterfall + rod colour + BC / IC choices ===== */
 const HM=lut([[0,[8,22,60]],[.25,[40,60,170]],[.5,[190,50,140]],[.75,[250,150,50]],[1,[255,244,200]]]);
@@ -481,9 +485,9 @@ const tot=s.u.reduce((a,b)=>a+b,0)/s.h0;c.font=MONO;T(c,'u(x,t)',L,Tp-10,'left')
 const CP=lut([[0,[6,8,28]],[.2,[44,22,110]],[.42,[170,36,140]],[.66,[255,120,60]],[.88,[255,214,120]],[1,[255,250,225]]]);
 X.clifford=(c,w,h,t,s)=>{const a=(s.par.a??-1.7)+.12*Math.sin(t*.25),b=(s.par.b??1.8)+.1*Math.cos(t*.2),cc=-.9,d=-1.2,W=Math.ceil(w/2),Hh=Math.ceil(h/2);
 if(!s.im||s.im.width!==W||s.im.height!==Hh){s.im=document.createElement('canvas');s.im.width=W;s.im.height=Hh;s.cnt=new Uint16Array(W*Hh)}
-if(s.dt>0||!s.done){const cnt=s.cnt,u=Math.min(W,Hh)*.21*1.25;cnt.fill(0);let x=.1,y=.1,mxc=1;for(let i=0;i<60000;i++){const nx=Math.sin(a*y)+cc*Math.cos(a*x),ny=Math.sin(b*x)+d*Math.cos(b*y);x=nx;y=ny;if(i<20)continue;const px=(W/2+x*u)|0,py=(Hh/2+y*u)|0;if(px>=0&&px<W&&py>=0&&py<Hh){const k=py*W+px;if(++cnt[k]>mxc)mxc=cnt[k]}}
+if(s.dt>0||!s.done){const cnt=s.cnt,u=Math.min(W,Hh)*.21*(s.clean?.98:1.25);cnt.fill(0);let x=.1,y=.1,mxc=1;for(let i=0;i<60000;i++){const nx=Math.sin(a*y)+cc*Math.cos(a*x),ny=Math.sin(b*x)+d*Math.cos(b*y);x=nx;y=ny;if(i<20)continue;const px=(W/2+x*u)|0,py=(Hh/2+y*u)|0;if(px>=0&&px<W&&py>=0&&py<Hh){const k=py*W+px;if(++cnt[k]>mxc)mxc=cnt[k]}}
 const g=s.im.getContext('2d'),im=g.createImageData(W,Hh),lm=Math.log(1+mxc*.6);for(let i=0;i<cnt.length;i++){const v=cnt[i]?Math.min(1,Math.log(1+cnt[i])/lm):0,m=CP[Math.round(v**.8*255)];im.data[i*4]=m[0];im.data[i*4+1]=m[1];im.data[i*4+2]=m[2];im.data[i*4+3]=v>0?255:0}g.putImageData(im,0,0);s.done=1}
-c.fillStyle='#050615';c.fillRect(0,0,w,h);c.drawImage(s.im,0,0,w,h);c.font=MONO;T(c,'a = '+a.toFixed(2)+'   b = '+b.toFixed(2)+'   (colour = how often the orbit visits a pixel)',w*.04,h*.07,'left','rgba(255,240,210,.85)')};
+if(!s.clean){c.fillStyle='#050615';c.fillRect(0,0,w,h)}c.drawImage(s.im,0,0,w,h);c.font=MONO;T(c,'a = '+a.toFixed(2)+'   b = '+b.toFixed(2)+'   (colour = how often the orbit visits a pixel)',w*.04,h*.07,'left','rgba(255,240,210,.85)')};
 
 /* ===== NEW: university syllabus exhibits ===== */
 /* Mandelbrot / Julia with deep zoom */
@@ -532,7 +536,7 @@ const V=o.p[0]-gm*Math.log(o.p[0])+o.p[1]-al*Math.log(o.p[1]);T(c,'conserved V =
 const GD=[[(x,y)=>x*x+10*y*y,(x,y)=>[2*x,20*y],[-3,3,-2,2],[-2.5,1.5],.09],[(x,y)=>(1-x)**2+100*(y-x*x)**2,(x,y)=>[-2*(1-x)-400*x*(y-x*x),200*(y-x*x)],[-2,2,-1,3],[-1.5,2],.0018],[(x,y)=>(x*x+y-11)**2+(x+y*y-7)**2,(x,y)=>[4*x*(x*x+y-11)+2*(x+y*y-7),2*(x*x+y-11)+4*y*(x+y*y-7)],[-5,5,-5,5],[-.5,-4],.012]];
 X.graddesc=(c,w,h,t,s)=>{const fi=clamp(s.par.fn??1,1,3)-1,[f,gr,[x0,x1,y0,y1],st,sc]=GD[fi],lr=(s.par.lr??.6)*sc,mo=s.par.mo??0,mx=x=>(x-x0)/(x1-x0)*w,my=y=>h-(y-y0)/(y1-y0)*h,key=fi+'|'+w+'|'+h,cv=c.canvas;
 if(!s.ck||s.fk!==fi){s.fk=fi;s.p=null}
-if(!s.cl){s.cl=1;cv.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect(),g=GD[s.fk],[a,b,cc,d]=g[2];s.st0=[a+(e.clientX-r.left)/r.width*(b-a),d-(e.clientY-r.top)/r.height*(d-cc)];s.p=null})}
+if(!s.cl&&!s.clean){s.cl=1;cv.addEventListener('pointerdown',e=>{const r=cv.getBoundingClientRect(),g=GD[s.fk],[a,b,cc,d]=g[2];s.st0=[a+(e.clientX-r.left)/r.width*(b-a),d-(e.clientY-r.top)/r.height*(d-cc)];s.p=null})}
 if(s.ck!==key){s.ck=key;const W=Math.ceil(w/3),Hh=Math.ceil(h/3),o=s.bg=document.createElement('canvas');o.width=W;o.height=Hh;const g=o.getContext('2d'),im=g.createImageData(W,Hh);for(let j=0;j<Hh;j++)for(let i=0;i<W;i++){const v=f(x0+(i+.5)/W*(x1-x0),y1-(j+.5)/Hh*(y1-y0)),l=Math.log10(1+Math.abs(v)),b=.5+.5*Math.cos(l*9),k=(j*W+i)*4,q=clamp(l/3.2,0,1);im.data[k]=20+q*60+b*18;im.data[k+1]=50+(1-q)*70+b*18;im.data[k+2]=70+(1-q)*60+b*22;im.data[k+3]=255}g.putImageData(im,0,0)}
 c.drawImage(s.bg,0,0,w,h);
 if(!s.p){s.p=(s.st0&&s.sf===fi?s.st0:st).slice();s.sf=s.st0?fi:-1;s.v=[0,0];s.tr=[s.p.slice()];s.it=0}
