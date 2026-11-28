@@ -166,6 +166,7 @@
       [/\\(?:noindent|medskip|bigskip|smallskip|centering|newpage|clearpage|small|large|normalsize|footnotesize)\b/g, ""],
       [/\\[hv]space\*?\{[^}]*\}/g, " "],
       [/\\(?:quad|qquad|enspace|,|;|:)/g, " "],
+      [/(?<!\\)\\(\s)/g, "$1"],                                            // "\ " is a plain space (as in "i.i.d.\ random")
       [/\\hfill/g, " "],
       [/\\rule\{[^{}]+\}\{[^{}]+\}/g, "______"],
       [/\\printedmarks\{([^{}]*)\}/g, '<span class="pm">[$1]</span>'],
